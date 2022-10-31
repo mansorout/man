@@ -6,15 +6,17 @@ import { ActionCreators } from '../../Store'
  
 function Home() {
     //Reading state from redux
-    const state = useSelector((state : any) => state.money)
+    const money = useSelector((state : any) => state.money)
 
     //Calling Add Funciton from redux
     const dispatch = useDispatch();
-    const {addMoney} = bindActionCreators(ActionCreators, dispatch)
-    
+    const { addMoney, subMoney } = bindActionCreators(ActionCreators, dispatch)
+
   return (
       <>
-        <button data-testid="home-button" onClick={()=>addMoney(50)}>Add</button>
+        <h1>{money}</h1>
+        <button data-testid="home-button" onClick={ ()=>addMoney(50) }>Add</button>
+        <button data-testid="subtract-money" onClick={()=>subMoney(10)}>SubMoney</button>
       </>
   )
 }
