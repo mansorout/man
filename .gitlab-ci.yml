@@ -1,0 +1,43 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:    
+      - tags     
+  script:
+  #   - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
+  # #  - nvm install 14.4.0
+  #   - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  #   - sudo apt-get install -y nodejs
+    
+    # - sudo apt update && apt install -y npm && rm -rf /var/lib/apt/lists/*
+    # - sudo npm i -g npm
+    # - npm rebuild
+    # - yarn install
+      - mkdir -p dist
+      - npm install react-dates --legacy-peer-deps 
+      - CI= npm run build
+      - ls
+      - echo "Build Successfully"
+  artifacts:
+      paths:
+         # build folder
+         - build/
+      expire_in: 1 hour    
+only:
+   - main
+deploy:
+   stage: deploy
+   image:
+     name: amazon/aws-cli
+     entrypoint: [""]
+   dependencies:
+     - build
+   script:
+     - aws --version
+     - aws s3 sync ./build s3://sprintmoney-frontend
+     - echo "deployed successfully"
+   only:
+    - main
