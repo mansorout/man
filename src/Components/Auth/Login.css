@@ -1,0 +1,30 @@
+.Main_Box{
+    height:'1000px' !important;
+    background-image: linear-gradient(122deg, #6c63ff 7%, #23db7b 107%) !important;
+    
+
+}
+
+.Grid_Box{
+    height: 866px;
+    background-color: white;
+    margin-top: 69px;
+    margin-right: 338px;
+    margin-left: 340.6px;
+    border-top-left-radius:10px ;
+    border-top-right-radius:10px ;
+}
+.text_field{
+    width: 383px;
+    height: 56px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #dddfe2;
+    background-color: #fff;
+}
+
+.Login_text{
+    font-variant: h1;
+    font-size: 32px;
+    align-items: center;
+}
