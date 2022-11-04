@@ -1,9 +1,12 @@
 import { Typography,Box } from "@mui/material";
-import { FC } from "react";
+
+
 
 const Tac: FC<Props> = (props: Props) => {
 
     return (
+        //@ts-ignore
+        
         <Box>
             <Typography variant="h2">
                 Terms and Conditions
@@ -40,6 +43,7 @@ const Tac: FC<Props> = (props: Props) => {
                 will remain in effect while you use the Services.
             </Box>
         </Box>
+        
     )
 };
 
