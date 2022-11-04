@@ -2,12 +2,161 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Variables  */
+:root{
+  --headingFontSize : 32px;
+  --subHeadingFontSize : 18px;
+  --titleFontSize : 16px;
+  --subTitleFontSize : 12px;
+  --buttonFontSize : 16px;
+
+
+  --primaryColor : #23db7b;
+  --secondaryColor : #64dbff;
+  --errorColor : #ff5300;
+
+  --ui1Color : #6c63ff;
+  --ui2Color : #544ec8;
+  --ui3Color : #4b7bec;
+  --uiDarkGreyColor : #8787a2;
+  --uiGreyColor : rgba(123, 123, 157, 0.16);
+  --uiLightGreyColor : #f2f3f8;
+
+  --typeBlackColor : #000000;
+  --typeLightBlackColor : #3c3e42;
+  --typeDarkGreyColor : #acb4bf;
+  --typeLightGreyColor : #d1d6dd;
+  --typeIndigoColor : #7b7b9d;
+}
 
 
 /*  Predefined Class  */
+
+h1 {
+  font-size: var(--headingFontSize);
+  font-weight: 500;
+  line-height: 1.19;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+h2 {
+  font-size: 28px;
+  line-height: 1.21;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 1.33;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+h6 {
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--primaryColor);
+}
+
+.subTitle1 {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  line-height: 1.38;
+  color: var(--typeIndigoColor);
+}
+
+.subTitle2 {
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.53;
+  color: var(--typeIndigoColor);
+}
+
+.subTitle3 {
+  font-size: 14px;
+  text-align: left;
+  line-height: 1.43;
+  color: var(--typeIndigoColor);
+}
+
+.body1 {
+  opacity: 0.87;
+  font-size: 12px;
+  line-height: 1.42;
+  text-align: left;
+  color: var(--typeIndigoColor);
+}
+
+.body2 {
+  opacity: 0.87;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--typeIndigoColor);
+}
+
+.caption {
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--typeIndigoColor);
+}
+
+.overLine {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  text-align: left;
+  color: var(--typeIndigoColor);
+}
+
+.smallButtonText {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+.mediumButtonText {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+.largeButtonText {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--typeLightBlackColor);
+}
+
+.textLink {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ui1Color);
+}

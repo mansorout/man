@@ -3,6 +3,7 @@ import './Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../../Store'
+import { Typography } from '@mui/material'
  
 function Home() {
     //Reading state from redux
@@ -14,9 +15,6 @@ function Home() {
 
   return (
       <>
-        <h1>{money}</h1>
-        <button data-testid="home-button" onClick={ ()=>addMoney(50) }>Add</button>
-        <button data-testid="subtract-money" onClick={()=>subMoney(10)}>SubMoney</button>
       </>
   )
 }
