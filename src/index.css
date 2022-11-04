@@ -40,11 +40,11 @@ body {
 /*  Predefined Class  */
 
 h1 {
-  font-size: var(--headingFontSize);
-  font-weight: 500;
-  line-height: 1.19;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: var(--headingFontSize) !important;
+  font-weight: 500 !important;
+  line-height: 1.19 !important;
+  text-align: left !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 h2 {
