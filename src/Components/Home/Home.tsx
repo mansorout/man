@@ -3,7 +3,6 @@ import './Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../../Store'
-import { Typography } from '@mui/material'
  
 function Home() {
     //Reading state from redux
@@ -13,8 +12,10 @@ function Home() {
     const dispatch = useDispatch();
     const { addMoney, subMoney } = bindActionCreators(ActionCreators, dispatch)
 
+    console.log(money)
   return (
       <>
+        <button onClick={()=>addMoney(10)}>plus</button>
       </>
   )
 }

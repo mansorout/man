@@ -18,3 +18,21 @@ export const subMoney = (amount:number) => {
         })
     }
 }
+
+export const removeError = (msg:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type : "RemoveError",
+            payload : msg
+        })
+    }
+}
+
+export const addError = (msg:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type : "AddError",
+            payload : msg
+        })
+    }
+}

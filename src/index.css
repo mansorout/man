@@ -67,8 +67,8 @@ h4 {
 
 h5 {
   font-size: 18px !important;
-  font-weight: 500 !important;
-  color: var(--typeLightBlackColor) !important;
+  font-weight: 400 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 h6 {
@@ -116,6 +116,12 @@ h6 {
   color: var(--typeIndigoColor) !important;
 }
 
+.error {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--errorColor) !important;
+}
+
 .overLine {
   font-size: 10px !important;
   font-weight: bold !important;
@@ -138,11 +144,12 @@ h6 {
 .largeButtonText {
   font-size: 16px !important;
   font-weight: 500 !important;
-  color: var(--typeLightBlackColor) !important;
+  text-align: center !important;
+  text-transform: none !important;
 }
 
 .textLink {
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 500 !important;
   color: var(--ui1Color) !important;
 }
