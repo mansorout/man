@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Container, InputAdornment } from "@mui/material";
 import {
   Box,
   TextField,
@@ -7,15 +7,34 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import Header from "../../Components/Header";
-import "../Auth/Login.css";
+import Header from "../Header";
+import "./Login.css";
 import ContWithMobile from "../Buttons/ContWithMobile";
 import ConnectWithGoogle from "../Buttons/ConnectWithGoogle";
 import { FooterBox } from "../FooterBox";
 import Image from "../../Assets/Group 6673@2x.png";
+import { useState } from "react";
+
 
 export const Login = () => {
-  return (
+  const [focus,setFocus]:any= useState(false);
+ let  InputProps={
+    startAdornment: 
+      <InputAdornment position="start">
+        +91 -
+      </InputAdornment>,
+  }
+   
+  const handleMobile =(e:any)=>{
+        console.log(e.target.value)
+  }
+ 
+
+const handleFocus = () => {
+  setFocus(true)
+}
+
+return (
     <>
       <Box className="Main_Box">
         <Header />
@@ -35,8 +54,6 @@ export const Login = () => {
                   marginTop: "48.3px",
                   display: "flex",
                   textAlign: "center",
-                  //  width: '60px',
-                  //  height:'59.7px',
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -48,18 +65,26 @@ export const Login = () => {
                 />
               </div>
 
-              <Typography component='h1' variant="h1" align="center">
+              <Typography sx={{marginLeft:'60px',marginTop:'30.9px'}} component='h1' variant="h1" align="center">
                 Login With Mobile
               </Typography>
               <Typography variant="h6" align="center">
+                
                 Enter your mobile number to continue
               </Typography>
+              
               <TextField
                 className="text_field"
                 margin="normal"
                 label="Mobile number"
+                type="number"
+                {...focus ? {...{InputProps}}  : "" }
+                 onChange={handleMobile}
+                 onFocus={handleFocus}
               />
-            </Grid>
+
+
+               </Grid>
 
             <Grid item xs={3}></Grid>
           </Grid>
