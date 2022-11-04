@@ -48,117 +48,101 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
-  line-height: 1.21;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 28px !important;
+  line-height: 1.21 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 h3 {
-  font-size: 24px;
-  line-height: 1.33;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 24px !important;
+  line-height: 1.33 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 h4 {
-  font-size: 20px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 h5 {
-  font-size: 18px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 h6 {
-  font-size: 18px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--primaryColor);
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: var(--primaryColor) !important;
 }
 
 .subTitle1 {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: left;
-  line-height: 1.38;
-  color: var(--typeIndigoColor);
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.38 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .subTitle2 {
-  font-size: 15px;
-  text-align: center;
-  line-height: 1.53;
-  color: var(--typeIndigoColor);
+  font-size: 15px !important;
+  line-height: 1.53 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .subTitle3 {
-  font-size: 14px;
-  text-align: left;
-  line-height: 1.43;
-  color: var(--typeIndigoColor);
+  font-size: 14px !important;
+  line-height: 1.43 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .body1 {
-  opacity: 0.87;
-  font-size: 12px;
-  line-height: 1.42;
-  text-align: left;
-  color: var(--typeIndigoColor);
+  opacity: 0.87 !important;
+  font-size: 12px !important;
+  line-height: 1.42 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .body2 {
-  opacity: 0.87;
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: left;
-  color: var(--typeIndigoColor);
+  opacity: 0.87 !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .caption {
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: left;
-  color: var(--typeIndigoColor);
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .overLine {
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 0.8px;
-  text-align: left;
-  color: var(--typeIndigoColor);
+  font-size: 10px !important;
+  font-weight: bold !important;
+  letter-spacing: 0.8px !important;
+  color: var(--typeIndigoColor) !important;
 }
 
 .smallButtonText {
-  font-size: 12px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 .mediumButtonText {
-  font-size: 14px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 .largeButtonText {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: left;
-  color: var(--typeLightBlackColor);
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
 }
 
 .textLink {
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-  color: var(--ui1Color);
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: var(--ui1Color) !important;
 }
