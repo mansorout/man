@@ -1,0 +1,92 @@
+.Main_Box_style{
+  
+    /* background-image: linear-gradient(122deg, #6c63ff 7%, #23db7b 107%) !important; */
+    background-color: #f9f9f9;
+   
+   
+    
+
+}
+.Wholecontent{
+    position: relative;
+    top: -68px;
+}
+.Resend{
+    position: relative;
+    top: -134px;
+    font-size: 3px;
+}
+.p{
+    font-size: 18px;
+    margin: 95px;
+    position: relative;
+    left: 16px;
+    top: -76px;
+}
+.styleResend{
+    position: relative;
+    top: -34px;
+    left: 2px;
+}
+.styleResend{
+    position: relative;
+    top: -88px;
+    font-size: 14px;
+}
+
+ 
+
+
+.innerBox{
+    padding: 40px 3px 3px 239px;
+    position: relative;
+    left: -109px;
+
+}
+.inputBox{
+    width: 56px;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    
+    margin: 7px;
+    position: relative;
+    left: -1px;
+    top: -153px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #dddfe2;
+    background-color: #fff;
+     
+}
+.inputBox2{
+    width: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    
+    margin: 7px;
+    position: relative;
+    left: -1px;
+    top: -38px;
+    border-radius: 4px;
+    
+     
+}
+.p_term{
+    margin: 10px;
+}
+.SB_icon{
+    width: 284px; 
+    /* height: 257px; */
+    width: 284.6px;
+    height: 296.5px;
+    /* margin: 53.1px 0 450.4px 59.4px; */
+    /* object-fit: contain; */
+    /* opacity: 0.06; */
+    /* transform: translate(35%, 3px); */
+    position: relative;
+    /* top: 73%; */
+    left: 79%;
+}
