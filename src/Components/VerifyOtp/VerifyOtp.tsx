@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
+import OtpInput from "react-otp-input";
 
 import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
@@ -18,6 +19,29 @@ import { Opacity } from "@mui/icons-material";
 
 
 export const VerifyOtp = () => {
+  const [optError, setOtpError] = useState<boolean>(false)
+    const [number, setNumber] = useState<string>('')
+    const [otp,setOtp]= useState<string>('')
+    const [IsContactModalOpen,setIsContactModalOpen]=useState<boolean>()
+    const [NumberVerified,setNumberVerified]=useState<boolean>()
+  const handleOtpChange = (otp:any) => {
+    setOtp(otp);
+
+
+
+  
+
+        if(otp.length !=4){
+            setOtpError(true)
+          }else if(otp != "1234"){
+            setOtpError(true)
+          }
+          else{
+            setOtpError(false)
+            setIsContactModalOpen(false)
+            setNumberVerified(true)
+        }
+}
 
   const style = {
     background : {
@@ -87,12 +111,41 @@ footer : {
             Enter the 4 digit verification code 
             we sent you on your mobile number
           </Typography>
-          <Box className='inputbox2'>
+          {/* <Box className='inputbox2'>
                         <TextField className='inputBox' sx={{margin:'9px'}} ></TextField>
                         <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
                         <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
                         <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
-            </Box>
+            </Box> */}
+
+                     <OtpInput
+                value={otp}
+                onChange={handleOtpChange}
+                numInputs={4}
+                shouldAutoFocus={true}
+                hasErrored={optError}
+                containerStyle={{
+                    display:"flex",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    margin:"10px",
+                    color:"black"
+                }}
+                inputStyle={{
+                    border:"1px solid #dddfe2",
+                    borderRadius:"4px",
+                    padding:"10px",
+                    margin:"10px",
+                    width:"56px",
+                    height:"56px",
+                    color:"black",
+                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
+                }}
+                errorStyle={{
+                    border:"1px solid red",
+                }}
+                />
+
                     <OtpVerifyButton />
 
               <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",marginBottom:'55px' }}>Not received the code yet? 
