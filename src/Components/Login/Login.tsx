@@ -11,6 +11,7 @@ import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
 import { AMFI, ContactError, IRDA, MonoLogo } from "../../Assets";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 export const Login = () => {
@@ -43,7 +44,7 @@ export const Login = () => {
     } as React.CSSProperties,
 
     contactInput : {
-      width:"100%",
+      width:"90%",
       maxWidth:"400px",
       marginTop: "30px"
     } as React.CSSProperties,
@@ -84,6 +85,8 @@ export const Login = () => {
   const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setNumber(e.target.value)
   }
+
+  const navigate = useNavigate()
 
   return (
     <>
@@ -149,7 +152,7 @@ export const Login = () => {
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
               <br/>
-              <Typography component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+              <Typography onClick={()=>navigate("/TermsandCondition")} component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>

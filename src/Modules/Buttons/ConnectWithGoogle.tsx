@@ -1,5 +1,6 @@
 
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { GoogleLogo } from "../../Assets";
 
 
@@ -22,8 +23,10 @@ import { GoogleLogo } from "../../Assets";
         }
     }
 
+    const navigate = useNavigate()
+
     return (
-        <Button variant="contained" style={style.button} fullWidth>
+        <Button onClick={()=>navigate("/account_created_with_google")} variant="contained" style={style.button} fullWidth>
             <img src={GoogleLogo} width="16px" alt="Google Logo" />
             <Typography component="span" style={style.text} className="largeButtonText">Continue with Google</Typography>
         </Button>           

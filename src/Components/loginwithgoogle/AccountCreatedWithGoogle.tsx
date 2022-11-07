@@ -2,22 +2,25 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import React from "react";
-import { AMFI, IRDA, SuccessLogo, SBIcon } from "../../Assets";
+import { AMFI, IRDA, SuccessLogo, SBIcon, Profile } from "../../Assets"
+import { useNavigate } from "react-router-dom";
 
 
 export const AccountCreatedWithGoogle = () => {
 
   const style = {
     background : {
-      height : "100vh"
+      height : "100vh",
+      backgroundColor: '#f9f9f9'
     } as React.CSSProperties,
 
     container : {
       backgroundColor: "white",
+      boxSizing: "border-box",
       margin: "auto",
       width: "100%",
       maxWidth: "550px",
-      padding: "30px 0px",
+      padding: "30px 20px",
       transform: "translate(-50%, 0%)",
       left: "50%",
       bottom: "0px",
@@ -31,7 +34,7 @@ export const AccountCreatedWithGoogle = () => {
 
     logo : {
       width: "60px",
-      margin: 0,
+      margin: "10px 0px",
     } as React.CSSProperties,
 
     contactInput : {
@@ -39,6 +42,12 @@ export const AccountCreatedWithGoogle = () => {
       maxWidth:"400px",
       marginTop: "30px"
     } as React.CSSProperties,
+
+    profile : {
+      width: "30px",
+      height: "30px",
+      borderRadius: "50%"
+    },
 
     divider : {
       width : "90%",
@@ -82,64 +91,30 @@ export const AccountCreatedWithGoogle = () => {
     }
   }
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <Box style={style.background} sx={{ 
-        backgroundColor: '#f9f9f9'
-      }}>
+      <Box style={style.background}>
         <NavigationBar />
-        <img alt="sb icon logo" src={ SBIcon } width="275" height="275" style={{
-          float: 'right'
-        }}/>
+        
         <Box style={style.container}>
           <img alt="Success Logo" src={ SuccessLogo } style={style.logo} />
-          <Typography align="center" sx={{
-            width: '360px',
-            height: '55px',
-            padding: 0,
-            margin: '10px 14px 24px',
-            fontSize: '22px',
-            fontWeight: 500,
-            color: '#3c3e42'
-          }}>
+          <Typography style={{margin: "10px 0px",}} align="center" component="h4">
             You've now connected SprintMoney with your Google Account
           </Typography>
-          <Box sx={{ 
-                width: '215px', 
-                height: '50px',
+          <Box sx={{
                 display: 'flex',
                 alignItems: 'center',
-                margin: '12px 0 50px',
-                padding: '5px 24px 5px 6px',
-                
+                padding: '10px 15px',
                 borderRadius: '40px',
+                margin: "10px 0px 50px 0px",
                 backgroundColor: '#99e7ff',
           }}>
-            <img src="" alt="" width="30" height="30" style={{ margin: '0 5px' }} />
+            <img src={Profile} alt="image" style={style.profile} />
             <Box sx={{ marginLeft: '5px' }}>
-                <Typography sx={{
-                    width: '139px',
-                    height: '16px',
-                    margin: '5px 40px 3px 6px',
-                    fontFamily: 'Roboto',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    lineHeight: 1.5,
-                    letterSpacing: '0.34px',
-                    textAlign: 'left',
-                    color: '#3c3e42'
-                }}>Puneet Malhotra</Typography>
-                <Typography sx={{
-                    width: '139px',
-                    height: '13px',
-                    margin: '3px 0 3px 6px',
-                    fontFamily: 'Roboto',
-                    fontSize: '11px',
-                    lineHeight: 1.91,
-                    letterSpacing: '0.26px',
-                    textAlign: 'left',
-                    color: '#7b7b9d'
-                }}>puneet.malhotra@gmail.com</Typography>
+                <Typography className="mediumButtonText" >Puneet Malhotra</Typography>
+                <Typography className="body2" >puneet.malhotra@gmail.com</Typography>
             </Box>
             
             
@@ -173,12 +148,17 @@ export const AccountCreatedWithGoogle = () => {
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
               <br/>
-              <Typography component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+              <Typography onClick={()=>navigate("/TermsandCondition")} component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
         </Box>
       </Box>
+      <img alt="logo" src={ SBIcon } width="275" height="275" style={{
+            position: "absolute",
+            right: "0px",
+            top: "65px"
+            }}/>
     </>
   );
 };
