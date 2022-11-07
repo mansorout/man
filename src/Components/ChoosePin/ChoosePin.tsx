@@ -12,14 +12,14 @@ import OtpInput from "react-otp-input";
 import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
-import { AMFI, ContactError, IRDA, VerifyOtpLogo,SBICON } from "../../Assets";
+import { AMFI, ContactError, IRDA, MonoLogoImage, SBICON } from "../../Assets";
 import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
 import { useSelector } from "react-redux";
 import "../VerifyOtp/VerifyOtp.css";
 import { Opacity } from "@mui/icons-material";
 
 
-export const VerifyOtp = () => {
+export const ChoosePin = () => {
   const [optError, setOtpError] = useState<boolean>(false)
     const [number, setNumber] = useState<string>('')
     const [otp,setOtp]= useState<string>('')
@@ -69,7 +69,8 @@ export const VerifyOtp = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "72px",
+      width: "60px",
+      height: "59.7px",
       margin: "30px 0px"
     } as React.CSSProperties,
 
@@ -104,13 +105,13 @@ footer : {
       <NavigationBar />
       <img alt="Money Sprint" src={SBICON} style={style.sbicon} />
         <Box style={style.container}>
-          <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
+          <img alt="Money Sprint" src={MonoLogoImage} style={style.logo} />
           <Typography variant="h1" align="center">
-          Verify OTP
+          Choose PIN
           </Typography>
           <Typography className="VerificationOtp" align="center">
-            Enter the 4 digit verification code 
-            we sent you on your mobile number
+          In case the biometric doesn’t work, you can quickly
+           access the app via PIN to unlock
           </Typography>
           {/* <Box className='inputbox2'>
                         <TextField className='inputBox' sx={{margin:'9px'}} ></TextField>
@@ -149,8 +150,8 @@ footer : {
 
                     <OtpVerifyButton />
 
-              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",marginBottom:'55px' }}>Not received the code yet? 
-                <span className="textLink" style={{cursor:"pointer"}} >Resend</span></Typography>
+              <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 
+                </Typography>
                 
               
           
