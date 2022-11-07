@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Button, Divider, Typography } from "@mui/material";
 import { FC } from 'react';
-import Header from "../Header";
+import Header from "../../Modules/NavigationBar/NavigationBar";
 
 
 const Tac: FC<Props> = (props: Props) => {

@@ -1,5 +1,5 @@
 import { Button, Container, Divider, Icon, TextField, Typography } from "@mui/material";
-import Header from "../Header";
+import Header from "../../Modules/NavigationBar/NavigationBar";
 import GoogleIcon from "./GoogleIcon";
 
 const LoginWithGoogle = () => {
