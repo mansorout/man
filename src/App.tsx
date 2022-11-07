@@ -1,8 +1,9 @@
 import { Route, Routes} from 'react-router-dom';
 import Home from './Components/Home/Home';
-import { Login } from './Components/Login/Login';
-import {Mpin} from "./Components/MpinVarify/Mpin"
+import { Login } from './Components/Login/Login'
+import {Mpin} from './Components/Mpin/Mpin'
 import './app.css'
+import {ChoosePin} from './Components/ChoosePinScreen/ChoosePin';
 function App() {
   return (
     <>
@@ -10,6 +11,12 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/mpin" element={<Mpin/>} />
+          <Route path="/ChoosePin" element={<ChoosePin/>} />
+
+
+
+
+
         </Routes>
     </>
   );

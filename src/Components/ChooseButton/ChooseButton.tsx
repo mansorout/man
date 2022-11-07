@@ -7,26 +7,28 @@ const ThemeButton = styled(Button)<ButtonProps>(({ theme }) => ({
     margin: 'auto',
     backgroundColor: '#23db7b',
     // marginLeft: "132px",
-    width: "384px",
+    width: "385px",
     height: "48px",
     marginTop: "21px",
     position:"relative",
     top:"-160px"
 }));
-const ContWithMobile = () => {
+const ChooseButton = () => {
      return (
         <>
             <div>
                   <ThemeButton variant='text'>
-                    <Typography sx={{ textDecorationColor: 'white' }} color="White">Verify</Typography>
+                    <Typography sx={{ textDecorationColor: 'white' }} color="White">save</Typography>
+                  
                    </ThemeButton>
+                 
             </div>
           
             </>
  )
 };
 
-export default ContWithMobile;
+export default ChooseButton;
 
 
 
