@@ -1,28 +1,31 @@
-
 import { Divider, InputAdornment } from "@mui/material";
 import {
+  Button,
   Box,
   TextField,
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import "./Login.css";
-import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
+import "./OtpSuccess.css";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
-import { AMFI, ContactError, IRDA, MonoLogo } from "../../Assets";
+import { AMFI, ContactError, IRDA ,SuccessFullOtp,SBICON   } from "../../Assets";
 import { useSelector } from "react-redux";
+import OtpSuccessButton from "../../Modules/Buttons/OtpSuccessOtpSuccessButton";
 import { useNavigate } from "react-router-dom";
 
 
-export const Login = () => {
+export const OtpSuccess = () => {
 
   const style = {
     background : {
-      height : "100vh"
+      height : "100vh",
+      backgroundColor:'#f9f9f9'
+      
     } as React.CSSProperties,
 
     container : {
+      boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
       backgroundColor: "white",
       margin: "auto",
       width: "100%",
@@ -40,14 +43,17 @@ export const Login = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "60px",
-      margin: "30px 0px"
+      width: "120px",
+      marginBottom:'25px',
     } as React.CSSProperties,
-
-    contactInput : {
-      width:"90%",
-      maxWidth:"400px",
-      marginTop: "30px"
+    sbicon : {
+      transform: "translate(302%, -44px)",
+      width:'284.6px',
+      height:'296.5px',
+      margin:'53.1px 0 450.4px 59.4px',
+      marginBottom:'25px',
+      objectFit:'contain',
+      Opacity:'0.06'
     } as React.CSSProperties,
 
     divider : {
@@ -71,65 +77,29 @@ export const Login = () => {
       alignItem : "center"
     },
 
-    errorText : {
-      width:"100%",
-      maxWidth:"400px",
-      height: "15px",
-    } as React.CSSProperties
   }
 
-  const error : string[] = useSelector((state : any) => state.error)
+  const navigate = useNavigate();
 
-  const [focus, setFocus] = useState<boolean>(false);
-  const [number, setNumber] = useState<string>("")
-
-  const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setNumber(e.target.value)
-  }
-
-  const navigate = useNavigate()
-
-  return (
+return (
     <>
-      <Box className="background" style={style.background}>
+      <Box style={style.background}>
         <NavigationBar />
+        
         <Box style={style.container}>
-          <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
-          <Typography variant="h1" align="center">
-            Login with Mobile
+          <img alt="Money Sprint" src={SuccessFullOtp } style={style.logo} />
+          <Typography variant="h1" align="center" className="OtpSuccessfullTitle">
+            Your Mobile Number Is Verified
           </Typography>
-          <Typography variant="h5" align="center">
-            Enter your mobile number to continue
+          <Typography variant="h5" align="center" className="OtpSuccessfullDescr">
+          You are ready to setup quick access Set this up for faster access to your SprintMoney App
           </Typography>
-          <TextField
-            sx={{
-              "& .MuiInputLabel-root": {color: '#acb4bf'},
-              "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
-                "&:hover > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
-                "&.Mui-focused > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
-              },
-            }}
-            autoComplete="off"
-            style={style.contactInput}
-            margin="normal"
-            label="Mobile number"
-            InputProps = {{
-              startAdornment: focus ? <InputAdornment position="start"> +91 - </InputAdornment> : "",
-              endAdornment : error.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
-            }}
-            onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
-            placeholder="98989 98989"
-            onChange={handleMobile}
-            onFocus={()=>setFocus(true)}
-          />
-          <Typography style={style.errorText} className="error">{error.includes("Login_Contact") ? "Please enter a valid phone number" : ""}</Typography>
-          <ContinueWithMobile number={number}/>
-          <Divider style={style.divider} orientation="horizontal" flexItem>
-            <Typography className="subTitle2">OR</Typography>
-          </Divider>
-          <ConnectWithGoogle />
-          <Box style={style.footer}>
+          <OtpSuccessButton/>
+          <Button  >
+            <Typography style={{textTransform:"none"}}> I'll do it later</Typography> 
+           </Button>
+          
+           <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
                   <img src={IRDA} width="32px" alt="IRDA" />
@@ -159,6 +129,12 @@ export const Login = () => {
             </Box>
         </Box>
       </Box>
+      <img alt="logo" src={ SBICON } width="275" height="275" style={{
+            position: "absolute",
+            right: "0px",
+            top: "65px"
+            }}/>
     </>
   );
 };
+

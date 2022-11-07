@@ -1,10 +1,13 @@
+
 import { Button, Typography } from "@mui/material";
-import { useDispatch } from "react-redux"
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
-const ContWithMobile = ({number} : {number : string}) => {
+
+
+  const OtpVerifyButton = ({otp} : {otp : string}) => {
 
     const style = {
         button : {
@@ -23,26 +26,31 @@ const ContWithMobile = ({number} : {number : string}) => {
 
     const dispatch = useDispatch()
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
-
     const navigate = useNavigate()
 
-    const validateNumber = (number : string) => {
+    const validateOTP = (otp : string) => {
 
-        if(number.length != 10){
-            addError("Login_Contact")
-        }else{
-            removeError("Login_Contact")
-            navigate("/otpverify")
+        console.log(otp)
+
+        if(otp.length != 4){
+            addError("Login_OTP")
+        }else if(otp != "1234"){
+            addError("Login_OTP")
+        }else {
+            removeError("Login_OTP")
+            navigate("/otpverified")
         }
         
     }
 
+    console.log("Loaded")
+
+
     return (
-        <Button variant="contained" style={style.button} fullWidth onClick={() => validateNumber(number)}>
-            <Typography style={style.text} className="largeButtonText">Continue with Mobile Number</Typography>
-        </Button>            
+        <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
+            <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
+        </Button> 
     )
 };
 
-export default ContWithMobile;
-
+export default OtpVerifyButton;
