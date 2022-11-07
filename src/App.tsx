@@ -1,22 +1,19 @@
 import { Route, Routes} from 'react-router-dom';
 import Home from './Components/Home/Home';
-import { Login } from './Components/Login/Login'
-import {Mpin} from './Components/Mpin/Mpin'
+import { Login } from './Components/Login/Login';
+import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
+import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
+
+
 import './app.css'
-import {ChoosePin} from './Components/ChoosePinScreen/ChoosePin';
 function App() {
   return (
     <>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/mpin" element={<Mpin/>} />
-          <Route path="/ChoosePin" element={<ChoosePin/>} />
-
-
-
-
-
+          <Route path="/otpverify" element={<VerifyOtp/>} />
+          <Route path="/otpverified" element={<OtpSuccess/>} />
         </Routes>
     </>
   );

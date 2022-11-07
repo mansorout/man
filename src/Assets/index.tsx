@@ -4,12 +4,6 @@ export const MonoLogo = require("./monoLogo.png")
 export const AMFI = require("./amfi.png")
 export const IRDA = require("./irda.png")
 export const ContactError = require('./contactError.png')
-
-export const AMFIIMAGE = require("./logo-amfi.png")
-export const IRDAIMAGE = require("./logo-irda.png")
-export const SBICONIMAGE = require("./SB_icon@3x.png")
-export const Group6803 = require("./Group 6803.png")
-export const monoLogo = require("./monoLogo.png")
-
-
-
+export const SuccessFullOtp = require('./OtpVerified.png')
+export const VerifyOtpLogo = require('./otpverify.png')
+export const SBICON = require('./SBICON.png')
