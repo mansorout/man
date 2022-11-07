@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
@@ -10,6 +10,146 @@ body {
 }
 
 /* Variables  */
+:root{
+  --headingFontSize : 32px;
+  --subHeadingFontSize : 18px;
+  --titleFontSize : 16px;
+  --subTitleFontSize : 12px;
+  --buttonFontSize : 16px;
+
+
+  --primaryColor : #23db7b;
+  --secondaryColor : #64dbff;
+  --errorColor : #ff5300;
+
+  --ui1Color : #6c63ff;
+  --ui2Color : #544ec8;
+  --ui3Color : #4b7bec;
+  --uiDarkGreyColor : #8787a2;
+  --uiGreyColor : rgba(123, 123, 157, 0.16);
+  --uiLightGreyColor : #f2f3f8;
+
+  --typeBlackColor : #000000;
+  --typeLightBlackColor : #3c3e42;
+  --typeDarkGreyColor : #acb4bf;
+  --typeLightGreyColor : #d1d6dd;
+  --typeIndigoColor : #7b7b9d;
+}
 
 
 /*  Predefined Class  */
+
+h1 {
+  font-size: var(--headingFontSize) !important;
+  font-weight: 500 !important;
+  line-height: 1.19 !important;
+  text-align: left !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+h2 {
+  font-size: 28px !important;
+  line-height: 1.21 !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+h3 {
+  font-size: 24px !important;
+  line-height: 1.33 !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+h4 {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+h5 {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+h6 {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: var(--primaryColor) !important;
+}
+
+.subTitle1 {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.38 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.subTitle2 {
+  font-size: 15px !important;
+  line-height: 1.53 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.subTitle3 {
+  font-size: 14px !important;
+  line-height: 1.43 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.body1 {
+  opacity: 0.87 !important;
+  font-size: 12px !important;
+  line-height: 1.42 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.body2 {
+  opacity: 0.87 !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.caption {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.error {
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  color: var(--errorColor) !important;
+}
+
+.overLine {
+  font-size: 10px !important;
+  font-weight: bold !important;
+  letter-spacing: 0.8px !important;
+  color: var(--typeIndigoColor) !important;
+}
+
+.smallButtonText {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+.mediumButtonText {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--typeLightBlackColor) !important;
+}
+
+.largeButtonText {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  text-transform: none !important;
+}
+
+.textLink {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--ui1Color) !important;
+}

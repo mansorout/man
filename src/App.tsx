@@ -1,12 +1,7 @@
 import { Route, Routes} from 'react-router-dom';
 import Home from './Components/Home/Home';
-import Header from './Components/Header';
-import { Login } from './Components/Auth/Login';
-import Tac from './Components/tac/Tac';
-import LoginWithGoogle from './Components/loginwithgoogle/LoginWithGoogle';
-import './app.css';
-
-
+import { Login } from './Components/Login/Login';
+import './app.css'
 function App() {
   return (
     <>
