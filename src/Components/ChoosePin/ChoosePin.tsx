@@ -13,7 +13,7 @@ import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
 import { AMFI, ContactError, IRDA, MonoLogoImage, SBICON } from "../../Assets";
-import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
+import ChooseButton from "../../Modules/Buttons/ChooseButton";
 import { useSelector } from "react-redux";
 import "../VerifyOtp/VerifyOtp.css";
 import { Opacity } from "@mui/icons-material";
@@ -75,7 +75,7 @@ export const ChoosePin = () => {
     } as React.CSSProperties,
 
     sbicon : {
-      transform: "translate(302%, -44px)",
+      transform: "translate(330%, -60px)",
       width:'284.6px',
       height:'296.5px',
       margin:'53.1px 0 450.4px 59.4px',
@@ -113,14 +113,7 @@ footer : {
           In case the biometric doesn’t work, you can quickly
            access the app via PIN to unlock
           </Typography>
-          {/* <Box className='inputbox2'>
-                        <TextField className='inputBox' sx={{margin:'9px'}} ></TextField>
-                        <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
-                        <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
-                        <TextField className='inputBox' sx={{margin:'9px'}}></TextField>
-            </Box> */}
-
-                     <OtpInput
+                   <OtpInput
                 value={otp}
                 onChange={handleOtpChange}
                 numInputs={4}
@@ -148,7 +141,7 @@ footer : {
                 }}
                 />
 
-                    <OtpVerifyButton />
+                    <ChooseButton />
 
               <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 
                 </Typography>
