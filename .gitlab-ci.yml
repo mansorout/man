@@ -4,6 +4,8 @@ stages:
 
 build:
    stage: build
+   only:
+       - tags
    script:
       - mkdir -p dist
       - npm install react-dates --legacy-peer-deps 
