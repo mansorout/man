@@ -1,0 +1,17 @@
+import { SvgIcon, SvgIconProps } from '@mui/material';
+
+
+const GoogleIcon = (props: SvgIconProps) => {
+    return (
+        <SvgIcon { ...props }>
+            <path data-name="Path 2801" d="M3.75 105.083a4.224 4.224 0 0 1 .6-2.171v-2.7h-2.7a8 8 0 0 0 0 9.737h2.7v-2.7a4.224 4.224 0 0 1-.6-2.166z" transform="translate(0 -97.083)" style={{ fill: '#fbbd00' }} />
+            <path data-name="Path 2802" d="M197.875 373.556 196 375.431l1.875 1.875a7.94 7.94 0 0 0 4.868-1.651v-2.694h-2.694a4.249 4.249 0 0 1-2.174.595z" transform="translate(-189.875 -361.306)" style={{ fill: "#0f9d58" }} />
+            <path data-name="Path 2803" d="m55.52 325.477-2.7 2.7a8.13 8.13 0 0 0 .692.789 7.948 7.948 0 0 0 5.657 2.343v-3.75a4.252 4.252 0 0 1-3.649-2.082z" transform="translate(-51.172 -315.306)" style={{ fill: "#31aa52" }} />
+            <path data-name="Path 2804" d="M264 199.158a8.072 8.072 0 0 0-.131-1.449l-.07-.384H256v3.75h3.8a4.231 4.231 0 0 1-1.621 1.739l2.694 2.694a8.127 8.127 0 0 0 .789-.692 7.948 7.948 0 0 0 2.338-5.658z" transform="translate(-248 -191.158)" style={{ fill: "#3c79e6" }} />
+            <path data-name="Path 2805" d="m200.88 4.995.331.331 2.652-2.652-.331-.331A7.948 7.948 0 0 0 197.875 0L196 1.875l1.875 1.875a4.222 4.222 0 0 1 3.005 1.245z" transform="translate(-189.875)" style={{ fill: "#cf2d48" }} />
+            <path data-name="Path 2806" d="M59.171 3.75V0a7.948 7.948 0 0 0-5.657 2.343 8.119 8.119 0 0 0-.692.789l2.7 2.7a4.252 4.252 0 0 1 3.649-2.082z" transform="translate(-51.171)" style={{ fill: "#eb4132" }} />
+        </SvgIcon>                
+    )
+};
+
+export default GoogleIcon;
