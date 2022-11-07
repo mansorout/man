@@ -1,4 +1,3 @@
-
 import { Divider, InputAdornment } from "@mui/material";
 import {
   Box,
@@ -39,7 +38,7 @@ export const Login = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "120px",
+      width: "60px",
       margin: "30px 0px"
     } as React.CSSProperties,
 
@@ -91,11 +90,41 @@ export const Login = () => {
       <Box className="background" style={style.background}>
         <NavigationBar />
         <Box style={style.container}>
-          <img alt="Success Logo" src="../../Assets/success.png" style={style.logo} />
-          <Typography variant="h5" align="center">
-            You've now connected SprintMoney with your Google Account
+          <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
+          <Typography variant="h1" align="center">
+            Login with Mobile
           </Typography>
-          
+          <Typography variant="h5" align="center">
+            Enter your mobile number to continue
+          </Typography>
+          <TextField
+            sx={{
+              "& .MuiInputLabel-root": {color: '#acb4bf'},
+              "& .MuiOutlinedInput-root": {
+                "& > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
+                "&:hover > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
+                "&.Mui-focused > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
+              },
+            }}
+            autoComplete="off"
+            style={style.contactInput}
+            margin="normal"
+            label="Mobile number"
+            InputProps = {{
+              startAdornment: focus ? <InputAdornment position="start"> +91 - </InputAdornment> : "",
+              endAdornment : error.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
+            }}
+            onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
+            placeholder="98989 98989"
+            onChange={handleMobile}
+            onFocus={()=>setFocus(true)}
+          />
+          <Typography style={style.errorText} className="error">{error.includes("Login_Contact") ? "Please enter a valid phone number" : ""}</Typography>
+          <ContinueWithMobile number={number}/>
+          <Divider style={style.divider} orientation="horizontal" flexItem>
+            <Typography className="subTitle2">OR</Typography>
+          </Divider>
+          <ConnectWithGoogle />
           <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
@@ -129,4 +158,3 @@ export const Login = () => {
     </>
   );
 };
-
