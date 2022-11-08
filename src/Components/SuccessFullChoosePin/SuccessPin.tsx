@@ -7,19 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import OtpInput from "react-otp-input";
 
 import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
-import { AMFI, ContactError, IRDA, MonoLogoImage, SBICON } from "../../Assets";
-import ChooseButton from "../../Modules/Buttons/ChooseButton";
+import { AMFI, ContactError, IRDA, SuccessPinImage, SBICON } from "../../Assets";
+import SuccessPinButton from "../../Modules/Buttons/SuccessPinButton";
 import { useSelector } from "react-redux";
-import "../ChoosePin/ChoosePin.css";
+import "./SuccessFull.css";
 import { Opacity } from "@mui/icons-material";
 
 
-export const ChoosePin = () => {
+export const SuccessPin = () => {
   const [optError, setOtpError] = useState<boolean>(false)
     const [number, setNumber] = useState<string>('')
     const [otp,setOtp]= useState<string>('')
@@ -57,7 +56,8 @@ export const ChoosePin = () => {
       width: "100%",
       maxWidth: "550px",
       padding: "30px 0px",
-      transform: "translate(-50%, 0%)",
+      transform: "translate(-50%, -66%)",
+      height:"342px",
       left: "50%",
       bottom: "0px",
       borderRadius: "8px 8px 0px 0px",
@@ -69,9 +69,10 @@ export const ChoosePin = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "60px",
-      height: "59.7px",
-      margin: "30px 0px"
+      width: "120px",
+      height: "120px",
+      margin: "30px 0px",
+      transform: "translate(10px, 36px)"
     } as React.CSSProperties,
 
     sbicon : {
@@ -83,6 +84,8 @@ export const ChoosePin = () => {
       objectFit:'contain',
       Opacity:'0.06'
 } as React.CSSProperties,
+
+
 
 footer : {
       marginTop : "50px",
@@ -105,51 +108,16 @@ footer : {
       <NavigationBar />
       <img alt="Money Sprint" src={SBICON} style={style.sbicon} />
         <Box style={style.container}>
-          <img alt="Money Sprint" src={MonoLogoImage} style={style.logo} />
+          <img alt="Money Sprint" src={SuccessPinImage} style={style.logo} />
           <Typography variant="h1" align="center">
-          Choose PIN
+    Your PIN is set!
           </Typography>
           <Typography className="VerificationOtp" align="center">
-          In case the biometric doesn’t work, you can quickly
-           access the app via PIN to unlock
+          Please use your PIN when logging in.
           </Typography>
-                   <OtpInput
-                value={otp}
-                onChange={handleOtpChange}
-                numInputs={4}
-                shouldAutoFocus={true}
-                hasErrored={optError}
-                containerStyle={{
-                    display:"flex",
-                    justifyContent:"center",
-                    alignItems:"center",
-                    margin:"10px",
-                    color:"black"
-                }}
-                inputStyle={{
-                    border:"1px solid #dddfe2",
-                    borderRadius:"4px",
-                    padding:"10px",
-                    margin:"10px",
-                    width:"56px",
-                    height:"56px",
-                    color:"black",
-                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
-                }}
-                errorStyle={{
-                    border:"1px solid red",
-                }}
-                />
-
-                    <ChooseButton />
-
-              <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 
-                </Typography>
-                
-              
-          
-          
-          <Box style={style.footer}>
+               <SuccessPinButton />
+            
+         <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
                   <img src={IRDA} width="32px" alt="IRDA" />
@@ -177,8 +145,14 @@ footer : {
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
+            
+             
+            </Box>
+           
+           
         </Box>
-      </Box>
+       
+      
     </>
   );
 };

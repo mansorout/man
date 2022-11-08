@@ -4,10 +4,8 @@ import { Login } from './Components/Login/Login';
 import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
 import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
 import { ChoosePin } from './Components/ChoosePin/ChoosePin';
-
-
-
 import './app.css'
+import {SuccessPin} from './Components/SuccessFullChoosePin/SuccessPin';
 function App() {
   return (
     <>
@@ -17,6 +15,8 @@ function App() {
           <Route path="/otpverify" element={<VerifyOtp/>} />
           <Route path="/otpverified" element={<OtpSuccess/>} />
           <Route path="/choosepin" element={<ChoosePin/>} />
+          <Route path="/successfull" element={<SuccessPin/>} />
+
 
 
         </Routes>
