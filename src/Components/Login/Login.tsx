@@ -20,7 +20,7 @@ export const Login = () => {
   const style = {
     background : {
       height : "100vh",
-      width : '100vw'
+      width: "100vw"
     } as React.CSSProperties,
 
     container : {
@@ -42,7 +42,7 @@ export const Login = () => {
 
     logo : {
       width: "60px",
-      margin: "30px 0px"
+      padding: "30px 0px"
     } as React.CSSProperties,
 
     contactInput : {
@@ -91,10 +91,9 @@ export const Login = () => {
   const navigate = useNavigate()
 
   return (
-    <>
       <Box className="background" style={style.background}>
         <NavigationBar />
-        <Box style={style.container}>
+        <Box className="LoginContainer" style={style.container}>
           <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
           <Typography variant="h1" align="center">
             Login with Mobile
@@ -160,6 +159,5 @@ export const Login = () => {
             </Box>
         </Box>
       </Box>
-    </>
   );
 };

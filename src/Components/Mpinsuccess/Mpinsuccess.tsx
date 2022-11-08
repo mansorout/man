@@ -19,7 +19,6 @@ export const Mpinsuccess = () => {
       height : "100vh",
       backgroundColor:'#f9f9f9',
       width: "100vw"
-      
     } as React.CSSProperties,
 
     container : {
@@ -36,8 +35,8 @@ export const Mpinsuccess = () => {
       position: "absolute",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: "space-between",
+      justifyContent: "space-between",
     } as React.CSSProperties,
 
     logo : {
