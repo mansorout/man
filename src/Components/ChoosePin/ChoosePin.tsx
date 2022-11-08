@@ -7,27 +7,27 @@ import {
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
-import { AMFI, IRDA, VerifyOtpLogo,SBICON } from "../../Assets";
-import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
+import { AMFI, IRDA, MonoLogoImage, SBICON } from "../../Assets";
+import ChooseButton from "../../Modules/Buttons/ChooseButton";
 import "../VerifyOtp/VerifyOtp.css";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-export const VerifyOtp = () => {
+export const ChoosePin = () => {
+    const [OTP, setOTP] = useState<string>("")
 
-  const [OTP, setOTP] = useState<string>("")
-
-  const handleOtpChange = (otp:any) => {
-    setOTP(otp)   
-  }
-
-  const error : string[] = useSelector((state : any) => state.error)
+    const handleOtpChange = (otp:any) => {
+      setOTP(otp)   
+    }
+  
+    const error : string[] = useSelector((state : any) => state.error)
 
   const style = {
     background : {
       backgroundColor:'#f9f9f9',
-      height : "100vh"
+      height : "100vh",
+      width : "100vw"
     } as React.CSSProperties,
 
     container : {
@@ -49,9 +49,20 @@ export const VerifyOtp = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "72px",
+      width: "60px",
+      height: "59.7px",
       margin: "30px 0px"
     } as React.CSSProperties,
+
+    sbicon : {
+      transform: "translate(330%, -60px)",
+      width:'284.6px',
+      height:'296.5px',
+      margin:'53.1px 0 450.4px 59.4px',
+      marginBottom:'25px',
+      objectFit:'contain',
+      Opacity:'0.06'
+} as React.CSSProperties,
 
 footer : {
       marginTop : "50px",
@@ -70,32 +81,34 @@ footer : {
   }
 
   const navigate = useNavigate()
+  
   return (
     <>
       <Box  style={style.background}>
       <NavigationBar />
+      
         <Box style={style.container}>
-          <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
+          <img alt="Money Sprint" src={MonoLogoImage} style={style.logo} />
           <Typography variant="h1" align="center">
-          Verify OTP
+          Choose PIN
           </Typography>
           <Typography className="VerificationOtp" align="center">
-            Enter the 4 digit verification code 
-            we sent you on your mobile number
+          In case the biometric doesn’t work, you can quickly
+           access the app via PIN to unlock
           </Typography>
-
-                     <OtpInput
+          <OtpInput
                      value={OTP}
+                     isInputSecure
                 onChange={handleOtpChange}
                 numInputs={4}
                 shouldAutoFocus={true}
-                hasErrored={error.includes("Login_OTP")}
+                hasErrored={error.includes("Set_Mpin")}
                 containerStyle={{
                     display:"flex",
                     justifyContent:"center",
                     alignItems:"center",
                     margin:"10px",
-                    color:"black"
+                    color:"rgba(108, 99, 255, 0.8)"
                 }}
                 inputStyle={{
                     border:"1px solid #dddfe2",
@@ -104,18 +117,19 @@ footer : {
                     margin:"10px",
                     width:"30px",
                     height:"30px",
-                    color:"black",
-                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
+                    fontSize: "35px",
+                    color:"rgba(108, 99, 255, 0.8)",
+                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
                 }}
                 errorStyle={{
                     border:"1px solid red",
                 }}
                 />
 
-                    <OtpVerifyButton otp={OTP}/>
+                    <ChooseButton otp={OTP}/>
 
-              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
-                <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
+              <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 
+                </Typography>
                 
               
           

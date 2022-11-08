@@ -14,7 +14,8 @@ const Tac: FC<Props> = (props: Props) => {
 const style = {
         background : {
           height : "100vh",
-          backgroundColor: '#f9f9f9'
+          backgroundColor: '#f9f9f9',
+          width : "100vw"
         } as React.CSSProperties,
         container : {
             width: "90%",

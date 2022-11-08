@@ -7,7 +7,7 @@ import { ActionCreators } from "../../Store";
 
 
 
-  const OtpVerifyButton = ({otp} : {otp : string}) => {
+  const ChooseButton = ({otp} : {otp : string}) => {
 
     const style = {
         button : {
@@ -33,23 +33,20 @@ import { ActionCreators } from "../../Store";
         console.log(otp)
 
         if(otp.length != 4){
-            addError("Login_OTP")
-        }else if(otp != "1234"){
-            addError("Login_OTP")
+            addError("Set_Mpin")
         }else {
-            removeError("Login_OTP")
-            navigate("/otpverified")
+            removeError("Set_Mpin")
+            navigate("/successpin")
         }
         
     }
 
 
-
     return (
         <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText">Save</Typography>
         </Button> 
     )
 };
 
-export default OtpVerifyButton;
+export default ChooseButton;

@@ -10,3 +10,5 @@ export const Profile = require('./profile.jpeg')
 export const SuccessFullOtp = require('./OtpVerified.png')
 export const VerifyOtpLogo = require('./otpverify.png')
 export const SBICON = require('./SBICON.png')
+export const MonoLogoImage = require("./monoLogo.png")
+

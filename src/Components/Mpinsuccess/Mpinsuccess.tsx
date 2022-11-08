@@ -1,27 +1,34 @@
-
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Divider, InputAdornment } from "@mui/material";
+import {
+  Button,
+  Box,
+  Typography,
+} from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
+import "./Mpinsuccess.css";
 import React from "react";
-import { AMFI, IRDA, SuccessLogo, SBIcon, Profile } from "../../Assets"
+import { AMFI, IRDA ,SuccessFullOtp,SBICON   } from "../../Assets";
 import { useNavigate } from "react-router-dom";
+import BacktoLogin from "../../Modules/Buttons/BacktoLogin";
 
 
-export const AccountCreatedWithGoogle = () => {
+export const Mpinsuccess = () => {
 
   const style = {
     background : {
       height : "100vh",
-      backgroundColor: '#f9f9f9',
-      width :"100vw"
+      backgroundColor:'#f9f9f9',
+      width: "100vw"
+      
     } as React.CSSProperties,
 
     container : {
+      boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
       backgroundColor: "white",
-      boxSizing: "border-box",
       margin: "auto",
       width: "100%",
       maxWidth: "550px",
-      padding: "30px 20px",
+      padding: "30px 0px",
       transform: "translate(-50%, 0%)",
       left: "50%",
       bottom: "0px",
@@ -34,21 +41,18 @@ export const AccountCreatedWithGoogle = () => {
     } as React.CSSProperties,
 
     logo : {
-      width: "60px",
-      margin: "10px 0px",
+      width: "120px",
+      marginBottom:'25px',
     } as React.CSSProperties,
-
-    contactInput : {
-      width:"100%",
-      maxWidth:"400px",
-      marginTop: "30px"
+    sbicon : {
+      transform: "translate(302%, -44px)",
+      width:'284.6px',
+      height:'296.5px',
+      margin:'53.1px 0 450.4px 59.4px',
+      marginBottom:'25px',
+      objectFit:'contain',
+      Opacity:'0.06'
     } as React.CSSProperties,
-
-    profile : {
-      width: "30px",
-      height: "30px",
-      borderRadius: "50%"
-    },
 
     divider : {
       width : "90%",
@@ -71,61 +75,26 @@ export const AccountCreatedWithGoogle = () => {
       alignItem : "center"
     },
 
-    errorText : {
-      width:"100%",
-      maxWidth:"400px",
-      height: "15px",
-    } as React.CSSProperties,
-
-    button : {
-        height: "48px",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-        backgroundColor: "#23db7b",
-        margin: "15px",
-        width:"90%",
-        maxWidth:"400px",
-    } as React.CSSProperties,
-
-    text : {
-        color: "white"
-    }
   }
 
   const navigate = useNavigate();
 
-  return (
+return (
     <>
       <Box style={style.background}>
         <NavigationBar />
         
         <Box style={style.container}>
-          <img alt="Success Logo" src={ SuccessLogo } style={style.logo} />
-          <Typography style={{margin: "10px 0px",}} align="center" component="h4">
-            You've now connected SprintMoney with your Google Account
+          <img alt="Money Sprint" src={SuccessFullOtp } style={style.logo} />
+          <Typography variant="h1" align="center" className="OtpSuccessfullTitle">
+            Your PIN is set!
           </Typography>
-          <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '10px 15px',
-                borderRadius: '40px',
-                margin: "10px 0px 50px 0px",
-                backgroundColor: '#99e7ff',
-          }}>
-            <img src={Profile} alt="image" style={style.profile} />
-            <Box sx={{ marginLeft: '5px' }}>
-                <Typography className="mediumButtonText" >Puneet Malhotra</Typography>
-                <Typography className="body2" >puneet.malhotra@gmail.com</Typography>
-            </Box>
-            
-            
-          </Box>
-          <Button onClick={()=>navigate("/login")} variant="contained" style={style.button} fullWidth>
-            <Typography style={style.text} className="largeButtonText">Continue</Typography>
-          </Button> 
-
-
-          <Box style={style.footer}>
+          <Typography variant="h5" align="center" className="OtpSuccessfullDescr">
+          Please use your PIN when logging in.
+          </Typography>
+          <BacktoLogin/>
+          
+           <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
                   <img src={IRDA} width="32px" alt="IRDA" />
@@ -149,13 +118,13 @@ export const AccountCreatedWithGoogle = () => {
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
               <br/>
-              <Typography onClick={()=>navigate("/TermsandCondition")} component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+              <Typography component="span" onClick={()=>navigate("/TermsandCondition")} style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
         </Box>
       </Box>
-      <img alt="logo" src={ SBIcon } width="275" height="275" style={{
+      <img alt="logo" src={ SBICON } width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px"
