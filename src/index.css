@@ -5,8 +5,9 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  width: 100%;
+  height: 800px;
+  width: 1280px;
+
 }
 
 /* Variables  */
@@ -34,6 +35,7 @@ body {
   --typeDarkGreyColor : #acb4bf;
   --typeLightGreyColor : #d1d6dd;
   --typeIndigoColor : #7b7b9d;
+  
 }
 
 
@@ -54,9 +56,10 @@ h2 {
 }
 
 h3 {
-  font-size: 24px !important;
+  font-size: 32px !important;
   line-height: 1.33 !important;
   color: var(--typeLightBlackColor) !important;
+ 
 }
 
 h4 {
