@@ -37,12 +37,12 @@ export const Login = () => {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "center"
     } as React.CSSProperties,
 
     logo : {
       width: "60px",
-      padding: "30px 0px"
+      padding: "30px 0px",
     } as React.CSSProperties,
 
     contactInput : {
