@@ -27,7 +27,8 @@ export const VerifyOtp = () => {
   const style = {
     background : {
       backgroundColor:'#f9f9f9',
-      height : "100vh"
+      height : "100vh",
+      width : "100vw"
     } as React.CSSProperties,
 
     container : {
