@@ -3,8 +3,16 @@ import './Home.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../../Store'
+import { Box, style } from '@mui/system'
+import { Typography } from '@mui/material'
  
 function Home() {
+
+  const style = {
+    main : {
+      backgroundColor : "black"
+    }
+  }
     //Reading state from redux
     const money = useSelector((state : any) => state.money)
 
@@ -14,9 +22,9 @@ function Home() {
 
     console.log(money)
   return (
-      <>
-        <button onClick={()=>addMoney(10)}>plus</button>
-      </>
+      <Box style={style.main}>
+        <Typography>Hello</Typography>
+      </Box>
   )
 }
 

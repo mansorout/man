@@ -14,6 +14,7 @@ function App() {
     <>
         <Routes>
           <Route path="/" element={<Login/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
