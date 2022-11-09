@@ -12,7 +12,12 @@ import { ChoosePin } from './Components/ChoosePin/ChoosePin';
 
 import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
+
+
 function App() {
+
+  
+  
   return (
     <>
         <Routes>
@@ -24,6 +29,7 @@ function App() {
           <Route path="/otpverified" element={<OtpSuccess/>} />
           <Route path="/choosepin" element={<ChoosePin/>} />
           <Route path="/successpin" element={<Mpinsuccess/>} />
+          
         </Routes>
     </>
   );

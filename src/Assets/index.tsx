@@ -11,4 +11,7 @@ export const SuccessFullOtp = require('./OtpVerified.png')
 export const VerifyOtpLogo = require('./otpverify.png')
 export const SBICON = require('./SBICON.png')
 export const MonoLogoImage = require("./monoLogo.png")
+export const CardImage1 = require("./undraw_investing_7u74.png")
+export const Star = require("./star_rate-24px.png")
+export const CompanyLogo = require("./Mask Group 6.png");
 

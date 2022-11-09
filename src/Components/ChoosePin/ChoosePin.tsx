@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import OtpInput from "react-otp-input";
+//import OtpInput from "react-otp-input";
 import React, { useState } from "react";
 import { AMFI, IRDA, MonoLogoImage, SBICON } from "../../Assets";
 import ChooseButton from "../../Modules/Buttons/ChooseButton";
@@ -96,6 +96,7 @@ footer : {
           In case the biometric doesn’t work, you can quickly
            access the app via PIN to unlock
           </Typography>
+          {/*
           <OtpInput
                      value={OTP}
                      isInputSecure
@@ -125,7 +126,7 @@ footer : {
                     border:"1px solid red",
                 }}
                 />
-
+              */}
                     <ChooseButton otp={OTP}/>
 
               <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 

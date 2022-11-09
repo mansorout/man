@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import OtpInput from "react-otp-input";
+//import OtpInput from "react-otp-input";
 import React, { useState } from "react";
 import { AMFI, IRDA, VerifyOtpLogo,SBICON } from "../../Assets";
 import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
@@ -84,7 +84,7 @@ footer : {
             Enter the 4 digit verification code 
             we sent you on your mobile number
           </Typography>
-
+{/*
                      <OtpInput
                      value={OTP}
                 onChange={handleOtpChange}
@@ -112,7 +112,7 @@ footer : {
                     border:"1px solid red",
                 }}
                 />
-
+              */}
                     <OtpVerifyButton otp={OTP}/>
 
               <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
