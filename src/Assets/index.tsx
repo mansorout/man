@@ -12,4 +12,8 @@ export const VerifyOtpLogo = require('./otpverify.png')
 export const SBICON = require('./SBICON.png')
 export const MonoLogoImage = require("./monoLogo.png")
 export const SuccessPinImage= require('./OtpVerified.png')
+export const Email5803= require('./Email 5803.png')
+export const MonoLogosetpin = require("./monoLogo.png")
+ export const rightsign = require("./Rightsign.png")
+
 
