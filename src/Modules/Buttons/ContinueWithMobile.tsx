@@ -1,5 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useDispatch } from "react-redux"
+import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
@@ -23,12 +24,15 @@ const ContWithMobile = ({number} : {number : string}) => {
     const dispatch = useDispatch()
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
 
+    const navigate = useNavigate()
+
     const validateNumber = (number : string) => {
 
         if(number.length != 10){
             addError("Login_Contact")
         }else{
             removeError("Login_Contact")
+            navigate("/otpverify")
         }
         
     }

@@ -4,6 +4,8 @@ stages:
 
 build:
    stage: build
+   only:
+       - tags
    script:
       - mkdir -p dist
       - npm install react-dates --legacy-peer-deps 
@@ -27,7 +29,7 @@ deploy:
      - build
    script:
      - aws --version
-     - aws s3 sync ./build s3://sprintmoney-frontend
+     - aws s3 cp --acl public-read --recursive build s3://sprintmoney-frontend
      - echo "deployed successfully"
    only:
     - main

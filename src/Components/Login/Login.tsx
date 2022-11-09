@@ -12,13 +12,15 @@ import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
 import { AMFI, ContactError, IRDA, MonoLogo } from "../../Assets";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 export const Login = () => {
 
   const style = {
     background : {
-      height : "100vh"
+      height : "100vh",
+      width: "100vw"
     } as React.CSSProperties,
 
     container : {
@@ -40,11 +42,11 @@ export const Login = () => {
 
     logo : {
       width: "60px",
-      margin: "30px 0px"
+      padding: "30px 0px"
     } as React.CSSProperties,
 
     contactInput : {
-      width:"100%",
+      width:"90%",
       maxWidth:"400px",
       marginTop: "30px"
     } as React.CSSProperties,
@@ -86,11 +88,12 @@ export const Login = () => {
     setNumber(e.target.value)
   }
 
+  const navigate = useNavigate()
+
   return (
-    <>
       <Box className="background" style={style.background}>
         <NavigationBar />
-        <Box style={style.container}>
+        <Box className="LoginContainer" style={style.container}>
           <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
           <Typography variant="h1" align="center">
             Login with Mobile
@@ -150,13 +153,11 @@ export const Login = () => {
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
               <br/>
-              <Typography component="span" style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+              <Typography component="span" onClick={()=>navigate("/TermsandCondition")} style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
         </Box>
       </Box>
-    </>
   );
 };
-
