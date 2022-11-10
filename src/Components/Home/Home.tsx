@@ -286,8 +286,8 @@ function Home() {
               </List>
           </DrawerList>
         <Box  sx={style.main}>
-          <Grid container spacing={0}>
-            <Grid sx={{display: {xs: "none", sm: "block"},backgroundColor:"white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",  height: "inherit", padding:0, boxSizing:"border-box"}} item xs={0} sm={1} md={2}>
+          <Grid container spacing={0} sx={{border:"2px solid red", height:"100vh", overflow:"hidden"}}>
+            <Grid sx={{display: {xs: "none", sm: "block"},backgroundColor:"white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",  height: "auto", padding:0, boxSizing:"border-box"}} item xs={0} sm={1} md={2}>
               <Toolbar/>
               <List sx={{py:"30px", height:"inherit"}}>
                 <ListItem disablePadding sx={{ background:"rgba(0, 0, 0, 0.05)" }}>
@@ -376,34 +376,36 @@ function Home() {
                 </ListItem>
               </List>
             </Grid>
-            <Grid style={{height: "100vh", padding:0, boxSizing:"border-box", overflow:"auto"}} item xs={12} sm={7} md={7}>
-              <Toolbar/>
-              <Grid container>
-                <Grid item xs={12} sx={{padding:{xs:0, sm:2}}}>
-                  <FinancialFreedom/>
+            <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={12} sm={11} md={10}>
+              <Grid sx={{height: "auto", padding:0, boxSizing:"border-box", overflow:"scroll"}} item xs={12} sm={7} md={7}>
+                <Toolbar/>
+                <Grid container>
+                  <Grid item xs={12} sx={{padding:{xs:0, sm:2}}}>
+                    <FinancialFreedom/>
+                  </Grid>
+                  {
+                    investingCards.map((item, key) => {
+                      return(
+                        <Grid key={key} item xs={6} sx={{padding:2}}>
+                          <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img}/>
+                        </Grid>
+                      )
+                    })
+                  }
                 </Grid>
                 {
-                  investingCards.map((item, key) => {
+                  largeCards.map((item, key) => {
                     return(
-                      <Grid key={key} item xs={6} sx={{padding:2}}>
-                        <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img}/>
+                      <Grid item xs={12} sx={{padding:2}}>
+                        <LargeCards Heading={item.Heading} Text={item.Text} Img={item.Img}/>
                       </Grid>
                     )
                   })
                 }
               </Grid>
-              {
-                largeCards.map((item, key) => {
-                  return(
-                    <Grid item xs={12} sx={{padding:2}}>
-                      <LargeCards Heading={item.Heading} Text={item.Text} Img={item.Img}/>
-                    </Grid>
-                  )
-                })
-              }
-            </Grid>
-            <Grid style={{height: "100vh", padding:0, boxSizing:"border-box"}} item xs={12} sm={4} md={3}>
-              <Box style={{ backgroundColor: "green", width: "100%" }}></Box>
+              <Grid sx={{height: "auto", padding:0, boxSizing:"border-box", overflow:"auto"}} item xs={12} sm={4} md={3}>
+                <Box style={{ backgroundColor: "green", width: "100%" }}></Box>
+              </Grid>
             </Grid>
           </Grid>
         </Box>
