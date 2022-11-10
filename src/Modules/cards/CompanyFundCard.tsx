@@ -1,6 +1,6 @@
 import { Box, Chip, Typography, TableContainer, Table, TableRow, TableBody, TableHead, TableCell, Avatar } from "@mui/material";
 import { Star } from "../../Assets";
-import './CompanyFundCard.css';
+import './CoFundCard.css';
 
 interface Prop {
     logo: string;
@@ -24,14 +24,18 @@ const CompanyFundCard = (props: Prop) => {
     });
 
     return (
-        <Box sx={{
+        <Box id="CoCard" sx={{
             maxWidth: '400px',
             padding: '1rem',
             fontFamily: 'Roboto',
+            borderRadius: '0.5rem',
+            boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+            backgroundColor: '#fff'
         }}>
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
+                marginBottom: '1.5rem',
             }}>
                 <img src={ props.logo } alt="Logo of the company" style={{
                     width: '3rem',
@@ -53,24 +57,22 @@ const CompanyFundCard = (props: Prop) => {
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
+                alignItems: 'center',
             }}>
                 <TableContainer>
                     <Table size="small">
                         <TableHead>
-                            <TableRow>
-                                <TableCell align="left" sx={{
-                            fontSize: '10px',
-                            color: '#acb4bf',
-                        }}>1 yr return</TableCell>
-                                <TableCell align="left">3 yrs return</TableCell>
-                                <TableCell align="left">5 yrs return</TableCell>
+                            <TableRow sx={{ color: '#acb4bf' }}>
+                                <TableCell className="table_head">1 yr return</TableCell>
+                                <TableCell className="table_head">3 yrs return</TableCell>
+                                <TableCell className="table_head">5 yrs return</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                <TableCell align="left">{ props.year1 }%</TableCell>
-                                <TableCell align="left">{ props.year3 }%</TableCell>
-                                <TableCell align="left">{ props.year5 }%</TableCell>
+                                <TableCell>{ props.year1 }%</TableCell>
+                                <TableCell>{ props.year3 }%</TableCell>
+                                <TableCell>{ props.year5 }%</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

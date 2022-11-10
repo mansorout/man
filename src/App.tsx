@@ -14,6 +14,7 @@ import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
 
 
+
 function App() {
 
   
@@ -29,7 +30,6 @@ function App() {
           <Route path="/otpverified" element={<OtpSuccess/>} />
           <Route path="/choosepin" element={<ChoosePin/>} />
           <Route path="/successpin" element={<Mpinsuccess/>} />
-          
         </Routes>
     </>
   );
