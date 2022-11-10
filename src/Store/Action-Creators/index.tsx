@@ -36,4 +36,13 @@ export const addError = (msg:string) => {
         })
     }
 }
+
+export const addContactNumber = (num:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddContact",
+            payload:num
+        })
+    }
+}
  

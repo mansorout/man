@@ -9,7 +9,7 @@ import {store} from "../../Store/Store";
 
 
 
-  const OtpVerifyButton = ({otp} : {otp : string}) => {
+  const OtpVerifyButton = ({otp, number} : {otp : string, number : string}) => {
 
     const style = {
         button : {
@@ -31,17 +31,12 @@ import {store} from "../../Store/Store";
     const navigate = useNavigate()
 
     const validateOTP = (otp : string) => {
-
-        console.log(otp)
-
         if(otp.length != 4){
-            addError("Login_OTP")
-        }else if(otp != otp){
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            navigate("/otpverified")
             store.dispatch(verifycxotp({'otp': otp,'number':number})) 
+            navigate("/otpverified")
         }
         
     }

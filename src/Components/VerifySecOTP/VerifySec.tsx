@@ -68,6 +68,7 @@ footer : {
   }
 
   const navigate = useNavigate()
+  const number : string = useSelector((state : any) => state.contact)
   return (
     <>
       <Box  style={style.background}>
@@ -111,7 +112,7 @@ footer : {
                 }}
                 />
 
-                    <OtpVerifyButton otp={OTP}/>
+                    <OtpVerifyButton otp={OTP} number={number}/>
 
               <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",  transform: "translate(10px, -67px)"}}>Not received the code yet? 
                 <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>

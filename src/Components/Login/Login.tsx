@@ -87,7 +87,7 @@ export const Login = () => {
   const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setNumber(e.target.value)
   }
-  console.log(number)
+  
   const navigate = useNavigate()
 
   return (

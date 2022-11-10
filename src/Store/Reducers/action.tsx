@@ -52,8 +52,8 @@ export const verifycxotp = (verifyInput:any) => {
     
     
     return async (dispatch:any)=>{
-        console.log(number)
-        console.log(otp)
+        console.log(number, "number")
+        console.log(otp, "otp")
                 const result ={}
                 try{
                     const result = await fetch(mobileOtpVerifyApi,{
@@ -69,8 +69,7 @@ export const verifycxotp = (verifyInput:any) => {
                           })
                           
                     })
-                   
-                    
+                    console.log(result, "result")
                 } catch (err){
                      //dispatch({type: 'LOGIN_FAILED'})
                      console.log(err)
