@@ -9,12 +9,14 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme,  useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import {Logo, Profile, SIP} from '../../Assets/index'
+import {Ad1, Ad1_1, Ad1_2, Ad2, Logo, Profile, SIP} from '../../Assets/index'
 import FinancialFreedom from '../../Modules/Cards/FinancialFreedom'
 import StartInvestingCard from '../../Modules/Cards/StartInvestingCard'
 import { investingCards } from '../../Modal/investingCards'
 import { largeCards } from '../../Modal/largeCards'
 import LargeCards from '../../Modules/Cards/LargeCards'
+import CompanyFundCard from '../../Modules/Cards/CompanyFundCard'
+import { companyCards } from '../../Modal/companyCards'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -286,7 +288,7 @@ function Home() {
               </List>
           </DrawerList>
         <Box  sx={style.main}>
-          <Grid container spacing={0} sx={{border:"2px solid red", height:"100vh", overflow:"hidden"}}>
+          <Grid container spacing={0} sx={{height:"100vh", overflow:"hidden"}}>
             <Grid sx={{display: {xs: "none", sm: "block"},backgroundColor:"white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",  height: "auto", padding:0, boxSizing:"border-box"}} item xs={0} sm={1} md={2}>
               <Toolbar/>
               <List sx={{py:"30px", height:"inherit"}}>
@@ -376,8 +378,8 @@ function Home() {
                 </ListItem>
               </List>
             </Grid>
-            <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={12} sm={11} md={10}>
-              <Grid sx={{height: "auto", padding:0, boxSizing:"border-box", overflow:"scroll"}} item xs={12} sm={7} md={7}>
+            <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={13} sm={11} md={10}>
+              <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13} sm={7} md={8}>
                 <Toolbar/>
                 <Grid container>
                   <Grid item xs={12} sx={{padding:{xs:0, sm:2}}}>
@@ -403,8 +405,45 @@ function Home() {
                   })
                 }
               </Grid>
-              <Grid sx={{height: "auto", padding:0, boxSizing:"border-box", overflow:"auto"}} item xs={12} sm={4} md={3}>
-                <Box style={{ backgroundColor: "green", width: "100%" }}></Box>
+              <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13} sm={5} md={4}>
+                <Toolbar/>
+                {
+                  companyCards.map((item,index) => {
+                    return(
+                      <CompanyFundCard
+                        key={index}
+                        logo = {item.logo}
+                        name = {item.name}
+                        cap = {item.cap}
+                        type = {item.type}
+                        price =  {item.price}
+                        year1 =  {item.year1}
+                        year3 =  {item.year3}
+                        year5 =  {item.year5}
+                        rating = {item.rating}
+                        morning_star_logo = {item.morning_star_logo}
+                      />
+                    )
+                  })
+                }
+                <Grid spacing={1} container sx={{px: "1rem"}}>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box sx={{display : {xs:"none", sm: "none", md : "block"}}}>
+                      <img width="100%" src={Ad1} alt="Ad1"/>
+                    </Box>
+                    <Box sx={{display : {xs:"block", sm: "block", md : "none"}}}>
+                      <img width="100%" src={Ad1_1} alt="Ad1"/>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <Box sx={{display : {xs:"none", sm: "none", md : "block"}}}>
+                      <img width="100%" src={Ad2} alt="Ad2"/>
+                    </Box>
+                    <Box sx={{display : {xs:"block", sm: "block", md : "none"}}}>
+                      <img width="100%" src={Ad1_2} alt="Ad2"/>
+                    </Box>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
