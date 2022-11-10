@@ -90,7 +90,7 @@ footer : {
                 onChange={handleOtpChange}
                 numInputs={4}
                 shouldAutoFocus={true}
-                //hasErrored={error.includes("Login_OTP")}
+                hasErrored={error?.includes("Login_OTP")}
                 containerStyle={{
                     display:"flex",
                     justifyContent:"center",
