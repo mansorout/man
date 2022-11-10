@@ -25,12 +25,12 @@ const CompanyFundCard = (props: Prop) => {
 
     return (
         <Box id="CoCard" sx={{
-            maxWidth: '400px',
             padding: '1rem',
             fontFamily: 'Roboto',
             borderRadius: '0.5rem',
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
+            margin:"1rem"
         }}>
             <Box sx={{
                 display: 'flex',
