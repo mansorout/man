@@ -17,4 +17,7 @@ export const BuildWealth = require("./Card/BuildWealth.png")
 export const GetInsured = require("./Card/GetInsured.png")
 export const GetLoan = require("./Card/GetLoan.png")
 export const SaveTax = require("./Card/SaveTax.png")
+export const CardImage1 = require("./undraw_investing_7u74.png")
+export const Star = require("./star_rate-24px.png")
+export const CompanyLogo = require("./Mask Group 6.png");
 

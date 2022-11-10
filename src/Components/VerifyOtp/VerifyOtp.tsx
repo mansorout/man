@@ -112,7 +112,7 @@ footer : {
                     border:"1px solid red",
                 }}
                 />
-
+             
                     <OtpVerifyButton otp={OTP}/>
 
               <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 

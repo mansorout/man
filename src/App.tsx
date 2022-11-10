@@ -12,7 +12,13 @@ import { ChoosePin } from './Components/ChoosePin/ChoosePin';
 
 import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
+
+
+
 function App() {
+
+  
+  
   return (
     <>
         <Routes>
