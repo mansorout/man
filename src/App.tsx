@@ -7,11 +7,15 @@ import './app.css';
 import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
 import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
 import { ChoosePin } from './Components/ChoosePin/ChoosePin';
-
-
+import  {LoginSecond}  from './Components/LoginSecScreen/LoginSecond';
 
 import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
+import  {Setpin} from './Components/SetNewPin/Setpin';
+import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
+import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
+
+
 
 
 
@@ -31,6 +35,11 @@ function App() {
           <Route path="/otpverified" element={<OtpSuccess/>} />
           <Route path="/choosepin" element={<ChoosePin/>} />
           <Route path="/successpin" element={<Mpinsuccess/>} />
+          
+          <Route path="/loginsecond" element={<LoginSecond/>} />
+          <Route path="/setnewpin" element={<Setpin/>} />
+          <Route path="/verifysec" element={<VerifySec/>} />
+          <Route path="/Otptwosuccess" element={<OtptwoSuccess/>} />
         </Routes>
     </>
   );

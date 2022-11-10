@@ -16,7 +16,7 @@
 .OtpSuccessfullDescr{
    width: 320px;
    height: 41px;
-   margin: 8px 32px 30px !important;
+   margin: 8px 134px 30px !important;
    font-family: Roboto!important;
    font-size: 14px!important;
    font-weight: normal!important;
@@ -28,5 +28,22 @@
    color: #7b7b9d !important;
 }
 
+
+@media  only screen and( max-width: 680px) {
+  .OtpSuccessfullDescr {
+    width: 320px;
+    height: 41px;
+    margin: 8px 56px 24px !important;
+    font-family: Roboto!important;
+    font-size: 14px!important;
+    font-weight: normal!important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: 1.43 !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    color: #7b7b9d !important;
+}
+}
 
 

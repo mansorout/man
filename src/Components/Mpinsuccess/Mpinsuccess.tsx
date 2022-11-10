@@ -42,7 +42,10 @@ export const Mpinsuccess = () => {
     logo : {
       width: "120px",
       marginBottom:'25px',
+      marginLeft: "38%"
     } as React.CSSProperties,
+
+
     sbicon : {
       transform: "translate(302%, -44px)",
       width:'284.6px',
@@ -53,6 +56,7 @@ export const Mpinsuccess = () => {
       Opacity:'0.06'
     } as React.CSSProperties,
 
+
     divider : {
       width : "90%",
       maxWidth : "400px",
@@ -60,13 +64,16 @@ export const Mpinsuccess = () => {
       color : "#7b7b9d",
     },
 
+
     footer : {
       marginTop : "50px",
+      marginLeft: "40%"
     },
 
     footerLogos : {
       display : "flex",
-      gap : "15px"
+      gap : "15px",
+      marginLeft: "-4%"
     },
 
     IRDAnAMFI : {
@@ -75,6 +82,8 @@ export const Mpinsuccess = () => {
     },
 
   }
+
+
 
   const navigate = useNavigate();
 
@@ -112,7 +121,7 @@ return (
                 </Box>
               </Box>
             </Box>
-            <Box>
+            <Box sx={{marginLeft:"30%"}}>
               <Divider style={{margin:"5px 0px"}}/>
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>

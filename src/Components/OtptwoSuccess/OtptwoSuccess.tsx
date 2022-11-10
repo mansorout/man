@@ -1,78 +1,79 @@
-
-import { Divider } from "@mui/material";
+import { Divider, InputAdornment } from "@mui/material";
 import {
+  Button,
   Box,
+  TextField,
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import OtpInput from "react-otp-input";
+import "./OtptwoSuccess.css";
+import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
 import React, { useState } from "react";
-import { AMFI, IRDA, MonoLogoImage, SBICON } from "../../Assets";
-import ChooseButton from "../../Modules/Buttons/ChooseButton";
-import "../VerifyOtp/VerifyOtp.css";
+import { AMFI, ContactError, IRDA ,SuccessFullOtp,SBICON   } from "../../Assets";
 import { useSelector } from "react-redux";
-import "../ChoosePin/ChoosePin.css";
-import { Opacity } from "@mui/icons-material";
+import OtptwoSuccessButton from "../../Modules/Buttons/OtptwoSuccessButton";
 import { useNavigate } from "react-router-dom";
 
 
-export const ChoosePin = () => {
-    const [OTP, setOTP] = useState<string>("")
-
-    const handleOtpChange = (otp:any) => {
-      setOTP(otp)   
-    }
-  
-    const error : string[] = useSelector((state : any) => state.error)
+export const OtptwoSuccess = () => {
 
   const style = {
     background : {
-      backgroundColor:'#f9f9f9',
       height : "100vh",
-      width : "100vw"
+      backgroundColor:'#f9f9f9',
+      width: "100vw"
+      
     } as React.CSSProperties,
 
     container : {
       boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-      backgroundColor: "#fff",
+      backgroundColor: "white",
       margin: "auto",
       width: "100%",
       maxWidth: "550px",
       padding: "30px 0px",
-      transform: "translate(-50%, 0%)",
+      transform: "translate(-50%, -56%)",
       left: "50%",
       bottom: "0px",
-      borderRadius: "8px 8px 0px 0px",
+      borderRadius: "20px 20px 20px 20px",
       position: "absolute",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      
     } as React.CSSProperties,
 
     logo : {
-      width: "60px",
-      height: "59.7px",
-      margin: "30px 0px"
+      width: "120px",
+      marginBottom:'25px',
     } as React.CSSProperties,
-
     sbicon : {
-      transform: "translate(330%, -60px)",
+      transform: "translate(302%, -44px)",
       width:'284.6px',
       height:'296.5px',
       margin:'53.1px 0 450.4px 59.4px',
       marginBottom:'25px',
       objectFit:'contain',
       Opacity:'0.06'
-} as React.CSSProperties,
+    } as React.CSSProperties,
 
-footer : {
-      marginTop : "50px",
+    divider : {
+      width : "90%",
+      maxWidth : "400px",
+      margin : "auto",
+      color : "#7b7b9d",
+    },
+
+    footer : {
+      marginTop : "48%",
+      marginLeft:"44%"
     },
 
     footerLogos : {
       display : "flex",
-      gap : "15px"
+      gap : "15px",
+      
     },
 
     IRDAnAMFI : {
@@ -82,62 +83,27 @@ footer : {
 
   }
 
-  const navigate = useNavigate()
-  
-  return (
-    <>
-      <Box  style={style.background}>
-      <NavigationBar />
-      
-        <Box style={style.container}>
-          <img alt="Money Sprint" src={MonoLogoImage} style={style.logo} />
-          <Typography variant="h1" align="center">
-          Choose PIN
-          </Typography>
-          <Typography className="VerificationOtp" align="center">
-          In case the biometric doesn’t work, you can quickly
-           access the app via PIN to unlock
-          </Typography>
-          
-          <OtpInput
-                     value={OTP}
-                     isInputSecure
-                onChange={handleOtpChange}
-                numInputs={4}
-                shouldAutoFocus={true}
-                hasErrored={error.includes("Set_Mpin")}
-                containerStyle={{
-                    display:"flex",
-                    justifyContent:"center",
-                    alignItems:"center",
-                    margin:"10px",
-                    color:"rgba(108, 99, 255, 0.8)"
-                }}
-                inputStyle={{
-                    border:"1px solid #dddfe2",
-                    borderRadius:"4px",
-                    padding:"10px",
-                    margin:"10px",
-                    width:"30px",
-                    height:"30px",
-                    fontSize: "35px",
-                    color:"rgba(108, 99, 255, 0.8)",
-                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                }}
-                errorStyle={{
-                    border:"1px solid red",
-                }}
-                />
-             
-                    <ChooseButton otp={OTP}/>
+  const navigate = useNavigate();
 
-              <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 
-                </Typography>
-                
-              
+return (
+    <>
+      <Box style={style.background}>
+        <NavigationBar />
+        
+        <Box style={style.container}>
+          <img alt="Money Sprint" src={SuccessFullOtp } style={style.logo} />
+          <Typography variant="h1" align="center" className="OtpSuccessfullTitle">
+          Your PIN is successfully reset!
+          </Typography>
+          <Typography variant="h5" align="center" className="OtpSuccessfullDescr">
+          Please use your new PIN when logging in.        
+            </Typography>
+          <OtptwoSuccessButton/>
+      
           
-          
-                <Box style={style.footer}>
+  
+        </Box>
+        <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
                   <img src={IRDA} width="32px" alt="IRDA" />
@@ -156,7 +122,7 @@ footer : {
                 </Box>
               </Box>
             </Box>
-            <Box>
+            <Box marginLeft="40%">
               <Divider style={{margin:"5px 0px"}}/>
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
@@ -165,7 +131,7 @@ footer : {
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
-        </Box>
+      
       </Box>
       <img alt="logo" src={ SBICON } width="275" height="275" style={{
             position: "absolute",
@@ -175,3 +141,4 @@ footer : {
     </>
   );
 };
+

@@ -20,4 +20,9 @@ export const SaveTax = require("./Card/SaveTax.png")
 export const CardImage1 = require("./undraw_investing_7u74.png")
 export const Star = require("./star_rate-24px.png")
 export const CompanyLogo = require("./Mask Group 6.png");
+export const SuccessPinImage= require('./OtpVerified.png')
+export const Email5803= require('./Email 5803.png')
+export const MonoLogosetpin = require("./monoLogo.png")
+ export const rightsign = require("./Rightsign.png")
+
 

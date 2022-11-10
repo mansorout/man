@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@mui/material": "^5.10.13",
     "jest": "^27.5.1"
   }
 }

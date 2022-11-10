@@ -1,9 +1,6 @@
 
 import { Divider } from "@mui/material";
-import {
-  Box,
-  Typography,
-} from "@mui/material";
+import {Box,Typography} from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
