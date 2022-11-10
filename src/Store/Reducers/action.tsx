@@ -1,4 +1,6 @@
 import * as t from './actionTypes'
+import { mobileOtpLoginApi } from '../../APIs/apis'
+import { mobileOtpVerifyApi } from '../../APIs/apis'
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -7,14 +9,23 @@ const setLoginState =(loginData:any)=>{
         payload: loginData,
     }
 }
+const SET_VERIFY_STATE =(verifyData:any)=>{
+    console.log(verifyData)
+    return{
+        type: t.SET_LOGIN_STATE,
+        payload: verifyData,
+    }
+}
+
+
 
 export const login = (loginInput:any) => {
     const { number } = loginInput;
-    console.log(number)
+    // console.log(number)
     return async (dispatch:any)=>{
                 const result ={}
                 try{
-                    const result = await fetch('http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/otp/send',{
+                    const result = await fetch(mobileOtpLoginApi,{
                         method:"POST",
                         headers: {  // these could be different for your API call
                             Accept: 'application/json',
@@ -22,6 +33,36 @@ export const login = (loginInput:any) => {
                           },
                           body:JSON.stringify({
                             "mobilenumber":number,
+                            "type":"auth"
+                          })
+                          
+                    })
+                   
+                    
+                } catch (err){
+                     //dispatch({type: 'LOGIN_FAILED'})
+                     console.log(err)
+                }
+                return result
+    };
+
+}
+export const verifycxotp = (verifyInput:any) => {
+    const { otp ,number} = verifyInput;
+    console.log(otp)
+    console.log(number)
+    return async (dispatch:any)=>{
+                const result ={}
+                try{
+                    const result = await fetch(mobileOtpVerifyApi,{
+                        method:"POST",
+                        headers: {  // these could be different for your API call
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                          },
+                          body:JSON.stringify({
+                            "mobilenumber":number,
+                            "mobileotp":otp,
                             "type":"auth"
                           })
                           
