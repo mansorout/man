@@ -11,7 +11,7 @@ import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-export const VerifyOtp = () => {
+export const VerifySec = () => {
 
   const [OTP, setOTP] = useState<string>("")
 
@@ -34,7 +34,7 @@ export const VerifyOtp = () => {
       margin: "auto",
       width: "100%",
       maxWidth: "550px",
-      padding: "30px 0px",
+      padding: "px 0px",
       transform: "translate(-50%, 0%)",
       left: "50%",
       bottom: "0px",
@@ -78,8 +78,8 @@ footer : {
           Verify OTP
           </Typography>
           <Typography className="VerificationOtp" align="center">
-            Enter the 4 digit verification code 
-            we sent you on your mobile number
+          Enter the 4 digit verification code we sent you on your
+           mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
           </Typography>
 
                      <OtpInput
@@ -87,13 +87,14 @@ footer : {
                 onChange={handleOtpChange}
                 numInputs={4}
                 shouldAutoFocus={true}
-                hasErrored={error?.includes("Login_OTP")}
+                hasErrored={error.includes("Login_OTP")}
                 containerStyle={{
                     display:"flex",
                     justifyContent:"center",
                     alignItems:"center",
-                    margin:"10px",
-                    color:"black"
+                    margin:"35px",
+                    color:"black",
+                    fontSize:"18px"
                 }}
                 inputStyle={{
                     border:"1px solid #dddfe2",
@@ -109,10 +110,10 @@ footer : {
                     border:"1px solid red",
                 }}
                 />
-             
+
                     <OtpVerifyButton otp={OTP}/>
 
-              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
+              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",  transform: "translate(10px, -67px)"}}>Not received the code yet? 
                 <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
                 
               

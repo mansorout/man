@@ -4,12 +4,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import { verifycxotp } from "../../Store/Reducers/action";
-import {store} from "../../Store/Store"
 
 
 
-  const OtpVerifyButton = ({otp} : {otp : string}) => {
+  const SetNewButton = ({otp} : {otp : string}) => {
 
     const style = {
         button : {
@@ -36,12 +34,11 @@ import {store} from "../../Store/Store"
 
         if(otp.length != 4){
             addError("Login_OTP")
-        }else if(otp != otp){
+        }else if(otp != "1234"){
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
             navigate("/otpverified")
-            store.dispatch(verifycxotp({'otp': otp})) 
         }
         
     }
@@ -50,9 +47,9 @@ import {store} from "../../Store/Store"
 
     return (
         <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText">Set New PIN</Typography>
         </Button> 
     )
 };
 
-export default OtpVerifyButton;
+export default SetNewButton;

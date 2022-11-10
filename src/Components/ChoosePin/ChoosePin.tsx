@@ -11,6 +11,8 @@ import { AMFI, IRDA, MonoLogoImage, SBICON } from "../../Assets";
 import ChooseButton from "../../Modules/Buttons/ChooseButton";
 import "../VerifyOtp/VerifyOtp.css";
 import { useSelector } from "react-redux";
+import "../ChoosePin/ChoosePin.css";
+import { Opacity } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 
@@ -96,13 +98,14 @@ footer : {
           In case the biometric doesn’t work, you can quickly
            access the app via PIN to unlock
           </Typography>
+          
           <OtpInput
                      value={OTP}
                      isInputSecure
                 onChange={handleOtpChange}
                 numInputs={4}
                 shouldAutoFocus={true}
-                hasErrored={error.includes("Set_Mpin")}
+                //hasErrored={error.includes("Set_Mpin")}
                 containerStyle={{
                     display:"flex",
                     justifyContent:"center",
@@ -125,7 +128,7 @@ footer : {
                     border:"1px solid red",
                 }}
                 />
-
+             
                     <ChooseButton otp={OTP}/>
 
               <Typography  sx={{ fontSize: "16px", color: " #6c63ff",marginBottom:'55px' }}>Skip 

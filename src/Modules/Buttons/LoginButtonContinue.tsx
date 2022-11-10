@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import {login} from "../../Store/Reducers/action"
-import {store} from "../../Store/Store"
-const ContWithMobile = ({number} : {number : string}) => {
+
+const LoginButtonContinuue = ({number} : {number : string}) => {
 
     const style = {
         button : {
@@ -34,17 +33,16 @@ const ContWithMobile = ({number} : {number : string}) => {
         }else{
             removeError("Login_Contact")
             navigate("/otpverify")
-           store.dispatch(login({'number': number})) 
         }
-       
+        
     }
 
     return (
         <Button variant="contained" style={style.button} fullWidth onClick={() => validateNumber(number)}>
-            <Typography style={style.text} className="largeButtonText">Continue with Mobile Number</Typography>
+            <Typography style={style.text} className="largeButtonText">Continue</Typography>
         </Button>            
     )
 };
 
-export default ContWithMobile;
+export default LoginButtonContinuue;
 
