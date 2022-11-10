@@ -102,7 +102,7 @@ footer : {
                 onChange={handleOtpChange}
                 numInputs={4}
                 shouldAutoFocus={true}
-                hasErrored={error.includes("Set_Mpin")}
+                //hasErrored={error.includes("Set_Mpin")}
                 containerStyle={{
                     display:"flex",
                     justifyContent:"center",

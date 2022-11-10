@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-
+import {login} from "../../Store/Reducers/action"
+import {store} from "../../Store/Store"
 const ContWithMobile = ({number} : {number : string}) => {
 
     const style = {
@@ -33,8 +34,9 @@ const ContWithMobile = ({number} : {number : string}) => {
         }else{
             removeError("Login_Contact")
             navigate("/otpverify")
+           store.dispatch(login({'number': number})) 
         }
-        
+       
     }
 
     return (

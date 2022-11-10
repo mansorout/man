@@ -37,12 +37,12 @@ export const Login = () => {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "center"
     } as React.CSSProperties,
 
     logo : {
       width: "60px",
-      padding: "30px 0px"
+      padding: "30px 0px",
     } as React.CSSProperties,
 
     contactInput : {
@@ -87,7 +87,7 @@ export const Login = () => {
   const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setNumber(e.target.value)
   }
-
+  console.log(number)
   const navigate = useNavigate()
 
   return (
@@ -102,29 +102,29 @@ export const Login = () => {
             Enter your mobile number to continue
           </Typography>
           <TextField
-            sx={{
-              "& .MuiInputLabel-root": {color: '#acb4bf'},
-              "& .MuiOutlinedInput-root": {
-                "& > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
-                "&:hover > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
-                "&.Mui-focused > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiInputLabel-root": {color: '#acb4bf'},
+            //   "& .MuiOutlinedInput-root": {
+            //     "& > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
+            //     "&:hover > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#dddfe2" },
+            //     "&.Mui-focused > fieldset": { borderColor: error.includes("Login_Contact") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
+            //   },
+            // }}
             autoComplete="off"
             style={style.contactInput}
             margin="normal"
             label="Mobile number"
             InputProps = {{
               startAdornment: focus ? <InputAdornment position="start"> +91 - </InputAdornment> : "",
-              endAdornment : error.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
+              //endAdornment : error.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
             }}
             onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
             placeholder="98989 98989"
             onChange={handleMobile}
             onFocus={()=>setFocus(true)}
           />
-          <Typography style={style.errorText} className="error">{error.includes("Login_Contact") ? "Please enter a valid phone number" : ""}</Typography>
-          <ContinueWithMobile number={number}/>
+          {/* <Typography style={style.errorText} className="error">{error.includes("Login_Contact") ? "Please enter a valid phone number" : ""}</Typography> */}
+          <ContinueWithMobile  number={number}/>
           <Divider style={style.divider} orientation="horizontal" flexItem>
             <Typography className="subTitle2">OR</Typography>
           </Divider>
