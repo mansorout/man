@@ -6,6 +6,7 @@ import errorReducer from './Reducers/ErrorReducer'
 import verifyReducer from './Reducers/VerifyReducer'
 
 
+
 const rootReducer = combineReducers({
     error : errorReducer,
     loginReducer: loginReducer,

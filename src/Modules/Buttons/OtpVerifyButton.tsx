@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import { verifycxotp } from "../../Store/Reducers/action";
-import {store} from "../../Store/Store"
+import {store} from "../../Store/Store";
 
 
 
@@ -41,7 +41,7 @@ import {store} from "../../Store/Store"
         }else {
             removeError("Login_OTP")
             navigate("/otpverified")
-            store.dispatch(verifycxotp({'otp': otp})) 
+            store.dispatch(verifycxotp({'otp': otp,'number':number})) 
         }
         
     }
