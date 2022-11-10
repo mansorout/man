@@ -11,4 +11,18 @@ export const SuccessFullOtp = require('./OtpVerified.png')
 export const VerifyOtpLogo = require('./otpverify.png')
 export const SBICON = require('./SBICON.png')
 export const MonoLogoImage = require("./monoLogo.png")
+export const SIP = require("./Card/SIP.png")
+export const InvestNow = require("./Card/InvestNow.png")
+export const BuildWealth = require("./Card/BuildWealth.png")
+export const GetInsured = require("./Card/GetInsured.png")
+export const GetLoan = require("./Card/GetLoan.png")
+export const SaveTax = require("./Card/SaveTax.png")
+export const CardImage1 = require("./undraw_investing_7u74.png")
+export const Star = require("./star_rate-24px.png")
+export const CompanyLogo = require("./Mask Group 6.png");
+export const SuccessPinImage= require('./OtpVerified.png')
+export const Email5803= require('./Email 5803.png')
+export const MonoLogosetpin = require("./monoLogo.png")
+ export const rightsign = require("./Rightsign.png")
+
 

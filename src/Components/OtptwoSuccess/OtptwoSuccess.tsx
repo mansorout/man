@@ -2,23 +2,27 @@ import { Divider, InputAdornment } from "@mui/material";
 import {
   Button,
   Box,
+  TextField,
   Typography,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
-import "./Mpinsuccess.css";
-import React from "react";
-import { AMFI, IRDA ,SuccessFullOtp,SBICON   } from "../../Assets";
+import "./OtptwoSuccess.css";
+import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
+import React, { useState } from "react";
+import { AMFI, ContactError, IRDA ,SuccessFullOtp,SBICON   } from "../../Assets";
+import { useSelector } from "react-redux";
+import OtptwoSuccessButton from "../../Modules/Buttons/OtptwoSuccessButton";
 import { useNavigate } from "react-router-dom";
-import BacktoLogin from "../../Modules/Buttons/BacktoLogin";
 
 
-export const Mpinsuccess = () => {
+export const OtptwoSuccess = () => {
 
   const style = {
     background : {
       height : "100vh",
       backgroundColor:'#f9f9f9',
       width: "100vw"
+      
     } as React.CSSProperties,
 
     container : {
@@ -28,24 +32,22 @@ export const Mpinsuccess = () => {
       width: "100%",
       maxWidth: "550px",
       padding: "30px 0px",
-      transform: "translate(-50%, 0%)",
+      transform: "translate(-50%, -56%)",
       left: "50%",
       bottom: "0px",
-      borderRadius: "20px 20px 0px 0px",
+      borderRadius: "20px 20px 20px 20px",
       position: "absolute",
       display: "flex",
       flexDirection: "column",
-      alignItems: "space-between",
-      justifyContent: "space-between",
+      alignItems: "center",
+      justifyContent: "center",
+      
     } as React.CSSProperties,
 
     logo : {
       width: "120px",
       marginBottom:'25px',
-      marginLeft: "38%"
     } as React.CSSProperties,
-
-
     sbicon : {
       transform: "translate(302%, -44px)",
       width:'284.6px',
@@ -56,7 +58,6 @@ export const Mpinsuccess = () => {
       Opacity:'0.06'
     } as React.CSSProperties,
 
-
     divider : {
       width : "90%",
       maxWidth : "400px",
@@ -64,16 +65,15 @@ export const Mpinsuccess = () => {
       color : "#7b7b9d",
     },
 
-
     footer : {
-      marginTop : "50px",
-      marginLeft: "40%"
+      marginTop : "48%",
+      marginLeft:"44%"
     },
 
     footerLogos : {
       display : "flex",
       gap : "15px",
-      marginLeft: "-4%"
+      
     },
 
     IRDAnAMFI : {
@@ -82,8 +82,6 @@ export const Mpinsuccess = () => {
     },
 
   }
-
-
 
   const navigate = useNavigate();
 
@@ -95,14 +93,17 @@ return (
         <Box style={style.container}>
           <img alt="Money Sprint" src={SuccessFullOtp } style={style.logo} />
           <Typography variant="h1" align="center" className="OtpSuccessfullTitle">
-            Your PIN is set!
+          Your PIN is successfully reset!
           </Typography>
           <Typography variant="h5" align="center" className="OtpSuccessfullDescr">
-          Please use your PIN when logging in.
-          </Typography>
-          <BacktoLogin/>
+          Please use your new PIN when logging in.        
+            </Typography>
+          <OtptwoSuccessButton/>
+      
           
-           <Box style={style.footer}>
+  
+        </Box>
+        <Box style={style.footer}>
             <Box style={style.footerLogos}>
                 <Box style={style.IRDAnAMFI}>
                   <img src={IRDA} width="32px" alt="IRDA" />
@@ -121,7 +122,7 @@ return (
                 </Box>
               </Box>
             </Box>
-            <Box sx={{marginLeft:"30%"}}>
+            <Box marginLeft="40%">
               <Divider style={{margin:"5px 0px"}}/>
               <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
               <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
@@ -130,7 +131,7 @@ return (
               <Typography component="span" className="body1"> and </Typography>
               <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
             </Box>
-        </Box>
+      
       </Box>
       <img alt="logo" src={ SBICON } width="275" height="275" style={{
             position: "absolute",

@@ -1,0 +1,10 @@
+.backgroundImage{
+    /* background-image: linear-gradient(122deg, #f9f9f9 7%, #f9f9f9 107%) !important; */
+    background-color: #f9f9f9;
+
+}
+
+.LoginContainer{
+    height: calc(100vh - 200px);
+    overflow: auto;
+}
