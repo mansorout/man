@@ -87,7 +87,7 @@ export const AccountCreatedWithGoogle = () => {
                 <Typography className="body2" >puneet.malhotra@gmail.com</Typography>
             </Box>  
           </Box>
-          <Button onClick={()=>navigate("/login")} variant="contained" style={style.button} fullWidth>
+          <Button onClick={()=>navigate("/home")} variant="contained" style={style.button} fullWidth>
             <Typography style={style.text} className="largeButtonText">Continue</Typography>
           </Button>
           <Footer/>

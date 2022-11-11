@@ -1,15 +1,14 @@
 
 import { Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import { verifycxotp } from "../../Store/Reducers/action";
-import {store} from "../../Store/Store";
 
 
 
-  const OtpVerifyButton = ({otp, number} : {otp : string, number : string}) => {
+  const PINVerifyButton = ({otp} : {otp : string}) => {
 
     const style = {
         button : {
@@ -31,22 +30,27 @@ import {store} from "../../Store/Store";
     const navigate = useNavigate()
 
     const validateOTP = (otp : string) => {
+
         if(otp.length != 4){
-            addError("Login_OTP")
+            addError("Log_PIN")
+        }else if(otp != localStorage.getItem("mpin")){
+            addError("Log_PIN")
         }else {
             removeError("Login_OTP")
-            store.dispatch(verifycxotp({'otp': otp,'number':number})) 
             localStorage.setItem("loggedin","true")
-            navigate("/otpverified")
+            localStorage.removeItem("mpin")
+            navigate("/home")
         }
         
     }
 
-return (
-        <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
+
+
+    return (
+        <Button variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
         </Button> 
     )
 };
 
-export default OtpVerifyButton;
+export default PINVerifyButton;
