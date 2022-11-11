@@ -64,12 +64,12 @@ export const verifycxotp = (verifyInput:any) => {
                           },
                           body:JSON.stringify({
                             "mobilenumber":number,
-                            "mobileotp":otp,
+                            "otp":otp,
                             "type":"auth"
                           })
                           
-                    })
-                    console.log(result, "result")
+                    }).then((res)=>{console.log(res)})
+                    // console.log(result, "result")
                 } catch (err){
                      //dispatch({type: 'LOGIN_FAILED'})
                      console.log(err)

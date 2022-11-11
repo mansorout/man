@@ -14,6 +14,7 @@ import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
 import  {Setpin} from './Components/SetNewPin/Setpin';
 import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
+import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/accountholder" element={<HolderSignature/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
