@@ -41,9 +41,7 @@ import {store} from "../../Store/Store";
         
     }
 
-
-
-    return (
+return (
         <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
         </Button> 
