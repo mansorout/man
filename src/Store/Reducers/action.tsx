@@ -1,6 +1,8 @@
 import * as t from './actionTypes'
 import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
+import OtpVerifyButton from '../../Modules/Buttons/OtpVerifyButton'
+import {store} from "../../Store/Store";
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -36,7 +38,7 @@ export const login = (loginInput:any) => {
                             "type":"auth"
                           })
                           
-                    })
+                    }).then((res)=>{console.log(res);})
                    
                     
                 } catch (err){
@@ -44,6 +46,8 @@ export const login = (loginInput:any) => {
                      console.log(err)
                 }
                 return result
+
+                
     };
 
 }
@@ -68,12 +72,19 @@ export const verifycxotp = (verifyInput:any) => {
                             "type":"auth"
                           })
                           
-                    }).then((res)=>{console.log(res)})
-                    // console.log(result, "result")
-                } catch (err){
+                    
+                    }).then((response) => response.json())
+                    .then((data) => {
+                      console.log('Success:', data.error);
+                      console.log('Success:', data.code);
+                      store.dispatch(OtpVerifyButton({'Success': data.error})) 
+                    })
+                } 
+                catch (err){
                      //dispatch({type: 'LOGIN_FAILED'})
-                     console.log(err)
-                }
-                return result
+                     console.log(err)}
+
+        return result
+                
     };
 }

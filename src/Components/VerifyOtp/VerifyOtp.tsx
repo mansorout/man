@@ -8,7 +8,7 @@ import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
 import {  useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
-
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -57,7 +57,8 @@ export const VerifyOtp = () => {
     } as React.CSSProperties,
   }
 
-  
+  const navigate = useNavigate()
+
   const number : string = useSelector((state : any) => state.contact)
 
   return (

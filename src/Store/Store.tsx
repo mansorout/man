@@ -5,6 +5,7 @@ import loginReducer from './Reducers/LoginReducer'
 import errorReducer from './Reducers/ErrorReducer'
 import verifyReducer from './Reducers/VerifyReducer'
 import contactReducer from './Reducers/ContactReducer'
+import verifyOtpStatusReducer from './Reducers/VerifyOtpStatusReducer'
 
 
 
@@ -12,7 +13,9 @@ const rootReducer = combineReducers({
     error : errorReducer,
     loginReducer: loginReducer,
     verifyReducer: verifyReducer,
-    contact: contactReducer
+    contact: contactReducer,
+    otpResponse:verifyOtpStatusReducer
+
 })
 
 export const store = createStore(

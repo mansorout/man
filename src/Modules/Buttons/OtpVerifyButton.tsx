@@ -9,7 +9,7 @@ import {store} from "../../Store/Store";
 
 
 
-  const OtpVerifyButton = ({otp, number} : {otp : string, number : string}) => {
+  const OtpVerifyButton = ({otp, number} : {otp : string, number : string,}) => {
 
     const style = {
         button : {
@@ -49,4 +49,4 @@ return (
     )
 };
 
-export default OtpVerifyButton;
+export default OtpVerifyButton
