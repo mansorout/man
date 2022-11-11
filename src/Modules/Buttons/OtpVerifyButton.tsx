@@ -40,6 +40,7 @@ import {store} from "../../Store/Store"
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
+            localStorage.setItem("loggedin","true")
             navigate("/otpverified")
             store.dispatch(verifycxotp({'otp': otp})) 
         }
