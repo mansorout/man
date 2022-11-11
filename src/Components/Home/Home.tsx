@@ -1,8 +1,8 @@
 
 import './Home.css'
 import { Box, styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import { Grid, Modal, Typography } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList,  List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
@@ -10,12 +10,12 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Menu, MenuItem, Theme,  useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import {Ad1, Ad1_1, Ad1_2, Ad2, Logo, Profile, SIP} from '../../Assets/index'
-import FinancialFreedom from '../../Modules/Cards/FinancialFreedom'
-import StartInvestingCard from '../../Modules/Cards/StartInvestingCard'
+import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
+import StartInvestingCard from '../../Modules/CustomCard/StartInvestingCard'
 import { investingCards } from '../../Modal/investingCards'
 import { largeCards } from '../../Modal/largeCards'
-import LargeCards from '../../Modules/Cards/LargeCards'
-import CompanyFundCard from '../../Modules/Cards/CompanyFundCard'
+import LargeCards from '../../Modules/CustomCard/LargeCards'
+import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
 import { companyCards } from '../../Modal/companyCards'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(

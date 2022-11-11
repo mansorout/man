@@ -13,7 +13,7 @@ const ContWithMobile = ({number} : {number : string}) => {
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
-            margin: "15px",
+            marginBottm: "10px",
             width:"90%",
             maxWidth:"400px",
         } as React.CSSProperties,

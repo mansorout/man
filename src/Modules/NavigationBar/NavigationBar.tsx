@@ -9,7 +9,7 @@ const Header = () => {
       backgroundColor:'white',
       width:'100%',
       height:'64px',
-      position:'static',
+      position:'fixed',
       zIndex:"10000"
     } as React.CSSProperties,
     image : {
