@@ -8,7 +8,7 @@ const Reducers = combineReducers({
     money : moneyReducer,
     error : errorReducer,
     contact : contactReducer,
-    otpResponse : verifyOtpStatusReducer 
+    // otpResponse : verifyOtpStatusReducer 
 })
 
 export default Reducers;

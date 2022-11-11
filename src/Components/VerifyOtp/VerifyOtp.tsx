@@ -4,7 +4,7 @@ import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
 import { VerifyOtpLogo,SBICON } from "../../Assets";
-import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
+import {OtpVerifyButton} from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
 import {  useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";

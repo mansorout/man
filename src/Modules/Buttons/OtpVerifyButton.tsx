@@ -1,6 +1,7 @@
 
 import { Button, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
@@ -9,8 +10,10 @@ import {store} from "../../Store/Store";
 
 
 
-  const OtpVerifyButton = ({otp, number} : {otp : string, number : string,}) => {
+ export const OtpVerifyButton = ({otp, number} : {otp : string, number : string}) => {
+    const [otpResponse,setOtpResponse]=useState<null | string>()
 
+  
     const style = {
         button : {
             height: "48px",
@@ -29,18 +32,41 @@ import {store} from "../../Store/Store";
     const dispatch = useDispatch()
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
     const navigate = useNavigate()
+    const response:any=useSelector((state)=>state)
+    useEffect(()=>{
+        setTimeout(()=>{
+            store.dispatch(verifycxotp({'otp': otp,'number':number}))
+        },0)
+        setOtpResponse(response.otpResponse.error)
 
+        
+    },[otpResponse])
+     
+   
+    console.log(response.otpResponse)
+    console.log(otpResponse)
+      
+     
+     
     const validateOTP = (otp : string) => {
+        
+        
+        setOtpResponse(response.otpResponse.error)
         if(otp.length != 4){
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
             store.dispatch(verifycxotp({'otp': otp,'number':number})) 
             localStorage.setItem("loggedin","true")
-            navigate("/otpverified")
+            if( otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!"){
+                  navigate("/otpverified")
+            }else{
+                navigate("/otpverify")
+            }
         }
         
     }
+   
 
 return (
         <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
@@ -49,4 +75,7 @@ return (
     )
 };
 
-export default OtpVerifyButton
+ 
+
+
+    

@@ -1,15 +1,11 @@
 
-type prop = {
-    type : any,
-    payload : any
-}
+const initialState:any=[]
 
-const verifyOtpStatusReducer = (state : string = '', action : prop) => {
-    if (action.type === 'VerifyOtpStatus') {
-        return action.payload
-    }else {
-        return state
-    }
+export default function(state = initialState, action:any) {
+  switch (action.type) {
+    case 'LOGIN_SUCCESS':
+      return action.payload 
+    default:
+      return state;
+  }
 }
-
-export default verifyOtpStatusReducer;

@@ -1,8 +1,6 @@
 import * as t from './actionTypes'
 import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
-import OtpVerifyButton from '../../Modules/Buttons/OtpVerifyButton'
-import {store} from "../../Store/Store";
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -21,9 +19,9 @@ const SET_VERIFY_STATE =(verifyData:any)=>{
 
 
 
+
 export const login = (loginInput:any) => {
     const { number } = loginInput;
-    // console.log(number)
     return async (dispatch:any)=>{
                 const result ={}
                 try{
@@ -38,11 +36,10 @@ export const login = (loginInput:any) => {
                             "type":"auth"
                           })
                           
-                    }).then((res)=>{console.log(res);})
+                    })
                    
                     
                 } catch (err){
-                     //dispatch({type: 'LOGIN_FAILED'})
                      console.log(err)
                 }
                 return result
@@ -53,8 +50,7 @@ export const login = (loginInput:any) => {
 }
 export const verifycxotp = (verifyInput:any) => {
     const { otp ,number} = verifyInput;
-    
-    
+
     return async (dispatch:any)=>{
         console.log(number, "number")
         console.log(otp, "otp")
@@ -75,9 +71,12 @@ export const verifycxotp = (verifyInput:any) => {
                     
                     }).then((response) => response.json())
                     .then((data) => {
-                      console.log('Success:', data.error);
-                      console.log('Success:', data.code);
-                      store.dispatch(OtpVerifyButton({'Success': data.error})) 
+                      console.log(data.error)
+                      dispatch({
+                        type:'LOGIN_SUCCESS',
+                        payload:data
+                      })
+                        
                     })
                 } 
                 catch (err){
@@ -85,6 +84,9 @@ export const verifycxotp = (verifyInput:any) => {
                      console.log(err)}
 
         return result
-                
     };
+
+    
 }
+
+ 
