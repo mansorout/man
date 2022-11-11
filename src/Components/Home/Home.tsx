@@ -9,7 +9,7 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme,  useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import {Ad1, Ad1_1, Ad1_2, Ad2, Logo, Profile, SIP} from '../../Assets/index'
+import {Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP} from '../../Assets/index'
 import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
 import StartInvestingCard from '../../Modules/CustomCard/StartInvestingCard'
 import { investingCards } from '../../Modal/investingCards'
@@ -17,6 +17,10 @@ import { largeCards } from '../../Modal/largeCards'
 import LargeCards from '../../Modules/CustomCard/LargeCards'
 import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
 import { companyCards } from '../../Modal/companyCards'
+import { useNavigate } from 'react-router-dom'
+import OtpInput from 'react-otp-input'
+import { useSelector } from 'react-redux'
+import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -131,13 +135,31 @@ function Home() {
     },
     appBar: {
       backgroundColor : "white",
-    }
+    },
+    modalContainer : {
+      borderRadius: "8px",
+      padding:"20px",
+      boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
+      backgroundColor: "#fff",
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center",
+      flexDirection:"column",
+      position:"absolute",
+      top:"50%",
+      left:"50%",
+      transform:"translate(-50%,-50%)"
+    } as React.CSSProperties,
+    logo : {
+      width: "50px",
+      padding: "20px 0px",
+    } as React.CSSProperties,
+
   }
 
   const [open, setOpen] = useState<boolean>(false)
 
   const menuActions = React.useRef<MenuUnstyledActions>(null);
-
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
@@ -151,14 +173,31 @@ function Home() {
 
   const refContainer = useRef();
 
+  const navigate = useNavigate();
+
+  const [mpin, setMpin] = useState<string | null>()
+  const [openModal, setOpenModal] = useState<boolean>(true)
+
+  const handleLoad = () => {
+    setMpin(localStorage.getItem("mpin"));
+    setOpen(true)
+  }
+
+  const [OTP, setOTP] = useState<string>("")
+
+  const handleOtpChange = (otp:any) => {
+    setOTP(otp)   
+  }
+
+  const error : string[] = useSelector((state : any) => state.error)
+
   return (
       <Box style={{width: "100vw"}} ref={refContainer}>
-
         <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
           <Toolbar style={style.toolbar}>
             <Box>
               <MenuRounded onClick={()=>setOpen(!open)} sx={{color: "#8787a2", display : {sx: "block", sm: "none"}, marginRight: "20px"}}/>
-              <img src={Logo} alt="Sprint Money" style={style.image} />
+              <img onClick={()=>navigate("/home")} src={Logo} alt="Sprint Money" style={style.image} />
             </Box>
             <Box onClick={handleClick} style={style.profileContainer}>
               <img src={Profile} alt="image" style={style.profile} />
@@ -264,8 +303,9 @@ function Home() {
                     <ListItemText primary="Explore Funds" sx={{ color:"#3c3e42", fontSize:{sm:"10px", md:"16px"} }} />
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding sx={{ display: 'block',  position:"fixed", width:{ sx: "0%", sm: "8.333%", md : "16.666%"}, bottom:"0"}}>
+                <ListItem  disablePadding sx={{ display: 'block',  position:"fixed", width:{ sx: "0%", sm: "8.333%", md : "16.666%"}, bottom:"0"}}>
                   <ListItemButton
+                    onClick={()=>console.log("Clicked")}
                     sx={{
                       minHeight: 56,
                       px: 2.5,
@@ -448,6 +488,46 @@ function Home() {
             </Grid>
           </Grid>
         </Box>
+        <Modal open={openModal} onClose={()=>setOpenModal(false)}>
+          <Box style={style.modalContainer}>
+            <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
+            <Typography textAlign="center" variant='h5' >Hi, Rahul Malhotra</Typography>
+            <Typography textAlign="center" variant='h4' >Verify 4-digit PIN</Typography>
+            <OtpInput
+            value={OTP}
+            onChange={handleOtpChange}
+            numInputs={4}
+            shouldAutoFocus={true}
+            hasErrored={error?.includes("Log_PIN")}
+            containerStyle={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center",
+                margin:"10px",
+                color:"black"
+            }}
+            inputStyle={{
+                border:"1px solid #dddfe2",
+                borderRadius:"4px",
+                padding:"10px",
+                margin:"10px",
+                width:"30px",
+                height:"30px",
+                color:"black",
+                boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
+            }}
+            errorStyle={{
+                border:"1px solid red",
+            }}
+          />
+          <Typography textAlign="center" variant='caption' >Please enter PIN here</Typography>
+          <div style={{width:"90%"}} onClick={()=>setOpenModal(false)}>
+            <PINVerifyButton  otp={OTP}/>
+          </div>
+          <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>
+          <span onClick={()=>navigate("/setnewpin")} className="textLink" style={{fontSize: "14px", cursor:"pointer"}} >Forgot PIN?</span></Typography>
+          </Box>
+        </Modal>
       </Box>
   )
 }
