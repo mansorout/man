@@ -15,6 +15,9 @@ import  {Setpin} from './Components/SetNewPin/Setpin';
 import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
 
+import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
+import Nominee from './Components/BankAccountDetails/Nominee';
+
 
 
 
@@ -40,6 +43,8 @@ function App() {
           <Route path="/setnewpin" element={<Setpin/>} />
           <Route path="/verifysec" element={<VerifySec/>} />
           <Route path="/Otptwosuccess" element={<OtptwoSuccess/>} />
+          <Route path="/bad" element={<BankAccountDetails />} />
+          <Route path="/nominee" element={<Nominee />} />
         </Routes>
     </>
   );
