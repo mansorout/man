@@ -2,7 +2,7 @@ import "./HolderSignature.css";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState } from "react";
-import SignatureCanvas from "react-signature-canvas";
+import SignaturePad from "react-signature-canvas";
 import {
   Drawer as DrawerList,
   List,
@@ -53,10 +53,10 @@ function HolderSignature() {
   //Signature Canvas
   const [imageURL, setImageURL] = useState(null);
   const sigCanvas: any = useRef({});
-const clear = () => sigCanvas.current.clear();
-  const save = () =>
+  const clear = () => sigCanvas.current.clear();
+  const setSignature = () => {
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-
+  };
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -107,16 +107,14 @@ const clear = () => sigCanvas.current.clear();
       color: "#919eb1",
     },
 
-    
-
     dividerBox: {
-      opacity:"0.5",
+      opacity: "0.5",
       width: "100%",
       height: "1px",
       padding: ".5px",
       backgroundColor: "#acb4bf",
     },
-   
+
     signatureContainer: {
       backgroundColor: "#fff",
       // backgroundColor: "red",
@@ -566,53 +564,92 @@ const clear = () => sigCanvas.current.clear();
             sm={11}
             md={10}
           >
+            <Stack
+              sx={{
+                width: "120vh",
+                height: "30px",
+                margin: "66px 32px 2px",
+                padding: "8px 16px",
+                backgroundColor: " #6c63ff",
+              }}
+            >
+              <Typography className="subTitle4">
+                Signature is mandatory to setup an investment account and for a
+                redemption request.
+              </Typography>
+            </Stack>
+
             <Box
               display="flex"
               justifyContent="center"
               alignItems="center"
-              minHeight="100vh"
               sx={{ marginInline: "auto" }}
             >
               <Paper
-                style={{ marginTop:"125px",height: "74vh", width: "120vh", background: "#fff",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)",borderRadius:'8px' }}
+                style={{
+                  // marginTop: "125px",
+                  height: "74vh",
+                  width: "120vh",
+                  background: "#fff",
+                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                  borderRadius: "8px",
+                }}
               >
-                <Stack style={{height:"48px"}}>
-                  <Typography sx={{width:"274px",marginBlock:"auto"}} className="largeButtonText">
+                <Stack style={{ height: "48px" }}>
+                  <Typography
+                    sx={{ width: "274px", marginBlock: "auto" }}
+                    className="largeButtonText"
+                  >
                     Add Account Holder Signature
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
                 <Box>
-                <SignatureCanvas 
-                   backgroundColor="pink"
-                  penColor="green"
-                  canvasProps={{
-                    width: 960,
-                    height: 400,
-                    className: "sigCanvas",
-                  }}
-                />
-                </Box>
-                
-                <Box textAlign="center">
-                <Stack style={style.dividerBox}></Stack>
-                  <SaveAndAddButton />
-                  </Box>
-                  <Stack sx={{marginTop:"24px"}}>
-                    <Typography component="span" className="subTitle2">Signature provided here will be used on official documents</Typography>
-                    </Stack>
-                {imageURL ? (
-                  <img
-                    src={imageURL}
-                    alt="my signature"
-                    style={{
-                      display: "block",
-                      margin: "0 auto",
-                      border: "1px solid black",
-                      width: "150px",
+                  <SignaturePad
+                    ref={sigCanvas}
+                    backgroundColor="white"
+                    penColor="black"
+                    canvasProps={{
+                      width: 960,
+                      height: 330,
+                      className: "sigCanvas",
                     }}
-                  />
-                ) : null}
+                  />{imageURL ? (
+                    <Box>
+                      <img
+                      src={imageURL}
+                      alt="my signature"
+                      style={{
+                        display: "block",
+                        margin: "0 auto",
+                        width: "314",
+                      }}
+                    />
+                    </Box>
+                  ) : null}
+                  <Box textAlign="center" onClick={clear}>
+                    <Button
+                      sx={{
+                        backgroundColor: "rgba(0, 0, 0, 0.05)",
+                        bordeRadius: "25px",
+                        marginBottom:'32px',
+                        height:"45px"
+                      }}
+                    >
+                      CLEAR & TRY AGAIN
+                    </Button>
+                  </Box>
+                </Box>
+
+                <Box textAlign="center" onClick={setSignature}>
+                  <Stack style={style.dividerBox}></Stack>
+                  <SaveAndAddButton />
+                </Box>
+                <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
+                  <Typography component="span" className="subTitle2">
+                    Signature provided here will be used on official documents
+                  </Typography>
+                </Stack>
               </Paper>
             </Box>
           </Grid>
