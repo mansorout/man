@@ -6,14 +6,17 @@ import { Button, Typography } from "@mui/material";
 
     const style = {
         button : {
-            padding:'15px 361px 17px 355px',
-            margin:'0 0 24px 73px',
+            
+            // padding:'15px 361px 17px 355px',
+            // margin:'0 0 24px 73px',
+            marginTop:"17px",
             height: "48px",
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
-            width:"90%",
-            maxWidth:"400px"
+            width:"78%",
+            maxWidth:"1280px",
+            minWidth:"120px"
         } as React.CSSProperties,
         text : {
             color: "white"
