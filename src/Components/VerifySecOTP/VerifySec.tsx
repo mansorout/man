@@ -113,7 +113,7 @@ footer : {
 
                     <OtpVerifyButton otp={OTP}/>
 
-              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",  transform: "translate(10px, -67px)"}}>Not received the code yet? 
+              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",  transform: "translate(10px, -20px)"}}>Not received the code yet? 
                 <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
                 
               

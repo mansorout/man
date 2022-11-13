@@ -25,4 +25,57 @@ export const Email5803= require('./Email 5803.png')
 export const MonoLogosetpin = require("./monoLogo.png")
  export const rightsign = require("./Rightsign.png")
 
+ export const emaillogo = require("./Profile/email-24px.png")
+ export const cakelogo = require("./Profile/cakelogo.png")
+export const icbirthplacelogo = require("./Profile/icbirthplacelogo.png")
+export const locationlogo= require("./Profile/locationlogo.png")
+export const ic_income= require("./Profile/ic_income.png")
+export const wclogo= require("./Profile/wclogo.png")
+export const cameraIcon = require("./Profile/cameraIcon.png")
+
+
+
+
+
+
+
+  export const AccountBalancelogo = require("./Profile/AccountBalancelogo.png")
+  export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
+//  export const locklogo= require("./Profile/locklogo.png")
+  export const paymentslogo= require("./Profile/paymentslogo.png")
+//  export const iccancelledchequelogo= require("./Profile/iccancelledchequelogo.png")
+//  export const checkcirclelogo= require("./Profile/checkcirclelogo.png")
+  export const accountboxlogo= require("./Profile/accountboxlogo.png")
+//  export const wclogo= require("./Profile/wclogo-24px.png")
+  // export const icinfologo= require("./Profile/icinfologo.png")
+  // export const iclogo= require("./Profile/Iclogo.png")
+    export const arrowlogo= require("./Profile/Arrowlogo.png")
+    export const Locklogo=require("./Profile/locklogo.png")
+    export const chequelogo=require("./Profile/Chequelogo.png")
+    export const Checkcirclelogo = require("./Profile/checkcirclelogo-24px.png")
+    export const arrowForwedlogo = require("./Profile/ArrowForwedlogo.png")
+
+    export const Logoici= require("./Profile/Logoici.png")
+    export const circlechecklogo=require("./Profile/Circlrchecklogo.png")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
