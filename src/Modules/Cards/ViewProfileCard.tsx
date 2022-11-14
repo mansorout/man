@@ -67,11 +67,10 @@ function ViewProfileCard() {
         ca: {
             // borderRadius: "170px 175px 175px 163px",
             backgroundColor: "#64dbff",
-            width: "30px",
-            height: "30px",
-            padding: "7px",
+            width: "20px",
+            height: "20px",
+            padding: "10px",
             opacity: "0.9",
-            float: 'left'
 
             // width: '80px',
             // height: '80px',
@@ -102,7 +101,7 @@ function ViewProfileCard() {
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
                 }}
             >
-                <List sx={{}}  >
+                <List>
                     <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
 
                     <ListItem
@@ -116,33 +115,11 @@ function ViewProfileCard() {
 
                     <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500px" }}>Personal Details</Typography>
 
-
-                    <ListItem  >
-                        <ListItemAvatar>
-                            <Avatar>
-
-                            </Avatar>
-                        </ListItemAvatar>
-
-
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Mobile Number</Typography>
-
-                            }
-                            secondary="+91 98250 98250"
-                        />
-
-                    </ListItem>,
-
-
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
 
-                            </IconButton>
-                        }
+
                     >
+
                         <ListItemAvatar>
                             <Avatar>
                                 <Avatar
@@ -151,25 +128,36 @@ function ViewProfileCard() {
                                     style={style.ca}
 
                                 />
-
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Email Address</Typography>
-                            }
-
-                        />
-                    </ListItem>,
+                        <Typography sx={{ fontSize: "14px" }}>Mobile Number
+                            <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
+                        </Typography>
+                    </ListItem>
 
 
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
 
 
-                            </IconButton>
-                        }
+                    >
+
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Avatar
+                                    alt=""
+                                    src={emaillogo}
+                                    style={style.ca}
+
+                                />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <Typography sx={{ fontSize: "14px" }}>Email Address
+                        </Typography>
+                    </ListItem>
+
+
+                    <ListItem
+
                     >
                         <ListItemAvatar>
                             <Avatar>
@@ -202,7 +190,7 @@ function ViewProfileCard() {
                                     style={style.ca}
 
                                 />
-                                <Typography sx={{ marginLeft: "19px" }}>Gender</Typography>
+                                <Typography sx={{ marginLeft: "19px", }}>Gender</Typography>
 
 
 
@@ -212,7 +200,7 @@ function ViewProfileCard() {
                         }
 
                     >
-                        <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
+
                         <ListItemAvatar>
                             <Avatar>
                                 <Avatar
@@ -223,7 +211,7 @@ function ViewProfileCard() {
                                 />
                             </Avatar>
                         </ListItemAvatar>
-
+                        <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
                     </ListItem>
 
                     <ListItem

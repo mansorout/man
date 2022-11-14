@@ -56,11 +56,10 @@ function VviewprofileCard() {
         ca: {
             // borderRadius: "170px 175px 175px 163px",
             backgroundColor: "#64dbff",
-            width: "30px",
-            height: "30px",
-            padding: "7px",
+            width: "20px",
+            height: "20px",
+            padding: "10px",
             opacity: "0.9",
-            float: 'left'
         } as React.CSSProperties,
         // ellipse:{
         //     width:" 40px",
@@ -97,18 +96,12 @@ function VviewprofileCard() {
 
                     <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>KYC Details</Typography>
                     <Typography sx={{ color: "#7b7b9d", fontSize: "12px" }} >Details once saved cannot be edited</Typography>
-                    {/* 
-                    margin: 0px;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 300;
-    font-size: 0.86rem;
-    line-height: 1.5;
-    letter-spacing: 0.00938em;
-    display: block; */}
+                 
 
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">
+
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
 
                                 <Avatar
@@ -116,6 +109,8 @@ function VviewprofileCard() {
                                     src={arrowlogo}
                                     sx={{ width: "24px", height: "24px" }}
                                 />
+
+
 
                             </IconButton>
                         }
@@ -128,25 +123,65 @@ function VviewprofileCard() {
                                     style={style.ca}
 
                                 />
-
-
                             </Avatar>
                         </ListItemAvatar>
+                        <ListItemText
+                            primary={
+                                <Typography sx={{ fontSize: "14px" }}>PAN Number
+                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+
+                                </Typography>
+                            }
+
+                        />
+                    </ListItem>
 
 
-                        <ListItemText primary={
-                            <Typography sx={{ fontSize: "14px" }}>PAN Number</Typography>
-
-                        }>
-
-                            <img src={Logoici} style={{ backgroundColor: "red", color: 'red' }} alt="ss" />
-                        </ListItemText>
 
 
 
-                    </ListItem>,
 
 
+                    <ListItem
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete">
+
+                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+
+                                <Avatar
+                                    alt=""
+                                    src={arrowlogo}
+                                    sx={{ width: "24px", height: "24px" }}
+                                />
+
+
+
+                            </IconButton>
+                        }
+                    >
+                        <ListItemAvatar>
+                            <Avatar>
+                                <Avatar
+                                    alt=""
+                                    src={familyrestroomlogo}
+                                    style={style.ca}
+
+                                />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={
+                                <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations
+                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+
+                                </Typography>
+                            }
+
+                        />
+                    </ListItem>
+
+
+{/* 
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">
@@ -174,11 +209,14 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations</Typography>
+                                <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations
+                       <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px" }} />
+
+                                </Typography>
                             }
 
                         />
-                    </ListItem>,
+                    </ListItem>, */}
 
 
                     <ListItem
@@ -208,7 +246,10 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Account Holder Signature</Typography>
+                                <Typography sx={{ fontSize: "14px" }}>Account Holder Signature
+                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px" }} />
+
+                                </Typography>
                             }
 
                         />
@@ -245,7 +286,10 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Bank Account</Typography>
+                                <Typography sx={{ fontSize: "14px" }}>Bank Account
+                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+
+                                </Typography>
                             }
 
                         />
@@ -253,13 +297,15 @@ function VviewprofileCard() {
                     <VerificationpendingButton />
                 </List>
             </Box>
+
+
             <Box
                 sx={{
                     p: 1,
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
                 }}
             >
-                <List  >
+                <List>
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">
@@ -286,7 +332,10 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Cancelled Cheque</Typography>
+                                <Typography sx={{ fontSize: "14px" }}>Cancelled Cheque
+                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px"}} />
+
+                                </Typography>
                             }
 
                         />

@@ -55,11 +55,10 @@ function CcompletedviewprofileCard() {
         ca: {
             // borderRadius: "170px 175px 175px 163px",
             backgroundColor: "#64dbff",
-            width: "30px",
-            height: "30px",
-            padding: "7px",
+            width: "20px",
+            height: "20px",
+            padding: "10px",
             opacity: "0.9",
-            float: 'left'
         } as React.CSSProperties,
         // ellipse:{
         //     width:" 40px",
@@ -86,6 +85,44 @@ function CcompletedviewprofileCard() {
 
                 <Typography sx={{fontWeight:"500",fontSize:"14px"}} >KYC Details</Typography>
                 <Typography sx={{color:"#7b7b9d",fontSize:"14px"}}>Details once saved cannot be edited</Typography>
+
+
+
+
+
+                <ListItem
+                  
+                >
+                    <ListItemAvatar>
+                        <Avatar>
+                            <Avatar
+                                alt=""
+                                src={accountboxlogo}
+                                style={style.ca}
+
+                            />
+                        </Avatar>
+                    </ListItemAvatar>
+
+                    <ListItemIcon
+                        sx={{
+                            margin: '2px 4px 0 0',
+                            minWidth: 0,
+                            mr: 1,
+                            justifyContent: 'center',
+                        }}
+                    >
+
+                        <CheckCircleIcon sx={{ color: "#23db7b", marginTop: "22px" }} />
+                    </ListItemIcon>
+                    <ListItemText primary="PAN Number" secondary="DUDPS1755G" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+
+   
+                </ListItem>
+
+
+
+{/*                 
                 <ListItem>
                     <ListItemAvatar>
                         <Avatar>
@@ -102,19 +139,30 @@ function CcompletedviewprofileCard() {
                         }}
                     >
 
-                        {/* <CheckCircleIcon sx={{ color: "#23db7b", marginTop: "22px" }} /> */}
                     </ListItemIcon>
                     <CheckCircleIcon sx={{ color: "#23db7b", marginTop: "30px"}} />
                     
                     <ListItemText primary="PAN Number" secondary="DUDPS1755G" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                     
-                </ListItem>,
-                <ListItem
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                            <Avatar src={arrowlogo} sx={{ width: "24px", height: "24px" }} />
-                        </IconButton>
-                    }
+                </ListItem>, */}
+
+
+
+
+<ListItem
+  secondaryAction={
+    <IconButton edge="end" aria-label="delete">
+
+
+        <Avatar
+            alt=""
+            src={arrowlogo}
+            sx={{ width: "24px", height: "24px" }}
+        />
+
+    </IconButton>
+}
+                 
                 >
                     <ListItemAvatar>
                         <Avatar>
@@ -124,8 +172,6 @@ function CcompletedviewprofileCard() {
                                 style={style.ca}
 
                             />
-
-
                         </Avatar>
                     </ListItemAvatar>
 
@@ -140,8 +186,13 @@ function CcompletedviewprofileCard() {
 
                         <CheckCircleIcon sx={{ color: "#23db7b", marginTop: "22px" }} />
                     </ListItemIcon>
-                    <ListItemText primary="Nominee & Declarations" secondary="Added Successfully" sx={{ color: "#3c3e42", fontSize:"14px"}} />
-                  </ListItem>,
+                    <ListItemText primary="Nominee & Declarations" secondary="Added Successfully" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+
+   
+                </ListItem>
+
+
+
 
 
                 <ListItem
@@ -196,7 +247,7 @@ function CcompletedviewprofileCard() {
                     secondaryAction={
                         <IconButton edge="end" aria-label="delete">
 
-                            <Typography sx={{ color: "#6c63ff" ,fontSize:"14px"}}>Add </Typography>
+                            <Typography sx={{ color: "#6c63ff" ,fontSize:"14px"}}>ADD </Typography>
 
                             <Avatar
                                 alt=""

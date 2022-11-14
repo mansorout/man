@@ -58,11 +58,10 @@ function CompletedViewProfileCard() {
         },
         ca: {
             backgroundColor: "#64dbff",
-            width: "30px",
-            height: "30px",
-            padding: "7px",
+            width: "20px",
+            height: "20px",
+            padding: "10px",
             opacity: "0.9",
-            float: 'left'
         } as React.CSSProperties,
 
 
@@ -93,28 +92,38 @@ function CompletedViewProfileCard() {
 
                     <Typography sx={{ marginLeft: "25px", marginTop: "-18px" }}>Personal Details</Typography>
 
+                    <ListItem
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete" >
 
-                    <ListItem>
+
+                            </IconButton>
+                        }
+                    >
                         <ListItemAvatar>
-                            <Avatar >
+                            <Avatar>
+                                <Avatar
+                                    alt=""
+                                    src={emaillogo}
+                                    style={style.ca}
 
-
+                                />
 
                             </Avatar>
                         </ListItemAvatar>
-
-
                         <ListItemText
                             primary="Mobile Number"
-                            secondary="+91 98250 98250"
+                            secondary="91 98250 98250"
+
                         />
+                    </ListItem>
+             
 
-                    </ListItem>,
 
 
-                    <ListItem
+<ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" >
 
 
                             </IconButton>
@@ -136,7 +145,8 @@ function CompletedViewProfileCard() {
                             secondary="rahul.malhotra@gmail.com"
 
                         />
-                    </ListItem>,
+                    </ListItem>
+
 
 
                     <ListItem
@@ -178,11 +188,11 @@ function CompletedViewProfileCard() {
 
                                 />
 
-                                {/* <Typography>Gender</Typography> */}
-                                {/* <Typography>Male</Typography> */}
+                          
                                 <ListItemText
                                     primary="Gender"
                                     secondary="Male"
+                                    sx={{marginLeft:'20px'}}
 
                                 />
 
