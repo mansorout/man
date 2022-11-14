@@ -605,9 +605,8 @@ function UploadCheck() {
             >
               <Paper
                 style={{
-                  marginTop:"50px",
-                  marginBottom: "62px",
-                  height: "74vh",
+                  
+                  height: "64vh",
                   width: "120vh",
                   // height: "685px",
                   // width: "1008px",
@@ -625,41 +624,34 @@ function UploadCheck() {
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
+                
+                    <Box 
+               sx={{backgroundColor:'red',height:"238px",width:"564px",margin:"auto",marginTop:"55px"}}></Box>
+                    
+                  
                 <Box >
                   
-                  <Box sx={{height:"330px",width:"330"}}>
-                    
-                  </Box>
                   
-                  {imageURL ? (
-                    <Box>
-                      <img
-                      src={imageURL}
-                      alt="my signature"
-                      style={{
-                        display: "block",
-                        margin: "0 auto",
-                        width: "314",
-                      }}
-                    />
-                    </Box>
-                  ) : null}
-                 <Box textAlign="center" onClick={clear}>
+                  
+                  
+                 <Box textAlign="center" sx={{ margin:"30px 0px 2px 0px"}} onClick={clear}>
+
                     <Button
                       sx={{
-                        backgroundColor: "rgba(0, 0, 0, 0.05)",
+                        backgroundColor: "#00b4ff",
                         bordeRadius: "25px",
-                        marginBottom:'32px',
-                        height:"45px"
+                        height:"45px",
+                        width:"150px",
+                        borderRadius:"32px"
+                       
                       }}
                     >
-                      <Typography >UPLOAD CHECK</Typography>
+                      <Typography className="subTitle4" >UPLOAD CHECK</Typography>
                     </Button>
                   </Box> 
                 </Box>
 
                 <Box textAlign="center" onClick={setSignature}>
-                  {/* <Stack style={style.dividerBox}></Stack> */}
                   <SaveAndAddButton />
                 </Box>
                 
@@ -668,13 +660,13 @@ function UploadCheck() {
             </Box>
 
             <Box textAlign="center" sx={{
-                marginLeft:'30px',
+                margin:"auto",
                 width: "304px"
                 }}>
-                  <Typography component="span" className="subTitle2">
-                  By submitting these details, you are agree to share your details to BSE for further transactions
-                   Terms and conditions
+                  <Typography component="span" className="bottomContentText ">
+                  By submitting these details, you are agree to share your details to BSE for further transactions <br/>
                   </Typography>
+                  <Typography component="span"style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
                 </Box>
             </Grid>
         </Grid>

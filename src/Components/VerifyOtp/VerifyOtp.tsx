@@ -9,7 +9,8 @@ import "../VerifyOtp/VerifyOtp.css";
 import {  useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
 import { useNavigate } from "react-router-dom";
-
+import { verifycxotp } from "../../Store/Reducers/action";
+import {store} from "../../Store/Store"
 
 
 export const VerifyOtp = () => {
@@ -17,7 +18,12 @@ export const VerifyOtp = () => {
   const [OTP, setOTP] = useState<string>("")
 
   const handleOtpChange = (otp:any) => {
-    setOTP(otp)   
+    setOTP(otp) 
+    if(otp.length === 4){
+      store.dispatch(verifycxotp({'otp': otp,'number':number}))   
+    localStorage.setItem("loggedin","true")
+    }
+    
   }
 
   const error : string[] = useSelector((state : any) => state.error)

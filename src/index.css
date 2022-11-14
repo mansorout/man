@@ -154,6 +154,11 @@ h6 {
   font-weight: 500 !important;
   color: var(--typeLightBlackColor) !important;
 }
+.bottomContentText {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--typeIndigoColor) !important;
+}
 
 .mediumButtonText {
   font-size: 14px !important;

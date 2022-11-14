@@ -55,6 +55,7 @@ function HolderSignature() {
   const [imageURL, setImageURL] = useState(null);
   const [signValue,setSignValue] = useState<boolean>(false);
   const [hidecontent,setHideContent]= useState<boolean>(true)
+  const [disable,setDisable]=useState<boolean>(true);
 
   useEffect(() => {
     //setHideContent(false)
@@ -633,7 +634,7 @@ function HolderSignature() {
                     ref={sigCanvas}
                     backgroundColor="white"
                     penColor="black"
-                    onBegin={()=>{setHideContent(false)}}
+                    onBegin={()=>{setHideContent(false),setDisable(false)}}
                     canvasProps={{
                       width: 900,
                       height: 330,
@@ -668,12 +669,12 @@ function HolderSignature() {
                   </Box> }
                 </Box>
 
-                {
-                  hidecontent ? "" : <Box textAlign="center" onClick={setSignature}>
+                <Box style={ disable ? { pointerEvents: "none",opacity: "0.7"} : {}}
+                    textAlign="center" onClick={setSignature}>
                   <Stack style={style.dividerBox}></Stack>
                   <SaveAndAddButton />
                 </Box>
-                }
+                
                 <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
                   <Typography component="span" className="subTitle2">
                     Signature provided here will be used on official documents
@@ -690,18 +691,6 @@ function HolderSignature() {
 
 export default HolderSignature;
 
-<Stack sx={{
-                // margin: "24px 0px 0px ",64.5px
-                width: "304px",
-                // margin: "75px 383px 27px 140px",
-                textAlign:"center"
-                // color: "#7b7b9d"
-                }}>
-                  <Typography component="span" className="subTitle2">
-                  By submitting these details, you are agree to share your details to BSE for further transactions
-                   Terms and conditions
-                  </Typography>
-                </Stack>
 
 
 
@@ -715,76 +704,4 @@ export default HolderSignature;
 
 
 
-{/* <Grid
-            container
-            sx={{
-              height: "100vh",
-              overflow: "scroll",
-              backgroundColor: "#f9f9f9",
-            }}
-            xs={13}
-            sm={11}
-            md={10}
-          >
-            <Stack
-              sx={{
-                width: "120vh",
-                height: "30px",
-                margin: "66px 32px 2px",
-                padding: "8px 16px",
-                backgroundColor: " #6c63ff",
-              }}
-            >
-              <Typography className="subTitle4">
-                Signature is mandatory to setup an investment account and for a
-                redemption request.
-              </Typography>
-            </Stack>
 
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ marginInline: "auto" }}
-            >
-              <Paper
-                style={{
-                  // marginTop: "125px",
-                  height: "74vh",
-                  width: "120vh",
-                  background: "#fff",
-                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  borderRadius: "8px",
-                }}
-              >
-                <Stack style={{ height: "48px" }}>
-                  <Typography
-                    sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeButtonText"
-                  >
-                    Add Account Holder Signature
-                  </Typography>
-                </Stack>
-                <Stack style={style.dividerBox}></Stack>
-                <Box>
-                  
-                  <SignaturePad
-                    ref={sigCanvas}
-                    backgroundColor="white"
-                    penColor="black"
-                    canvasProps={{
-                      width: 900,
-                      height: 330,
-                      className: "sigCanvas",
-                    }}
-                  />
-                
-                </Box>
-                  <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
-                  <Typography component="span" className="subTitle2">
-                    Signature provided here will be used on official documents
-                  </Typography>
-                </Stack>
-              </Paper>
-            </Box>
-          </Grid> */}
