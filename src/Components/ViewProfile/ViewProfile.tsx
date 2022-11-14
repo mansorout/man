@@ -42,8 +42,6 @@ function ViewProfile() {
     },
   }));
 
-
-
   const style = {
     main: {
       boxSizing: "border-box",
