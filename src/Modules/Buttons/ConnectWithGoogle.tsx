@@ -11,7 +11,6 @@ import { GoogleLogo } from "../../Assets";
             height: "48px",
             borderRadius: "8px",
             backgroundColor: "white",
-            margin: "15px",
             border: "1px solid #23db7b",
             boxShadow: "0 4px 8px 0 white",
             width:"90%",

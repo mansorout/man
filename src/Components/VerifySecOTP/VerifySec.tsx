@@ -1,14 +1,13 @@
 
-import { Divider } from "@mui/material";
 import {Box,Typography} from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
-import { AMFI, IRDA, VerifyOtpLogo,SBICON } from "../../Assets";
-import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
+import { VerifyOtpLogo,SBICON } from "../../Assets";
 import "../VerifyOtp/VerifyOtp.css";
 import {  useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Footer from "../../Modules/Footer/Footer";
+import VerifySecButton from "../../Modules/Buttons/VerifySecButton";
 
 
 export const VerifySec = () => {
@@ -23,63 +22,50 @@ export const VerifySec = () => {
 
   const style = {
     background : {
-      backgroundColor:'#f9f9f9',
+      backgroundColor:"#f9f9f9",
       height : "100vh",
-      width : "100vw"
+      width: "100vw",
+      display:"flex",
+      flexDirection:"column",
+      boxSizing:"border-box",
+      justifyContent:"flex-end",
+      alignItems:"center",
     } as React.CSSProperties,
 
     container : {
-      boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-      backgroundColor: "#fff",
-      margin: "auto",
+      backgroundColor: "white",
       width: "100%",
-      maxWidth: "550px",
-      padding: "px 0px",
-      transform: "translate(-50%, 0%)",
-      left: "50%",
-      bottom: "0px",
-      borderRadius: "8px 8px 0px 0px",
-      position: "absolute",
+      maxWidth: "500px",
+      padding: "10px 0px",
+      borderRadius: "20px 20px 0px 0px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
+      transform: "translate(-50%, 0%)",
+      left: "50%",
+      bottom: "0px",
+      position: "absolute"
     } as React.CSSProperties,
 
     logo : {
       width: "72px",
-      margin: "30px 0px"
+      margin: "20px 0px"
     } as React.CSSProperties,
-
-footer : {
-      marginTop : "50px",
-    },
-
-    footerLogos : {
-      display : "flex",
-      gap : "15px"
-    },
-
-    IRDAnAMFI : {
-      display: "flex",
-      alignItem : "center"
-    },
-
   }
 
-  const navigate = useNavigate()
   return (
     <>
       <Box  style={style.background}>
-      <NavigationBar />
+        <NavigationBar />
         <Box style={style.container}>
           <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
-          <Typography variant="h1" align="center">
-          Verify OTP
+          <Typography mb={1} variant="h1" align="center">
+            Verify OTP
           </Typography>
-          <Typography className="VerificationOtp" align="center">
-          Enter the 4 digit verification code we sent you on your
-           mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
+          <Typography mb={2} style={{maxWidth:"70%"}} className="VerificationOtp" align="center">
+          Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
           </Typography>
 
                      <OtpInput
@@ -152,8 +138,8 @@ footer : {
       <img alt="logo" src={ SBICON } width="275" height="275" style={{
             position: "absolute",
             right: "0px",
-            top: "65px"
-            }}/>
+            top: "65px" }}
+      />
     </>
   );
 };

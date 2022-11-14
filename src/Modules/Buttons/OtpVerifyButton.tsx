@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
+import { verifycxotp } from "../../Store/Reducers/action";
+import {store} from "../../Store/Store"
 
 
 
@@ -34,11 +36,13 @@ import { ActionCreators } from "../../Store";
 
         if(otp.length != 4){
             addError("Login_OTP")
-        }else if(otp != "1234"){
+        }else if(otp != otp){
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
+            localStorage.setItem("loggedin","true")
             navigate("/otpverified")
+            store.dispatch(verifycxotp({'otp': otp})) 
         }
         
     }

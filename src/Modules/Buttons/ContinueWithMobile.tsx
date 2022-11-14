@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-
+import {login} from "../../Store/Reducers/action"
+import {store} from "../../Store/Store"
 const ContWithMobile = ({number} : {number : string}) => {
 
     const style = {
@@ -12,7 +13,7 @@ const ContWithMobile = ({number} : {number : string}) => {
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
-            margin: "15px",
+            marginBottm: "10px",
             width:"90%",
             maxWidth:"400px",
         } as React.CSSProperties,
@@ -33,8 +34,9 @@ const ContWithMobile = ({number} : {number : string}) => {
         }else{
             removeError("Login_Contact")
             navigate("/otpverify")
+           store.dispatch(login({'number': number})) 
         }
-        
+       
     }
 
     return (
