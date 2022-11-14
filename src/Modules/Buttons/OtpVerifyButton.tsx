@@ -61,8 +61,8 @@ import {store} from "../../Store/Store";
             if( otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!"){
                   navigate("/otpverified")
             }else{
-                navigate("/otpverify")
-            }
+                addError("Login_OTP")
+                }
         }
         
     }

@@ -53,9 +53,13 @@ function HolderSignature() {
   //Signature Canvas
   const [imageURL, setImageURL] = useState(null);
   const sigCanvas: any = useRef({});
-  const clear = () => sigCanvas.current.clear();
+  const clear = () => {
+    sigCanvas.current.clear()
+    setImageURL(null)
+  }
   const setSignature = () => {
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+    
   };
 
   const useStyles: any = makeStyles((theme: Theme) => ({
@@ -605,12 +609,13 @@ function HolderSignature() {
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
                 <Box>
+                  
                   <SignaturePad
                     ref={sigCanvas}
                     backgroundColor="white"
                     penColor="black"
                     canvasProps={{
-                      width: 960,
+                      width: 900,
                       height: 330,
                       className: "sigCanvas",
                     }}
