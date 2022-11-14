@@ -605,11 +605,12 @@ function UploadCheck() {
             >
               <Paper
                 style={{
-                  // marginTop: "125px",
+                  marginTop:"50px",
+                  marginBottom: "62px",
+                  height: "74vh",
+                  width: "120vh",
                   // height: "685px",
                   // width: "1008px",
-                  height: "60.5vh",
-                  width: "120vh",
                   background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
@@ -620,45 +621,62 @@ function UploadCheck() {
                     sx={{ width: "274px", marginBlock: "auto" }}
                     className="largeButtonText"
                   >
-                    Add Cancelled Cheque
+                    Add Account Holder Signature
                   </Typography>
                 </Stack>
-                {/* <Stack style={style.dividerBox}></Stack> */}
-                <Box>
-                  <Button sx={{height:"45px",width: "174px",margin:'55px 318px 30px 229px',padding:'15px 22px 14px 23px',
-                borderRadius:"23px",backgroundColor:"rgba(0, 0, 0, 0.05)"}}>
-                    <Typography sx={{fontSize:'14px',color:'#6c63ff'}}>
-                    Clear & Try Again
-                    </Typography>
-                      </Button>
+                <Stack style={style.dividerBox}></Stack>
+                <Box >
+                  
+                  <Box sx={{height:"330px",width:"330"}}>
+                    
                   </Box>
+                  
+                  {imageURL ? (
+                    <Box>
+                      <img
+                      src={imageURL}
+                      alt="my signature"
+                      style={{
+                        display: "block",
+                        margin: "0 auto",
+                        width: "314",
+                      }}
+                    />
+                    </Box>
+                  ) : null}
+                 <Box textAlign="center" onClick={clear}>
+                    <Button
+                      sx={{
+                        backgroundColor: "rgba(0, 0, 0, 0.05)",
+                        bordeRadius: "25px",
+                        marginBottom:'32px',
+                        height:"45px"
+                      }}
+                    >
+                      <Typography >UPLOAD CHECK</Typography>
+                    </Button>
+                  </Box> 
+                </Box>
+
                 <Box textAlign="center" onClick={setSignature}>
-                  <Stack style={style.dividerBox}></Stack>
+                  {/* <Stack style={style.dividerBox}></Stack> */}
                   <SaveAndAddButton />
                 </Box>
-                </Paper>
+                
+                
+              </Paper>
             </Box>
 
             <Box textAlign="center" sx={{
                 marginLeft:'30px',
-                // margin: "24px 0px 0px ",64.5px
-                width: "304px",
-                // margin: "75px 383px 27px 140px",
-                
-                // color: "#7b7b9d"
+                width: "304px"
                 }}>
                   <Typography component="span" className="subTitle2">
                   By submitting these details, you are agree to share your details to BSE for further transactions
                    Terms and conditions
                   </Typography>
                 </Box>
-            {/* <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
-                  <Typography component="span" className="subTitle2">
-                    Signature provided here will be used on official documents
-                  </Typography>
-                </Stack> */}
-
-          </Grid>
+            </Grid>
         </Grid>
       </Box>
     </Box>
