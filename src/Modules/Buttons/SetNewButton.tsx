@@ -38,7 +38,7 @@ import { ActionCreators } from "../../Store";
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            navigate("/verifysec")
+            navigate("/otpverified")
         }
         
     }

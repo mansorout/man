@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
@@ -12,6 +12,7 @@ const LoginButtonContinuue = ({number} : {number : string}) => {
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
+            margin: "15px",
             width:"90%",
             maxWidth:"400px",
         } as React.CSSProperties,
@@ -31,7 +32,7 @@ const LoginButtonContinuue = ({number} : {number : string}) => {
             addError("Login_Contact")
         }else{
             removeError("Login_Contact")
-            navigate("/home")
+            navigate("/otpverify")
         }
         
     }

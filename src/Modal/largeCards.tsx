@@ -12,5 +12,6 @@ export const largeCards = [
         Heading: "Save Tax",
         Text: "Save up to ₹1.5 lakh by investing in ELSS mutual funds",
         Img: SaveTax
-    }
+    },
+  
 ]

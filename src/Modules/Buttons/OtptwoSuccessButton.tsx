@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
             margin: "15px",
             width:"90%",
             maxWidth:"400px",
+             transform:"translate(0px, -44px)"
         } as React.CSSProperties,
         text : {
             color: "white"

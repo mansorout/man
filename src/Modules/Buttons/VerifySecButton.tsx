@@ -7,7 +7,7 @@ import { ActionCreators } from "../../Store";
 
 
 
-  const VerifySecButton = ({otp} : {otp : string}) => {
+  const OtpVerifyButton = ({otp} : {otp : string}) => {
 
     const style = {
         button : {
@@ -15,8 +15,10 @@ import { ActionCreators } from "../../Store";
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
+            margin: "57px",
             width:"90%",
             maxWidth:"400px",
+            transform: "translate(10px, -84px)"
         } as React.CSSProperties,
         text : {
             color: "white"
@@ -37,7 +39,7 @@ import { ActionCreators } from "../../Store";
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            navigate("/Otptwosuccess")
+            navigate("/otpverified")
         }
         
     }
@@ -51,4 +53,4 @@ import { ActionCreators } from "../../Store";
     )
 };
 
-export default VerifySecButton;
+export default OtpVerifyButton;

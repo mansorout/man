@@ -36,7 +36,6 @@ import { ActionCreators } from "../../Store";
             addError("Set_Mpin")
         }else {
             removeError("Set_Mpin")
-            localStorage.setItem("mpin",otp)
             navigate("/successpin")
         }
         

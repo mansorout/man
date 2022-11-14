@@ -1,9 +1,10 @@
-import { Box, Button, Divider, Toolbar, Typography } from "@mui/material";
+import { Box, Container, Grid, Button, Divider, Typography } from "@mui/material";
 
 import { SBIcon } from "../../Assets"
 import { FC } from 'react';
 
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
+import { Mail } from "@mui/icons-material";
 
 
 
@@ -55,7 +56,7 @@ const style = {
     return (
         <Box style={style.background}>
             <NavigationBar />
-            <Toolbar/>
+            
             <Box style={style.wrapper}>
                 <Box style={style.container}>
                     <Typography component="h4" style={{margin:"10px 0px"}}>Terms and Conditions</Typography>

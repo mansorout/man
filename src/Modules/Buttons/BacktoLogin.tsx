@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
+            margin: "15px,17px",
             width:"90%",
-            maxWidth:"400px"
+            maxWidth:"400px",
+            marginLeft: "14%"
         } as React.CSSProperties,
         text : {
             color: "white"
@@ -22,7 +24,7 @@ import { useNavigate } from "react-router-dom";
     const navigate = useNavigate()
 
     return (
-        <Button onClick={()=>navigate("/loginsecond")} variant="contained" style={style.button} fullWidth>
+        <Button onClick={()=>navigate("/login")} variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Back to Login</Typography>
         </Button> 
     )
