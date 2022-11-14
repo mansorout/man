@@ -49,6 +49,9 @@ import {store} from "../../Store/Store";
      
      
     const validateOTP = (otp : string) => {
+        if(response.otpResponse.error){
+            alert("get data")
+        }
         
         
         setOtpResponse(response.otpResponse.error)

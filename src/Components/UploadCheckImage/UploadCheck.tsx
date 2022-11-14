@@ -1,4 +1,4 @@
-import "./HolderSignature.css";
+import "./UploadCheck.css";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState,useEffect } from "react";
@@ -50,7 +50,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
-function HolderSignature() {
+function UploadCheck() {
   //Signature Canvas
   const [imageURL, setImageURL] = useState(null);
   const [signValue,setSignValue] = useState<boolean>(false);
@@ -593,151 +593,7 @@ function HolderSignature() {
               }}
             >
               <Typography className="subTitle4">
-                Signature is mandatory to setup an investment account and for a
-                redemption request.
-              </Typography>
-            </Stack>
-
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ marginInline: "auto" }}
-            >
-              <Paper
-                style={{
-                  marginTop:"50px",
-                  marginBottom: "62px",
-                  height: "74vh",
-                  width: "120vh",
-                  // height: "685px",
-                  // width: "1008px",
-                  background: "#fff",
-                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  borderRadius: "8px",
-                }}
-              >
-                <Stack style={{ height: "48px" }}>
-                  <Typography
-                    sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeButtonText"
-                  >
-                    Add Account Holder Signature
-                  </Typography>
-                </Stack>
-                <Stack style={style.dividerBox}></Stack>
-                <Box >
-                  
-                  <SignaturePad
-                    
-                    ref={sigCanvas}
-                    backgroundColor="white"
-                    penColor="black"
-                    onBegin={()=>{setHideContent(false)}}
-                    canvasProps={{
-                      width: 900,
-                      height: 330,
-                      className: "sigCanvas",
-                
-                    }}
-                  />
-                  {imageURL ? (
-                    <Box>
-                      <img
-                      src={imageURL}
-                      alt="my signature"
-                      style={{
-                        display: "block",
-                        margin: "0 auto",
-                        width: "314",
-                      }}
-                    />
-                    </Box>
-                  ) : null}
-                 {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
-                    <Button
-                      sx={{
-                        backgroundColor: "rgba(0, 0, 0, 0.05)",
-                        bordeRadius: "25px",
-                        marginBottom:'32px',
-                        height:"45px"
-                      }}
-                    >
-                      CLEAR & TRY AGAIN
-                    </Button>
-                  </Box> }
-                </Box>
-
-                {
-                  hidecontent ? "" : <Box textAlign="center" onClick={setSignature}>
-                  <Stack style={style.dividerBox}></Stack>
-                  <SaveAndAddButton />
-                </Box>
-                }
-                <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
-                  <Typography component="span" className="subTitle2">
-                    Signature provided here will be used on official documents
-                  </Typography>
-                </Stack>
-              </Paper>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
-  );
-}
-
-export default HolderSignature;
-
-<Stack sx={{
-                // margin: "24px 0px 0px ",64.5px
-                width: "304px",
-                // margin: "75px 383px 27px 140px",
-                textAlign:"center"
-                // color: "#7b7b9d"
-                }}>
-                  <Typography component="span" className="subTitle2">
-                  By submitting these details, you are agree to share your details to BSE for further transactions
-                   Terms and conditions
-                  </Typography>
-                </Stack>
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <Grid
-            container
-            sx={{
-              height: "100vh",
-              overflow: "scroll",
-              backgroundColor: "#f9f9f9",
-            }}
-            xs={13}
-            sm={11}
-            md={10}
-          >
-            <Stack
-              sx={{
-                width: "120vh",
-                height: "30px",
-                margin: "66px 32px 2px",
-                padding: "8px 16px",
-                backgroundColor: " #6c63ff",
-              }}
-            >
-              <Typography className="subTitle4">
-                Signature is mandatory to setup an investment account and for a
-                redemption request.
+              Cancelled cheque is used for KYC procedures and to facilitate an electronic clearing system (ECS) mandate.
               </Typography>
             </Stack>
 
@@ -750,7 +606,9 @@ export default HolderSignature;
               <Paper
                 style={{
                   // marginTop: "125px",
-                  height: "74vh",
+                  // height: "685px",
+                  // width: "1008px",
+                  height: "60.5vh",
                   width: "120vh",
                   background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -762,29 +620,49 @@ export default HolderSignature;
                     sx={{ width: "274px", marginBlock: "auto" }}
                     className="largeButtonText"
                   >
-                    Add Account Holder Signature
+                    Add Cancelled Cheque
                   </Typography>
                 </Stack>
-                <Stack style={style.dividerBox}></Stack>
+                {/* <Stack style={style.dividerBox}></Stack> */}
                 <Box>
-                  
-                  <SignaturePad
-                    ref={sigCanvas}
-                    backgroundColor="white"
-                    penColor="black"
-                    canvasProps={{
-                      width: 900,
-                      height: 330,
-                      className: "sigCanvas",
-                    }}
-                  />
-                
+                  <Button sx={{height:"45px",width: "174px",margin:'55px 318px 30px 229px',padding:'15px 22px 14px 23px',
+                borderRadius:"23px",backgroundColor:"rgba(0, 0, 0, 0.05)"}}>
+                    <Typography sx={{fontSize:'14px',color:'#6c63ff'}}>
+                    Clear & Try Again
+                    </Typography>
+                      </Button>
+                  </Box>
+                <Box textAlign="center" onClick={setSignature}>
+                  <Stack style={style.dividerBox}></Stack>
+                  <SaveAndAddButton />
                 </Box>
-                  <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
+                </Paper>
+            </Box>
+
+            <Box textAlign="center" sx={{
+                marginLeft:'30px',
+                // margin: "24px 0px 0px ",64.5px
+                width: "304px",
+                // margin: "75px 383px 27px 140px",
+                
+                // color: "#7b7b9d"
+                }}>
+                  <Typography component="span" className="subTitle2">
+                  By submitting these details, you are agree to share your details to BSE for further transactions
+                   Terms and conditions
+                  </Typography>
+                </Box>
+            {/* <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
                   <Typography component="span" className="subTitle2">
                     Signature provided here will be used on official documents
                   </Typography>
-                </Stack>
-              </Paper>
-            </Box>
-          </Grid> */}
+                </Stack> */}
+
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
+}
+
+export default UploadCheck;

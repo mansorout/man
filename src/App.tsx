@@ -15,6 +15,7 @@ import  {Setpin} from './Components/SetNewPin/Setpin';
 import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
+import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/accountholder" element={<HolderSignature/>} />
+          <Route path="/uploadCheck" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
