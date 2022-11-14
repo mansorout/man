@@ -2158,6 +2158,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/gapi@^2.0.27-alpha":
+  version "2.0.27-alpha"
+  resolved "https://registry.yarnpkg.com/@types/gapi/-/gapi-2.0.27-alpha.tgz#6cf5f6a503bc2c5e92066a508d543766f477f2e2"
+  integrity sha512-OJbp6KlO5ErpJDr1pyl934JwrHOb8bG4jc9jKTionL41h9VNXojGAwW3ifc64uavLXSjNFSAZB/PAT3ijS8ACg==
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -8942,6 +8947,11 @@ tryer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
+
+ts-react-google-login-component@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/ts-react-google-login-component/-/ts-react-google-login-component-1.1.9.tgz#529b9694d5bc2d0ebdd1b16d72dc39a752a01bd4"
+  integrity sha512-1Qu10q+LrXUvpFChyKfveIWB+iDQSYTvFvcgPDNJUiwSqqlLoZRXDS3TuHjOG/eZhhy3f3YxzidabluKh2/rjw==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"

@@ -17,6 +17,7 @@ import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
+import PanUpdate from './Components/Pan/PanUpdate';
 
 
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/Otptwosuccess" element={<OtptwoSuccess/>} />
           <Route path="/bad" element={<BankAccountDetails />} />
           <Route path="/nominee" element={<Nominee />} />
+          <Route path="/pan_update" element={<PanUpdate />} />
         </Routes>
     </>
   );
