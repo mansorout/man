@@ -67,37 +67,72 @@ export const VerifySec = () => {
           <Typography mb={2} style={{maxWidth:"70%"}} className="VerificationOtp" align="center">
           Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
           </Typography>
-          <OtpInput
-            value={OTP}
-            onChange={handleOtpChange}
-            numInputs={4}
-            shouldAutoFocus={true}
-            hasErrored={error?.includes("Login_OTP")}
-            containerStyle={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                margin:"10px",
-                color:"black"
-            }}
-            inputStyle={{
-                border:"1px solid #dddfe2",
-                borderRadius:"4px",
-                padding:"10px",
-                margin:"10px",
-                width:"30px",
-                height:"30px",
-                color:"black",
-                boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
-            }}
-            errorStyle={{
-                border:"1px solid red",
-            }}
-          />
-          <VerifySecButton otp={OTP}/>
-          <Typography mt={2}  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
-          <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
-          <Footer/>
+
+                     <OtpInput
+                     value={OTP}
+                onChange={handleOtpChange}
+                numInputs={4}
+                shouldAutoFocus={true}
+                hasErrored={error.includes("Login_OTP")}
+                containerStyle={{
+                    display:"flex",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    margin:"35px",
+                    color:"black",
+                    fontSize:"18px"
+                }}
+                inputStyle={{
+                    border:"1px solid #dddfe2",
+                    borderRadius:"4px",
+                    padding:"10px",
+                    margin:"10px",
+                    width:"30px",
+                    height:"30px",
+                    color:"black",
+                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
+                }}
+                errorStyle={{
+                    border:"1px solid red",
+                }}
+                />
+
+                    <OtpVerifyButton otp={OTP}/>
+
+              <Typography  sx={{ fontSize: "14px", color: " #7b7b9d",  transform: "translate(10px, -20px)"}}>Not received the code yet? 
+                <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
+                
+              
+          
+          
+                <Box style={style.footer}>
+            <Box style={style.footerLogos}>
+                <Box style={style.IRDAnAMFI}>
+                  <img src={IRDA} width="32px" alt="IRDA" />
+                  <Box>
+                    <Typography className="caption">IRDA</Typography>
+                    <Typography style={{fontWeight:500}} className="caption">0777</Typography>
+                  </Box>
+                  <Divider style={{marginLeft:"15px"}} orientation="vertical"/>
+                </Box>
+                <Box style={style.IRDAnAMFI}>
+                  <img src={AMFI} width="32px" alt="IRDA" />
+                  <Box>
+                    <Typography className="caption">AMFI</Typography>
+                    <Typography style={{fontWeight:500}} className="caption">150601</Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+            <Box>
+              <Divider style={{margin:"5px 0px"}}/>
+              <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
+              <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
+              <br/>
+              <Typography component="span" onClick={()=>navigate("/TermsandCondition")} style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+              <Typography component="span" className="body1"> and </Typography>
+              <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
+            </Box>
         </Box>
       </Box>
       <img alt="logo" src={ SBICON } width="275" height="275" style={{
