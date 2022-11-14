@@ -88,7 +88,8 @@ export const Login = () => {
   console.log(number)
 
   return (
-      <Box className="background" style={style.background}>
+    
+            <Box className="background" style={style.background}>
         <NavigationBar />
         <Box className="LoginContainer" style={style.container}>
           <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
