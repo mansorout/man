@@ -1,8 +1,16 @@
 import "./UploadCheck.css";
+import { useDebounceEffect } from "./useDebounceEffects";
+import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
-import React, { useRef, useState,useEffect } from "react";
-import SignaturePad from "react-signature-canvas";
+import React, { useRef, useState, useEffect } from "react";
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop,
+} from "react-image-crop";
+
 import {
   Drawer as DrawerList,
   List,
@@ -51,30 +59,77 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function UploadCheck() {
-  //Signature Canvas
-  const [imageURL, setImageURL] = useState(null);
-  const [signValue,setSignValue] = useState<boolean>(false);
-  const [hidecontent,setHideContent]= useState<boolean>(true)
+  const [imgSrc, setImgSrc] = useState("");
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [rotate, setRotate] = useState(0);
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
 
-  useEffect(() => {
-    //setHideContent(false)
-    }, [])
-  
+  const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
-  const sigCanvas: any = useRef({});
-  const clear = () => {
-    sigCanvas.current.clear()
-    setImageURL(null)
-    
+  // const ClearCheck =()=>{
+  //   imgSrc("")
+  // }
+
+  function centerAspectCrop(
+    mediaWidth: number,
+    mediaHeight: number,
+    aspect: number
+  ) {
+    return centerCrop(
+      makeAspectCrop(
+        {
+          unit: "%",
+          width: 90,
+        },
+        aspect,
+        mediaWidth,
+        mediaHeight
+      ),
+      mediaWidth,
+      mediaHeight
+    );
   }
-  const setSignature = () => {
-    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-    
-  };
-  const handleSignature =(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
-        setHideContent(false)
-           alert(event.currentTarget)
+
+  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined); // Makes crop preview update between images.
+      const reader = new FileReader();
+      reader.addEventListener("load", () =>
+        setImgSrc(reader.result?.toString() || "")
+      );
+      reader.readAsDataURL(e.target.files[0]);
+    }
   }
+
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspect));
+    }
+  }
+  useDebounceEffect(
+    async () => {
+      if (
+        completedCrop?.width &&
+        completedCrop?.height &&
+        imgRef.current &&
+        previewCanvasRef.current
+      ) {
+        // We use canvasPreview as it's much faster than imgPreview.
+        canvasPreview(
+          imgRef.current,
+          previewCanvasRef.current,
+          completedCrop,
+          rotate
+        );
+      }
+    },
+    100,
+    [completedCrop, rotate]
+  );
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -568,9 +623,7 @@ function UploadCheck() {
             </List>
           </Grid>
 
-          {
-                
-          }
+          {}
 
           <Grid
             container
@@ -593,7 +646,8 @@ function UploadCheck() {
               }}
             >
               <Typography className="subTitle4">
-              Cancelled cheque is used for KYC procedures and to facilitate an electronic clearing system (ECS) mandate.
+                Cancelled cheque is used for KYC procedures and to facilitate an
+                electronic clearing system (ECS) mandate.
               </Typography>
             </Stack>
 
@@ -605,70 +659,131 @@ function UploadCheck() {
             >
               <Paper
                 style={{
-                  
                   height: "64vh",
                   width: "120vh",
                   // height: "685px",
                   // width: "1008px",
                   background: "#fff",
+                  // backgroundColor: "blue",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
                 }}
               >
+                {/* <Box sx={{backgroundColor:"green",width:"80px",height:"269px",margin:"91px 0 136px 13px"}}></Box> */}
                 <Stack style={{ height: "48px" }}>
                   <Typography
                     sx={{ width: "274px", marginBlock: "auto" }}
                     className="largeButtonText"
                   >
-                    Add Account Holder Signature
+                    Add Cancelled Cheque
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
-                
-                    <Box 
-               sx={{backgroundColor:'red',height:"238px",width:"564px",margin:"auto",marginTop:"55px"}}></Box>
-                    
-                  
-                <Box >
-                  
-                  
-                  
-                  
-                 <Box textAlign="center" sx={{ margin:"30px 0px 2px 0px"}} onClick={clear}>
 
+                <Box sx={{}}>
+                  <Box
+                    sx={{
+                      border: "solid 1px #707070",
+                      backgroundColor: "#fff",
+                      height: "238px",
+                      width: "564px",
+                      margin: "auto",
+                      marginTop: "55px",
+                    }}
+                  >
+                    {/* for image crop */}
+                    {!!imgSrc && (
+                      <ReactCrop
+                        crop={crop}
+                        onChange={(_, percentCrop) => setCrop(percentCrop)}
+                        onComplete={(c) => setCompletedCrop(c)}
+                        aspect={aspect}
+                      >
+                        <img
+                          ref={imgRef}
+                          alt="Crop me"
+                          src={imgSrc}
+                          style={{
+                            width: "564px",
+                            height: "238px",
+                            transform: `rotate(${rotate}deg)`,
+                          }}
+                          onLoad={onImageLoad}
+                        />
+                      </ReactCrop>
+                    )}
+                  </Box>
+                </Box>
+
+                <Box>
+                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
+                    <input
+                      ref={uploadInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={onSelectFile}
+                    />
+                    
                     <Button
+                      onClick={() =>
+                        uploadInputRef.current && uploadInputRef.current.click()
+                      }
                       sx={{
                         backgroundColor: "#00b4ff",
-                        bordeRadius: "25px",
-                        height:"45px",
-                        width:"150px",
-                        borderRadius:"32px"
-                       
+
+                        height: "45px",
+                        width: "150px",
+                        borderRadius: "32px",
                       }}
                     >
-                      <Typography className="subTitle4" >UPLOAD CHECK</Typography>
+                      <Typography className="subTitle4">
+                        UPLOAD CHECK
+                      </Typography>
                     </Button>
-                  </Box> 
+                  </Box>
                 </Box>
 
-                <Box textAlign="center" onClick={setSignature}>
+                <Box textAlign="center">
                   <SaveAndAddButton />
                 </Box>
-                
-                
+                {/* for preview of image */}
+
+                {/* {!!completedCrop && (
+          <canvas
+            ref={previewCanvasRef}
+            style={{
+              border: '1px solid black',
+              objectFit: 'contain',
+              width: completedCrop.width,
+              height: completedCrop.height,
+            }}
+          />
+        )} */}
               </Paper>
             </Box>
 
-            <Box textAlign="center" sx={{
-                margin:"auto",
-                width: "304px"
-                }}>
-                  <Typography component="span" className="bottomContentText ">
-                  By submitting these details, you are agree to share your details to BSE for further transactions <br/>
-                  </Typography>
-                  <Typography component="span"style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
-                </Box>
-            </Grid>
+            <Box
+              textAlign="center"
+              sx={{
+                margin: "auto",
+                width: "304px",
+              }}
+            >
+              
+              <Typography component="span" className="bottomContentText ">
+                By submitting these details, you are agree to share your details
+                to BSE for further transactions <br />
+              </Typography>
+              <Typography
+                component="span"
+                style={{ cursor: "pointer" }}
+                className="textLink"
+              >
+                Terms and conditions
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
       </Box>
     </Box>
