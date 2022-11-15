@@ -1,4 +1,3 @@
-
 import {Box,Typography} from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";

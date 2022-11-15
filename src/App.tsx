@@ -14,6 +14,9 @@ import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
 import  {Setpin} from './Components/SetNewPin/Setpin';
 import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
+import ViewProfile from './Components/ViewProfile/ViewProfile';
+import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
+
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
 import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
@@ -43,7 +46,12 @@ function App() {
           <Route path="/loginsecond" element={<LoginSecond/>} />
           <Route path="/setnewpin" element={<Setpin/>} />
           <Route path="/verifysec" element={<VerifySec/>} />
-          <Route path="/Otptwosuccess" element={<OtptwoSuccess/>} />
+          <Route path="/Otptwosuccess" element={<OtptwoSuccess/>}/>
+          
+          <Route path="/completedview" element={<ProfileCompleted/>} />
+          <Route path="/vp" element={<ViewProfile/>} />
+
+         
         </Routes>
     </>
   );
