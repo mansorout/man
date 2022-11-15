@@ -30,7 +30,6 @@ import { ActionCreators } from "../../Store";
 
     const validateOTP = (otp : string) => {
 
-        console.log(otp)
 
         if(otp.length != 4){
             addError("Set_Mpin")

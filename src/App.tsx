@@ -17,6 +17,8 @@ import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
 import ViewProfile from './Components/ViewProfile/ViewProfile';
 import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
 
+import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
+import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 
 
@@ -31,6 +33,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/accountholder" element={<HolderSignature/>} />
+          <Route path="/uploadCheck" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\

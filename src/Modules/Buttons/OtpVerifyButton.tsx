@@ -1,16 +1,22 @@
 
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import _ from "underscore";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector,shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import { verifycxotp } from "../../Store/Reducers/action";
-import {store} from "../../Store/Store"
+import {store} from "../../Store/Store";
 
 
 
-  const OtpVerifyButton = ({otp} : {otp : string}) => {
-
+ export const OtpVerifyButton = ({otp, number} : {otp : string, number : string}) => {
+    const [otpResponse,setOtpResponse]=useState<null | string>()
+    const [loading , setLoading] = useState<boolean>(true)
+    const [disable , setDisable] = useState<boolean>(true)
+  
     const style = {
         button : {
             height: "48px",
@@ -29,31 +35,67 @@ import {store} from "../../Store/Store"
     const dispatch = useDispatch()
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
     const navigate = useNavigate()
+    
+ 
+   
 
+    
+    const response:any=useSelector((state:any)=>state.otpResponse.status, shallowEqual)
+   
+    setTimeout(()=>{
+       useEffect(()=>{
+         console.log(response)
+            
+        if(response === false){
+            console.log("kkkkkkk")
+            setDisable(false)
+            setLoading(false)
+        }
+       })
+    })
+     
+   
+   
+ 
+      
+   
+     
     const validateOTP = (otp : string) => {
-
-        console.log(otp)
-
+        //store.dispatch(verifycxotp({'otp': otp,'number':number}))
+    
+        
+         
         if(otp.length != 4){
-            addError("Login_OTP")
-        }else if(otp != otp){
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            localStorage.setItem("loggedin","true")
-            navigate("/otpverified")
-            store.dispatch(verifycxotp({'otp': otp})) 
+            // store.dispatch(verifycxotp({'otp': otp,'number':number})) 
+          
+            if( otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!"){
+                  navigate("/otpverified")
+            }else{
+                addError("Login_OTP")
+                }
         }
         
     }
+   
 
-
-
-    return (
-        <Button onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
-        </Button> 
+return (
+      <Button  disabled={disable} onClick={()=>validateOTP(otp)} variant="contained" style={style.button} fullWidth>
+         <LoadingButton 
+    size="small"
+    loading={loading}
+   
+  >
+    <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
+  </LoadingButton>
+      </Button>
+         
     )
 };
 
-export default OtpVerifyButton;
+ 
+
+
+    
