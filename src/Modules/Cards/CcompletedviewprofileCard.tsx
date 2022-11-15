@@ -74,7 +74,7 @@ function CcompletedviewprofileCard() {
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
     return (<>
-        <Box sx={{ p: 1, width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px" }} >
+        <Box sx={{ p: 1, width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px",boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} >
             <List>
                 <ListItem secondaryAction={
                     <Typography sx={{ backgroundColor: "#23db7b", color: "#fff", fontSize: "12px", borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>
@@ -122,29 +122,6 @@ function CcompletedviewprofileCard() {
 
 
 
-{/*                 
-                <ListItem>
-                    <ListItemAvatar>
-                        <Avatar>
-                            <Avatar src={accountboxlogo} style={style.ca} />
-                        </Avatar>
-                    </ListItemAvatar>
-
-                    <ListItemIcon
-                        sx={{
-                            margin: '2px 4px 0 0',
-                            minWidth: 0,
-                            mr: 1,
-                            justifyContent: 'center',
-                        }}
-                    >
-
-                    </ListItemIcon>
-                    <CheckCircleIcon sx={{ color: "#23db7b", marginTop: "30px"}} />
-                    
-                    <ListItemText primary="PAN Number" secondary="DUDPS1755G" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-                    
-                </ListItem>, */}
 
 
 
@@ -298,7 +275,7 @@ function CcompletedviewprofileCard() {
         <Box
             sx={{
                 p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
+                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px",boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
             }}
         >
             <List  >
@@ -333,25 +310,18 @@ function CcompletedviewprofileCard() {
                             justifyContent: 'center',
                         }}
                     >
-                        {/* import WarningIcon from '@mui/icons-material/Warning'; */}
                         <WarningIcon sx={{ color: "#ffc300", marginTop: "22px" }} />
                     </ListItemIcon>
                     <ListItemText primary="Cancelled Cheque" secondary="Verification Pending" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
 
 
-                    {/* <ListItemText
-                        primary="Quick Access Options"
-                        secondary="PIN"
-
-
-                    /> */}
                 </ListItem>
             </List>
         </Box>
         <Box
             sx={{
                 p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
+                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px",boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
             }}
         >
             <Typography sx={{fontSize:'14px', fontWeight:'500'}}>Security Preferences</Typography>
@@ -387,18 +357,12 @@ function CcompletedviewprofileCard() {
                             justifyContent: 'center',
                         }}
                     >
-                        {/* import WarningIcon from '@mui/icons-material/Warning'; */}
                     </ListItemIcon>
                     
                     <ListItemText primary="Quick Access Options" secondary="PIN" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
 
 
-                    {/* <ListItemText
-                        primary="Quick Access Options"
-                        secondary="PIN"
-
-
-                    /> */}
+               
                 </ListItem>
             </List>
         </Box>

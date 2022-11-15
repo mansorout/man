@@ -74,7 +74,8 @@ function CompletedViewProfileCard() {
             <Box
                 sx={{
                     p: 1,
-                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
+                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px"
+                    ,  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
                 }}
             >
                 <List sx={{}}  >
@@ -93,12 +94,7 @@ function CompletedViewProfileCard() {
                     <Typography sx={{ marginLeft: "25px", marginTop: "-18px" }}>Personal Details</Typography>
 
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete" >
 
-
-                            </IconButton>
-                        }
                     >
                         <ListItemAvatar>
                             <Avatar>
@@ -117,17 +113,12 @@ function CompletedViewProfileCard() {
 
                         />
                     </ListItem>
-             
 
 
 
-<ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete" >
 
+                    <ListItem
 
-                            </IconButton>
-                        }
                     >
                         <ListItemAvatar>
                             <Avatar>
@@ -174,33 +165,24 @@ function CompletedViewProfileCard() {
                             (29 Years)"
 
                         />
+                        <Avatar
+                            alt=""
+                            src={wclogo}
+                            style={style.ca}
+
+                        />
+
+                        <ListItemText
+                            primary="Gender"
+                            secondary="Male"
+                            sx={{ marginLeft: '20px' }}
+
+                        />
                     </ListItem>
 
 
 
-                    <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-                                <Avatar
-                                    alt=""
-                                    src={wclogo}
-                                    style={style.ca}
-
-                                />
-
-                          
-                                <ListItemText
-                                    primary="Gender"
-                                    secondary="Male"
-                                    sx={{marginLeft:'20px'}}
-
-                                />
-
-
-
-                            </IconButton>
-                        }
-                    >
+                    <ListItem>
                         <ListItemAvatar>
                             <Avatar>
                                 <Avatar
@@ -219,11 +201,7 @@ function CompletedViewProfileCard() {
                     </ListItem>
 
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
 
-                            </IconButton>
-                        }
                     >
 
                         <ListItemAvatar>

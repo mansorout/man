@@ -4,12 +4,14 @@ import Reducers from './Reducers/index'
 import loginReducer from './Reducers/LoginReducer'
 import errorReducer from './Reducers/ErrorReducer'
 import verifyReducer from './Reducers/VerifyReducer'
+import editprofileReducer from './Reducers/VerifyReducer'
 
 
 const rootReducer = combineReducers({
     error : errorReducer,
     loginReducer: loginReducer,
-    verifyReducer: verifyReducer
+    verifyReducer: verifyReducer,
+    editprofileReducer:editprofileReducer
 })
 
 export const store = createStore(

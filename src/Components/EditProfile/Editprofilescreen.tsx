@@ -1,5 +1,5 @@
 
-import './ViewProfile.css'
+import './Editprofilescreen.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
@@ -12,8 +12,10 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
-import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
+// import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
+// import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
+import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
+import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
 
 
 
@@ -30,7 +32,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function ViewProfile() {
+function Editprofilescreen() {
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -149,7 +151,6 @@ function ViewProfile() {
   const classes = useStyles()
 
   const refContainer = useRef();
- 
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -341,7 +342,6 @@ function ViewProfile() {
                     px: 2.5,
                     my: 2,
                     flexDirection: { sm: "column", md: "row" }
-
                   }}
                 >
                   <ListItemIcon
@@ -379,24 +379,48 @@ function ViewProfile() {
               </ListItem>
             </List>
           </Grid>
-          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
             <Grid container sx={{ display: "flex" }} wrap='nowrap'>
               <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
-                <ViewProfileCard  />
+                <EditprofileCard/>
               </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-                <VviewprofileCard />
+              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
+                <EEditprofileCard />
               </Grid>
+         
 
             </Grid>
+            <Box
+              textAlign="center"
+              sx={{
+                margin: "auto",
+                width: "304px",
+              }}
+            >
+              
+              <Typography component="span" className="bottomContentText ">
+                By submitting these details, you are agree to share your details
+                to BSE for further transactions <br />
+              </Typography>
+              <Typography
+                component="span"
+                style={{ cursor: "pointer" }}
+                className="textLink"
+              >
+                Terms and conditions
+              </Typography>
+            </Box>
 
           </Grid>
+      
         </Grid>
+      
       </Box>
+  
     </Box>
   )
 }
 
-export default ViewProfile
+export default Editprofilescreen

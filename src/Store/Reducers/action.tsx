@@ -16,6 +16,13 @@ const SET_VERIFY_STATE =(verifyData:any)=>{
         payload: verifyData,
     }
 }
+const SET_EDIT_STATE =(verifyData:any)=>{
+    console.log(verifyData)
+    return{
+        type: t.SET_EDIT_STATE,
+        payload: verifyData,
+    }
+}
 
 
 

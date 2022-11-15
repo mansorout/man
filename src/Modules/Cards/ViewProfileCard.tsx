@@ -181,25 +181,7 @@ function ViewProfileCard() {
 
 
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete" >
-
-                                <Avatar
-                                    alt=""
-                                    src={wclogo}
-                                    style={style.ca}
-
-                                />
-                                <Typography sx={{ marginLeft: "19px", }}>Gender</Typography>
-
-
-
-
-                            </IconButton>
-
-                        }
-
-                    >
+                        >
 
                         <ListItemAvatar>
                             <Avatar>
@@ -211,7 +193,29 @@ function ViewProfileCard() {
                                 />
                             </Avatar>
                         </ListItemAvatar>
-                        <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
+                     
+                         <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
+                         <Avatar
+                                    alt=""
+                                    src={wclogo}
+                                    style={style.ca}
+
+                               sx={{marginLeft:'25px'}} />
+                         <ListItemText
+                                    primary="Gender"
+                                    secondary="Male"
+                                    sx={{marginLeft:'20px'}}
+
+                                  
+
+                                />
+                        {/* <Avatar
+                                    alt=""
+                                    src={wclogo}
+                                    style={style.ca}
+
+                                />
+                                <Typography sx={{marginLeft:"2px"}} >Gender</Typography> */} 
                     </ListItem>
 
                     <ListItem

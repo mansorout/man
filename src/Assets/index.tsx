@@ -62,6 +62,14 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
 
     export const Logoici= require("./Profile/Logoici.png")
     export const circlechecklogo=require("./Profile/Circlrchecklogo.png")
+    export const Mylocationicon=require("./Profile/mylocationicon.png")
+    export const manicon=require("./Profile/ManIcon.png")
+    export const girlicon=require("./Profile/GirlIcon.png")
+    export const girliconicon=require("./Profile/GirlIcon-Icon.png")
+
+
+
+
 
 
 
