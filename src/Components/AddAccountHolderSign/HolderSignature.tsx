@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "./HolderSignature.css";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";

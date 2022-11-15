@@ -42,25 +42,8 @@ import {store} from "../../Store/Store";
     
     const response:any=useSelector((state:any)=>state.otpResponse.status, shallowEqual)
    
-    setTimeout(()=>{
-       useEffect(()=>{
-         console.log(response)
-            
-        if(response === false){
-            console.log("kkkkkkk")
-            setDisable(false)
-            setLoading(false)
-        }
-       })
-    })
-     
-   
-   
- 
-      
-   
-     
-    const validateOTP = (otp : string) => {
+    
+     const validateOTP = (otp : string) => {
         //store.dispatch(verifycxotp({'otp': otp,'number':number}))
     
         
@@ -69,7 +52,7 @@ import {store} from "../../Store/Store";
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            // store.dispatch(verifycxotp({'otp': otp,'number':number})) 
+            store.dispatch(verifycxotp({'otp': otp,'number':number})) 
           
             if( otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!"){
                   navigate("/otpverified")
