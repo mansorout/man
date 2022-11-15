@@ -17,10 +17,7 @@ export async function canvasPreview(
 
   const scaleX = image.naturalWidth / image.width
   const scaleY = image.naturalHeight / image.height
-  // devicePixelRatio slightly increases sharpness on retina devices
-  // at the expense of slightly slower render times and needing to
-  // size the image back down if you want to download/upload and be
-  // true to the images natural size.
+ 
   const pixelRatio = window.devicePixelRatio
   // const pixelRatio = 1
 
@@ -39,15 +36,15 @@ export async function canvasPreview(
 
   ctx.save()
 
-  // 5) Move the crop origin to the canvas origin (0,0)
+  // Move the crop origin to the canvas origin (0,0)
   ctx.translate(-cropX, -cropY)
-  // 4) Move the origin to the center of the original position
+  // Move the origin to the center of the original position
   ctx.translate(centerX, centerY)
-  // 3) Rotate around the origin
+  // Rotate around the origin
   ctx.rotate(rotateRads)
-  // 2) Scale the image
+  //  Scale the image
   ctx.scale(scale, scale)
-  // 1) Move the center of the image to the origin (0,0)
+  // Move the center of the image to the origin (0,0)
   ctx.translate(-centerX, -centerY)
   ctx.drawImage(
     image,

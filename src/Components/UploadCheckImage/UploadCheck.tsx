@@ -118,7 +118,7 @@ function UploadCheck() {
         imgRef.current &&
         previewCanvasRef.current
       ) {
-        // We use canvasPreview as it's much faster than imgPreview.
+        // canvasPreview 
         canvasPreview(
           imgRef.current,
           previewCanvasRef.current,
@@ -661,15 +661,11 @@ function UploadCheck() {
                 style={{
                   height: "64vh",
                   width: "120vh",
-                  // height: "685px",
-                  // width: "1008px",
-                  background: "#fff",
-                  // backgroundColor: "blue",
+                 background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
                 }}
               >
-                {/* <Box sx={{backgroundColor:"green",width:"80px",height:"269px",margin:"91px 0 136px 13px"}}></Box> */}
                 <Stack style={{ height: "48px" }}>
                   <Typography
                     sx={{ width: "274px", marginBlock: "auto" }}
