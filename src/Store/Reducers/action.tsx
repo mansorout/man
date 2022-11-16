@@ -69,15 +69,14 @@ export const verifycxotp = (verifyInput:any) => {
                             "otp":otp,
                             "type":"auth"
                           })
-                          
-                    
-                    }).then((response) => response.json())
+                      }).then((response) => response.json())
                     .then((data) => {
-                      console.log(data);
-                      console.log(data.accesstoken)
+                
+                      console.log(data.data.accesstoken);
+                      // console.log(data.userInfo.userdetails.mobilenumber)
                       console.log(data.error)
                       console.log(data.accesstoken)
-                      // localStorage.setItem("accesstoken")
+                      localStorage.setItem("accesstoken",data.data.accesstoken)
                       dispatch({
                         type:'LOGIN_SUCCESS',
                         payload:data
@@ -96,29 +95,24 @@ export const verifycxotp = (verifyInput:any) => {
 }
 export const uploadsignature = (singatureInput:any) => {
     const {signdata} = singatureInput;
-    console.log(signdata)
-
+    let token :any = localStorage.getItem('accesstoken')
     return async (dispatch:any)=>{
-      
-        
-                const result ={}
+      const result ={}
                 try{
                     const result = await fetch(uploadSignatureApi,{
                         method:"POST",
                         headers: {  
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
+                            "Authentication":token
                           },
                           body:JSON.stringify({
-                            "Authentication":"",
-                            "signature":signdata,
-                            
-                          })
-                          
-                    
-                    }).then((response) => response.json())
+                           "signature":signdata,
+                            })
+                        }).then((response) => response.json())
                     .then((data) => {
                       console.log(data.error)
+                      console.log(data)
                       // dispatch({
                       //   type:'SIGNATURE_UPLOAD_SUCCESS',
                       //   payload:data

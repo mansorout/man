@@ -84,29 +84,15 @@ function HolderSignature() {
 
     const convertSignInBase64 =()=>{
       setimageToApi(imageURL)
-      
-      // const data:any = imageURL;
-      // console.log("convert to base 64")
       addSignature(imageToApi)
     store.dispatch(uploadsignature({'signdata': imageURL}))
     }
     
-          
-
-
-  const setSignature = () => {
+      const setSignature = () => {
     setShowSignBox(false)
     setAddsign(false)
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-    alert("set signature to previe")
     };
-     
-  
-  
-  const handleSignature =(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
-        setHideContent(false)
-           alert(event.currentTarget)
-  }
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -691,10 +677,7 @@ function HolderSignature() {
                           </Box>
                         
                       }
-
-                  
-                  
-                 {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
+                {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
                     <Button
                       sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -720,14 +703,8 @@ function HolderSignature() {
                 </Box>
 
                 }
-
                 
-
-               
-
-                
-                
-                <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
+                  <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
                   <Typography component="span" className="subTitle2">
                     Signature provided here will be used on official documents
                   </Typography>
