@@ -1,5 +1,6 @@
 
 import "./HolderSignature.css";
+import { useDispatch } from "react-redux";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState,useEffect } from "react";
@@ -35,6 +36,9 @@ import {
 import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
+import { store } from "../../Store/Store";
+import { uploadsignature } from "../../Store/Reducers/action";
+
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 
@@ -51,28 +55,36 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
+
 function HolderSignature() {
+
+  const dispatch = useDispatch()
   //Signature Canvas
-  const [imageURL, setImageURL] = useState(null);
+  const [imageURL, setImageURL] = useState<any>(null);
   const [signValue,setSignValue] = useState<boolean>(false);
   const [hidecontent,setHideContent]= useState<boolean>(true)
   const [disable,setDisable]=useState<boolean>(true);
+  const {addChequeImage } = bindActionCreators(ActionCreators, dispatch)
 
-  useEffect(() => {
-    //setHideContent(false)
-    }, [])
-  
+ const sigCanvas: any = useRef({});
+    // for clearing the image in box
 
-  const sigCanvas: any = useRef({});
   const clear = () => {
     sigCanvas.current.clear()
     setImageURL(null)
-    
   }
+
+    // for putting the signature in state for posting to api
+
   const setSignature = () => {
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-    
-  };
+    }
+    addChequeImage(imageURL)
+    store.dispatch(uploadsignature({'signdata': imageURL})) 
+  
+  ;
   const handleSignature =(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         setHideContent(false)
            alert(event.currentTarget)

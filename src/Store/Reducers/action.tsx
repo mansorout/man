@@ -1,6 +1,7 @@
 import * as t from './actionTypes'
 import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
+import { uploadSignatureApi } from '../../APIs/apis'
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -50,6 +51,7 @@ export const login = (loginInput:any) => {
 }
 export const verifycxotp = (verifyInput:any) => {
     const { otp ,number} = verifyInput;
+    
 
     return async (dispatch:any)=>{
         console.log(number, "number")
@@ -74,6 +76,47 @@ export const verifycxotp = (verifyInput:any) => {
                       console.log(data.error)
                       dispatch({
                         type:'LOGIN_SUCCESS',
+                        payload:data
+                      })
+                        
+                    })
+                } 
+                catch (err){
+                     //dispatch({type: 'LOGIN_FAILED'})
+                     console.log(err)}
+
+        return result
+    };
+
+    
+}
+export const uploadsignature = (singatureInput:any) => {
+    const {signdata} = singatureInput;
+    console.log(signdata)
+
+    return async (dispatch:any)=>{
+      
+        
+                const result ={}
+                try{
+                    const result = await fetch(uploadSignatureApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                          },
+                          body:JSON.stringify({
+                            "Authentication ":"",
+                            "signature ":"signdata",
+                            
+                          })
+                          
+                    
+                    }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      dispatch({
+                        type:'SIGNATURE_UPLOAD_SUCCESS',
                         payload:data
                       })
                         

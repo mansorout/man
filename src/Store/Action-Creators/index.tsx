@@ -45,4 +45,12 @@ export const addContactNumber = (num:string) => {
         })
     }
 }
+export const addChequeImage = (signdata:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddCheque",
+            payload:signdata
+        })
+    }
+}
  
