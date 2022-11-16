@@ -9,6 +9,9 @@ import { Editprofilebutton } from '../Buttons/Editprofilebutton'
 import { Mylocationicon } from "../../Assets/index";
 import { girlicon} from '../../Assets/index'
 import {girliconicon} from  '../../Assets/index'
+import { manicon } from '../../Assets/index'
+
+
 
 
 
@@ -31,13 +34,14 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
-import { manicon } from '../../Assets/index'
 
 
 
+import { makeStyles } from "@material-ui/core/styles";
 
 import React from 'react'
 import { height, padding } from '@mui/system'
+import { WidthFull } from '@mui/icons-material'
 
 function EEditprofileCard() {
 
@@ -104,123 +108,28 @@ function EEditprofileCard() {
     }
     const { register, handleSubmit } = useForm();
     const onSubmit = () => alert(JSON.stringify(null));
-    const Item = (() => ({
+    const item = (() => ({
 
     }));
-
+    const useStyles = makeStyles(theme => ({
+      root: {
+        flexGrow: 1
+      },
+      paper: {
+        padding: theme.spacing(2),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+        
+      }
+    }));
+    const classes = useStyles();
 
     return (
 
         <>
-            <Box
-                sx={{
-                    p: 1,
-                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px",
-                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    marginLeft:"-30px"
-                }}
-            >
-               <Typography>Gender</Typography>
-               <Box sx={{ '& button': { m: 1 } }}>
- 
-               <div>
-        <Button variant="outlined" size="small" sx={{ backgroundColor:" #fff",  borderRadius: "8px", boxShadow:" 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",   height:" 42px", padding:" 6px 10px 6px 6px"}}>
-        <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-        <Typography sx={{marginLeft:"2px"}} >Male</Typography>
 
-        </Button>
-        <Button variant="outlined" size="medium" sx={{ backgroundColor:" #fff",  borderRadius: "8px", boxShadow:" 0 1px 4px 0 rgba(0, 0, 0, 0.05)",height:" 42px", padding:" 6px 10px 6px 6px"}}>
-        <img src={ girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-      <Typography sx={{marginLeft:"2px"}}>  Female</Typography>
-        </Button>
-        <Button variant="outlined" size="large" sx={{ backgroundColor:" #fff",  borderRadius: "8px", boxShadow:" 0 1px 4px 0 rgba(0, 0, 0, 0.05)",height:" 42px", padding:" 6px 10px 6px 6px"}}>
-        <img src={ girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-<Typography sx={{marginLeft:"2px"}}>        Transgender</Typography>
-        </Button>
-      </div>
-</Box>
-              
-              <form onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: "#ffffff", padding: "-4px" }}>
-         
-              <Stack m={2} spacing={6}>
-              <TextField label="First Name" sx={{marginTop:"2px",width:"423px"}}>
-    
-              <img src={Mylocationicon} width="16px" height="22.6" alt="Google Logo" />
-        </TextField>
-     
-        <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '198px' },
-        marginTop:"60px",
         
-      }}
-      noValidate
-      autoComplete="off"
-      
-
-      
-    >
-      
-      <TextField  select label="City of residence" inputProps={register('Mobilenumber')}  />
-      <TextField select  label="State" inputProps={register('Mobilenumber')} />
-     
     
-    </Box> 
-        <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '198px' },
-        marginTop:"60px",
-        
-      }}
-      noValidate
-      autoComplete="off"
-      
-
-      
-    >
-      
-      <TextField  select label="Pincode" inputProps={register('Mobilenumber')}  />
-      <TextField select  label="Country" inputProps={register('Mobilenumber')} />
-     
-    
-    </Box> 
-
-    
-
-       
-      
-        <TextField label="Income Slab" inputProps={register('emailaddress')}  sx={{marginTop:"7px"}} />
-{/*        
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '198px' },
-        marginTop:"60px",
-        
-      }}
-      noValidate
-      autoComplete="off"
-      
-
-      
-    >
-      
-      <TextField  select label="Mobile Number" inputProps={register('Mobilenumber')}  />
-      <TextField select  label="Mobile Number" inputProps={register('Mobilenumber')} />
-     
-    
-    </Box> */}
-
-             
-
-      
-      </Stack>
-                    <Editprofilebutton />
-                </form>
-
-            </Box>
 
 
         </>
