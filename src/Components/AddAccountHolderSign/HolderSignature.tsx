@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 import "./HolderSignature.css";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
@@ -587,14 +587,14 @@ function HolderSignature() {
           >
             <Stack
               sx={{
-                width: "120vh",
-                height: "30px",
-                margin: "66px 32px 2px",
+                width: "100%",
+                // height: "30px",
+                // margin: "66px 32px 2px",
                 padding: "8px 16px",
                 backgroundColor: " #6c63ff",
               }}
             >
-              <Typography className="subTitle4">
+              <Typography sx={{marginTop:'66px'}} className="subTitle4">
                 Signature is mandatory to setup an investment account and for a
                 redemption request.
               </Typography>
