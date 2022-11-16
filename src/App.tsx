@@ -16,6 +16,7 @@ import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
 import ViewProfile from './Components/ViewProfile/ViewProfile';
 import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
+import Editprofilescreen from './Components/EditProfile/Editprofilescreen';
 
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
 import UploadCheck from './Components/UploadCheckImage/UploadCheck';
@@ -50,6 +51,8 @@ function App() {
           
           <Route path="/completedview" element={<ProfileCompleted/>} />
           <Route path="/vp" element={<ViewProfile/>} />
+          <Route path="/editprofile" element={<Editprofilescreen/>} />
+
 
          
         </Routes>
