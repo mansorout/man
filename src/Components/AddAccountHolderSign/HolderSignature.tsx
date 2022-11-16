@@ -62,29 +62,47 @@ function HolderSignature() {
 
   const dispatch = useDispatch()
   //Signature Canvas
-  const [imageURL, setImageURL] = useState<any>(null);
-  const [signValue,setSignValue] = useState<boolean>(false);
+  const [imageURL, setImageURL] = useState<any>("");
+  const [imageToApi,setimageToApi] = useState<any>("");
   const [hidecontent,setHideContent]= useState<boolean>(true)
-  const [disable,setDisable]=useState<boolean>(true);
-  const {addChequeImage } = bindActionCreators(ActionCreators, dispatch)
+  const [disable,setDisable]=useState<boolean>(true)
+  const [addsign,setAddsign]=useState<boolean>(true)
+  const [showSignBox,setShowSignBox]=useState<boolean>(true)
+
+  const {addSignature } = bindActionCreators(ActionCreators, dispatch)
+  
 
  const sigCanvas: any = useRef({});
     // for clearing the image in box
 
   const clear = () => {
     sigCanvas.current.clear()
-    setImageURL(null)
+    setImageURL("")
   }
 
     // for putting the signature in state for posting to api
 
-  const setSignature = () => {
-    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+    const convertSignInBase64 =()=>{
+      setimageToApi(imageURL)
+      
+      // const data:any = imageURL;
+      // console.log("convert to base 64")
+      addSignature(imageToApi)
+    store.dispatch(uploadsignature({'signdata': imageURL}))
     }
-    addChequeImage(imageURL)
-    store.dispatch(uploadsignature({'signdata': imageURL})) 
+    
+          
+
+
+  const setSignature = () => {
+    setShowSignBox(false)
+    setAddsign(false)
+    setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+    alert("set signature to previe")
+    };
+     
   
-  ;
+  
   const handleSignature =(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         setHideContent(false)
            alert(event.currentTarget)
@@ -642,7 +660,7 @@ function HolderSignature() {
                 <Stack style={style.dividerBox}></Stack>
                 <Box >
                   
-                  <SignaturePad
+                      { showSignBox ? <SignaturePad
                     
                     ref={sigCanvas}
                     backgroundColor="white"
@@ -654,20 +672,28 @@ function HolderSignature() {
                       className: "sigCanvas",
                 
                     }}
-                  />
-                  {imageURL ? (
-                    <Box>
-                      <img
-                      src={imageURL}
-                      alt="my signature"
-                      style={{
-                        display: "block",
-                        margin: "0 auto",
-                        width: "314",
-                      }}
-                    />
-                    </Box>
-                  ) : null}
+                  /> : ""
+
+                      }
+
+                      {
+                        showSignBox ? "" : 
+                          <Box sx={{backgroundColor:"#fff",width:"100%",height:"330px"}}>
+                            <img
+                            src={imageURL}
+                            alt="my signature"
+                            style={{
+                              margin:"64px 0px 0px 338px",
+                              width: "314px",
+                              height:"195px"
+                            }}
+                          />
+                          </Box>
+                        
+                      }
+
+                  
+                  
                  {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
                     <Button
                       sx={{
@@ -682,11 +708,24 @@ function HolderSignature() {
                   </Box> }
                 </Box>
 
-                <Box style={ disable ? { pointerEvents: "none",opacity: "0.7"} : {}}
+                { addsign ?  <Box style={ disable ? { pointerEvents: "none",opacity: "0.7"} : {}}
                     textAlign="center" onClick={setSignature}>
                   <Stack style={style.dividerBox}></Stack>
                   <SaveAndAddButton />
+                </Box> : ""}
+                
+                { addsign ? "" :<Box textAlign="center" onClick={convertSignInBase64}>
+                    <Stack style={style.dividerBox}></Stack>
+                  <SaveAndAddButton />
                 </Box>
+
+                }
+
+                
+
+               
+
+                
                 
                 <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
                   <Typography component="span" className="subTitle2">

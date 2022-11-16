@@ -45,7 +45,7 @@ export const addContactNumber = (num:string) => {
         })
     }
 }
-export const addChequeImage = (signdata:string) => {
+export const addSignature = (signdata:string) => {
     return (dispatch:any) => {
         dispatch({
             type:"AddCheque",

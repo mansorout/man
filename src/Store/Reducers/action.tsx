@@ -73,7 +73,11 @@ export const verifycxotp = (verifyInput:any) => {
                     
                     }).then((response) => response.json())
                     .then((data) => {
+                      console.log(data);
+                      console.log(data.accesstoken)
                       console.log(data.error)
+                      console.log(data.accesstoken)
+                      // localStorage.setItem("accesstoken")
                       dispatch({
                         type:'LOGIN_SUCCESS',
                         payload:data
@@ -106,8 +110,8 @@ export const uploadsignature = (singatureInput:any) => {
                             'Content-Type': 'application/json',
                           },
                           body:JSON.stringify({
-                            "Authentication ":"",
-                            "signature ":"signdata",
+                            "Authentication":"",
+                            "signature":signdata,
                             
                           })
                           
@@ -115,10 +119,10 @@ export const uploadsignature = (singatureInput:any) => {
                     }).then((response) => response.json())
                     .then((data) => {
                       console.log(data.error)
-                      dispatch({
-                        type:'SIGNATURE_UPLOAD_SUCCESS',
-                        payload:data
-                      })
+                      // dispatch({
+                      //   type:'SIGNATURE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
                         
                     })
                 } 
