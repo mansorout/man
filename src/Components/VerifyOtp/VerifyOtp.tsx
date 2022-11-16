@@ -4,10 +4,13 @@ import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
 import { VerifyOtpLogo,SBICON } from "../../Assets";
-import OtpVerifyButton from "../../Modules/Buttons/OtpVerifyButton";
+import {OtpVerifyButton} from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
 import {  useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
+import { useNavigate } from "react-router-dom";
+import { verifycxotp } from "../../Store/Reducers/action";
+import {store} from "../../Store/Store"
 
 
 export const VerifyOtp = () => {
@@ -15,7 +18,12 @@ export const VerifyOtp = () => {
   const [OTP, setOTP] = useState<string>("")
 
   const handleOtpChange = (otp:any) => {
-    setOTP(otp)   
+    setOTP(otp) 
+    if(otp.length === 4){
+      store.dispatch(verifycxotp({'otp': otp,'number':number}))   
+    localStorage.setItem("loggedin","true")
+    }
+    
   }
 
   const error : string[] = useSelector((state : any) => state.error)
@@ -54,6 +62,10 @@ export const VerifyOtp = () => {
       margin: "20px 0px"
     } as React.CSSProperties,
   }
+
+  const navigate = useNavigate()
+
+  const number : string = useSelector((state : any) => state.contact)
 
   return (
     <>
@@ -95,7 +107,7 @@ export const VerifyOtp = () => {
                 border:"1px solid red",
             }}
           />
-          <OtpVerifyButton otp={OTP}/>
+          <OtpVerifyButton otp={OTP} number={number}/>
           <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
           <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
           <Footer/>

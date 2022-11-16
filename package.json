@@ -8,7 +8,8 @@
     "@hookform/resolvers": "^2.9.10",
     "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.10.9",
-    "@mui/lab": "^5.0.0-alpha.108",
+    "@mui/lab": "^5.0.0-alpha.107",
+    "@mui/material": "^5.10.11",
     "@mui/styles": "^5.10.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -17,13 +18,14 @@
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@types/underscore": "^1.11.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.3",
     "react-otp-input": "^2.4.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-signature-canvas": "^1.0.6",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "typescript": "^4.8.4",
@@ -55,7 +57,7 @@
     ]
   },
   "devDependencies": {
-    "@mui/material": "^5.10.14",
+    "@mui/material": "^5.10.13",
     "jest": "^27.5.1"
   }
 }
