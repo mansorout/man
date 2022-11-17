@@ -1,10 +1,13 @@
 
+/* eslint-disable */
 import "./HolderSignature.css";
 import { useDispatch } from "react-redux";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState,useEffect } from "react";
  import SignaturePad from "react-signature-canvas";
+ import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
 import {
   Drawer as DrawerList,
   List,
@@ -55,8 +58,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
-import { bindActionCreators } from "redux";
-import { ActionCreators } from "../../Store";
+
 
 function HolderSignature() {
 

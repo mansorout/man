@@ -3,7 +3,7 @@ import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
 import { uploadChequeApi } from '../../APIs/apis'
-
+import {userDetailsApi} from '../../APIs/apis'
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
     return{
@@ -170,7 +170,8 @@ export const uploadcheque = (chequeInput:any) => {
 export const submituserdetails = (userdetails:any) => {
     const { userdata} = userdetails;
     console.log(userdata);
-
+  
+    let token :any = localStorage.getItem('accesstoken')
     return async (dispatch:any)=>{
        
                 const result ={}
@@ -180,12 +181,23 @@ export const submituserdetails = (userdetails:any) => {
                         headers: {  
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
+                            "Authentication":token
                           },
                           body:JSON.stringify({
-                            "mobilenumber":"",
-                            "otp":"",
-                            "type":"auth"
-                          })
+                           "firstname":userdata.firstName,
+                           "middlename":userdata.middleName,
+                           "lastname":userdata.lastName,
+                           "emailaddress":userdata.emailaddress,
+                           "mobilenumber":userdata.mobilenumber,
+                           "dateofbirth":userdata.dateofbirth,
+                           "image":"",
+                           "gender":userdata.gender,
+                           "addressline1":userdata.addressline1,
+                           "addressline2":"",
+                           "pincode":userdata.pincode,
+                           "incomeslab":userdata.IncomeSlab
+                           
+                        })
                           
                     
                     }).then((response) => response.json())

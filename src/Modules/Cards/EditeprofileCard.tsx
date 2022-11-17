@@ -43,24 +43,15 @@ import { ActionCreators } from '../../Store';
 
 
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
+const country = [{ name: "Delhi", code: "de" }, { name: "kanpur" }]
+const State = [{ name: "up", code: "de" }, { name: "mp" }]
+const pincode = [{ name: "208025", code: "de" }, { name: "348012" }]
+const Cityofresidence = [{ name: "1,000000" }, { name: "2,000000" }]
+
+
 function EditprofileCard() {
 
-  const dispatch = useDispatch()
 
-  const { addUserDEtails } = bindActionCreators(ActionCreators, dispatch)
-
-  const [city, setCity] = React.useState('');
-  const [state, setState] = React.useState('');
-
-  const navigate = useNavigate();
-  function handleSubmit() {
-    addUserDEtails("")
-    store.dispatch(submituserdetails({ 'userdata': "hiiiiiiii" }))
-
-    //navigate('/vp');
-
-
-  }
 
 
 
@@ -111,7 +102,7 @@ function EditprofileCard() {
     State: "",
     city: "",
     Cityofresidence: "",
-    IncomeSlab: "",
+    IncomeSlab: 0,
     CountryofBirth: "",
     Placeofbirth: "",
     addressline1: ""
@@ -119,12 +110,16 @@ function EditprofileCard() {
 
   })
 
-  const [lang, setLang] = useState<any>("")
-  const [langsform, setLangsform] = useState<any>("")
-  const [langsformthree, setLangsformthree] = useState<any>("")
-  const [langsformfour, setLangsformfour] = useState<any>("")
-  const [langsformfive, setlangsformfive] = useState<any>("")
-  const [langsformsix, setlangsformsix] = useState<any>("")
+  const [lang, setLang] = useState<any>({
+    country: "",
+    state: "",
+    pincode: "",
+
+
+
+  })
+
+
 
 
 
@@ -145,74 +140,29 @@ function EditprofileCard() {
   function handleDropdown(event: any) {
     const { value, name } = event.target;
     setLang(value);
-
+    setFormData(lang)
   };
 
-  function handledropdownform(event: any) {
-    const { value, name } = event.target;
-    setLangsform(value);
-
-  };
-  function handleDropdownthree(event: any) {
-    const { value, name } = event.target;
-    setLangsformthree(value);
-
-  };
-
-  function handleDropdownfour(event: any) {
-    const { value, name } = event.target;
-    setLangsformfour(value);
-
-  };
-  function handleDropdownfive(event: any) {
-    const { value, name } = event.target;
-    setlangsformfive(value);
-
-  };
-  function handleDropdownsix(event: any) {
-    const { value, name } = event.target;
-    setlangsformsix(value);
-
-  };
-
-  console.log(lang.name)
-  console.log(langsform.name)
-  console.log(langsformthree.name)
-  console.log(langsformsix.name)
-  console.log(langsformfive.name)
-
-  console.log(langsformfour.name)
-
-  console.log(formData.firstName)
-  console.log(formData.lastName)
-
-  console.log(formData.middleName)
-  console.log(formData.emailaddress)
-  console.log(formData.mobilenumber)
-  console.log(formData.pincode)
-  console.log(formData.Country)
-  console.log(formData.State)
-  console.log(formData.IncomeSlab)
-  // console.log(formData.Placeofbirth)
-  console.log(formData.addressline1)
-
-  console.log(formData.city)
 
 
 
+  const dispatch = useDispatch()
 
-  // const data = new FormData(e.currentTarget);
-  // const actualData = {
-  //   firstName: data.get('name'),
-  //   // email: data.get('email'),     
-  //   // password: data.get('password'),
-  //   // password_confirmation: data.get('password_confirmation'),
-  //   // tc: data.get('tc'),
-  // }
-  // console.log(actualData);nnnnnnnnnnnnnnnnnnnnnnn
-  //  const userdetails:any = new FormData(e.currentTarget)=>{
+  //const { addUserDEtails } = bindActionCreators(ActionCreators, dispatch)
 
-  //   }
+  const [city, setCity] = React.useState('');
+  const [state, setState] = React.useState('');
+
+  const navigate = useNavigate();
+  function handleSubmit() {
+    // addUserDEtails("")
+    store.dispatch(submituserdetails({ 'userdata': formData }))
+
+    //navigate('/vp');
+
+
+  }
+
 
   const style = {
     containertwo: {
@@ -311,7 +261,7 @@ function EditprofileCard() {
               }}
             >
 
-              <form   style={{ margin: " -1", marginTop: "23px" }}>
+              <form style={{ margin: " -1", marginTop: "23px" }}>
 
 
 
@@ -362,7 +312,7 @@ function EditprofileCard() {
 
                   >
                     <div style={{ position: "relative", top: "-30px" }}>
-      
+
 
                       <FormControl sx={{ width: "195px" }}>
                         <InputLabel id="demo-simple-select-label" sx={{ color: "#3c3e42", fontSize: "15px", fontWeight: "normal" }}>Country</InputLabel>
@@ -372,7 +322,7 @@ function EditprofileCard() {
                           value={lang}
                           onChange={handleDropdown}
                         >
-                          {langs.map((l: any) => (
+                          {country.map((l: any) => (
                             <MenuItem value={l}>
                               {l.name}
                             </MenuItem>
@@ -385,11 +335,11 @@ function EditprofileCard() {
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={langsform}
+                          //value={langsform}
                           label="Age"
-                          onChange={handledropdownform}
+                        //onChange={handledropdownform}
                         >
-                          {langs.map((l: any) => (
+                          {State.map((l: any) => (
                             <MenuItem value={l}>
                               {l.name}
                             </MenuItem>
@@ -406,140 +356,144 @@ function EditprofileCard() {
                   </Box>
 
 
-          </Stack>
-                <Grid item xs={12} sm={6}>
-                  <Paper className={classes.paper}
-                    sx={{
-                      p: 1,
-                      width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px",
-                      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      marginLeft: "-5px"
-                    }}
-                  >
+                </Stack>
 
-                    <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-                    <Box sx={{ '& button': { m: 1 } }}>
+                <form>
+                  <Grid item xs={12} sm={6} sx={{ display: "flex" }} direction="column"  >
+                    <Paper className={classes.paper}
+                      sx={{
+                        p: 1,
+                        width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px",
+                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        marginLeft: "-5px"
+                      }}
+                    >
 
-                      <div>
-                        <Button variant="outlined" size="small" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                          <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                          <Typography sx={{ marginLeft: "2px" }} >Male</Typography>
+                      <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
+                      <Box sx={{ '& button': { m: 1 } }}>
 
-                        </Button>
-                        <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                          <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                          <Typography sx={{ marginLeft: "2px" }}>  Female</Typography>
-                        </Button>
-                        <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                          <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                          <Typography sx={{ marginLeft: "2px" }}>        Transgender</Typography>
-                        </Button>
-                      </div>
-                    </Box>
+                        <div>
+                          <Button variant="outlined" onClick={handleSubmit} size="small" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                            <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
+                            <Typography sx={{ marginLeft: "2px" }}  >Male</Typography>
 
-
-
-                    <Stack m={2} spacing={6}>
-                      <TextField label="Address" name="addressline1" value={formData.addressline1} onChange={handlechange} sx={{ fontSize: "16px", color: "#acb4bf" }} placeholder="Enter your street address" >
-
-
-
-                      </TextField>
-                      <img src={Mylocationicon} width="16px" height="22.6" alt="Google Logo" style={{ position: "relative", top: "-90px", left: "92%" }} />
-                      <Box
-                        component="form"
-                        sx={{
-                          '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "" },
-                          marginTop: "-69%",
-
-                        }}
-
-
-
-
-                      >
-                        <div style={{ position: "relative", top: "-97px" }}>
-
-                          <FormControl sx={{ width: "195px" }}>
-                            <InputLabel id="demo-simple-select-label">City of residence</InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={langsformthree}
-                              onChange={handleDropdownthree}
-                            >
-                              {langs.map((l: any) => (
-                                <MenuItem value={l}>
-                                  {l.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-
-                          <FormControl sx={{ width: "195px" }}>
-                            <InputLabel id="demo-simple-select-label">State</InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={langsformfour}
-                              onChange={handleDropdownfour}
-                            >
-                              {langs.map((l: any) => (
-                                <MenuItem value={l}>
-                                  {l.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                          {/* <TextField select label="City of residence"  name="Cityofresidence" value={formData.Cityofresidence} onChange={handlechange} sx={{ marginTop: "20px" }} /> */}
-                          {/* <TextField select label="State"  name="State" value={formData.State} onChange={handlechange}  sx={{ marginTop: "20px" }} /> */}
-
-
-
-                        </div >
-                        <div style={{ position: "relative", top: "-80px" }}>
-                          <FormControl sx={{ width: "195px" }}>
-                            <InputLabel id="demo-simple-select-label">pincode</InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={langsformfive}
-                              onChange={handleDropdownfive}
-                            >
-                              {langs.map((l: any) => (
-                                <MenuItem value={l}>
-                                  {l.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                          <FormControl sx={{ width: "195px" }}>
-                            <InputLabel id="demo-simple-select-label">country</InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={langsformsix}
-                              onChange={handleDropdownsix}
-                            >
-                              {langs.map((l: any) => (
-                                <MenuItem value={l}>
-                                  {l.name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                          {/* <TextField select label="Country"  name="Country" value={formData.Country} onChange={handlechange}  sx={{ marginTop: "50px" }} /> */}
+                          </Button>
+                          <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                            <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
+                            <Typography sx={{ marginLeft: "2px" }}>  Female</Typography>
+                          </Button>
+                          <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                            <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
+                            <Typography sx={{ marginLeft: "2px" }}>        Transgender</Typography>
+                          </Button>
                         </div>
                       </Box>
-                      <TextField label="Income Slab" name="IncomeSlab" value={formData.IncomeSlab} onChange={handlechange} sx={{ position: "relative", top: "-90px" }} />
-                      <Button variant="contained" style={style.button} onClick={handleSubmit}  fullWidth >
-                        <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
-                      </Button>
-      </Stack>
 
-            </Paper>
-                </Grid>
+
+
+                      <Stack m={2} spacing={6}>
+                        <TextField label="Address" name="addressline1" value={formData.addressline1} onChange={handlechange} sx={{ fontSize: "16px", color: "#acb4bf" }} placeholder="Enter your street address" >
+
+
+
+                        </TextField>
+                        <img src={Mylocationicon} width="16px" height="22.6" alt="Google Logo" style={{ position: "relative", top: "-90px", left: "92%" }} />
+                        <Box
+                          component="form"
+                          sx={{
+                            '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "" },
+                            marginTop: "-69%",
+
+                          }}
+
+
+
+
+                        >
+                          <div style={{ position: "relative", top: "-97px" }}>
+
+                            <FormControl sx={{ width: "195px" }}>
+                              <InputLabel id="demo-simple-select-label">City of residence</InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={lang.country}
+                                onChange={handleDropdown}
+                              >
+                                {Cityofresidence.map((l: any) => (
+                                  <MenuItem value={l}>
+                                    {l.name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+
+                            <FormControl sx={{ width: "195px" }}>
+                              <InputLabel id="demo-simple-select-label">State</InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={lang.state}
+                                onChange={handleDropdown}
+                              >
+                                {State.map((l: any) => (
+                                  <MenuItem value={l}>
+                                    {l.name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                            {/* <TextField select label="City of residence"  name="Cityofresidence" value={formData.Cityofresidence} onChange={handlechange} sx={{ marginTop: "20px" }} /> */}
+                            {/* <TextField select label="State"  name="State" value={formData.State} onChange={handlechange}  sx={{ marginTop: "20px" }} /> */}
+
+
+
+                          </div >
+                          <div style={{ position: "relative", top: "-80px" }}>
+                            <FormControl sx={{ width: "195px" }}>
+                              <InputLabel id="demo-simple-select-label">pincode</InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={lang.pincode}
+                                onChange={handleDropdown}
+                              >
+                                {pincode.map((l: any) => (
+                                  <MenuItem value={l}>
+                                    {l.name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                            <FormControl sx={{ width: "195px" }}>
+                              <InputLabel id="demo-simple-select-label">country</InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                              //value={langsformsix}
+                              //onChange={handleDropdownsix}
+                              >
+                                {country.map((l: any) => (
+                                  <MenuItem value={l}>
+                                    {l.name}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                            {/* <TextField select label="Country"  name="Country" value={formData.Country} onChange={handlechange}  sx={{ marginTop: "50px" }} /> */}
+                          </div>
+                        </Box>
+                        <TextField label="Income Slab" name="IncomeSlab" value={formData.IncomeSlab} onChange={handlechange} sx={{ position: "relative", top: "-90px" }} />
+                        <Button variant="contained" style={style.button} onClick={handleSubmit} fullWidth >
+                          <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
+                        </Button>
+                      </Stack>
+
+                    </Paper>
+                  </Grid>
+                </form>
               </form>
+
 
             </Paper>
           </Grid>
