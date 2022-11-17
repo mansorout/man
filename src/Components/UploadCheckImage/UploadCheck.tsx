@@ -4,6 +4,10 @@ import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
+import { store } from "../../Store/Store";
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
+import { uploadcheque } from "../../Store/Reducers/action";
 import ReactCrop, {
   centerCrop,
   makeAspectCrop,
@@ -44,6 +48,7 @@ import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useDispatch } from "react-redux";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -58,7 +63,10 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+
+
 function UploadCheck() {
+  const dispatch =useDispatch();
   const [imgSrc, setImgSrc] = useState("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -66,8 +74,13 @@ function UploadCheck() {
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [rotate, setRotate] = useState(0);
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
-
+  const {addSignature } = bindActionCreators(ActionCreators, dispatch)
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
+
+  const sendToApi = ()=>{
+    store.dispatch(uploadcheque({'chequedata':"" }))
+    alert("hiiii")
+  }
 
   // const ClearCheck =()=>{
   //   imgSrc("")
@@ -94,6 +107,7 @@ function UploadCheck() {
   }
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    alert("hiiiii")
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined); // Makes crop preview update between images.
       const reader = new FileReader();
@@ -767,7 +781,9 @@ function UploadCheck() {
                   </Box>
                 </Box>
 
-                <Box textAlign="center">
+                <Box textAlign="center"
+                  onClick={sendToApi}
+                  >
                   <SaveAndAddButton />
                 </Box>
                 {/* for preview of image */}

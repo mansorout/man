@@ -2,6 +2,7 @@ import * as t from './actionTypes'
 import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
+import { uploadChequeApi } from '../../APIs/apis'
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -120,8 +121,42 @@ export const uploadsignature = (singatureInput:any) => {
                         
                     })
                 } 
+                catch (err){ console.log(err)}
+
+        return result
+    };
+
+    
+}
+export const uploadcheque = (chequeInput:any) => {
+    const {chequedata} = chequeInput;
+    let token :any = localStorage.getItem('accesstoken')
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(uploadChequeApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "signature":chequedata,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      // dispatch({
+                      //   type:'CHEQUE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
+                        
+                    })
+                } 
                 catch (err){
-                     //dispatch({type: 'LOGIN_FAILED'})
+                     
                      console.log(err)}
 
         return result

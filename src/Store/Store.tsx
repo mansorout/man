@@ -7,6 +7,7 @@ import verifyReducer from './Reducers/VerifyReducer'
 import contactReducer from './Reducers/ContactReducer'
 import verifyOtpStatusReducer from './Reducers/VerifyOtpStatusReducer'
 import UploadSignatureReducer from './Reducers/UploadSignatureReducer'
+import UploadChequeReducer from './Reducers/UploadChequeReducer'
 
 
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     verifyReducer: verifyReducer,
     contact: contactReducer,
     otpResponse:verifyOtpStatusReducer,
-    uploadSignature:UploadSignatureReducer
+    uploadSignature:UploadSignatureReducer,
+    uploadCheque:UploadChequeReducer
 
 })
 

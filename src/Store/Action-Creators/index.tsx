@@ -53,4 +53,12 @@ export const addSignature = (signdata:string) => {
         })
     }
 }
+export const AddCheque = (chequeimage:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddCheque",
+            payload:chequeimage
+        })
+    }
+}
  
