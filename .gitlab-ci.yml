@@ -8,7 +8,7 @@ build:
        - tags
    script:
       - mkdir -p dist
-      - npm install react-dates --legacy-peer-deps 
+      - npm install  react-dates --legacy-peer-deps
       - CI= npm run build
       - ls
       - echo "Build Successfully"
