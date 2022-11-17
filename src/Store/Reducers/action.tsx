@@ -1,7 +1,8 @@
 import * as t from './actionTypes'
 import { mobileOtpLoginApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
-import { userDetailsApi } from '../../APIs/apis'
+import { uploadSignatureApi } from '../../APIs/apis'
+import { uploadChequeApi } from '../../APIs/apis'
 
 const setLoginState =(loginData:any)=>{
     console.log(loginData)
@@ -52,6 +53,7 @@ export const login = (loginInput:any) => {
 }
 export const verifycxotp = (verifyInput:any) => {
     const { otp ,number} = verifyInput;
+    
 
     return async (dispatch:any)=>{
         console.log(number, "number")
@@ -69,11 +71,14 @@ export const verifycxotp = (verifyInput:any) => {
                             "otp":otp,
                             "type":"auth"
                           })
-                          
-                    
-                    }).then((response) => response.json())
+                      }).then((response) => response.json())
                     .then((data) => {
+                
+                      console.log(data.data.accesstoken);
+                      // console.log(data.userInfo.userdetails.mobilenumber)
                       console.log(data.error)
+                      console.log(data.accesstoken)
+                      localStorage.setItem("accesstoken",data.data.accesstoken)
                       dispatch({
                         type:'LOGIN_SUCCESS',
                         payload:data
@@ -83,6 +88,76 @@ export const verifycxotp = (verifyInput:any) => {
                 } 
                 catch (err){
                      //dispatch({type: 'LOGIN_FAILED'})
+                     console.log(err)}
+
+        return result
+    };
+
+    
+}
+export const uploadsignature = (singatureInput:any) => {
+    const {signdata} = singatureInput;
+    let token :any = localStorage.getItem('accesstoken')
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(uploadSignatureApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "signature":signdata,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      // dispatch({
+                      //   type:'SIGNATURE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
+                        
+                    })
+                } 
+                catch (err){ console.log(err)}
+
+        return result
+    };
+
+    
+}
+export const uploadcheque = (chequeInput:any) => {
+    const {chequedata} = chequeInput;
+    let token :any = localStorage.getItem('accesstoken')
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(uploadChequeApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "signature":chequedata,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      // dispatch({
+                      //   type:'CHEQUE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
+                        
+                    })
+                } 
+                catch (err){
+                     
                      console.log(err)}
 
         return result

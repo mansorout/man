@@ -45,11 +45,19 @@ export const addContactNumber = (num:string) => {
         })
     }
 }
-export const addUserDEtails = (userdata:any) => {
+export const addSignature = (signdata:string) => {
     return (dispatch:any) => {
         dispatch({
-            type:"AddUserData",
-            payload:userdata
+            type:"AddCheque",
+            payload:signdata
+        })
+    }
+}
+export const AddCheque = (chequeimage:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddCheque",
+            payload:chequeimage
         })
     }
 }

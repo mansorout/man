@@ -4,6 +4,10 @@ import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
+import { store } from "../../Store/Store";
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
+import { uploadcheque } from "../../Store/Reducers/action";
 import ReactCrop, {
   centerCrop,
   makeAspectCrop,
@@ -44,6 +48,7 @@ import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useDispatch } from "react-redux";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -58,7 +63,10 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+
+
 function UploadCheck() {
+  const dispatch =useDispatch();
   const [imgSrc, setImgSrc] = useState("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -66,8 +74,27 @@ function UploadCheck() {
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [rotate, setRotate] = useState(0);
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
-
+  const {addSignature } = bindActionCreators(ActionCreators, dispatch)
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleRotate =()=>{
+    alert("handlerotate")
+  }
+
+  const handleCrop=()=>{
+    alert("handlecrop")
+  }
+  const handleConfirm=()=>{
+    alert("confirm")
+  }
+  const handleCancel=()=>{
+    alert("cancel")
+  }
+
+  const sendToApi = ()=>{
+    store.dispatch(uploadcheque({'chequedata':"" }))
+    alert("hiiii")
+  }
 
   // const ClearCheck =()=>{
   //   imgSrc("")
@@ -94,6 +121,7 @@ function UploadCheck() {
   }
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    alert("hiiiii")
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined); // Makes crop preview update between images.
       const reader = new FileReader();
@@ -118,7 +146,7 @@ function UploadCheck() {
         imgRef.current &&
         previewCanvasRef.current
       ) {
-        // canvasPreview 
+        // canvasPreview
         canvasPreview(
           imgRef.current,
           previewCanvasRef.current,
@@ -661,7 +689,7 @@ function UploadCheck() {
                 style={{
                   height: "64vh",
                   width: "120vh",
-                 background: "#fff",
+                  background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
                 }}
@@ -677,16 +705,54 @@ function UploadCheck() {
                 <Stack style={style.dividerBox}></Stack>
 
                 <Box sx={{}}>
+
+
+                <Box >
+                    <Box onClick={handleRotate}
+                      sx={{
+                        width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor: "#6c63ff",
+                      }}
+                    ></Box>
+                    <Box onClick={handleCrop}
+                      sx={{
+                        width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor: "red",
+                      }}
+                    ></Box>
+                    <Box onClick={handleConfirm}
+                     sx={{ width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor:"rgb(35, 219, 123)"}}></Box>
+                    <Box onClick={handleCancel}
+                     sx={{ width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",backgroundColor:"#3c3e42"}}></Box>
+                  </Box>
                   <Box
                     sx={{
                       border: "solid 1px #707070",
                       backgroundColor: "#fff",
                       height: "238px",
                       width: "564px",
-                      margin: "auto",
-                      marginTop: "55px",
+                      // margin: "auto",
+                      // marginTop: "55px",
                     }}
                   >
+                    
                     {/* for image crop */}
                     {!!imgSrc && (
                       <ReactCrop
@@ -709,6 +775,7 @@ function UploadCheck() {
                       </ReactCrop>
                     )}
                   </Box>
+                  
                 </Box>
 
                 <Box>
@@ -720,7 +787,7 @@ function UploadCheck() {
                       style={{ display: "none" }}
                       onChange={onSelectFile}
                     />
-                    
+
                     <Button
                       onClick={() =>
                         uploadInputRef.current && uploadInputRef.current.click()
@@ -740,7 +807,9 @@ function UploadCheck() {
                   </Box>
                 </Box>
 
-                <Box textAlign="center">
+                <Box textAlign="center"
+                  onClick={sendToApi}
+                  >
                   <SaveAndAddButton />
                 </Box>
                 {/* for preview of image */}
@@ -766,7 +835,6 @@ function UploadCheck() {
                 width: "304px",
               }}
             >
-              
               <Typography component="span" className="bottomContentText ">
                 By submitting these details, you are agree to share your details
                 to BSE for further transactions <br />
