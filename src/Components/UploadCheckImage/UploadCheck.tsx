@@ -77,6 +77,20 @@ function UploadCheck() {
   const {addSignature } = bindActionCreators(ActionCreators, dispatch)
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
+  const handleRotate =()=>{
+    alert("handlerotate")
+  }
+
+  const handleCrop=()=>{
+    alert("handlecrop")
+  }
+  const handleConfirm=()=>{
+    alert("confirm")
+  }
+  const handleCancel=()=>{
+    alert("cancel")
+  }
+
   const sendToApi = ()=>{
     store.dispatch(uploadcheque({'chequedata':"" }))
     alert("hiiii")
@@ -694,7 +708,7 @@ function UploadCheck() {
 
 
                 <Box >
-                    <Box
+                    <Box onClick={handleRotate}
                       sx={{
                         width: "58px",
                         height: "58px",
@@ -704,13 +718,25 @@ function UploadCheck() {
                         backgroundColor: "#6c63ff",
                       }}
                     ></Box>
-                    <Box sx={{ width: "58px",
+                    <Box onClick={handleCrop}
+                      sx={{
+                        width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor: "red",
+                      }}
+                    ></Box>
+                    <Box onClick={handleConfirm}
+                     sx={{ width: "58px",
                         height: "58px",
                         // margin: "0 11px 5px 11px",
                         // padding: "17px 16.8px 16.6px 16.8px",
                         opacity: "0.85",
                         backgroundColor:"rgb(35, 219, 123)"}}></Box>
-                    <Box  sx={{ width: "58px",
+                    <Box onClick={handleCancel}
+                     sx={{ width: "58px",
                         height: "58px",
                         // margin: "0 11px 5px 11px",
                         // padding: "17px 16.8px 16.6px 16.8px",
