@@ -45,4 +45,12 @@ export const addContactNumber = (num:string) => {
         })
     }
 }
+export const addUserDEtails = (userdata:any) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddUserData",
+            payload:userdata
+        })
+    }
+}
  

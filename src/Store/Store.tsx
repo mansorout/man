@@ -6,6 +6,8 @@ import errorReducer from './Reducers/ErrorReducer'
 import verifyReducer from './Reducers/VerifyReducer'
 import contactReducer from './Reducers/ContactReducer'
 import verifyOtpStatusReducer from './Reducers/VerifyOtpStatusReducer'
+import { submituserdetails } from './Reducers/action'
+import EditprofileReducer from './Reducers/EditprofileReducer'
 
 
 
@@ -14,7 +16,8 @@ const rootReducer = combineReducers({
     loginReducer: loginReducer,
     verifyReducer: verifyReducer,
     contact: contactReducer,
-    otpResponse:verifyOtpStatusReducer
+    otpResponse:verifyOtpStatusReducer,
+    userDetails:EditprofileReducer
 
 })
 

@@ -5,7 +5,7 @@ import _ from "underscore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector,shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 import { ActionCreators } from "../../Store";
 import { verifycxotp } from "../../Store/Reducers/action";
 import {store} from "../../Store/Store";
