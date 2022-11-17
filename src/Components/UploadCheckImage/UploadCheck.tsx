@@ -118,7 +118,7 @@ function UploadCheck() {
         imgRef.current &&
         previewCanvasRef.current
       ) {
-        // canvasPreview 
+        // canvasPreview
         canvasPreview(
           imgRef.current,
           previewCanvasRef.current,
@@ -661,7 +661,7 @@ function UploadCheck() {
                 style={{
                   height: "64vh",
                   width: "120vh",
-                 background: "#fff",
+                  background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
                 }}
@@ -677,16 +677,42 @@ function UploadCheck() {
                 <Stack style={style.dividerBox}></Stack>
 
                 <Box sx={{}}>
+
+
+                <Box >
+                    <Box
+                      sx={{
+                        width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor: "#6c63ff",
+                      }}
+                    ></Box>
+                    <Box sx={{ width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",
+                        backgroundColor:"rgb(35, 219, 123)"}}></Box>
+                    <Box  sx={{ width: "58px",
+                        height: "58px",
+                        // margin: "0 11px 5px 11px",
+                        // padding: "17px 16.8px 16.6px 16.8px",
+                        opacity: "0.85",backgroundColor:"#3c3e42"}}></Box>
+                  </Box>
                   <Box
                     sx={{
                       border: "solid 1px #707070",
                       backgroundColor: "#fff",
                       height: "238px",
                       width: "564px",
-                      margin: "auto",
-                      marginTop: "55px",
+                      // margin: "auto",
+                      // marginTop: "55px",
                     }}
                   >
+                    
                     {/* for image crop */}
                     {!!imgSrc && (
                       <ReactCrop
@@ -709,6 +735,7 @@ function UploadCheck() {
                       </ReactCrop>
                     )}
                   </Box>
+                  
                 </Box>
 
                 <Box>
@@ -720,7 +747,7 @@ function UploadCheck() {
                       style={{ display: "none" }}
                       onChange={onSelectFile}
                     />
-                    
+
                     <Button
                       onClick={() =>
                         uploadInputRef.current && uploadInputRef.current.click()
@@ -766,7 +793,6 @@ function UploadCheck() {
                 width: "304px",
               }}
             >
-              
               <Typography component="span" className="bottomContentText ">
                 By submitting these details, you are agree to share your details
                 to BSE for further transactions <br />

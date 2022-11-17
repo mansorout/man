@@ -14,7 +14,7 @@ import { ContactError, MonoLogo } from "../../Assets";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Modules/Footer/Footer";
-
+import LoginWithGoogle from "../loginwithgoogle/LoginWithGoogle";
 
 export const Login = () => {
 

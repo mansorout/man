@@ -7,7 +7,7 @@ import './app.css';
 import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
 import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
 import { ChoosePin } from './Components/ChoosePin/ChoosePin';
-import  {LoginSecond}  from './Components/LoginSecScreen/LoginSecond';
+import { LoginSecond }  from './Components/LoginSecScreen/LoginSecond';
 
 import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
@@ -21,14 +21,16 @@ import Editprofilescreen from './Components/EditProfile/Editprofilescreen';
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
 import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
+import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
+import Nominee from './Components/BankAccountDetails/Nominee';
+import PanUpdate from './Components/Pan/PanUpdate';
+
 
 
 
 
 function App() {
 
-  
-  
   return (
     <>
         <Routes>
@@ -47,8 +49,10 @@ function App() {
           <Route path="/loginsecond" element={<LoginSecond/>} />
           <Route path="/setnewpin" element={<Setpin/>} />
           <Route path="/verifysec" element={<VerifySec/>} />
-          <Route path="/Otptwosuccess" element={<OtptwoSuccess/>}/>
-          
+          <Route path="/Otptwosuccess" element={<OtptwoSuccess/>} />
+          <Route path="/bad" element={<BankAccountDetails />} />
+          <Route path="/nominee" element={<Nominee />} />
+          <Route path="/pan_update" element={<PanUpdate />} />
           <Route path="/completedview" element={<ProfileCompleted/>} />
           <Route path="/vp" element={<ViewProfile/>} />
           <Route path="/editprofile" element={<Editprofilescreen/>} />

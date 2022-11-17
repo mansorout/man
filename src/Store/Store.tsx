@@ -6,6 +6,10 @@ import errorReducer from './Reducers/ErrorReducer'
 import verifyReducer from './Reducers/VerifyReducer'
 import contactReducer from './Reducers/ContactReducer'
 import verifyOtpStatusReducer from './Reducers/VerifyOtpStatusReducer'
+import UploadSignatureReducer from './Reducers/UploadSignatureReducer'
+import PanVerify from './Reducers/PanVerify'
+import NomineeAdd from './Reducers/NomineeAdd'
+
 
 
 
@@ -14,8 +18,10 @@ const rootReducer = combineReducers({
     loginReducer: loginReducer,
     verifyReducer: verifyReducer,
     contact: contactReducer,
-    otpResponse:verifyOtpStatusReducer
-
+    otpResponse:verifyOtpStatusReducer,
+    uploadSignature:UploadSignatureReducer,
+    pan: PanVerify,
+    nominee: NomineeAdd,
 })
 
 export const store = createStore(

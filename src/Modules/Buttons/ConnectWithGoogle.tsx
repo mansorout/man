@@ -1,10 +1,34 @@
+import { useEffect } from 'react';
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
 
-import { Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { GoogleLogo } from "../../Assets";
 
 
   const ConnectWithGoogle = () => {
+
+    const clientId = '29162504402-fqqru7ci6ppg4cdp1urceueop1rhng6a.apps.googleusercontent.com'; 
+
+    useEffect(() => {
+        const initClient = () => {
+            //@ts-ignore
+            gapi.client.init({
+                clientId: clientId,
+                scope: ''
+            });
+        };
+        gapi.load('client:auth2', initClient);
+    });
+
+    //const responseGoogle = (response: any) => console.log(response);
+
+    const onSuccess = (res: any) => {
+        console.log('success:', res);
+        console.log(res.profileObj.name);
+        console.log(res.profileObj.email);
+        console.log(res.profileObj.imageUrl);
+    };
+
+    const onFailure = (err: any) => console.log('failed:', err);
 
     const style = {
         button : {
@@ -13,7 +37,7 @@ import { GoogleLogo } from "../../Assets";
             backgroundColor: "white",
             border: "1px solid #23db7b",
             boxShadow: "0 4px 8px 0 white",
-            width:"90%",
+            width:"100%",
             maxWidth:"400px",
         } as React.CSSProperties,
         text : {
@@ -22,14 +46,18 @@ import { GoogleLogo } from "../../Assets";
         }
     }
 
-    const navigate = useNavigate()
-
-    return (
-        <Button onClick={()=>navigate("/account_created_with_google")} variant="contained" style={style.button} fullWidth>
-            <img src={GoogleLogo} width="16px" alt="Google Logo" />
-            <Typography component="span" style={style.text} className="largeButtonText">Continue with Google</Typography>
-        </Button>           
-    )
+    
+    return  <GoogleLogin 
+                clientId={ clientId }
+                buttonText="Continue with Google"
+                onSuccess={ onSuccess }
+                onFailure={ onFailure }
+                cookiePolicy={ 'single_host_origin' }
+                isSignedIn={ true }
+                uxMode="redirect"
+                redirectUri="http://localhost:3000/account_created_with_google"
+                style={ style.button }
+            />;
 };
 
 export default ConnectWithGoogle;

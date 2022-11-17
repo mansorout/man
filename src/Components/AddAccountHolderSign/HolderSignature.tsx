@@ -1,5 +1,6 @@
-/* eslint-disable */
+
 import "./HolderSignature.css";
+import { useDispatch } from "react-redux";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState,useEffect } from "react";
@@ -35,6 +36,9 @@ import {
 import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
+import { store } from "../../Store/Store";
+import { uploadsignature } from "../../Store/Reducers/action";
+
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 
@@ -51,32 +55,44 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
-function HolderSignature() {
-  //Signature Canvas
-  const [imageURL, setImageURL] = useState(null);
-  const [signValue,setSignValue] = useState<boolean>(false);
-  const [hidecontent,setHideContent]= useState<boolean>(true)
-  const [disable,setDisable]=useState<boolean>(true);
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
 
-  useEffect(() => {
-    //setHideContent(false)
-    }, [])
+function HolderSignature() {
+
+  const dispatch = useDispatch()
+  //Signature Canvas
+  const [imageURL, setImageURL] = useState<any>("");
+  const [imageToApi,setimageToApi] = useState<any>("");
+  const [hidecontent,setHideContent]= useState<boolean>(true)
+  const [disable,setDisable]=useState<boolean>(true)
+  const [addsign,setAddsign]=useState<boolean>(true)
+  const [showSignBox,setShowSignBox]=useState<boolean>(true)
+
+  const {addSignature } = bindActionCreators(ActionCreators, dispatch)
   
 
-  const sigCanvas: any = useRef({});
+ const sigCanvas: any = useRef({});
+    // for clearing the image in box
+
   const clear = () => {
     sigCanvas.current.clear()
-    setImageURL(null)
-    
+    setImageURL("")
   }
-  const setSignature = () => {
+
+    // for putting the signature in state for posting to api
+
+    const convertSignInBase64 =()=>{
+      setimageToApi(imageURL)
+      addSignature(imageToApi)
+    store.dispatch(uploadsignature({'signdata': imageURL}))
+    }
+    
+      const setSignature = () => {
+    setShowSignBox(false)
+    setAddsign(false)
     setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-    
-  };
-  const handleSignature =(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
-        setHideContent(false)
-           alert(event.currentTarget)
-  }
+    };
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -587,14 +603,14 @@ function HolderSignature() {
           >
             <Stack
               sx={{
-                width: "120vh",
-                height: "30px",
-                margin: "66px 32px 2px",
+                width: "100%",
+                // height: "30px",
+                // margin: "66px 32px 2px",
                 padding: "8px 16px",
                 backgroundColor: " #6c63ff",
               }}
             >
-              <Typography className="subTitle4">
+              <Typography sx={{marginTop:'66px'}} className="subTitle4">
                 Signature is mandatory to setup an investment account and for a
                 redemption request.
               </Typography>
@@ -630,7 +646,7 @@ function HolderSignature() {
                 <Stack style={style.dividerBox}></Stack>
                 <Box >
                   
-                  <SignaturePad
+                      { showSignBox ? <SignaturePad
                     
                     ref={sigCanvas}
                     backgroundColor="white"
@@ -642,21 +658,26 @@ function HolderSignature() {
                       className: "sigCanvas",
                 
                     }}
-                  />
-                  {imageURL ? (
-                    <Box>
-                      <img
-                      src={imageURL}
-                      alt="my signature"
-                      style={{
-                        display: "block",
-                        margin: "0 auto",
-                        width: "314",
-                      }}
-                    />
-                    </Box>
-                  ) : null}
-                 {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
+                  /> : ""
+
+                      }
+
+                      {
+                        showSignBox ? "" : 
+                          <Box sx={{backgroundColor:"#fff",width:"100%",height:"330px"}}>
+                            <img
+                            src={imageURL}
+                            alt="my signature"
+                            style={{
+                              margin:"64px 0px 0px 338px",
+                              width: "314px",
+                              height:"195px"
+                            }}
+                          />
+                          </Box>
+                        
+                      }
+                {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
                     <Button
                       sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -670,13 +691,20 @@ function HolderSignature() {
                   </Box> }
                 </Box>
 
-                <Box style={ disable ? { pointerEvents: "none",opacity: "0.7"} : {}}
+                { addsign ?  <Box style={ disable ? { pointerEvents: "none",opacity: "0.7"} : {}}
                     textAlign="center" onClick={setSignature}>
                   <Stack style={style.dividerBox}></Stack>
                   <SaveAndAddButton />
-                </Box>
+                </Box> : ""}
                 
-                <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
+                { addsign ? "" :<Box textAlign="center" onClick={convertSignInBase64}>
+                    <Stack style={style.dividerBox}></Stack>
+                  <SaveAndAddButton />
+                </Box>
+
+                }
+                
+                  <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
                   <Typography component="span" className="subTitle2">
                     Signature provided here will be used on official documents
                   </Typography>
