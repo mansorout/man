@@ -1,49 +1,35 @@
-
 import { useEffect } from 'react';
-import { Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { GoogleLogo } from "../../Assets";
 import { GoogleLogin } from "react-google-login";
-import { gapi, loadClientAuth2 } from "gapi-script";
-import { GoogleLoginButton } from 'ts-react-google-login-component';
+import { gapi } from "gapi-script";
+
 
 
   const ConnectWithGoogle = () => {
 
-    const clientId = '29162504402-fqqru7ci6ppg4cdp1urceueop1rhng6a.apps.googleusercontent.com';
-/*
-    const navigate = useNavigate();
-
-    const preLoginTracking = (): void => {
-        console.log('Attemp to login with google');
-    }
-
-    const errorHandler = (error: string): void => {
-        // handle error if login got failed...
-        console.error(error)
-    }
-
-    const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
-        const id_token = googleUser.getAuthResponse(true).id_token
-        const googleId = googleUser.getId()
-
-        console.log({ googleId })
-        console.log({accessToken: id_token})
-        // Make user login in your system
-        // login success tracking...
-    }
+    const clientId = '29162504402-fqqru7ci6ppg4cdp1urceueop1rhng6a.apps.googleusercontent.com'; 
 
     useEffect(() => {
-        let gapiClient = loadClientAuth2(gapi, clientId, '');
+        const initClient = () => {
+            //@ts-ignore
+            gapi.client.init({
+                clientId: clientId,
+                scope: ''
+            });
+        };
+        gapi.load('client:auth2', initClient);
     });
-*/
+
+    //const responseGoogle = (response: any) => console.log(response);
+
     const onSuccess = (res: any) => {
         console.log('success:', res);
-        //navigate("/account_created_with_google");
+        console.log(res.profileObj.name);
+        console.log(res.profileObj.email);
+        console.log(res.profileObj.imageUrl);
     };
 
     const onFailure = (err: any) => console.log('failed:', err);
-/*
+
     const style = {
         button : {
             height: "48px",
@@ -51,7 +37,7 @@ import { GoogleLoginButton } from 'ts-react-google-login-component';
             backgroundColor: "white",
             border: "1px solid #23db7b",
             boxShadow: "0 4px 8px 0 white",
-            width:"90%",
+            width:"100%",
             maxWidth:"400px",
         } as React.CSSProperties,
         text : {
@@ -59,7 +45,7 @@ import { GoogleLoginButton } from 'ts-react-google-login-component';
             color : "#23db7b"
         }
     }
-*/
+
     
     return  <GoogleLogin 
                 clientId={ clientId }
@@ -68,10 +54,10 @@ import { GoogleLoginButton } from 'ts-react-google-login-component';
                 onFailure={ onFailure }
                 cookiePolicy={ 'single_host_origin' }
                 isSignedIn={ true }
+                uxMode="redirect"
                 redirectUri="http://localhost:3000/account_created_with_google"
+                style={ style.button }
             />;
-    
-    
 };
 
 export default ConnectWithGoogle;

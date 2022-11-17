@@ -7,7 +7,7 @@ import './app.css';
 import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
 import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
 import { ChoosePin } from './Components/ChoosePin/ChoosePin';
-import  {LoginSecond}  from './Components/LoginSecScreen/LoginSecond';
+import { LoginSecond }  from './Components/LoginSecScreen/LoginSecond';
 
 import './app.css'
 import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
@@ -25,8 +25,6 @@ import PanUpdate from './Components/Pan/PanUpdate';
 
 function App() {
 
-  
-  
   return (
     <>
         <Routes>

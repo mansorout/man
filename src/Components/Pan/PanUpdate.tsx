@@ -1,6 +1,10 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import { ContactError } from "../../Assets";
 
 const PanUpdate = () => {
+
+    const error : string[] = useSelector((state : any) => state.error)
 
     const style = {
         button : {
@@ -43,6 +47,17 @@ const PanUpdate = () => {
                     required 
                     label="Enter your PAN number" 
                     helperText="Your PAN will be used to verify your KYC" 
+                    sx={{
+                        "& .MuiInputLabel-root": {color: '#acb4bf'},
+                        "& .MuiOutlinedInput-root": {
+                        "& > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
+                        "&:hover > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
+                        "&.Mui-focused > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
+                          },
+                        }}
+                    InputProps = {{
+                        endAdornment :  error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
+                    }}
                 />
             </FormControl>
 
