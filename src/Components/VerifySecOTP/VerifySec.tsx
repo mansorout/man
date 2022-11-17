@@ -1,4 +1,3 @@
-
 import {Box,Typography} from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
@@ -55,6 +54,8 @@ export const VerifySec = () => {
     } as React.CSSProperties,
   }
 
+  
+  const number : string = useSelector((state : any) => state.contact)
   return (
     <>
       <Box  style={style.background}>

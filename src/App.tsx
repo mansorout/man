@@ -14,6 +14,11 @@ import { Mpinsuccess } from './Components/Mpinsuccess/Mpinsuccess';
 import  {Setpin} from './Components/SetNewPin/Setpin';
 import  {VerifySec} from './Components/VerifySecOTP/VerifySec';
 import  {OtptwoSuccess} from './Components/OtptwoSuccess/OtptwoSuccess';
+import ViewProfile from './Components/ViewProfile/ViewProfile';
+import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
+
+import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
+import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
@@ -30,6 +35,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/accountholder" element={<HolderSignature/>} />
+          <Route path="/uploadCheck" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
@@ -45,6 +52,10 @@ function App() {
           <Route path="/bad" element={<BankAccountDetails />} />
           <Route path="/nominee" element={<Nominee />} />
           <Route path="/pan_update" element={<PanUpdate />} />
+          <Route path="/completedview" element={<ProfileCompleted/>} />
+          <Route path="/vp" element={<ViewProfile/>} />
+
+         
         </Routes>
     </>
   );

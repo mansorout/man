@@ -30,12 +30,12 @@ import { ActionCreators } from "../../Store";
 
     const validateOTP = (otp : string) => {
 
-        console.log(otp)
 
         if(otp.length != 4){
             addError("Set_Mpin")
         }else {
             removeError("Set_Mpin")
+            localStorage.setItem("mpin",otp)
             navigate("/successpin")
         }
         

@@ -26,6 +26,7 @@ body {
   --uiDarkGreyColor : #8787a2;
   --uiGreyColor : rgba(123, 123, 157, 0.16);
   --uiLightGreyColor : #f2f3f8;
+  --uiLightGreyColor : #fff;
 
   --typeBlackColor : #000000;
   --typeLightBlackColor : #3c3e42;
@@ -103,6 +104,11 @@ h6 {
   line-height: 1.53 !important;
   color: var(--typeIndigoColor) !important;
 }
+.subTitle4 {
+  font-size: 14px !important;
+  line-height: 1.33 !important;
+  color: #fff !important;
+}
 
 .subTitle3 {
   font-size: 14px !important;
@@ -148,6 +154,11 @@ h6 {
   font-weight: 500 !important;
   color: var(--typeLightBlackColor) !important;
 }
+.bottomContentText {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--typeIndigoColor) !important;
+}
 
 .mediumButtonText {
   font-size: 14px !important;
@@ -156,7 +167,7 @@ h6 {
 }
 
 .largeButtonText {
-  font-size: 16px !important;
+  font-size: 12px !important;
   font-weight: 500 !important;
   text-align: center !important;
   text-transform: none !important;

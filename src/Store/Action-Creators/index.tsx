@@ -36,4 +36,21 @@ export const addError = (msg:string) => {
         })
     }
 }
+
+export const addContactNumber = (num:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddContact",
+            payload:num
+        })
+    }
+}
+export const addSignature = (signdata:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddCheque",
+            payload:signdata
+        })
+    }
+}
  

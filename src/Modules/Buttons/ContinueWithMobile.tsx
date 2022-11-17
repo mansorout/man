@@ -23,7 +23,7 @@ const ContWithMobile = ({number} : {number : string}) => {
     }
 
     const dispatch = useDispatch()
-    const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
+    const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)
 
     const navigate = useNavigate()
 
@@ -33,8 +33,9 @@ const ContWithMobile = ({number} : {number : string}) => {
             addError("Login_Contact")
         }else{
             removeError("Login_Contact")
+            addContactNumber(number)
+            store.dispatch(login({'number': number})) 
             navigate("/otpverify")
-           store.dispatch(login({'number': number})) 
         }
        
     }
