@@ -7,6 +7,9 @@ import verifyReducer from './Reducers/VerifyReducer'
 import contactReducer from './Reducers/ContactReducer'
 import verifyOtpStatusReducer from './Reducers/VerifyOtpStatusReducer'
 import UploadSignatureReducer from './Reducers/UploadSignatureReducer'
+import PanVerify from './Reducers/PanVerify'
+import NomineeAdd from './Reducers/NomineeAdd'
+
 
 
 
@@ -16,8 +19,9 @@ const rootReducer = combineReducers({
     verifyReducer: verifyReducer,
     contact: contactReducer,
     otpResponse:verifyOtpStatusReducer,
-    uploadSignature:UploadSignatureReducer
-
+    uploadSignature:UploadSignatureReducer,
+    pan: PanVerify,
+    nominee: NomineeAdd,
 })
 
 export const store = createStore(
