@@ -39,7 +39,8 @@ import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 import { store } from "../../Store/Store";
 import { uploadsignature } from "../../Store/Reducers/action";
-
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 
@@ -56,8 +57,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
-import { bindActionCreators } from "redux";
-import { ActionCreators } from "../../Store";
+
 
 function HolderSignature() {
 
@@ -652,7 +652,7 @@ function HolderSignature() {
                     ref={sigCanvas}
                     backgroundColor="white"
                     penColor="black"
-                    onBegin={()=>{setHideContent(false),setDisable(false)}}
+                    onBegin={()=>{setHideContent(false);setDisable(false)}}
                     canvasProps={{
                       width: 900,
                       height: 330,
