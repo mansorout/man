@@ -37,7 +37,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 
 import React from 'react'
 import { height, padding } from '@mui/system'
@@ -111,13 +111,16 @@ function EEditprofileCard() {
     const item = (() => ({
 
     }));
+    
     const useStyles = makeStyles(theme => ({
       root: {
         flexGrow: 1
       },
       paper: {
+        //@ts-ignore
         padding: theme.spacing(2),
         textAlign: "center",
+        //@ts-ignore
         color: theme.palette.text.secondary,
         
       }
