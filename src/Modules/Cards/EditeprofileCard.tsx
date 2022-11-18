@@ -375,8 +375,7 @@ function EditprofileCard() {
                   <div style={{ position: "relative", top: "-86px" }}>
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel id="demo-simple-select-label" sx={{ color: "#3c3e42", fontSize: "15px", fontWeight: "normal" }}>City of Residence</InputLabel>
-
-                      <Select
+                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={formData.CityofResidence}
@@ -390,10 +389,7 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-
-
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-
+                     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel id="demo-simple-select-label" sx={{ color: "#3c3e42", fontSize: "15px", fontWeight: "normal" }}>State</InputLabel>
 
@@ -413,10 +409,7 @@ function EditprofileCard() {
                     </FormControl>
 
                   </div>
-
-
-
-                  <div style={{ position: "relative", top: "-46px" }}>
+               <div style={{ position: "relative", top: "-46px" }}>
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel
                         id="demo-simple-select-label"
@@ -462,10 +455,7 @@ function EditprofileCard() {
 
                   </div>
                 </Box>
-
-
-
-                <TextField label="Income Slab" name="IncomeSlab" value={formData.IncomeSlab} onChange={handlechange} sx={{ position: "relative", top: "-50px" }} />
+                      <TextField label="Income Slab" name="IncomeSlab" value={formData.IncomeSlab} onChange={handlechange} sx={{ position: "relative", top: "-50px" }} />
                 <Button variant="contained" style={style.button} onClick={handleSubmit} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
                 </Button>
