@@ -3,8 +3,9 @@ import "./HolderSignature.css";
 import { useDispatch } from "react-redux";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
-import React, { useRef, useState,useEffect } from "react";
+import React, { useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
+
 import {
   Drawer as DrawerList,
   List,
@@ -719,18 +720,3 @@ function HolderSignature() {
 }
 
 export default HolderSignature;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -52,8 +52,10 @@ function EditprofileCard() {
   const useStyles = makeStyles((theme) =>
     createStyles({
       paper: {
+        //@ts-ignore
         padding: theme.spacing(2),
         textAlign: 'center',
+        //@ts-ignore
         color: theme.palette.text.secondary,
       },
       root: {
