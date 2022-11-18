@@ -195,7 +195,8 @@ export const submituserdetails = (userdetails:any) => {
                            "addressline1":userdata.addressline1,
                            "addressline2":"",
                            "pincode":userdata.pincode,
-                           "incomeslab":userdata.IncomeSlab
+                           "incomeslab":userdata.IncomeSlab,
+                           "country":userdata.country
                            
                         })
                           
