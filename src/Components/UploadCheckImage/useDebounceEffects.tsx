@@ -7,7 +7,7 @@ export function useDebounceEffect(
 ) {
   useEffect(() => {
     const t = setTimeout(() => {
-      fn.apply(undefined, [])
+      return fn.apply(undefined, deps as [])
     }, waitTime)
 
     return () => {
