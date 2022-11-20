@@ -1,5 +1,6 @@
 import "./UploadCheck.css";
 import "react-image-crop/dist/ReactCrop.css";
+import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
@@ -72,8 +73,8 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 function UploadCheck() {
   const dispatch = useDispatch();
-  const [imagePreviewToLast,setImagePreviewToLast] = useState<any>();
-  const [base64Image,setCanvasImageToBase64] =useState<any>("");
+  const [imagePreviewToLast, setImagePreviewToLast] = useState<any>();
+  const [base64Image, setCanvasImageToBase64] = useState<any>("");
   const [imgSrc, setImgSrc] = useState<any>("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -128,20 +129,21 @@ function UploadCheck() {
     [completedCrop]
   );
 
-           const dataURL = previewCanvasRef.current?.toDataURL();
+  const dataURL = previewCanvasRef.current?.toDataURL();
 
-          console.log(dataURL);
+  console.log(dataURL);
 
-//  All Button in components goes here
+  //  All Button in components goes here
 
-   function handleToggleAspectClick() {
+  function handleToggleAspectClick() {
+    alert("check")
     if (aspect) {
       setAspect(undefined);
     }
     const { width, height }: any = imgRef.current;
     setCrop(centerAspectCrop(width, height, 16 / 9));
   }
-  
+
 
   const handleRotate = () => {
     let newRotation = rotate90 + 90;
@@ -165,7 +167,7 @@ function UploadCheck() {
   const sendToApi = () => {
     // setCanvasImageToBase64(finalImage)
     setCanvasImageToBase64(dataURL)
-    store.dispatch(uploadcheque({ chequedata: base64Image}));
+    store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
 
   // const ClearCheck =()=>{
@@ -684,7 +686,7 @@ function UploadCheck() {
             </List>
           </Grid>
 
-          {}
+          { }
 
           <Grid
             container
@@ -740,154 +742,90 @@ function UploadCheck() {
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
 
-                <Box sx={{}}>
-                  {showSideButton ? (
-                    " "
-                  ) : (
-                    <Box sx={{ display: "inline-flex" }}>
-                      <Box
-                        onClick={() => handleRotate()}
+                <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
+
+                  <Grid xs>
+                    {
+                      preview ? <Box
                         sx={{
-                          width: "58px",
-                          height: "58px",
-                          // margin: "0 11px 5px 11px",
-                          // padding: "17px 16.8px 16.6px 16.8px",
-                          opacity: "0.85",
-                          backgroundColor: "#f9f9f9",
+                          border: "solid 1px #707070",
+                          backgroundColor: "#fff",
+                          height: "238px",
+                          width: "564px",
+                          margin: "57px 0px 0px 195px",
+                          // marginTop: "55px",
                         }}
                       >
-                        <RotateRightIcon
-                          sx={{
-                            marginTop: "17px",
-                            width: "53.4px",
-                            height: "27.4px",
+                        {/* for image crop */}
+                        {!!imgSrc && (
+                          <ReactCrop
+                            crop={crop}
+                            onChange={(_, percentCrop) => setCrop(percentCrop)}
+                            onComplete={(c) => setCompletedCrop(c)}
+                            aspect={aspect}
+                          >
+                            <img
+                              ref={imgRef}
+                              alt="Crop me"
+                              src={imgSrc}
+                              style={{
+                                width: "564px",
+                                height: "238px",
+                                transform: `rotate(${rotate90}deg)`,
+                              }}
+                              onLoad={onImageLoad}
+                            />
+                          </ReactCrop>
+                        )}
+                      </Box> : " "
+                    }
+
+                    {
+                      preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
+                        <img
+                          style={{
+                            marginLeft: "195px",
+                            marginTop: "57px",
+                            border: "1px solid black",
+                            width: "564px",
+                            height: "238px",
                           }}
+                          src={imagePreviewToLast}
+
                         />
                       </Box>
-                      {/* <Box onClick={handleToggleAspectClick}
-                               // Toggle aspect {aspect ? 'off':'on'}
-                               
-                       sx={{
-                         width: "58px",
-                         height: "58px",
-                         // margin: "0 11px 5px 11px",
-                         // padding: "17px 16.8px 16.6px 16.8px",
-                         opacity: "0.85",
-                         backgroundColor: "red",
-                       }}
-                     >
-                       
-                     </Box> */}
-                      <Box
-                        sx={{
-                          width: "58px",
-                          height: "58px",
-                          opacity: "0.85",
-                          backgroundColor: "rgb(35, 219, 123)",
-                        }}
-                        onClick={handleToggleAspectClick}
-                      >
-                        <CropIcon
-                          sx={{
-                            marginTop: "17px",
-                            width: "53.4px",
-                            height: "27.4px",
-                          }}
-                        />
+                    }
+
+                  </Grid>
+                  <Grid sx={{
+                    display: " inline-flex", flexGrow: "0",
+                    maxWidth: "50%", flexBasis: "50%",
+                    marginTop: "60px"
+                  }} xs={6}>
+                    {showSideButton ? (
+                      " "
+                    ) : (
+
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
+                        <RotateRightIcon />
+                      </Fab>
+                        <Fab onClick={handleToggleAspectClick} sx={{ backgroundColor: "#23db7b" }} >
+                          <CropIcon />
+                        </Fab>
+
+                        <Fab onClick={handleConfirm}>
+                          <DoneIcon />
+                        </Fab>
+                        <Fab onClick={handleCancel} sx={{ backgroundColor: "#23db7b" }}>
+                          <ClearIcon />
+                        </Fab>
                       </Box>
 
-                      <Box
-                        onClick={handleConfirm}
-                        sx={{
-                          width: "58px",
-                          height: "58px",
-                          // margin: "0 11px 5px 11px",
-                          // padding: "17px 16.8px 16.6px 16.8px",
-                          opacity: "0.85",
-                          backgroundColor: "#f9f9f9",
-                        }}
-                      >
-                        <DoneIcon
-                          sx={{
-                            marginTop: "17px",
-                            width: "53.4px",
-                            height: "27.4px",
-                          }}
-                        />
-                      </Box>
-                      <Box
-                        onClick={handleCancel}
-                        sx={{
-                          width: "58px",
-                          height: "58px",
-                          // margin: "0 11px 5px 11px",
-                          // padding: "17px 16.8px 16.6px 16.8px",
-                          opacity: "0.85",
-                          backgroundColor: "rgb(35, 219, 123)",
-                        }}
-                      >
-                        <ClearIcon
-                          sx={{
-                            marginTop: "17px",
-                            width: "53.4px",
-                            height: "27.4px",
-                          }}
-                        />
-                      </Box>
-                    </Box>
-                  )}
-                               {
-                                    preview ? <Box
-                                    sx={{
-                                      border: "solid 1px #707070",
-                                      backgroundColor: "#fff",
-                                      height: "238px",
-                                      width: "564px",
-                                      margin: "57px 0px 0px 195px",
-                                      // marginTop: "55px",
-                                    }}
-                                  >
-                                    {/* for image crop */}
-                                    {!!imgSrc && (
-                                      <ReactCrop
-                                        crop={crop}
-                                        onChange={(_, percentCrop) => setCrop(percentCrop)}
-                                        onComplete={(c) => setCompletedCrop(c)}
-                                        aspect={aspect}
-                                      >
-                                        <img
-                                          ref={imgRef}
-                                          alt="Crop me"
-                                          src={imgSrc}
-                                          style={{
-                                            width: "564px",
-                                            height: "238px",
-                                            transform: `rotate(${rotate90}deg)`,
-                                          }}
-                                          onLoad={onImageLoad}
-                                        />
-                                      </ReactCrop>
-                                    )}
-                                  </Box> : " "
-                              }
 
-                              {
-                                preview ? "" :  <Box style={{height:"fit-content",width:"fit-content"}} >
-                                <img
-                                style={{
-                                  
-                                  border: "1px solid black",
-                                  width: "564px",
-                                  height: "238px",
-                                }}
-                                      src={imagePreviewToLast}
-                                      
-                                    />
-                                </Box> 
-                              }
-                  
-                </Box>
 
+                    )}
+                  </Grid>
+                </Grid>
                 <Box>
                   <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
                     <input
@@ -980,17 +918,17 @@ function UploadCheck() {
                 )} */}
 
                 {!!completedCrop && (
-          <canvas
-            ref={previewCanvasRef}
-            style={{
-              display:"none",
-              border: '1px solid black',
-              objectFit: 'unset',
-              width: "564px",
-              height: "238px",
-            }}
-          />
-        )} 
+                  <canvas
+                    ref={previewCanvasRef}
+                    style={{
+                      display: "none",
+                      border: '1px solid black',
+                      objectFit: 'unset',
+                      width: "564px",
+                      height: "238px",
+                    }}
+                  />
+                )}
               </Paper>
             </Box>
 
@@ -1012,8 +950,8 @@ function UploadCheck() {
               >
                 Terms and conditions
               </Typography>
-              
-              
+
+
             </Box>
           </Grid>
         </Grid>

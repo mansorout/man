@@ -109,6 +109,11 @@ h6 {
   line-height: 1.33 !important;
   color: #fff !important;
 }
+.subTitle5 {
+  font-size: 12px !important;
+  line-height: 1.33 !important;
+  color: #fff !important;
+}
 
 .subTitle3 {
   font-size: 14px !important;
@@ -168,6 +173,12 @@ h6 {
 
 .largeButtonText {
   font-size: 12px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  text-transform: none !important;
+}
+.largeHeadingText {
+  font-size: 14px !important;
   font-weight: 500 !important;
   text-align: center !important;
   text-transform: none !important;

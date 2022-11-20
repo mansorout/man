@@ -36,8 +36,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
-          <Route path="/accountholder" element={<HolderSignature/>} />
-          <Route path="/uploadCheck" element={<UploadCheck/>} />
+          <Route path="/uploadsignature" element={<HolderSignature/>} />
+          <Route path="/uploadCheque" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
