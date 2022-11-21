@@ -62,4 +62,12 @@ export const AddCheque = (chequeimage:string) => {
         })
     }
 }
+export const ResendOTP = (resenddata:string) => {
+    return (dispatch:any) => {
+        dispatch({
+            type:"AddRefreshToken",
+            payload:resenddata
+        })
+    }
+}
  

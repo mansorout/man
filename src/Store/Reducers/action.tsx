@@ -5,6 +5,8 @@ import { uploadSignatureApi } from '../../APIs/apis'
 import { panVerificationApi } from '../../APIs/apis'
 import { nomineeAddApi } from '../../APIs/apis'
 import { uploadChequeApi } from '../../APIs/apis'
+import { refreshtokenApi } from '../../APIs/apis'
+
 
 const setLoginState = (loginData: any) => {
     console.log(loginData)
@@ -87,6 +89,7 @@ export const verifycxotp = (verifyInput: any) => {
                     console.log(data.error)
                     console.log(data.accesstoken)
                     localStorage.setItem("accesstoken", data.data.accesstoken)
+                    localStorage.setItem("refreshtoken", data.data.refreshtoken)
                     dispatch({
                         type: 'LOGIN_SUCCESS',
                         payload: data
@@ -258,6 +261,37 @@ export const uploadcheque = (chequeInput:any) => {
                       // })
                         
                     })
+                } 
+                catch (err){
+                     
+                     console.log(err)}
+
+        return result
+    };
+
+
+}
+export const resendotp = (refreshtokendata:any) => {
+    const {refreshtoken} = refreshtokendata;
+    console.log(refreshtoken)
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(refreshtokenApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                            // "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "refreshtoken":refreshtoken,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      })
                 } 
                 catch (err){
                      

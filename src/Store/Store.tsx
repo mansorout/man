@@ -10,6 +10,7 @@ import UploadSignatureReducer from './Reducers/UploadSignatureReducer'
 import PanVerify from './Reducers/PanVerify'
 import NomineeAdd from './Reducers/NomineeAdd'
 import UploadChequeReducer from './Reducers/UploadChequeReducer'
+import Resendotp from './Reducers/Resendotp'
 
 
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     pan: PanVerify,
     nominee: NomineeAdd,
     uploadCheque:UploadChequeReducer,
+    resendOtp:Resendotp,
 })
 
 export const store = createStore(

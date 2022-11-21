@@ -10,12 +10,20 @@ import {  useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { verifycxotp } from "../../Store/Reducers/action";
+import { resendotp } from "../../Store/Reducers/action";
 import {store} from "../../Store/Store"
 
 
 export const VerifyOtp = () => {
 
   const [OTP, setOTP] = useState<string>("")
+  let refreshtokendata :any = localStorage.getItem('refreshtoken')
+    console.log(refreshtokendata);
+
+  const ResendOtp =()=>{
+    store.dispatch(resendotp({'refreshtoken': refreshtokendata})) 
+    
+  }
 
   const handleOtpChange = (otp:any) => {
     setOTP(otp) 
@@ -108,8 +116,10 @@ export const VerifyOtp = () => {
             }}
           />
           <OtpVerifyButton otp={OTP} number={number}/>
+          
           <Typography  sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet? 
-          <span className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
+          <span onClick={ResendOtp} className="textLink" style={{cursor:"pointer"}} > Resend</span></Typography>
+          
           <Footer/>
         </Box>
       </Box>
