@@ -809,14 +809,14 @@ function UploadCheck() {
                       <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
                         <RotateRightIcon />
                       </Fab>
-                        <Fab onClick={handleToggleAspectClick} sx={{ backgroundColor: "#23db7b" }} >
+                        <Fab onClick={handleToggleAspectClick}>
                           <CropIcon />
                         </Fab>
 
-                        <Fab onClick={handleConfirm}>
+                        <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
                           <DoneIcon />
                         </Fab>
-                        <Fab onClick={handleCancel} sx={{ backgroundColor: "#23db7b" }}>
+                        <Fab onClick={handleCancel} >
                           <ClearIcon />
                         </Fab>
                       </Box>

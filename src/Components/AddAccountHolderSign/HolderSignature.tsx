@@ -43,6 +43,7 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -246,6 +247,8 @@ function HolderSignature() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
 
+  const navigate = useNavigate()
+
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget);
   };
@@ -253,6 +256,10 @@ function HolderSignature() {
   const classes = useStyles();
 
   const refContainer = useRef();
+
+  const logOut =()=>{
+    navigate("/login")
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -419,6 +426,7 @@ function HolderSignature() {
             }}
           >
             <ListItemButton
+             onClick={logOut}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -436,6 +444,7 @@ function HolderSignature() {
                 <PowerSettingsNew sx={{ color: "black" }} />
               </ListItemIcon>
               <ListItemText
+                
                 primary="Logout"
                 sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
               />
