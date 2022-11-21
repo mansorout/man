@@ -4,6 +4,7 @@ import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
 import { panVerificationApi } from '../../APIs/apis'
 import { nomineeAddApi } from '../../APIs/apis'
+import { uploadChequeApi } from '../../APIs/apis'
 
 const setLoginState = (loginData: any) => {
     console.log(loginData)
@@ -227,4 +228,43 @@ export const nomineeAdd = ({ fullname, dateofbirth, relation_id }: { fullname: s
 
         return data
     };
+}
+
+export const uploadcheque = (chequeInput:any) => {
+    const {chequedata} = chequeInput;
+    console.log(chequedata)
+    let token :any = localStorage.getItem('accesstoken')
+    console.log(token);
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(uploadChequeApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "cheque":chequedata,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      // dispatch({
+                      //   type:'CHEQUE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
+                        
+                    })
+                } 
+                catch (err){
+                     
+                     console.log(err)}
+
+        return result
+    };
+
+
 }
