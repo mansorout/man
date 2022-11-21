@@ -9,8 +9,7 @@ function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
   })
 }
 
-// Returns an image source you should set to state and pass
-// `{previewSrc && <img alt="Crop preview" src={previewSrc} />}`
+// Returns an image source set to state and pass
 export async function imgPreview(
   image: HTMLImageElement,
   crop: PixelCrop,

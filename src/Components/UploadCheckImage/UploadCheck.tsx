@@ -1,9 +1,20 @@
 import "./UploadCheck.css";
+import "react-image-crop/dist/ReactCrop.css";
+import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
+import { store } from "../../Store/Store";
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
+import { uploadcheque } from "../../Store/Reducers/action";
+import RotateRightIcon from "@mui/icons-material/RotateRight";
+import DoneIcon from "@mui/icons-material/Done";
+import ClearIcon from "@mui/icons-material/Clear";
+import CropIcon from "@mui/icons-material/Crop";
+
 import ReactCrop, {
   centerCrop,
   makeAspectCrop,
@@ -44,6 +55,8 @@ import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useDispatch } from "react-redux";
+import { boolean } from "yup";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -59,15 +72,103 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function UploadCheck() {
-  const [imgSrc, setImgSrc] = useState("");
+  const dispatch = useDispatch();
+  const [imagePreviewToLast, setImagePreviewToLast] = useState<any>();
+  const [base64Image, setCanvasImageToBase64] = useState<any>("");
+  const [imgSrc, setImgSrc] = useState<any>("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const [rotate, setRotate] = useState(0);
-  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
+  const [rotate90, setRotate90] = useState(0);
 
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
+  const { addSignature } = bindActionCreators(ActionCreators, dispatch);
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
+  const [showSideButton, setShowSideButton] = useState<boolean>(true);
+  const [preview, setPreview] = useState<boolean>(true);
+  const [uploadChequeButton, setUploadChequeButtonDisable] =
+    useState<boolean>(true);
+  const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
+  const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
+
+  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    setUploadChequeButtonDisable(false);
+    saveAndAddButtonDisable(false);
+    setShowSideButton(false);
+    if (e.target.files && e.target.files.length > 0) {
+      setCrop(undefined); // Makes crop preview update between images.
+      const reader = new FileReader();
+      reader.addEventListener("load", () =>
+        setImgSrc(reader.result?.toString() || "")
+      );
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspect));
+    }
+  }
+
+  useDebounceEffect(
+    async () => {
+      if (
+        completedCrop?.width &&
+        completedCrop?.height &&
+        imgRef.current &&
+        previewCanvasRef.current
+      ) {
+        // canvasPreview
+        canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
+      }
+    },
+    2,
+    [completedCrop]
+  );
+
+  const dataURL = previewCanvasRef.current?.toDataURL();
+
+  console.log(dataURL);
+
+  //  All Button in components goes here
+
+  function handleToggleAspectClick() {
+    alert("check")
+    if (aspect) {
+      setAspect(undefined);
+    }
+    const { width, height }: any = imgRef.current;
+    setCrop(centerAspectCrop(width, height, 16 / 9));
+  }
+
+
+  const handleRotate = () => {
+    let newRotation = rotate90 + 90;
+    if (newRotation >= 360) {
+      newRotation = -360;
+    }
+    setRotate90(newRotation);
+  };
+
+  const handleConfirm = () => {
+    // for setting in state have to write here
+    setImagePreviewToLast(dataURL)
+    setCanvasDisable(false);
+    setPreview(false);
+  };
+  const handleCancel = () => {
+    setImgSrc("");
+    setShowSideButton(true);
+  };
+
+  const sendToApi = () => {
+    // setCanvasImageToBase64(finalImage)
+    setCanvasImageToBase64(dataURL)
+    store.dispatch(uploadcheque({ chequedata: base64Image }));
+  };
 
   // const ClearCheck =()=>{
   //   imgSrc("")
@@ -92,44 +193,6 @@ function UploadCheck() {
       mediaHeight
     );
   }
-
-  function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined); // Makes crop preview update between images.
-      const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setImgSrc(reader.result?.toString() || "")
-      );
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  }
-
-  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
-    if (aspect) {
-      const { width, height } = e.currentTarget;
-      setCrop(centerAspectCrop(width, height, aspect));
-    }
-  }
-  useDebounceEffect(
-    async () => {
-      if (
-        completedCrop?.width &&
-        completedCrop?.height &&
-        imgRef.current &&
-        previewCanvasRef.current
-      ) {
-        // canvasPreview
-        canvasPreview(
-          imgRef.current,
-          previewCanvasRef.current,
-          completedCrop,
-          rotate
-        );
-      }
-    },
-    100,
-    [completedCrop, rotate]
-  );
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -623,7 +686,7 @@ function UploadCheck() {
             </List>
           </Grid>
 
-          {}
+          { }
 
           <Grid
             container
@@ -638,14 +701,17 @@ function UploadCheck() {
           >
             <Stack
               sx={{
-                width: "120vh",
+                width: "100%",
                 height: "30px",
-                margin: "66px 32px 2px",
-                padding: "8px 16px",
+                margin: "66px 0px 0px",
                 backgroundColor: " #6c63ff",
               }}
             >
-              <Typography className="subTitle4">
+              <Typography
+                sx={{ marginTop: "7px", marginLeft: "26px" }}
+                component="span"
+                className="subTitle5"
+              >
                 Cancelled cheque is used for KYC procedures and to facilitate an
                 electronic clearing system (ECS) mandate.
               </Typography>
@@ -669,75 +735,97 @@ function UploadCheck() {
                 <Stack style={{ height: "48px" }}>
                   <Typography
                     sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeButtonText"
+                    className="largeHeadingText"
                   >
                     Add Cancelled Cheque
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
 
-                <Box sx={{}}>
+                <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
 
-
-                <Box >
-                    <Box
-                      sx={{
-                        width: "58px",
-                        height: "58px",
-                        // margin: "0 11px 5px 11px",
-                        // padding: "17px 16.8px 16.6px 16.8px",
-                        opacity: "0.85",
-                        backgroundColor: "#6c63ff",
-                      }}
-                    ></Box>
-                    <Box sx={{ width: "58px",
-                        height: "58px",
-                        // margin: "0 11px 5px 11px",
-                        // padding: "17px 16.8px 16.6px 16.8px",
-                        opacity: "0.85",
-                        backgroundColor:"rgb(35, 219, 123)"}}></Box>
-                    <Box  sx={{ width: "58px",
-                        height: "58px",
-                        // margin: "0 11px 5px 11px",
-                        // padding: "17px 16.8px 16.6px 16.8px",
-                        opacity: "0.85",backgroundColor:"#3c3e42"}}></Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      border: "solid 1px #707070",
-                      backgroundColor: "#fff",
-                      height: "238px",
-                      width: "564px",
-                      // margin: "auto",
-                      // marginTop: "55px",
-                    }}
-                  >
-                    
-                    {/* for image crop */}
-                    {!!imgSrc && (
-                      <ReactCrop
-                        crop={crop}
-                        onChange={(_, percentCrop) => setCrop(percentCrop)}
-                        onComplete={(c) => setCompletedCrop(c)}
-                        aspect={aspect}
+                  <Grid xs>
+                    {
+                      preview ? <Box
+                        sx={{
+                          border: "solid 1px #707070",
+                          backgroundColor: "#fff",
+                          height: "238px",
+                          width: "564px",
+                          margin: "57px 0px 0px 195px",
+                          // marginTop: "55px",
+                        }}
                       >
+                        {/* for image crop */}
+                        {!!imgSrc && (
+                          <ReactCrop
+                            crop={crop}
+                            onChange={(_, percentCrop) => setCrop(percentCrop)}
+                            onComplete={(c) => setCompletedCrop(c)}
+                            aspect={aspect}
+                          >
+                            <img
+                              ref={imgRef}
+                              alt="Crop me"
+                              src={imgSrc}
+                              style={{
+                                width: "564px",
+                                height: "238px",
+                                transform: `rotate(${rotate90}deg)`,
+                              }}
+                              onLoad={onImageLoad}
+                            />
+                          </ReactCrop>
+                        )}
+                      </Box> : " "
+                    }
+
+                    {
+                      preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
                         <img
-                          ref={imgRef}
-                          alt="Crop me"
-                          src={imgSrc}
                           style={{
+                            marginLeft: "195px",
+                            marginTop: "57px",
+                            border: "1px solid black",
                             width: "564px",
                             height: "238px",
-                            transform: `rotate(${rotate}deg)`,
                           }}
-                          onLoad={onImageLoad}
-                        />
-                      </ReactCrop>
-                    )}
-                  </Box>
-                  
-                </Box>
+                          src={imagePreviewToLast}
 
+                        />
+                      </Box>
+                    }
+
+                  </Grid>
+                  <Grid sx={{
+                    display: " inline-flex", flexGrow: "0",
+                    maxWidth: "50%", flexBasis: "50%",
+                    marginTop: "60px"
+                  }} xs={6}>
+                    {showSideButton ? (
+                      " "
+                    ) : (
+
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
+                        <RotateRightIcon />
+                      </Fab>
+                        <Fab onClick={handleToggleAspectClick} sx={{ backgroundColor: "#23db7b" }} >
+                          <CropIcon />
+                        </Fab>
+
+                        <Fab onClick={handleConfirm}>
+                          <DoneIcon />
+                        </Fab>
+                        <Fab onClick={handleCancel} sx={{ backgroundColor: "#23db7b" }}>
+                          <ClearIcon />
+                        </Fab>
+                      </Box>
+
+
+
+                    )}
+                  </Grid>
+                </Grid>
                 <Box>
                   <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
                     <input
@@ -748,41 +836,99 @@ function UploadCheck() {
                       onChange={onSelectFile}
                     />
 
-                    <Button
-                      onClick={() =>
-                        uploadInputRef.current && uploadInputRef.current.click()
-                      }
-                      sx={{
-                        backgroundColor: "#00b4ff",
+                    {uploadChequeButton ? (
+                      <Button
+                        onClick={() =>
+                          uploadInputRef.current &&
+                          uploadInputRef.current.click()
+                        }
+                        sx={{
+                          backgroundColor: "#00b4ff",
 
-                        height: "45px",
-                        width: "150px",
-                        borderRadius: "32px",
-                      }}
-                    >
-                      <Typography className="subTitle4">
-                        UPLOAD CHECK
-                      </Typography>
-                    </Button>
+                          height: "45px",
+                          width: "150px",
+                          borderRadius: "32px",
+                        }}
+                      >
+                        <Typography className="subTitle4">
+                          UPLOAD CHEQUE
+                        </Typography>
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+
+                    {uploadChequeButton ? (
+                      ""
+                    ) : (
+                      <Button
+                        onClick={() => handleCancel()}
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.05)",
+
+                          height: "45px",
+                          width: "150px",
+                          borderRadius: "32px",
+                        }}
+                      >
+                        <Typography className="textLink">
+                          Clear & Try Again
+                        </Typography>
+                      </Button>
+                    )}
                   </Box>
                 </Box>
 
-                <Box textAlign="center">
-                  <SaveAndAddButton />
-                </Box>
+                {saveAndAddButton ? (
+                  <Box
+                    textAlign="center"
+                    sx={{ pointerEvents: "none", opacity: "0.7" }}
+                    onClick={sendToApi}
+                  >
+                    <SaveAndAddButton />
+                  </Box>
+                ) : (
+                  ""
+                )}
+
+                {saveAndAddButton ? (
+                  ""
+                ) : (
+                  <Box textAlign="center" onClick={sendToApi}>
+                    <SaveAndAddButton />
+                  </Box>
+                )}
+
                 {/* for preview of image */}
 
-                {/* {!!completedCrop && (
-          <canvas
-            ref={previewCanvasRef}
-            style={{
-              border: '1px solid black',
-              objectFit: 'contain',
-              width: completedCrop.width,
-              height: completedCrop.height,
-            }}
-          />
-        )} */}
+                {/* for preview of image */}
+
+                {/* {canvasDisable ? (
+                  ""
+                ) : (
+                  <img
+                    src={previewCanvasRef}
+                    style={{
+                      border: "1px solid black",
+                      objectFit: "unset",
+                      width: "564px",
+                      height: "238px",
+                    }}
+                  />
+                )} */}
+
+                {!!completedCrop && (
+                  <canvas
+                    ref={previewCanvasRef}
+                    style={{
+                      display: "none",
+                      border: '1px solid black',
+                      objectFit: 'unset',
+                      width: "564px",
+                      height: "238px",
+                    }}
+                  />
+                )}
               </Paper>
             </Box>
 
@@ -804,6 +950,8 @@ function UploadCheck() {
               >
                 Terms and conditions
               </Typography>
+
+
             </Box>
           </Grid>
         </Grid>
