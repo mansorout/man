@@ -4,8 +4,7 @@ import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
 import { panVerificationApi } from '../../APIs/apis'
 import { nomineeAddApi } from '../../APIs/apis'
-import { uploadChequeApi } from '../../APIs/apis'
-
+import {userDetailsApi} from '../../APIs/apis'
 const setLoginState = (loginData: any) => {
     console.log(loginData)
     return {
@@ -229,16 +228,16 @@ export const nomineeAdd = ({ fullname, dateofbirth, relation_id }: { fullname: s
         return data
     };
 }
-
-export const uploadcheque = (chequeInput:any) => {
-    const {chequedata} = chequeInput;
-    console.log(chequedata)
+export const submituserdetails = (userdetails:any) => {
+    const { userdata} = userdetails;
+    console.log(userdata);
+  
     let token :any = localStorage.getItem('accesstoken')
-    console.log(token);
     return async (dispatch:any)=>{
-      const result ={}
+       
+                const result ={}
                 try{
-                    const result = await fetch(uploadChequeApi,{
+                    const result = await fetch(userDetailsApi,{
                         method:"POST",
                         headers: {  
                             Accept: 'application/json',
@@ -246,25 +245,39 @@ export const uploadcheque = (chequeInput:any) => {
                             "Authentication":token
                           },
                           body:JSON.stringify({
-                           "cheque":chequedata,
-                            })
-                        }).then((response) => response.json())
+                           "firstname":userdata.firstName,
+                           "middlename":userdata.middleName,
+                           "lastname":userdata.lastName,
+                           "emailaddress":userdata.emailaddress,
+                           "mobilenumber":userdata.mobilenumber,
+                           "dateofbirth":userdata.dateofbirth,
+                           "image":"",
+                           "gender":userdata.gender,
+                           "addressline1":userdata.addressline1,
+                           "addressline2":"",
+                           "pincode":userdata.pincode,
+                           "incomeslab":userdata.IncomeSlab,
+                           "country":userdata.country
+                           
+                        })
+                          
+                    
+                    }).then((response) => response.json())
                     .then((data) => {
                       console.log(data.error)
-                      console.log(data)
-                      // dispatch({
-                      //   type:'CHEQUE_UPLOAD_SUCCESS',
-                      //   payload:data
-                      // })
+                      dispatch({
+                        type:'USERDETAILS_SUCCESS',
+                        payload:data
+                      })
                         
                     })
                 } 
                 catch (err){
-                     
+                     //dispatch({type: 'LOGIN_FAILED'})
                      console.log(err)}
 
         return result
     };
 
-
+    
 }

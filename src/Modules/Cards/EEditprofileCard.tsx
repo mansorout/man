@@ -1,47 +1,35 @@
-import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
-import { emaillogo } from '../../Assets/index'
-import { cakelogo } from '../../Assets/index'
-import { icbirthplacelogo } from '../../Assets/index'
-import { locationlogo } from '../../Assets/index'
-import { ic_income } from '../../Assets/index'
-import { wclogo } from '../../Assets/index'
-import { Editprofilebutton } from '../Buttons/Editprofilebutton'
-import { Mylocationicon } from "../../Assets/index";
-import { girlicon} from '../../Assets/index'
-import {girliconicon} from  '../../Assets/index'
-import { manicon } from '../../Assets/index'
+// import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
+// import { emaillogo } from '../../Assets/index'
+// import { cakelogo } from '../../Assets/index'
+// import { icbirthplacelogo } from '../../Assets/index'
+// import { locationlogo } from '../../Assets/index'
+// import { ic_income } from '../../Assets/index'
+// import { wclogo } from '../../Assets/index'
+// import { Editprofilebutton } from '../Buttons/Editprofilebutton'
+// import { Mylocationicon } from "../../Assets/index";
+// import { girlicon} from '../../Assets/index'
+// import {girliconicon} from  '../../Assets/index'
+// import { manicon } from '../../Assets/index'
 
 
 
 
 
 
-import { cameraIcon } from '../../Assets/index'
-import List from '@mui/material/List';
-
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText'
-import Avatar from '@mui/material/Avatar';
-import WorkIcon from '@mui/icons-material/Work'
-import Paper from "@mui/material/Paper";
-
-
-import { useForm } from 'react-hook-form';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import MenuItem from '@mui/material/MenuItem';
 
 
 
-import { makeStyles } from "@material-ui/styles";
+
+
+
+import { makeStyles } from '@mui/styles';
+// import { theme } from '@mui/theme'
+
+
+// import { makeStyles } from "@material-ui/core/styles";
 
 import React from 'react'
-import { height, padding } from '@mui/system'
-import { WidthFull } from '@mui/icons-material'
+
 
 function EEditprofileCard() {
 
@@ -106,22 +94,19 @@ function EEditprofileCard() {
         // } as React.CSSProperties,
 
     }
-    const { register, handleSubmit } = useForm();
+    // const { register, handleSubmit } = useForm();
     const onSubmit = () => alert(JSON.stringify(null));
     const item = (() => ({
 
     }));
-    
     const useStyles = makeStyles(theme => ({
       root: {
         flexGrow: 1
       },
       paper: {
-        //@ts-ignore
-        padding: theme.spacing(2),
+        // padding: theme.spacing(2),
         textAlign: "center",
-        //@ts-ignore
-        color: theme.palette.text.secondary,
+        // color: theme.palette.text.secondary,
         
       }
     }));

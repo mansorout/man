@@ -1,20 +1,11 @@
-import { initialState } from "./InitialState"
 
-import * as t from './actionTypes'
+const initialState:any=[]
 
-const EdirprofileReducer = (state = initialState,action:any)=>{
-    switch(action.type){
-        
-        case t.SET_EDIT_STATE:
-            return{
-                ...state,
-                ...action.payload,
-            };
-        default:
-                return state;
-    }
-  
- };
-
-
-export default EdirprofileReducer;
+export default function(state = initialState, action:any) {
+  switch (action.type) {
+    case 'USERDETAILS_SUCCESS':
+      return action.payload 
+    default:
+      return state;
+  }
+}

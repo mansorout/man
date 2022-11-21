@@ -15,7 +15,7 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 // import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 // import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
-import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
+ import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
 
 
 
