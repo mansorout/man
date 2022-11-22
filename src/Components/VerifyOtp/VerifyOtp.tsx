@@ -89,7 +89,7 @@ export const VerifyOtp = () => {
             we sent you on your mobile number
           </Typography>
           <OtpInput
-            value={OTP}
+            value={ OTP}
             onChange={handleOtpChange}
             numInputs={4}
             shouldAutoFocus={true}

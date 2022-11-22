@@ -24,7 +24,7 @@ import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
 import PanUpdate from './Components/Pan/PanUpdate';
-
+import TxnFilters from './Components/TxnFilters/TxnFilters'
 
 
 
@@ -56,6 +56,7 @@ function App() {
           <Route path="/completedview" element={<ProfileCompleted/>} />
           <Route path="/vp" element={<ViewProfile/>} />
           <Route path="/editprofile" element={<Editprofilescreen/>} />
+          <Route path="/transaction" element={<TxnFilters/>} />
           
 
 
