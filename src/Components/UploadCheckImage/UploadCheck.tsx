@@ -136,7 +136,6 @@ function UploadCheck() {
   //  All Button in components goes here
 
   function handleToggleAspectClick() {
-    alert("check")
     if (aspect) {
       setAspect(undefined);
     }
@@ -701,14 +700,14 @@ function UploadCheck() {
           >
             <Stack
               sx={{
+                padding: "8px 16px",
                 width: "100%",
-                height: "30px",
-                margin: "66px 0px 0px",
+                height: "max-content",
                 backgroundColor: " #6c63ff",
               }}
             >
               <Typography
-                sx={{ marginTop: "7px", marginLeft: "26px" }}
+                sx={{ marginTop: "66px", marginLeft: "26px" }}
                 component="span"
                 className="subTitle5"
               >
@@ -725,7 +724,7 @@ function UploadCheck() {
             >
               <Paper
                 style={{
-                  height: "64vh",
+                  height: "100%",
                   width: "120vh",
                   background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -800,25 +799,32 @@ function UploadCheck() {
                   <Grid sx={{
                     display: " inline-flex", flexGrow: "0",
                     maxWidth: "50%", flexBasis: "50%",
-                    marginTop: "60px"
+                    marginTop: "45px",
+                    marginRight:"46px",
                   }} xs={6}>
                     {showSideButton ? (
                       " "
                     ) : (
 
-                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}>
+                        
+                        <Fab onClick={handleRotate} >
                         <RotateRightIcon />
                       </Fab>
+                      <Typography className="textStyling"> Rotate </Typography>
                         <Fab onClick={handleToggleAspectClick}>
                           <CropIcon />
                         </Fab>
+                        <Typography> Crop </Typography> 
 
                         <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
                           <DoneIcon />
                         </Fab>
+                        <Typography> Done </Typography>
                         <Fab onClick={handleCancel} >
                           <ClearIcon />
                         </Fab>
+                        <Typography> Cancel </Typography>
                       </Box>
 
 
@@ -936,10 +942,11 @@ function UploadCheck() {
               textAlign="center"
               sx={{
                 margin: "auto",
-                width: "304px",
+                width: "100%",
+                maxWidth: "1280px"
               }}
             >
-              <Typography component="span" className="bottomContentText ">
+              <Typography  component="span" className="bottomContentText ">
                 By submitting these details, you are agree to share your details
                 to BSE for further transactions <br />
               </Typography>
