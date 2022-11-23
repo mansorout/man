@@ -19,11 +19,16 @@ import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
 import Editprofilescreen from './Components/EditProfile/Editprofilescreen';
 
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
-import UploadCheck from './Components/UploadCheckImage/UploadCheck';
+// import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
 import PanUpdate from './Components/Pan/PanUpdate';
+import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
+import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
+import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
+
+import FilterBox from './Components/Filter/FilterBox';
 
 
 
@@ -37,7 +42,7 @@ function App() {
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/uploadsignature" element={<HolderSignature/>} />
-          <Route path="/uploadCheque" element={<UploadCheck/>} />
+          {/* <Route path="/uploadCheque" element={<UploadCheck/>} /> */}
           <Route path="/login" element={<Login/>} />
           <Route path="/TermsandCondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
@@ -56,6 +61,16 @@ function App() {
           <Route path="/completedview" element={<ProfileCompleted/>} />
           <Route path="/vp" element={<ViewProfile/>} />
           <Route path="/editprofile" element={<Editprofilescreen/>} />
+          <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
+          <Route path="/investnowscreen" element={<InvestNowScreen/>} />
+          <Route path="/redeemfund" element={<RedeemFunds/>} />
+          <Route path="/filter" element={<FilterBox/>} />
+
+
+
+
+
+
           
 
 

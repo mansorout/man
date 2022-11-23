@@ -1,7 +1,69 @@
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { store } from '../../Store/Store';
 //import './BankAccountDetails.css';
-
+import { bankuserdetails } from "../../Store/Reducers/action";
+import {submitPostuserdetails} from '../../Store/Reducers/action'
+import { useNavigate } from 'react-router-dom';
 const BankAccountDetails = () => {
+
+    const navigate = useNavigate();
+    function handleSubmit() {
+      // addUserDEtails("")
+      store.dispatch(submitPostuserdetails({ 'userdata': bankformData }))
+  
+      navigate('/vp');
+  
+  
+    }
+
+//  const [postUserdetails,setPostUserdetails] = useState<any>({
+
+//     EnterIFSCcode:""
+//  })
+    const [bankformData, setBankFormData] = useState<any>({
+        EnterIFSCcode :"",
+        accounttype:"",
+        accountnumber:"",
+     
+
+        // firstName: "",
+        // middleName: "",
+        // lastName: "",
+        // emailaddress: "",
+        // mobilenumber: "",
+        // dateofbirth: "",
+        // pincode: "",
+        // gender: "Female",
+        // CountrySecond: "",
+        // StateOfBirth: "",
+        // city: "",
+        // CityofResidence: "",
+        // IncomeSlab: "",
+        // CountryofBirth: "",
+        // Placeofbirth: "",
+        // addressline1: "",
+        // CountryFirst: "",
+        // state: "",
+    
+    
+    
+      })
+    const handleChange = (e: any) => {
+        const value = e.target.value;
+        setBankFormData({bankformData,[e.target.name]: value})
+      
+       // 
+    
+        
+    
+    
+      }
+      if(bankformData.EnterIFSCcode.length === 10){
+        store.dispatch(bankuserdetails({ 'bankuserdata': bankformData }))
+      }
+      console.log(bankformData.EnterIFSCcode.length)
+
     return (
         <Box component="form" sx={{
             width: '100%',
@@ -21,6 +83,7 @@ const BankAccountDetails = () => {
                 fontSize: '14px',
                 fontWeight: 500,
                 color: '#3c3e42',
+            
             }}>Add Bank Account Details</Typography>
 
             <FormControl>
@@ -30,25 +93,53 @@ const BankAccountDetails = () => {
                     color: '#6c63ff',
                 }}>Select your account type</FormLabel>
                     <RadioGroup defaultValue="savings">
-                        <FormControlLabel value="savings" control={<Radio />} label="Savings"  />
-                        <FormControlLabel value="current" control={<Radio />} label="Current" />
+                        <FormControlLabel  control={<Radio />} label="Savings" 
+                           value={bankformData.accounttype}
+                           onChange={handleChange} 
+
+                         />
+                        <FormControlLabel  control={<Radio />} label="Current" 
+                           value={bankformData.accounttype}
+                           onChange={handleChange} 
+                        />
                     </RadioGroup>
             </FormControl>
 
             <FormControl>
-                <TextField required id="outlined-ifsc-code" label="Enter IFSC code" />
+                <TextField
+                 required id="outlined-ifsc-code" 
+                 label="Enter IFSC code" 
+                 value={bankformData.EnterIFSCcode}
+                 onChange={handleChange} 
+                 name="EnterIFSCcode"
+            
+                 />
             </FormControl>
 
             <FormControl>
-                <TextField type="password" id="outlined-bank-acc-no" required label="Bank Account Number" />
+                <TextField type="password" 
+                id="outlined-bank-acc-no" 
+                required label="Bank Account Number"
+                value={bankformData.accountnumber}
+                onChange={handleChange} 
+                 />
             </FormControl>
 
             <FormControl>
-                <TextField required id="confirmed-bank-acc-no" label="Confirm Bank Account Number" /> 
+                <TextField required 
+                id="confirmed-bank-acc-no" 
+                label="Confirm Bank Account Number" 
+                value={bankformData.ConfirmaccountNumber}
+                onChange={handleChange} 
+                /> 
             </FormControl>
 
             <FormControl>
-                <TextField required label="Account Holder's Name" />
+                <TextField required 
+                label="Account Holder's Name"
+                value={bankformData.AccountHoldersName}
+                onChange={handleChange} 
+                 />
             </FormControl>
 
             <FormControl>
@@ -58,7 +149,10 @@ const BankAccountDetails = () => {
                     backgroundColor: '#23db7b',
                     padding: '1rem',
                     textTransform: 'capitalize',
-                }}>Continue</Button>
+                 
+                }}
+                onClick={handleSubmit}
+                >Continue</Button>
             </FormControl>
         </Box>        
     )
