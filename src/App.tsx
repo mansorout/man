@@ -25,6 +25,7 @@ import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetai
 import Nominee from './Components/BankAccountDetails/Nominee';
 import PanUpdate from './Components/Pan/PanUpdate';
 import TxnFilters from './Components/TxnFilters/TxnFilters'
+import FundDetails from './Components/FundDetails/FundDetails';
 
 
 
@@ -57,6 +58,7 @@ function App() {
           <Route path="/vp" element={<ViewProfile/>} />
           <Route path="/editprofile" element={<Editprofilescreen/>} />
           <Route path="/transaction" element={<TxnFilters/>} />
+          <Route path="/funddetails" element={<FundDetails/>} />
           
 
 
