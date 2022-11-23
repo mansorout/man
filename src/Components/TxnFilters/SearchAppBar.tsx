@@ -74,6 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+
   return (
     <Box sx={{ overflowx: "auto"}}>
       <AppBar sx={{background: 'transparent',  boxShadow: 'none'}} position="static">
@@ -111,9 +112,11 @@ export default function SearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <FilterIconWrapper>
+          
+          <FilterIconWrapper >
         <FilterAltOutlinedIcon  />
         </FilterIconWrapper>
+         
         </Toolbar>
         
       </AppBar>

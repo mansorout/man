@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import SearchAppBar from './SearchAppBar';
 import { Grid, Stack } from '@mui/material';
 import TransactionsDatacard from './TransactionsDatacard';
+import TransactionCard from '../../Modules/CustomCard/TransactionCard';
+import TransactionDatacard2 from './TransactionDatacard2';
 
 
 
@@ -66,15 +68,19 @@ export default function TabPanelItems() {
 
   return (
   <>
-   
-      <AppBar position="static"  sx={{backgroundColor:"white",  width: "100%",height: "fit-content",overflowx: "auto"
+   {/* <Stack sx={{ height:"60px",backgroundColor:"#f9f9f9"}}><Typography sx={{margin: "19px 0px 0px 57px"}}className='portfoliotext'>Portfolio</Typography></Stack> */}
+      <AppBar position="static"  sx={{backgroundColor:"white",  width: "90%",height: "10%",overflowx: "auto",borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0,0,0,0.12)",marginTop:"128px"
      }} >
-        <Stack sx={{ height:"60px",backgroundColor:"#f9f9f9"}}><Typography sx={{margin: "19px 0px 0px 57px"}}className='portfoliotext'>Portfolio</Typography></Stack>
+        
         
         <Tabs
+          sx={{marginTop:"17px"}}
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
+          TabIndicatorProps={{
+            sx: { backgroundColor: "#23db7b",height: 3 }
+          }}
+         
           textColor="primary"
           variant="fullWidth"
           aria-label="action tabs example"
@@ -102,6 +108,10 @@ export default function TabPanelItems() {
         <TabPanel value={value} index={1} dir={theme.direction}>
        
         <TransactionsDatacard   />
+        <TransactionDatacard2 />
+        <TransactionDatacard2 />
+        
+        {/* <TransactionCard logo={''} name={''} cap={''} type={''} price={0} year1={0} year3={0} year5={0} rating={0} /> */}
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           

@@ -441,24 +441,9 @@ function TxnFilters() {
             <Grid  container sx={{height:"100vh",width:"100%", overflow:"scroll", }} xs={13} sm={11} md={10}>
               
                 <Toolbar/>
-                {/* <AppBar position="static" color="default">
-        <Tabs
-        //   value={value}
-        //   onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="action tabs example"
-        >
-          <Tab label="Holdings" />
-          <Tab label="Transactions"/>
-          <Tab label="SIPs" />
-          <Tab label="Reports" />
-        </Tabs>
-      </AppBar> */}
-              
-              <TabPanelItems />
                
+              <TabPanelItems />
+ 
 
              
             </Grid>
