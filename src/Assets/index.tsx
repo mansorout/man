@@ -66,6 +66,8 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
     export const manicon=require("./Profile/ManIcon.png")
     export const girlicon=require("./Profile/GirlIcon.png")
     export const girliconicon=require("./Profile/GirlIcon-Icon.png")
+    export const maskgroup=require("./MaskGroup.png")
+
 
 
 

@@ -1,5 +1,5 @@
 import { Box, Chip, Typography, TableContainer, Table, TableRow, TableBody, TableHead, TableCell, Avatar } from "@mui/material";
-import { Star } from "../../Assets";
+import { maskgroup, Star } from "../../Assets";
  
  
 function createData(
@@ -14,7 +14,7 @@ function createData(
   
   
 
-  const FirstRow = ["","29 Apr INF209K01090","Not Alloted","76.25","40,000","Lumpsum","logo"];
+  const FirstRow = ["","29 Apr INF209K01090","Not Alloted","76.25","40,000","Lumpsum",""];
 
 const TransactionDatacard2 = (props: Props) => {
 
@@ -65,19 +65,62 @@ const TransactionDatacard2 = (props: Props) => {
                         <TableHead>
                      
                         <TableRow>
-                        <TableCell>logo</TableCell> 
-            <TableCell>Axis Small cap Regular Growth Fund</TableCell>
+                        <TableCell>
+                        <img alt="Money Sprint" src={maskgroup } style={{
+                              width: "34px",
+                              height: "34px"
+                              
+                        }} />
+                            </TableCell> 
+            <TableCell
+            sx={{
+                width: "336px",
+                height: "19px",
+                margin:" 4px 115px 7px 15px",
+                fontFamily: "Roboto",
+                fontSize: "16px",
+                fontWeight: "500",
+                textAlign: "left",
+                color: "#3c3e42",
+           }} 
+            >Axis Small cap Regular Growth Fund</TableCell>
             <TableCell align="right">Units</TableCell>
             <TableCell align="right">NAV</TableCell>
             <TableCell align="right">Amount</TableCell>
             <TableCell align="right">Investment Type</TableCell>
-            <TableCell align="right">Logo</TableCell>
+            <Typography
+              sx={{
+                width: "12px",
+                height: "12px",
+                margin: "1px 6px 1px 0",
+                borderRadius:"30px",
+                backgroundColor:"#23db7b",
+                fontSize:"12px",
+                fontWeight:"500"
+            }}
+            ></Typography>
+                <Typography sx={{
+                color:"#23db7b",
+                marginLeft:"20px",
+                marginTop:'-17px'
+                }} >Buy</Typography>
           </TableRow>
                         </TableHead>
                         <TableBody sx={{height:""}}>
 
                             {FirstRow.map((i:any)=>{
-                               return  <TableCell align="right">{i}</TableCell>
+                               return  <TableCell align="right"
+                               sx={{
+                                height: "16px",
+                                fontSize: "14px",
+                                fontWeight: "500",
+                                letterSpacing: "0.42px",
+                                textAlign:" left",
+                                color: "#7b7b9d"
+                              
+                               }}
+                               
+                               >{i}</TableCell>
                             })}
              
                          
