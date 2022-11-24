@@ -38,6 +38,9 @@ export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
 
+export const chart = require("./Portfolio/chart.png")
+export const meria = require("./Portfolio/mirae.png")
+
 
 
 
@@ -67,7 +70,18 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
     export const girlicon=require("./Profile/GirlIcon.png")
     export const girliconicon=require("./Profile/GirlIcon-Icon.png")
 
+export const AssetAllocationImage = require('./Portfolio/AssetAllocation.svg');
+export const MorningStarLogo = require('./Portfolio/morningstar_logo.png');
+export const HelpOutline = require('./Portfolio/help_outline-24px.png');
+export const ReplaceButtonIcon = require('./Portfolio/cached-24px.png');
+export const RemoveButtonIcon = require('./Portfolio/delete_forever-24px.png');
 
+
+export const formatter = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR',
+  maximumFractionDigits: 0
+});
 
 export const graphimage=require("./Profile/GraphImage.png")
 export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")

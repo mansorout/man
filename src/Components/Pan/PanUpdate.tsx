@@ -56,7 +56,12 @@ const PanUpdate = () => {
                           },
                         }}
                     InputProps = {{
-                        endAdornment :  error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
+                        endAdornment :  error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : "",
+                    }}
+                    inputProps={{
+                        maxLength: 10,
+                        minLength: 10,
+                        pattern: '[A-Za-z]{5}\d{4}[A-Za-z]'
                     }}
                 />
             </FormControl>
