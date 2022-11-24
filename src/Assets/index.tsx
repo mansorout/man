@@ -67,6 +67,8 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
     export const girlicon=require("./Profile/GirlIcon.png")
     export const girliconicon=require("./Profile/GirlIcon-Icon.png")
     export const maskgroup=require("./MaskGroup.png")
+    export const SmallStar =require("./Small_Star.png")
+    export const Riskometer=require("./RiskoMeter.png")
 
 
 

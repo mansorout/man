@@ -74,18 +74,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-
   return (
-    <Box sx={{ overflowx: "auto"}}>
-      <AppBar sx={{background: 'transparent',  boxShadow: 'none'}} position="static">
-        <Toolbar sx={{ flexGrow: 1,overflowx: "auto"}}>
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar sx={{background: 'transparent', boxShadow: 'none'}} position="static">
+        <Toolbar>
           <IconButton
             size="large"
             edge="start"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           ></IconButton>
-           <Stack direction="row" gap={1} >
+           <Stack direction="row" gap={1}>
           <Button variant="outlined" sx={{ background: 'transparent',width:"56px" }}>
             All
           </Button>
@@ -112,11 +111,9 @@ export default function SearchAppBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          
-          <FilterIconWrapper >
+          <FilterIconWrapper>
         <FilterAltOutlinedIcon  />
         </FilterIconWrapper>
-         
         </Toolbar>
         
       </AppBar>

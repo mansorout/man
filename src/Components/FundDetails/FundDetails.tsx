@@ -1,7 +1,7 @@
 
 // import './Home.css'
 import { Box, styled } from '@mui/system'
-import { Grid, Modal, Paper, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Grid, IconButton, Modal, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList,  List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -15,7 +15,17 @@ import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
 import { useNavigate } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
-import FundDetailsCard from './FundDetailsCard'
+import FundDetailCard from '../TxnFilters/FundDetailCard'
+import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
+import { companyCards } from '../../Modal/companyCards'
+import { FundCardsData } from '../../Modal/FundCardsData'
+import FundChart from './FundChart'
+import FundTable from './FundTable'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import './FundTable.css'
+import { Riskometer } from '../../Assets/index'
+import ProgressBars from './ProgressBars'
+ 
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -42,6 +52,8 @@ function FundDetails() {
       zIndex: "3000",
     },
   }));
+
+  
 
   
 
@@ -419,9 +431,137 @@ function FundDetails() {
            
               <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13} sm={7} md={12}>
                 <Toolbar/>
-                <FundDetailsCard />
+                {
+                  FundCardsData.map((item,index) => {
+                    return(
+                      <FundDetailCard
+                        key={index}
+                        logo = {item.logo}
+                        name = {item.name}
+                        cap = {item.cap}
+                        type = {item.type}
+                        year1 =  {item.year1}
+                        year3 =  {item.year3}
+                        year5 =  {item.year5}
+                        rating = {item.rating}
+                        morning_star_logo = {item.morning_star_logo}
+                      />
+                    )
+                  })
+                }
+                 <FundChart />
+                 <FundTable />
+                
+
+                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+  <Grid item xs={6}>
+  <FundChart />
+  </Grid> 
+  <Grid item xs={6}>
+  <FundChart />
+  </Grid>
+  <Grid item xs={6}>
+  
+  </Grid>
+</Grid>
+                 <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+  <Grid  item xs={6}>
+  <Box >
+    
+      <Accordion >
+      {/* sx={{backgroundColor:"red"}} */}
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Box sx={{
+             
+          
+            
+          }}>
+          <Typography className='risko_meter'>Riskometer</Typography>
+          <Typography className='Level-of-Risk-in-the-Scheme'>Level of Risk in the Scheme</Typography>
+          </Box>
+          
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box sx={{
+                margin: "4rem 0rem 3rem"
+          }}>
+           <img style={{maxWidth: "-webkit-fill-available"
+}} src={Riskometer} />
+             
+          </Box>
+          <Typography sx={{textAlign: "center"}} className='This-is-a-moderately-high-risk-fund'>
+          This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      
+    </Box>
+  </Grid> 
+  <Grid  item xs={6}>
+  <Box >
+    
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Box sx={{
+             
+             
+            
+          }}>
+          <Typography className='risko_meter'>Latest Asset & Portfolio Allocation</Typography>
+          <Typography className='Level-of-Risk-in-the-Scheme'>as on Aug 31, 2020</Typography>
+          </Box>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          <AppBar sx={{background: 'transparent', boxShadow: 'none'}} position="static">
+     
+         
+           <Stack direction="row" gap={1}>
+          <Button  sx={{ background: '#dff7ea',border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
+            <Typography sx={{color:"#23db7b"}} className='button_text'>
+            Sectors
+            </Typography>
+          </Button>
+          <Button sx={{ background: 'transparent',border: "solid 1px rgba(123, 123, 157, 0.3)"  }}>
+           <Typography className='button_text'>
+           Companies
+           </Typography>
+          </Button>
+          <Button  sx={{ background: 'transparent',border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
+            <Typography className='button_text'>
+            MarketCap
+            </Typography>
+          </Button>
+          </Stack>
+          </AppBar>
+
+          </Typography>
+          <br/>
+          <ProgressBars />
+        </AccordionDetails>
+      </Accordion>
+      
+    </Box>
+  </Grid>
+  <Grid item xs={6}>
+  
+  </Grid>
+</Grid>
+
+
+     
                
               </Grid>
+             
+              
               
             </Grid>
             
@@ -433,3 +573,6 @@ function FundDetails() {
 }
 
 export default FundDetails
+
+
+

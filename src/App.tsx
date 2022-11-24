@@ -57,7 +57,7 @@ function App() {
           <Route path="/completedview" element={<ProfileCompleted/>} />
           <Route path="/vp" element={<ViewProfile/>} />
           <Route path="/editprofile" element={<Editprofilescreen/>} />
-          <Route path="/transaction" element={<TxnFilters/>} />
+          <Route path="/transactionfilter" element={<TxnFilters/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
           
 

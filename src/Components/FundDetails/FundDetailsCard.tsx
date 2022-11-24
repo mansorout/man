@@ -1,4 +1,4 @@
-import { Box, Chip, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 function FundDetailsCard() {
@@ -16,10 +16,7 @@ function FundDetailsCard() {
         <Box>
 
             <Typography style={{color:"white", fontSize:"32px",fontFamily:"Roboto"}}>Axis Small Cap Fund Regular Growth</Typography>
-            <Box>
-                <Chip sx={{backgroundColor:"red",width:"76px",height:"19px",}}></Chip>
-                <Chip sx={{backgroundColor:"red"}}></Chip>
-            </Box>
+            
             <Typography style={{color:"white", fontSize:"18px", fontWeight:"500"}}>Financial Freedom</Typography>
             <Typography style={{color:"white", fontSize:"16px"}}>Enhance the effectiveness of your financial planning with SprintMoney</Typography>
         </Box>
