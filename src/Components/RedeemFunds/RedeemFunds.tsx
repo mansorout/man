@@ -29,6 +29,7 @@ import RedeemFundsCard from './RedeemFundsCard'
 import TextField from '@mui/material/TextField';
 import { runInContext } from 'vm'
 import RedeemNowButtom from '../../Modules/Buttons/RedeemNowButton'
+import Radio from '@mui/joy/Radio'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -216,8 +217,14 @@ function RedeemFunds() {
 
     const error: string[] = useSelector((state: any) => state.error)
 
+    const [selectedValue, setSelectedValue] = React.useState('a');
+
+    const handleChange = (event: any) => {
+        setSelectedValue(event.target.value);
+    };
+
     return (
-        <Box style={{ width: "100vw",}} ref={refContainer}>
+        <Box style={{ width: "100vw", }} ref={refContainer}>
 
             <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
                 <Toolbar style={style.toolbar}>
@@ -288,7 +295,7 @@ function RedeemFunds() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block' }}>
-                    
+
                         <ListItemButton
                             sx={{
                                 minHeight: 56,
@@ -514,30 +521,48 @@ function RedeemFunds() {
                                                 </Grid>
 
 
-                                          
+
 
 
                                             </Grid>
-                                            <Grid container spacing={3} sx={{marginLeft:"12%", marginTop:"1%"}}>
+                                            <Grid container spacing={3} sx={{ marginLeft: "12%", marginTop: "1%" }}>
                                                 <Grid item xs={6}>
-                                                    <Typography  >  
-                                                    <img src={Radiobutton} alt="image" style={style.RadioInter} />
-                                                     Amount: ₹1,46,625
+                                                    <Typography  >
+                                                        {/* <img src={Radiobutton} alt="image" style={style.RadioInter} /> */}
+                                                        <Radio
+                                                            checked={selectedValue === 'a'}
+                                                            onChange={handleChange}
+                                                            value="a"
+                                                            name="radio-buttons"
+                                                            componentsProps={{ input: { 'aria-label': 'A' } }}
+                                                            sx={{color:"#23db7b"}}
+                                                        />
+
+                                                        Amount: ₹1,46,625
 
                                                     </Typography>
-                                                    
-                                              
-                                                </Grid>
-                                             
-                                                <Grid item xs={6}>
-                                                <img src={Radiobutton} alt="image" style={style.RadioInter} />
-                                                    <Typography >   Units: 750.762</Typography>
-                                                </Grid>
-                                             
-                                                 </Grid>
-                                              
 
-                                                 {/* <img src={Radiobutton} alt="image" style={style.RInter} /> */}
+
+                                                </Grid>
+
+                                                <Grid item xs={6}>
+                                                    {/* <img src={Radiobutton} alt="image" style={style.RadioInter} /> */}
+                                                    <Typography>
+                                                        <Radio
+                                                            checked={selectedValue === 'b'}
+                                                            onChange={handleChange}
+                                                            value="b"
+                                                            name="radio-buttons"
+                                                            componentsProps={{ input: { 'aria-label': 'B' } }}
+                                                            sx={{color:"#23db7b"}}
+                                                        />
+                                                        Units: 750.762</Typography>
+                                                </Grid>
+
+                                            </Grid>
+
+
+                                            {/* <img src={Radiobutton} alt="image" style={style.RInter} /> */}
                                             <TextField label="Amount"
                                                 name="Amount"
                                                 //   value={formData.lastName}
@@ -567,7 +592,7 @@ function RedeemFunds() {
                                                             fontSize: " 12px",
                                                             textAlign: "left",
                                                             color: "#8787a2"
-                                                       
+
 
 
                                                         }}
@@ -598,7 +623,7 @@ function RedeemFunds() {
 
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "-3%",borderRadius:"8px" }}>
+                                    <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "-3%", borderRadius: "8px" }}>
                                         <CardActionArea>
                                             <Typography sx={{
                                                 width: "318px",
@@ -622,7 +647,7 @@ function RedeemFunds() {
                                                 <Grid item xs={10}>
                                                     <Typography sx={{
                                                         fontSize: "16px",
-                                                        
+
 
                                                     }}>Exit Load</Typography>
                                                     <Typography sx={{
@@ -634,7 +659,7 @@ function RedeemFunds() {
                                                         lineHeight: "1.21",
                                                         textAlign: " left",
                                                         color: "#7b7b9d"
-                                                   }}>Exit load will be applicable if you are redeeming a fund within
+                                                    }}>Exit load will be applicable if you are redeeming a fund within
                                                         365 days from the date of purchase. Exit load
                                                         is a percentage of the NAV of the fund.</Typography>
                                                 </Grid>
@@ -644,7 +669,7 @@ function RedeemFunds() {
                                                     <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
                                                 </Grid>
                                                 <Grid item xs={10}>
-                                                    <Typography sx={{ fontSize: "16px",  }}>Tax Implications</Typography>
+                                                    <Typography sx={{ fontSize: "16px", }}>Tax Implications</Typography>
                                                     <Typography
                                                         sx={{
                                                             width: "353px",
@@ -652,9 +677,9 @@ function RedeemFunds() {
                                                             margin: " 4px 0 0 ",
                                                             fontFamily: " Roboto",
                                                             fontSize: "14px",
-                                                             textAlign: " left",
+                                                            textAlign: " left",
                                                             color: "#7b7b9d"
-                                                         }}
+                                                        }}
                                                     >Investors earn dividends and capital gains from liquid funds.
                                                         Investors do not pay any tax on dividend income from mutual funds.</Typography>
                                                 </Grid>
@@ -664,8 +689,8 @@ function RedeemFunds() {
                                                     <Typography sx={{
                                                         width: " 363px",
                                                         height: "31px",
-                                                        margin: "19px 7px 19px 56px", 
-                                                         fontSize: " 12px",
+                                                        margin: "19px 7px 19px 56px",
+                                                        fontSize: " 12px",
                                                         fontWeight: "normal",
                                                         fontStyle: " normal",
                                                         lineHeight: "1.42",
@@ -673,7 +698,7 @@ function RedeemFunds() {
                                                         textAlign: " center",
                                                         color: "#7b7b9d",
 
-                                                       
+
                                                     }}>  Final units or amount will depend on NAV
                                                         applicable at the time of actual redemption request.</Typography>
                                                 </Grid>
@@ -714,13 +739,13 @@ function RedeemFunds() {
                             </Grid>
                         </Grid>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sx={{textAlign:"center"}}>
-                            <RedeemNowButtom/>
+                            <Grid item xs={12} sx={{ textAlign: "center" }}>
+                                <RedeemNowButtom />
                             </Grid>
                         </Grid>
-                              
+
                     </Grid>
-                    
+
                 </Grid>
             </Box>
 

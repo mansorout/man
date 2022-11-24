@@ -21,7 +21,6 @@ import { useNavigate } from 'react-router-dom'
 import OtpInput from 'react-otp-input'
 import { useSelector } from 'react-redux'
 import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
-
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -173,7 +172,7 @@ function Home() {
 
   const refContainer = useRef();
 
-  const navigate = useNavigate();
+ 
 
   const [mpin, setMpin] = useState<string | null>()
   const [openModal, setOpenModal] = useState<boolean>(true)
@@ -190,7 +189,7 @@ function Home() {
   }
 
   const error : string[] = useSelector((state : any) => state.error)
-
+  const navigate = useNavigate()
   return (
       <Box style={{width: "100vw"}} ref={refContainer}>
         <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
@@ -434,8 +433,8 @@ function Home() {
                   {
                     investingCards.map((item, key) => {
                       return(
-                        <Grid key={key} item xs={6} sx={{padding:2}}>
-                          <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img}/>
+                        <Grid key={key} onClick={()=>navigate("/investnowscreen")}  item xs={6} sx={{padding:2}}>
+                          <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                         </Grid>
                       )
                     })

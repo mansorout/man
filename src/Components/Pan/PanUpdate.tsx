@@ -1,6 +1,7 @@
 import { Box, Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ContactError } from "../../Assets";
+import { useNavigate } from 'react-router-dom'
 
 const PanUpdate = () => {
 
@@ -20,7 +21,7 @@ const PanUpdate = () => {
             color: "white"
         }
     };
-
+    const navigate = useNavigate()
     return (
 
         <Box component="form" sx={{
@@ -67,7 +68,7 @@ const PanUpdate = () => {
             </FormControl>
 
             <FormControl>
-                <Button variant="contained" style={style.button} fullWidth onClick={() => {}}>
+                <Button variant="contained" style={style.button} fullWidth onClick={()=>navigate("/completedview")} >
                     <Typography style={style.text} className="largeButtonText">
                         Continue
                     </Typography>
