@@ -4,7 +4,7 @@ import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
 import { panVerificationApi } from '../../APIs/apis'
 import { nomineeAddApi } from '../../APIs/apis'
-
+import {userDetailsApi} from '../../APIs/apis'
 const setLoginState = (loginData: any) => {
     console.log(loginData)
     return {
@@ -227,4 +227,57 @@ export const nomineeAdd = ({ fullname, dateofbirth, relation_id }: { fullname: s
 
         return data
     };
+}
+export const submituserdetails = (userdetails:any) => {
+    const { userdata} = userdetails;
+    console.log(userdata);
+  
+    let token :any = localStorage.getItem('accesstoken')
+    return async (dispatch:any)=>{
+       
+                const result ={}
+                try{
+                    const result = await fetch(userDetailsApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "firstname":userdata.firstName,
+                           "middlename":userdata.middleName,
+                           "lastname":userdata.lastName,
+                           "emailaddress":userdata.emailaddress,
+                           "mobilenumber":userdata.mobilenumber,
+                           "dateofbirth":userdata.dateofbirth,
+                           "image":"",
+                           "gender":userdata.gender,
+                           "addressline1":userdata.addressline1,
+                           "addressline2":"",
+                           "pincode":userdata.pincode,
+                           "incomeslab":userdata.IncomeSlab,
+                           "country":userdata.country
+                           
+                        })
+                          
+                    
+                    }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      dispatch({
+                        type:'USERDETAILS_SUCCESS',
+                        payload:data
+                      })
+                        
+                    })
+                } 
+                catch (err){
+                     //dispatch({type: 'LOGIN_FAILED'})
+                     console.log(err)}
+
+        return result
+    };
+
+    
 }
