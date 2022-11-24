@@ -24,6 +24,10 @@ import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
 import PanUpdate from './Components/Pan/PanUpdate';
+import Portfolio from './Components/Portfolio/Portfolio';
+import Transaction from './Components/Portfolio/Transaction';
+import Report from './Components/Portfolio/Report';
+import Sip from './Components/Portfolio/Sip';
 
 
 
@@ -36,6 +40,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/portfolio" element={<Portfolio/>} />
+          <Route path="/holdings" element={<Portfolio/>} />
+          <Route path="/transactions" element={<Transaction/>} />
+          <Route path="/reports" element={<Report/>} />
+          <Route path="/sips" element={<Sip/>} />
           <Route path="/uploadsignature" element={<HolderSignature/>} />
           <Route path="/uploadCheque" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />

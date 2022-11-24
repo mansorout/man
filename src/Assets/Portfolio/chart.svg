@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+    <defs>
+        <clipPath id="sfwkd4vgya">
+            <circle data-name="Ellipse 290" cx="120" cy="120" r="120" style="fill:#f4f5f6"/>
+        </clipPath>
+        <filter id="7mxmyxt8hb" x="29.455" y="29.454" width="178.667" height="178.667" filterUnits="userSpaceOnUse">
+            <feOffset/>
+            <feGaussianBlur stdDeviation="12" result="blur"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g data-name="Group 5293" transform="translate(-32 -451)">
+        <circle data-name="Ellipse 286" cx="120" cy="120" r="120" transform="translate(32 451)" style="fill:#4b7bec"/>
+        <g data-name="Mask Group 3" transform="translate(32 451)" style="clip-path:url(#sfwkd4vgya)">
+            <path data-name="Path 6388" d="M13.783 0h119.69v119.69H-70z" transform="translate(105.907 119.69)" style="fill:#ffc300"/>
+            <path data-name="Path 6387" d="M0 0h119.69v152.007L0 119.69z" transform="translate(119.69)" style="fill:#23db7b"/>
+            <path data-name="Line 58" transform="translate(120.289 -7.78)" style="fill:none;stroke:#fff;stroke-width:2px" d="M0 0v128.069"/>
+            <path data-name="Line 59" transform="translate(120.289 120.289)" style="fill:none;stroke:#fff;stroke-width:2px" d="M131.659 35.907 0 0"/>
+            <path data-name="Line 60" transform="translate(44.884 120.289)" style="fill:none;stroke:#fff;stroke-width:2px" d="M0 106.524 75.405 0"/>
+        </g>
+        <g style="filter:url(#7mxmyxt8hb)">
+            <circle data-name="Ellipse 291" cx="53.333" cy="53.333" r="53.333" transform="translate(97.45 516.45)" style="fill:#fff"/>
+        </g>
+    </g>
+</svg>
