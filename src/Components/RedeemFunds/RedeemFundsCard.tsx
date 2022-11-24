@@ -11,7 +11,8 @@ function RedeemFundsCard() {
             backgroundColor: "#6c63ff",
             boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
             borderRadius: { xs: "0px", sm: "16px" },
-            padding: "60px 30px",
+            padding: "30px 30px",
+          
         },
         Axislogo: {
             width: "76.5px",
@@ -43,7 +44,7 @@ function RedeemFundsCard() {
             color: " #fff",
             marginTop: "3%",
             marginLeft: "25%",
-           
+
         },
         moninglogo: {
             width: "76px",
@@ -78,31 +79,31 @@ function RedeemFundsCard() {
                                     height: "16px",
                                     margin: " 2px 59% 1px 5%",
 
-                               }} />
-                               <Typography sx={{
-                                  width:" 23px",
-                                  height: "19px",
-                                  margin: " -56% -6% 1px 42%",
-                              
-                                  fontSize:" 16px",
-                                  fontWeight:" 500",
-                             
-                                  textAlign: "right",
-                                  color: "#fff"
-                                
-                               }}>3.8</Typography>
-                                   <img src={morningsteologo} alt="Sprint__Money" style={{
-                                width: "76px",
-                                height: "22px",
-                                margin: "-15% 0 60px 120%",
-                                alignItems: "right",
-                                opacity: "0.7",
-                             
+                                }} />
+                                <Typography sx={{
+                                    width: " 23px",
+                                    height: "19px",
+                                    margin: " -56% -6% 1px 42%",
 
-                            }} />
+                                    fontSize: " 16px",
+                                    fontWeight: " 500",
+
+                                    textAlign: "right",
+                                    color: "#fff"
+
+                                }}>3.8</Typography>
+                                <img src={morningsteologo} alt="Sprint__Money" style={{
+                                    width: "76px",
+                                    height: "22px",
+                                    margin: "-15% 0 60px 120%",
+                                    alignItems: "right",
+                                    opacity: "0.7",
+
+
+                                }} />
                             </Typography>
 
-                        
+
 
                         </Typography>
 

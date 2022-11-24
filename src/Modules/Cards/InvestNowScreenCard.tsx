@@ -18,7 +18,7 @@ import { height, padding } from '@mui/system'
 import MenuItem from '@mui/material/MenuItem';
 import { useForm, Controller } from "react-hook-form";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import { makeStyles } from "@material-ui/core/styles";
+
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -33,17 +33,10 @@ import { ActionCreators } from '../../Store';
 import Radio from '@mui/material/Radio';
 import { InvestButton } from '../Buttons/InvestButton';
 import List from '@mui/material/List';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import Paper from "@mui/material/Paper";
 import { graphimage } from '../../Assets/index'
 import { withdrawiclogo } from '../../Assets/index'
 import { lockinlogo } from '../../Assets/index'
-// import TextField from '@mui/material/TextField';
 
-// import Button from '@mui/material/Button';
-// import Stack from '@mui/material/Stack';
-// import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 
 
@@ -154,18 +147,7 @@ function InvestNowScreenCard() {
         },
 
         cameraIcon: {
-            // borderRadius: "170px 175px 175px 163px",
-            // backgroundColor: '#23db7b',
-            // width: '30px',
-            // height: '30px',
-            // marginLeft: "auto",
-            // marginRight: "auto",
-            // padding: '15px',
-            // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
-            // border: 'solid 1px rgba(0, 0, 0, 0.08)',
-            // display: "block",
-            // marginTop: "20px",
-            // marginBottom: "30px"
+        
             width: "448px",
             height: " 67px",
             margin: "0 0 14px",
@@ -194,20 +176,26 @@ function InvestNowScreenCard() {
 
 
         },
+        Axisstyle: {
+            width: "14px",
+            height: "14px",
+            // margin: "8px 67px 0 0",
+            fontFamily: "Roboto",
+            fontSize: "12px",
+            fontWeight: "normal",
+            letterSpacing: "normal",
+            textAlign: "left",
+            color: "#7b7b9d"
+        },
         ca: {
-            // borderRadius: "170px 175px 175px 163px",
+ 
             backgroundColor: "#64dbff",
             width: "20px",
             height: "20px",
             padding: "10px",
             opacity: "0.9",
 
-            // width: '80px',
-            // height: '80px',
-            // margin: '0 54px 22px 34px',
-            // padding: '20px',
-            // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
-            // border: 'solid 1px rgba(0, 0, 0, 0.08)',
+         
         } as React.CSSProperties,
         text: {
             color: "white",
@@ -221,13 +209,16 @@ function InvestNowScreenCard() {
     return (
         <>
             <div style={{
-                width:"120vh", backgroundColor: '#ffffff',
+                width: "120vh", 
+                backgroundColor: '#ffffff',
                 padding: '29px',
                 borderRadius: "8px",
-                marginBottom: "-15px"
+                marginBottom: "-15px",
+
+
 
             }}>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} >
 
 
                     <Grid item xs={12} sm={6}>
@@ -264,14 +255,7 @@ function InvestNowScreenCard() {
                                         name="middleName"
                                         fullWidth
                                         placeholder='₹1,00,000'
-                                        sx={{
-
-                                            margin: " -55px 0 20px",
-
-                                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-
-                                            backgroundColor: " #fff"
-                                        }} >
+                                        sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
 
 
                                     </TextField>
@@ -310,8 +294,17 @@ function InvestNowScreenCard() {
                                             +10,000
                                         </Button>
                                     </Stack>
-
                                     <InvestButton />
+                                    <Grid container spacing={2} sx={{
+                                        textAlign: "center", fontSize: "11px",
+                                        fontWeight: "500",
+                                        marginTop: "3%",
+                                        color: "#6c63ff"
+                                    }}>
+                                        <Grid item xs={12} >
+                                            KNOW MORE ABOUT INVESTMENT
+                                        </Grid>
+                                    </Grid>
                                 </List>
                             </Stack>
                         </Paper>
@@ -322,9 +315,9 @@ function InvestNowScreenCard() {
                         <Paper className={classes.paper}
                             sx={{
                                 p: 1,
-                                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-27px", borderRadius: "8px",
+                                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "5px", borderRadius: "8px",
                                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                                marginLeft: "9px"
+                                marginLeft: "-19px"
                             }}
                         >
 
@@ -339,42 +332,10 @@ function InvestNowScreenCard() {
 
                                     }} />
                                 <Grid container spacing={3}>
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        // margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>1Y</Grid>
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        //  margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>3Y</Grid>
+                                    <Grid item xs={2} sx={style.Axisstyle}>1Y</Grid>
+                                    <Grid item xs={2} sx={style.Axisstyle}>3Y</Grid>
 
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        //  margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>
-
-                                        5Y
+                                    <Grid item xs={2} sx={style.Axisstyle}> 5Y
                                         <img alt="Money Sprint" src={ellipslogo} style={{
                                             width: "16px",
                                             height: "16px",
@@ -386,41 +347,9 @@ function InvestNowScreenCard() {
                                         }} />
                                     </Grid>
 
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        //    margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>10Y</Grid>
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        //   margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>15Y</Grid>
-                                    <Grid item xs={2} sx={{
-                                        width: "14px",
-                                        height: "14px",
-                                        //   margin: "8px 67px 0 0",
-                                        fontFamily: "Roboto",
-                                        fontSize: "12px",
-                                        fontWeight: "normal",
-                                        letterSpacing: "normal",
-                                        textAlign: "left",
-                                        color: "#7b7b9d"
-                                    }}>20Y</Grid>
-
-
+                                    <Grid item xs={2} sx={style.Axisstyle}>10Y</Grid>
+                                    <Grid item xs={2} sx={style.Axisstyle}>15Y</Grid>
+                                    <Grid item xs={2} sx={style.Axisstyle}>20Y</Grid>
                                 </Grid>
 
                             </Typography>
@@ -428,13 +357,15 @@ function InvestNowScreenCard() {
                                 <Grid item xs={6} sx={{
                                     width: " 84px",
                                     height: "14px",
-
                                     fontFamily: " Roboto",
                                     fontSize: "12px",
                                     fontWeight: "normal",
-
                                     textAlign: "left",
                                     color: " #7b7b9d"
+
+
+
+
                                 }}>
                                     Invested Value
                                 </Grid>
@@ -507,67 +438,45 @@ function InvestNowScreenCard() {
                                             fontSize: "12px",
                                             marginTop: "-14%",
                                             marginLeft: "29%",
-
-
-
                                             textAlign: " left",
                                             color: " #7b7b9d"
+
+
+
                                         }}
                                     > *Anytime Withdraw</Typography>
                                 </Grid>
-                            
-                                    <Grid item xs={6}>
+
+                                <Grid item xs={6}>
 
 
-                                        <img alt="Money Sprint" src={lockinlogo}
-                                            style={{
-                                                width: "32px",
-                                                height: "32px",
-                                                margin: "18.5% 42% 0 15px"
-
-
-
-                                            }}
-                                        />
-                                        <Typography sx={{
-                                            //  width: "99px",
-                                            //  height:" 14px",
-                                            // //  margin: "27.5px 167px 8px 8px",
-                                            //  fontFamily:" Roboto",
-                                            fontSize: "12px",
-                                            marginTop: "-14%",
+                                    <img alt="Money Sprint" src={lockinlogo}
+                                        style={{
+                                            width: "32px",
+                                            height: "32px",
+                                            margin: "18.5% 42% 0 15px"
 
 
 
-                                            textAlign: " right",
-                                            color: " #7b7b9d"
-                                        }}> *No Lock-in Period</Typography>
+                                        }}
+                                    />
+                                    <Typography sx={{
+
+                                        fontSize: "12px",
+                                        marginTop: "-14%",
+                                        textAlign: " right",
+                                        color: " #7b7b9d"
 
 
-                                    </Grid>
-                           
+
+                                    }}> *No Lock-in Period</Typography>
+
+
+                                </Grid>
+
                             </Grid>
 
 
-                            {/* <div>
-                                <Grid container spacing={8}>
-                                    <Grid item xs={6}>
-                                   
-                                    </Grid>
-                                    <Grid item xs={6}>
-                               
-                                    </Grid>
-                                </Grid>
-                            </div> */}
-
-
-                            {/* <Stack m={2} spacing={6}>
-                        
-                               
-                           
-                          
-                          
-                            </Stack> */}
 
                         </Paper>
                     </Grid>
