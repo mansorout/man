@@ -122,7 +122,7 @@ function EditprofileCard() {
     // addUserDEtails("")
     store.dispatch(submituserdetails({ 'userdata': formData }))
 
-    navigate('/vp');
+    navigate('/completedview');
 
 
   }

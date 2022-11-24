@@ -12,7 +12,7 @@ const BankAccountDetails = () => {
       // addUserDEtails("")
       store.dispatch(submitPostuserdetails({ 'userdata': bankformData }))
   
-      navigate('/vp');
+      navigate('/completedview');
   
   
     }

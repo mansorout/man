@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const Editprofilebutton = () => {
-    const navigate = useNavigate();
-    function handleClick(){
+    // const navigate = useNavigate();
+    // function handleClick(){
         
-        navigate('/vp');
+    //     navigate('/completedview');
         
     
-    }
+    // }
  
     const style = {
         button : {
@@ -28,7 +28,7 @@ export const Editprofilebutton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth onClick={handleClick} >
+        <Button  variant="contained" style={style.button} fullWidth >
             <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
         </Button> 
     )

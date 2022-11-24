@@ -4,12 +4,12 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export const EditProfieButton = () => {
-    const navigate = useNavigate();
-    function handleClick(){
+    // const navigate = useNavigate();
+    // function handleClick(){
         
-        navigate('/editprofile');
+    //     navigate('/editprofile');
     
-    }
+    // }
     // const navigate = useNavigate();
     const style = {
         button : {
@@ -27,7 +27,7 @@ export const EditProfieButton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth onClick={handleClick}>
+        <Button  variant="contained" style={style.button} fullWidth >
             <Typography component="span" style={style.text} className="largeButtonText">Edit Profile</Typography>
         </Button> 
     )

@@ -603,7 +603,7 @@ function Portfolio() {
                         <Box style={{display:"flex", justifyContent:"space-between"}}>
                           <MenuList style={{width:"100%", padding:"0px"}}>
                             <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}}>Redeem Funds</Typography>
+                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}} onClick={()=>navigate("/redeemfund")}>Redeem Funds</Typography>
                               <NavigateNext style={{color:"#93a0b2"}}/>
                             </ListItemButton>
                             <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
