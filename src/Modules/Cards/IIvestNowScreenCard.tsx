@@ -31,9 +31,7 @@ import { makeStyles } from '@mui/styles';
 import React from 'react'
 
 
-
-
-function EEditprofileCard() {
+function IInvestNowScreenCard() {
 
     const style = {
         containertwo: {
@@ -117,16 +115,11 @@ function EEditprofileCard() {
     return (
 
         <>
-
-        
-    
-
-
         </>
 
 
     )
 }
 
-export default EEditprofileCard
+export default IInvestNowScreenCard
 

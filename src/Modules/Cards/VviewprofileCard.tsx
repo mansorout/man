@@ -21,7 +21,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material'
 
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -31,9 +31,22 @@ import React from 'react'
 import { Height } from '@mui/icons-material'
 
 function VviewprofileCard() {
-
     const navigate = useNavigate();
-
+    function handleSubmit(){
+        navigate('/pan_update');
+        // navigate('/nominee')
+    }
+   
+    function handleSubmits(){
+        // navigate('/pan_update');
+        navigate('/nominee')
+    }
+    function  handleSubmitss(){
+        navigate('/uploadsignature')
+    }
+function handleSubmitsss(){
+    navigate('/bad')
+}
     const style = {
         containertwo: {
             backgroundColor: "#fff",
@@ -105,7 +118,10 @@ function VviewprofileCard() {
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/pan_update')}>
 
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+                                <Typography 
+                                sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                onClick={handleSubmit}
+                                >ADD </Typography>
 
                                 <Avatar
                                     alt=""
@@ -130,8 +146,10 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>PAN Number
-                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+                                <Typography sx={{ fontSize: "14px" }}
+                           
+                                >PAN Number
+                         <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
 
                                 </Typography>
                             }
@@ -149,7 +167,9 @@ function VviewprofileCard() {
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/nominee')}>
 
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                onClick={handleSubmits}
+                                >ADD </Typography>
 
                                 <Avatar
                                     alt=""
@@ -184,42 +204,7 @@ function VviewprofileCard() {
                     </ListItem>
 
 
-{/* 
-                    <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
 
-                                <Avatar
-                                    alt=""
-                                    src={arrowlogo}
-                                    sx={{ width: "24px", height: "24px" }}
-                                />
-
-                            </IconButton>
-                        }
-                    >
-                        <ListItemAvatar>
-                            <Avatar>
-                                <Avatar
-                                    alt=""
-                                    src={familyrestroomlogo}
-                                    style={style.ca}
-
-                                />
-
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations
-                       <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px" }} />
-
-                                </Typography>
-                            }
-
-                        />
-                    </ListItem>, */}
 
 
                     <ListItem
@@ -264,7 +249,9 @@ function VviewprofileCard() {
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/bad')}>
 
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                 onClick={handleSubmitsss}
+                                >ADD </Typography>
 
                                 <Avatar
                                     alt=""

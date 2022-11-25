@@ -38,6 +38,9 @@ export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
 
+export const chart = require("./Portfolio/chart.png")
+export const meria = require("./Portfolio/mirae.png")
+
 
 
 
@@ -79,6 +82,21 @@ export const formatter = new Intl.NumberFormat('en-IN', {
   currency: 'INR',
   maximumFractionDigits: 0
 });
+
+export const graphimage=require("./Profile/GraphImage.png")
+export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")
+export const lockinlogo =require("./Profile/Lockinlogo.png")
+export const ellipslogo =require("./Profile/Ellipselogo.png")
+export const Radiobutton =require("./Profile/radiobutton.png")
+export const rupconvie =require("./Profile/RupConvielogo.png")
+export const rupreturnlogo =require("./Profile/RupReturnlogo.png")
+export const axislogoredeem =require("./Profile/AxisLogoredeem.png")
+export const morningsteologo =require("./Profile/MorningSteplogo.png")
+export const starratelogo =require("./Profile/StarRatelogo.png")
+
+
+
+
 
 
 

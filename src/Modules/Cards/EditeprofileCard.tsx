@@ -52,6 +52,9 @@ const Cityofresidence = [{ name: "117/N/112" }]
 
 function EditprofileCard() {
 
+
+  
+
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -100,6 +103,7 @@ function EditprofileCard() {
 
   })
   const handlechange = (e: any) => {
+
     const value = e.target.value;
     setFormData({
       ...formData,
@@ -337,20 +341,26 @@ function EditprofileCard() {
               <Box sx={{ '& button': { m: 1} }}>
 
                <div style={{marginLeft:"-45px"}}>
+
+                
                   <Button value={formData.gender}
-                    name="gender" onChange={handlechange}
+                    name="gender" 
+                    onChange={handlechange}
                     variant="outlined"
                     size="small"
-                    sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                    sx={{ backgroundColor: " #fff",
+                     borderRadius: "8px",
+                      boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
+                       height: " 42px", padding: " 6px 10px 6px 6px" }}>
 
                     <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-9px" }} />
                     {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
 
                     <Typography sx={{ marginLeft: "2px",color:"#7b7b9d" }}>  Male</Typography>
                   </Button>
-                  <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                  <Button variant="outlined"  size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                     <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                    {/* <Radio {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
+                    {/* <Radio   {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
                     <Typography sx={{ marginLeft: "2px",color:"#7b7b9d" }}>  Female</Typography>
                   </Button>
                   <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
@@ -494,7 +504,7 @@ function EditprofileCard() {
                         onChange={handlechange} 
                         sx={{ position: "relative", top: "-50px",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
                 <Button variant="contained" style={style.button} onClick={handleSubmit} fullWidth >
-                  <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
+                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                 </Button>
               </Stack>
 

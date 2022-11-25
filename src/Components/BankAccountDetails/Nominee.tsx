@@ -1,6 +1,9 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
+// import { useNavigate } from 'react-router-dom';
 
 const Nominee = () => {
+   const navigate=useNavigate()
     return (
         <Box component="form" sx={{
             width: '30.5rem',
@@ -51,7 +54,7 @@ const Nominee = () => {
                     backgroundColor: '#23db7b',
                     padding: '1rem',
                     textTransform: 'capitalize'
-                }}>Submit Details</Button>
+                }} onClick={()=>navigate("/completedview")}>Submit Details</Button>
             </FormControl>
         </Box>                
     )

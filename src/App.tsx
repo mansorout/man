@@ -19,11 +19,15 @@ import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
 import Editprofilescreen from './Components/EditProfile/Editprofilescreen';
 
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
-import UploadCheck from './Components/UploadCheckImage/UploadCheck';
+// import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
 import PanUpdate from './Components/Pan/PanUpdate';
+import Portfolio from './Components/Portfolio/Portfolio';
+import Transaction from './Components/Portfolio/Transaction';
+import Report from './Components/Portfolio/Report';
+import Sip from './Components/Portfolio/Sip';
 
 import PortfolioCompanyCard, { PortfolioProp } from './Modules/CustomCard/PortfolioCompanyCard';
 import MutualFundCard, { MFProp } from './Modules/CustomCard/MutualFundCard';
@@ -31,6 +35,9 @@ import MutualFundsList from './Components/Portfolio/MutualFundsList';
 import CustomizeMF from './Components/Portfolio/CustomizeMF';
 import SipCard,  { SipProp } from './Modules/CustomCard/SipCard';
 import SipList from './Components/Portfolio/SipList';
+import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
+import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
+import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
@@ -78,8 +85,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>} />
           <Route path="/home" element={<Home/>} />
+          <Route path="/portfolio" element={<Portfolio/>} />
+          <Route path="/holdings" element={<Portfolio/>} />
+          <Route path="/transactions" element={<Transaction/>} />
+          <Route path="/reports" element={<Report/>} />
+          <Route path="/sips" element={<Sip/>} />
           <Route path="/uploadsignature" element={<HolderSignature/>} />
-          <Route path="/uploadCheque" element={<UploadCheck/>} />
+          {/* <Route path="/uploadCheque" element={<UploadCheck/>} /> */}
           <Route path="/login" element={<Login/>} />
           <Route path="/termsandcondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
@@ -103,6 +115,12 @@ function App() {
           <Route path="/customizemf" element={ <CustomizeMF /> } />
           <Route path="/sip" element={ <SipList /> } />
           <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } />
+          <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
+          <Route path="/investnowscreen" element={<InvestNowScreen/>} />
+          <Route path="/redeemfund" element={<RedeemFunds/>} />
+
+
+
           
 
 

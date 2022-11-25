@@ -1,24 +1,23 @@
 import React from 'react'
 import { Button,Typography } from '@mui/material'
+import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-
-export const Editprofilebutton = () => {
-    // const navigate = useNavigate();
-    // function handleClick(){
+export const InvestButton = () => {
+    const navigate = useNavigate();
+    function handleClick(){
         
-    //     navigate('/completedview');
-        
+        // navigate('/editprofile');
     
-    // }
- 
+    }
+    // const navigate = useNavigate();
     const style = {
         button : {
             height: "48px",
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
-            margin: "30px",
+            margin: "15px",
             width:"90%",
             maxWidth:"400px",
         } as React.CSSProperties,
@@ -28,8 +27,10 @@ export const Editprofilebutton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth >
-            <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
+        <Button  variant="contained" style={style.button} fullWidth onClick={handleClick}>
+            <Typography component="span" style={style.text} className="largeButtonText">Continue</Typography>
         </Button> 
     )
 }
+
+

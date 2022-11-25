@@ -21,7 +21,6 @@ import { useNavigate } from 'react-router-dom'
 import OtpInput from 'react-otp-input'
 import { useSelector } from 'react-redux'
 import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
-
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -173,7 +172,7 @@ function Home() {
 
   const refContainer = useRef();
 
-  const navigate = useNavigate();
+ 
 
   const [mpin, setMpin] = useState<string | null>()
   const [openModal, setOpenModal] = useState<boolean>(true)
@@ -190,7 +189,7 @@ function Home() {
   }
 
   const error : string[] = useSelector((state : any) => state.error)
-
+  const navigate = useNavigate()
   return (
       <Box style={{width: "100vw"}} ref={refContainer}>
         <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
@@ -240,13 +239,15 @@ function Home() {
           style={style.drawer} onClose={()=>setOpen(false)} variant="temporary" open={open}>
             <Toolbar/>
             <List sx={{py:"30px"}}>
-                <ListItem disablePadding sx={{ background:"rgba(0, 0, 0, 0.05)" }}>
+                <ListItem disablePadding>
                   <ListItemButton
+                   onClick={()=>navigate('/home')}
                     sx={{
                       minHeight: 48,
                       px: 2.5,
                       my: 2,
-                      flexDirection: { sm:"column", md: "row"}
+                      flexDirection: { sm:"column", md: "row"},
+                      background:"rgba(0, 0, 0, 0.05)"
                     }}
                   >
                     <ListItemIcon
@@ -263,6 +264,7 @@ function Home() {
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
+                  onClick={()=>navigate('/portfolio')}
                     sx={{
                       minHeight: 56,
                       px: 2.5,
@@ -332,13 +334,15 @@ function Home() {
             <Grid sx={{display: {xs: "none", sm: "block"},backgroundColor:"white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",  height: "auto", padding:0, boxSizing:"border-box"}} item xs={0} sm={1} md={2}>
               <Toolbar/>
               <List sx={{py:"30px", height:"inherit"}}>
-                <ListItem disablePadding sx={{ background:"rgba(0, 0, 0, 0.05)" }}>
+                <ListItem disablePadding>
                   <ListItemButton
+                  onClick={()=>navigate('/home')}
                     sx={{
                       minHeight: 48,
                       px: 2.5,
                       my: 2,
-                      flexDirection: { sm:"column", md: "row"}
+                      flexDirection: { sm:"column", md: "row"},
+                      background:"rgba(0, 0, 0, 0.05)"
                     }}
                   >
                     <ListItemIcon
@@ -355,6 +359,7 @@ function Home() {
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
+                  onClick={()=>navigate('/portfolio')}
                     sx={{
                       minHeight: 56,
                       px: 2.5,
@@ -428,8 +433,8 @@ function Home() {
                   {
                     investingCards.map((item, key) => {
                       return(
-                        <Grid key={key} item xs={6} sx={{padding:2}}>
-                          <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img}/>
+                        <Grid key={key} onClick={()=>navigate("/investnowscreen")}  item xs={6} sx={{padding:2}}>
+                          <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                         </Grid>
                       )
                     })

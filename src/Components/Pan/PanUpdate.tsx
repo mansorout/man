@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 import { Box, Button, FormControl, InputAdornment, TextField, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ContactError } from "../../Assets";
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import { useNavigate } from "react-router-dom";
 
 const PanUpdate = () => {
 
@@ -87,7 +87,7 @@ const PanUpdate = () => {
             </FormControl>
 
             <FormControl>
-                <Button variant="contained" style={style.button} fullWidth onClick={ validate }>
+                <Button variant="contained" style={style.button} fullWidth onClick={()=>navigate("/completedview")} >
                     <Typography style={style.text} className="largeButtonText">
                         Continue
                     </Typography>
