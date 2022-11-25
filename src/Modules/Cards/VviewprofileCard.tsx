@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { accountboxlogo } from '../../Assets/index'
 import { familyrestroomlogo } from '../../Assets/index'
 import { paymentslogo } from '../../Assets/index'
@@ -115,7 +116,7 @@ function handleSubmitsss(){
 
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/pan_update')}>
 
                                 <Typography 
                                 sx={{ color: "#6c63ff", fontSize: "14px" }}
@@ -164,7 +165,7 @@ function handleSubmitsss(){
 
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/nominee')}>
 
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
                                 onClick={handleSubmits}
@@ -208,10 +209,8 @@ function handleSubmitsss(){
 
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
-        onClick={handleSubmitss}
-                                >ADD </Typography>
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/uploadsignature')}>
+                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
 
                                 <Avatar
                                     alt=""
@@ -248,7 +247,7 @@ function handleSubmitsss(){
 
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/bad')}>
 
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
                                  onClick={handleSubmitsss}
@@ -299,7 +298,7 @@ function handleSubmitsss(){
                 <List>
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/uploadcheque')}>
 
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
 
