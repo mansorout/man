@@ -8,7 +8,7 @@ import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import "./OtpSuccess.css";
 import React from "react";
 import { SuccessFullOtp,SBICON   } from "../../Assets";
-import OtpSuccessButton from "../../Modules/Buttons/OtpSuccessOtpSuccessButton";
+import OtpSuccessButton from "../../Modules/Buttons/OtpSuccessButton";
 import Footer from "../../Modules/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 

@@ -4,11 +4,14 @@ import { SBIcon } from "../../Assets"
 import { FC } from 'react';
 
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
+import { useNavigate } from "react-router-dom";
 
 
 
 
-const Tac: FC<Props> = (props: Props) => {
+const TermsandCondition: FC<Props> = (props: Props) => {
+
+    const navigate = useNavigate();
 
 const style = {
         background : {
@@ -82,7 +85,7 @@ const style = {
                     <Typography className="body1">
                         By continuing, I agreeing to SprintMoney<sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
                     </Typography>
-                    <Button variant="contained" style={style.button} fullWidth onClick={() => console.log("Clicked")}>
+                    <Button variant="contained" style={style.button} fullWidth onClick={() => navigate('/otpverify')}>
                         <Typography style={style.text} className="largeButtonText">Accept</Typography>
                     </Button>
                 </Box>
@@ -96,4 +99,4 @@ const style = {
     )
 };
 
-export default Tac;
+export default TermsandCondition;
