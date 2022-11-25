@@ -19,7 +19,7 @@ import ProfileCompleted from './Components/ProfileCompleted/ProfileCompleted';
 import Editprofilescreen from './Components/EditProfile/Editprofilescreen';
 
 import HolderSignature from './Components/AddAccountHolderSign/HolderSignature';
-// import UploadCheck from './Components/UploadCheckImage/UploadCheck';
+import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
@@ -91,7 +91,7 @@ function App() {
           <Route path="/reports" element={<Report/>} />
           <Route path="/sips" element={<Sip/>} />
           <Route path="/uploadsignature" element={<HolderSignature/>} />
-          {/* <Route path="/uploadCheque" element={<UploadCheck/>} /> */}
+          <Route path="/uploadCheque" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/termsandcondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
