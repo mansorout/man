@@ -4,13 +4,8 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export const InvestButton = () => {
+   
     const navigate = useNavigate();
-    function handleClick(){
-        
-        // navigate('/editprofile');
-    
-    }
-    // const navigate = useNavigate();
     const style = {
         button : {
             height: "48px",
@@ -27,8 +22,8 @@ export const InvestButton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth onClick={handleClick}>
-            <Typography component="span" style={style.text} className="largeButtonText">Continue</Typography>
+        <Button  variant="contained" style={style.button} fullWidth >
+            <Typography component="span" style={style.text} className="largeButtonText" onClick={()=>navigate("/redeemfund")}>Continue</Typography>
         </Button> 
     )
 }
