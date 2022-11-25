@@ -81,7 +81,7 @@ function App() {
           <Route path="/uploadsignature" element={<HolderSignature/>} />
           <Route path="/uploadCheque" element={<UploadCheck/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/TermsandCondition" element={<TermsandCondition />} />
+          <Route path="/termsandcondition" element={<TermsandCondition />} />
           <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
           <Route path="/otpverify" element={<VerifyOtp/>} />
           <Route path="/otpverified" element={<OtpSuccess/>} />

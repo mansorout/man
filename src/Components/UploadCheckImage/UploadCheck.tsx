@@ -9,7 +9,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import { uploadcheque } from "../../Store/Reducers/action";
+//import { uploadcheque } from "../../Store/Reducers/action";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -167,7 +167,7 @@ function UploadCheck() {
   const sendToApi = () => {
     // setCanvasImageToBase64(finalImage)
     setCanvasImageToBase64(dataURL)
-    store.dispatch(uploadcheque({ chequedata: base64Image }));
+    //store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
 
   // const ClearCheck =()=>{
