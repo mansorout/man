@@ -13,8 +13,11 @@ import {
   Grid,
   Stack,
 } from "@mui/material";
-import { SmallStar } from "../../Assets";
+import { SmallStar} from "../../Assets";
+
+
 import "./FundDetailCard.css";
+import {MorningStarlogo} from "../../Assets";
 
 interface Prop {
   logo: string;
@@ -40,12 +43,12 @@ const FundDetailCard = (props: Prop) => {
       id="CoCard"
       sx={{
         // backgroundColor:"green",
-        padding: "1rem",
+        
         fontFamily: "Roboto",
         borderRadius: "0.5rem",
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         backgroundColor: "#6c63ff",
-        margin: "1rem",
+        // margin: "1rem",
       }}
     >
       <Box
@@ -70,7 +73,13 @@ const FundDetailCard = (props: Prop) => {
         <Chip sx={{backgroundColor:"#ffc300"}}
           avatar={<Avatar alt="star" src={SmallStar} />}
           label={props.rating + ".0"}
+          
         />
+        
+        <Box >
+          <img alt="MorningStarlogo" src={MorningStarlogo} />
+          
+          </Box>
    </Box>
       
    <Grid container spacing={5}>
@@ -79,9 +88,9 @@ const FundDetailCard = (props: Prop) => {
             Axis Small Cap Fund Regular Growth
             </Typography>
           </Grid>
-          <Grid item xs={6} sx={{textAlign:"right"}} >
+          {/* <Grid item xs={6} sx={{textAlign:"right"}} >
             <Button>Button</Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       <Box
         sx={{

@@ -15,17 +15,39 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { withStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 16,
+// const StyledTableCell = styled(TableCell)(({ theme }) => ({
+//   [`&.${tableCellClasses.head}`]: {
+//     backgroundColor: theme.palette.common.white,
+//     color: theme.palette.common.black,
+//   },
+//   [`&.${tableCellClasses.body}`]: {
+//     fontSize: 16,
    
 
+//   },
+  
+// }));
+
+// const TableCell = withStyles({
+  
+// })(MuiTableCell);
+
+const StyledTableCell = styled(TableCell)(theme => ({
+  root: {
+    width: "100%",
+   
+    overflowX: "auto"
   },
+  table: {
+    minWidth: 650
+  }
 }));
+
+const TableCell2 = withStyles({
+  root: {
+    borderBottom: "none"
+  }
+})(StyledTableCell);
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(even)': {
@@ -45,6 +67,8 @@ const Accordion:any = withStyles({
     },
     expanded: {}
   })(MuiAccordion);
+
+  
 
 function createData(
   period: string,
@@ -68,7 +92,11 @@ export default function FundTable () {
   return (
 
     <>
-      <MuiAccordion sx={{ marginRight:"1rem",marginLeft:"1rem",backgroundColor:"transparent"}} >
+      <MuiAccordion sx={{
+         borderRadius: "8px",
+         backgroundColor:"white"
+         ,boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+         }} >
         <AccordionSummary
         sx={{height: "84px",
              
@@ -89,7 +117,7 @@ export default function FundTable () {
             <Typography className='Level-of-Risk-in-the-Scheme'>* Returns over 1 year are annualised</Typography>
             </Box>
         </AccordionSummary>
-        <AccordionDetails  sx={{marginRight:"1rem",marginLeft:"1rem"}}>
+        <AccordionDetails  >
        <TableContainer sx={{backgroundColor:"#ffff"}}>
       <Table sx={{ marginBottom:"2rem" }} aria-label="customized table">
         <TableHead>
