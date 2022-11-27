@@ -8,6 +8,9 @@ import { nomineeAddApi } from '../../APIs/apis'
 import {userDetailsApi} from '../../APIs/apis'
 import {usersBankDetailsApi} from '../../APIs/apis'
 import {userPostDetailsApi} from '../../APIs/apis'
+import { uploadChequeApi } from '../../APIs/apis'
+import { refreshtokenApi } from '../../APIs/apis'
+
 
 const setLoginState = (loginData: any) => {
     console.log(loginData)
@@ -385,7 +388,75 @@ export const submitPostuserdetails = (userdetails:any) => {
     
 }
 
+export const uploadcheque = (chequeInput:any) => {
+    const {chequedata} = chequeInput;
+    console.log(chequedata)
+    let token :any = localStorage.getItem('accesstoken')
+    console.log(token);
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(uploadChequeApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "cheque":chequedata,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      // dispatch({
+                      //   type:'CHEQUE_UPLOAD_SUCCESS',
+                      //   payload:data
+                      // })
+                        
+                    })
+                } 
+                catch (err){
+                     
+                     console.log(err)}
 
+        return result
+    };
+
+
+}
+export const resendotp = (refreshtokendata:any) => {
+    const {refreshtoken} = refreshtokendata;
+    console.log(refreshtoken)
+    return async (dispatch:any)=>{
+      const result ={}
+                try{
+                    const result = await fetch(refreshtokenApi,{
+                        method:"POST",
+                        headers: {  
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                            // "Authentication":token
+                          },
+                          body:JSON.stringify({
+                           "refreshtoken":refreshtoken,
+                            })
+                        }).then((response) => response.json())
+                    .then((data) => {
+                      console.log(data.error)
+                      console.log(data)
+                      })
+                } 
+                catch (err){
+                     
+                     console.log(err)}
+
+        return result
+    };
+
+
+}
 
 
 
