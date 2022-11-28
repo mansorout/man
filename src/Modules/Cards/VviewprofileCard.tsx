@@ -21,7 +21,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material'
 
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -32,21 +31,21 @@ import { Height } from '@mui/icons-material'
 
 function VviewprofileCard() {
     const navigate = useNavigate();
-    function handleSubmit(){
+    function handleSubmit() {
         navigate('/pan_update');
         // navigate('/nominee')
     }
-   
-    function handleSubmits(){
+
+    function handleSubmits() {
         // navigate('/pan_update');
         navigate('/nominee')
     }
-    function  handleSubmitss(){
+    function handleSubmitss() {
         navigate('/uploadsignature')
     }
-function handleSubmitsss(){
-    navigate('/bad')
-}
+    function handleSubmitsss() {
+        navigate('/bad')
+    }
     const style = {
         containertwo: {
             backgroundColor: "#fff",
@@ -112,15 +111,15 @@ function handleSubmitsss(){
 
                     <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>KYC Details</Typography>
                     <Typography sx={{ color: "#7b7b9d", fontSize: "12px" }} >Details once saved cannot be edited</Typography>
-                 
+
 
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/pan_update')}>
 
-                                <Typography 
-                                sx={{ color: "#6c63ff", fontSize: "14px" }}
-                                onClick={handleSubmit}
+                                <Typography
+                                    sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                    onClick={handleSubmit}
                                 >ADD </Typography>
 
                                 <Avatar
@@ -147,9 +146,9 @@ function handleSubmitsss(){
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px" }}
-                           
+
                                 >PAN Number
-                         <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
                             }
@@ -168,7 +167,7 @@ function handleSubmitsss(){
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/nominee')}>
 
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
-                                onClick={handleSubmits}
+                                    onClick={handleSubmits}
                                 >ADD </Typography>
 
                                 <Avatar
@@ -195,7 +194,7 @@ function handleSubmitsss(){
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations
-                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
                             }
@@ -235,7 +234,7 @@ function handleSubmitsss(){
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px" }}>Account Holder Signature
-                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px" }} />
+                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
                             }
@@ -250,7 +249,7 @@ function handleSubmitsss(){
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/bad')}>
 
                                 <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
-                                 onClick={handleSubmitsss}
+                                    onClick={handleSubmitsss}
                                 >ADD </Typography>
 
                                 <Avatar
@@ -277,7 +276,7 @@ function handleSubmitsss(){
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px" }}>Bank Account
-                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position:"relative", top:"7px" }} />
+                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
                             }
@@ -323,7 +322,7 @@ function handleSubmitsss(){
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px" }}>Cancelled Cheque
-                                                                      <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px",position:"relative", top:"7px"}} />
+                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
                             }
