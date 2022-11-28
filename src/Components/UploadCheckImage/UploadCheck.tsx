@@ -57,6 +57,7 @@ import { Logo, Profile } from "../../Assets/index";
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
+import { uploadcheque } from "../../Store/Reducers/action";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -167,7 +168,7 @@ function UploadCheck() {
   const sendToApi = () => {
     // setCanvasImageToBase64(finalImage)
     setCanvasImageToBase64(dataURL)
-    //store.dispatch(uploadcheque({ chequedata: base64Image }));
+    store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
 
   // const ClearCheck =()=>{
