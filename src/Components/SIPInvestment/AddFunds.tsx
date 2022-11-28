@@ -1,39 +1,104 @@
 import React, { useState } from "react";
-import { Box, Breadcrumbs, InputAdornment, Link, List, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, ButtonGroup, InputProps, InputAdornment, Link, List, Tab, Tabs, TextField, Typography } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import MutualFundCard from "../../Modules/CustomCard/MutualFundCard";
+
 
 const AddFunds = () => {
 
     const [value, setValue] = useState(0);
-
-    interface TabPanelProps {
-        children?: React.ReactNode;
-        index: number;
-        value: number;
-    }
-
-    function TabPanel(props: TabPanelProps) {
-        const { children, value, index, ...other } = props;
-
-        return (
-            <div
-                hidden={value !== index}
-                {...other}
-            >
-                {
-                    value === index && (
-                        <Box sx={{ p: 3 }}>
-                            <Typography>{children}</Typography>
-                        </Box>
-                    )
-                }
-            </div>
-        );
-    }
+    const [ selected, setSelected ] = useState(false);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
 
+    const data = [
+        {
+            logo: '/Miraelogo.svg',
+            title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+            fundType: ['Large Cap', 'Equity'],
+            price: 30000,
+            rating: 3.7,
+            morningStarLogo: true,
+            oneYearReturn: 12.3,
+            threeYearReturn: 18.76,
+            fiveYearReturn: 24.33,
+            checkbox: true,
+        },
+        {
+            logo: '/Miraelogo.svg',
+            title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+            fundType: ['Large Cap', 'Equity'],
+            price: 30000,
+            rating: 3.7,
+            morningStarLogo: true,
+            oneYearReturn: 12.3,
+            threeYearReturn: 18.76,
+            fiveYearReturn: 24.33,
+            checkbox: true,
+        },
+        {
+            logo: '/Miraelogo.svg',
+            title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+            fundType: ['Large Cap', 'Equity'],
+            price: 30000,
+            rating: 3.7,
+            morningStarLogo: true,
+            oneYearReturn: 12.3,
+            threeYearReturn: 18.76,
+            fiveYearReturn: 24.33,
+            checkbox: true,
+        },
+        {
+            logo: '/Miraelogo.svg',
+            title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+            fundType: ['Large Cap', 'Equity'],
+            price: 30000,
+            rating: 3.7,
+            morningStarLogo: true,
+            oneYearReturn: 12.3,
+            threeYearReturn: 18.76,
+            fiveYearReturn: 24.33,
+            checkbox: true,
+        },
+        {
+            logo: '/Miraelogo.svg',
+            title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+            fundType: ['Large Cap', 'Equity'],
+            price: 30000,
+            rating: 3.7,
+            morningStarLogo: true,
+            oneYearReturn: 12.3,
+            threeYearReturn: 18.76,
+            fiveYearReturn: 24.33,
+            checkbox: true,
+        },
+    ]
+
+    const style = {
+        button: {
+            color: 'rgba(123, 123, 157, 0.3)',
+            padding: '0.625vw 1.25vw',
+            borderRadius: '0.625vw',
+            border: 'solid 1px rgba(123, 123, 157, 0.3)',
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+        },
+        selected: {
+            color: '#23db7b',
+            padding: '0.625vw 1.25vw',
+            borderRadius: '0.625vw',
+            border: 'solid 1px #23db7b',
+            backgroundColor: '#dff7ea',
+        },
+    };
+/*
+    const handleClick = (event: React.SyntheticEvent<HTMLElement>) => {
+        event.preventDefault();
+        const target = event.target;
+        target.set
+
+    }
+*/    
     return (
         <Box id="addfunds" sx={{
             backgroundColor: '#f9f9f9',
@@ -60,81 +125,79 @@ const AddFunds = () => {
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
+                height: '10vw',
             }}>
-                <Box>
-                    <Typography sx={{
-                        fontSize: '12px',
-                        color: '#8787a2',
-                    }}>Explore Funds</Typography>
-                    <Typography sx={{
-                        fontSize: '18px',
-                        fontWeight: 500,
-                        color: '#3c3e42',
-                    }}>Choose Fund to Add</Typography>
-                </Box>
-                <TextField
-                
-                    placeholder="Search funds..."
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start"><SearchOutlinedIcon /></InputAdornment>,
-                        endAdornment: <InputAdornment position="end" sx={{
-                            width: '30px',
-                            height: '30px',
-                            backgroundColor: '#efefef',
-                            borderRadius: '50%',
-                            padding: '0.375vw',
-                            color: '#09b85d',
-                        }}><FilterAltOutlinedIcon /></InputAdornment>
-                    }}
-                    sx={{
-                        width: '30vw',
-                        height: '3.6vw',
-                        paddingBottom: '2vw',
-                        borderRadius: '0.3125vw',
-                        boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
-                        border: 'solid 1px #dddfe2',
-                        backgroundColor: '#fff'
-                    }}
-                />
-            </Box>
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}>
-                <Box>
-                    <Typography sx={{
-                        fontSize: '12px',
-                        color: '#8787a2',
-                    }}>SIP Investment</Typography>
-                    <Typography sx={{
-                        fontSize: '14px',
-                        color: '#7b7b9d',
-                    }}>20 funds found</Typography>
-                </Box>
-                <Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                }}>
                     <Box>
-                        <Tabs value={value} onChange={handleChange}>
-                            <Tab label="All" />
-                            <Tab label="Equity" />
-                            <Tab label="Debt" />
-                            <Tab label="Balanced" />
-                        </Tabs>
+                        <Typography sx={{
+                            fontSize: '12px',
+                            color: '#8787a2',
+                        }}>Explore Funds</Typography>
+                        <Typography sx={{
+                            fontSize: '18px',
+                            fontWeight: 500,
+                            color: '#3c3e42',
+                        }}>Choose Fund to Add</Typography>
                     </Box>
-                    <TabPanel value={value} index={0}>
-                        Item One
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        Item Four
-                    </TabPanel>
+                    <Box>
+                        <Typography sx={{
+                            fontSize: '12px',
+                            color: '#8787a2',
+                        }}>SIP Investment</Typography>
+                        <Typography sx={{
+                            fontSize: '14px',
+                            color: '#7b7b9d',
+                        }}>20 funds found</Typography>
+                    </Box>
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                }}>
+                    <TextField
+                        placeholder="Search funds..."
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"><SearchOutlinedIcon /></InputAdornment>,
+                            endAdornment: <InputAdornment position="end" sx={{
+                                width: '30px',
+                                height: '30px',
+                                backgroundColor: '#efefef',
+                                borderRadius: '50%',
+                                padding: '0.375vw',
+                                color: '#09b85d',
+                            }}><FilterAltOutlinedIcon /></InputAdornment>
+                        }}
+                        sx={{
+                            width: '30vw',
+                            height: '3.6vw',
+                            borderRadius: '0.3125vw',
+                            boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
+                            border: 'solid 1px #dddfe2',
+                            backgroundColor: '#fff'
+                        }}
+                    />
+                
+                    <Box>
+                        <ButtonGroup sx={{
+                            display: 'flex',
+                            gap: '1vw',
+                        }}>
+                            <Button variant="contained" style={ style.button }>All</Button>
+                            <Button variant="contained" style={ style.button }>Equity</Button>
+                            <Button variant="contained" style={ style.button }>Debt</Button>
+                            <Button variant="contained" style={ style.button }>Balanced</Button>
+                        </ButtonGroup>
+                    </Box>
                 </Box>
             </Box>
+            {
+                data.map(d => <MutualFundCard { ...d } />)
+            }
         </Box>
     )
 };

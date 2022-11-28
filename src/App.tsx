@@ -118,20 +118,15 @@ function App() {
           <Route path="/mflist" element={ <MutualFundsList />} />
           <Route path="/customizemf" element={ <CustomizeMF /> } />
           <Route path="/sip" element={ <SipList /> } />
-
-          {/* <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
+          
+          {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
           <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
           <Route path="/investnowscreen" element={<InvestNowScreen/>} />
           <Route path="/redeemfund" element={<RedeemFunds/>} />
           <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
-
-
-
+          <Route path="/addfunds" element={ <AddFunds /> } />
 
           
-
-
-         
         </Routes>
     </>
   );
