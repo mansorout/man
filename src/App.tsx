@@ -136,7 +136,6 @@ function App() {
 
 
 
-         {/* <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} /> */}
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
 
