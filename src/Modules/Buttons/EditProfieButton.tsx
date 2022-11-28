@@ -28,7 +28,7 @@ export const EditProfieButton = () => {
 
     return (
         <Button  variant="contained" style={style.button} fullWidth onClick={() => navigate('/editprofile')} >
-            <Typography component="span" style={style.text} className="largeButtonText">Edit Profile</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText">Edit Details</Typography>
         </Button> 
     )
 }
