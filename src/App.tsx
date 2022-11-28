@@ -44,6 +44,8 @@ import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
 import AddFunds from './Components/SIPInvestment/AddFunds';
+import FundDetails from './Components/FundDetails/FundDetails';
+import TxnFilters from './Components/TxnFilters/TxnFilters';
 
 function App() {
 
@@ -124,7 +126,11 @@ function App() {
           <Route path="/investnowscreen" element={<InvestNowScreen/>} />
           <Route path="/redeemfund" element={<RedeemFunds/>} />
           <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
-          <Route path="/addfunds" element={ <AddFunds /> } />
+          <Route path="/funddetails" element={<FundDetails/>} />
+          <Route path="/filter" element={<TxnFilters/>} />
+
+
+
 
           
         </Routes>
