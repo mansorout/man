@@ -39,6 +39,7 @@ import SipList from './Components/Portfolio/SipList';
 import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
 import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
+import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
