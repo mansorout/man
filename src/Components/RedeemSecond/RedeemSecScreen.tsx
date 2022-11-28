@@ -1,5 +1,5 @@
 
-import './RedeemFunds.css'
+import './RedeemSecScreen.css'
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
@@ -25,12 +25,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea, CardActions } from '@mui/material';
-import RedeemFundsCard from './RedeemFundsCard'
 import TextField from '@mui/material/TextField';
 import { runInContext } from 'vm'
 import RedeemNowButtom from '../../Modules/Buttons/RedeemNowButton'
 import Radio from '@mui/joy/Radio'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton'
+import RedeemSecScreenCard from './RedeemSecScreenCard'
 
 
 
@@ -47,7 +47,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function RedeemFunds() {
+function RedeemSecScreen() {
   
 
     const useStyles: any = makeStyles((theme: Theme) => ({
@@ -229,17 +229,13 @@ function RedeemFunds() {
     const error: string[] = useSelector((state: any) => state.error)
 
     const [selectedValue, setSelectedValue] = React.useState('a');
-// const navigate = useNavigate();
-//     const handleChange = (event: any) => {
-//         navigate('/completedview')
-//         setSelectedValue(event.target.value);
-      
-//     };
-   
+
+    const handleChange = (event: any) => {
+        setSelectedValue(event.target.value);
+    };
     // const [name, setName] = React.useState('Cat in the Hat');
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //   setName(event.target.value);
-   
     return (
         <Box style={{ width: "100vw", }} ref={refContainer}>
 
@@ -473,7 +469,7 @@ function RedeemFunds() {
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={12}>
                             <Toolbar />
-                            <RedeemFundsCard />
+                            <RedeemSecScreenCard />
 
                             <Grid container spacing={3} >
 
@@ -547,11 +543,11 @@ function RedeemFunds() {
                                                     <Typography  >
                                                         {/* <img src={Radiobutton} alt="image" style={style.RadioInter} /> */}
                                                         <Radio
-                                                            // checked={selectedValue === 'a'}
-                                                            // onChange={handleChange}
-                                                            // value="a"
-                                                            // name="radio-buttons"
-                                                            // componentsProps={{ input: { 'aria-label': 'A' } }}
+                                                            checked={selectedValue === 'a'}
+                                                            onChange={handleChange}
+                                                            value="a"
+                                                            name="radio-buttons"
+                                                            componentsProps={{ input: { 'aria-label': 'A' } }}
                                                             sx={{ color: "#23db7b", marginLeft: "-7%" }}
                                                         />
 
@@ -568,13 +564,11 @@ function RedeemFunds() {
 
                                                         <Radio
                                                             checked={selectedValue === 'b'}
-                                                            onClick={()=>navigate('/redeemsecscreen')}
-                                                            // onChange={handleChange}
+                                                            onChange={handleChange}
                                                             value="b"
                                                             name="radio-buttons"
                                                             componentsProps={{ input: { 'aria-label': 'B' } }}
                                                             sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
-                                                         
                                                         />
                                                         Units: 750.762</Typography>
                                                 </Grid>
@@ -763,70 +757,10 @@ function RedeemFunds() {
                 </Grid>
             </Box>
 
-            <Modal open={openModal} onClose={() => setOpenModal(false)}>
-                <Box style={style.modalContainer}>
-                    <Grid container spacing={1}>
-                        <Grid item xs={12} textAlign="right">
-                        <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
-                        </Grid>
-                    </Grid>
        
-                    <img alt="Money Sprint" src={sipiclogo} style={style.logoIc} />
-                 
-                    <Typography textAlign="center" variant='h5'  sx={{color:"#3c3e42"}} >Help us know you better.</Typography>
-                    <Typography textAlign="center" variant='h5' sx={{ fontSize: "14px" }}  >Share details below to view recommendations</Typography>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& > :not(style)': { m: 2, width: '19ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <TextField
-                            id="outlined-name"
-                            label="FirstName"
-                            sx={{color:"#919eb1",fontSize:"17px"}}
-                        // value={name}
-                        // onChange={handleChange}
-                        />
-                        <TextField
-                        sx={{color:"#919eb1",fontSize:"17px",marginTop:"3%"}}
-                            label="LastName"
-
-                        />
-
-                    </Box>
-                    <Box
-                        sx={{
-
-                            width: "95%",
-                            marginTop: "2%"
-                        }}
-                    >
-                        <TextField fullWidth  sx={{color:"#919eb1",fontSize:"17px",marginTop:"1%"}}label="Email Address" id="fullWidth" />
-                    </Box>
-                    <Box
-                        sx={{
-
-                            width: "95%",
-                            marginTop: "2%"
-                        }}
-                    >
-                        <TextField type="date" sx={{color:"#919eb1",fontSize:"17px",marginTop:"4%",}} fullWidth label="Date of Birth" id="fullWidth" />
-                    </Box>
-                 
-
-                    <div style={{ width: "100%" }} onClick={() => setOpenModal(false)}>
-                        <SaveSipDetailsButton otp={OTP} />
-                    </div>
-                    {/* <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-                        <span onClick={() => navigate("/setnewpin")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography> */}
-                </Box>
-            </Modal>
 
         </Box>
     )
 }
 
-export default RedeemFunds
+export default RedeemSecScreen

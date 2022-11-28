@@ -19,11 +19,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
-import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material'
-
-
-
-
+import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material';
 
 
 import React from 'react'

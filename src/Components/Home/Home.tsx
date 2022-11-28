@@ -493,6 +493,7 @@ function Home() {
             </Grid>
           </Grid>
         </Box>
+        
         <Modal open={openModal} onClose={()=>setOpenModal(false)}>
           <Box style={style.modalContainer}>
             <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
