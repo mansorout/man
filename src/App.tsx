@@ -44,6 +44,9 @@ import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
 
+
+
+
 function App() {
 
   //console.log('MiraeLogo', MiraeLogo);
@@ -124,6 +127,7 @@ function App() {
           <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
+         
 
 
 

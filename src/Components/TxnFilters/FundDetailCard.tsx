@@ -18,6 +18,9 @@ import { SmallStar} from "../../Assets";
 
 import "./FundDetailCard.css";
 import {MorningStarlogo} from "../../Assets";
+import { useNavigate } from "react-router-dom";
+
+
 
 interface Prop {
   logo: string;
@@ -31,7 +34,10 @@ interface Prop {
   morning_star_logo?: string;
 }
 
+
+
 const FundDetailCard = (props: Prop) => {
+  const navigate = useNavigate();
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",
@@ -43,12 +49,12 @@ const FundDetailCard = (props: Prop) => {
       id="CoCard"
       sx={{
         // backgroundColor:"green",
-        
+        padding: "24px 25px 43.5px 22px",
         fontFamily: "Roboto",
         borderRadius: "0.5rem",
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         backgroundColor: "#6c63ff",
-        // margin: "1rem",
+        margin: "1rem",
       }}
     >
       <Box
@@ -88,9 +94,15 @@ const FundDetailCard = (props: Prop) => {
             Axis Small Cap Fund Regular Growth
             </Typography>
           </Grid>
-          {/* <Grid item xs={6} sx={{textAlign:"right"}} >
-            <Button>Button</Button>
-          </Grid> */}
+          <Box  sx={{textAlign:"right",
+          marginLeft:"21ch",
+        
+       
+          // padding: "11px 36px"
+          }} >
+            <Button onClick={()=>navigate('/home')} sx={{backgroundColor:"#23db7b",  width: "206px",
+          height: "38px",color:"#ffffff",borderRadius:"8px"}}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
+          </Box>
         </Grid>
       <Box
         sx={{

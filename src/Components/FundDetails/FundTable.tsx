@@ -92,18 +92,22 @@ export default function FundTable () {
   return (
 
     <>
+      <Box sx={{margin:"1rem"}}>
       <MuiAccordion sx={{
          borderRadius: "8px",
-         backgroundColor:"white"
-         ,boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+         backgroundColor:"white",
+         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+        //  margin: "0px 16px 0px 16px",
+        //  backgroundColor:"green"
          }} >
         <AccordionSummary
         sx={{height: "84px",
-             
+            //  backgroundColor:"red",
             padding: "12px 12px 21px 16px",
             borderRadius:" 8px",
-          
-            backgroundColor: "#fff"}}
+            margin: "0px 16px 0px 16px",
+            backgroundColor: "#fff"
+          }}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -119,7 +123,7 @@ export default function FundTable () {
         </AccordionSummary>
         <AccordionDetails  >
        <TableContainer sx={{backgroundColor:"#ffff"}}>
-      <Table sx={{ marginBottom:"2rem" }} aria-label="customized table">
+      <Table  aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell className='portfoliotext'>PERIOD</StyledTableCell>
@@ -128,7 +132,7 @@ export default function FundTable () {
             <StyledTableCell className='portfoliotext' align="right">BENCHMARK</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {rows.map((row) => (
             <StyledTableRow key={row.period}>
               <StyledTableCell component="th" scope="row">
@@ -147,6 +151,7 @@ export default function FundTable () {
     
         </AccordionDetails>
       </MuiAccordion>
+      </Box>
     </>
    
   );
