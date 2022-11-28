@@ -1,0 +1,8 @@
+.mainDiv{
+    width : calc( 100vw - 200px)
+}
+.css-a5rdam-MuiGrid-root{
+    margin-top: 0 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+}

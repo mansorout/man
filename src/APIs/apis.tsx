@@ -6,6 +6,8 @@ export const nomineeAddApi = 'http://15.207.181.111:3000/sprintbeans-auth/mobile
 export const userDetailsApi = 'http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/profile/edit'
 export const usersBankDetailsApi = 'http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/ifsc/details?ifsc=PYTM0123456'
 export const userPostDetailsApi = 'http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/bank/add'
+export const uploadChequeApi    =  'http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/cheque/add'
+export const refreshtokenApi = 'http://15.207.181.111:3000/sprintbeans-auth/mobile/v1/token/refresh'
 
 
 

@@ -75,6 +75,10 @@ export const MorningStarLogo = require('./Portfolio/morningstar_logo.png');
 export const HelpOutline = require('./Portfolio/help_outline-24px.png');
 export const ReplaceButtonIcon = require('./Portfolio/cached-24px.png');
 export const RemoveButtonIcon = require('./Portfolio/delete_forever-24px.png');
+export const maskgroup = require('./MaskGroup.png');
+export const Riskometer = require('./RiskoMeter.png');
+export const SmallStar = require('./WhiteStar2.png');
+export const MorningStarlogo = require('./MorningStarLogo.png');
 
 
 export const formatter = new Intl.NumberFormat('en-IN', {
@@ -95,6 +99,8 @@ export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
 export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
+export const minInvest =require("./minInvest.png")
+export const schemeDoc =require("./schemeDoc.png")
 
 
 
