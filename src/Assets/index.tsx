@@ -93,6 +93,10 @@ export const rupreturnlogo =require("./Profile/RupReturnlogo.png")
 export const axislogoredeem =require("./Profile/AxisLogoredeem.png")
 export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
+export const sipiclogo =require("./Profile/SipIcLogo.png")
+export const closelogo =require("./Profile/CloseLogo.png")
+
+
 
 
 

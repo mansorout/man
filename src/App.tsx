@@ -122,11 +122,15 @@ function App() {
           <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
           <Route path="/investnowscreen" element={<InvestNowScreen/>} />
           <Route path="/redeemfund" element={<RedeemFunds/>} />
-{/*          
-          <Route path="/mfcard" element={ <MutualFundCard { ...mfData } /> } />
-          <Route path="/mfcard2" element={ <MutualFundCard2 { ...mfData } /> } />
-          <Route path="addfunds" element={ <AddFunds /> } />
-  */}          
+          <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
+
+
+
+
+          
+
+
+         
         </Routes>
     </>
   );
