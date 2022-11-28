@@ -290,7 +290,7 @@ function InvestNowScreen() {
         </List>
       </DrawerList>
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{ border: "2px solid red", height: "100vh", overflow: "hidden" }}>
+        <Grid container spacing={0} sx={{height: "100vh", overflow: "hidden" }}>
           <Grid sx={{ display: { xs: "none", sm: "block" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", height: "auto", padding: 0, boxSizing: "border-box" }} item xs={0} sm={1} md={2}>
             <Toolbar />
             <List sx={{ py: "30px", height: "inherit" }}>

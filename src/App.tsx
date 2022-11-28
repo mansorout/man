@@ -40,9 +40,16 @@ import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
+<<<<<<< HEAD
+
+import NETbanking from './Components/CardScreen/NETbanking';
+
+
+=======
 import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
+>>>>>>> 2129b6b1a55093809d188c7a6d86318b4a730289
 
 function App() {
 
@@ -121,9 +128,19 @@ function App() {
           <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
           <Route path="/investnowscreen" element={<InvestNowScreen/>} />
           <Route path="/redeemfund" element={<RedeemFunds/>} />
+<<<<<<< HEAD
+        
+          <Route path="/netbanking" element={<NETbanking/>} />
+      
+        
+
+
+
+=======
           <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
+>>>>>>> 2129b6b1a55093809d188c7a6d86318b4a730289
 
 
 

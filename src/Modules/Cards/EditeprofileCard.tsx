@@ -22,16 +22,15 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import { transform } from 'typescript';
-import { NoStroller } from '@mui/icons-material';
-import { any } from 'underscore';
-import { useNavigate } from 'react-router-dom';
+
+import { Form, useNavigate } from 'react-router-dom';
 import { store } from '../../Store/Store';
 import { submituserdetails } from '../../Store/Reducers/action';
-import { bindActionCreators } from 'redux';
+
 import { useDispatch } from 'react-redux';
-import { ActionCreators } from '../../Store';
-import Radio from '@mui/material/Radio';
+
+
+// import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import MenuItem from '@mui/material/MenuItem';
@@ -52,8 +51,14 @@ const Cityofresidence = [{ name: "117/N/112" }]
 
 function EditprofileCard() {
 
+  // const { register, handleSubmit, errors } = useForm();
 
-  
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
+
+  // console.log(errors);
+
 
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +72,7 @@ function EditprofileCard() {
     name: 'size-radio-button-demo',
     inputProps: { 'aria-label': item },
   });
-  const useStyles = makeStyles((theme:any) =>
+  const useStyles = makeStyles((theme: any) =>
     createStyles({
       paper: {
         // padding: theme.spacing(2),
@@ -118,7 +123,7 @@ function EditprofileCard() {
   const [state, setState] = React.useState('');
 
   const navigate = useNavigate();
-  function handleSubmit() {
+  function handleClick() {
     // addUserDEtails("")
     store.dispatch(submituserdetails({ 'userdata': formData }))
 
@@ -192,33 +197,39 @@ function EditprofileCard() {
     } as React.CSSProperties,
     text: {
       color: "white",
-     
+
     }
 
 
   }
   const classes = useStyles();
+  const handleSubmit=()=>{
 
+  }
+
+  const onSubmit=()=>{
+
+  }
   return (
     <>
       <div style={{
         width: "118vh", backgroundColor: '#ffffff',
         padding: '29px',
-        borderRadius:"8px",
-        marginBottom: "-15px" 
-        
+        borderRadius: "8px",
+        marginBottom: "-15px"
+
       }}>
         <Grid container spacing={3}>
-
 
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}
               sx={{
                 p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-27px", borderRadius: "8px",
+                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-25px"
               }}
+              onSubmit={handleSubmit}
             >
               <Stack m={2} spacing={6}>
 
@@ -229,9 +240,11 @@ function EditprofileCard() {
                   onChange={handlechange}
                   fullWidth
                   id='First Name'
-                  sx={{ color:"rgba(0, 0, 0, 0.6)", 
-                  boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  width:"440px", fontSize: "15px", fontWeight: "normal",marginTop: "-20px" }}
+                  sx={{
+                    color: "rgba(0, 0, 0, 0.6)",
+                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-20px"
+                  }}
                 >
 
 
@@ -239,7 +252,7 @@ function EditprofileCard() {
                 <TextField label="Middle Name"
                   name="middleName"
                   value={formData.middleName} onChange={handlechange} fullWidth
-                  sx={{ color:"rgba(0, 0, 0, 0.6)",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)",width:"440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
 
 
                 </TextField>
@@ -247,14 +260,14 @@ function EditprofileCard() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handlechange} fullWidth
-                  sx={{ color:"rgba(0, 0, 0, 0.6)",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)",width:"440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
 
 
                 </TextField>
                 <TextField label="Mobile Number"
                   name="mobilenumber" value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
-                  sx={{ color:"rgba(0, 0, 0, 0.6)",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)",width:"440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
 
                 >
 
@@ -262,11 +275,14 @@ function EditprofileCard() {
                 </TextField>
                 <TextField label="Email Address"
                   name="emailaddress"
-                  sx={{ color:"rgba(0, 0, 0, 0.6)",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", width:"440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
-                  value={formData.emailaddress} onChange={handlechange} fullWidth >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  value={formData.emailaddress} onChange={handlechange} fullWidth>
+               
+              
 
-
+               
                 </TextField>
+
                 <Box
                   component="form"
                   sx={{
@@ -275,10 +291,11 @@ function EditprofileCard() {
                   <div style={{ position: "relative", top: "-9px" }}>
 
                     <FormControl sx={{ width: "198px" }}>
-                      <InputLabel id="demo-simple-select-label" sx={{ color:"rgba(0, 0, 0, 0.6)",
-                       fontSize: "15px",
+                      <InputLabel id="demo-simple-select-label" sx={{
+                        color: "rgba(0, 0, 0, 0.6)",
+                        fontSize: "15px",
                         fontWeight: "normal",
-                         }}>country</InputLabel>
+                      }}>country</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"
@@ -286,7 +303,7 @@ function EditprofileCard() {
                         value={formData.CountrySecond}
                         onChange={handlechange}
                         name="CountrySecond"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {country.map((l: any) => (
                           <MenuItem value={l}>
@@ -298,9 +315,10 @@ function EditprofileCard() {
                     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel id="demo-simple-select-label"
-                       sx={{ color:"rgba(0, 0, 0, 0.6)" , 
-                       fontSize: "15px",
-                        fontWeight: "normal",
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
                         }}>State</InputLabel>
 
                       <Select
@@ -309,7 +327,7 @@ function EditprofileCard() {
                         value={formData.StateOfBirth}
                         onChange={handlechange}
                         name="StateOfBirth"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {State.map((l: any) => (
                           <MenuItem value={l}>
@@ -331,37 +349,39 @@ function EditprofileCard() {
             <Paper className={classes.paper}
               sx={{
                 p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-27px", borderRadius: "8px",
+                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-16px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "9px"
+                marginLeft: "-18px"
               }}
             >
 
               <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1} }}>
+              <Box sx={{ '& button': { m: 1 } }}>
 
-               <div style={{marginLeft:"-45px"}}>
+                <div style={{ marginLeft: "-45px" }}>
 
-                
+
                   <Button value={formData.gender}
-                    name="gender" 
+                    name="gender"
                     onChange={handlechange}
                     variant="outlined"
                     size="small"
-                    sx={{ backgroundColor: " #fff",
-                     borderRadius: "8px",
+                    sx={{
+                      backgroundColor: " #fff",
+                      borderRadius: "8px",
                       boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
-                       height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                      height: " 42px", padding: " 6px 10px 6px 6px"
+                    }}>
 
                     <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-9px" }} />
                     {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
 
-                    <Typography sx={{ marginLeft: "2px",color:"#7b7b9d" }}>  Male</Typography>
+                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Male</Typography>
                   </Button>
-                  <Button variant="outlined"  size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                  <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                     <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
                     {/* <Radio   {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
-                    <Typography sx={{ marginLeft: "2px",color:"#7b7b9d" }}>  Female</Typography>
+                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
                   </Button>
                   <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                     <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
@@ -372,7 +392,7 @@ function EditprofileCard() {
 
                     }}
                     /> */}
-                    <Typography sx={{ marginLeft: "2px",color:"#7b7b9d" }}>Transgender</Typography>
+                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                   </Button>
                 </div>
               </Box>
@@ -381,11 +401,11 @@ function EditprofileCard() {
 
               <Stack m={2} spacing={6}>
                 <TextField label="Address"
-                 name="addressline1" 
-                 value={formData.addressline1} 
-                 onChange={handlechange} 
-                 sx={{ fontSize: "16px",  color:"rgba(0, 0, 0, 0.6)",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} 
-                 placeholder="Enter your street address" >
+                  name="addressline1"
+                  value={formData.addressline1}
+                  onChange={handlechange}
+                  sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                  placeholder="Enter your street address" >
 
 
                 </TextField>
@@ -393,7 +413,7 @@ function EditprofileCard() {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '194px', height:"16px", },
+                    '& .MuiTextField-root': { m: 1, width: '194px', height: "16px", },
                     marginTop: "-69%",
 
                   }}
@@ -404,16 +424,18 @@ function EditprofileCard() {
                 >
                   <div style={{ position: "relative", top: "-86px" }}>
                     <FormControl sx={{ width: "198px" }}>
-                      <InputLabel id="demo-simple-select-label" 
-                      sx={{ color: "rgba(0, 0, 0, 0.6)", fontSize: "15px", 
-                      fontWeight: "normal", }}>City of Residence</InputLabel>
-                       <Select
+                      <InputLabel id="demo-simple-select-label"
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
+                          fontWeight: "normal",
+                        }}>City of Residence</InputLabel>
+                      <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={formData.CityofResidence}
                         onChange={handlechange}
                         name="CityofResidence"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {Cityofresidence.map((l: any) => (
                           <MenuItem value={l}>
@@ -422,12 +444,14 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                     <FormControl sx={{ width: "198px" }}>
-                      <InputLabel id="demo-simple-select-label" 
-                      sx={{ color: "rgba(0, 0, 0, 0.6)", 
-                      fontSize: "15px", 
-                      fontWeight: "normal",}}>State</InputLabel>
+                      <InputLabel id="demo-simple-select-label"
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                        }}>State</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"
@@ -435,7 +459,7 @@ function EditprofileCard() {
                         value={formData.State}
                         onChange={handlechange}
                         name="State"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {State.map((l: any) => (
                           <MenuItem value={l}>
@@ -446,14 +470,15 @@ function EditprofileCard() {
                     </FormControl>
 
                   </div>
-               <div style={{ position: "relative", top: "-46px" }}>
+                  <div style={{ position: "relative", top: "-46px" }}>
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel
                         id="demo-simple-select-label"
-                        sx={{ color: "rgba(0, 0, 0, 0.6)",
-                         fontSize: "15px",
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
                           fontWeight: "normal",
-                           }}>pincode</InputLabel>
+                        }}>pincode</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"
@@ -462,7 +487,7 @@ function EditprofileCard() {
                         label="Age"
                         onChange={handlechange}
                         name="pincode"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {pincode.map((l: any) => (
                           <MenuItem value={l}>
@@ -475,9 +500,11 @@ function EditprofileCard() {
                     <FormControl sx={{ width: "198px" }}>
                       <InputLabel
                         id="demo-simple-select-label"
-                        sx={{ color: "rgba(0, 0, 0, 0.6)", 
-                        fontSize: "15px", 
-                        fontWeight: "normal", }}>country</InputLabel>
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                        }}>country</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"
@@ -486,7 +513,7 @@ function EditprofileCard() {
                         label="Age"
                         onChange={handlechange}
                         name="CountryFirst"
-                        sx={{boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
                         {country.map((l: any) => (
                           <MenuItem value={l}>
@@ -499,11 +526,11 @@ function EditprofileCard() {
 
                   </div>
                 </Box>
-                      <TextField label="Income Slab" name="IncomeSlab"
-                       value={formData.IncomeSlab}
-                        onChange={handlechange} 
-                        sx={{ position: "relative", top: "-50px",boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
-                <Button variant="contained" style={style.button} onClick={handleSubmit} fullWidth >
+                <TextField label="Income Slab" name="IncomeSlab"
+                  value={formData.IncomeSlab}
+                  onChange={handlechange}
+                  sx={{ position: "relative", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
+                <Button variant="contained" style={style.button} onClick={handleClick} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                 </Button>
               </Stack>
@@ -511,8 +538,7 @@ function EditprofileCard() {
             </Paper>
           </Grid>
 
-
-
+         
         </Grid>
       </div>
 

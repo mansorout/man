@@ -568,7 +568,7 @@ function RedeemFunds() {
 
                                                         <Radio
                                                             checked={selectedValue === 'b'}
-                                                            onClick={()=>navigate('/redeemsecscreen')}
+                                                            // onClick={()=>navigate('/redeemsecscreen')}
                                                             // onChange={handleChange}
                                                             value="b"
                                                             name="radio-buttons"
