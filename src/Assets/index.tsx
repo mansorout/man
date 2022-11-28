@@ -95,6 +95,10 @@ export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
 export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
+export const hdfclogo =require("./Profile/HdfcBanklogo.png")
+export const upilogo =require("./Profile/UPIlogo.png")
+
+
 
 
 

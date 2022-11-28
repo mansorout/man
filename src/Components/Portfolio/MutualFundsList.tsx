@@ -124,7 +124,7 @@ const MutualFundsList = () => {
         </Box>
         <Box sx={{
             width: '83.75vw',
-            height: '6.1vw',
+            height: '6.1vw', 
             marginTop: '8vw',
             display: 'flex',
             justifyContent: 'center',

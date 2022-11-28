@@ -51,7 +51,7 @@ const SipCard = (props: SipProp) => {
       gap: '1vw',
       borderRadius: '0.625vw',
       boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-      backgroundColor: '#fff',
+      backgroundColor: 'red',
       fontFamily: 'Roboto',
       paddingTop: '1vw',
     }}>
