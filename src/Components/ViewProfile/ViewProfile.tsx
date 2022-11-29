@@ -381,12 +381,28 @@ function ViewProfile() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
             <Toolbar />
-            <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+
+
+{/* 
+            <Grid container >
+              <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+              <ViewProfileCard  />
+              </Grid>
+              <Grid item  xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+              <VviewprofileCard />
+              </Grid>
+
+              
+            </Grid> */}
+
+            <Grid container>
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
                 <ViewProfileCard  />
               </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }}>
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                 <VviewprofileCard />
               </Grid>
 

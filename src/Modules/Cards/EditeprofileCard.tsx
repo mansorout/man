@@ -212,8 +212,7 @@ function EditprofileCard() {
   }
   return (
     <>
-      <div style={{
-        width: "118vh", backgroundColor: '#ffffff',
+      <div style={{ backgroundColor: '#ffffff',
         padding: '29px',
         borderRadius: "8px",
         marginBottom: "-15px"
@@ -243,7 +242,7 @@ function EditprofileCard() {
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-20px"
+                    width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-20px"
                   }}
                 >
 
@@ -252,7 +251,7 @@ function EditprofileCard() {
                 <TextField label="Middle Name"
                   name="middleName"
                   value={formData.middleName} onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
 
 
                 </TextField>
@@ -260,14 +259,14 @@ function EditprofileCard() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
 
 
                 </TextField>
                 <TextField label="Mobile Number"
                   name="mobilenumber" value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
 
                 >
 
@@ -275,7 +274,7 @@ function EditprofileCard() {
                 </TextField>
                 <TextField label="Email Address"
                   name="emailaddress"
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "440px", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
                   value={formData.emailaddress} onChange={handlechange} fullWidth>
                
               
@@ -290,7 +289,7 @@ function EditprofileCard() {
                   }} >
                   <div style={{ position: "relative", top: "-9px" }}>
 
-                    <FormControl sx={{ width: "198px" }}>
+                    <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label" sx={{
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
@@ -312,8 +311,8 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                    <FormControl sx={{ width: "198px" }}>
+                    
+                    <FormControl sx={{ width: "49%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{
                           color: "rgba(0, 0, 0, 0.6)",
@@ -358,7 +357,7 @@ function EditprofileCard() {
               <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 } }}>
 
-                <div style={{ marginLeft: "-45px" }}>
+         
 
 
                   <Button value={formData.gender}
@@ -394,7 +393,7 @@ function EditprofileCard() {
                     /> */}
                     <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                   </Button>
-                </div>
+           
               </Box>
 
 
@@ -423,7 +422,7 @@ function EditprofileCard() {
 
                 >
                   <div style={{ position: "relative", top: "-86px" }}>
-                    <FormControl sx={{ width: "198px" }}>
+                    <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{
                           color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
@@ -444,8 +443,8 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                    <FormControl sx={{ width: "198px" }}>
+                 
+                    <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{
                           color: "rgba(0, 0, 0, 0.6)",
@@ -471,7 +470,7 @@ function EditprofileCard() {
 
                   </div>
                   <div style={{ position: "relative", top: "-46px" }}>
-                    <FormControl sx={{ width: "198px" }}>
+                    <FormControl sx={{ width: "50%" }}>
                       <InputLabel
                         id="demo-simple-select-label"
                         sx={{
@@ -496,8 +495,8 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                    <FormControl sx={{ width: "198px" }}>
+                    {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
+                    <FormControl sx={{ width: "50%" }}>
                       <InputLabel
                         id="demo-simple-select-label"
                         sx={{
@@ -529,7 +528,7 @@ function EditprofileCard() {
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
                   onChange={handlechange}
-                  sx={{ position: "relative", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
+                  sx={{ position: "relative",width:"100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
                 <Button variant="contained" style={style.button} onClick={handleClick} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                 </Button>

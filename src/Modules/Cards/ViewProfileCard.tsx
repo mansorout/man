@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
 import { emaillogo } from '../../Assets/index'
 import { cakelogo } from '../../Assets/index'
 import { icbirthplacelogo } from '../../Assets/index'
@@ -10,12 +10,12 @@ import { EditProfieButton } from '../Buttons/EditProfieButton'
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText'
-import Avatar from '@mui/material/Avatar';
+
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-
+import ListItemText from '@mui/material/ListItemText'
+import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work'
 import Paper from "@mui/material/Paper";
 
@@ -66,10 +66,11 @@ function ViewProfileCard() {
         },
         ca: {
             // borderRadius: "170px 175px 175px 163px",
-            backgroundColor: "rgba(100, 219, 255, 0.3)",
+            backgroundColor: "#64dbff",
             width: "20px",
             height: "20px",
             padding: "10px",
+            opacity: "0.9",
 
             // width: '80px',
             // height: '80px',
@@ -94,11 +95,15 @@ function ViewProfileCard() {
     return (
 
         <>
-            <Box
-                sx={{
-                    p: 1,
-                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
-                }}
+          <Card   
+            sx={{
+                p: 1,
+                 marginTop: "30px",
+                height:" fit-content"
+            }}> 
+      <CardContent>
+      <Box
+              
             >
                 <List>
                     <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
@@ -120,14 +125,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Mobile Number
                             <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
@@ -141,14 +146,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Email Address
                         </Typography>
@@ -159,7 +164,7 @@ function ViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={cakelogo}
@@ -167,7 +172,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -183,14 +188,14 @@ function ViewProfileCard() {
                         >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={icbirthplacelogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                      
                          <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
@@ -218,18 +223,22 @@ function ViewProfileCard() {
                     </ListItem>
 
                     <ListItem
-                    
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete">
+
+                            </IconButton>
+                        }
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={locationlogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -249,7 +258,7 @@ function ViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={ic_income}
@@ -257,7 +266,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -269,6 +278,10 @@ function ViewProfileCard() {
                     <EditProfieButton />
                 </List>
             </Box>
+      </CardContent>
+     
+    </Card>
+           
 
 
         </>

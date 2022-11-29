@@ -11,7 +11,7 @@ export const VerificationpendingButton = () => {
             height: "48px",
             borderRadius: " 8px",
             backgroundColor: "rgb(250, 220, 167)",
-            margin: "0px",
+            marginTop: "5%",
             width: " 100%",
             maxWidth: "400px",
 
@@ -21,7 +21,7 @@ export const VerificationpendingButton = () => {
             color: "black",
 
             fontWeight: " 500",
-            lineHeight: '2',
+
             opacity: "0.74",
         }
     }

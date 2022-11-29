@@ -51,9 +51,14 @@ import AddFunds from './Components/SIPInvestment/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
 
+
+
+
+
+
 function App() {
 
-
+   
   const data: PortfolioProp = {
       image: '../../Assets/Portfolio/Miraelogo.svg',
       title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
@@ -64,6 +69,7 @@ function App() {
       fiveYearReturn: 21625,
       fiveYearReturnGrowth: 17.36,
   };
+
 /*
   const mfData: MFProp = {
     logo: '/Miraelogo.svg',

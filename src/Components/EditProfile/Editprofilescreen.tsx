@@ -380,17 +380,7 @@ function Editprofilescreen() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
-            <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-                <EditprofileCard/>
-              </Grid>
-              {/* <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
-                <EEditprofileCard />
-              </Grid> */}
-         
-
-            </Grid>
+            <EditprofileCard/>
             <Box
               textAlign="center"
               sx={{
