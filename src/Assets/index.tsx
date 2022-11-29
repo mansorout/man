@@ -99,8 +99,8 @@ export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
 export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
-export const minInvest =require("./minInvest.png")
-export const schemeDoc =require("./schemeDoc.png")
+export const minInvest =require("./payments-24px@3x.png")
+export const schemeDoc =require("./description-24px@3x.png")
 
 
 

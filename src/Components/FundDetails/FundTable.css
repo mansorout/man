@@ -14,7 +14,7 @@
   }
 
   .risko_meter{
-    
+    display: contents;
     height: 21px !important;
    
     font-family: Roboto !important;
@@ -27,7 +27,7 @@
     text-align: left !important;
     color: #3c3e42 !important;
   }
-  .Level-of-Risk-in-the-Scheme {
+  .Level-of-Risk-in-the-Scheme{
     
     height: 16px;
     

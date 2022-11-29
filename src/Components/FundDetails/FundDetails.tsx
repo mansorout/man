@@ -29,6 +29,10 @@ import { minInvest } from '../../Assets/index'
 import { schemeDoc } from '../../Assets/index'
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import { RiskoMeter } from './RiskoMeter'
+import { SchemeDoc } from './SchemeDoc'
+import MinInvest from './MinInvest'
+import { LatestAssets } from './LatestAssets'
 
 
 
@@ -209,7 +213,7 @@ function FundDetails() {
   const error: string[] = useSelector((state: any) => state.error)
 
   return (
-    <Box style={{ width: "100vw" }} ref={refContainer}>
+    <Box style={{ width: "100vw",overflow: "auto" }} ref={refContainer}>
       <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
         <Toolbar style={style.toolbar}>
           <Box>
@@ -521,214 +525,28 @@ function FundDetails() {
               <FundTable />
 
 
+              
+              <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={12} sm={6}>
+                    <MinInvest/>
+                  </Grid>
+                <Grid item xs={12} sm={6}>
+               <SchemeDoc/>
+                  </Grid>
+                  </Grid>
+             
               <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid item xs={6}>
-                  <Box
-
-                    sx={{
-                      // backgroundColor:"green",
-                      // padding: "1rem",
-                      // fontFamily: "Roboto",
-                      // borderRadius: "0.5rem",
-                      // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      // backgroundColor: "white",
-                      margin: "1rem",
-                      // height: "84px",
-                      // margin: "24px 32px",
-                      padding: " 12px 12px 21px 16px",
-                      borderRadius: "8px",
-                      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      boxSizing: "border-box",
-                      backgroundColor: "white",
-                    }}
-                  >
-
-                    <Grid container spacing={2}>
-                      <Grid item>
-                        {<Avatar alt="star" src={minInvest} sx={{
-                          backgroundColor: "#64dbff", height: "30px",
-                          width: "30px"
-                        }} />}
-                      </Grid>
-                      <Grid item xs>
-                        <Typography className='risko_meter'>Min. Investment:</Typography>
-                        <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography>
-                        <Typography className='mediumButtonText'>₹500</Typography>
-                      </Grid>
-                      <Grid item xs>
-                        <Typography className='Level-of-Risk-in-the-Scheme'>One-time Lumpsum</Typography>
-                        <Typography className='mediumButtonText'>₹5,000</Typography>
-                      </Grid>
-                    </Grid>
-
-                  </Box>
-
+                <Grid item xs={12} sm={6}>
+                  
+                <RiskoMeter/>
 
                 </Grid>
-                <Grid item xs={6}>
-                  <Box
-                    
-                    sx={{
-                      // backgroundColor:"green",
-                      // padding: "1rem",
-                      // fontFamily: "Roboto",
-                      // borderRadius: "0.5rem",
-                      // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      // backgroundColor: "white",
-                      margin: "1rem",
-                      // height: "84px",
-                      // margin: "24px 32px",
-                      padding: " 12px 12px 21px 16px",
-                      borderRadius: "8px",
-                      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      boxSizing: "border-box",
-                      backgroundColor: "white",
-                    }}
-                  >
-
-
-
-                    <Grid container spacing={2} sx={{ textAlign: "center" }}>
-                      <Grid item>
-                        <Avatar alt="star" src={schemeDoc} sx={{
-                          backgroundColor: "#64dbff",
-                        }} />
-                      </Grid>
-                      <Grid item xs >
-                        <Typography className='risko_meter'>Scheme Document</Typography>
-
-                      </Grid>
-                      <Grid item xs  >
-                        <Typography className='viewtext'>View</Typography>
-
-                      </Grid>
-
-                    </Grid>
-
-
-                  </Box>
-
-
-
-
+                <Grid item xs={12} sm={6}>
+                  
+                <LatestAssets/>
 
                 </Grid>
-                <Grid item xs={6}>
-
                 </Grid>
-              </Grid>
-              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid item xs={6}>
-                  <Box >
-
-                    <Accordion
-                      sx={{
-                        // margin: "1rem",
-                        padding: " 12px 12px 21px 16px",
-                        borderRadius: "8px",
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                      }} >
-                      {/* sx={{backgroundColor:"red"}} */}
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
-                      >
-                        <Box sx={{}}>
-                          <Typography className='risko_meter'>Riskometer</Typography>
-                          <Typography className='Level-of-Risk-in-the-Scheme'>Level of Risk in the Scheme</Typography>
-                        </Box>
-
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Box sx={{
-                          margin: "1rem",
-
-                          // margin: "24px 32px",
-                          padding: " 12px 12px 21px 16px",
-                          borderRadius: "8px",
-
-                          boxSizing: "border-box",
-                          backgroundColor: "white",
-                        }}>
-                          <img style={{
-                            maxWidth: "-webkit-fill-available"
-                          }} src={Riskometer} />
-
-                        </Box>
-                        <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
-                          This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box >
-
-                    <Accordion
-                      sx={{
-                        // margin: "1rem",
-                        padding: " 12px 12px 21px 16px",
-                        borderRadius: "8px",
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                      }}>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
-                      >
-                        <Box sx={{
-
-
-
-                        }}>
-                          <Typography className='risko_meter'>Latest Asset & Portfolio Allocation</Typography>
-                          <Typography className='Level-of-Risk-in-the-Scheme'>as on Aug 31, 2020</Typography>
-                        </Box>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography>
-                          <AppBar sx={{ background: 'transparent', boxShadow: 'none' }} position="static">
-
-
-                            <Stack direction="row" gap={1}>
-                              <Button sx={{ background: '#dff7ea', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
-                                <Typography sx={{ color: "#23db7b" }} className='button_text'>
-                                  Sectors
-                                </Typography>
-                              </Button>
-                              <Button sx={{ background: 'transparent', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
-                                <Typography className='button_text'>
-                                  Companies
-                                </Typography>
-                              </Button>
-                              <Button sx={{ background: 'transparent', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
-                                <Typography className='button_text'>
-                                  MarketCap
-                                </Typography>
-                              </Button>
-                            </Stack>
-                          </AppBar>
-
-                        </Typography>
-                        <br />
-                        <ProgressBars />
-                      </AccordionDetails>
-                    </Accordion>
-
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-
-                </Grid>
-              </Grid>
-
 
 
 

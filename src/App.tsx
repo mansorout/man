@@ -43,6 +43,8 @@ import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
+import { Refix } from './Components/AddAccountHolderSign/Refix';
+
 
 
 
@@ -127,6 +129,7 @@ function App() {
           <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
+          <Route path="/signrework" element={<Refix/>} />
          
 
 

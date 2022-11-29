@@ -76,26 +76,33 @@ const FundDetailCard = (props: Prop) => {
           }}
         />
 
+        
+        
+        <Box >
         <Chip sx={{backgroundColor:"#ffc300"}}
           avatar={<Avatar alt="star" src={SmallStar} />}
           label={props.rating + ".0"}
           
         />
-        
-        <Box >
           <img alt="MorningStarlogo" src={MorningStarlogo} />
           
           </Box>
    </Box>
       
-   <Grid container spacing={5}>
-          <Grid item xs={6}>
+   <Grid container spacing={0}>
+          <Grid item xs={5}>
             <Typography sx={{display: "contents"}} className="FundDetails_Heading">
             Axis Small Cap Fund Regular Growth
             </Typography>
           </Grid>
+          <Grid item xs={2}>
+            <Typography sx={{display: "contents"}} className="FundDetails_Heading">
+           
+            </Typography>
+          </Grid>
+          <Grid item xs={5}>
           <Box  sx={{textAlign:"right",
-          marginLeft:"21ch",
+           display: "flex"
         
        
           // padding: "11px 36px"
@@ -103,6 +110,8 @@ const FundDetailCard = (props: Prop) => {
             <Button onClick={()=>navigate('/home')} sx={{backgroundColor:"#23db7b",  width: "206px",
           height: "38px",color:"#ffffff",borderRadius:"8px"}}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
           </Box>
+          </Grid>
+          
         </Grid>
       <Box
         sx={{

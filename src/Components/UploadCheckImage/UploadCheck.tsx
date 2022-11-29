@@ -4,7 +4,7 @@ import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
@@ -703,13 +703,15 @@ function UploadCheck() {
             <Stack
               sx={{
                 width: "100%",
-                height: "30px",
-                margin: "66px 0px 0px",
+                // height: "30px",
+                // margin: "66px 32px 2px",
+                padding: "8px 16px",
                 backgroundColor: " #6c63ff",
+                height: "fit-content"
               }}
             >
               <Typography
-                sx={{ marginTop: "7px", marginLeft: "26px" }}
+                sx={{ marginTop: '66px' }}
                 component="span"
                 className="subTitle5"
               >
@@ -717,17 +719,41 @@ function UploadCheck() {
                 electronic clearing system (ECS) mandate.
               </Typography>
             </Stack>
+            {/* <Breadcrumbs aria-label="breadcrumb">
+              <Link color="#6495ED" underline="always" href="/home">
+                <Typography className='burgerText'> Home</Typography>
+              </Link>
+              <Link
+                underline="always"
+                color="#6495ED"
+                href="/vp"
+              >
+                <Typography className='burgerText'>  View Profile</Typography>
+
+              </Link>
+              <Link
+                underline="always"
+                color="#6495ED"
+                // href="/vp"
+                // aria-current="page"
+              >
+                <Typography className='burgerText'>Cancelled Cheque
+
+                </Typography>
+
+              </Link>
+            </Breadcrumbs> */}
 
             <Box
               display="flex"
               justifyContent="center"
               alignItems="center"
-              sx={{ marginInline: "auto" }}
+              sx={{ marginInline: "auto"}}
             >
               <Paper
                 style={{
-                  height: "64vh",
-                  width: "120vh",
+                  // height: "64vh",
+                  // width: "120vh",
                   background: "#fff",
                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   borderRadius: "8px",
@@ -798,6 +824,8 @@ function UploadCheck() {
                     }
 
                   </Grid>
+
+
                   <Grid sx={{
                     display: " inline-flex", flexGrow: "0",
                     maxWidth: "50%", flexBasis: "50%",
