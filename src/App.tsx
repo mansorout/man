@@ -130,6 +130,7 @@ function App() {
           <Route path="/mflist" element={ <MutualFundsList />} />
           <Route path="/customizemf" element={ <CustomizeMF /> } />
           <Route path="/sip" element={ <SipList /> } />
+          <Route path="/addfunds" element={ <AddFunds />} />
           
           {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
           <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
@@ -137,18 +138,9 @@ function App() {
           <Route path="/redeemfund" element={<RedeemFunds/>} />
         
           <Route path="/netbanking" element={<NETbanking/>} />
-      
-        
-
-
-
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
-
-
-
-
-          
+     
         </Routes>
     </>
   );
