@@ -461,10 +461,10 @@ function NETbanking() {
 
 
 
-
                         </Card>
-
                         <MakepaymentNetbankingbutton />
+
+                    
                     </Grid>
                 </Grid>
 

@@ -10,12 +10,12 @@ import { EditProfieButton } from '../Buttons/EditProfieButton'
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
-
+import ListItemText from '@mui/material/ListItemText'
+import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText'
-import Avatar from '@mui/material/Avatar';
+
 import WorkIcon from '@mui/icons-material/Work'
 import Paper from "@mui/material/Paper";
 
@@ -219,11 +219,7 @@ function ViewProfileCard() {
                     </ListItem>
 
                     <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-
-                            </IconButton>
-                        }
+                    
                     >
 
                         <ListItemAvatar>

@@ -12,12 +12,9 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
-// import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-// import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
-import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
- import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
-import IInvestNowScreenCard from '../../Modules/Cards/IIvestNowScreenCard';
-import InvestNowScreenCard from '../../Modules/Cards/InvestNowScreenCard'
+ 
+import InvestCard from '../../Modules/Cards/InvestCard';
+import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -290,7 +287,7 @@ function InvestNowScreen() {
         </List>
       </DrawerList>
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{height: "100vh", overflow: "hidden" }}>
+        <Grid container spacing={0} sx={{ height: "100vh", overflow: "hidden" }}>
           <Grid sx={{ display: { xs: "none", sm: "block" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", height: "auto", padding: 0, boxSizing: "border-box" }} item xs={0} sm={1} md={2}>
             <Toolbar />
             <List sx={{ py: "30px", height: "inherit" }}>
@@ -382,17 +379,25 @@ function InvestNowScreen() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
-            <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
-                <InvestNowScreenCard/>
-              </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
-                <IInvestNowScreenCard />
-              </Grid>
-         
 
+            <Grid container >
+              <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+                <InvestCard />
+              </Grid>
+              <Grid item  xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+                <InvestSecondCard />
+              </Grid>
+
+              
             </Grid>
+
+
+
+
+
             <Box
               textAlign="center"
               sx={{
@@ -400,16 +405,16 @@ function InvestNowScreen() {
                 width: "304px",
               }}
             >
-              
-         
+
+
             </Box>
 
           </Grid>
-      
+
         </Grid>
-      
+
       </Box>
-  
+
     </Box>
   )
 }

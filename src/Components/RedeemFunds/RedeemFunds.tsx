@@ -10,27 +10,25 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Ad1, Ad1_1, Ad1_2, Ad2, closelogo, Logo, MonoLogo, Profile, Radiobutton, rupconvie, rupreturnlogo, SIP, sipiclogo } from '../../Assets/index'
-import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
-import StartInvestingCard from '../../Modules/CustomCard/StartInvestingCard'
-import { investingCards } from '../../Modal/investingCards'
-import { largeCards } from '../../Modal/largeCards'
-import LargeCards from '../../Modules/CustomCard/LargeCards'
-import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
-import { companyCards } from '../../Modal/companyCards'
+
 import { useNavigate } from 'react-router-dom'
-import OtpInput from 'react-otp-input'
+
 import { useSelector } from 'react-redux'
-import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea, CardActions } from '@mui/material';
+
 import RedeemFundsCard from './RedeemFundsCard'
 import TextField from '@mui/material/TextField';
-import { runInContext } from 'vm'
+
 import RedeemNowButtom from '../../Modules/Buttons/RedeemNowButton'
 import Radio from '@mui/joy/Radio'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton'
+
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import RedeemFundCard from '../../Modules/Cards/RedeemFundCard'
+import RedeemSecFundCard from '../../Modules/Cards/RedeemSecFundCard'
 
 
 
@@ -48,7 +46,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function RedeemFunds() {
-  
+
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
@@ -184,12 +182,12 @@ function RedeemFunds() {
             width: "50px",
             padding: "20px 0px",
         },
-        logoclose:{
-            width:" 14px",
+        logoclose: {
+            width: " 14px",
             height: "14px",
             // backgroundColor: "#8787a2",
-            textAlign:"right",
-            inlineSize:""
+            textAlign: "right",
+            inlineSize: ""
         } as React.CSSProperties,
 
     }
@@ -229,17 +227,17 @@ function RedeemFunds() {
     const error: string[] = useSelector((state: any) => state.error)
 
     const [selectedValue, setSelectedValue] = React.useState('a');
-// const navigate = useNavigate();
-//     const handleChange = (event: any) => {
-//         navigate('/completedview')
-//         setSelectedValue(event.target.value);
-      
-//     };
-   
+    // const navigate = useNavigate();
+    //     const handleChange = (event: any) => {
+    //         navigate('/completedview')
+    //         setSelectedValue(event.target.value);
+
+    //     };
+
     // const [name, setName] = React.useState('Cat in the Hat');
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //   setName(event.target.value);
-   
+
     return (
         <Box style={{ width: "100vw", }} ref={refContainer}>
 
@@ -470,173 +468,28 @@ function RedeemFunds() {
                             </ListItem>
                         </List>
                     </Grid>
+
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={12}>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
                             <Toolbar />
-                            <RedeemFundsCard />
 
-                            <Grid container spacing={3} >
+                            <RedeemFundsCard/>
 
-                                <Grid item xs={6}>
+                            <Grid container spacing={1} >
 
-                                    <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "5%" }}>
-                                        <CardActionArea>
-                                            <Grid container sm >
-                                                <Grid item xs={7}>
-                                                    <Typography
-                                                        sx={{
-
-                                                            height: " 19px",
-                                                            margin: " 5% 62px 27px 5%",
-                                                            fontFamily: "Roboto",
-                                                            fontSize: "18px",
-                                                            fontWeight: " 500",
-                                                            textAlign: " left",
-                                                            color: " #3c3e42"
-                                                        }}
-                                                    >Redemption type</Typography>
-                                                    <Typography sx={{
-                                                        width: "90px",
-                                                        height: " 16px",
-                                                        margin: "5% 62px 27px 5%",
-
-                                                        fontSize: " 14px",
-
-
-
-
-                                                        textAlign: " left",
-                                                        color: "#3c3e42"
-                                                    }}>Redemption by</Typography>
-                                                </Grid>
-
-                                                <Grid item xs={5}>
-                                                    <Button sx={{
-                                                        color: "#09b85d",
-                                                        width: " 79px",
-                                                        height: " 35px",
-                                                        padding: "10px 12px 9px",
-                                                        borderRadius: "8px",
-                                                        border: "solid 1px var(--seaweed)",
-                                                        backgroundColor: "#dff7ea",
-                                                        marginTop: "7%",
-                                                        marginLeft: "-9%"
-
-                                                    }}>PARTIAL</Button>
-                                                    <Button sx={{
-                                                        color: "#09b85d",
-                                                        width: "56px",
-                                                        height: "35px",
-                                                        padding: "10px 12px 9px",
-                                                        borderRadius: "8px",
-                                                        border: "solid 1px rgba(123, 123, 157, 0.3)",
-                                                        backgroundColor: "rgba(255, 255, 255, 0)",
-                                                        marginTop: "7%",
-                                                        marginLeft: "10%"
-                                                    }}>Full</Button>
-
-                                                </Grid>
-
-
-
-
-
-                                            </Grid>
-                                            <Grid container spacing={3} sx={{ marginLeft: "12%", marginTop: "1%" }}>
-                                                <Grid item xs={6}>
-                                                    <Typography  >
-                                                        {/* <img src={Radiobutton} alt="image" style={style.RadioInter} /> */}
-                                                        <Radio
-                                                            // checked={selectedValue === 'a'}
-                                                            // onChange={handleChange}
-                                                            // value="a"
-                                                            // name="radio-buttons"
-                                                            // componentsProps={{ input: { 'aria-label': 'A' } }}
-                                                            sx={{ color: "#23db7b", marginLeft: "-7%" }}
-                                                        />
-
-                                                        Amount: ₹1,46,625
-
-                                                    </Typography>
-
-
-                                                </Grid>
-
-                                                <Grid item xs={5}>
-                                                    {/* <img src={Radiobutton} alt="image" style={style.RadioInter} /> */}
-                                                    <Typography>
-
-                                                        <Radio
-                                                            checked={selectedValue === 'b'}
-                                                            // onClick={()=>navigate('/redeemsecscreen')}
-                                                            // onChange={handleChange}
-                                                            value="b"
-                                                            name="radio-buttons"
-                                                            componentsProps={{ input: { 'aria-label': 'B' } }}
-                                                            sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
-                                                         
-                                                        />
-                                                        Units: 750.762</Typography>
-                                                </Grid>
-
-                                            </Grid>
-
-
-                                            {/* <img src={Radiobutton} alt="image" style={style.RInter} /> */}
-                                            <TextField label="Amount"
-                                                name="Amount"
-                                                //   value={formData.lastName}
-                                                sx={{
-                                                    width: " 400px",
-                                                    height: "56px",
-
-                                                    borderRadius: "4px",
-                                                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                                    border: "solid 1px #dddfe2",
-                                                    backgroundColor: "#fff",
-                                                    marginLeft: "4%",
-                                                    marginTop: "8%"
-                                                }}
-
-                                            >
-
-                                            </TextField>
-
-                                            <Grid container direction="column" >
-                                                <Grid item xs={6}>
-                                                    <Typography
-                                                        sx={{
-                                                            width: "304px",
-                                                            height: "30px",
-                                                            margin: "8px 135px 0 8%",
-                                                            fontSize: " 12px",
-                                                            textAlign: "left",
-                                                            color: "#8787a2"
-
-
-
-                                                        }}
-                                                    >Minimum redemption amount ₹500 </Typography>
-                                                </Grid>
-                                                <Grid item xs={6} >
-                                                    <Typography
-                                                        sx={{
-                                                            width: "304px",
-                                                            height: "30px",
-                                                            margin: "8px 135px 0 8%",
-                                                            fontSize: " 12px",
-                                                            textAlign: "left",
-                                                            color: "#8787a2"
-                                                        }}
-                                                    >Maximum  redemption amount ₹25,000</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </CardActionArea>
-
-                                    </Card>
-
+                                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
+                                <RedeemFundCard />
+                               
                                 </Grid>
-                                <Grid item xs={6}>
+
+
+
+
+                                <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
+                                <RedeemSecFundCard />
+                                  
+                                </Grid>
+                                {/* <Grid item xs={6}>
                                     <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "-3%", borderRadius: "8px" }}>
                                         <CardActionArea>
                                             <Typography sx={{
@@ -748,32 +601,43 @@ function RedeemFunds() {
                                         </CardActionArea>
                                     </Card>
 
-                                </Grid>
+                                </Grid> */}
+
 
                             </Grid>
+
+
+
+
                         </Grid>
+
+
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sx={{ textAlign: "center" }}>
+                            <Grid item xs={6} sx={{ textAlign: "right" }}>
                                 <RedeemNowButtom />
                             </Grid>
+                            
                         </Grid>
 
-                    </Grid>
+                   
 
+                    </Grid>
+            
                 </Grid>
+
             </Box>
 
             <Modal open={openModal} onClose={() => setOpenModal(false)}>
                 <Box style={style.modalContainer}>
                     <Grid container spacing={1}>
                         <Grid item xs={12} textAlign="right">
-                        <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
+                            <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
                         </Grid>
                     </Grid>
-       
+
                     <img alt="Money Sprint" src={sipiclogo} style={style.logoIc} />
-                 
-                    <Typography textAlign="center" variant='h5'  sx={{color:"#3c3e42"}} >Help us know you better.</Typography>
+
+                    <Typography textAlign="center" variant='h5' sx={{ color: "#3c3e42" }} >Help us know you better.</Typography>
                     <Typography textAlign="center" variant='h5' sx={{ fontSize: "14px" }}  >Share details below to view recommendations</Typography>
                     <Box
                         component="form"
@@ -786,12 +650,12 @@ function RedeemFunds() {
                         <TextField
                             id="outlined-name"
                             label="FirstName"
-                            sx={{color:"#919eb1",fontSize:"17px"}}
+                            sx={{ color: "#919eb1", fontSize: "17px" }}
                         // value={name}
                         // onChange={handleChange}
                         />
                         <TextField
-                        sx={{color:"#919eb1",fontSize:"17px",marginTop:"3%"}}
+                            sx={{ color: "#919eb1", fontSize: "17px", marginTop: "3%" }}
                             label="LastName"
 
                         />
@@ -804,7 +668,7 @@ function RedeemFunds() {
                             marginTop: "2%"
                         }}
                     >
-                        <TextField fullWidth  sx={{color:"#919eb1",fontSize:"17px",marginTop:"1%"}}label="Email Address" id="fullWidth" />
+                        <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%" }} label="Email Address" id="fullWidth" />
                     </Box>
                     <Box
                         sx={{
@@ -813,9 +677,9 @@ function RedeemFunds() {
                             marginTop: "2%"
                         }}
                     >
-                        <TextField type="date" sx={{color:"#919eb1",fontSize:"17px",marginTop:"4%",}} fullWidth label="Date of Birth" id="fullWidth" />
+                        <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", }} fullWidth label="Date of Birth" id="fullWidth" />
                     </Box>
-                 
+
 
                     <div style={{ width: "100%" }} onClick={() => setOpenModal(false)}>
                         <SaveSipDetailsButton otp={OTP} />

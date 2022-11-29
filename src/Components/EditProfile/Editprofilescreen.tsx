@@ -15,7 +15,6 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 // import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 // import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
- import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
 
 
 
@@ -386,9 +385,9 @@ function Editprofilescreen() {
 
                 <EditprofileCard/>
               </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
+              {/* <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
                 <EEditprofileCard />
-              </Grid>
+              </Grid> */}
          
 
             </Grid>
