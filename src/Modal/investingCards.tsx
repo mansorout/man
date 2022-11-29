@@ -21,6 +21,11 @@ export const investingCards = [
         Text: "Handpicked best performing funds for you based on your future goals",
         Img: BuildWealth
     },
-    
+    {
+        BgColor: "#ecf6f6",
+        Heading: "Get a Loan",
+        Text: "With nil foreclosure charges you can close you loan as per your convenience",
+        Img: GetLoan
+    },
    
 ]

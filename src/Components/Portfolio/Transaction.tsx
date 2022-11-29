@@ -393,19 +393,21 @@ function Transaction() {
                 <Toolbar/>
                 <Grid container>
                   <Grid item xs={12} sx={{padding:2}}>
-                    <Box style={{padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", gap:"90px"}}>
+                  <Box style={{marginBottom:"20px", padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      <Box style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"90%", maxWidth:"600px", flexWrap:"wrap", gap:"20px"}}>
                       
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/holdings')}>Holdings</Typography>
                       <Box style={{position:"relative", display:"flex", flexDirection:"column", alignItems:"center"}}>
                         <Typography style={{color:"#3c3e42", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/transactions')}>Transactions</Typography>
-                        <Box style={{position:"absolute", bottom:"-15px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
+                        <Box style={{position:"absolute", bottom:"0px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
                       </Box>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/sips')}>SIPs</Typography>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/reports')}>Reports</Typography>
                     </Box>
+                  </Box>
                   </Grid>
               </Grid>
-              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:'wrap'}}>
                 <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}}>
                   <Box style={{border:"1px solid #23db7b", borderRadius:"8px", backgroundColor:"#dff7ea", textAlign:"center", padding:"12px 14px"}}>
                     <Typography style={{fontWeight:"500", color:"#09b85d", fontSize:"14px"}}>All</Typography>
@@ -444,7 +446,7 @@ function Transaction() {
                       </Box>
                       <Box style={{display:"flex", gap:"10px"}}>
                         <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                          <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
                             <TaskAltOutlined style={{color:"white", width:"15px"}}/>
                           </Box>
                           <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
@@ -452,7 +454,7 @@ function Transaction() {
                           </Box>
                         </Box>
                         <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                          <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
                               <ErrorOutline style={{color:"white", width:"15px"}}/>
                             </Box>
                           <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
@@ -500,7 +502,7 @@ function Transaction() {
                       </Box>
                       <Box style={{display:"flex", gap:"10px"}}>
                         <Box style={{display:"flex", cursor:"pointer"}}>
-                          <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
                             <TaskAltOutlined style={{color:"white", width:"15px"}}/>
                           </Box>
                           <Box style={{padding:"4px 5px", backgroundColor:"#d2f8e3"}}>
@@ -539,6 +541,7 @@ function Transaction() {
               <Box padding={2}>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
                   <Box>
+                  <Box style={{display:"flex", gap:"15px"}}>
                     <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
                       <img src={meria} width="100%" alt='mirae'></img>
                     </Box>
@@ -551,7 +554,7 @@ function Transaction() {
                       </Box>
                       <Box style={{display:"flex", gap:"10px"}}>
                         <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                          <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
                             <TaskAltOutlined style={{color:"white", width:"15px"}}/>
                           </Box>
                           <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
@@ -559,7 +562,7 @@ function Transaction() {
                           </Box>
                         </Box>
                         <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                          <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
                               <ErrorOutline style={{color:"white", width:"15px"}}/>
                             </Box>
                           <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
@@ -568,6 +571,7 @@ function Transaction() {
                         </Box>
                       </Box>
                     </Box>
+                  </Box>
                   </Box>
                   <Box>
                     <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
@@ -594,6 +598,7 @@ function Transaction() {
                   </Box>
                 </Box>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
+                <Box style={{display:"flex", gap:"15px"}}>
                   <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
                     <img src={meria} width="100%" alt='mirae'></img>
                   </Box>
@@ -606,7 +611,7 @@ function Transaction() {
                     </Box>
                     <Box style={{display:"flex", gap:"10px"}}>
                       <Box style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
+                        <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
                           <Close style={{color:"white", width:"15px"}}/>
                         </Box>
                         <Box style={{padding:"4px 5px", backgroundColor:"#fedbcc"}}>
@@ -614,6 +619,7 @@ function Transaction() {
                         </Box>
                       </Box>
                     </Box>
+                  </Box>
                   </Box>
                   <Box>
                     <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>

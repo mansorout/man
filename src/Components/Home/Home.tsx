@@ -443,7 +443,7 @@ function Home() {
                 {
                   largeCards.map((item, key) => {
                     return(
-                      <Grid item xs={12} sx={{padding:2}}>
+                      <Grid key={key} item xs={12} sx={{padding:2}}>
                         <LargeCards Heading={item.Heading} Text={item.Text} Img={item.Img}/>
                       </Grid>
                     )
