@@ -5,7 +5,7 @@ import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } f
 import { useNavigate } from 'react-router-dom'
 import { Box, styled } from '@mui/system'
 import { makeStyles } from '@mui/styles';
-import { RootStore } from '../../Redux/Store';
+// import { RootStore } from '../../Redux/Store';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -22,11 +22,11 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const classes = useStyles()
     const dispatch: any = useDispatch()
-    const { toggleState }: any = useSelector((state: RootStore) => state.NavToggleReducer)
+    const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)
     return (
         <div>
 
-            <Box sx={{ display: 'block', opacity: { xs: '0', sm: "1" }, pointerEvents: { xs: 'none', sm: "initial" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", padding: 0, boxSizing: "border-box", height: "100vh", transition: 'all 0.3s ease-in-out', position: 'fixed', width: '50%', minWidth: '250px', maxWidth: '350px', zIndex: '11' }} className={`${toggleState ? classes.mobileMenu : ''}`}>
+            <Box sx={{ display: 'block', opacity: { xs: '0', sm: "1" }, pointerEvents: { xs: 'none', sm: "initial" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", padding: 0, boxSizing: "border-box", height: "100vh", transition: 'all 0.3s ease-in-out', position: 'fixed', width: '50%', minWidth: '230px', maxWidth: '230px', zIndex: '11' }} className={`${toggleState ? classes.mobileMenu : ''}`}>
                 <List sx={{ py: "30px", height: "inherit" }}>
                     <ListItem disablePadding>
                         <ListItemButton

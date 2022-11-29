@@ -11,8 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Assets/index'
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
-// import { RootStore } from 'src/redux/store';
-import { RootStore } from '../../Redux/Store';
+// import { any } from '../../Redux/Store';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -149,7 +148,7 @@ const style = {
 
 const Navbar = () => {
     const dispatch: any = useDispatch()
-    const { toggleState }: any = useSelector((state: RootStore) => state.NavToggleReducer)
+    const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)
     const [OTP, setOTP] = useState<string>("")
     const [open, setOpen] = useState<boolean>(false)
     const menuActions = React.useRef<MenuUnstyledActions>(null);

@@ -1,0 +1,101 @@
+.mainDiv{
+  width : calc( 100vw - 200px)
+}
+.css-a5rdam-MuiGrid-root{
+  margin-top: 0 !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+/* <DrawerList sx={{
+  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+  "& .MuiBackdrop-root" : {
+    display: "none",
+    flexGrow : 0,
+  }
+}}
+PaperProps={{elevation: 0, sx:{width: { sm : "65px", md : "200px"}, display: { xs: "none", sm : "block"}, boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",}}}
+style={style.drawer} onClose={()=>setOpen(false)} variant="temporary" open={open}>
+  <Toolbar/>
+  <List sx={{py:"30px", height:"100vh"}}>
+    <ListItem disablePadding sx={{ display: 'block', background:"rgba(0, 0, 0, 0.05)" }}>
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          px: 2.5,
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <HomeIcon sx={{color:"#23db7b"}}/>
+        </ListItemIcon>
+        <ListItemText primary="Home" sx={{ color:"#23db7b" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <Assessment sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Portfolio" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <Search sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Explore Funds" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block',  position:"absolute", bottom:"0"}}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          <PowerSettingsNew sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Logout" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+  </List>
+</DrawerList> */
