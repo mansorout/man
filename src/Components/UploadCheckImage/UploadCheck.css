@@ -1,0 +1,7 @@
+@media screen and (max-width: 480px) {
+    .borderGrid{
+        display: table-cell;
+        background-color: red;
+    }
+  }
+  

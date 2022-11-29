@@ -79,12 +79,18 @@ const FundDetailCard = (props: Prop) => {
         
         
         <Box >
-        <Chip sx={{backgroundColor:"#ffc300"}}
-          avatar={<Avatar alt="star" src={SmallStar} />}
+        <Chip sx={{backgroundColor:"#ffc300",}}
+          avatar={<Avatar alt="star" src={SmallStar} 
+          sx={{
+          
+          }} 
+          />}
           label={props.rating + ".0"}
           
         />
-          <img alt="MorningStarlogo" src={MorningStarlogo} />
+          <img alt="MorningStarlogo" src={MorningStarlogo} style= {{ width: "76px",
+  height: "22px",
+  margin: "10px 0 10px 8px"}}/>
           
           </Box>
    </Box>

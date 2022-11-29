@@ -149,3 +149,17 @@
   text-align: left !important;
   color: var(--cornflower) !important;
   }
+
+  .portfoliotext{
+    width: 43px !important;
+  height: 14px!important;
+  margin: 0 369px 0 0 !important;
+  font-family: Roboto !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: 1.17 !important;
+  letter-spacing: 0.36px !important;
+  color: #919eb1 !important;
+  }

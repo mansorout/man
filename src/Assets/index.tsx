@@ -78,7 +78,7 @@ export const RemoveButtonIcon = require('./Portfolio/delete_forever-24px.png');
 export const maskgroup = require('./MaskGroup.png');
 export const Riskometer = require('./RiskoMeter.png');
 export const SmallStar = require('./WhiteStar2.png');
-export const MorningStarlogo = require('./MorningStarLogo.png');
+export const MorningStarlogo = require('./86820e7@3x.png');
 
 
 export const formatter = new Intl.NumberFormat('en-IN', {
