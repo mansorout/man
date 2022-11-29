@@ -36,6 +36,7 @@ const CompanyFundCard = (props: Prop) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 marginBottom: '1.5rem',
+                gap:"10px"
             }}>
                 <img src={ props.logo } alt="Logo of the company" style={{
                     width: '3rem',
@@ -63,16 +64,16 @@ const CompanyFundCard = (props: Prop) => {
                     <Table size="small">
                         <TableHead>
                             <TableRow sx={{ color: '#acb4bf' }}>
-                                <TableCell className="table_head">1 yr return</TableCell>
-                                <TableCell className="table_head">3 yrs return</TableCell>
-                                <TableCell className="table_head">5 yrs return</TableCell>
+                                <TableCell className="table_head1">1 yr return</TableCell>
+                                <TableCell className="table_head1">3 yrs return</TableCell>
+                                <TableCell className="table_head1">5 yrs return</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                <TableCell>{ props.year1 }%</TableCell>
-                                <TableCell>{ props.year3 }%</TableCell>
-                                <TableCell>{ props.year5 }%</TableCell>
+                                <TableCell style={{padding:"0px"}}>{ props.year1 }%</TableCell>
+                                <TableCell style={{padding:"0px"}}>{ props.year3 }%</TableCell>
+                                <TableCell style={{padding:"0px"}}>{ props.year5 }%</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

@@ -35,9 +35,10 @@ import { gapi } from "gapi-script";
             height: "48px",
             borderRadius: "8px",
             backgroundColor: "white",
-            border: "1px solid #23db7b",
-            boxShadow: "0 4px 8px 0 white",
+            border: "1px solid red",
+            //boxShadow: "0 4px 8px 0 white",
             width:"100%",
+            color:'#23db7b',
             maxWidth:"400px",
         } as React.CSSProperties,
         text : {
@@ -55,7 +56,7 @@ import { gapi } from "gapi-script";
                 cookiePolicy={ 'single_host_origin' }
                 isSignedIn={ true }
                 uxMode="redirect"
-                redirectUri="http://localhost:3000/account_created_with_google"
+                redirectUri="/account_created_with_google"
                 style={ style.button }
             />;
 };

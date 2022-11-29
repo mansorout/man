@@ -66,11 +66,10 @@ function ViewProfileCard() {
         },
         ca: {
             // borderRadius: "170px 175px 175px 163px",
-            backgroundColor: "#64dbff",
+            backgroundColor: "rgba(100, 219, 255, 0.3)",
             width: "20px",
             height: "20px",
             padding: "10px",
-            opacity: "0.9",
 
             // width: '80px',
             // height: '80px',
@@ -121,14 +120,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                            
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Mobile Number
                             <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
@@ -142,14 +141,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                            
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Email Address
                         </Typography>
@@ -160,7 +159,7 @@ function ViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={cakelogo}
@@ -168,7 +167,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                            
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -184,14 +183,14 @@ function ViewProfileCard() {
                         >
 
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={icbirthplacelogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                            
                         </ListItemAvatar>
                      
                          <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
@@ -223,14 +222,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={locationlogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                            
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -250,7 +249,7 @@ function ViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={ic_income}
@@ -258,7 +257,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                            
                         </ListItemAvatar>
                         <ListItemText
                             primary={

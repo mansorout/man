@@ -393,19 +393,21 @@ function Transaction() {
                 <Toolbar/>
                 <Grid container>
                   <Grid item xs={12} sx={{padding:2}}>
-                    <Box style={{padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", gap:"90px"}}>
+                  <Box style={{marginBottom:"20px", padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      <Box style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"90%", maxWidth:"600px", flexWrap:"wrap", gap:"20px"}}>
                       
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/holdings')}>Holdings</Typography>
                       <Box style={{position:"relative", display:"flex", flexDirection:"column", alignItems:"center"}}>
                         <Typography style={{color:"#3c3e42", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/transactions')}>Transactions</Typography>
-                        <Box style={{position:"absolute", bottom:"-15px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
+                        <Box style={{position:"absolute", bottom:"0px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
                       </Box>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/sips')}>SIPs</Typography>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/reports')}>Reports</Typography>
                     </Box>
+                  </Box>
                   </Grid>
               </Grid>
-              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:'wrap'}}>
                 <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}}>
                   <Box style={{border:"1px solid #23db7b", borderRadius:"8px", backgroundColor:"#dff7ea", textAlign:"center", padding:"12px 14px"}}>
                     <Typography style={{fontWeight:"500", color:"#09b85d", fontSize:"14px"}}>All</Typography>
@@ -431,31 +433,33 @@ function Transaction() {
               <Typography style={{textAlign:"center", color:"#7b7b9d", fontSize:"12px"}}>This Month - April 2021</Typography>
               <Box padding={2}>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                  <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                    <img src={meria} width="100%" alt='mirae'></img>
-                  </Box>
-                  <Box>
-                    <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                    <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
-                      <Divider />
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
+                  <Box style={{display:"flex", gap:"15px"}}>
+                    <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
+                      <img src={meria} width="100%" alt='mirae'></img>
                     </Box>
-                    <Box style={{display:"flex", gap:"10px"}}>
-                      <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
-                          <TaskAltOutlined style={{color:"white", width:"15px"}}/>
-                        </Box>
-                        <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
-                          <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
-                        </Box>
+                    <Box>
+                      <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
+                      <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
+                        <Divider />
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
                       </Box>
-                      <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
-                            <ErrorOutline style={{color:"white", width:"15px"}}/>
+                      <Box style={{display:"flex", gap:"10px"}}>
+                        <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
+                            <TaskAltOutlined style={{color:"white", width:"15px"}}/>
                           </Box>
-                        <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
-                          <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
+                          <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
+                            <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
+                          </Box>
+                        </Box>
+                        <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
+                              <ErrorOutline style={{color:"white", width:"15px"}}/>
+                            </Box>
+                          <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
+                            <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
@@ -485,23 +489,25 @@ function Transaction() {
                   </Box>
                 </Box>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                  <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                    <img src={meria} width="100%" alt='mirae'></img>
-                  </Box>
-                  <Box>
-                    <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                    <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
-                      <Divider />
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
+                  <Box style={{display:"flex", gap:"15px"}}>
+                    <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
+                      <img src={meria} width="100%" alt='mirae'></img>
                     </Box>
-                    <Box style={{display:"flex", gap:"10px"}}>
-                      <Box style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
-                          <TaskAltOutlined style={{color:"white", width:"15px"}}/>
-                        </Box>
-                        <Box style={{padding:"4px 5px", backgroundColor:"#d2f8e3"}}>
-                          <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Transaction Successful</Typography>
+                    <Box>
+                      <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
+                      <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
+                        <Divider />
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
+                      </Box>
+                      <Box style={{display:"flex", gap:"10px"}}>
+                        <Box style={{display:"flex", cursor:"pointer"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
+                            <TaskAltOutlined style={{color:"white", width:"15px"}}/>
+                          </Box>
+                          <Box style={{padding:"4px 5px", backgroundColor:"#d2f8e3"}}>
+                            <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Transaction Successful</Typography>
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
@@ -534,34 +540,38 @@ function Transaction() {
               <Typography style={{textAlign:"center", color:"#7b7b9d", fontSize:"12px"}}>Previous Month - March 2021</Typography>
               <Box padding={2}>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                  <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                    <img src={meria} width="100%" alt='mirae'></img>
-                  </Box>
                   <Box>
-                    <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                    <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
-                      <Divider />
-                      <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
+                  <Box style={{display:"flex", gap:"15px"}}>
+                    <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
+                      <img src={meria} width="100%" alt='mirae'></img>
                     </Box>
-                    <Box style={{display:"flex", gap:"10px"}}>
-                      <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
-                          <TaskAltOutlined style={{color:"white", width:"15px"}}/>
-                        </Box>
-                        <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
-                          <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
-                        </Box>
+                    <Box>
+                      <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
+                      <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>29 Apr</Typography>
+                        <Divider />
+                        <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>INF209K01090</Typography>
                       </Box>
-                      <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
-                            <ErrorOutline style={{color:"white", width:"15px"}}/>
+                      <Box style={{display:"flex", gap:"10px"}}>
+                        <Box onClick={()=>setOpenPendingModal(true)} style={{display:"flex", cursor:"pointer"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
+                            <TaskAltOutlined style={{color:"white", width:"15px"}}/>
                           </Box>
-                        <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
-                          <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
+                          <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
+                            <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
+                          </Box>
+                        </Box>
+                        <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
+                          <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
+                              <ErrorOutline style={{color:"white", width:"15px"}}/>
+                            </Box>
+                          <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
+                            <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
+                  </Box>
                   </Box>
                   <Box>
                     <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
@@ -588,6 +598,7 @@ function Transaction() {
                   </Box>
                 </Box>
                 <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
+                <Box style={{display:"flex", gap:"15px"}}>
                   <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
                     <img src={meria} width="100%" alt='mirae'></img>
                   </Box>
@@ -600,7 +611,7 @@ function Transaction() {
                     </Box>
                     <Box style={{display:"flex", gap:"10px"}}>
                       <Box style={{display:"flex", cursor:"pointer"}}>
-                        <Box style={{width:"25px",height:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
+                        <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
                           <Close style={{color:"white", width:"15px"}}/>
                         </Box>
                         <Box style={{padding:"4px 5px", backgroundColor:"#fedbcc"}}>
@@ -608,6 +619,7 @@ function Transaction() {
                         </Box>
                       </Box>
                     </Box>
+                  </Box>
                   </Box>
                   <Box>
                     <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
