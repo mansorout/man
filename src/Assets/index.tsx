@@ -131,4 +131,3 @@ export const upilogo =require("./Profile/UPIlogo.png")
 
 
 
-
