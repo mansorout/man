@@ -1,7 +1,84 @@
 @media screen and (max-width: 560px) {
-    .borderGrid{
+    .borderGrid {
         display: table-cell;
         background-color: red;
     }
-  }
-  
+}
+
+.container {
+    height: 100vh;
+    overflow: scroll;
+    background-color: #f9f9f9;
+}
+
+.checkHeadingStack {
+    padding: 8px 16px;
+    width: 100%;
+    height: max-content;
+    background-color: #6c63ff;
+}
+
+
+.renderBox {
+    border: solid 1px #707070;
+    background-color: #fff;
+    height: 238px;
+    width: 564px;
+    margin: 57px 0px 0px 195px;
+    margin-top: 55px;
+}
+
+.Add_Cancelled_Cheque {
+    height: 48px;
+}
+
+.contentPaper {
+    height: 100%;
+    width: 120vh;
+    background: #fff;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+}
+
+/* parent box of papper */
+
+.mainBox {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+}
+
+.previewImg {
+    margin-left: 195px;
+    margin-top: 57px;
+    border: 1px solid black;
+    width: 564px;
+    height: 238px;
+}
+
+.ButtonGrid {
+    display: inline-flex;
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+    margin-top: 45px;
+    margin-right: 46px;
+}
+
+.uploadChequeButton {
+    background-color: #00b4ff;
+
+    height: 45px;
+    width: 150px;
+    border-radius: 32px;
+}
+
+.footerText{
+    text-align: center;
+              
+               margin: auto;
+              width: 100%;
+               max-width: 1280px;
+}

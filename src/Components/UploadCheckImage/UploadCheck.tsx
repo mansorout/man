@@ -4,12 +4,12 @@ import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
-import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
+import { Grid, Typography, Paper } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-//import { uploadcheque } from "../../Store/Reducers/action";
+import { uploadcheque } from "../../Store/Reducers/action";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -22,23 +22,41 @@ import ReactCrop, {
   PixelCrop,
 } from "react-image-crop";
 
-
+import {
+  Drawer as DrawerList,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
+import {
+  Assessment,
+  Home as HomeIcon,
+  MenuRounded,
+  PowerSettingsNew,
+  Search,
+  Tune,
+} from "@mui/icons-material";
 import {
   MenuItemUnstyled,
   menuItemUnstyledClasses,
+  MenuUnstyled,
   MenuUnstyledActions,
 } from "@mui/base";
-
-import {Button,Theme } from "@mui/material";
+import {
+  ExpandLessOutlined,
+  ExpandMoreOutlined,
+  Support,
+} from "@mui/icons-material";
+import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
-import { uploadcheque } from "../../Store/Reducers/action";
-import Navbar from '../CommonComponents/Navbar';
-import Sidebar from '../CommonComponents/Sidebar'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -186,7 +204,29 @@ function UploadCheck() {
   }));
 
   const style = {
-   
+    main: {
+      boxSizing: "border-box",
+      backgroundColor: "#f9f9f9",
+      height: "100vh",
+    } as React.CSSProperties,
+    drawer: {
+      zIndex: "500",
+      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+    } as React.CSSProperties,
+    image: {
+      width: "176px",
+    } as React.CSSProperties,
+    profileContainer: {
+      borderRadius: "8px",
+      border: "solid 1px #4f46de",
+      backgroundColor: "#6c63ff",
+      padding: "10px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: "10px",
+      cursor: "pointer",
+    },
     drawHereText: {
       width: "169px",
       height: "38px",
@@ -281,9 +321,21 @@ function UploadCheck() {
       color: "#09b85d",
       cursor: "pointer",
     },
-   
-    
-   
+    button: {
+      height: "48px",
+      borderRadius: "8px",
+      boxShadow: "none",
+      backgroundColor: "white",
+      textAlign: "left",
+      justifyContent: "flex-start",
+    } as React.CSSProperties,
+    menuIcon: {
+      color: "#6c63ff",
+      fontSize: "24px",
+    },
+    appBar: {
+      backgroundColor: "white",
+    },
   };
 
   const [open, setOpen] = useState<boolean>(false);
@@ -301,324 +353,554 @@ function UploadCheck() {
   const refContainer = useRef();
 
   return (
-    
-    
-                 
-
-
-
-    
-      <Grid
-        container
-        spacing={0}
-        sx={{ height: "100vh", overflow: "hidden" }}
-      >
-        
-
-       
-
-        <Grid
-        className="main"
-          container
-          sx={{
-            height: "100vh",
-            overflow: "scroll",
-            backgroundColor: "#f9f9f9",
-            display:"block"
-          }}
-          xs={13}
-          sm={11}
-          md={10}
-        >
-          <Stack 
-            sx={{
-              width: "100%",
-              // height: "30px",
-              // margin: "66px 32px 2px",
-              padding: "8px 16px",
-              backgroundColor: " #6c63ff",
-              height: "fit-content"
-            }}
-          >
+    <Box style={{ width: "100vw" }} ref={refContainer}>
+      <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
+        <Toolbar style={style.toolbar}>
+          <Box>
+            <MenuRounded
+              onClick={() => setOpen(!open)}
+              sx={{
+                color: "#8787a2",
+                display: { sx: "block", sm: "none" },
+                marginRight: "20px",
+              }}
+            />
+            <img src={Logo} alt="Sprint Money" style={style.image} />
+          </Box>
+          <Box onClick={handleClick} style={style.profileContainer}>
+            <img src={Profile} alt="image" style={style.profile} />
             <Typography
-              sx={{ marginTop: '66px' }}
-              component="span"
-              className="subTitle5"
-            >
-              Cancelled cheque is used for KYC procedures and to facilitate an
-              electronic clearing system (ECS) mandate.
-            </Typography>
-          </Stack>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link color="#6495ED" underline="always" href="/home">
-              <Typography className='burgerText'> Home</Typography>
-            </Link>
-            <Link
-              underline="always"
-              color="#6495ED"
-              href="/vp"
-            >
-              <Typography className='burgerText'>  View Profile</Typography>
-
-            </Link>
-            <Link
-              underline="always"
-              color="#6495ED"
-              // href="/vp"
-              // aria-current="page"
-            >
-              <Typography className='burgerText'>Cancelled Cheque
-
-              </Typography>
-
-            </Link>
-          </Breadcrumbs>
-
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ marginInline: "auto"}}
-          >
-            <Paper
-              style={{
-                // height: "64vh",
-                // width: "120vh",
-                background: "#fff",
-                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                borderRadius: "8px",
+              sx={{
+                fontSize: "16px",
+                color: "white",
+                display: { xs: "none", sm: "block" },
               }}
             >
-              <Stack style={{ height: "48px" }}>
-                <Typography
-                  sx={{ width: "274px", marginBlock: "auto" }}
-                  className="largeHeadingText"
-                >
-                  Add Cancelled Cheque
-                </Typography>
-              </Stack>
-              <Stack style={style.dividerBox}></Stack>
-
-              <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
-
-                <Grid xs>
-                  {
-                    preview ? <Box
-                      sx={{
-                        border: "solid 1px #707070",
-                        backgroundColor: "#fff",
-                        height: "238px",
-                        width: "564px",
-                        margin: "57px 128px 0px 128px"
-                        // marginTop: "55px",
-                      }}
-                    >
-                      {/* for image crop */}
-                      {!!imgSrc && (
-                        <ReactCrop
-                          crop={crop}
-                          onChange={(_, percentCrop) => setCrop(percentCrop)}
-                          onComplete={(c) => setCompletedCrop(c)}
-                          aspect={aspect}
-                        >
-                          <img
-                            ref={imgRef}
-                            alt="Crop me"
-                            src={imgSrc}
-                            style={{
-                              width: "564px",
-                              height: "238px",
-                              transform: `rotate(${rotate90}deg)`,
-                            }}
-                            onLoad={onImageLoad}
-                          />
-                        </ReactCrop>
-                      )}
-                    </Box> : " "
-                  }
-
-                  {
-                    preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
-                      <img
-                        style={{
-                          marginLeft: "195px",
-                          marginTop: "57px",
-                          border: "1px solid black",
-                          width: "564px",
-                          height: "238px",
-                        }}
-                        src={imagePreviewToLast}
-
-                      />
-                    </Box>
-                  }
-
-                </Grid>
-
-
-                <Grid sx={{
-                  display: " inline-flex", flexGrow: "0",
-                  maxWidth: "50%", flexBasis: "50%",
-                  marginTop: "60px"
-                }} xs={6}>
-                  {showSideButton ? (
-                    " "
-                  ) : (
-
-                    <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
-                      <RotateRightIcon />
-                    </Fab>
-                      <Fab onClick={handleToggleAspectClick} sx={{ backgroundColor: "#23db7b" }} >
-                        <CropIcon />
-                      </Fab>
-
-                      <Fab onClick={handleConfirm}>
-                        <DoneIcon />
-                      </Fab>
-                      <Fab onClick={handleCancel} sx={{ backgroundColor: "#23db7b" }}>
-                        <ClearIcon />
-                      </Fab>
-                    </Box>
-
-
-
-                  )}
-                </Grid>
-              </Grid>
-              <Box>
-                <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
-                  <input
-                    ref={uploadInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={onSelectFile}
-                  />
-
-                  {uploadChequeButton ? (
-                    <Button
-                      onClick={() =>
-                        uploadInputRef.current &&
-                        uploadInputRef.current.click()
-                      }
-                      sx={{
-                        backgroundColor: "#00b4ff",
-
-                        height: "45px",
-                        width: "150px",
-                        borderRadius: "32px",
-                      }}
-                    >
-                      <Typography className="subTitle4">
-                        UPLOAD CHEQUE
-                      </Typography>
-                    </Button>
-                  ) : (
-                    ""
-                  )}
-
-                  {uploadChequeButton ? (
-                    ""
-                  ) : (
-                    <Button
-                      onClick={() => handleCancel()}
-                      sx={{
-                        backgroundColor: "rgba(0, 0, 0, 0.05)",
-
-                        height: "45px",
-                        width: "150px",
-                        borderRadius: "32px",
-                      }}
-                    >
-                      <Typography className="textLink">
-                        Clear & Try Again
-                      </Typography>
-                    </Button>
-                  )}
-                </Box>
-              </Box>
-
-              {saveAndAddButton ? (
-                <Box
-                  textAlign="center"
-                  sx={{ pointerEvents: "none", opacity: "0.7" }}
-                  onClick={sendToApi}
-                >
-                  <SaveAndAddButton />
-                </Box>
-              ) : (
-                ""
-              )}
-
-              {saveAndAddButton ? (
-                ""
-              ) : (
-                <Box textAlign="center"  sx={{
-                  paddingBottom:"40px"
-                }}  onClick={sendToApi}>
-                  <SaveAndAddButton />
-                </Box>
-              )}
-
-              {/* for preview of image */}
-
-              {/* for preview of image */}
-
-              {/* {canvasDisable ? (
-                ""
-              ) : (
-                <img
-                  src={previewCanvasRef}
-                  style={{
-                    border: "1px solid black",
-                    objectFit: "unset",
-                    width: "564px",
-                    height: "238px",
-                  }}
-                />
-              )} */}
-
-              {!!completedCrop && (
-                <canvas
-                  ref={previewCanvasRef}
-                  style={{
-                    display: "none",
-                    border: '1px solid black',
-                    objectFit: 'unset',
-                    width: "564px",
-                    height: "238px",
-                  }}
-                />
-              )}
-            </Paper>
+              Hi, Rahul M.
+            </Typography>
+            {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
           </Box>
-
-          <Box
-            textAlign="center"
+          <MenuUnstyled
+            style={{ zIndex: 5000 }}
+            actions={menuActions}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+            anchorEl={anchorEl}
+          >
+            <StyledMenuItem>
+              <Box style={style.menuContainer}>
+                <img src={Profile} alt="image" style={style.profileInter} />
+                <Typography className="mediumButtonText">
+                  Rahul Malhotra
+                </Typography>
+                <Typography className="caption">
+                  rahul.malhotra@gamil.com
+                </Typography>
+                <Box style={style.menuButton}>
+                  <Typography style={style.menuText}>KYC PENDING</Typography>
+                  <Typography style={style.menuText2}>View Profile</Typography>
+                </Box>
+                <Divider style={{ margin: "15px 0px" }} />
+                <Button
+                  variant="contained"
+                  style={style.button}
+                  fullWidth
+                  startIcon={<Support style={style.menuIcon} />}
+                >
+                  <Typography component="span" className="subTitle3">
+                    Help & Support
+                  </Typography>
+                </Button>
+              </Box>
+            </StyledMenuItem>
+          </MenuUnstyled>
+        </Toolbar>
+      </AppBar>
+      <DrawerList
+        sx={{
+          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+          display: { xs: "block", sm: "none" },
+          "& .MuiBackdrop-root": {
+            flexGrow: 0,
+          },
+        }}
+        PaperProps={{
+          elevation: 0,
+          sx: { width: "250px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)" },
+        }}
+        style={style.drawer}
+        onClose={() => setOpen(false)}
+        variant="temporary"
+        open={open}
+      >
+        <Toolbar />
+        <List sx={{ py: "30px" }}>
+          <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                px: 2.5,
+                my: 2,
+                flexDirection: { sm: "column", md: "row" },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <HomeIcon sx={{ color: "#23db7b" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Home"
+                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 56,
+                px: 2.5,
+                my: 2,
+                flexDirection: { sm: "column", md: "row" },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <Assessment sx={{ color: "black" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Portfolio"
+                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 56,
+                px: 2.5,
+                my: 2,
+                flexDirection: { sm: "column", md: "row" },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <Search sx={{ color: "black" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Explore Funds"
+                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
             sx={{
-              margin: "auto",
-              width: "304px",
+              display: "block",
+              position: "fixed",
+              width: { sx: "0%", sm: "8.333%", md: "16.666%" },
+              bottom: "0",
             }}
           >
-            <Typography component="span" className="bottomContentText ">
-              By submitting these details, you are agree to share your details
-              to BSE for further transactions <br />
-            </Typography>
-            <Typography
-              component="span"
-              style={{ cursor: "pointer" }}
-              className="textLink"
+            <ListItemButton
+              sx={{
+                minHeight: 56,
+                px: 2.5,
+                my: 2,
+                flexDirection: { sm: "column", md: "row" },
+              }}
             >
-              Terms and conditions
-            </Typography>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 1,
+                  justifyContent: "center",
+                }}
+              >
+                <PowerSettingsNew sx={{ color: "black" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary="Logout"
+                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </DrawerList>
+      <Box sx={style.main}>
+        <Grid
+          container
+          spacing={0}
+          sx={{ height: "100vh", overflow: "hidden" }}
+        >
+          <Grid
+            sx={{
+              display: { xs: "none", sm: "block" },
+              backgroundColor: "white",
+              boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+              height: "auto",
+              padding: 0,
+              boxSizing: "border-box",
+            }}
+            item
+            xs={0}
+            sm={1}
+            md={2}
+          >
+            <Toolbar />
+            <List sx={{ py: "30px", height: "inherit" }}>
+              <ListItem
+                disablePadding
+                sx={{ background: "rgba(0, 0, 0, 0.05)" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    px: 2.5,
+                    my: 2,
+                    flexDirection: { sm: "column", md: "row" },
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <HomeIcon sx={{ color: "#23db7b" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Home"
+                    sx={{
+                      color: "#3c3e42",
+                      fontSize: { sm: "10px", md: "16px" },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 56,
+                    px: 2.5,
+                    my: 2,
+                    flexDirection: { sm: "column", md: "row" },
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Assessment sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Portfolio"
+                    sx={{
+                      color: "#3c3e42",
+                      fontSize: { sm: "10px", md: "16px" },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 56,
+                    px: 2.5,
+                    my: 2,
+                    flexDirection: { sm: "column", md: "row" },
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Search sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Explore Funds"
+                    sx={{
+                      color: "#3c3e42",
+                      fontSize: { sm: "10px", md: "16px" },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+              <ListItem
+                disablePadding
+                sx={{
+                  display: "block",
+                  position: "fixed",
+                  width: { sx: "0%", sm: "8.333%", md: "16.666%" },
+                  bottom: "0",
+                }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 56,
+                    px: 2.5,
+                    my: 2,
+                    flexDirection: { sm: "column", md: "row" },
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <PowerSettingsNew sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Logout"
+                    sx={{
+                      color: "#3c3e42",
+                      fontSize: { sm: "10px", md: "16px" },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Grid>
+
+          { }
+{/* upload cheque ...................................................................................... */}
+
+          <Grid
+            container
+            className="container"
+            xs={13}
+            sm={11}
+            md={10}
+          >
+            <Stack className="checkHeadingStack">
+              <Typography
+                sx={{ marginTop: "66px", marginLeft: "26px" }}
+                component="span"
+                className="subTitle5"
+              >
+                Cancelled cheque is used for KYC procedures and to facilitate an
+                electronic clearing system (ECS) mandate.
+              </Typography>
+            </Stack>
+
+            <Box>
+              <Paper>
+                <Stack className="Add_Cancelled_Cheque">
+                  <Typography
+                    sx={{ width: "274px", marginBlock: "auto" }}
+                    className="largeHeadingText"
+                  >
+                    Add Cancelled Cheque
+                  </Typography>
+                </Stack>
+                <Stack style={style.dividerBox}></Stack>
+
+                <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
+
+                  <Grid xs>
+                    {
+                      preview ? <Box 
+                      className = "renderBox"
+                       
+                      >
+                        {/* for image crop */}
+                        {!!imgSrc && (
+                          <ReactCrop
+                            crop={crop}
+                            onChange={(_, percentCrop) => setCrop(percentCrop)}
+                            onComplete={(c) => setCompletedCrop(c)}
+                            aspect={aspect}
+                          >
+                            <img
+                              ref={imgRef}
+                              alt="Crop me"
+                              src={imgSrc}
+                              style={{
+                                width: "564px",
+                                height: "238px",
+                                transform: `rotate(${rotate90}deg)`,
+                              }}
+                              onLoad={onImageLoad}
+                            />
+                          </ReactCrop>
+                        )}
+                      </Box> : " "
+                    }
+
+                    {
+                      preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
+                        <img
+                          className="previewImg"
+                          src={imagePreviewToLast}
+
+                        />
+                      </Box>
+                    }
+
+                  </Grid>
+                  <Grid className="ButtonGrid" xs={6}>
+                    {showSideButton ? (
+                      " "
+                    ) : (
+
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}>
+                        
+                        <Fab onClick={handleRotate} >
+                        <RotateRightIcon />
+                      </Fab>
+                      <Typography className="textStyling"> Rotate </Typography>
+                        <Fab onClick={handleToggleAspectClick}>
+                          <CropIcon />
+                        </Fab>
+                        <Typography> Crop </Typography> 
+
+                        <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
+                          <DoneIcon />
+                        </Fab>
+                        <Typography> Done </Typography>
+                        <Fab onClick={handleCancel} >
+                          <ClearIcon />
+                        </Fab>
+                        <Typography> Cancel </Typography>
+                      </Box>
 
 
-          </Box>
+
+                    )}
+                  </Grid>
+                </Grid>
+                <Box>
+                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
+                    <input
+                      ref={uploadInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={onSelectFile}
+                    />
+
+                    {uploadChequeButton ? (
+                      <Button 
+                        onClick={() =>
+                          uploadInputRef.current &&
+                          uploadInputRef.current.click()
+                        }
+                        sx={{
+                          backgroundColor: "#00b4ff",
+
+                          height: "45px",
+                          width: "150px",
+                          borderRadius: "32px",
+                        }}
+                      >
+                        <Typography className="subTitle4">
+                          UPLOAD CHEQUE
+                        </Typography>
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+
+                    {uploadChequeButton ? (
+                      ""
+                    ) : (
+                      <Button
+                        onClick={() => handleCancel()}
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.05)",
+
+                          height: "45px",
+                          width: "150px",
+                          borderRadius: "32px",
+                        }}
+                      >
+                        <Typography className="textLink">
+                          Clear & Try Again
+                        </Typography>
+                      </Button>
+                    )}
+                  </Box>
+                </Box>
+
+                {saveAndAddButton ? (
+                  <Box
+                    textAlign="center"
+                    sx={{ pointerEvents: "none", opacity: "0.7" }}
+                    onClick={sendToApi}
+                  >
+                    <SaveAndAddButton />
+                  </Box>
+                ) : (
+                  ""
+                )}
+
+                {saveAndAddButton ? (
+                  ""
+                ) : (
+                  <Box textAlign="center" onClick={sendToApi}>
+                    <SaveAndAddButton />
+                  </Box>
+                )}
+
+                {/* for preview of image */}
+
+                {!!completedCrop && (
+                  <canvas
+                    ref={previewCanvasRef}
+                    style={{
+                      display: "none",
+                      border: '1px solid black',
+                      objectFit: 'unset',
+                      width: "564px",
+                      height: "238px",
+                    }}
+                  />
+                )}
+              </Paper>
+            </Box>
+
+            <Box className="footerText">
+              <Typography  component="span" className="bottomContentText ">
+                By submitting these details, you are agree to share your details
+                to BSE for further transactions <br />
+              </Typography>
+              <Typography
+                component="span"
+                style={{ cursor: "pointer" }}
+                className="textLink"
+              >
+                Terms and conditions
+              </Typography>
+
+
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    
-  
-    
+      </Box>
+    </Box>
   );
 }
 
