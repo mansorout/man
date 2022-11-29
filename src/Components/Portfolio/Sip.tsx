@@ -399,19 +399,21 @@ function Sip() {
                 <Toolbar/>
                 <Grid container>
                   <Grid item xs={12} sx={{padding:2}}>
-                    <Box style={{padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", gap:"90px"}}>
+                  <Box style={{marginBottom:"20px", padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      <Box style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"90%", maxWidth:"600px", flexWrap:"wrap", gap:"20px"}}>
                       
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/holdings')}>Holdings</Typography>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/transactions')}>Transactions</Typography>
                       <Box style={{position:"relative", display:"flex", flexDirection:"column", alignItems:"center"}}>
                         <Typography style={{color:"#3c3e42", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/sips')}>SIPs</Typography>
-                        <Box style={{position:"absolute", bottom:"-15px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
+                        <Box style={{position:"absolute", bottom:"0px", padding:"1px", backgroundColor:"#23db7b", width:"106%"}}></Box>
                       </Box>
                       <Typography style={{color:"#919eb1", fontWeight:"500", fontSize:"16px", cursor:"pointer"}} onClick={()=>navigate('/reports')}>Reports</Typography>
                     </Box>
+                  </Box>
                   </Grid>
               </Grid>
-              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+              <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:'wrap'}}>
                 <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}}>
                   <Box style={{border:"1px solid #23db7b", borderRadius:"8px", backgroundColor:"#dff7ea", textAlign:"center", padding:"12px 14px"}}>
                     <Typography style={{fontWeight:"500", color:"#09b85d", fontSize:"14px"}}>All</Typography>
