@@ -103,6 +103,7 @@ export const minInvest =require("./payments-24px@3x.png")
 export const schemeDoc =require("./description-24px@3x.png")
 export const hdfclogo =require("./Profile/HdfcBanklogo.png")
 export const upilogo =require("./Profile/UPIlogo.png")
+export const fundChart =require("./FundChart.png")
 
 
 

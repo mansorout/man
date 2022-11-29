@@ -22,35 +22,14 @@ import ReactCrop, {
   PixelCrop,
 } from "react-image-crop";
 
-import {
-  Drawer as DrawerList,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-} from "@mui/material";
-import {
-  Assessment,
-  Home as HomeIcon,
-  MenuRounded,
-  PowerSettingsNew,
-  Search,
-  Tune,
-} from "@mui/icons-material";
+
 import {
   MenuItemUnstyled,
   menuItemUnstyledClasses,
-  MenuUnstyled,
   MenuUnstyledActions,
 } from "@mui/base";
-import {
-  ExpandLessOutlined,
-  ExpandMoreOutlined,
-  Support,
-} from "@mui/icons-material";
-import { AppBar, Button, Divider, Theme } from "@mui/material";
+
+import {Button,Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
@@ -58,6 +37,8 @@ import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
 import { uploadcheque } from "../../Store/Reducers/action";
+import Navbar from '../CommonComponents/Navbar';
+import Sidebar from '../CommonComponents/Sidebar'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -137,7 +118,6 @@ function UploadCheck() {
   //  All Button in components goes here
 
   function handleToggleAspectClick() {
-    alert("check")
     if (aspect) {
       setAspect(undefined);
     }
@@ -206,29 +186,7 @@ function UploadCheck() {
   }));
 
   const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh",
-    } as React.CSSProperties,
-    drawer: {
-      zIndex: "500",
-      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-    } as React.CSSProperties,
-    image: {
-      width: "176px",
-    } as React.CSSProperties,
-    profileContainer: {
-      borderRadius: "8px",
-      border: "solid 1px #4f46de",
-      backgroundColor: "#6c63ff",
-      padding: "10px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: "10px",
-      cursor: "pointer",
-    },
+   
     drawHereText: {
       width: "169px",
       height: "38px",
@@ -323,21 +281,9 @@ function UploadCheck() {
       color: "#09b85d",
       cursor: "pointer",
     },
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "none",
-      backgroundColor: "white",
-      textAlign: "left",
-      justifyContent: "flex-start",
-    } as React.CSSProperties,
-    menuIcon: {
-      color: "#6c63ff",
-      fontSize: "24px",
-    },
-    appBar: {
-      backgroundColor: "white",
-    },
+   
+    
+   
   };
 
   const [open, setOpen] = useState<boolean>(false);
@@ -355,339 +301,21 @@ function UploadCheck() {
   const refContainer = useRef();
 
   return (
-    <Box style={{ width: "100vw" }} ref={refContainer}>
-    <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
-      <Toolbar style={style.toolbar}>
-        <Box>
-          <MenuRounded
-            onClick={() => setOpen(!open)}
-            sx={{
-              color: "#8787a2",
-              display: { sx: "block", sm: "none" },
-              marginRight: "20px",
-            }}
-          />
-          <img src={Logo} alt="Sprint Money" style={style.image} />
-        </Box>
-        <Box onClick={handleClick} style={style.profileContainer}>
-          <img src={Profile} alt="image" style={style.profile} />
-          <Typography
-            sx={{
-              fontSize: "16px",
-              color: "white",
-              display: { xs: "none", sm: "block" },
-            }}
-          >
-            Hi, Rahul M.
-          </Typography>
-          {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
-        </Box>
-        <MenuUnstyled
-          style={{ zIndex: 5000 }}
-          actions={menuActions}
-          open={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
-          anchorEl={anchorEl}
-        >
-          <StyledMenuItem>
-            <Box style={style.menuContainer}>
-              <img src={Profile} alt="image" style={style.profileInter} />
-              <Typography className="mediumButtonText">
-                Rahul Malhotra
-              </Typography>
-              <Typography className="caption">
-                rahul.malhotra@gamil.com
-              </Typography>
-              <Box style={style.menuButton}>
-                <Typography style={style.menuText}>KYC PENDING</Typography>
-                <Typography style={style.menuText2}>View Profile</Typography>
-              </Box>
-              <Divider style={{ margin: "15px 0px" }} />
-              <Button
-                variant="contained"
-                style={style.button}
-                fullWidth
-                startIcon={<Support style={style.menuIcon} />}
-              >
-                <Typography component="span" className="subTitle3">
-                  Help & Support
-                </Typography>
-              </Button>
-            </Box>
-          </StyledMenuItem>
-        </MenuUnstyled>
-      </Toolbar>
-    </AppBar>
-    <DrawerList
-      sx={{
-        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-        display: { xs: "block", sm: "none" },
-        "& .MuiBackdrop-root": {
-          flexGrow: 0,
-        },
-      }}
-      PaperProps={{
-        elevation: 0,
-        sx: { width: "250px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)" },
-      }}
-      style={style.drawer}
-      onClose={() => setOpen(false)}
-      variant="temporary"
-      open={open}
-    >
-      <Toolbar />
-      <List sx={{ py: "30px" }}>
-        <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 48,
-              px: 2.5,
-              my: 2,
-              flexDirection: { sm: "column", md: "row" },
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: 1,
-                justifyContent: "center",
-              }}
-            >
-              <HomeIcon sx={{ color: "#23db7b" }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Home"
-              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 56,
-              px: 2.5,
-              my: 2,
-              flexDirection: { sm: "column", md: "row" },
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: 1,
-                justifyContent: "center",
-              }}
-            >
-              <Assessment sx={{ color: "black" }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Portfolio"
-              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
-            sx={{
-              minHeight: 56,
-              px: 2.5,
-              my: 2,
-              flexDirection: { sm: "column", md: "row" },
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: 1,
-                justifyContent: "center",
-              }}
-            >
-              <Search sx={{ color: "black" }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Explore Funds"
-              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-            />
-          </ListItemButton>
-        </ListItem>
-        <ListItem
-          disablePadding
-          sx={{
-            display: "block",
-            position: "fixed",
-            width: { sx: "0%", sm: "8.333%", md: "16.666%" },
-            bottom: "0",
-          }}
-        >
-          <ListItemButton
-            sx={{
-              minHeight: 56,
-              px: 2.5,
-              my: 2,
-              flexDirection: { sm: "column", md: "row" },
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: 1,
-                justifyContent: "center",
-              }}
-            >
-              <PowerSettingsNew sx={{ color: "black" }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Logout"
-              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-            />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </DrawerList>
-    <Box sx={style.main}>
+    
+    
+                 
+
+
+
+    
       <Grid
         container
         spacing={0}
         sx={{ height: "100vh", overflow: "hidden" }}
       >
-        <Grid
-          sx={{
-            display: { xs: "none", sm: "block" },
-            backgroundColor: "white",
-            boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-            height: "auto",
-            padding: 0,
-            boxSizing: "border-box",
-          }}
-          item
-          xs={0}
-          sm={1}
-          md={2}
-        >
-          <Toolbar />
-          <List sx={{ py: "30px", height: "inherit" }}>
-            <ListItem
-              disablePadding
-              sx={{ background: "rgba(0, 0, 0, 0.05)" }}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  px: 2.5,
-                  my: 2,
-                  flexDirection: { sm: "column", md: "row" },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <HomeIcon sx={{ color: "#23db7b" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Home"
-                  sx={{
-                    color: "#3c3e42",
-                    fontSize: { sm: "10px", md: "16px" },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 56,
-                  px: 2.5,
-                  my: 2,
-                  flexDirection: { sm: "column", md: "row" },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Assessment sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Portfolio"
-                  sx={{
-                    color: "#3c3e42",
-                    fontSize: { sm: "10px", md: "16px" },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 56,
-                  px: 2.5,
-                  my: 2,
-                  flexDirection: { sm: "column", md: "row" },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Search sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Explore Funds"
-                  sx={{
-                    color: "#3c3e42",
-                    fontSize: { sm: "10px", md: "16px" },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              disablePadding
-              sx={{
-                display: "block",
-                position: "fixed",
-                width: { sx: "0%", sm: "8.333%", md: "16.666%" },
-                bottom: "0",
-              }}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 56,
-                  px: 2.5,
-                  my: 2,
-                  flexDirection: { sm: "column", md: "row" },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: 1,
-                    justifyContent: "center",
-                  }}
-                >
-                  <PowerSettingsNew sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Logout"
-                  sx={{
-                    color: "#3c3e42",
-                    fontSize: { sm: "10px", md: "16px" },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Grid>
+        
 
-        { }
+       
 
         <Grid
         className="main"
@@ -988,8 +616,8 @@ function UploadCheck() {
           </Box>
         </Grid>
       </Grid>
-    </Box>
-  </Box>
+    
+  
     
   );
 }

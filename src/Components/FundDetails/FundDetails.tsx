@@ -33,6 +33,7 @@ import { RiskoMeter } from './RiskoMeter'
 import { SchemeDoc } from './SchemeDoc'
 import MinInvest from './MinInvest'
 import { LatestAssets } from './LatestAssets'
+import { FundChart } from './FundChart'
 
 
 
@@ -522,6 +523,8 @@ function FundDetails() {
                 })
               }
               {/* <FundChart /> */}
+             
+              <FundChart />
               <FundTable />
 
 
