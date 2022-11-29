@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Typography } from "@mui/material";
+import { Box, Button, Checkbox, Chip, Typography } from "@mui/material";
 import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star } from '../../Assets';
 
 export interface MFProp {
@@ -12,6 +12,7 @@ export interface MFProp {
   threeYearReturn: number,
   fiveYearReturn: number,
   buttons?: boolean,
+  checkbox?: boolean,
 }
 
 
@@ -149,6 +150,14 @@ const MutualFundCard = (props: MFProp) => {
             <Typography style={style.amount}>{props.fiveYearReturn}%</Typography>
           </Box>
         </Box>
+        {
+          props.checkbox && 
+            <Box>
+              <Checkbox sx={{
+                '& .MuiSvgIcon-root': { backgroundColor: '#23db7b', color: '#fff' } 
+              }} />
+            </Box>
+        }
       </Box>
       {
         props.buttons &&
@@ -173,6 +182,7 @@ const MutualFundCard = (props: MFProp) => {
           </Button>
         </Box>
       }
+      
     </Box>
   )
 };

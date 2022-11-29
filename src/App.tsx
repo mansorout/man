@@ -31,6 +31,7 @@ import Sip from './Components/Portfolio/Sip';
 
 import PortfolioCompanyCard, { PortfolioProp } from './Modules/CustomCard/PortfolioCompanyCard';
 import MutualFundCard, { MFProp } from './Modules/CustomCard/MutualFundCard';
+import MutualFundCard2 from './Modules/CustomCard/MutualFundCard2';
 import MutualFundsList from './Components/Portfolio/MutualFundsList';
 import CustomizeMF from './Components/Portfolio/CustomizeMF';
 import SipCard,  { SipProp } from './Modules/CustomCard/SipCard';
@@ -38,13 +39,20 @@ import SipList from './Components/Portfolio/SipList';
 import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
 import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
+//import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
-import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
+
+import NETbanking from './Components/CardScreen/NETbanking';
+
+
+
+import AddFunds from './Components/SIPInvestment/AddFunds';
+import FundDetails from './Components/FundDetails/FundDetails';
+import TxnFilters from './Components/TxnFilters/TxnFilters';
 
 function App() {
 
-  //console.log('MiraeLogo', MiraeLogo);
 
   const data: PortfolioProp = {
       image: '../../Assets/Portfolio/Miraelogo.svg',
@@ -56,7 +64,7 @@ function App() {
       fiveYearReturn: 21625,
       fiveYearReturnGrowth: 17.36,
   };
-
+/*
   const mfData: MFProp = {
     logo: '/Miraelogo.svg',
     title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
@@ -80,6 +88,7 @@ function App() {
     status: 'Active',
     stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
   };
+*/
 
   return (
     <>
@@ -115,19 +124,25 @@ function App() {
           <Route path="/mflist" element={ <MutualFundsList />} />
           <Route path="/customizemf" element={ <CustomizeMF /> } />
           <Route path="/sip" element={ <SipList /> } />
-          <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } />
+          
+          {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
           <Route path="/sipsuccessscreen" element={<SipSuccessScreen/>} />
           <Route path="/investnowscreen" element={<InvestNowScreen/>} />
           <Route path="/redeemfund" element={<RedeemFunds/>} />
-          <Route path="/redeemsecscreen" element={<RedeemSecScreen/>} />
+        
+          <Route path="/netbanking" element={<NETbanking/>} />
+      
+        
+
+
+
+          <Route path="/funddetails" element={<FundDetails/>} />
+          <Route path="/filter" element={<TxnFilters/>} />
 
 
 
 
           
-
-
-         
         </Routes>
     </>
   );
