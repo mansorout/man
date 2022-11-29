@@ -101,8 +101,8 @@ export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
 export const minInvest =require("./payments-24px@3x.png")
 export const schemeDoc =require("./description-24px@3x.png")
-
-
+export const hdfclogo =require("./Profile/HdfcBanklogo.png")
+export const upilogo =require("./Profile/UPIlogo.png")
 
 
 
