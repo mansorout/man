@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { HelpOutline } from "../../Assets";
 import MutualFundCard2, { MFProp } from "../../Modules/CustomCard/MutualFundCard2";
 import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
+import Navbar from "../CommonComponents/Navbar";
 
 const MutualFundsList = () => {
 
