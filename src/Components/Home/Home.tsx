@@ -217,7 +217,7 @@ function Home() {
                   <Typography className="caption">rahul.malhotra@gamil.com</Typography>
                   <Box style={style.menuButton}>
                     <Typography style={style.menuText}>KYC PENDING</Typography>
-                    <Typography style={style.menuText2}>View Profile</Typography>
+                    <Typography style={style.menuText2} onClick={() => navigate('/vp')}>View Profile</Typography>
                   </Box>
                   <Divider style={{margin:"15px 0px"}}/>
                   <Button variant="contained" style={style.button} fullWidth startIcon={<Support style={style.menuIcon}/>}>
@@ -493,6 +493,7 @@ function Home() {
             </Grid>
           </Grid>
         </Box>
+        
         <Modal open={openModal} onClose={()=>setOpenModal(false)}>
           <Box style={style.modalContainer}>
             <img alt="Money Sprint" src={MonoLogo} style={style.logo} />

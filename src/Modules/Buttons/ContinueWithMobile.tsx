@@ -35,7 +35,7 @@ const ContWithMobile = ({number} : {number : string}) => {
             removeError("Login_Contact")
             addContactNumber(number)
             store.dispatch(login({'number': number})) 
-            navigate("/otpverify")
+            navigate("/termsandcondition")
         }
        
     }

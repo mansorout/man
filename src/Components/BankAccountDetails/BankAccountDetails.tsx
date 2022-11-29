@@ -59,10 +59,10 @@ const BankAccountDetails = () => {
     
     
       }
-      if(bankformData.EnterIFSCcode.length === 10){
+      if(bankformData.EnterIFSCcode?.length === 10){
         store.dispatch(bankuserdetails({ 'bankuserdata': bankformData }))
       }
-      console.log(bankformData.EnterIFSCcode.length)
+      console.log(bankformData.EnterIFSCcode?.length)
 
     return (
         <Box component="form" sx={{

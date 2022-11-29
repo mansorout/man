@@ -78,7 +78,7 @@ function CcompletedviewprofileCard() {
             <List>
                 <ListItem secondaryAction={
                     <Typography sx={{ backgroundColor: "#23db7b", color: "#fff", fontSize: "12px", borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>
-                        Incomplete
+                        Completed
                     </Typography>}
                 >
                 </ListItem>
