@@ -25,8 +25,8 @@ import './FundTable.css'
 import { Riskometer } from '../../Assets/index'
 import ProgressBars from './ProgressBars'
 import FundInvest from './MinInvest'
-import { minInvest } from '../../Assets/index'
-import { schemeDoc } from '../../Assets/index'
+//import { minInvest } from '../../Assets/index'
+//import { schemeDoc } from '../../Assets/index'
 
 
 
@@ -479,11 +479,11 @@ function FundDetails() {
 
                     <Grid container spacing={2}>
                       <Grid item>
-                        {<Avatar alt="star" src={minInvest} sx={{
+{/*                        {<Avatar alt="star" src={minInvest} sx={{
                           backgroundColor: "#64dbff", height: "30px",
                           width: "30px"
                         }} />}
-                      </Grid>
+                      */}                   </Grid>
                       <Grid item xs>
                         <Typography className='risko_meter'>Min. Investment:</Typography>
                         <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography>
@@ -524,10 +524,10 @@ function FundDetails() {
 
                     <Grid container spacing={2} sx={{textAlign:"center"}}>
                       <Grid item>
-                        <Avatar alt="star" src={schemeDoc} sx={{
+{/*                        <Avatar alt="star" src={schemeDoc} sx={{
                           backgroundColor: "#64dbff", 
                         }} />
-                      </Grid>
+                      */}                   </Grid>
                       <Grid item xs >
                         <Typography className='risko_meter'>Scheme Document</Typography>
 

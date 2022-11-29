@@ -99,15 +99,12 @@ export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
 export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
-<<<<<<< HEAD
 export const hdfclogo =require("./Profile/HdfcBanklogo.png")
 export const upilogo =require("./Profile/UPIlogo.png")
 
 
-=======
 export const minInvest =require("./minInvest.png")
 export const schemeDoc =require("./schemeDoc.png")
->>>>>>> 2129b6b1a55093809d188c7a6d86318b4a730289
 
 
 

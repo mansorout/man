@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { HelpOutline } from "../../Assets";
-import MutualFundCard, { MFProp } from "../../Modules/CustomCard/MutualFundCard";
+import MutualFundCard2, { MFProp } from "../../Modules/CustomCard/MutualFundCard2";
 import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
+import { useNavigate } from "react-router-dom";
 
 const CustomizeMF = () => {
+
+    const navigate = useNavigate();
 
     const [mfCards, setMfCards] = useState<MFProp[]>([]);
 
@@ -89,11 +92,11 @@ const CustomizeMF = () => {
                     display: 'flex',
                     justifyContent: 'flex-end',
                 }}>
-                    <Button sx={{
-                        width: '14vw',
-                        height: '3vw',
-                        padding: '0.86vw 2.8vw',
-                        borderRadius: '0.625vw',
+                    <Button onClick={ () => navigate('/addfunds') } sx={{
+                        width: '200px',
+                        height: '38px',
+                        padding: '11px 36px',
+                        borderRadius: '8px',
                         border: 'solid 1px #23db7b',
                         backgroundColor: '#dff7ea',
                         textTransform: 'capitalize',
@@ -107,7 +110,7 @@ const CustomizeMF = () => {
                 {
                     mfCards.map(mfCard => 
                         <Box sx={{ marginTop: '1.25vw' }}>
-                            <MutualFundCard {...mfCard} />
+                            <MutualFundCard2 {...mfCard} />
                         </Box>
                     )
                 }

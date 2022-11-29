@@ -5,7 +5,7 @@ import {
 
   
   } from "@mui/material";
-  import { minInvest, schemeDoc } from "../../Assets";
+  //import { minInvest, schemeDoc } from "../../Assets";
   import './FundTable.css'
   
   
@@ -37,11 +37,11 @@ import {
         
         <Grid container  spacing={2}>
           <Grid item>
-          {<Avatar alt="star" src={minInvest} sx={{
+{/*          {<Avatar alt="star" src={minInvest} sx={{
                         backgroundColor: "#64dbff", height: "30px",
                         width: "30px"
                       }} />}
-          </Grid>
+                    */}          </Grid>
           <Grid item xs>
           <Typography className='risko_meter'>Min. Investment:</Typography>
                       <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography>

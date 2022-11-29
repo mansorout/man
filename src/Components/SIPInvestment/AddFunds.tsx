@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Breadcrumbs, Button, ButtonGroup, InputProps, InputAdornment, Link, List, Tab, Tabs, TextField, Typography } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import MutualFundCard from "../../Modules/CustomCard/MutualFundCard";
+import MutualFundCard2 from "../../Modules/CustomCard/MutualFundCard2";
 
 
 const AddFunds = () => {
@@ -196,7 +196,7 @@ const AddFunds = () => {
                 </Box>
             </Box>
             {
-                data.map(d => <MutualFundCard { ...d } />)
+                data.map(d => <MutualFundCard2 { ...d } />)
             }
         </Box>
     )

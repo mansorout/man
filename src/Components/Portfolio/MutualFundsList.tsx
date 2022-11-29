@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
 import { HelpOutline } from "../../Assets";
-import MutualFundCard, { MFProp } from "../../Modules/CustomCard/MutualFundCard";
+import MutualFundCard2, { MFProp } from "../../Modules/CustomCard/MutualFundCard2";
 import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 
 const MutualFundsList = () => {
@@ -100,7 +100,7 @@ const MutualFundsList = () => {
                 {
                     mfCards.map(mfCard => 
                         <Box sx={{ marginTop: '1.25vw' }}>
-                            <MutualFundCard {...mfCard} />
+                            <MutualFundCard2 {...mfCard} />
                         </Box>
                     )
                 }
@@ -111,10 +111,10 @@ const MutualFundsList = () => {
                 marginTop: '3vw',
             }}>
                 <Button onClick={ () => navigate('/customizemf') } sx={{
-                    width: '20vw',
-                    height: '3.44vw',
-                    padding: '0.9375vw 2.19vw',
-                    borderRadius: '2.5vw',
+                    width: '200px',
+                    height: '44px',
+                    padding: '13px 27px 12px 28px',
+                    borderRadius: '32px',
                     backgroundColor: '#00b4ff',
                     fontSize: '16px',
                     fontWeight: 500,
