@@ -10,26 +10,28 @@ import UploadSignatureReducer from './Reducers/UploadSignatureReducer'
 import PanVerify from './Reducers/PanVerify'
 import NomineeAdd from './Reducers/NomineeAdd'
 import UploadChequeReducer from './Reducers/UploadChequeReducer'
+import { NavToggleReducer } from './Duck/NavToggle'
 
 
 
 
 const rootReducer = combineReducers({
-    error : errorReducer,
+    error: errorReducer,
     loginReducer: loginReducer,
     verifyReducer: verifyReducer,
     contact: contactReducer,
-    otpResponse:verifyOtpStatusReducer,
-    uploadSignature:UploadSignatureReducer,
+    otpResponse: verifyOtpStatusReducer,
+    uploadSignature: UploadSignatureReducer,
     pan: PanVerify,
     nominee: NomineeAdd,
-    uploadCheque:UploadChequeReducer,
+    uploadCheque: UploadChequeReducer,
+    NavToggleReducer: NavToggleReducer
 })
 
 export const store = createStore(
     rootReducer,
-    
+
     applyMiddleware(thunk),
-    
-   
+
+
 )
