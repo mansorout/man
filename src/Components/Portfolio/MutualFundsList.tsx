@@ -5,6 +5,7 @@ import { HelpOutline } from "../../Assets";
 import MutualFundCard2, { MFProp } from "../../Modules/CustomCard/MutualFundCard2";
 import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import Navbar from "../CommonComponents/Navbar";
+import Sidebar from "../CommonComponents/Sidebar";
 
 const MutualFundsList = () => {
 
@@ -52,6 +53,8 @@ const MutualFundsList = () => {
 
     return (
         <>
+        <Navbar />
+        
         <Box sx={{
             width: '80.875vw',
             padding: 0,
