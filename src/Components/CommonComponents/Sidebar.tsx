@@ -7,6 +7,7 @@ import { Box, styled } from '@mui/system'
 import { makeStyles } from '@mui/styles';
 // import { RootStore } from '../../Redux/Store';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavToggleAction } from '../../Store/Duck/NavToggle'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -28,6 +29,11 @@ const Sidebar = () => {
 
     const dispatch: any = useDispatch()
     const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)
+
+    const handleMenuOpen = () => {
+        dispatch(NavToggleAction(!toggleState))
+    }
+
     return (
         <div>
 
@@ -35,7 +41,7 @@ const Sidebar = () => {
                 <List sx={{ py: "30px", height: "inherit" }}>
                     <ListItem disablePadding>
                         <ListItemButton
-                            onClick={() => navigate('/home')}
+                            onClick={() => {navigate('/home'); handleMenuOpen()}}
                             sx={{
                                 // minHeight: 48,
                                 // px: 2.5,
@@ -58,7 +64,7 @@ const Sidebar = () => {
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block' }}>
                         <ListItemButton
-                            onClick={() => navigate('/portfolio')}
+                            onClick={() => {navigate('/portfolio'); handleMenuOpen()}}
                             sx={{
                                 // minHeight: 56,
                                 // px: 2.5,
@@ -81,7 +87,7 @@ const Sidebar = () => {
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block' }}>
                         <ListItemButton
-                            onClick={() => navigate('/explorefunds')}
+                            onClick={() => {navigate('/explorefunds'); handleMenuOpen()}}
                             sx={{
                                 // minHeight: 56,
                                 // px: 2.5,
@@ -104,7 +110,7 @@ const Sidebar = () => {
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }}>
                         <ListItemButton
-                            onClick={() => navigate('/login')}
+                            onClick={() => {navigate('/login'); handleMenuOpen()}}
                     
                             sx={{
                                 // minHeight: 56,
@@ -125,7 +131,7 @@ const Sidebar = () => {
                                 <PowerSettingsNew sx={{ color: pathName == '/logout' ? "#23db7b" : 'black' }} />
                             </ListItemIcon>
                             <ListItemText primary="Logout"
-                                onClick={()=>navigate('/login')}
+                                onClick={()=>{navigate('/login'); handleMenuOpen()}}
                              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>
                     </ListItem>
