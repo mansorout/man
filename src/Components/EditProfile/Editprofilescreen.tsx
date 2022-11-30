@@ -3,7 +3,7 @@ import './Editprofilescreen.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -15,6 +15,8 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 // import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 // import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -148,7 +150,7 @@ function Editprofilescreen() {
   };
 
   const classes = useStyles()
-
+const navigate=useNavigate()
   const refContainer = useRef();
 
   return (
@@ -294,6 +296,7 @@ function Editprofilescreen() {
             <List sx={{ py: "30px", height: "inherit" }}>
               <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
                 <ListItemButton
+                 onClick={()=>navigate('/home')}
                   sx={{
                     minHeight: 48,
                     px: 2.5,
@@ -315,6 +318,7 @@ function Editprofilescreen() {
               </ListItem>
               <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
+                onClick={()=>navigate('/portfolio')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -380,6 +384,30 @@ function Editprofilescreen() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
+
+
+            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
+
+
+
+                                    <Link color="#6495ED" underline="always" href='Home' >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always" href='/vp'>
+                                        <Typography className='burgerText'>View Profile</Typography>
+                                    
+                                    </Link>
+                                    
+                                    <Link  underline="always">
+                                        <Typography className='burgerText'>Edit Details</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
             <EditprofileCard/>
             <Box
               textAlign="center"

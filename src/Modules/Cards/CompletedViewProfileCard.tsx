@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
 import { emaillogo } from '../../Assets/index'
 import { cakelogo } from '../../Assets/index'
 import { icbirthplacelogo } from '../../Assets/index'
@@ -71,6 +71,10 @@ function CompletedViewProfileCard() {
     return (
 
         <>
+
+
+
+   
             <Box
                 sx={{
                     p: 1,
@@ -237,15 +241,8 @@ function CompletedViewProfileCard() {
                                 <Avatar
                                     alt=""
                                     src={ic_income}
-                                    style={style.ca}
+                                    style={style.ca}/>
 
-                                />
-                                {/* <Avatar
-                                alt=""
-                                src={wclogo}
-                                style={style.ca}
-
-                            /> */}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
@@ -257,7 +254,15 @@ function CompletedViewProfileCard() {
                     </ListItem>
                     <EditProfieButton />
                 </List>
-            </Box>
+            </Box> 
+    
+
+
+
+
+
+
+
 
 
         </>

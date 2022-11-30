@@ -226,7 +226,7 @@ function EditprofileCard() {
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-25px"
+               marginLeft: "-25px"
               }}
               onSubmit={handleSubmit}
             >
@@ -242,7 +242,8 @@ function EditprofileCard() {
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-20px"
+                    width: "100%", fontSize: "15px", fontWeight: "normal",
+                    
                   }}
                 >
 
@@ -251,30 +252,42 @@ function EditprofileCard() {
                 <TextField label="Middle Name"
                   name="middleName"
                   value={formData.middleName} onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  sx={{ color: "rgba(0, 0, 0, 0.6)",
+                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", 
+                   width: "100%", fontSize: "15px", fontWeight: "normal",
+               
+                   }} >
 
 
                 </TextField>
+                
                 <TextField label="Last Name"
                   name="lastName"
                   value={formData.lastName}
-                  onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }} >
+                  onChange={handlechange} 
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px",
+                   fontWeight: "normal",
+              
+                 
+                   }} >
 
 
                 </TextField>
                 <TextField label="Mobile Number"
                   name="mobilenumber" value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                   width: "100%", fontSize: "15px", fontWeight: "normal"}}
 
                 >
 
 
                 </TextField>
+            
                 <TextField label="Email Address"
                   name="emailaddress"
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px", fontWeight: "normal", marginTop: "-5px" }}
+                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%",
+                   fontSize: "15px", fontWeight: "normal" }}
                   value={formData.emailaddress} onChange={handlechange} fullWidth>
                
               
@@ -287,7 +300,7 @@ function EditprofileCard() {
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "20px" }
                   }} >
-                  <div style={{ position: "relative", top: "-9px" }}>
+                  <div style={{ position: "relative", top: "-20px" }}>
 
                     <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label" sx={{
@@ -408,7 +421,7 @@ function EditprofileCard() {
 
 
                 </TextField>
-                <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-90px", left: "92%" }} />
+                <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
                 <Box
                   component="form"
                   sx={{
@@ -443,7 +456,7 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                 
+                
                     <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{

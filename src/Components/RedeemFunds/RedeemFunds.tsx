@@ -1,7 +1,7 @@
 
 import './RedeemFunds.css'
 import { Box, styled } from '@mui/system'
-import { Grid, Modal, Stack, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Modal, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, TextFields } from '@mui/icons-material'
@@ -12,7 +12,7 @@ import { makeStyles } from '@mui/styles';
 import { Ad1, Ad1_1, Ad1_2, Ad2, closelogo, Logo, MonoLogo, Profile, Radiobutton, rupconvie, rupreturnlogo, SIP, sipiclogo } from '../../Assets/index'
 
 import { useNavigate } from 'react-router-dom'
-
+import Link from '@mui/material/Link';
 import { useSelector } from 'react-redux'
 
 import RedeemFundsCard from './RedeemFundsCard'
@@ -29,6 +29,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import RedeemFundCard from '../../Modules/Cards/RedeemFundCard'
 import RedeemSecFundCard from '../../Modules/Cards/RedeemSecFundCard'
+
+import { RedeemFundData } from './RedeemFundData'
 
 
 
@@ -233,10 +235,17 @@ function RedeemFunds() {
     //         setSelectedValue(event.target.value);
 
     //     };
+    // function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    //     event.preventDefault();
+    //     console.info('You clicked a breadcrumb.');
+    //   }
 
     // const [name, setName] = React.useState('Cat in the Hat');
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //   setName(event.target.value);
+
+
+
 
     return (
         <Box style={{ width: "100vw", }} ref={refContainer}>
@@ -384,6 +393,7 @@ function RedeemFunds() {
                         <List sx={{ py: "30px", height: "inherit" }}>
                             <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
                                 <ListItemButton
+                                   onClick={()=>navigate("/home")}
                                     sx={{
                                         minHeight: 48,
                                         px: 2.5,
@@ -405,6 +415,7 @@ function RedeemFunds() {
                             </ListItem>
                             <ListItem disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
+                                   onClick={()=>navigate("/portfolio")}
                                     sx={{
                                         minHeight: 56,
                                         px: 2.5,
@@ -470,24 +481,78 @@ function RedeemFunds() {
                     </Grid>
 
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+
+
+
                         <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
+
+
                             <Toolbar />
 
-                            <RedeemFundsCard/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
+
+
+
+                                    <Link color="#6495ED" underline="always"  href="/portfolio">
+                                        <Typography className='burgerText'> Portfolio</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always">
+                                        <Typography className='burgerText'>Reddem Fund</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+                            {
+                                RedeemFundData.map((item, index) => {
+                                    return (
+                                        <RedeemFundsCard
+                                            key={index}
+                                            logo={item.logo}
+                                            name={item.name}
+                                            cap={item.cap}
+                                            type={item.type}
+                                            year1={item.year1}
+                                            year3={item.year3}
+                                            year5={item.year5}
+                                            year6={item.year6}
+                                            rating={item.rating}
+                                            morning_star_logo={item.morning_star_logo}
+                                        />
+                                    )
+                                })
+                            }
+
 
                             <Grid container spacing={1} >
-
                                 <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
-                                <RedeemFundCard />
-                               
+                                    <RedeemFundCard />
+
                                 </Grid>
 
 
 
 
                                 <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
-                                <RedeemSecFundCard />
-                                  
+                                    <RedeemSecFundCard />
+
                                 </Grid>
                                 {/* <Grid item xs={6}>
                                     <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "-3%", borderRadius: "8px" }}>
@@ -611,18 +676,30 @@ function RedeemFunds() {
 
                         </Grid>
 
+                        <Box sx={{
+                            width: '83.75vw',
+                            height: '6.1vw',
+                            marginTop: '8vw',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
+                            backgroundColor: '#fff'
+                        }}>
+                            <RedeemNowButtom />
+                        </Box>
 
-                        <Grid container spacing={2}>
+                        {/* <Grid container spacing={2}>
                             <Grid item xs={6} sx={{ textAlign: "right" }}>
                                 <RedeemNowButtom />
                             </Grid>
                             
-                        </Grid>
+                        </Grid> */}
 
-                   
+
 
                     </Grid>
-            
+
                 </Grid>
 
             </Box>

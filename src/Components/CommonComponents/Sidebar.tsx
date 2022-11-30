@@ -18,6 +18,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
 }));
 
+
+
 const Sidebar = () => {
     const navigate = useNavigate()
     const classes = useStyles()
@@ -70,7 +72,7 @@ const Sidebar = () => {
                             >
                                 <Assessment sx={{ color: 'black' }} />
                             </ListItemIcon>
-                            <ListItemText primary="Portfolio" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+                            <ListItemText primary="Portfolio"   sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block' }}>

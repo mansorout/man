@@ -3,7 +3,7 @@ import './NETbanking.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Container, Grid, Paper, Typography } from '@mui/material'
+import { Breadcrumbs, Container, Grid, Paper, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -23,7 +23,7 @@ import Radio from '@mui/material/Radio';
 import { green } from '@mui/material/colors';
 import { Navigate, useNavigate } from 'react-router-dom';
 import MakepaymentNetbankingbutton from '../../Modules/Buttons/MakepaymentNetbankingbutton';
-
+import Link from '@mui/material/Link'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -315,9 +315,12 @@ function NETbanking() {
 
                     <Grid sx={{ display: { xs: "none", sm: "block" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", height: "auto", padding: 0, boxSizing: "border-box" }} item xs={0} sm={1} md={2}>
                         <Toolbar />
+
+                        
                         <List sx={{ py: "30px", height: "inherit" }}>
                             <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
                                 <ListItemButton
+                                  onClick={()=>navigate("/portfolio")}
                                     sx={{
                                         minHeight: 48,
                                         px: 2.5,
@@ -339,6 +342,7 @@ function NETbanking() {
                             </ListItem>
                             <ListItem disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
+                                onClick={()=>navigate("/portfolio")}
                                     sx={{
                                         minHeight: 56,
                                         px: 2.5,
@@ -406,7 +410,36 @@ function NETbanking() {
                     </Grid>
                     <Grid sx={{ height: "100vh", padding: 4, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
                         <Toolbar />
+                        <Box role="presentation">
+                                <Breadcrumbs aria-label="breadcrumb">
 
+
+
+                                    <Link color="#6495ED" underline="always" href='Home' sx={{fontSize:"12px",width:"100%"}} >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}} >
+                                        <Typography className='burgerText' >Investment</Typography>
+                                    
+                                    </Link>
+                                    
+                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}} href="/investnowscreen">
+                                        <Typography className='burgerText'>One-time lumpsum</Typography>
+                                    
+                                    </Link>
+                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}} >
+                                        <Typography className='burgerText'>Mutual Fund Recommendation</Typography>
+                                    
+                                    </Link>
+                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}}>
+                                        <Typography className='burgerText'>Select a payment option</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
                         <Card sx={{ maxWidth: 456, }}  >
                             <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
                             <CardHeader
