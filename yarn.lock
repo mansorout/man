@@ -6334,11 +6334,6 @@ jest@^27.4.3, jest@^27.5.1:
     import-local "^3.0.2"
     jest-cli "^27.5.1"
 
-jquery@>=1.8.0:
-  version "3.6.1"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
-  integrity sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==
-
 js-sdsl@^4.1.4:
   version "4.1.5"
   resolved "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.5.tgz"
