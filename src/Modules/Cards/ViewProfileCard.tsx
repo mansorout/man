@@ -125,14 +125,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Mobile Number
                             <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
@@ -146,14 +146,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Email Address
                         </Typography>
@@ -164,7 +164,7 @@ function ViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={cakelogo}
@@ -172,7 +172,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -188,14 +188,14 @@ function ViewProfileCard() {
                         >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={icbirthplacelogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                      
                          <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
@@ -231,14 +231,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={locationlogo}
                                     style={style.ca}
 
                                 />
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -258,7 +258,7 @@ function ViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
+                            <Avatar>
                                 <Avatar
                                     alt=""
                                     src={ic_income}
@@ -266,7 +266,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            
+                            </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                             primary={
