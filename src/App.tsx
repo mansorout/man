@@ -23,7 +23,7 @@ import UploadCheck from './Components/UploadCheckImage/UploadCheck';
 
 import BankAccountDetails from './Components/BankAccountDetails/BankAccountDetails';
 import Nominee from './Components/BankAccountDetails/Nominee';
-import PanUpdate from './Components/Pan/PanUpdate';
+import PanUpdate from './Components/BankAccountDetails/PanUpdate';
 import Portfolio from './Components/Portfolio/Portfolio';
 import Transaction from './Components/Portfolio/Transaction';
 import Report from './Components/Portfolio/Report';
@@ -47,7 +47,7 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 
 
-import AddFunds from './Components/SIPInvestment/AddFunds';
+import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
 
