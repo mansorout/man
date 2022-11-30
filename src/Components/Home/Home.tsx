@@ -187,19 +187,17 @@ function Home() {
     setOTP(otp)
   }
 
+
   const error: string[] = useSelector((state: any) => state.error)
   const navigate = useNavigate()
+
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
-     
-
       <Box sx={style.main}>
         <Grid container spacing={0} >
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
-
-           
             <Sidebar />
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
@@ -229,7 +227,7 @@ function Home() {
                 })
               }
             </Grid>
-            <Grid sx={{ width:"inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
+            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
               <Toolbar />
               {
                 companyCards.map((item, index) => {
