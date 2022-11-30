@@ -193,11 +193,14 @@ function Home() {
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
-      
+     
+
       <Box sx={style.main}>
         <Grid container spacing={0} >
           <Grid item xs={0} sm={1} md={2}>
-            <Toolbar />            
+            <Toolbar />
+
+           
             <Sidebar />
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
