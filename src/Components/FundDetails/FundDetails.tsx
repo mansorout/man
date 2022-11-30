@@ -527,7 +527,7 @@ function FundDetails() {
               }
               {/* <FundChart /> */}
              
-              <FundChart />
+              <FundChart/>
               <FundTable />
 
 
@@ -553,6 +553,118 @@ function FundDetails() {
 
                 </Grid>
                 </Grid>
+              </Grid>
+              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={6}>
+                  <Box >
+
+                    <Accordion
+                      sx={{
+                        // margin: "1rem",
+                        padding: " 12px 12px 21px 16px",
+                        borderRadius: "8px",
+                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        boxSizing: "border-box",
+                        backgroundColor: "white",
+                      }} >
+                      {/* sx={{backgroundColor:"red"}} */}
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                      >
+                        <Box sx={{}}>
+                          <Typography className='risko_meter'>Riskometer</Typography>
+                          <Typography className='Level-of-Risk-in-the-Scheme'>Level of Risk in the Scheme</Typography>
+                        </Box>
+
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Box sx={{
+                          margin: "1rem",
+
+                          // margin: "24px 32px",
+                          padding: " 12px 12px 21px 16px",
+                          borderRadius: "8px",
+                       
+                          boxSizing: "border-box",
+                          backgroundColor: "white",
+                        }}>
+                          <img style={{
+                            maxWidth: "-webkit-fill-available"
+                          }} src={Riskometer} />
+
+                        </Box>
+                        <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
+                          This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box >
+
+                    <Accordion
+                      sx={{
+                        // margin: "1rem",
+                        padding: " 12px 12px 21px 16px",
+                        borderRadius: "8px",
+                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        boxSizing: "border-box",
+                        backgroundColor: "white",
+                      }}>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                      >
+                        <Box sx={{
+
+
+
+                        }}>
+                          <Typography className='risko_meter'>Latest Asset & Portfolio Allocation</Typography>
+                          <Typography className='Level-of-Risk-in-the-Scheme'>as on Aug 31, 2020</Typography>
+                        </Box>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>
+                          <AppBar sx={{ background: 'transparent', boxShadow: 'none' }} position="static">
+
+
+                            <Stack direction="row" gap={1}>
+                              <Button sx={{ background: '#dff7ea', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
+                                <Typography sx={{ color: "#23db7b" }} className='button_text'>
+                                  Sectors
+                                </Typography>
+                              </Button>
+                              <Button sx={{ background: 'transparent', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
+                                <Typography className='button_text'>
+                                  Companies
+                                </Typography>
+                              </Button>
+                              <Button sx={{ background: 'transparent', border: "solid 1px rgba(123, 123, 157, 0.3)" }}>
+                                <Typography className='button_text'>
+                                  MarketCap
+                                </Typography>
+                              </Button>
+                            </Stack>
+                          </AppBar>
+
+                        </Typography>
+                        <br />
+                        <ProgressBars />
+                      </AccordionDetails>
+                    </Accordion>
+
+                  </Box>
+                </Grid>
+             
+              </Grid>
+
+                </Grid>
 
 
 
@@ -560,9 +672,10 @@ function FundDetails() {
 
 
 
-          </Grid>
+      
+          
 
-        </Grid>
+        
       </Box>
 
     </Box>

@@ -73,8 +73,11 @@ function CcompletedviewprofileCard() {
     }
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-    return (<>
-        <Box sx={{ p: 1, width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px",boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} >
+    return (
+    
+    <>
+        <Box sx={{ p: 1, width: '1', maxWidth: 460, bgcolor: 'background.paper', 
+        marginTop: "30px",borderRadius:"8px",boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} >
             <List>
                 <ListItem secondaryAction={
                     <Typography sx={{ backgroundColor: "#23db7b", color: "#fff", fontSize: "12px", borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>

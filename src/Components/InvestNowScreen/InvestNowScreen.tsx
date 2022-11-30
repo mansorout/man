@@ -1,9 +1,10 @@
 
 import './InvestNowScreen.css'
 import Avatar from '@mui/material/Avatar';
+import Link from '@mui/material/Link'
 
 import { Box, styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -12,12 +13,10 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
-// import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-// import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
-import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
- import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
-import IInvestNowScreenCard from '../../Modules/Cards/IIvestNowScreenCard';
-import InvestNowScreenCard from '../../Modules/Cards/InvestNowScreenCard'
+ 
+import InvestCard from '../../Modules/Cards/InvestCard';
+import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
+import { useNavigate } from 'react-router-dom';
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -152,7 +151,7 @@ function InvestNowScreen() {
   const classes = useStyles()
 
   const refContainer = useRef();
-
+const navigate=useNavigate()
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
 
@@ -205,6 +204,7 @@ function InvestNowScreen() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+               onClick={()=>navigate("/home")}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -226,6 +226,7 @@ function InvestNowScreen() {
           </ListItem>
           <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
+               onClick={()=>navigate("/portfolio")}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -266,8 +267,11 @@ function InvestNowScreen() {
               <ListItemText primary="Explore Funds" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }}>
+          <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }} 
+        
+          >
             <ListItemButton
+    
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -283,14 +287,16 @@ function InvestNowScreen() {
                 }}
               >
                 <PowerSettingsNew sx={{ color: 'black' }} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+              </ListItemIcon> 
+              <ListItemText primary="Logout"
+                 onClick={()=>navigate('/login')} 
+               sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
             </ListItemButton>
           </ListItem>
         </List>
       </DrawerList>
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{height: "100vh", overflow: "hidden" }}>
+        <Grid container spacing={0} sx={{ height: "100vh", overflow: "hidden" }}>
           <Grid sx={{ display: { xs: "none", sm: "block" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", height: "auto", padding: 0, boxSizing: "border-box" }} item xs={0} sm={1} md={2}>
             <Toolbar />
             <List sx={{ py: "30px", height: "inherit" }}>
@@ -380,19 +386,51 @@ function InvestNowScreen() {
               </ListItem>
             </List>
           </Grid>
+
+
+          
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
-            <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
-                <InvestNowScreenCard/>
-              </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 }}} >
-                <IInvestNowScreenCard />
-              </Grid>
-         
+            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
 
+
+
+                                    <Link color="#6495ED" underline="always" href='Home' >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always">
+                                        <Typography className='burgerText'>Investment</Typography>
+                                    
+                                    </Link>
+                                    
+                                    <Link  underline="always">
+                                        <Typography className='burgerText' >One-time lumpsum</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+            <Grid container >
+              <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+                <InvestCard />
+              </Grid>
+              <Grid item  xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+                <InvestSecondCard />
+              </Grid>
+
+              
             </Grid>
+
+
+
+
+
             <Box
               textAlign="center"
               sx={{
@@ -400,16 +438,16 @@ function InvestNowScreen() {
                 width: "304px",
               }}
             >
-              
-         
+
+
             </Box>
 
           </Grid>
-      
+
         </Grid>
-      
+
       </Box>
-  
+
     </Box>
   )
 }
