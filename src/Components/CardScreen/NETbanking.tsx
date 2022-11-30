@@ -430,7 +430,7 @@ function NETbanking() {
                                         <Typography className='burgerText'>One-time lumpsum</Typography>
                                     
                                     </Link>
-                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}} >
+                                    <Link  underline="always" sx={{fontSize:"12px",width:"100%"}} href="/mflist">
                                         <Typography className='burgerText'>Mutual Fund Recommendation</Typography>
                                     
                                     </Link>

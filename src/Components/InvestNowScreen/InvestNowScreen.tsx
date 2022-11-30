@@ -403,7 +403,7 @@ const navigate=useNavigate()
                                     
                                     </Link>
                                     
-                                    <Link  underline="always" href="/mflist">
+                                    <Link  underline="always">
                                         <Typography className='burgerText' >One-time lumpsum</Typography>
                                     
                                     </Link>
