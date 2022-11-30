@@ -49,7 +49,11 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 import AddFunds from './Components/SIPInvestment/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
-import TxnFilters from './Components/TxnFilters/TxnFilters';
+
+
+
+
+
 
 function App() {
 
@@ -64,31 +68,6 @@ function App() {
       fiveYearReturn: 21625,
       fiveYearReturnGrowth: 17.36,
   };
-/*
-  const mfData: MFProp = {
-    logo: '/Miraelogo.svg',
-    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-    fundType: ['Large Cap', 'Equity'],
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-  };
-
-  const sipData: SipProp2 = {
-    logo: '/Miraelogo.svg',
-    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-    orderNo: 'INF209K01090',
-    fundType: ['Large Cap', 'Equity'],
-    mandatePending: true,
-    sipDate: '9th of every month',
-    sipAmount: 5000,
-    status: 'Active',
-    stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
-  };
-*/
 
   return (
     <>
@@ -133,8 +112,15 @@ function App() {
         
           <Route path="/netbanking" element={<NETbanking/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
-          <Route path="/filter" element={<TxnFilters/>} />
-     
+          
+
+
+
+
+          
+
+
+         
         </Routes>
     </>
   );
