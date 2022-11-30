@@ -36,6 +36,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     slideImage: {
         paddingRight: '30px',
         margin: '0px 15px',
+        '@media(max-width: 767px)': {
+            marginTop: '15px'
+        }
     },
     flexCommon: {
         display: 'flex',
@@ -128,7 +131,7 @@ const Insurance = () => {
                                             <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>Get Free Quote</Button>
                                         </div>
                                         <div className={classes.slideImage} >
-                                            <img src={process.env.PUBLIC_URL + '/assets/images/ulip.svg'} alt="" />
+                                            <img src={process.env.PUBLIC_URL + '/assets/images/insurance-banner-img.png'} alt="" />
                                         </div>
                                     </div>
                                 </div>
