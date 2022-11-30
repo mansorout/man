@@ -4,12 +4,12 @@ import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-//import { uploadcheque } from "../../Store/Reducers/action";
+import { uploadcheque } from "../../Store/Reducers/action";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -57,7 +57,7 @@ import { Logo, Profile } from "../../Assets/index";
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
-import { uploadcheque } from "../../Store/Reducers/action";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -137,7 +137,6 @@ function UploadCheck() {
   //  All Button in components goes here
 
   function handleToggleAspectClick() {
-    alert("check")
     if (aspect) {
       setAspect(undefined);
     }
@@ -161,7 +160,7 @@ function UploadCheck() {
     setPreview(false);
   };
   const handleCancel = () => {
-    setImgSrc("");
+    window.location.reload()
     setShowSideButton(true);
   };
 
@@ -353,6 +352,7 @@ function UploadCheck() {
   const classes = useStyles();
 
   const refContainer = useRef();
+  const navigate =useNavigate();
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -439,6 +439,7 @@ function UploadCheck() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            onClick={() => navigate('/home')}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -463,6 +464,7 @@ function UploadCheck() {
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+             onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -597,6 +599,7 @@ function UploadCheck() {
               </ListItem>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
+                
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -688,28 +691,19 @@ function UploadCheck() {
           </Grid>
 
           { }
+{/* upload cheque ...................................................................................... */}
+
 
           <Grid
             container
-            sx={{
-              height: "100vh",
-              overflow: "scroll",
-              backgroundColor: "#f9f9f9",
-            }}
+            className="container"
             xs={13}
             sm={11}
             md={10}
           >
-            <Stack
-              sx={{
-                width: "100%",
-                height: "30px",
-                margin: "66px 0px 0px",
-                backgroundColor: " #6c63ff",
-              }}
-            >
+            <Stack className="checkHeadingStack">
               <Typography
-                sx={{ marginTop: "7px", marginLeft: "26px" }}
+                sx={{ marginTop: "66px", marginLeft: "26px" }}
                 component="span"
                 className="subTitle5"
               >
@@ -717,23 +711,32 @@ function UploadCheck() {
                 electronic clearing system (ECS) mandate.
               </Typography>
             </Stack>
+            <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href="/home">
+                   <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    href="/vp"
+                  >
+                    <Typography className='burgerText'>  View Profile</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                  
+                    
+                  </Link>
+                  </Breadcrumbs>
 
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ marginInline: "auto" }}
-            >
-              <Paper
-                style={{
-                  height: "64vh",
-                  width: "120vh",
-                  background: "#fff",
-                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  borderRadius: "8px",
-                }}
-              >
-                <Stack style={{ height: "48px" }}>
+            
+              <Paper className="mainPaper">
+                <Stack className="Add_Cancelled_Cheque">
                   <Typography
                     sx={{ width: "274px", marginBlock: "auto" }}
                     className="largeHeadingText"
@@ -743,19 +746,17 @@ function UploadCheck() {
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
 
-                <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
+                <Grid container 
+                 xs={13}
+                 sm={11}
+                 md={10}
+                  sx={{display: "-webkit-inline-box" }} >
 
                   <Grid xs>
                     {
-                      preview ? <Box
-                        sx={{
-                          border: "solid 1px #707070",
-                          backgroundColor: "#fff",
-                          height: "238px",
-                          width: "564px",
-                          margin: "57px 0px 0px 195px",
-                          // marginTop: "55px",
-                        }}
+                      preview ? <Box 
+                      className = "renderBox"
+                       
                       >
                         {/* for image crop */}
                         {!!imgSrc && (
@@ -784,13 +785,7 @@ function UploadCheck() {
                     {
                       preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
                         <img
-                          style={{
-                            marginLeft: "195px",
-                            marginTop: "57px",
-                            border: "1px solid black",
-                            width: "564px",
-                            height: "238px",
-                          }}
+                          className="previewImg"
                           src={imagePreviewToLast}
 
                         />
@@ -798,28 +793,30 @@ function UploadCheck() {
                     }
 
                   </Grid>
-                  <Grid sx={{
-                    display: " inline-flex", flexGrow: "0",
-                    maxWidth: "50%", flexBasis: "50%",
-                    marginTop: "60px"
-                  }} xs={6}>
+                  <Grid className="ButtonGrid" xs={6}>
                     {showSideButton ? (
                       " "
                     ) : (
 
-                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}><Fab onClick={handleRotate} >
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}>
+                        
+                        <Fab onClick={handleRotate} >
                         <RotateRightIcon />
                       </Fab>
-                        <Fab onClick={handleToggleAspectClick} sx={{ backgroundColor: "#23db7b" }} >
+                      <Typography className="textStyling"> Rotate </Typography>
+                        <Fab onClick={handleToggleAspectClick}>
                           <CropIcon />
                         </Fab>
+                        <Typography> Crop </Typography> 
 
-                        <Fab onClick={handleConfirm}>
+                        <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
                           <DoneIcon />
                         </Fab>
-                        <Fab onClick={handleCancel} sx={{ backgroundColor: "#23db7b" }}>
+                        <Typography> Done </Typography>
+                        <Fab onClick={handleCancel} >
                           <ClearIcon />
                         </Fab>
+                        <Typography> Cancel </Typography>
                       </Box>
 
 
@@ -838,7 +835,7 @@ function UploadCheck() {
                     />
 
                     {uploadChequeButton ? (
-                      <Button
+                      <Button 
                         onClick={() =>
                           uploadInputRef.current &&
                           uploadInputRef.current.click()
@@ -881,7 +878,7 @@ function UploadCheck() {
                 </Box>
 
                 {saveAndAddButton ? (
-                  <Box
+                  <Box className="saveandaddButton"
                     textAlign="center"
                     sx={{ pointerEvents: "none", opacity: "0.7" }}
                     onClick={sendToApi}
@@ -902,22 +899,6 @@ function UploadCheck() {
 
                 {/* for preview of image */}
 
-                {/* for preview of image */}
-
-                {/* {canvasDisable ? (
-                  ""
-                ) : (
-                  <img
-                    src={previewCanvasRef}
-                    style={{
-                      border: "1px solid black",
-                      objectFit: "unset",
-                      width: "564px",
-                      height: "238px",
-                    }}
-                  />
-                )} */}
-
                 {!!completedCrop && (
                   <canvas
                     ref={previewCanvasRef}
@@ -931,16 +912,10 @@ function UploadCheck() {
                   />
                 )}
               </Paper>
-            </Box>
+            
 
-            <Box
-              textAlign="center"
-              sx={{
-                margin: "auto",
-                width: "304px",
-              }}
-            >
-              <Typography component="span" className="bottomContentText ">
+            <Box className="footerText">
+              <Typography  component="span" className="bottomContentText ">
                 By submitting these details, you are agree to share your details
                 to BSE for further transactions <br />
               </Typography>

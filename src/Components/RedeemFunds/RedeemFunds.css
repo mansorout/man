@@ -6,6 +6,56 @@
     width: 100% !important;
     margin-left: 0 !important;
 }
+#CoCard .MuiChip-root {
+  border-radius: 2px;
+  
+}
+
+#CoCard .table_head {
+  font-size: 10px;
+  color: #ffffff;
+}
+#CoCard .table_head2 {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+#CoCard .MuiTableCell-root {
+  border-bottom: none;
+  text-align: left;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+#CoCard .FundDetails_Heading {
+  width: 513px;
+height: 28px;
+margin: 12px 242px 14px 0;
+font-family: Roboto;
+font-size: 24px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: 0.83;
+letter-spacing: normal;
+text-align: left;
+color: #fff;
+}
+
+.Add-this-Fund-to-Plan {
+  
+  text-transform: capitalize;
+  font-family: Roboto !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: normal !important;
+  text-align: left !important;
+  color: var(--white) !important;
+}
 
 /* <DrawerList sx={{
     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",

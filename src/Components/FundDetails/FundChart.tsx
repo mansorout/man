@@ -1,40 +1,25 @@
-import {
-  Box,
+import { Box } from '@mui/material'
+import React from 'react'
 
-} from "@mui/material";
+import { fundChart } from '../../Assets/index'
 
+export const FundChart = () => {
+    return (
+        <>
+            <Box sx={{
+                margin: "1rem", borderRadius: "8px",
+                backgroundColor: "white",
+                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+            }}>
 
-
-
-const FundChart = () => {
-
-
-  return (
-    <Box
-      id="CoCard"
-      sx={{
-        // backgroundColor:"green",
-        // padding: "1rem",
-        // fontFamily: "Roboto",
-        // borderRadius: "0.5rem",
-        // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-        // backgroundColor: "white",
-        margin: "1rem",
-        width: "1008px",
-        height: "84px",
-        // margin: "24px 32px",
-        padding:" 12px 12px 21px 16px",
-        borderRadius: "8px",
-        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-       boxSizing: "border-box",
-        backgroundColor: "white",
-      }}
-    >
-      
-      
-   
-    </Box>
-  );
-};
-
-export default FundChart;
+              
+                
+                <img src={fundChart} alt="box Chart" style={{
+                    width: "100%",
+                    height: "297px", maxWidth: "-webkit-fill-available"
+                }} />
+                
+            </Box>
+        </>
+    )
+}

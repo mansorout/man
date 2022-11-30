@@ -2,7 +2,7 @@
 import "./HolderSignature.css";
 import { useDispatch } from "react-redux";
 import { Box, styled, Stack } from "@mui/system";
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
 
@@ -43,6 +43,7 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -253,6 +254,7 @@ function HolderSignature() {
   const classes = useStyles();
 
   const refContainer = useRef();
+  const navigate =useNavigate();
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -339,6 +341,7 @@ function HolderSignature() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -363,6 +366,7 @@ function HolderSignature() {
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+            onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -470,6 +474,7 @@ function HolderSignature() {
                 sx={{ background: "rgba(0, 0, 0, 0.05)" }}
               >
                 <ListItemButton
+                onClick={() => navigate('/home')}
                   sx={{
                     minHeight: 48,
                     px: 2.5,
@@ -497,6 +502,7 @@ function HolderSignature() {
               </ListItem>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
+                 onClick={() => navigate('/portfolio')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -587,65 +593,77 @@ function HolderSignature() {
             </List>
           </Grid>
 
-          {
-                
-          }
+        
 
           <Grid
-            container
-            sx={{
-              height: "100vh",
-              overflow: "scroll",
-              backgroundColor: "#f9f9f9",
-            }}
+          
+            className="mainContainer"
             xs={13}
             sm={11}
             md={10}
           >
-            <Stack
+           
+           <Stack
               sx={{
                 width: "100%",
-                // height: "30px",
-                // margin: "66px 32px 2px",
                 padding: "8px 16px",
                 backgroundColor: " #6c63ff",
+                height: "fit-content"
               }}
             >
-              <Typography sx={{marginTop:'66px'}} className="subTitle4">
+              <Typography sx={{marginTop:'66px'}} className="subTitle5">
                 Signature is mandatory to setup an investment account and for a
                 redemption request.
               </Typography>
             </Stack>
+            <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href="/home">
+                   <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    href="/vp"
+                  >
+                    <Typography className='burgerText'>  View Profile</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                    <Typography className='burgerText'>Account Holder Signature</Typography>
+                    
+                  </Link>
+                  </Breadcrumbs>
+            
+                
+                  
 
             <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ marginInline: "auto" }}
+             
+            className="mainBox"
+              sx={{ marginInline: "auto",overflow:"hidden" }}
             >
               <Paper
-                style={{
-                  marginTop:"50px",
-                  marginBottom: "62px",
-                  height: "74vh",
-                  width: "120vh",
-                  // height: "685px",
-                  // width: "1008px",
-                  background: "#fff",
-                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  borderRadius: "8px",
-                }}
+                
+                className="innerPaper"
               >
-                <Stack style={{ height: "48px" }}>
+                <Stack style={{ height: "48px"}}>
                   <Typography
-                    sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeButtonText"
+                    sx={{  width: "274px", marginBlock: "auto" }}
+                    className="largeButtonText2"
                   >
                     Add Account Holder Signature
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
-                <Box >
+                <Box sx={{
+                 
+
+                }}>
                   
                       { showSignBox ? <SignaturePad
                     
@@ -655,7 +673,7 @@ function HolderSignature() {
                     onBegin={()=>{setHideContent(false);setDisable(false)}}
                     canvasProps={{
                       width: 900,
-                      height: 330,
+                      height: 200,
                       className: "sigCanvas",
                 
                     }}
@@ -670,9 +688,9 @@ function HolderSignature() {
                             src={imageURL}
                             alt="my signature"
                             style={{
-                              margin:"64px 0px 0px 338px",
-                              width: "314px",
-                              height:"195px"
+                              // margin:"64px 0px 0px 338px",
+                              // width: "314px",
+                              // height:"195px"
                             }}
                           />
                           </Box>
@@ -682,8 +700,8 @@ function HolderSignature() {
                     <Button
                       sx={{
                         backgroundColor: "rgba(0, 0, 0, 0.05)",
-                        bordeRadius: "25px",
-                        marginBottom:'32px',
+                        borderRadius:" 23px",
+                        marginBottom:"32px",
                         height:"45px"
                       }}
                     >
@@ -698,14 +716,14 @@ function HolderSignature() {
                   <SaveAndAddButton />
                 </Box> : ""}
                 
-                { addsign ? "" :<Box textAlign="center" onClick={convertSignInBase64}>
+                { addsign ? "" :<Box  textAlign="center" onClick={convertSignInBase64}>
                     <Stack style={style.dividerBox}></Stack>
                   <SaveAndAddButton />
                 </Box>
 
                 }
                 
-                  <Stack sx={{margin: "24px 0px 0px 64.5px"}}>
+                  <Stack sx={{margin: "24px 0px 0px 64.5px",width:"100%"}}>
                   <Typography component="span" className="subTitle2">
                     Signature provided here will be used on official documents
                   </Typography>

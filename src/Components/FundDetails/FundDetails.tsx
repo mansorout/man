@@ -18,15 +18,22 @@ import FundDetailCard from '../TxnFilters/FundDetailCard'
 import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
 import { companyCards } from '../../Modal/companyCards'
 import { FundCardsData } from '../../Modal/FundCardsData'
-import FundChart from './FundChart'
+// import FundChart from './FundChart'
 import FundTable from './FundTable'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import './FundTable.css'
 import { Riskometer } from '../../Assets/index'
 import ProgressBars from './ProgressBars'
 import FundInvest from './MinInvest'
-//import { minInvest } from '../../Assets/index'
-//import { schemeDoc } from '../../Assets/index'
+import { minInvest } from '../../Assets/index'
+import { schemeDoc } from '../../Assets/index'
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import { RiskoMeter } from './RiskoMeter'
+import { SchemeDoc } from './SchemeDoc'
+import MinInvest from './MinInvest'
+import { LatestAssets } from './LatestAssets'
+import { FundChart } from './FundChart'
 
 
 
@@ -54,6 +61,11 @@ function FundDetails() {
       zIndex: "3000",
     },
   }));
+
+  function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+  }
 
 
 
@@ -173,7 +185,7 @@ function FundDetails() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleClickBreadCrumbs = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     anchorEl ?
       setAnchorEl(null) :
       setAnchorEl(event.currentTarget)
@@ -202,7 +214,7 @@ function FundDetails() {
   const error: string[] = useSelector((state: any) => state.error)
 
   return (
-    <Box style={{ width: "100vw" }} ref={refContainer}>
+    <Box style={{ width: "100vw",overflow: "auto" }} ref={refContainer}>
       <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
         <Toolbar style={style.toolbar}>
           <Box>
@@ -252,6 +264,7 @@ function FundDetails() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            onClick={() => navigate('/home')}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -273,6 +286,7 @@ function FundDetails() {
           </ListItem>
           <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
+              onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -365,6 +379,7 @@ function FundDetails() {
               </ListItem>
               <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
+                  onClick={() => navigate('/portfolio')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -429,10 +444,69 @@ function FundDetails() {
             </List>
           </Grid>
 
-          <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={12}>
-              <Toolbar />
+          <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={13} sm={11} md={10}>
+              <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "auto",md:"auto"}}} item xs={13}>
+                <Toolbar/>
+              <Box role="presentation" sx={{    margin: "27px 0px 21px 25px"}} >
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href="/home">
+                   <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/home"
+                  >
+                    <Typography className='burgerText'> Investment</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                    <Typography className='burgerText'> Monthly Investment</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                    <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/material-ui/react-breadcrumbs/"
+                    aria-current="page"
+                  >
+                    <Typography className='burgerText'>  Customize Plan</Typography>
+                   
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                     <Typography className='burgerText'>   Choose Fund to Replace</Typography>
+                 
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                     <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
+                   
+                  </Link>
+                </Breadcrumbs>
+              </Box>
               {
                 FundCardsData.map((item, index) => {
                   return (
@@ -451,104 +525,33 @@ function FundDetails() {
                   )
                 })
               }
-              <FundChart />
+              {/* <FundChart /> */}
+             
+              <FundChart/>
               <FundTable />
 
 
+              
+              <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={12} sm={6}>
+                    <MinInvest/>
+                  </Grid>
+                <Grid item xs={12} sm={6}>
+               <SchemeDoc/>
+                  </Grid>
+                  </Grid>
+             
               <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                <Grid item xs={6}>
-                  <Box
-
-                    sx={{
-                      // backgroundColor:"green",
-                      // padding: "1rem",
-                      // fontFamily: "Roboto",
-                      // borderRadius: "0.5rem",
-                      // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      // backgroundColor: "white",
-                      // margin: "1rem",
-                      height: "84px",
-                      // margin: "24px 32px",
-                      padding: " 12px 12px 21px 16px",
-                      borderRadius: "8px",
-                      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      boxSizing: "border-box",
-                      backgroundColor: "white",
-                    }}
-                  >
-
-                    <Grid container spacing={2}>
-                      <Grid item>
-{/*                        {<Avatar alt="star" src={minInvest} sx={{
-                          backgroundColor: "#64dbff", height: "30px",
-                          width: "30px"
-                        }} />}
-                      */}                   </Grid>
-                      <Grid item xs>
-                        <Typography className='risko_meter'>Min. Investment:</Typography>
-                        <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography>
-                        <Typography className='mediumButtonText'>₹500</Typography>
-                      </Grid>
-                      <Grid item xs>
-                        <Typography className='Level-of-Risk-in-the-Scheme'>One-time Lumpsum</Typography>
-                        <Typography className='mediumButtonText'>₹5,000</Typography>
-                      </Grid>
-                    </Grid>
-
-                  </Box>
-
+                <Grid item xs={12} sm={6}>
+                  
+                <RiskoMeter/>
 
                 </Grid>
-                <Grid item xs={6}>
-                  <Box
-                    id="CoCard"
-                    sx={{
-                      // backgroundColor:"green",
-                      // padding: "1rem",
-                      // fontFamily: "Roboto",
-                      // borderRadius: "0.5rem",
-                      // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      // backgroundColor: "white",
-                      // margin: "1rem",
-                      height: "84px",
-                      // margin: "24px 32px",
-                      padding: " 12px 12px 21px 16px",
-                      borderRadius: "8px",
-                      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                      boxSizing: "border-box",
-                      backgroundColor: "white",
-                    }}
-                  >
-
-
-
-                    <Grid container spacing={2} sx={{textAlign:"center"}}>
-                      <Grid item>
-{/*                        <Avatar alt="star" src={schemeDoc} sx={{
-                          backgroundColor: "#64dbff", 
-                        }} />
-                      */}                   </Grid>
-                      <Grid item xs >
-                        <Typography className='risko_meter'>Scheme Document</Typography>
-
-                      </Grid>
-                      <Grid item xs  >
-                      <Typography className='viewtext'>View</Typography>
-
-                      </Grid>
-
-                    </Grid>
-
-
-                  </Box>
-
-
-
-
+                <Grid item xs={12} sm={6}>
+                  
+                <LatestAssets/>
 
                 </Grid>
-                <Grid item xs={6}>
-
                 </Grid>
               </Grid>
               <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -658,11 +661,10 @@ function FundDetails() {
 
                   </Box>
                 </Grid>
-                <Grid item xs={6}>
-
-                </Grid>
+             
               </Grid>
 
+                </Grid>
 
 
 
@@ -670,9 +672,10 @@ function FundDetails() {
 
 
 
-          </Grid>
+      
+          
 
-        </Grid>
+        
       </Box>
 
     </Box>
