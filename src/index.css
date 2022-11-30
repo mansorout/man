@@ -8,35 +8,41 @@ body {
 }
 
 /* Variables  */
-:root{
-  --headingFontSize : 32px;
-  --subHeadingFontSize : 18px;
-  --titleFontSize : 16px;
-  --subTitleFontSize : 12px;
-  --buttonFontSize : 16px;
+:root {
+  --headingFontSize: 32px;
+  --subHeadingFontSize: 18px;
+  --titleFontSize: 16px;
+  --subTitleFontSize: 12px;
+  --buttonFontSize: 16px;
 
 
-  --primaryColor : #23db7b;
-  --secondaryColor : #64dbff;
-  --errorColor : #ff5300;
+  /* --gradientColor: linear-gradient(227deg, #23db7b 110%, #5450a1 31%); */
+  --gradientColor: linear-gradient(#e66465, #9198e5);
+  ;
 
-  --ui1Color : #6c63ff;
-  --ui2Color : #544ec8;
-  --ui3Color : #4b7bec;
-  --uiDarkGreyColor : #8787a2;
-  --uiGreyColor : rgba(123, 123, 157, 0.16);
-  --uiLightGreyColor : #f2f3f8;
-  --uiLightGreyColor : #fff;
+  --primaryColor: #23db7b;
+  --secondaryColor: #64dbff;
+  --errorColor: #ff5300;
 
-  --typeBlackColor : #000000;
-  --typeLightBlackColor : #3c3e42;
-  --typeDarkGreyColor : #acb4bf;
-  --typeLightGreyColor : #d1d6dd;
-  --typeIndigoColor : #7b7b9d;
+  --ui1Color: #6c63ff;
+  --ui2Color: #544ec8;
+  --ui3Color: #4b7bec;
+  --uiDarkGreyColor: #8787a2;
+  --uiGreyColor: rgba(123, 123, 157, 0.16);
+  --uiLightGreyColor: #f2f3f8;
+  --uiLightGreyColor: #fff;
+  --uiWhite: #fff;
+
+  --typeBlackColor: #000000;
+  --typeLightBlackColor: #3c3e42;
+  --typeDarkGreyColor: #acb4bf;
+  --typeLightGreyColor: #d1d6dd;
+  --typeIndigoColor: #7b7b9d;
+
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-  
+
 }
 
 ::-webkit-scrollbar {
@@ -64,7 +70,7 @@ h3 {
   font-size: 32px !important;
   line-height: 1.33 !important;
   color: var(--typeLightBlackColor) !important;
- 
+
 }
 
 h4 {
@@ -107,6 +113,7 @@ h6 {
   line-height: 1.53 !important;
   color: var(--typeIndigoColor) !important;
 }
+
 .subTitle5 {
   font-size: 12px !important;
   line-height: 1.33 !important;
@@ -125,7 +132,7 @@ h6 {
   font-size: 12px !important;
   line-height: 1.42 !important;
   color: var(--typeIndigoColor) !important;
-  
+
 }
 
 .body2 {
@@ -159,6 +166,7 @@ h6 {
   font-weight: 500 !important;
   color: var(--typeLightBlackColor) !important;
 }
+
 .bottomContentText {
   font-size: 12px !important;
   font-weight: 500 !important;
@@ -183,6 +191,7 @@ h6 {
   color: #fff;
   background-color: "#3c3e42";
 }
+
 .largeButtonText2 {
   font-size: 16px !important;
   font-weight: 500 !important;
@@ -195,6 +204,7 @@ h6 {
   color: rgb(11, 1, 1);
   background-color: "#3c3e42";
 }
+
 .largeHeadingText {
   font-size: 14px !important;
   font-weight: 500 !important;
@@ -207,4 +217,3 @@ h6 {
   font-weight: 500 !important;
   color: var(--ui1Color) !important;
 }
-
