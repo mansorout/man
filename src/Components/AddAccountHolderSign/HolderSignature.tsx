@@ -6,6 +6,7 @@ import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
 
+
 import {
   Drawer as DrawerList,
   List,
@@ -423,6 +424,7 @@ function HolderSignature() {
             }}
           >
             <ListItemButton
+            onClick={() => navigate('/login')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -565,6 +567,7 @@ function HolderSignature() {
                 }}
               >
                 <ListItemButton
+                onClick={() => navigate('/login')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,

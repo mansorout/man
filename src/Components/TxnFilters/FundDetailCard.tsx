@@ -47,13 +47,13 @@ const FundDetailCard = (props: Prop) => {
     maximumFractionDigits: 0,
   });
 
-  const Grid = styled(MuiGrid)(({ theme }) => ({
-    width: '100%',
-    ...theme.typography.body2,
-    '& [role="separator"]': {
-      margin: theme.spacing(0, 2),
-    },
-  }));
+  // const Grid = styled(MuiGrid)(({ theme }) => ({
+  //   width: '100%',
+  //   ...theme.typography.body2,
+  //   '& [role="separator"]': {
+  //     margin: theme.spacing(0, 2),
+  //   },
+  // }));
 
   return (
     <Box

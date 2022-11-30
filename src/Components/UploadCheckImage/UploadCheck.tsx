@@ -521,6 +521,7 @@ function UploadCheck() {
             }}
           >
             <ListItemButton
+           onClick={() => navigate('/login')}
               sx={{
                 minHeight: 56,
                 px: 2.5,

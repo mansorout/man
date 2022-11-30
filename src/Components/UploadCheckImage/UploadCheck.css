@@ -87,6 +87,16 @@
 
 
 @media only screen and (max-device-width: 480px) {
+    .previewImg {
+
+
+        
+        margin-left: 1px !important;
+       
+        border: 1px solid black !important;
+        width: 370px !important;
+        height: 238px !important;
+    }
 
   
 
@@ -98,7 +108,7 @@
     .renderBox {
         width: 343px !important;
         height: 166px!important;
-        margin-left: 32px ;
+        margin-left: 15px !important ;
     }
 
     .contentPaper {
@@ -118,6 +128,9 @@
     }
 
     .previewImg {
+
+
+        
         margin-left: 77px !important;
         margin-top: 131px !important;
         border: 1px solid black !important;

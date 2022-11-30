@@ -28,49 +28,51 @@ export const SchemeDoc = () => {
 
 
 
-<Grid container>
-       
-        <ListItemAvatar sx={{
-  width: "32px",
-  height: "32px",
+        <Grid container>
 
-  
-}}>
+          <ListItemAvatar sx={{
+            width: "32px",
+            height: "32px",
+            marginTop: "6px",
 
-  <Avatar
-    alt=""
-    src={schemeDoc}
-    // style={style.ca}
-    sx={{width:"20px",
-    height:"20px",
-    padding:"10px",
-    opacity:"0.9",
-    backgroundColor: "#64dbff"
+          }}>
 
-    }}
-  />
+            <Avatar
+              alt=""
+              src={schemeDoc}
+              // style={style.ca}
+              sx={{
+                width: "20px",
+                height: "20px",
+                padding: "10px",
+                opacity: "0.9",
+                backgroundColor: "#64dbff"
 
-</ListItemAvatar>
-                   
+              }}
+            />
 
-
-        
-                      <Grid item xs >
-                        <Typography className='risko_meter'>Scheme Document</Typography>
-
-                      </Grid>
-                      <Grid item xs  >
-                        <Typography className='viewtext'>View</Typography>
-
-                      </Grid>
-                      </Grid>
-
-
-      
+          </ListItemAvatar>
 
 
 
-      </Box>
+
+          <Grid item xs sx={{ marginTop: "18px" }}>
+            <Typography
+               className='risko_meter'>Scheme Document</Typography>
+
+        </Grid>
+        <Grid item xs sx={{ margin: "19px 8px 0px 0px" }} >
+          <Typography className='viewtext'>View</Typography>
+
+        </Grid>
+      </Grid>
+
+
+
+
+
+
+    </Box>
 
 
     </>

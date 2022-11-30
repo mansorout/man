@@ -7,7 +7,7 @@ import {
   } from "@mui/material";
   import { minInvest} from "../../Assets";
   import {schemeDoc } from "../../Assets";
-  import './FundTable.css'
+ 
   
   
   
@@ -60,13 +60,13 @@ import {
 
 </ListItemAvatar>
           </Grid>
-          <Grid item xs>
+          <Grid item xs sx={{marginTop:"7px"}}>
           <Typography className='risko_meter'>Min. Investment:</Typography>
                       <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography>
                       <Typography className='Level-of-Risk-in-the-Scheme'>500</Typography>
           </Grid>
-          <Grid item xs>
-            <Typography>One-time Lumpsum</Typography>
+          <Grid item xs sx={{marginTop:"27px"}}>
+            <Typography className='Level-of-Risk-in-the-Scheme'>One-time Lumpsum</Typography>
             <Typography>₹5,000</Typography>
           </Grid>
         </Grid>
