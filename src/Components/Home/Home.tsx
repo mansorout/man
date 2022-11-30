@@ -189,6 +189,7 @@ function Home() {
 
   const error: string[] = useSelector((state: any) => state.error)
   const navigate = useNavigate()
+  
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
