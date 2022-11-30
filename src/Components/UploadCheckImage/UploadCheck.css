@@ -8,8 +8,6 @@
 
 .checkHeadingStack {
     padding: 8px 16px !important;
-    width: 100% !important;
-    height: max-content !important;
     background-color: #6c63ff !important;
 }
 
@@ -17,9 +15,8 @@
 .renderBox {
     border: solid 1px #707070 !important;
     background-color: #fff !important;
-    height: 238px !important;
-    width: 564px !important;
-    margin: 57px 0px 0px 195px !important;
+    min-height: 300px !important;
+    width: 80% !important;
     margin-top: 55px !important;
 }
 
@@ -105,12 +102,6 @@
        
     }
 
-    .renderBox {
-        width: 343px !important;
-        height: 166px!important;
-        margin-left: 15px !important ;
-    }
-
     .contentPaper {
         margin: 20px !important;
         height: 100% !important;
@@ -148,14 +139,6 @@
         overflow: scroll !important;
     }
 
-    .renderBox {
-        border: solid 1px #707070 !important;
-        background-color: #fff !important;
-        height: 238px !important;
-        width: 564px !important;
-        margin: 0px 0px 0px 91px !important;
-        margin-top: 55px !important;
-    }
 
     .container {
         display: block !important;
@@ -190,14 +173,6 @@
         overflow: scroll !important;
     }
 
-    .renderBox {
-        border: solid 1px #707070 !important;
-        background-color: #fff !important;
-        height: 238px !important;
-        width: 564px !important;
-        margin: 0px 0px 0px 91px !important;
-        margin-top: 55px !important;
-    }
 
     .container {
         display: block !important;
@@ -213,11 +188,6 @@
 @media only screen and (max-device-width: 540px) {
 
   
-    .renderBox {
-        width: 343px !important;
-        height: 166px!important;
-        margin-left: 36px !important;
-    }
 
     .contentPaper {
       
@@ -255,14 +225,6 @@
         overflow: scroll !important;
     }
 
-    .renderBox {
-        border: solid 20px #707070 !important;
-        background-color: #fff !important;
-        height: 238px !important;
-        width: 564px !important;
-        margin: 0px 0px 0px 91px !important;
-        margin-top: 55px !important;
-    }
 
     .container {
         display: block !important;
@@ -296,14 +258,6 @@
         overflow: scroll !important;
     }
 
-    .renderBox {
-        border: solid 1px #707070 !important;
-        background-color: #fff !important;
-        height: 238px !important;
-        width: 564px !important;
-        margin: 0px 0px 0px 91px !important;
-        margin-top: 55px !important;
-    }
 
     .container {
         display: block !important;
@@ -319,11 +273,6 @@
 @media only screen and (max-device-width: 540px) {
 
 
-    .renderBox {
-        width: 343px !important;
-        height: 166px!important;
-        margin-left: 36px !important;
-    }
 
     .contentPaper {
         margin-left: 74px !important;

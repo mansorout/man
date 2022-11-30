@@ -16,8 +16,9 @@ body {
   --buttonFontSize: 16px;
 
 
-  /* --gradientColor: linear-gradient(227deg, #23db7b 110%, #5450a1 31%); */
-  --gradientColor: linear-gradient(#e66465, #9198e5);
+  --gradientColor: linear-gradient(227deg, #23db7b 15%, #5450a1 60%);
+  --gradientColorBlack: linear-gradient(156deg, #3c3e42, #0c0c0d);
+  /* --gradientColor: linear-gradient(#e66465, #9198e5); */
   ;
 
   --primaryColor: #23db7b;
