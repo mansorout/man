@@ -490,7 +490,7 @@ function EditprofileCard() {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                        }}>pincode</InputLabel>
+                        }}>Pincode</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"
@@ -516,7 +516,7 @@ function EditprofileCard() {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                        }}>country</InputLabel>
+                        }}>Country</InputLabel>
 
                       <Select
                         labelId="demo-simple-select-label"

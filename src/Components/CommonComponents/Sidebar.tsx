@@ -98,6 +98,7 @@ const Sidebar = () => {
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }}>
                         <ListItemButton
+                    
                             sx={{
                                 // minHeight: 56,
                                 // px: 2.5,
@@ -114,7 +115,9 @@ const Sidebar = () => {
                             >
                                 <PowerSettingsNew sx={{ color: 'black' }} />
                             </ListItemIcon>
-                            <ListItemText primary="Logout" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+                            <ListItemText primary="Logout"
+                                onClick={()=>navigate('/login')}
+                             sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>
                     </ListItem>
                 </List>
