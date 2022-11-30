@@ -264,6 +264,7 @@ function FundDetails() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            onClick={() => navigate('/home')}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -285,6 +286,7 @@ function FundDetails() {
           </ListItem>
           <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
+              onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -377,6 +379,7 @@ function FundDetails() {
               </ListItem>
               <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
+                  onClick={() => navigate('/portfolio')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -442,7 +445,7 @@ function FundDetails() {
           </Grid>
 
           <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={13} sm={11} md={10}>
-              <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13}>
+              <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "auto",md:"auto"}}} item xs={13}>
                 <Toolbar/>
               <Box role="presentation" sx={{    margin: "27px 0px 21px 25px"}} >
                 <Breadcrumbs aria-label="breadcrumb">
@@ -478,7 +481,7 @@ function FundDetails() {
                   <Link
                     underline="always"
                     color="#6495ED"
-                    href="/material-ui/react-breadcrumbs/"
+                    // href="/material-ui/react-breadcrumbs/"
                     aria-current="page"
                   >
                     <Typography className='burgerText'>  Customize Plan</Typography>

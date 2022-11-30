@@ -49,8 +49,7 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 import AddFunds from './Components/SIPInvestment/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
-import TxnFilters from './Components/TxnFilters/TxnFilters';
-import { Refix } from './Components/AddAccountHolderSign/Refix';
+
 
 
 

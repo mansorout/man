@@ -43,6 +43,7 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -253,6 +254,7 @@ function HolderSignature() {
   const classes = useStyles();
 
   const refContainer = useRef();
+  const navigate =useNavigate();
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -339,6 +341,7 @@ function HolderSignature() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -363,6 +366,7 @@ function HolderSignature() {
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+            onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -470,6 +474,7 @@ function HolderSignature() {
                 sx={{ background: "rgba(0, 0, 0, 0.05)" }}
               >
                 <ListItemButton
+                onClick={() => navigate('/home')}
                   sx={{
                     minHeight: 48,
                     px: 2.5,
@@ -497,6 +502,7 @@ function HolderSignature() {
               </ListItem>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
+                 onClick={() => navigate('/portfolio')}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -590,12 +596,8 @@ function HolderSignature() {
         
 
           <Grid
-            container
-            sx={{
-              height: "100vh",
-              overflow: "scroll",
-              backgroundColor: "#f9f9f9",
-            }}
+          
+            className="mainContainer"
             xs={13}
             sm={11}
             md={10}
@@ -604,8 +606,6 @@ function HolderSignature() {
            <Stack
               sx={{
                 width: "100%",
-                // height: "30px",
-                // margin: "66px 32px 2px",
                 padding: "8px 16px",
                 backgroundColor: " #6c63ff",
                 height: "fit-content"
@@ -644,34 +644,26 @@ function HolderSignature() {
 
             <Box
              
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
+            className="mainBox"
               sx={{ marginInline: "auto",overflow:"hidden" }}
             >
               <Paper
-                style={{
-                  // marginTop:"50px",
-                  // marginBottom: "62px",
-                  // height: "74vh",
-                  // width: "120vh",
-                  // height: "685px",
-                  // width: "1008px",
-                  background: "#fff",
-                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  borderRadius: "8px",
-                }}
+                
+                className="innerPaper"
               >
-                <Stack style={{ height: "48px" }}>
+                <Stack style={{ height: "48px"}}>
                   <Typography
-                    sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeButtonText"
+                    sx={{  width: "274px", marginBlock: "auto" }}
+                    className="largeButtonText2"
                   >
                     Add Account Holder Signature
                   </Typography>
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
-                <Box >
+                <Box sx={{
+                 
+
+                }}>
                   
                       { showSignBox ? <SignaturePad
                     

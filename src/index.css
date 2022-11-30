@@ -183,6 +183,18 @@ h6 {
   color: #fff;
   background-color: "#3c3e42";
 }
+.largeButtonText2 {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  text-transform: none !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgb(11, 1, 1);
+  background-color: "#3c3e42";
+}
 .largeHeadingText {
   font-size: 14px !important;
   font-weight: 500 !important;

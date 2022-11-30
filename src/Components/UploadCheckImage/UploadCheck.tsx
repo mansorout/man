@@ -4,7 +4,7 @@ import Fab from "@mui/material/Fab";
 import { useDebounceEffect } from "./useDebounceEffects";
 import { canvasPreview } from "./CanvasPreview";
 import { Box, styled, Stack } from "@mui/system";
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
@@ -57,6 +57,7 @@ import { Logo, Profile } from "../../Assets/index";
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -159,7 +160,7 @@ function UploadCheck() {
     setPreview(false);
   };
   const handleCancel = () => {
-    setImgSrc("");
+    window.location.reload()
     setShowSideButton(true);
   };
 
@@ -351,6 +352,7 @@ function UploadCheck() {
   const classes = useStyles();
 
   const refContainer = useRef();
+  const navigate =useNavigate();
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -437,6 +439,7 @@ function UploadCheck() {
         <List sx={{ py: "30px" }}>
           <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
             <ListItemButton
+            onClick={() => navigate('/home')}
               sx={{
                 minHeight: 48,
                 px: 2.5,
@@ -461,6 +464,7 @@ function UploadCheck() {
           </ListItem>
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+             onClick={() => navigate('/portfolio')}
               sx={{
                 minHeight: 56,
                 px: 2.5,
@@ -595,6 +599,7 @@ function UploadCheck() {
               </ListItem>
               <ListItem disablePadding sx={{ display: "block" }}>
                 <ListItemButton
+                
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -688,6 +693,7 @@ function UploadCheck() {
           { }
 {/* upload cheque ...................................................................................... */}
 
+
           <Grid
             container
             className="container"
@@ -705,9 +711,31 @@ function UploadCheck() {
                 electronic clearing system (ECS) mandate.
               </Typography>
             </Stack>
+            <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href="/home">
+                   <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    href="/vp"
+                  >
+                    <Typography className='burgerText'>  View Profile</Typography>
+                    
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    // href="/"
+                    aria-current="page"
+                  >
+                  
+                    
+                  </Link>
+                  </Breadcrumbs>
 
-            <Box>
-              <Paper>
+            
+              <Paper className="mainPaper">
                 <Stack className="Add_Cancelled_Cheque">
                   <Typography
                     sx={{ width: "274px", marginBlock: "auto" }}
@@ -718,7 +746,11 @@ function UploadCheck() {
                 </Stack>
                 <Stack style={style.dividerBox}></Stack>
 
-                <Grid container spacing={2} sx={{ display: "-webkit-inline-box" }} >
+                <Grid container 
+                 xs={13}
+                 sm={11}
+                 md={10}
+                  sx={{display: "-webkit-inline-box" }} >
 
                   <Grid xs>
                     {
@@ -846,7 +878,7 @@ function UploadCheck() {
                 </Box>
 
                 {saveAndAddButton ? (
-                  <Box
+                  <Box className="saveandaddButton"
                     textAlign="center"
                     sx={{ pointerEvents: "none", opacity: "0.7" }}
                     onClick={sendToApi}
@@ -880,7 +912,7 @@ function UploadCheck() {
                   />
                 )}
               </Paper>
-            </Box>
+            
 
             <Box className="footerText">
               <Typography  component="span" className="bottomContentText ">
