@@ -231,6 +231,10 @@ function Home() {
             </Grid>
             <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
               <Toolbar />
+              <Box sx={{px: '1rem', mt:"1rem", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+                <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
+                <Typography onClick={()=>navigate('/explorefunds')} style={{cursor:"pointer"}} className='textLink'>View All</Typography>
+              </Box>
               {
                 companyCards.map((item, index) => {
                   return (
@@ -260,10 +264,10 @@ function Home() {
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
-                  <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad2" />
                   </Box>
-                  <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
                     <img width="100%" src={Ad1_2} alt="Ad2" />
                   </Box>
                 </Grid>
