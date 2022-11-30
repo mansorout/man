@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
 import { emaillogo } from '../../Assets/index'
 import { cakelogo } from '../../Assets/index'
 import { icbirthplacelogo } from '../../Assets/index'
@@ -71,11 +71,15 @@ function CompletedViewProfileCard() {
     return (
 
         <>
+
+
+
+
             <Box
                 sx={{
                     p: 1,
-                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px",borderRadius:"8px"
-                    ,  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                    width: '1', maxWidth: 460, bgcolor: 'background.paper', paddingLeft:"2px", marginTop: "30px", borderRadius: "10px"
+                    , boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
                 }}
             >
                 <List sx={{}}  >
@@ -140,7 +144,9 @@ function CompletedViewProfileCard() {
 
 
 
-                    <ListItem
+
+
+                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" >
 
@@ -165,6 +171,8 @@ function CompletedViewProfileCard() {
                             (29 Years)"
 
                         />
+
+
                         <Avatar
                             alt=""
                             src={wclogo}
@@ -178,7 +186,7 @@ function CompletedViewProfileCard() {
                             sx={{ marginLeft: '20px' }}
 
                         />
-                    </ListItem>
+                    </ListItem> 
 
 
 
@@ -237,15 +245,8 @@ function CompletedViewProfileCard() {
                                 <Avatar
                                     alt=""
                                     src={ic_income}
-                                    style={style.ca}
+                                    style={style.ca} />
 
-                                />
-                                {/* <Avatar
-                                alt=""
-                                src={wclogo}
-                                style={style.ca}
-
-                            /> */}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
@@ -258,6 +259,16 @@ function CompletedViewProfileCard() {
                     <EditProfieButton />
                 </List>
             </Box>
+
+
+
+
+
+
+
+
+
+
 
 
         </>

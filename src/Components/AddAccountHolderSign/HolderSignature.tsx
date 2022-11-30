@@ -5,6 +5,7 @@ import { Box, styled, Stack } from "@mui/system";
 import { Grid, Typography, Paper, Breadcrumbs, Link } from "@mui/material";
 import React, { useRef, useState } from "react";
 import SignaturePad from "react-signature-canvas";
+import {Logoici, signExclamatory} from '../../Assets/index'
 
 
 import {
@@ -567,7 +568,7 @@ function HolderSignature() {
                 }}
               >
                 <ListItemButton
-                onClick={() => navigate('/login')}
+                onClick={() => navigate("/")}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -726,8 +727,9 @@ function HolderSignature() {
 
                 }
                 
-                  <Stack sx={{margin: "24px 0px 0px 64.5px",width:"100%"}}>
+                <Stack sx={{margin: "24px 0px 0px 64.5px",width:"100%",alignItems:"left"}}>
                   <Typography component="span" className="subTitle2">
+                  <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "6px" }} />
                     Signature provided here will be used on official documents
                   </Typography>
                 </Stack>

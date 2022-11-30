@@ -3,7 +3,7 @@ import './ProfileCompleted.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList,  List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -16,6 +16,9 @@ import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import CcompletedviewprofileCard from '../../Modules/Cards/CcompletedviewprofileCard';
 import CompletedViewProfileCard from '../../Modules/Cards/CompletedViewProfileCard';
+
+import Link from '@mui/material/Link';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -149,7 +152,7 @@ function ProfileCompleted() {
   };
 
   const classes = useStyles()
-
+const navigate=useNavigate()
   const refContainer = useRef();
 
   return (
@@ -289,12 +292,18 @@ function ProfileCompleted() {
               </List>
           </DrawerList>
         <Box  sx={style.main}>
-          <Grid container spacing={0} sx={{border:"2px solid red", height:"100vh", overflow:"hidden"}}>
+          <Grid container spacing={0} sx={{ height:"100vh", overflow:"hidden"}}>
             <Grid sx={{display: {xs: "none", sm: "block"},backgroundColor:"white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",  height: "auto", padding:0, boxSizing:"border-box"}} item xs={0} sm={1} md={2}>
               <Toolbar/>
+
+
+
+              
               <List sx={{py:"30px", height:"inherit"}}>
                 <ListItem disablePadding sx={{ background:"rgba(0, 0, 0, 0.05)" }}>
                   <ListItemButton
+               onClick={()=>navigate("/home")}
+
                     sx={{
                       minHeight: 48,
                       px: 2.5,
@@ -316,6 +325,8 @@ function ProfileCompleted() {
                 </ListItem>
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
+               onClick={()=>navigate("/portfolio")}
+
                     sx={{
                       minHeight: 56,
                       px: 2.5,
@@ -381,12 +392,35 @@ function ProfileCompleted() {
             </Grid>
             <Grid sx={{height:"100vh", padding:0, boxSizing:"border-box", overflow:"scroll"}} item xs={12} sm={8} md={8}>
                 <Toolbar/>
-                <Grid container sx={{display:"flex"}} wrap='nowrap'>
-                  <Grid item xs={6} sx={{padding:{xs:0, sm:3}}} >
+
+                <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
+
+
+
+                                    <Link color="#6495ED" underline="always" href='home' >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always"  href="/vp" >
+                                        <Typography className='burgerText' >View Profile</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+
+
+
+
+
+                <Grid container >
+                  <Grid item xs={12} md={6}sx={{padding:{xs:0, sm:3}}} >
                 
                     <CompletedViewProfileCard/>
                   </Grid>
-                  <Grid item xs={6} sx={{padding:{xs:0, sm:3}}} >
+                  <Grid item xs={12}  md={6} sx={{padding:{xs:0, sm:3}}} >
                     <CcompletedviewprofileCard    />
                   </Grid>
               

@@ -167,8 +167,9 @@
 }
 @media only screen and (min-device-width:1280px) {
     .mainPaper {
-        height: 70% !important;
-        
+        /* margin-left: 10px; */
+        height: 90% !important;
+        width: 50%;
     }
 
     .previewImg {
@@ -255,7 +256,7 @@
     }
 
     .renderBox {
-        border: solid 1px #707070 !important;
+        border: solid 20px #707070 !important;
         background-color: #fff !important;
         height: 238px !important;
         width: 564px !important;
