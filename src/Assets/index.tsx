@@ -78,7 +78,7 @@ export const RemoveButtonIcon = require('./Portfolio/delete_forever-24px.png');
 export const maskgroup = require('./MaskGroup.png');
 export const Riskometer = require('./RiskoMeter.png');
 export const SmallStar = require('./WhiteStar2.png');
-export const MorningStarlogo = require('./MorningStarLogo.png');
+export const MorningStarlogo = require('./86820e7@3x.png');
 
 
 export const formatter = new Intl.NumberFormat('en-IN', {
@@ -99,11 +99,11 @@ export const morningsteologo =require("./Profile/MorningSteplogo.png")
 export const starratelogo =require("./Profile/StarRatelogo.png")
 export const sipiclogo =require("./Profile/SipIcLogo.png")
 export const closelogo =require("./Profile/CloseLogo.png")
-export const minInvest =require("./minInvest.png")
-export const schemeDoc =require("./schemeDoc.png")
+export const minInvest =require("./payments-24px@3x.png")
+export const schemeDoc =require("./description-24px@3x.png")
 export const hdfclogo =require("./Profile/HdfcBanklogo.png")
 export const upilogo =require("./Profile/UPIlogo.png")
-
+export const fundChart =require("./FundChart.png")
 
 
 

@@ -1,11 +1,12 @@
 import Typography from "@mui/joy/Typography/Typography";
 import {
   Avatar,
-    Box, Grid, ListItemAvatar, ListItemButton, ListItemText,
+    Box, Grid, ListItem, ListItemAvatar, ListItemButton, ListItemText,
 
   
   } from "@mui/material";
-  import { minInvest, schemeDoc } from "../../Assets";
+  import { minInvest} from "../../Assets";
+  import {schemeDoc } from "../../Assets";
   import './FundTable.css'
   
   
@@ -16,7 +17,7 @@ import {
   
     return (
       <Box
-        id="CoCard"
+        
         sx={{
           // backgroundColor:"green",
           // padding: "1rem",
@@ -35,12 +36,29 @@ import {
         }}
       >
         
-        <Grid container  spacing={2}>
+        <Grid container>
           <Grid item>
-          {<Avatar alt="star" src={minInvest} sx={{
-                        backgroundColor: "#64dbff", height: "30px",
-                        width: "30px"
-                      }} />}
+          <ListItemAvatar sx={{
+  width: "32px",
+  height: "32px",
+
+  
+}}>
+
+  <Avatar
+    alt=""
+    src={minInvest}
+    // style={style.ca}
+    sx={{width:"20px",
+    height:"20px",
+    padding:"10px",
+    opacity:"0.9",
+    backgroundColor: "#64dbff"
+
+    }}
+  />
+
+</ListItemAvatar>
           </Grid>
           <Grid item xs>
           <Typography className='risko_meter'>Min. Investment:</Typography>
@@ -53,6 +71,43 @@ import {
           </Grid>
         </Grid>
      
+     {/* <ListItem>
+
+<ListItemAvatar sx={{
+  width: "32px",
+  height: "32px",
+
+  
+}}>
+
+  <Avatar
+    alt=""
+    src={schemeDoc}
+    // style={style.ca}
+    sx={{width:"20px",
+    height:"20px",
+    padding:"10px",
+    opacity:"0.9",
+    backgroundColor: "#64dbff"
+
+    }}
+  />
+
+</ListItemAvatar>
+<ListItemText
+  primary={
+    <span><Typography className='risko_meter'>Min. Investment:</Typography>
+    <Typography className='Level-of-Risk-in-the-Scheme'>Monthly SIP</Typography></span>
+    }
+
+    secondary={
+      <Typography>₹5,000</Typography>
+    }
+
+/>
+
+</ListItem> */}
+
       </Box>
     );
   };
