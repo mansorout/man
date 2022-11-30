@@ -192,200 +192,12 @@ function Home() {
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
-      {/* <DrawerList sx={{
-        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-        display: { xs: "block", sm: "none" },
-        "& .MuiBackdrop-root": {
-          flexGrow: 0,
-        }
-      }}
-        PaperProps={{ elevation: 0, sx: { width: "250px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", } }}
-        style={style.drawer} onClose={() => setOpen(false)} variant="temporary" open={open}>
-        <Toolbar />
-        <List sx={{ py: "30px" }}>
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => navigate('/home')}
-              sx={{
-                minHeight: 48,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" },
-                background: "rgba(0, 0, 0, 0.05)"
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: 'center',
-                }}
-              >
-                <HomeIcon sx={{ color: "#23db7b" }} />
-              </ListItemIcon>
-              <ListItemText primary="Home" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              onClick={() => navigate('/portfolio')}
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" }
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: 'center',
-                }}
-              >
-                <Assessment sx={{ color: 'black' }} />
-              </ListItemIcon>
-              <ListItemText primary="Portfolio" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" }
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: 'center',
-                }}
-              >
-                <Search sx={{ color: 'black' }} />
-              </ListItemIcon>
-              <ListItemText primary="Explore Funds" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }}>
-            <ListItemButton
-              onClick={() => console.log("Clicked")}
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" }
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: 'center',
-                }}
-              >
-                <PowerSettingsNew sx={{ color: 'black' }} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </DrawerList> */}
+      
       <Box sx={style.main}>
         <Grid container spacing={0} >
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
-            {/* <List sx={{ py: "30px", height: "inherit" }}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() => navigate('/home')}
-                  sx={{
-                    minHeight: 48,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" },
-                    background: "rgba(0, 0, 0, 0.05)"
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <HomeIcon sx={{ color: "#23db7b" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Home kp" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  onClick={() => navigate('/portfolio')}
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" }
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Assessment sx={{ color: 'black' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Portfolio" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" }
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Search sx={{ color: 'black' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Explore Funds" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'block', position: "fixed", width: { sx: "0%", sm: "8.333%", md: "16.666%" }, bottom: "0" }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" }
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <PowerSettingsNew sx={{ color: 'black' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
-                </ListItemButton>
-              </ListItem>
-            </List> */}
+            
             <Sidebar />
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
@@ -417,6 +229,10 @@ function Home() {
             </Grid>
             <Grid sx={{ width:"inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
               <Toolbar />
+              <Box sx={{px: '1rem', mt:"1rem", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+                <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
+                <Typography onClick={()=>navigate('/explorefunds')} style={{cursor:"pointer"}} className='textLink'>View All</Typography>
+              </Box>
               {
                 companyCards.map((item, index) => {
                   return (
@@ -446,10 +262,10 @@ function Home() {
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
-                  <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad2" />
                   </Box>
-                  <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
                     <img width="100%" src={Ad1_2} alt="Ad2" />
                   </Box>
                 </Grid>

@@ -50,6 +50,7 @@ import NETbanking from './Components/CardScreen/NETbanking';
 import AddFunds from './Components/SIPInvestment/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 import TxnFilters from './Components/TxnFilters/TxnFilters';
+import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 
 function App() {
 
@@ -134,7 +135,7 @@ function App() {
           <Route path="/netbanking" element={<NETbanking/>} />
           <Route path="/funddetails" element={<FundDetails/>} />
           <Route path="/filter" element={<TxnFilters/>} />
-     
+          <Route path='/explorefunds' element={<ExploreFunds/>}/>
         </Routes>
     </>
   );

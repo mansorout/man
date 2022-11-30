@@ -256,7 +256,7 @@ function Report() {
                                   inputFormat="mm/dd/yyyy"
                                   value={value}
                                   onChange={handleChange}
-                                  renderInput={(param : any) => <TextField sx={{width:"400px"}} {...param} />}
+                                  renderInput={(param : any) => <TextField sx={{width:"300px"}} {...param} />}
                                   components={{
                                     OpenPickerIcon: CalendarTodayIcon,
                                   }}
@@ -266,7 +266,7 @@ function Report() {
                                   inputFormat="mm/dd/yyyy"
                                   value={value}
                                   onChange={handleChange}
-                                  renderInput={(param : any) => <TextField sx={{width:"400px"}} {...param} />}
+                                  renderInput={(param : any) => <TextField sx={{width:"300px"}} {...param} />}
                                   components={{
                                     OpenPickerIcon: CalendarTodayIcon,
                                   }}
@@ -282,7 +282,7 @@ function Report() {
                                 inputFormat="mm/dd/yyyy"
                                 value={value}
                                 onChange={handleChange}
-                                renderInput={(param : any) => <TextField sx={{width:"400px"}} {...param} />}
+                                renderInput={(param : any) => <TextField sx={{width:"300px"}} {...param} />}
                                 components={{
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
@@ -292,7 +292,7 @@ function Report() {
                                 inputFormat="mm/dd/yyyy"
                                 value={value}
                                 onChange={handleChange}
-                                renderInput={(param : any) => <TextField sx={{width:"400px"}} {...param} />}
+                                renderInput={(param : any) => <TextField sx={{width:"300px"}} {...param} />}
                                 components={{
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
