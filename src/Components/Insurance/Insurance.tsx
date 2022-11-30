@@ -32,6 +32,17 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         flexWrap: 'wrap',
         padding: '15px',
         borderRadius: '15px',
+        '@media(max-width: 485px)': {
+            flexDirection: 'column-reverse',
+            alignItems: 'flex-start',
+            '& b': {
+                marginTop: '15px',
+                display: 'inline-block'
+            },
+            '& p': {
+                margin: '10px 0px'
+            }
+        }
     },
     slideImage: {
         paddingRight: '30px',
@@ -94,7 +105,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         borderRadius: '8px'
     },
     insuranceStartSip: {
-        background: 'var(--typeLightBlackColor)',
+        background: 'var(--gradientColorBlack)',
     }
 }));
 
@@ -121,7 +132,7 @@ const Insurance = () => {
                     <Grid container>
                         <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '245px !important' } }} item xs={12}>
                             <Slider {...settings}>
-                                <div style={{ backgroundColor: '#ddd' }}>
+                                <div>
                                     <div className={classes.slideContentWrapper}>
                                         <div className="slideContent">
                                             <b style={{ fontSize: '14px', fontWeight: '500' }}>Protect your family</b>
@@ -135,14 +146,47 @@ const Insurance = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: '#ddd' }}>
-                                    <h3>2</h3>
+                                <div>
+                                    <div className={classes.slideContentWrapper}>
+                                        <div className="slideContent">
+                                            <b style={{ fontSize: '14px', fontWeight: '500' }}>Protect your family</b>
+                                            <p style={{ fontSize: '12px', margin: '3px 0px' }}>from a life of compromises</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '24px', marginBottom: '0px' }}>Get ₹1 Crore</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '12px', marginTop: '7px' }}>Term Insurance Cover @ 12*/day</p>
+                                            <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>Get Free Quote</Button>
+                                        </div>
+                                        <div className={classes.slideImage} >
+                                            <img src={process.env.PUBLIC_URL + '/assets/images/insurance-banner-img.png'} alt="" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style={{ backgroundColor: '#ddd' }}>
-                                    <h3>3</h3>
+                                <div>
+                                    <div className={classes.slideContentWrapper}>
+                                        <div className="slideContent">
+                                            <b style={{ fontSize: '14px', fontWeight: '500' }}>Protect your family</b>
+                                            <p style={{ fontSize: '12px', margin: '3px 0px' }}>from a life of compromises</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '24px', marginBottom: '0px' }}>Get ₹1 Crore</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '12px', marginTop: '7px' }}>Term Insurance Cover @ 12*/day</p>
+                                            <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>Get Free Quote</Button>
+                                        </div>
+                                        <div className={classes.slideImage} >
+                                            <img src={process.env.PUBLIC_URL + '/assets/images/insurance-banner-img.png'} alt="" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style={{ backgroundColor: '#ddd' }}>
-                                    <h3>4</h3>
+                                <div>
+                                    <div className={classes.slideContentWrapper}>
+                                        <div className="slideContent">
+                                            <b style={{ fontSize: '14px', fontWeight: '500' }}>Protect your family</b>
+                                            <p style={{ fontSize: '12px', margin: '3px 0px' }}>from a life of compromises</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '24px', marginBottom: '0px' }}>Get ₹1 Crore</p>
+                                            <p style={{ color: 'var(--uiWhite)', fontSize: '12px', marginTop: '7px' }}>Term Insurance Cover @ 12*/day</p>
+                                            <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>Get Free Quote</Button>
+                                        </div>
+                                        <div className={classes.slideImage} >
+                                            <img src={process.env.PUBLIC_URL + '/assets/images/insurance-banner-img.png'} alt="" />
+                                        </div>
+                                    </div>
                                 </div>
                             </Slider>
                             <Grid container sx={{ paddingTop: '30px' }}>
