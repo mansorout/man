@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, ListItemAvatar, Typography } from '@mui/material'
 import { emaillogo } from '../../Assets/index'
 import { cakelogo } from '../../Assets/index'
 import { icbirthplacelogo } from '../../Assets/index'
@@ -66,10 +66,11 @@ function ViewProfileCard() {
         },
         ca: {
             // borderRadius: "170px 175px 175px 163px",
-            backgroundColor: "rgba(100, 219, 255, 0.3)",
+            backgroundColor: "#64dbff",
             width: "20px",
             height: "20px",
             padding: "10px",
+            opacity: "0.9",
 
             // width: '80px',
             // height: '80px',
@@ -94,11 +95,15 @@ function ViewProfileCard() {
     return (
 
         <>
-            <Box
-                sx={{
-                    p: 1,
-                    width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
-                }}
+          <Card   
+            sx={{
+                p: 1,
+                 marginTop: "30px",
+                height:" fit-content"
+            }}> 
+      <CardContent>
+      <Box
+              
             >
                 <List>
                     <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
@@ -273,6 +278,10 @@ function ViewProfileCard() {
                     <EditProfieButton />
                 </List>
             </Box>
+      </CardContent>
+     
+    </Card>
+           
 
 
         </>

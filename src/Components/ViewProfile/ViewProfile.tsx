@@ -3,7 +3,7 @@ import './ViewProfile.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -14,6 +14,8 @@ import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
 import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -150,7 +152,7 @@ function ViewProfile() {
 
   const refContainer = useRef();
  
-
+const navigate=useNavigate()
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
 
@@ -294,6 +296,7 @@ function ViewProfile() {
             <List sx={{ py: "30px", height: "inherit" }}>
               <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
                 <ListItemButton
+                 onClick={()=> navigate('/home')} 
                   sx={{
                     minHeight: 48,
                     px: 2.5,
@@ -310,11 +313,12 @@ function ViewProfile() {
                   >
                     <HomeIcon sx={{ color: "#23db7b" }} />
                   </ListItemIcon>
-                  <ListItemText primary="Home" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
+                  <ListItemText primary="Home"  sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
+                onClick={()=>navigate("/portfolio")}
                   sx={{
                     minHeight: 56,
                     px: 2.5,
@@ -381,12 +385,44 @@ function ViewProfile() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
             <Toolbar />
-            <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
+
+
+
+                                    <Link color="#6495ED" underline="always" href='Home' >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always">
+                                        <Typography className='burgerText'>View Profile</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+
+{/* 
+            <Grid container >
+              <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+              <ViewProfileCard  />
+              </Grid>
+              <Grid item  xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+
+              <VviewprofileCard />
+              </Grid>
+
+              
+            </Grid> */}
+
+            <Grid container>
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
                 <ViewProfileCard  />
               </Grid>
-              <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }}>
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                 <VviewprofileCard />
               </Grid>
 

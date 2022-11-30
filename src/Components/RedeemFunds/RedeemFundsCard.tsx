@@ -1,176 +1,179 @@
-import { Box, Typography, Grid } from '@mui/material'
-import React from 'react'
-import { axislogoredeem, morningsteologo, starratelogo } from '../../Assets'
-import RedeemFunds from './RedeemFunds'
-import { Button } from '@mui/material';
-import Stack from '@mui/material/Stack';
-function RedeemFundsCard() {
-
-    const style = {
-        containerfundcard: {
-            backgroundColor: "#6c63ff",
-            boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-            borderRadius: { xs: "0px", sm: "16px" },
-            padding: "30px 30px",
-          
-        },
-        Axislogo: {
-            width: "76.5px",
-            height: "76.5px",
-            border: " solid 1px #d1d6dd",
-            backgroundColor: "#fff",
-            borderRadius: '37px',
-
-
-        },
-        RedeemTextStyle: {
-            width: "91px",
-            opacity: " 0.74",
-            fontSize: "14px",
-            fontWeight: "normal",
-            textAlign: "center",
-            color: "#fff",
-            marginTop: "15%",
-            marginLeft: "25%"
-
-        },
-        RedeemAmount: {
-            width: " 88px",
-            fontSize: "20px",
-            fontWeight: "500",
-            lineHeight: " normal",
-            letterSpacing: "normal",
-            textAlign: "center",
-            color: " #fff",
-            marginTop: "3%",
-            marginLeft: "25%",
-
-        },
-        moninglogo: {
-            width: "76px",
-            height: "22px",
-            margin: "10px 0 60px 8px",
-            objectFit: " contain",
-            opacity: "0.7",
-            // mixBlendMode: "luminosity"
-        }
-    }
+import {
+    Box,
+    Chip,
+    TableContainer,
+    Table,
+    TableRow,
+    TableBody,
+    TableHead,
+    TableCell,
+    Avatar,
+    Typography,
+    Button,
+    Grid,
+    Stack,
+  } from "@mui/material";
+  import { SmallStar} from "../../Assets";
+  
+  
+  import "./RedeemFunds.css";
+  import {MorningStarlogo} from "../../Assets";
+  import { useNavigate } from "react-router-dom";
+  
+  
+  
+  interface Prop {
+    logo: string;
+    name: string;
+    cap: string;
+    type: string;
+    year1: number;
+    year3: number;
+    year5: number;
+    year6:string;
+    rating: number;
+    morning_star_logo?: string;
+  }
+  
+  
+  
+  const RedeemFundsCard = (props: Prop) => {
+    const navigate = useNavigate();
+    const formatter = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    });
+  
     return (
-        <Box sx={style.containerfundcard}>
-            <Box>
-                <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                        <Typography>
-                            <img src={axislogoredeem} alt="Sprint__Money" style={style.Axislogo} />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6} sx={{ textAlign: "right" }}>
-                        <Typography>
-                            <Typography sx={{
-                                width: " 47px",
-                                height: "21px",
-                                margin: "0.8% 8px 61px 70%",
-                                padding: "1px 4px 1px 2px",
-                                borderRadius: "2px",
-                                backgroundColor: "#ffc300"
-                            }}>
-                                <img src={starratelogo} alt="Sprint__Money" style={{
-                                    width: "16px",
-                                    height: "16px",
-                                    margin: " 2px 59% 1px 5%",
-
-                                }} />
-                                <Typography sx={{
-                                    width: " 23px",
-                                    height: "19px",
-                                    margin: " -56% -6% 1px 42%",
-
-                                    fontSize: " 16px",
-                                    fontWeight: " 500",
-
-                                    textAlign: "right",
-                                    color: "#fff"
-
-                                }}>3.8</Typography>
-                                <img src={morningsteologo} alt="Sprint__Money" style={{
-                                    width: "76px",
-                                    height: "22px",
-                                    margin: "-15% 0 60px 120%",
-                                    alignItems: "right",
-                                    opacity: "0.7",
-
-
-                                }} />
-                            </Typography>
-
-
-
-                        </Typography>
-
-                    </Grid>
-                </Grid>
-
-                <Typography sx={{ color: "#fff", fontSize: "24px", fontWeight: "500" }}>Axis Small Cap Fund Regular Growth</Typography>
+      <Box
+        id="CoCard"
+        sx={{
+          // backgroundColor:"green",
+          padding: "24px 25px 43.5px 22px",
+          fontFamily: "Roboto",
+          borderRadius: "0.5rem",
+          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+          backgroundColor: "#6c63ff",
+          margin: "1rem",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <img
+            src={props.logo}
+            
+            style={{
+              width: "3rem",
+              height: "3rem",
+              border: "solid 1px #d1d6dd",
+              borderRadius: "50%",
+              backgroundColor:"#ffffff"
+            }}
+          />
+  
+          
+          
+          <Box  >
+          <Chip sx={{backgroundColor:"#ffc300", marginTop:"-15%"}}
+            avatar={<Avatar alt="star" src={SmallStar} 
+            sx={{
+            color:"#ffffff",
+          
+            }} 
+            />}
+            label={props.rating + ".8"}
+            
+          />
+            <img alt="MorningStarlogo" src={MorningStarlogo} style= {{ width: "76px",
+    height: "22px",
+    margin: "10px 0 10px 8px"}}/>
+            
             </Box>
-            <Grid container spacing={3}>
-                <Grid item xs={6} >
-                    <Stack direction="row" spacing={3} sx={{ marginTop: "4%" }}>
-
-                        <Button variant="outlined" sx={{ backgroundColor: " rgba(255, 255, 255, 0.54)", color: "#544ec8", fontSize: "16px", fontWeight: "500" }}>
-                            Large Cap
-                        </Button>
-                        <Button variant="outlined" sx={{ backgroundColor: " rgba(255, 255, 255, 0.54)", color: "#544ec8", fontSize: "16px", fontWeight: "500" }} href="#outlined-buttons">
-                            Equity
-                        </Button>
-                    </Stack>
-                </Grid>
+     </Box>
+        
+     <Grid container spacing={0}>
+            <Grid item xs={6}>
+              <Typography sx={{display: "contents"}} className="FundDetails_Heading">
+              Axis Small Cap Fund Regular Growth
+              </Typography>
             </Grid>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemTextStyle}>Invested Value</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemTextStyle}>Current Value</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemTextStyle}>Total Units</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemTextStyle}> Absolute Return</Typography>
-                </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-                <Grid item xs={3} sx={{
-                    color: "#ffffff"
-                }}>
-                    <Typography sx={style.RedeemAmount}>  ₹1,25,000</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemAmount}>   ₹1,46,625</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemAmount}>    272750</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography sx={style.RedeemAmount}>   ₹21,625 (18.75%)</Typography>
-                </Grid>
-            </Grid>
+          
+        
+            
+          </Grid>
+        <Box
+          sx={{
+            width: { xs: "246px", sm: "217px" },
+          }}
+        >
+          
+          <Chip 
+            label={props.cap}
+            sx={{
+  
+              backgroundColor:"rgba(255, 255, 255, 0.54)",
+              marginRight: "10px",
+            }}
+          />
+          <Chip sx={{backgroundColor:"rgba(255, 255, 255, 0.54)"}} label={props.type} />
         </Box>
-    )
-}
-
-export default RedeemFundsCard
-// width: "30px",
-// height:" 19px",
-// opacity: "0.87",
-
-// fonSize: "16px",
-// fontWeight:" 500",
-
-// letterSpacing: "0.48px",
-// textAlign: "left",
-// color: "#544ec8"
-
-// -Redeem Funds-partial Amount
-// Invest Now for Monthly Investment
-// 06-Redemptoion 
+       
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            marginTop={2}
+            marginBottom={2}
+          >
+            <Grid item xs={4}>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow sx={{ color: "red" }}>
+                      <TableCell className="table_head">
+                      Invested Value
+                      </TableCell>
+                    
+                      <TableCell className="table_head">
+                      Current Value
+                      </TableCell>
+                      <TableCell className="table_head">
+                      Total Units
+                      </TableCell>
+                      <TableCell className="table_head">AUM</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="table_head2">₹{props.year1}%</TableCell>
+                      
+                      <TableCell className="table_head2">₹{props.year3}</TableCell>
+                      <TableCell className="table_head2">{props.year5}</TableCell>
+                      <TableCell className="table_head2">₹{props.year6}%</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    );
+  };
+  
+  export default RedeemFundsCard;

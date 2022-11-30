@@ -41,6 +41,8 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
 export const chart = require("./Portfolio/chart.png")
 export const meria = require("./Portfolio/mirae.png")
 
+export const homeConnect = require("./home_connect.png")
+
 
 
 

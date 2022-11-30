@@ -15,9 +15,9 @@ import { Logo, Profile, SIP, SuccessFullOtp } from '../../Assets/index'
 // import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 // import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
- import EEditprofileCard from '../../Modules/Cards/EEditprofileCard';
+
 import IInvestNowScreenCard from '../../Modules/Cards/IIvestNowScreenCard';
-import InvestNowScreenCard from '../../Modules/Cards/InvestNowScreenCard'
+ 
 import TrackTransButton from '../../Modules/Buttons/TrackTransButton';
 import SipSuccessButton from '../../Modules/Buttons/SipSuccesssButton';
 
@@ -160,7 +160,7 @@ function SipSuccessScreen() {
           boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
           transform: "translate(-50%, 0%)",
           left: "50%",
-          bottom: "18%",
+        
           position: "absolute"
         } as React.CSSProperties,
     
