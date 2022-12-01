@@ -51,6 +51,8 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
+import Under from './Components/Under/Under';
+
 
 
 
@@ -148,6 +150,8 @@ function App() {
 
 
         <Route path="/Insurance" element={<Insurance />} />
+        
+       
 
 
 
@@ -156,6 +160,10 @@ function App() {
 
         <Route path="/funddetails" element={<FundDetails />} />
         <Route path="/filter" element={<TxnFilters />} />
+        <Route path="/under" element={<Under />} />
+        
+     
+     
 
 
 

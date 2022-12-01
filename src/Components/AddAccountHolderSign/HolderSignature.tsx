@@ -36,7 +36,7 @@ import {
 } from "@mui/icons-material";
 import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Logo, Profile } from "../../Assets/index";
+import { Logo, Logoici, Profile } from "../../Assets/index";
 import { store } from "../../Store/Store";
 import { uploadsignature } from "../../Store/Reducers/action";
 import { bindActionCreators } from "redux";
@@ -723,10 +723,16 @@ function HolderSignature() {
 
                 }
                 
-                  <Stack sx={{margin: "24px 0px 0px 64.5px",width:"100%"}}>
-                  <Typography component="span" className="subTitle2">
+                  <Stack sx={{margin: "24px 0px 0px 64.5px",width:"100%",alignItems:"left"}}>
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} alignItems="left" sm={12} md={6}>
+                      <Typography component="span" className="subTitle2">
+                  <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
                     Signature provided here will be used on official documents
                   </Typography>
+                      </Grid>
+                    </Grid>
+                 
                 </Stack>
               </Paper>
             </Box>

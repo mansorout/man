@@ -24,8 +24,9 @@ import Paper from "@mui/material/Paper";
 
 
 
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { height, padding } from '@mui/system'
+import { Console } from 'console'
 
 function ViewProfileCard() {
 
@@ -64,14 +65,15 @@ function ViewProfileCard() {
             boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
             border: 'solid 1px rgba(0, 0, 0, 0.08)',
         },
+     
         ca: {
             // borderRadius: "170px 175px 175px 163px",
-            backgroundColor: "#64dbff",
             width: "20px",
             height: "20px",
+         
             padding: "10px",
-            opacity: "0.9",
-
+        
+            backgroundColor:"rgba(100, 219, 255, 0.3)"
             // width: '80px',
             // height: '80px',
             // margin: '0 54px 22px 34px',
@@ -91,7 +93,31 @@ function ViewProfileCard() {
 
     }
 
+    const uploadInputRef = useRef<HTMLInputElement | null>(null);
+    const [imgSrc, setImgSrc] = useState<any>("");
 
+    function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+       
+       
+
+    
+       
+        if (e.target.files && e.target.files.length > 0) {
+         
+          const reader = new FileReader();
+          reader.addEventListener("load", () =>
+            setImgSrc(reader.result?.toString() || "")
+          );
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      }
+
+      console.log(imgSrc)
+
+    
+
+
+        
     return (
 
         <>
@@ -102,11 +128,24 @@ function ViewProfileCard() {
                 height:" fit-content"
             }}> 
       <CardContent>
-      <Box
-              
-            >
+      <Box>
                 <List>
-                    <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
+                    <Box  onClick={()=>
+                          uploadInputRef.current && uploadInputRef.current.click()}>
+                  
+                    <img alt="Money Sprint" src={imgSrc} style={style.cameraIcon} />
+                    <input
+                      ref={uploadInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={onSelectFile}
+                    />
+                  
+            
+            </Box>
+                   
+             
 
                     <ListItem
 
@@ -125,14 +164,15 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                            
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
+                            
 
                                 />
-                            </Avatar>
+                        
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Mobile Number
                             <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
@@ -146,14 +186,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                        
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                  
                         </ListItemAvatar>
                         <Typography sx={{ fontSize: "14px" }}>Email Address
                         </Typography>
@@ -164,7 +204,7 @@ function ViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                         
                                 <Avatar
                                     alt=""
                                     src={cakelogo}
@@ -172,7 +212,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                        
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -188,14 +228,14 @@ function ViewProfileCard() {
                         >
 
                         <ListItemAvatar>
-                            <Avatar>
+                          
                                 <Avatar
                                     alt=""
                                     src={icbirthplacelogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                      
                         </ListItemAvatar>
                      
                          <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
@@ -231,14 +271,14 @@ function ViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                       
                                 <Avatar
                                     alt=""
                                     src={locationlogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                          
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -258,7 +298,7 @@ function ViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                        
                                 <Avatar
                                     alt=""
                                     src={ic_income}
@@ -266,7 +306,7 @@ function ViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                         
                         </ListItemAvatar>
                         <ListItemText
                             primary={

@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 
     return (
         <Button variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText">Select SIP Date</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText"     onClick={()=>navigate('/under')} >Select SIP Date</Typography>
         </Button> 
     )
 };

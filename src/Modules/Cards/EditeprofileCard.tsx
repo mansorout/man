@@ -298,9 +298,9 @@ function EditprofileCard() {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "20px" }
+                    '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" }
                   }} >
-                  <div style={{ position: "relative", top: "-20px" }}>
+                
 
                     <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label" sx={{
@@ -348,7 +348,7 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-                  </div>
+            
 
                 </Box>
 
@@ -385,7 +385,7 @@ function EditprofileCard() {
                       height: " 42px", padding: " 6px 10px 6px 6px"
                     }}>
 
-                    <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-9px" }} />
+                    <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
                     {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
 
                     <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Male</Typography>
@@ -434,7 +434,8 @@ function EditprofileCard() {
 
 
                 >
-                  <div style={{ position: "relative", top: "-86px" }}>
+             
+                   <div style={{ position: "relative", top: "-86px" }}>
                     <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{
@@ -501,11 +502,7 @@ function EditprofileCard() {
                         name="pincode"
                         sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                       >
-                        {pincode.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
+                      
                       </Select>
                     </FormControl>
                     {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
@@ -536,7 +533,7 @@ function EditprofileCard() {
                     </FormControl>
 
 
-                  </div>
+                  </div> 
                 </Box>
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}

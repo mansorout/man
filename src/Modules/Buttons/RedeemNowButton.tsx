@@ -25,7 +25,7 @@ const SaveAndAddButton = () => {
 
   return (
       <Button variant="contained" style={style.button} fullWidth>
-          <Typography component="span" style={style.text} className="largeButtonText">Save & Addcc</Typography>
+          <Typography component="span" style={style.text} className="largeButtonText">Save & Add</Typography>
       </Button> 
   )
 };

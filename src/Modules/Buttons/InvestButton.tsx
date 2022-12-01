@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const InvestButton = () => {
    
-    const navigate = useNavigate();
+    const naviagte = useNavigate();
     const style = {
         button : {
             height: "48px",
@@ -23,7 +23,7 @@ export const InvestButton = () => {
 
     return (
         <Button  variant="contained" style={style.button} fullWidth >
-            <Typography component="span" style={style.text} className="largeButtonText" onClick={()=>navigate("/redeemfund")}>Continue</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText" onClick={()=>naviagte("/under")}>Continue</Typography>
         </Button> 
     )
 }

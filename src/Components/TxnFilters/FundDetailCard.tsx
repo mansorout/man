@@ -128,7 +128,7 @@ const FundDetailCard = (props: Prop) => {
 
             // padding: "11px 36px"
           }} >
-            <Button onClick={() => navigate('/home')} sx={{
+            <Button onClick={() => navigate('/mflist')} sx={{
               backgroundColor: "#23db7b", width: "206px",
               height: "38px", color: "#ffffff", borderRadius: "8px"
             }}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
