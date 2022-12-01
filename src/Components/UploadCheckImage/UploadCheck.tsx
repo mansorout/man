@@ -94,8 +94,11 @@ function UploadCheck() {
     useState<boolean>(true);
   const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
+  const [enableShowText,setenableShowText] = useState<boolean>(true);
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    
+    setenableShowText(false);
     setUploadChequeButtonDisable(false);
     saveAndAddButtonDisable(false);
     setShowSideButton(false);
@@ -343,7 +346,6 @@ function UploadCheck() {
                 <Link
                   underline="none"
                   color="#8787a2"
-                  // href="/"
                   aria-current="page"
                 >
                 
@@ -352,13 +354,42 @@ function UploadCheck() {
               </Breadcrumbs>
 
               <Box style={{position:"relative", marginBottom:"20px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column"}}>
-                <Typography style={{padding:"15px"}} className="largeHeadingText">
+                {/* <Grid container  spacing={2} >
+                  <Grid item   xs={12}>
+                  <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
                   Add Cancelled Cheque
                 </Typography>
+                  </Grid>
+                </Grid> */}
+                <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
+                  Add Cancelled Cheque
+                </Typography>
+                 
                 <Box style={style.dividerBox}></Box>
                 <Box sx={{width:"100%", padding:"20px", display:"flex", alignItems:"center", justifyContent:"center", gap:"40px", flexWrap:'wrap', flexDirection:{sm:"column", md:"row"}}}>
                   { preview ? 
                     <Box className = "renderBox">
+                      
+                      {
+                        enableShowText ?   <Grid container spacing={3}>
+                          <Grid sx={{textAlign:"center"}} item xs={12}>
+                          <Typography className="checkWillAppearHere">
+                        Your cheque will appear here…
+                        </Typography> 
+
+                          </Grid>
+                        </Grid>  : "" 
+                      }
+                      {
+                        enableShowText ? "" :  <Grid container sx={{display:"none"}} spacing={3}>
+                          <Grid sx={{textAlign:"center"}} item xs={12}>
+                          <Typography className="checkWillAppearHere">
+                        Your cheque will appear here…
+                        </Typography> 
+
+                          </Grid>
+                        </Grid>   
+                      }
                       {!!imgSrc && (
                         <ReactCrop
                           style={{width:"100%"}}

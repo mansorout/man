@@ -26,7 +26,7 @@ import {
           // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
           // backgroundColor: "white",
           margin: "1rem",
-          height: "84px",
+          height: "justify",
           // margin: "24px 32px",
           padding:" 12px 12px 21px 16px",
           borderRadius: "8px",

@@ -107,6 +107,7 @@ export const hdfclogo =require("./Profile/HdfcBanklogo.png")
 export const upilogo =require("./Profile/UPIlogo.png")
 export const fundChart =require("./FundChart.png")
 export const signExclamatory =require("./ic_info-24px@2x.png")
+export const validMobile =require("./ValidMobileNumber.png")
 
 
 
