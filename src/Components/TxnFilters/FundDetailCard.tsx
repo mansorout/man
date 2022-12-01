@@ -100,39 +100,39 @@ const FundDetailCard = (props: Prop) => {
             label={props.rating + ".0"}
 
           />
-          <img alt="MorningStarlogo" src={MorningStarlogo} style={{
+          <Chip sx={{ backgroundColor: "transparent", }}
+            avatar={<img alt="star" src={MorningStarlogo}
+              style={{width:"76px",height:"22px"
+
+              }}
+            />}
+            
+
+          />
+          {/* <img alt="MorningStarlogo" src={MorningStarlogo} style={{
             width: "76px",
             height: "22px",
             margin: "10px 0 10px 8px"
-          }} />
+          }} /> */}
 
         </Box>
       </Box>
 
-      <Grid container spacing={0}>
-        <Grid item xs={5}>
+      <Grid sx={{    display: "flex"
+}} container spacing={2}>
+        <Grid item xs={8}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
             Axis Small Cap Fund Regular Growth
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-
-          </Typography>
-        </Grid>
-        <Grid item xs={5}>
-          <Box sx={{
-            textAlign: "right",
-            display: "flex"
-
-
-            // padding: "11px 36px"
-          }} >
+        
+        <Grid sx={{textAlignLast: "end"}} item xs={4}>
+          
             <Button onClick={() => navigate('/home')} sx={{
-              backgroundColor: "#23db7b", width: "206px",
-              height: "38px", color: "#ffffff", borderRadius: "8px"
+              backgroundColor: "#23db7b", width: "100%",
+               color: "#ffffff", borderRadius: "8px"
             }}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
-          </Box>
+          
         </Grid>
 
       </Grid>
@@ -180,7 +180,7 @@ const FundDetailCard = (props: Prop) => {
                     <TableCell className="table_head">
                       Returns (5 Yrs)
                     </TableCell>
-                    <TableCell className="table_head">AUM</TableCell>
+                    <TableCell  className="table_head">AUM</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

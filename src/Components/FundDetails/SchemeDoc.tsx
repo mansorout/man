@@ -16,7 +16,8 @@ export const SchemeDoc = () => {
           // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
           // backgroundColor: "white",
           margin: "1rem",
-          height: "84px",
+          height:"84px",
+         
           // margin: "24px 32px",
           padding: " 12px 12px 21px 16px",
           borderRadius: "8px",
@@ -56,9 +57,10 @@ export const SchemeDoc = () => {
 
 
 
-          <Grid item xs sx={{ marginTop: "18px" }}>
+          <Grid item xs sx={{ paddingTop: "10px" }}>
             <Typography
-               className='risko_meter'>Scheme Document</Typography>
+              sx={{fontFamily: "Roboto",
+              fontSize: "18px",color: "#3c3e42",fontWeight: "500"}}>Scheme Document</Typography>
 
         </Grid>
         <Grid item xs sx={{ margin: "19px 8px 0px 0px" }} >

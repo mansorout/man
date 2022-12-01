@@ -65,6 +65,7 @@ import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 
 
 
+
 function App() {
 
    
@@ -151,6 +152,7 @@ function App() {
 
 
         <Route path="/Insurance" element={<Insurance />} />
+        
 
 
 
