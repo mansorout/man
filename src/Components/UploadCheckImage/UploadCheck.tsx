@@ -134,7 +134,7 @@ function UploadCheck() {
 
   const dataURL = previewCanvasRef.current?.toDataURL();
 
-  console.log(dataURL);
+
 
   //  All Button in components goes here
 
@@ -156,7 +156,7 @@ function UploadCheck() {
   };
 
   const handleConfirm = () => {
-    // for setting in state have to write here
+ 
     setImagePreviewToLast(dataURL)
     setCanvasDisable(false);
     setPreview(false);
@@ -167,14 +167,12 @@ function UploadCheck() {
   };
 
   const sendToApi = () => {
-    // setCanvasImageToBase64(finalImage)
+   
     setCanvasImageToBase64(dataURL)
     store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
 
-  // const ClearCheck =()=>{
-  //   imgSrc("")
-  // }
+
 
   function centerAspectCrop(
     mediaWidth: number,
@@ -261,77 +259,14 @@ function UploadCheck() {
       height: "633",
     },
 
-    drawHere: {
-      width: "169px",
-      height: "38px",
-      margin: "213px 0 0 196px",
-      fontFamily: "213px 0 0 196px",
-      fontSize: "32px",
-      fontWeight: "300",
-      fontStretch: "normal",
-      fontStyle: "normal",
-      lineHeight: "0.63",
-      letterSpacing: "normal",
-      textAlign: "left",
-      color: "#919eb1",
-    } as React.CSSProperties,
+  
+  
 
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    profile: {
-      width: "20px",
-      height: "20px",
-      borderRadius: "50%",
-      border: "1px solid white",
-    },
-    profileInter: {
-      width: "40px",
-      height: "40px",
-      border: "solid 1px rgba(75, 123, 236, 0.49)",
-      borderRadius: "50%",
-    },
-    menuContainer: {
-      boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
-      boxSizing: "border-box",
-      padding: "10px",
-      backgroundColor: "white",
-      marginRight: "20px",
-    } as React.CSSProperties,
-    menuButton: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "10px 0px",
-    } as React.CSSProperties,
-    menuText: {
-      color: "black",
-      fontSize: "10px",
-      fontWeight: "500",
-      padding: "5px 10px",
-      borderRadius: "4px",
-      backgroundColor: "#ffc300",
-      cursor: "pointer",
-    },
-    menuText2: {
-      padding: "6px 12px",
-      borderRadius: "4px",
-      border: "solid 1px #23db7b",
-      backgroundColor: "rgba(35, 219, 123, 0.12)",
-      fontSize: "12px",
-      fontWeight: "500",
-      color: "#09b85d",
-      cursor: "pointer",
-    },
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "none",
-      backgroundColor: "white",
-      textAlign: "left",
-      justifyContent: "flex-start",
-    } as React.CSSProperties,
+   
+  
+   
+   
+   
     menuIcon: {
       color: "#6c63ff",
       fontSize: "24px",
@@ -406,13 +341,13 @@ function UploadCheck() {
                   
                 </Link>
                 <Link
-                  underline="always"
-                  color="#6495ED"
+                  underline="none"
+                  color="#8787a2"
                   // href="/"
                   aria-current="page"
                 >
                 
-                  
+                <Typography className='burgerText'>  Cancelled Cheque </Typography>
                 </Link>
               </Breadcrumbs>
 
