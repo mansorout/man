@@ -67,3 +67,341 @@ CSS
   text-align: left;
   color: #3c3e42;
 }
+
+
+
+.container {
+    /* display: block !important; */
+    height: 100vh !important;
+    overflow: scroll !important;
+    background-color: #f9f9f9 !important;
+}
+
+.checkHeadingStack {
+    padding: 8px 16px !important;
+    background-color: #6c63ff !important;
+}
+
+.checkWillAppearHere{
+   
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: normal;
+  color: #919eb1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+}
+.Add-Cancelled-Cheque{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-align: left !important; 
+  font-family: Roboto;
+  letter-spacing: normal;
+  color: #3c3e42;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+}
+.checkWillAppearHere{
+   
+  font-family: Roboto;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: normal;
+  color: #919eb1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  transform: translate(10px, 137px);
+  /* margin-top: 24% !important; */
+}
+
+
+.renderBoxsign {
+   
+    background-color: rgb(252, 252, 252) !important;
+    min-height: 300px !important;
+    width: 80% !important;
+    margin-top: 55px !important;
+}
+
+.Add_Cancelled_Cheque {
+    height: 48px !important;
+}
+
+.contentPaper {
+    margin: 20px !important;
+    height: 100% !important;
+    width: 120vh !important;
+    background: #fff !important;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+    border-radius: 8px !important;
+}
+
+/* parent box of papper */
+
+.mainBox {
+
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-inline: auto !important;
+}
+
+.previewImg {
+    margin-left: 195px !important;
+    margin-top: 57px !important;
+    border: 1px solid black !important;
+    width: 564px !important;
+    height: 238px !important;
+}
+
+.ButtonGrid {
+    display: inline-flex !important;
+    flex-grow: 0 !important;
+    max-width: 50% !important;
+    flex-basis: 50% !important;
+    margin-top: 45px !important;
+    margin-right: 46px !important;
+}
+
+.uploadChequeButton {
+    background-color: #00b4ff !important;
+
+    height: 45px !important;
+    width: 150px !important;
+    border-radius: 32px !important;
+}
+
+.footerText {
+    text-align: center !important;
+
+    margin: auto !important;
+    width: 100% !important;
+    max-width: 1280px !important;
+}
+
+.mainPaper {
+    height: max-content !important;
+    /* background-color: red !important; */
+}
+
+
+
+@media only screen and (max-device-width: 480px) {
+    .previewImg {
+
+
+        
+        margin-left: 1px !important;
+       
+        border: 1px solid black !important;
+        width: 370px !important;
+        height: 238px !important;
+    }
+
+  
+
+    .mainPaper {
+        height: 62% !important;
+       
+    }
+
+    .contentPaper {
+        margin: 20px !important;
+        height: 100% !important;
+        width: 120vh !important;
+        background: #fff !important;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+        border-radius: 8px !important;
+    }
+}
+
+@media only screen and (min-device-width:768px) {
+    .mainPaper {
+        height: 70% !important;
+        
+    }
+
+    .previewImg {
+
+
+        
+        margin-left: 77px !important;
+        margin-top: 131px !important;
+        border: 1px solid black !important;
+        width: 564px !important;
+        height: 238px !important;
+    }
+
+    .footerText {
+        text-align: center !important;
+        margin-top: 50px !important;
+    }
+    .container {
+        background-color: red;
+        height: 100vh !important;
+        overflow: scroll !important;
+    }
+
+
+    .container {
+        display: block !important;
+        height: 100vh !important;
+        overflow: scroll !important;
+        background-color: #f9f9f9 !important;
+    }
+
+}
+@media only screen and (min-device-width:1280px) {
+    .mainPaper {
+        /* margin-left: 10px; */
+        height: 90% !important;
+        width: 50%;
+    }
+
+    .previewImg {
+        margin-left: 77px !important;
+        margin-top: 131px !important;
+        border: 1px solid black !important;
+        width: 564px !important;
+        height: 238px !important;
+    }
+
+    .footerText {
+        text-align: center !important;
+        margin-top: 50px !important;
+    }
+    .container {
+        background-color: red;
+        height: 100vh !important;
+        overflow: scroll !important;
+    }
+
+
+    .container {
+        display: block !important;
+        height: 100vh !important;
+        overflow: scroll !important;
+        background-color: #f9f9f9 !important;
+    }
+
+}
+
+
+
+@media only screen and (max-device-width: 540px) {
+
+  
+
+    .contentPaper {
+      
+        margin-left: 74px !important;
+        height: 100% !important;
+        width: 120vh !important;
+        background: #fff !important;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+        border-radius: 8px !important;
+        background-color: red !important;
+    }
+}
+
+@media only screen and (min-device-width:1580px) {
+    .mainPaper {
+        height: 70% !important;
+        
+    }
+
+    .previewImg {
+        margin-left: 77px !important;
+        margin-top: 131px !important;
+        border: 1px solid black !important;
+        width: 564px !important;
+        height: 238px !important;
+    }
+
+    .footerText {
+        text-align: center !important;
+        margin-top: 50px !important;
+    }
+    .container {
+        background-color: red;
+        height: 100vh !important;
+        overflow: scroll !important;
+    }
+
+
+    .container {
+        display: block !important;
+        height: 100vh !important;
+        overflow: scroll !important;
+        background-color: #f9f9f9 !important;
+    }
+
+}
+@media only screen and (min-device-width:1880px) {
+    .mainPaper {
+        height: 70% !important;
+        
+    }
+
+    .previewImg {
+        margin-left: 77px !important;
+        margin-top: 131px !important;
+        border: 1px solid black !important;
+        width: 564px !important;
+        height: 238px !important;
+    }
+
+    .footerText {
+        text-align: center !important;
+        margin-top: 50px !important;
+    }
+    .container {
+        background-color: red;
+        height: 100vh !important;
+        overflow: scroll !important;
+    }
+
+
+    .container {
+        display: block !important;
+        height: 100vh !important;
+        overflow: scroll !important;
+        background-color: #f9f9f9 !important;
+    }
+
+}
+
+
+
+@media only screen and (max-device-width: 540px) {
+
+
+
+    .contentPaper {
+        margin-left: 74px !important;
+        height: 100% !important;
+        width: 120vh !important;
+        background: #fff !important;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+        border-radius: 8px !important;
+        background-color: red !important;
+    }
+}
+
+.MuiTypography-root MuiTypography-body1 largeHeadingText css-1cgz1ls-MuiTypography-root{
+text-align: left;
+
+}
