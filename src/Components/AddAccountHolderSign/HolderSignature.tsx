@@ -10,6 +10,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
+import styles from './styles.module.css'
 
 import ReactCrop, {
     centerCrop,
@@ -20,7 +21,7 @@ import ReactCrop, {
 
 import {
     Drawer as DrawerList,
-  
+
     Toolbar,
 } from "@mui/material";
 
@@ -67,7 +68,7 @@ function HolderSignature() {
 
     const [uploadChequeButton, setUploadChequeButtonDisable] =
         useState<boolean>(true);
- 
+
     const [enableShowText, setenableShowText] = useState<boolean>(true);
     const [showSignBox, setShowSignBox] = useState<boolean>(true)
     const sigCanvas: any = useRef({});
@@ -77,7 +78,7 @@ function HolderSignature() {
     const [hidecontent, setHideContent] = useState<boolean>(true)
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
-  
+
 
     const clear = () => {
         sigCanvas.current.clear()
@@ -98,10 +99,10 @@ function HolderSignature() {
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
     };
 
-    
 
 
-const useStyles: any = makeStyles((theme: Theme) => ({
+
+    const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
             backgroundColor: "white",
             width: "100%",
@@ -166,6 +167,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             height: "633",
         },
 
+      
+
 
 
 
@@ -197,17 +200,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
     const refContainer = useRef();
     const navigate = useNavigate();
-    
-    const styles = () => ({
-        container: `
-          margin: 0 auto;
-          height: 300px;
-        `,
-        sign: `
-          width: 100%;
-          height: 100%;
-        `
-      });
+
+  
 
     return (
         <Box style={{ width: "100%" }} ref={refContainer}>
@@ -268,14 +262,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                             </Breadcrumbs>
 
                             <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-                                
-                              <Grid  container >
-                                <Grid xs={12} md={8} sm={10}>
-                                <Typography style={{ padding: "15px",display: "flex" }} className="largeHeadingText" >
-                                    Add Account Holder Signature
-                                </Typography>
+
+                                <Grid container >
+                                    <Grid xs={12} md={8} sm={10}>
+                                        <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
+                                            Add Account Holder Signature
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
-                              </Grid>
 
                                 <Box style={style.dividerBox}></Box>
                                 <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}>
@@ -303,38 +297,38 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                                             </Grid>
                                         }
                                         {showSignBox ?
-                                            <Box sx={{ backgroundColor: "white", width: "100%", height: "330px" }}>
-                                             
-                                                   
-                                                        <SignaturePad
+                                            <Box sx={{ backgroundColor: "white", width: "100%", height: "100%", margin: " 0 auto" }}>
 
-                                                            ref={sigCanvas}
-                                                            backgroundColor="white"
-                                                            penColor="black"
-                                                            onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
-                                                            canvasProps={{
-                                                                width: 600,
-                                                                height: 250,
-                                                                
 
-                                                            }}
-                                                            sx={{ width: "100%" }}
-                                                        />
-                                                   
+                                                <SignaturePad
+                                                      
+                                                    ref={sigCanvas}
+                                                    backgroundColor="white"
+                                                    penColor="black"
+                                                    onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
+                                                    canvasProps={{
+                                                        // width: 600,
+                                                        height:450,
+                                                        className: styles.sigPad
+                                                         
+                                                    }}
+
+                                                />
+
                                             </Box> : ""
 
                                         }
 
                                         {
                                             showSignBox ? "" :
-                                                
+
                                                 <Grid container sx={{
                                                     display: "flex",
                                                     justifyContent: "center",
-                                                  
+
                                                     top: "50%",
                                                     left: "50%",
-                                                    
+
 
                                                 }} spacing={1}>
                                                     <Grid item xs={12} sm={10} md={4}>
@@ -342,11 +336,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                                                             src={imageURL}
                                                             alt="my signature"
                                                             style={{
-                                                                 
-                                                                maxWidth: "-webkit-fill-available"
-                                                                // margin: "64px 0px 0px 338px",
-                                                                // width: "314px",
-                                                                // height: "195px"
+
+                                                                maxWidth: "-webkit-fill-available",
+                                                                 height: "250px"
                                                             }}
                                                         />
                                                     </Grid>
@@ -361,7 +353,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 
                                 </Box>
-                                
+
                                 <Box>
                                     <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
 
@@ -411,8 +403,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                                             </Button>
                                         )}
                                     </Box>
-                                  
-                                    
+
+
                                 </Box>
                                 <Box style={style.dividerBox}></Box>
                                 {disable ? (
@@ -423,7 +415,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                                         sx={{ pointerEvents: "none", opacity: "0.7" }}
 
                                     >
-                                        
+
                                         <SaveAndAddButton />
                                     </Box>
                                 ) : (
@@ -433,7 +425,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                                 {disable ? "" : <Box className="saveandaddButton"
                                     textAlign="center"
                                     width="80%" onClick={setSignature}>
-                                   
+
                                     <SaveAndAddButton />
                                 </Box>
 
