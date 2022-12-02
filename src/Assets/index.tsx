@@ -37,6 +37,7 @@ export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
+export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
 export const meria = require("./Portfolio/mirae.png")

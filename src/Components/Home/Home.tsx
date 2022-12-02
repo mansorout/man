@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { makeStyles } from '@mui/styles';
-import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Assets/index'
+import { Ad1, Ad1_1, Ad1_2, Ad2, MonoLogo } from '../../Assets/index'
 import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
 import StartInvestingCard from '../../Modules/CustomCard/StartInvestingCard'
 import { investingCards } from '../../Modal/investingCards'
@@ -16,10 +16,11 @@ import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
 import { companyCards } from '../../Modal/companyCards'
 import { useNavigate } from 'react-router-dom'
 import OtpInput from 'react-otp-input'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
+import { PinModalHomeCloseAction } from '../../Store/Duck/PINModalHome'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -190,6 +191,14 @@ function Home() {
 
   const error: string[] = useSelector((state: any) => state.error)
   const navigate = useNavigate()
+  const dispatch : any = useDispatch()
+  const {openPin} : any = useSelector((state: any) => state.PinModalHome)
+  console.log(openPin)
+  console.log(typeof(openPin))
+
+  const handleModalClose = () => {
+    dispatch(PinModalHomeCloseAction())
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -263,12 +272,12 @@ function Home() {
                     <img width="100%" src={Ad1_1} alt="Ad1" />
                   </Box>
                 </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                    <img width="100%" src={Ad2} alt="Ad2" />
+                <Grid onClick={()=>navigate("/investnowscreen")} item xs={12} sm={12} md={6}>
+                  <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                    <img width="100%" src={Ad2} alt="Ad1" />
                   </Box>
-                  <Box onClick={() => navigate("/investnowscreen")} sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
-                    <img width="100%" src={Ad1_2} alt="Ad2" />
+                  <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+                    <img width="100%" src={Ad1_2} alt="Ad1" />
                   </Box>
                 </Grid>
               </Grid>
@@ -277,7 +286,7 @@ function Home() {
         </Grid>
       </Box>
 
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+      <Modal open={openPin} onClose={handleModalClose}>
         <Box style={style.modalContainer}>
           <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
           <Typography textAlign="center" variant='h5' >Hi, Rahul Malhotra</Typography>

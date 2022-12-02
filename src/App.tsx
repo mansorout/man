@@ -53,6 +53,7 @@ import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
+import CancleSIP from './Components/Portfolio/CancleSIP';
 
 
 
@@ -150,7 +151,7 @@ function App() {
 
 
         <Route path="/Insurance" element={<Insurance />} />
-
+        <Route path='/cancleSip' element={<CancleSIP/>} />
 
 
 
