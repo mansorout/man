@@ -47,13 +47,13 @@ const FundDetailCard = (props: Prop) => {
     maximumFractionDigits: 0,
   });
 
-  const Grid = styled(MuiGrid)(({ theme }) => ({
-    width: '100%',
-    ...theme.typography.body2,
-    '& [role="separator"]': {
-      margin: theme.spacing(0, 2),
-    },
-  }));
+  // const Grid = styled(MuiGrid)(({ theme }) => ({
+  //   width: '100%',
+  //   ...theme.typography.body2,
+  //   '& [role="separator"]': {
+  //     margin: theme.spacing(0, 2),
+  //   },
+  // }));
 
   return (
     <Box
@@ -91,48 +91,43 @@ const FundDetailCard = (props: Prop) => {
 
 
         <Box >
-          <Chip sx={{ backgroundColor: "#ffc300", }}
+          <Chip  sx={{ height:"22px", backgroundColor: "#ffc300", }}
             avatar={<Avatar alt="star" src={SmallStar}
               sx={{
 
               }}
             />}
+            
             label={props.rating + ".0"}
 
           />
-          <img alt="MorningStarlogo" src={MorningStarlogo} style={{
-            width: "76px",
-            height: "22px",
-            margin: "10px 0 10px 8px"
-          }} />
+          <Chip sx={{ backgroundColor: "transparent", }}
+            avatar={<img alt="star" src={MorningStarlogo}
+              style={{width:"76px",height:"22px"
 
-        </Box>
+              }}
+            />}
+            
+
+          />
+          </Box>
       </Box>
 
-      <Grid container spacing={0}>
-        <Grid item xs={5}>
+      <Grid sx={{  paddingBottom:"3px",  display: "flex"
+}} container spacing={2}>
+        <Grid item xs={8}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
             Axis Small Cap Fund Regular Growth
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-
-          </Typography>
-        </Grid>
-        <Grid item xs={5}>
-          <Box sx={{
-            textAlign: "right",
-            display: "flex"
-
-
-            // padding: "11px 36px"
-          }} >
+        
+        <Grid sx={{textAlignLast: "end"}} item xs={4}>
+          
             <Button onClick={() => navigate('/home')} sx={{
-              backgroundColor: "#23db7b", width: "206px",
-              height: "38px", color: "#ffffff", borderRadius: "8px"
+              backgroundColor: "#23db7b", width: "100%",
+               color: "#ffffff", borderRadius: "8px"
             }}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
-          </Box>
+          
         </Grid>
 
       </Grid>
@@ -180,7 +175,7 @@ const FundDetailCard = (props: Prop) => {
                     <TableCell className="table_head">
                       Returns (5 Yrs)
                     </TableCell>
-                    <TableCell className="table_head">AUM</TableCell>
+                    <TableCell  className="table_head">AUM</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

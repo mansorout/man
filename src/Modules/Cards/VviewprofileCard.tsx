@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListSubheader from '@mui/material'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material';
 
@@ -98,7 +99,7 @@ function VviewprofileCard() {
                     <ListItem
 
                         secondaryAction={
-                            <Typography sx={{ backgroundColor: "#ffc300", color: "#000", fontSize: "12px", borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
+                            <Typography sx={{ backgroundColor: "#ffc300", color: "#000", fontSize: "12px", fontWeight: 'bold', borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
                         }
 
                     >
@@ -333,7 +334,14 @@ function VviewprofileCard() {
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
                 }}
             >
-                <List  >
+                <List>
+                    {/* 
+                    subheader={
+                        <ListSubheader component="div" id="nested-list-subheader">
+                          Security Preferences
+                        </ListSubheader>
+                      }
+                    > */}
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">

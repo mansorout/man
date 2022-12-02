@@ -1,7 +1,6 @@
 import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormLabel, Grid, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 import { store } from '../../Store/Store';
-//import './BankAccountDetails.css';
 import { bankuserdetails } from "../../Store/Reducers/action";
 import { submitPostuserdetails } from '../../Store/Reducers/action'
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +10,21 @@ import Sidebar from "../CommonComponents/Sidebar";
 const BankAccountDetails = () => {
 
     const navigate = useNavigate();
+
+    const [ ifscCode, setIfscCode ] = useState('');
+    const [ bankAcNo, setBankAcNo ] = useState('');
+    const [ confirmBankAcNo, setConfirmBankAcNo ] = useState('');
+    const [ accountType, setAccountType ] = useState('Savings');
+    const [ accountHolder, setAccountHolder ] = useState('');
+
+    const [ ifscError, setIfscError ] = useState(false);
+    const [ bankAcNoError, setBankAcNoError ] = useState(false);
+    const [ confirmBankAcNoError, setConfirmBankAcNoError ] = useState(false);
+    const [ accountHolderError, setAccountHolderError ] = useState(false);
+
     function handleSubmit() {
-        // addUserDEtails("")
-        store.dispatch(submitPostuserdetails({ 'userdata': bankformData }))
-
+        //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
         navigate('/completedview');
-
-
     }
 
     const style = {
@@ -28,53 +35,68 @@ const BankAccountDetails = () => {
         } as React.CSSProperties,
     };
 
-    //  const [postUserdetails,setPostUserdetails] = useState<any>({
-
-    //     EnterIFSCcode:""
-    //  })
-    const [bankformData, setBankFormData] = useState<any>({
-        EnterIFSCcode: "",
-        accounttype: "",
-        accountnumber: "",
-
-
-        // firstName: "",
-        // middleName: "",
-        // lastName: "",
-        // emailaddress: "",
-        // mobilenumber: "",
-        // dateofbirth: "",
-        // pincode: "",
-        // gender: "Female",
-        // CountrySecond: "",
-        // StateOfBirth: "",
-        // city: "",
-        // CityofResidence: "",
-        // IncomeSlab: "",
-        // CountryofBirth: "",
-        // Placeofbirth: "",
-        // addressline1: "",
-        // CountryFirst: "",
-        // state: "",
-
-
-
-    })
-    const handleChange = (e: any) => {
+  
+    const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setBankFormData({ bankformData, [e.target.name]: value })
-
-        // 
-
-
-
-
+        setIfscCode(value);
+        const pattern = /[A-Za-z]{4}0\d{6}/;
+        if (!pattern.test(value)) {
+            setIfscError(true);
+        } else {
+            setIfscError(false);
+        }
     }
+
+    const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setBankAcNo(value);
+    }
+
+    const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setConfirmBankAcNo(value);
+        if (value !== bankAcNo) {
+            setConfirmBankAcNoError(true)
+        } else {
+            setConfirmBankAcNoError(false);
+        }
+    }
+
+    const handleAccountHolderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setAccountHolder(value);
+        const pattern = /[A-Za-z]+/;
+        if (!pattern.test(value)) {
+            setAccountHolderError(true);
+        } else {
+            setAccountHolderError(false);
+            
+        }
+    }
+/*
     if (bankformData.EnterIFSCcode?.length === 10) {
         store.dispatch(bankuserdetails({ 'bankuserdata': bankformData }))
     }
     console.log(bankformData.EnterIFSCcode?.length)
 
+    const validate = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const res = event.target.value;
+        setValue(res);
+        const regex = /[A-Za-z]{5}\d{4}[A-Za-z]/;
+        console.log('res', res);
+
+        if (res.length === 10 && !regex.test(res)) {
+            const text = document.querySelector('.MuiFormHelperText-root');
+            if (text) {
+                text.innerHTML = 'The PAN number you’ve entered is incorrect, please enter a valid PAN number.';
+            }
+            setError(true);
+        } else if (res.length === 10) {
+            
+            navigate('/completedview');
+        }
+    };
+*/
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -82,7 +104,6 @@ const BankAccountDetails = () => {
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
-
                         <Sidebar />
                     </Grid>
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
@@ -127,66 +148,82 @@ const BankAccountDetails = () => {
                                     fontWeight: 500,
                                     color: '#6c63ff',
                                 }}>Select your account type</FormLabel>
-                                <RadioGroup defaultValue="savings">
-                                    <FormControlLabel control={<Radio />} label="Savings"
-                                        value={bankformData.accounttype}
-                                        onChange={handleChange}
-
+                                <RadioGroup>
+                                    <FormControlLabel 
+                                        control={<Radio />} 
+                                        label="Savings"
+                                        onChange={ () => setAccountType('savings') }
+                                        value="savings"
                                     />
-                                    <FormControlLabel control={<Radio />} label="Current"
-                                        value={bankformData.accounttype}
-                                        onChange={handleChange}
+                                    <FormControlLabel 
+                                        control={<Radio />} 
+                                        label="Current"
+                                        onChange={ () => setAccountType('current') }
+                                        value="current"
                                     />
                                 </RadioGroup>
                             </FormControl>
 
                             <FormControl>
                                 <TextField
-                                    required id="outlined-ifsc-code"
+                                    required 
+                                    id="outlined-ifsc-code"
                                     label="Enter IFSC code"
-                                    value={bankformData.EnterIFSCcode}
-                                    onChange={handleChange}
+                                    value={ ifscCode }
+                                    onChange={ handleIFSCChange }
                                     name="EnterIFSCcode"
-
+                                    error={ ifscError }
+                                    helperText={ ifscError ? "Please enter a valid IFSC Code" : "" }
                                 />
                             </FormControl>
 
                             <FormControl>
-                                <TextField type="password"
+                                <TextField 
+                                    type="password"
                                     id="outlined-bank-acc-no"
-                                    required label="Bank Account Number"
-                                    value={bankformData.accountnumber}
-                                    onChange={handleChange}
+                                    required 
+                                    label="Bank Account Number"
+                                    value={ bankAcNo }
+                                    onChange={handleBankAcNoChange}
+                                    error={ bankAcNoError }
+                                    helperText={ bankAcNoError ? "Please enter a valid Password" : "" }
                                 />
                             </FormControl>
 
                             <FormControl>
-                                <TextField required
+                                <TextField 
+                                    required
                                     id="confirmed-bank-acc-no"
                                     label="Confirm Bank Account Number"
-                                    value={bankformData.ConfirmaccountNumber}
-                                    onChange={handleChange}
+                                    value={ confirmBankAcNo }
+                                    onChange={handleConfirmBankAcNoChange}
+                                    error={ confirmBankAcNoError }
+                                    helperText={ confirmBankAcNoError ? "Passwords do not match" : "" }
                                 />
                             </FormControl>
 
                             <FormControl>
-                                <TextField required
+                                <TextField 
+                                    required
                                     label="Account Holder's Name"
-                                    value={bankformData.AccountHoldersName}
-                                    onChange={handleChange}
+                                    value={ accountHolder }
+                                    onChange={handleAccountHolderChange}
+                                    error={ accountHolderError }
+                                    helperText={ accountHolderError ? "Please enter a valid Name" : "" }
                                 />
                             </FormControl>
-
+                            
                             <FormControl>
-                                <Button variant="contained" sx={{
-                                    borderRadius: '0.5rem',
-                                    boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                    backgroundColor: '#23db7b',
-                                    padding: '1rem',
-                                    textTransform: 'capitalize',
-
-                                }}
+                                <Button 
+                                    variant="contained" 
                                     onClick={handleSubmit}
+                                    sx={{
+                                        borderRadius: '0.5rem',
+                                        boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
+                                        backgroundColor: '#23db7b',
+                                        padding: '1rem',
+                                        textTransform: 'capitalize',
+                                    }}
                                 >Continue</Button>
                             </FormControl>
                         </Box>
