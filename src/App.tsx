@@ -40,6 +40,8 @@ import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
 import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
+import ExplorePlan from './Components/Insurance/ExplorePlan';
+import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
@@ -66,7 +68,7 @@ import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 
 function App() {
 
-   
+
   const data: PortfolioProp = {
     image: '../../Assets/Portfolio/Miraelogo.svg',
     title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
@@ -78,31 +80,31 @@ function App() {
     fiveYearReturnGrowth: 17.36,
   };
 
-/*
-  const mfData: MFProp = {
-    logo: '/Miraelogo.svg',
-    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-    fundType: ['Large Cap', 'Equity'],
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-  };
-
-  const sipData: SipProp2 = {
-    logo: '/Miraelogo.svg',
-    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-    orderNo: 'INF209K01090',
-    fundType: ['Large Cap', 'Equity'],
-    mandatePending: true,
-    sipDate: '9th of every month',
-    sipAmount: 5000,
-    status: 'Active',
-    stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
-  };
-*/
+  /*
+    const mfData: MFProp = {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: ['Large Cap', 'Equity'],
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+    };
+  
+    const sipData: SipProp2 = {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      orderNo: 'INF209K01090',
+      fundType: ['Large Cap', 'Equity'],
+      mandatePending: true,
+      sipDate: '9th of every month',
+      sipAmount: 5000,
+      status: 'Active',
+      stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
+    };
+  */
 
   return (
     <>
@@ -149,7 +151,9 @@ function App() {
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
 
-        <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/insurance" element={<Insurance />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
 
 
@@ -161,7 +165,7 @@ function App() {
 
 
 
-        <Route path='/explorefunds' element={<ExploreFunds/>}/>
+        <Route path='/explorefunds' element={<ExploreFunds />} />
 
 
 
