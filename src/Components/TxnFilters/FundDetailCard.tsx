@@ -113,7 +113,7 @@ const FundDetailCard = (props: Prop) => {
           </Box>
       </Box>
 
-      <Grid sx={{    display: "flex"
+      <Grid sx={{  paddingBottom:"3px",  display: "flex"
 }} container spacing={2}>
         <Grid item xs={8}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
