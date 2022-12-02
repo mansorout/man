@@ -1,6 +1,8 @@
 
 import { Button, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { PinModalHomeOpenAction } from "../../Store/Duck/PINModalHome";
 
 
   const BacktoLogin = () => {
@@ -20,9 +22,10 @@ import { useNavigate } from "react-router-dom";
     }
 
     const navigate = useNavigate()
+    const dispatch:any = useDispatch()
 
     return (
-        <Button onClick={()=>navigate("/loginsecond")} variant="contained" style={style.button} fullWidth>
+        <Button onClick={()=>{dispatch(PinModalHomeOpenAction()); console.log("Iwas called"); navigate("/loginsecond"); }} variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Back to Login</Typography>
         </Button> 
     )
