@@ -361,9 +361,13 @@ function UploadCheck() {
                 </Typography>
                   </Grid>
                 </Grid> */}
-                <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
-                  Add Cancelled Cheque
-                </Typography>
+                 <Grid  container >
+                                <Grid xs={12} md={8} sm={10}>
+                                <Typography style={{ padding: "15px",display: "flex" }} className="largeHeadingText" >
+                                Add Cancelled Cheque
+                                </Typography>
+                                </Grid>
+                              </Grid>
                  
                 <Box style={style.dividerBox}></Box>
                 <Box sx={{width:"100%", padding:"20px", display:"flex", alignItems:"center", justifyContent:"center", gap:"40px", flexWrap:'wrap', flexDirection:{sm:"column", md:"row"}}}>

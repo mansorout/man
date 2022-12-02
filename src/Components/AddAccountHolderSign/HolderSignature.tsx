@@ -77,7 +77,7 @@ function HolderSignature() {
     const [hidecontent, setHideContent] = useState<boolean>(true)
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
-    // for clearing the image in box
+  
 
     const clear = () => {
         sigCanvas.current.clear()
@@ -101,22 +101,7 @@ function HolderSignature() {
     
 
 
-
-    //  All Button in components goes here
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const useStyles: any = makeStyles((theme: Theme) => ({
+const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
             backgroundColor: "white",
             width: "100%",
@@ -225,7 +210,7 @@ function HolderSignature() {
       });
 
     return (
-        <Box style={{ width: "100vw" }} ref={refContainer}>
+        <Box style={{ width: "100%" }} ref={refContainer}>
             <Navbar />
             <Box sx={style.main}>
                 <Grid
@@ -283,16 +268,10 @@ function HolderSignature() {
                             </Breadcrumbs>
 
                             <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-                                {/* <Grid container  spacing={2} >
-                  <Grid item   xs={12}>
-                  <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
-                  Add Cancelled Cheque
-                </Typography>
-                  </Grid>
-                </Grid> */}
+                                
                               <Grid  container >
                                 <Grid xs={12} md={8} sm={10}>
-                                <Typography style={{ padding: "15px" }} className="largeHeadingText" sx={{ alignItems: "left" }}>
+                                <Typography style={{ padding: "15px",display: "flex" }} className="largeHeadingText" >
                                     Add Account Holder Signature
                                 </Typography>
                                 </Grid>
@@ -348,7 +327,7 @@ function HolderSignature() {
 
                                         {
                                             showSignBox ? "" :
-                                                // <Box sx={{ backgroundColor: "#fff", width: "100%", height: "330px" }}>
+                                                
                                                 <Grid container sx={{
                                                     display: "flex",
                                                     justifyContent: "center",
@@ -382,6 +361,7 @@ function HolderSignature() {
 
 
                                 </Box>
+                                
                                 <Box>
                                     <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
 
@@ -431,7 +411,10 @@ function HolderSignature() {
                                             </Button>
                                         )}
                                     </Box>
+                                  
+                                    
                                 </Box>
+                                <Box style={style.dividerBox}></Box>
                                 {disable ? (
                                     <Box className="saveandaddButton"
                                         textAlign="center"
@@ -440,6 +423,7 @@ function HolderSignature() {
                                         sx={{ pointerEvents: "none", opacity: "0.7" }}
 
                                     >
+                                        
                                         <SaveAndAddButton />
                                     </Box>
                                 ) : (
@@ -449,7 +433,7 @@ function HolderSignature() {
                                 {disable ? "" : <Box className="saveandaddButton"
                                     textAlign="center"
                                     width="80%" onClick={setSignature}>
-                                    <Stack style={style.dividerBox}></Stack>
+                                   
                                     <SaveAndAddButton />
                                 </Box>
 
