@@ -2,7 +2,7 @@
 import './Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Grid, MenuList, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList,  List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom'
 import { chart, meria } from '../../Assets/index'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
+import HoldingCards from '../../Modules/CustomCard/HoldingCards'
+import { AllHolding } from '../../Modal/AllHoldingCards'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -153,6 +155,13 @@ function Portfolio() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
+  const [holding, setHolding] = useState<any>([])
+
+  const [selected, setSelected] = useState<number>(1)
+
+  useEffect(()=>{
+    setHolding(AllHolding)
+  },[])
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     anchorEl ? 
@@ -210,7 +219,7 @@ function Portfolio() {
                               </Box>
                               <Box my={1} style={{display:"flex", gap:"10px", alignItems:"center"}}>
                                 <Box style={{padding:"6px", backgroundColor:"#fdc100", borderRadius:"50%"}}></Box>
-                                <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>DEPT</Typography>
+                                <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>DEBT</Typography>
                               </Box>
                               <Box my={1} style={{display:"flex", gap:"10px", alignItems:"center"}}>
                                 <Box style={{padding:"6px", backgroundColor:"#4979e8", borderRadius:"50%"}}></Box>
@@ -233,7 +242,7 @@ function Portfolio() {
                               <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹5,96,190</Typography>
                             </Box>
                             <Box style={{ width:"40%", minWidth:"200px"}}>
-                              <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Absolute Returne</Typography>
+                              <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Absolute Return</Typography>
                               <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹19,190</Typography>
                             </Box>
                          </Box>
@@ -245,162 +254,30 @@ function Portfolio() {
                     </Box>
                     <Typography style={{marginBottom:"20px", color:"#7b7b9d", fontSize:"21px"}}>Your Holdings</Typography>
                     <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}}>
-                      <Box style={{border:"1px solid #23db7b", borderRadius:"8px", backgroundColor:"#dff7ea", textAlign:"center", padding:"12px 14px"}}>
-                        <Typography style={{fontWeight:"500", color:"#09b85d", fontSize:"14px"}}>All Funds (15)</Typography>
+                      <Box onClick={()=>{ setSelected(1); setHolding(AllHolding)}} style={{cursor:"pointer", border:`1px solid ${ selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
+                        <Typography style={{fontWeight:"500", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>All Funds ({AllHolding.length})</Typography>
                       </Box>
-                      <Box style={{border:"1px solid rgba(123, 123, 157, 0.3)", borderRadius:"8px", backgroundColor:"rgba(255, 255, 255, 0)", textAlign:"center", padding:"12px 14px"}}>
-                        <Typography style={{fontWeight:"500", color:"#7b7b9d", fontSize:"14px"}}>Equity (8)</Typography>
+                      <Box onClick={()=>{ setSelected(2); setHolding(AllHolding.filter((item) => item.type == 'Equity'))}} style={{cursor:"pointer", border:`1px solid ${ selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
+                        <Typography style={{fontWeight:"500", color:`${ selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Equity ({AllHolding.filter((item) => item.type == 'Equity').length})</Typography>
                       </Box>
-                      <Box style={{border:"1px solid rgba(123, 123, 157, 0.3)", borderRadius:"8px", backgroundColor:"rgba(255, 255, 255, 0)", textAlign:"center", padding:"12px 14px"}}>
-                        <Typography style={{fontWeight:"500", color:"#7b7b9d", fontSize:"14px"}}>Debt (5)</Typography>
+                      <Box onClick={()=>{ setSelected(3); setHolding(AllHolding.filter((item) => item.type == 'Debt'))}} style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
+                        <Typography style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Debt ({AllHolding.filter((item) => item.type == 'Debt').length})</Typography>
                       </Box>
-                      <Box style={{border:"1px solid rgba(123, 123, 157, 0.3)", borderRadius:"8px", backgroundColor:"rgba(255, 255, 255, 0)", textAlign:"center", padding:"12px 14px"}}>
-                        <Typography style={{fontWeight:"500", color:"#7b7b9d", fontSize:"14px"}}>Balanced (2)</Typography>
+                      <Box onClick={()=>{ setSelected(4); setHolding(AllHolding.filter((item) => item.type == 'Balanced'))}} style={{cursor:"pointer", border:`1px solid ${ selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
+                        <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Balanced ({AllHolding.filter((item) => item.type == 'Balanced').length})</Typography>
                       </Box>
                     </Box>
                     <Box>
-                      <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                        <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                          <img src={meria} width="100%" alt='mirae'></img>
-                        </Box>
-                        <Box>
-                          <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                          <Box style={{display:"flex", gap:"10px"}}>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Large Cap</Typography>
-                            </Box>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Equity</Typography>
-                            </Box>
-                          </Box>
-                        </Box>
-                        <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
-                          <Typography style={{color:"#6c63ff", fontSize:"16px", fontWeight:"500"}}>₹30,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Invested Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,25,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Current Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,46,625</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5 yrs return</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹21,625 <span style={{color:'#23db7b'}}>(+17.36%)</span></Typography>
-                        </Box>
-                        <Box onClick={handleMoreIcon} style={{backgroundColor:"rgba(123, 123, 157, 0.16)", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column", gap:"2px", width:"28px", height:"28px", borderRadius:"50%"}}>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                        </Box>
-                      </Box>
-                      <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                        <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                          <img src={meria} width="100%" alt='mirae'></img>
-                        </Box>
-                        <Box>
-                          <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                          <Box style={{display:"flex", gap:"10px"}}>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Large Cap</Typography>
-                            </Box>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Equity</Typography>
-                            </Box>
-                          </Box>
-                        </Box>
-                        <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
-                          <Typography style={{color:"#6c63ff", fontSize:"16px", fontWeight:"500"}}>₹30,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Invested Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,25,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Current Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,46,625</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5 yrs return</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹21,625 <span style={{color:'#23db7b'}}>(+17.36%)</span></Typography>
-                        </Box>
-                        <Box onClick={handleMoreIcon} style={{backgroundColor:"rgba(123, 123, 157, 0.16)", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column", gap:"2px", width:"28px", height:"28px", borderRadius:"50%"}}>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                        </Box>
-                      </Box>
-                      <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-                        <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                          <img src={meria} width="100%" alt='mirae'></img>
-                        </Box>
-                        <Box>
-                          <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>Mirae Asset Dynamic Bond Fund Direct Growth</Typography>
-                          <Box style={{display:"flex", gap:"10px"}}>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Large Cap</Typography>
-                            </Box>
-                            <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
-                              <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>Equity</Typography>
-                            </Box>
-                          </Box>
-                        </Box>
-                        <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
-                          <Typography style={{color:"#6c63ff", fontSize:"16px", fontWeight:"500"}}>₹30,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Invested Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,25,000</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>Current Value</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹1,46,625</Typography>
-                        </Box>
-                        <Box>
-                          <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5 yrs return</Typography>
-                          <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹21,625 <span style={{color:'#23db7b'}}>(+17.36%)</span></Typography>
-                        </Box>
-                        <Box onClick={handleMoreIcon} style={{backgroundColor:"rgba(123, 123, 157, 0.16)", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column", gap:"2px", width:"28px", height:"28px", borderRadius:"50%"}}>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                          <Box style={{backgroundColor:"#6c63ff", width:"4px", height:"4px", borderRadius:"50%"}}></Box>
-                        </Box>
-                      </Box>
+                      {
+                        holding.map((item:any, key:any)=>{
+                          return(
+                            <HoldingCards {...item} key={key} />
+                          )
+                        })
+                      }
                     </Box>
                   </Grid>
-                  <MenuUnstyled
-                    style={{zIndex:5000}}
-                    actions={menuActions}
-                    open={Boolean(moreAnchorEl)}
-                    onClose={()=>setMoreAnchorEl(null)}
-                    anchorEl={moreAnchorEl}
-                  >
-                    <StyledMenuItem>
-                      <Box style={style.menuContainer}>
-                        <Box style={{display:"flex", justifyContent:"space-between"}}>
-                          <MenuList style={{width:"100%", padding:"0px"}}>
-                            <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}} onClick={()=>navigate("/redeemfund")}>Redeem Funds</Typography>
-                              <NavigateNext style={{color:"#93a0b2"}}/>
-                            </ListItemButton>
-                            <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}}>Buy More Funds</Typography>
-                              <NavigateNext style={{color:"#93a0b2"}}/>
-                            </ListItemButton>
-                            <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}}>Show Transaction History</Typography>
-                              <NavigateNext style={{color:"#93a0b2"}}/>
-                            </ListItemButton>
-                            <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                              <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}}>View Fund Details</Typography>
-                              <NavigateNext style={{color:"#93a0b2"}}/>
-                            </ListItemButton>
-                          </MenuList>
-                        </Box>
-                      </Box>
-                    </StyledMenuItem>
-                  </MenuUnstyled>
+                  
               </Grid>
             </Grid>
           </Grid>

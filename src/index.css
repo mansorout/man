@@ -14,24 +14,30 @@ body {
   --titleFontSize: 16px;
   --subTitleFontSize: 12px;
   --buttonFontSize: 16px;
+  --fontSize14: 14px;
 
 
-  /* --gradientColor: linear-gradient(227deg, #23db7b 110%, #5450a1 31%); */
-  --gradientColor: linear-gradient(#e66465, #9198e5);
+  --gradientColor: linear-gradient(227deg, #23db7b 15%, #5450a1 60%);
+  --gradientColorBlack: linear-gradient(156deg, #3c3e42, #0c0c0d);
+  /* --gradientColor: linear-gradient(#e66465, #9198e5); */
   ;
 
   --primaryColor: #23db7b;
   --secondaryColor: #64dbff;
   --errorColor: #ff5300;
 
+  --lightGreenColor: #dff7ea;
+
   --ui1Color: #6c63ff;
   --ui2Color: #544ec8;
   --ui3Color: #4b7bec;
+  --blueColorOpacity: #6c63ff33;
   --uiDarkGreyColor: #8787a2;
   --uiGreyColor: rgba(123, 123, 157, 0.16);
   --uiLightGreyColor: #f2f3f8;
   --uiLightGreyColor: #fff;
   --uiWhite: #fff;
+
 
   --typeBlackColor: #000000;
   --typeLightBlackColor: #3c3e42;
@@ -42,6 +48,8 @@ body {
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  --themeShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)';
 
 }
 
