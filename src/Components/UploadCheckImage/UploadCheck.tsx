@@ -58,6 +58,8 @@ import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
 import { boolean } from "yup";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../CommonComponents/Navbar";
+import Sidebar from "../CommonComponents/Sidebar";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -92,8 +94,11 @@ function UploadCheck() {
     useState<boolean>(true);
   const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
+  const [enableShowText,setenableShowText] = useState<boolean>(true);
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+    
+    setenableShowText(false);
     setUploadChequeButtonDisable(false);
     saveAndAddButtonDisable(false);
     setShowSideButton(false);
@@ -132,7 +137,7 @@ function UploadCheck() {
 
   const dataURL = previewCanvasRef.current?.toDataURL();
 
-  console.log(dataURL);
+
 
   //  All Button in components goes here
 
@@ -154,7 +159,7 @@ function UploadCheck() {
   };
 
   const handleConfirm = () => {
-    // for setting in state have to write here
+ 
     setImagePreviewToLast(dataURL)
     setCanvasDisable(false);
     setPreview(false);
@@ -165,14 +170,12 @@ function UploadCheck() {
   };
 
   const sendToApi = () => {
-    // setCanvasImageToBase64(finalImage)
+   
     setCanvasImageToBase64(dataURL)
     store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
 
-  // const ClearCheck =()=>{
-  //   imgSrc("")
-  // }
+
 
   function centerAspectCrop(
     mediaWidth: number,
@@ -259,77 +262,14 @@ function UploadCheck() {
       height: "633",
     },
 
-    drawHere: {
-      width: "169px",
-      height: "38px",
-      margin: "213px 0 0 196px",
-      fontFamily: "213px 0 0 196px",
-      fontSize: "32px",
-      fontWeight: "300",
-      fontStretch: "normal",
-      fontStyle: "normal",
-      lineHeight: "0.63",
-      letterSpacing: "normal",
-      textAlign: "left",
-      color: "#919eb1",
-    } as React.CSSProperties,
+  
+  
 
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    profile: {
-      width: "20px",
-      height: "20px",
-      borderRadius: "50%",
-      border: "1px solid white",
-    },
-    profileInter: {
-      width: "40px",
-      height: "40px",
-      border: "solid 1px rgba(75, 123, 236, 0.49)",
-      borderRadius: "50%",
-    },
-    menuContainer: {
-      boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
-      boxSizing: "border-box",
-      padding: "10px",
-      backgroundColor: "white",
-      marginRight: "20px",
-    } as React.CSSProperties,
-    menuButton: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "10px 0px",
-    } as React.CSSProperties,
-    menuText: {
-      color: "black",
-      fontSize: "10px",
-      fontWeight: "500",
-      padding: "5px 10px",
-      borderRadius: "4px",
-      backgroundColor: "#ffc300",
-      cursor: "pointer",
-    },
-    menuText2: {
-      padding: "6px 12px",
-      borderRadius: "4px",
-      border: "solid 1px #23db7b",
-      backgroundColor: "rgba(35, 219, 123, 0.12)",
-      fontSize: "12px",
-      fontWeight: "500",
-      color: "#09b85d",
-      cursor: "pointer",
-    },
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "none",
-      backgroundColor: "white",
-      textAlign: "left",
-      justifyContent: "flex-start",
-    } as React.CSSProperties,
+   
+  
+   
+   
+   
     menuIcon: {
       color: "#6c63ff",
       fontSize: "24px",
@@ -356,474 +296,170 @@ function UploadCheck() {
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
-      <AppBar elevation={2} style={style.appBar} classes={classes.appBar}>
-        <Toolbar style={style.toolbar}>
-          <Box>
-            <MenuRounded
-              onClick={() => setOpen(!open)}
-              sx={{
-                color: "#8787a2",
-                display: { sx: "block", sm: "none" },
-                marginRight: "20px",
-              }}
-            />
-            <img src={Logo} alt="Sprint Money" style={style.image} />
-          </Box>
-          <Box onClick={handleClick} style={style.profileContainer}>
-            <img src={Profile} alt="image" style={style.profile} />
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "white",
-                display: { xs: "none", sm: "block" },
-              }}
-            >
-              Hi, Rahul M.
-            </Typography>
-            {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
-          </Box>
-          <MenuUnstyled
-            style={{ zIndex: 5000 }}
-            actions={menuActions}
-            open={Boolean(anchorEl)}
-            onClose={() => setAnchorEl(null)}
-            anchorEl={anchorEl}
-          >
-            <StyledMenuItem>
-              <Box style={style.menuContainer}>
-                <img src={Profile} alt="image" style={style.profileInter} />
-                <Typography className="mediumButtonText">
-                  Rahul Malhotra
-                </Typography>
-                <Typography className="caption">
-                  rahul.malhotra@gamil.com
-                </Typography>
-                <Box style={style.menuButton}>
-                  <Typography style={style.menuText}>KYC PENDING</Typography>
-                  <Typography style={style.menuText2}>View Profile</Typography>
-                </Box>
-                <Divider style={{ margin: "15px 0px" }} />
-                <Button
-                  variant="contained"
-                  style={style.button}
-                  fullWidth
-                  startIcon={<Support style={style.menuIcon} />}
-                >
-                  <Typography component="span" className="subTitle3">
-                    Help & Support
-                  </Typography>
-                </Button>
-              </Box>
-            </StyledMenuItem>
-          </MenuUnstyled>
-        </Toolbar>
-      </AppBar>
-      <DrawerList
-        sx={{
-          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-          display: { xs: "block", sm: "none" },
-          "& .MuiBackdrop-root": {
-            flexGrow: 0,
-          },
-        }}
-        PaperProps={{
-          elevation: 0,
-          sx: { width: "250px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)" },
-        }}
-        style={style.drawer}
-        onClose={() => setOpen(false)}
-        variant="temporary"
-        open={open}
-      >
-        <Toolbar />
-        <List sx={{ py: "30px" }}>
-          <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
-            <ListItemButton
-            onClick={() => navigate('/home')}
-              sx={{
-                minHeight: 48,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <HomeIcon sx={{ color: "#23db7b" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Home"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-             onClick={() => navigate('/portfolio')}
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <Assessment sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Portfolio"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <Search sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Explore Funds"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{
-              display: "block",
-              position: "fixed",
-              width: { sx: "0%", sm: "8.333%", md: "16.666%" },
-              bottom: "0",
-            }}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 56,
-                px: 2.5,
-                my: 2,
-                flexDirection: { sm: "column", md: "row" },
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 1,
-                  justifyContent: "center",
-                }}
-              >
-                <PowerSettingsNew sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText
-                primary="Logout"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
-              />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </DrawerList>
+      <Navbar/>
       <Box sx={style.main}>
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh", overflow: "hidden" }}
+          sx={{ height: "100vh"}}
         >
+          
           <Grid
-            sx={{
-              display: { xs: "none", sm: "block" },
-              backgroundColor: "white",
-              boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-              height: "auto",
-              padding: 0,
-              boxSizing: "border-box",
-            }}
             item
             xs={0}
             sm={1}
             md={2}
           >
             <Toolbar />
-            <List sx={{ py: "30px", height: "inherit" }}>
-              <ListItem
-                disablePadding
-                sx={{ background: "rgba(0, 0, 0, 0.05)" }}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <HomeIcon sx={{ color: "#23db7b" }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Home"
-                    sx={{
-                      color: "#3c3e42",
-                      fontSize: { sm: "10px", md: "16px" },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Assessment sx={{ color: "black" }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Portfolio"
-                    sx={{
-                      color: "#3c3e42",
-                      fontSize: { sm: "10px", md: "16px" },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Search sx={{ color: "black" }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Explore Funds"
-                    sx={{
-                      color: "#3c3e42",
-                      fontSize: { sm: "10px", md: "16px" },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
-                sx={{
-                  display: "block",
-                  position: "fixed",
-                  width: { sx: "0%", sm: "8.333%", md: "16.666%" },
-                  bottom: "0",
-                }}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 56,
-                    px: 2.5,
-                    my: 2,
-                    flexDirection: { sm: "column", md: "row" },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: 1,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <PowerSettingsNew sx={{ color: "black" }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Logout"
-                    sx={{
-                      color: "#3c3e42",
-                      fontSize: { sm: "10px", md: "16px" },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </List>
+            <Sidebar/>
           </Grid>
-
-          { }
-{/* upload cheque ...................................................................................... */}
-
-
           <Grid
             container
-            className="container"
             xs={13}
             sm={11}
             md={10}
           >
-            <Stack className="checkHeadingStack">
-              <Typography
-                sx={{ marginTop: "66px", marginLeft: "26px" }}
-                component="span"
-                className="subTitle5"
-              >
-                Cancelled cheque is used for KYC procedures and to facilitate an
-                electronic clearing system (ECS) mandate.
-              </Typography>
-            </Stack>
-            <Breadcrumbs aria-label="breadcrumb">
-                  <Link color="#6495ED" underline="always" href="/home">
-                   <Typography className='burgerText'> Home</Typography>
-                  </Link>
-                  <Link
-                    underline="always"
-                    color="#6495ED"
-                    href="/vp"
-                  >
-                    <Typography className='burgerText'>  View Profile</Typography>
-                    
-                  </Link>
-                  <Link
-                    underline="always"
-                    color="#6495ED"
-                    // href="/"
-                    aria-current="page"
-                  >
+            <Grid sx={{padding:2}} item xs={12}>
+              <Toolbar/>
+              <Box sx={{mb:"10px"}} className="checkHeadingStack">
+                <Typography
+                
+                  component="span"
+                  className="subTitle5"
+                >
+                  Cancelled cheque is used for KYC procedures and to facilitate an
+                  electronic clearing system (ECS) mandate.
+                </Typography>
+              </Box >
+              <Breadcrumbs sx={{mb:"10px"}} aria-label="breadcrumb">
+                <Link color="#6495ED" underline="always" href="/home">
+                <Typography className='burgerText'> Home</Typography>
+                </Link>
+                <Link
+                  underline="always"
+                  color="#6495ED"
+                  href="/vp"
+                >
+                  <Typography className='burgerText'>  View Profile</Typography>
                   
-                    
-                  </Link>
-                  </Breadcrumbs>
+                </Link>
+                <Link
+                  underline="none"
+                  color="#8787a2"
+                  aria-current="page"
+                >
+                
+                <Typography className='burgerText'>  Cancelled Cheque </Typography>
+                </Link>
+              </Breadcrumbs>
 
-            
-              <Paper className="mainPaper">
-                <Stack className="Add_Cancelled_Cheque">
-                  <Typography
-                    sx={{ width: "274px", marginBlock: "auto" }}
-                    className="largeHeadingText"
-                  >
-                    Add Cancelled Cheque
-                  </Typography>
-                </Stack>
-                <Stack style={style.dividerBox}></Stack>
-
-                <Grid container 
-                 xs={13}
-                 sm={11}
-                 md={10}
-                  sx={{display: "-webkit-inline-box" }} >
-
-                  <Grid xs>
-                    {
-                      preview ? <Box 
-                      className = "renderBox"
-                       
-                      >
-                        {/* for image crop */}
-                        {!!imgSrc && (
-                          <ReactCrop
-                            crop={crop}
-                            onChange={(_, percentCrop) => setCrop(percentCrop)}
-                            onComplete={(c) => setCompletedCrop(c)}
-                            aspect={aspect}
-                          >
-                            <img
-                              ref={imgRef}
-                              alt="Crop me"
-                              src={imgSrc}
-                              style={{
-                                width: "564px",
-                                height: "238px",
-                                transform: `rotate(${rotate90}deg)`,
-                              }}
-                              onLoad={onImageLoad}
-                            />
-                          </ReactCrop>
-                        )}
-                      </Box> : " "
-                    }
-
-                    {
-                      preview ? "" : <Box style={{ height: "fit-content", width: "fit-content" }} >
-                        <img
-                          className="previewImg"
-                          src={imagePreviewToLast}
-
-                        />
-                      </Box>
-                    }
-
+              <Box style={{position:"relative", marginBottom:"20px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column"}}>
+                {/* <Grid container  spacing={2} >
+                  <Grid item   xs={12}>
+                  <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
+                  Add Cancelled Cheque
+                </Typography>
                   </Grid>
-                  <Grid className="ButtonGrid" xs={6}>
-                    {showSideButton ? (
-                      " "
-                    ) : (
+                </Grid> */}
+                 <Grid  container >
+                                <Grid xs={12} md={8} sm={10}>
+                                <Typography style={{ padding: "15px",display: "flex" }} className="largeHeadingText" >
+                                Add Cancelled Cheque
+                                </Typography>
+                                </Grid>
+                              </Grid>
+                 
+                <Box style={style.dividerBox}></Box>
+                <Box sx={{width:"100%", padding:"20px", display:"flex", alignItems:"center", justifyContent:"center", gap:"40px", flexWrap:'wrap', flexDirection:{sm:"column", md:"row"}}}>
+                  { preview ? 
+                    <Box className = "renderBox">
+                      
+                      {
+                        enableShowText ?   <Grid container spacing={3}>
+                          <Grid sx={{textAlign:"center"}} item xs={12}>
+                          <Typography className="checkWillAppearHere">
+                        Your cheque will appear here…
+                        </Typography> 
 
-                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "inline-grid" }}>
-                        
+                          </Grid>
+                        </Grid>  : "" 
+                      }
+                      {
+                        enableShowText ? "" :  <Grid container sx={{display:"none"}} spacing={3}>
+                          <Grid sx={{textAlign:"center"}} item xs={12}>
+                          <Typography className="checkWillAppearHere">
+                        Your cheque will appear here…
+                        </Typography> 
+
+                          </Grid>
+                        </Grid>   
+                      }
+                      {!!imgSrc && (
+                        <ReactCrop
+                          style={{width:"100%"}}
+                          crop={crop}
+                          onChange={(_, percentCrop) => setCrop(percentCrop)}
+                          onComplete={(c) => setCompletedCrop(c)}
+                          aspect={aspect}
+                        >
+                          <img
+                            ref={imgRef}
+                            alt="Crop me"
+                            src={imgSrc}
+                            style={{
+                              margin:"auto",
+                              width: "100%",
+                              height: "300px",
+                              transform: `rotate(${rotate90}deg)`,
+                            }}
+                            onLoad={onImageLoad}
+                          />
+                        </ReactCrop>
+                      )}
+                    </Box> : 
+                    <Box style={{ height: "fit-content", width: "fit-content" }} >
+                      <img
+                        className="previewImg"
+                        src={imagePreviewToLast}/>
+                    </Box>
+                  }
+                  {showSideButton ? (
+                    " "
+                  ) : (
+
+                    <Box sx={{ "& > :not(style)": { m: .5 },  display:"flex",gap:"10px", flexWrap:'wrap', padding:"10px", flexDirection: { sm:"row", md: "column"}}}>
+                      
+                      <Box>
                         <Fab onClick={handleRotate} >
-                        <RotateRightIcon />
-                      </Fab>
-                      <Typography className="textStyling"> Rotate </Typography>
+                          <RotateRightIcon />
+                        </Fab>
+                        <Typography className="textStyling"> Rotate </Typography>
+                      </Box>
+                      <Box>
                         <Fab onClick={handleToggleAspectClick}>
                           <CropIcon />
                         </Fab>
-                        <Typography> Crop </Typography> 
+                        <Typography> Crop </Typography>
+                      </Box> 
 
+                      <Box>
                         <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
                           <DoneIcon />
                         </Fab>
                         <Typography> Done </Typography>
+                      </Box>
+                      <Box>
                         <Fab onClick={handleCancel} >
                           <ClearIcon />
                         </Fab>
                         <Typography> Cancel </Typography>
                       </Box>
+                    </Box>
 
 
 
-                    )}
-                  </Grid>
-                </Grid>
+                  )}
+                </Box>
                 <Box>
                   <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
                     <input
@@ -876,11 +512,12 @@ function UploadCheck() {
                     )}
                   </Box>
                 </Box>
-
                 {saveAndAddButton ? (
                   <Box className="saveandaddButton"
                     textAlign="center"
-                    sx={{ pointerEvents: "none", opacity: "0.7" }}
+                    width="80%"
+                    mb={2}
+                    sx={{pointerEvents: "none", opacity: "0.7" }}
                     onClick={sendToApi}
                   >
                     <SaveAndAddButton />
@@ -892,13 +529,10 @@ function UploadCheck() {
                 {saveAndAddButton ? (
                   ""
                 ) : (
-                  <Box textAlign="center" onClick={sendToApi}>
+                  <Box mb={2} textAlign="center" width="80%" onClick={sendToApi}>
                     <SaveAndAddButton />
                   </Box>
                 )}
-
-                {/* for preview of image */}
-
                 {!!completedCrop && (
                   <canvas
                     ref={previewCanvasRef}
@@ -911,24 +545,23 @@ function UploadCheck() {
                     }}
                   />
                 )}
-              </Paper>
-            
-
-            <Box className="footerText">
-              <Typography  component="span" className="bottomContentText ">
-                By submitting these details, you are agree to share your details
-                to BSE for further transactions <br />
-              </Typography>
-              <Typography
-                component="span"
-                style={{ cursor: "pointer" }}
-                className="textLink"
-              >
-                Terms and conditions
-              </Typography>
-
-
-            </Box>
+                  
+                </Box>
+                <Box style={{ width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
+                  <Typography mt={2} textAlign="center"  component="span" className="bottomContentText ">
+                    By submitting these details, you are agree to share your details
+                    to BSE for further transactions <br />
+                  </Typography>
+                  <Typography mb={2}
+                  textAlign="center"
+                    component="span"
+                    style={{ cursor: "pointer" }}
+                    className="textLink"
+                  >
+                    Terms and conditions
+                  </Typography>
+                </Box>
+            </Grid>
           </Grid>
         </Grid>
       </Box>

@@ -41,6 +41,8 @@ export const cameraIcon = require("./Profile/cameraIcon.png")
 export const chart = require("./Portfolio/chart.png")
 export const meria = require("./Portfolio/mirae.png")
 
+export const homeConnect = require("./home_connect.png")
+
 
 
 
@@ -104,6 +106,9 @@ export const schemeDoc =require("./description-24px@3x.png")
 export const hdfclogo =require("./Profile/HdfcBanklogo.png")
 export const upilogo =require("./Profile/UPIlogo.png")
 export const fundChart =require("./FundChart.png")
+export const signExclamatory =require("./ic_info-24px@2x.png")
+export const validMobile =require("./ValidMobileNumber.png")
+
 
 
 

@@ -281,10 +281,11 @@ function VviewprofileCard() {
                     </ListItem>
                     <VerificationpendingButton />
                 </List>
+             
             </Box>
 
 
-            <Box
+         <Box
                 sx={{
                     p: 1,
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
@@ -326,8 +327,8 @@ function VviewprofileCard() {
                         />
                     </ListItem>
                 </List>
-            </Box>
-            <Box
+            </Box> 
+             <Box
                 sx={{
                     p: 0.05,
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"
@@ -367,7 +368,7 @@ function VviewprofileCard() {
                         />
                     </ListItem>
                 </List>
-            </Box>
+            </Box> 
 
 
         </>
