@@ -9,15 +9,15 @@ import { Editprofilebutton } from '../Buttons/Editprofilebutton'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import clsx from "clsx";
- 
-import { useState } from 'react'
+
+import { useEffect, useState } from 'react'
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import React from 'react'
 import { height, padding } from '@mui/system'
 import MenuItem from '@mui/material/MenuItem';
- 
+
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -31,7 +31,7 @@ import { submituserdetails } from '../../Store/Reducers/action';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 
-
+import { FormHelperText } from '@mui/material';
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -45,15 +45,15 @@ import { useForm } from "react-hook-form";
 
 
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
-const country = [{ name: "Delhi", code: "de" }, { name: "kanpur" }]
+const country = ["delhi", "kanpur"]
 const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
 
 
 function EditprofileCard() {
- 
- 
+
+
   // const { register, handleSubmit, errors } = useForm();
 
   // const onSubmit = (data) => {
@@ -113,23 +113,29 @@ function EditprofileCard() {
 
 
   })
-  const [firstNameError,setFirstNameError] = useState(false)
-  const [lastNameError,setLastNameError] = useState(false)
+  const [firstNameError, setFirstNameError] = useState(false)
+  const [lastNameError, setLastNameError] = useState(false)
+  const [MidNameError, setMidNameError] = useState(false)
+  const [mobileNumberError, setMobileNumberError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [countryError, setCountryError] = useState(false)
 
 
-  const[error,setError] = useState(false)
+  const [addresserror, setaddressError] = useState(false)
+  const [incomeslaberror, setIncomeslabError] = useState(false)
+  const [checkValue, setCheckValue] = useState(true)
+  const [submitError, setSubmitError] = useState(true)
+  const [showMessage, setShowMessage] = useState(false)
 
-  const [submitError,setSubmitError] = useState(true)
+  const [dropValueresidence, setDropValueresidence] = useState(false)
+  const [dropValue, setDropValue] = useState(false)
 
- 
-
-
-
+  const [dropdownvalue, setDropownvalue] = useState(false)
 
 
 
   const { register, formState: { errors } } = useForm();
- let emailRegex =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handlechange = (e: any) => {
     e.preventDefault();
     const value = e.target.value;
@@ -138,53 +144,69 @@ function EditprofileCard() {
       [e.target.name]: value
 
     })
-  
-    console.log(formData.lastName.length)
-    if(formData.firstName.length>0){
+
+
+    if (formData.firstName.length > 0) {
       setFirstNameError(true)
-      
+
+    } if (formData.middleName.length > 0) {
+      setMidNameError(true)
+
+
+    } if (formData.lastName.length > 0) {
+
+      setLastNameError(true)
+
+    } if (formData.mobilenumber.length > 0) {
+      setMobileNumberError(true)
+      // setCheckValue(false)
+    } if (formData.emailaddress.length > 0) {
+      setEmailError(true)
+      // setCheckValue(false)
+    } if (formData.CountrySecond > 0) {
+      setCountryError(true)
+      // setCheckValue(false)
+    }
+    if (formData.addressline1.length > 0) {
+      setaddressError(true)
+      // setCheckValue(false)
+    }
+    if (formData.IncomeSlab.length > 0) {
+      setIncomeslabError(true)
+      // setCheckValue(false)
+    }
+
+
+  }
+
+  useEffect(() => {
+
+
+    console.log(formData.CountrySecond)
+    console.log(formData.CountrySecond !== "")
+    if (formData.firstName.length > 3 && formData.lastName.length > 3 && emailRegex.test(formData.emailaddress) !== false
+
+      && formData.mobilenumber.length === 10 && formData.addressline1.length > 3 && formData.IncomeSlab.length > 9) {
       setSubmitError(false)
- } if(formData.lastName.length>0){
-  
-  setLastNameError(true)
-  setSubmitError(false)
- }
+      setDropValue(true)
+      setDropownvalue(true)
+      setDropValueresidence(true)
+      console.log('input value should not be empty');
+    }
 
-  // switch (true) {
-  //   case formData.firstName.length ==0 : 
-  //   setError(true)
-  // 
-  //     break;
-  //   case formData.lastName.length == 0:
-  //     setError(true)
-  //     setSubmitError(false)
-  //     break;
-  
-  //   default:
-  //     setError(false)
-  //     break;
-  // }
-  if(formData.firstName)
-  {
-  console.log("First Name: ",formData.firstName, )
-  }
+  })
 
 
- 
-    
-
-  }
   const dispatch = useDispatch()
   const [city, setCity] = React.useState('');
   const [state, setState] = React.useState('');
 
   const navigate = useNavigate();
   function handleClick() {
-    // addUserDEtails("")
-    store.dispatch(submituserdetails({ 'userdata': formData }))
+    alert("h")
 
-    navigate('/completedview');
- 
+
+
 
   }
 
@@ -259,7 +281,7 @@ function EditprofileCard() {
 
   }
   const classes = useStyles();
- 
+
   return (
     <>
       <div style={{
@@ -279,12 +301,12 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-25px"
               }}
-            
+
             >
               <Stack m={2} spacing={6}>
 
                 <TextField
-                
+
                   type="text"
                   aria-label="Email field"
                   label="First Name"
@@ -292,6 +314,7 @@ function EditprofileCard() {
                   value={formData.firstName}
                   onChange={handlechange}
                   fullWidth
+
                   id='First Name'
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
@@ -299,14 +322,18 @@ function EditprofileCard() {
                     width: "100%", fontSize: "15px", fontWeight: "normal",
 
                   }}
-               
+
                 >
                 </TextField>
-                {firstNameError&&formData.firstName.length<=3?
-                    <label color="red">First Name can't be Empty</label>:""}
+                {firstNameError && formData.firstName.length <= 3 ?
+                  <label style={{
+                    color: "red", marginTop: "2%",
+                    marginLeft: "-25%"
+                  }} >First Name should be required</label> : ""}
+
                 <TextField label="Middle Name"
                   name="middleName"
-           
+
                   value={formData.middleName} onChange={handlechange} fullWidth
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
@@ -314,7 +341,11 @@ function EditprofileCard() {
                     width: "100%", fontSize: "15px", fontWeight: "normal",
 
                   }} >
-
+                  {MidNameError && formData.middleName.length <= 3 ?
+                    <label style={{
+                      color: "red", marginTop: "2%",
+                      marginLeft: "-32%"
+                    }} >Middle Name should be required</label> : ""}
 
                 </TextField>
 
@@ -330,8 +361,8 @@ function EditprofileCard() {
 
                   }} >
                 </TextField>
-                {lastNameError && formData.lastName.length<=3?
-                    <label color="red">last Name can't be Empty</label>:""}
+                {lastNameError && formData.lastName.length <= 3 ?
+                  <label style={{ color: "red" }}>last Name should be required</label> : ""}
 
 
                 <TextField label="Mobile Number"
@@ -344,9 +375,13 @@ function EditprofileCard() {
 
                 >
 
+                </TextField>
+                {mobileNumberError && (formData.mobilenumber.length < 10 || formData.mobilenumber.length > 10 ?
+                  <label style={{
+                    color: "red", marginTop: "2%",
+                    marginLeft: "-32%"
+                  }}>Mobile Number should be 10 digits</label> : "")}
 
-            </TextField>
-                
                 <TextField label="Email Address"
                   name="emailaddress"
                   sx={{
@@ -359,8 +394,11 @@ function EditprofileCard() {
 
 
                 </TextField>
-                {/* {error&& emailRegex.test(formData.emailaddress.value) == false ?
-                    <label color="red">Email can't be Empty</label>:""} */}
+                {emailError && emailRegex.test(formData.emailaddress) == false ?
+                  <label style={{
+                    color: "red", marginTop: "2%",
+                    marginLeft: "-32%"
+                  }}>Email should be required</label> : ""}
                 <Box
                   component="form"
                   sx={{
@@ -376,21 +414,29 @@ function EditprofileCard() {
                     }}>country</InputLabel>
 
                     <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
+                      name="CountrySecond"
                       value={formData.CountrySecond}
                       onChange={handlechange}
-                      name="CountrySecond"
-                      sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+
                     >
-                      {country.map((l: any) => (
-                        <MenuItem value={l}>
-                          {l.name}
-                        </MenuItem>
-                      ))}
+                      <MenuItem value="hai">Delhi</MenuItem>
+                      <MenuItem value="olivier">kanpur</MenuItem>
+                      <MenuItem value="kevin">Noida</MenuItem>
                     </Select>
                   </FormControl>
-             
+                  {dropValue && formData.CountrySecond == "" ?
+                    <label style={{
+                      fontSize: "10px",
+                      width: "100%",
+                      maxWidth: "400px",
+                      height: "15px",
+                      color: " red",
+                      marginBottom: "10px",
+                      display: "flex",
+                      marginLeft: "50 %" }}>Required</label> : ""}
+
+
+
                   <FormControl sx={{ width: "49%" }}>
                     <InputLabel id="demo-simple-select-label"
                       sx={{
@@ -415,8 +461,17 @@ function EditprofileCard() {
                     </Select>
                   </FormControl>
 
-
+                  {dropdownvalue && formData.StateOfBirth == "" ?
+                    <label style={{
+                      width: "100%",
+                      maxWidth: "400px",
+                      height: "15px",
+                      color: "red",
+                      marginBottom: "10px",
+                    }}>Required*</label> : ""}
                 </Box>
+
+
 
 
               </Stack>
@@ -487,7 +542,12 @@ function EditprofileCard() {
 
 
                 </TextField>
-             
+                {addresserror && formData.addressline1.length <= 5 ?
+                  <label style={{
+                    color: "red", marginTop: "2%",
+                    marginLeft: "-32%"
+                  }} >Address should not  be Empty</label> : ""}
+
                 <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
                 <Box
                   component="form"
@@ -524,7 +584,8 @@ function EditprofileCard() {
                         ))}
                       </Select>
                     </FormControl>
-
+                    {dropValueresidence && formData.CityofResidence == "" ?
+                      <label style={{ color: "red" }}></label> : ""}
                     <FormControl sx={{ width: "50%" }}>
                       <InputLabel id="demo-simple-select-label"
                         sx={{
@@ -606,11 +667,15 @@ function EditprofileCard() {
                   value={formData.IncomeSlab}
                   onChange={handlechange}
                   sx={{ position: "relative", width: "100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
-                    {/* {error&&formData.IncomeSlab.length<=3?
-                    <label color="red">IncomeSlab  can't be Empty</label>:""} */}
-                <Button variant="contained" style={style.button} 
-                disabled={submitError}
-                onClick={handleClick} fullWidth >
+                {incomeslaberror && formData.IncomeSlab.length <= 9 ?
+                  <label style={{
+                    color: "red", marginTop: "2%",
+                    marginLeft: "-32%"
+                  }} >IncomeSlab Should not be empty</label> : ""}
+
+                <Button variant="contained" style={style.button}
+                  disabled={submitError}
+                  onClick={handleClick} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                 </Button>
               </Stack>

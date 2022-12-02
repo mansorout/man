@@ -133,7 +133,7 @@ function ViewProfileCard() {
                     <Box  onClick={()=>
                           uploadInputRef.current && uploadInputRef.current.click()}>
                   
-                    <img alt="Money Sprint" src={imgSrc} style={style.cameraIcon} />
+                    <img alt="" src={imgSrc} style={style.cameraIcon} />
                     <input
                       ref={uploadInputRef}
                       type="file"
