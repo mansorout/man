@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,24 @@ import Sidebar from "../CommonComponents/Sidebar";
 const Nominee = () => {
 
     const navigate = useNavigate();
+
+    const [ name, setName ] = useState('');
+    const [ dateOfBirth, setDateOfBirth ] = useState('');
+    const [ relation, setRelation ] = useState('');
+
+    const [ nameError, setNameError ] = useState(false);
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setName(value);
+        const pattern = /[A-Za-z]+/;
+        if (!pattern.test(value)) {
+            setNameError(true);
+        } else {
+            setNameError(false);
+            
+        }
+    }
 
     const style = {
         main: {
@@ -62,11 +81,11 @@ const Nominee = () => {
                             }}>Add Nominee & Declarations</Typography>
 
                             <FormControl>
-                                <TextField required label="Full Name" />
+                                <TextField required label="Full Name" value={ name } onChange={ handleNameChange } />
                             </FormControl>
 
                             <FormControl>
-                                <TextField type="date" label="Date of Birth" placeholder="" />
+                                <TextField type="date" label="Date of Birth" />
                             </FormControl>
 
                             <FormControl>

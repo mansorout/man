@@ -13,6 +13,7 @@ import UploadChequeReducer from './Reducers/UploadChequeReducer'
 import { NavToggleReducer } from './Duck/NavToggle'
 import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { PinModalHome } from './Duck/PINModalHome'
 
 
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     uploadCheque: UploadChequeReducer,
     NavToggleReducer: NavToggleReducer,
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
+    PinModalHome: PinModalHome,
 })
 
 export const store = createStore(

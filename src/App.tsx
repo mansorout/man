@@ -53,8 +53,11 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
+import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
+import CancleSIP from './Components/Portfolio/CancleSIP';
+
 
 
 
@@ -155,13 +158,16 @@ function App() {
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
+        <Route path="/Insurance" element={<Insurance />} />
+        <Route path='/cancleSip' element={<CancleSIP />} />
 
 
 
 
 
         <Route path="/funddetails" element={<FundDetails />} />
-        <Route path="/filter" element={<TxnFilters />} />
+
+
 
 
 
