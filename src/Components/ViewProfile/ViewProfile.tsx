@@ -9,11 +9,12 @@ import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, Lis
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
+import { AppBar, Button, Divider, Link, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
 import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
+import { Breadcrumbs } from '@mui/joy';
 
 
 
@@ -381,7 +382,18 @@ function ViewProfile() {
           </Grid>
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
             <Toolbar />
+            <Breadcrumbs sx={{
+              fontSize: '12px',
+              color: '#6c63ff',
+            }}>
+              <Link href="/home">Home</Link>
+              <Typography sx={{
+                fontSize: '12px',
+                color: '#373e42'
+              }}>View Profile</Typography>
+            </Breadcrumbs>
             <Grid container sx={{ display: "flex" }} wrap='nowrap'>
+              
               <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
                 <ViewProfileCard  />
