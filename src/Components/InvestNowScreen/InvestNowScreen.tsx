@@ -33,7 +33,6 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function InvestNowScreen() {
-
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
       backgroundColor: "white",
@@ -43,8 +42,6 @@ function InvestNowScreen() {
       zIndex: "3000",
     },
   }));
-
-
 
   const style = {
     main: {
@@ -136,9 +133,7 @@ function InvestNowScreen() {
   }
 
   const [open, setOpen] = useState<boolean>(false)
-
   const menuActions = React.useRef<MenuUnstyledActions>(null);
-
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
@@ -295,6 +290,7 @@ const navigate=useNavigate()
           </ListItem>
         </List>
       </DrawerList>
+      
       <Box sx={style.main}>
         <Grid container spacing={0} sx={{ height: "100vh", overflow: "hidden" }}>
           <Grid sx={{ display: { xs: "none", sm: "block" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", height: "auto", padding: 0, boxSizing: "border-box" }} item xs={0} sm={1} md={2}>
@@ -386,34 +382,22 @@ const navigate=useNavigate()
               </ListItem>
             </List>
           </Grid>
-
-
           
           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
             <Toolbar />
-
             <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                                <Breadcrumbs aria-label="breadcrumb">
-
-
-
-                                    <Link color="#6495ED" underline="always" href='Home' >
-                                        <Typography className='burgerText'> Home</Typography>
-                                    </Link>
-                                 
-                                       
- 
-                                    <Link  underline="always">
-                                        <Typography className='burgerText'>Investment</Typography>
-                                    
-                                    </Link>
-                                    
-                                    <Link  underline="always">
-                                        <Typography className='burgerText' >One-time lumpsum</Typography>
-                                    
-                                    </Link>
-                                </Breadcrumbs>
-                            </Box>
+              <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link  underline="always">
+                      <Typography className='burgerText'>Investment</Typography>
+                  </Link>
+                  <Link  underline="always">
+                      <Typography className='burgerText' >One-time lumpsum</Typography>
+                  </Link>
+              </Breadcrumbs>
+            </Box>
             <Grid container >
               <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
 
@@ -423,13 +407,7 @@ const navigate=useNavigate()
 
                 <InvestSecondCard />
               </Grid>
-
-              
             </Grid>
-
-
-
-
 
             <Box
               textAlign="center"
@@ -438,16 +416,10 @@ const navigate=useNavigate()
                 width: "304px",
               }}
             >
-
-
             </Box>
-
           </Grid>
-
         </Grid>
-
       </Box>
-
     </Box>
   )
 }

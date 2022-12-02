@@ -189,7 +189,13 @@ function Home() {
 
 
   const error: string[] = useSelector((state: any) => state.error)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const handleNavigation = (strNavigationScreenName: string)=>{
+
+    
+      navigate(strNavigationScreenName);
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -212,7 +218,7 @@ function Home() {
                 {
                   investingCards.map((item, key) => {
                     return (
-                      <Grid key={key} onClick={() => navigate("/investnowscreen")} item xs={6} sx={{ padding: 2 }}>
+                      <Grid key={key} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
                         <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                       </Grid>
                     )
