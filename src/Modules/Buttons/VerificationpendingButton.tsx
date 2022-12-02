@@ -19,20 +19,24 @@ export const VerificationpendingButton = () => {
         } as React.CSSProperties,
         text_T: {
             color: "black",
-
-            fontWeight: " 500",
-
+            fontSize: '12px',
+            fontWeight: "bold",
+            lineHeight: '2',
             opacity: "0.74",
-        }
+            textTransform: 'capitalize',
+        } as React.CSSProperties,
     }
 
     return (
-        <Button variant="contained" style={style.button_B} fullWidth>
+        <Button variant="contained" style={style.button_B} fullWidth sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+        }}>
             <img src={Checkcirclelogo} width="16px" height="22.6" alt="Google Logo" />
 
 
 
-            <Typography component="span" style={style.text_T} className="largeButtonText" >KYC Verification is pending</Typography>
+            <Typography component="span" style={style.text_T}>KYC Verification is pending</Typography>
             <img src={arrowForwedlogo} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "62px" }} />
         </Button>
     )

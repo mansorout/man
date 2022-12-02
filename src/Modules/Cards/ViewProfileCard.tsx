@@ -111,13 +111,13 @@ function ViewProfileCard() {
                     <ListItem
 
                         secondaryAction={
-                            <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", borderRadius: " 20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
+                            <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
                         }
 
                     >
                     </ListItem>
 
-                    <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500px" }}>Personal Details</Typography>
+                    <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
 
                     <ListItem
 
