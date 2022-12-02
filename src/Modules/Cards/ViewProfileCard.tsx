@@ -70,7 +70,7 @@ function ViewProfileCard() {
             width: "20px",
             height: "20px",
             padding: "10px",
-            opacity: "0.9",
+            opacity: "0.3",
 
             // width: '80px',
             // height: '80px',
