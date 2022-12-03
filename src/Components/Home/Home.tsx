@@ -197,7 +197,27 @@ function Home() {
   }
 
   const handleNavigation = (strNavigationScreenName: string) => {
-    navigate(strNavigationScreenName);
+    let objLocationData = {};
+    switch (strNavigationScreenName) {
+      case "startAnSip": {
+        objLocationData = {
+          cardType: "startAnSip"
+        }
+        break;
+      }
+      case "investNow": {
+        objLocationData = {
+          cardType: "investNow"
+        }
+        break;
+      }
+
+      default:
+        break;
+    }
+    // navigate("/")
+    navigate("../" + strNavigationScreenName, { state: objLocationData, replace: true });
+    // navigate(0);
   }
 
   return (

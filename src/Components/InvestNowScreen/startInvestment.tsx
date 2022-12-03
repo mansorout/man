@@ -11,7 +11,7 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support } from '@mui/icons-mate
 import { AppBar, Button, Divider, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile } from '../../Assets/index'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { chart, meria } from '../../Assets/index'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
@@ -38,7 +38,7 @@ const enumType = {
 }
 
 const objLumSomeInvestmentData = Object.freeze({
-  title: "Lum Some Investment",
+  title: "One-time Lumsome ",
   cardDetails: {
     heading: "Looking for convenient investment options?",
     subHeading: "",
@@ -117,7 +117,7 @@ const objLumSomeInvestmentData = Object.freeze({
 })
 
 const objMonthlyInvestmentData = Object.freeze({
-  title: "Monthly Income",
+  title: "Monthly Investment",
   cardDetails: {
     heading: "Wondering how much you should start investing monthly?",
     subHeading: "Small Steps to BIG Returns",
@@ -336,14 +336,28 @@ const StartInvestment = () => {
 
 
   const refContainer = useRef();
+  const location = useLocation();
+
+  const cardType = location.state.cardType;
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
   const [holding, setHolding] = useState<any>([])
   const [activeButton, setActiveButton] = useState<number>(enumType.ONE_TIME_LUMSOM);
 
+
+
   useEffect(() => {
-    setHolding(AllHolding)
+    setHolding(AllHolding);
+    if (cardType) {
+      if (cardType === "startAnSip") {
+        setActiveButton(enumType.MONTHLY_INCOME);
+      } else if (cardType === "investNow") {
+        setActiveButton(enumType.ONE_TIME_LUMSOM);
+      }
+    }
   }, []);
+
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     anchorEl ?
@@ -374,17 +388,17 @@ const StartInvestment = () => {
               <Toolbar />
               <Grid container>
                 <Grid item xs={12} sx={{ padding: 2 }}>
-                  <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.ONE_TIME_LUMSOM)}>One-Time Lumpsom</Typography>
+                        <Typography style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
                         {
                           activeButton === enumType.ONE_TIME_LUMSOM ?
                             <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "106%" }}></Box>
                             : null
                         }
                       </Box>
-                      <Typography style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.MONTHLY_INCOME)}>Monthly Income</Typography>
+                      <Typography style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
                       {
                         activeButton === enumType.MONTHLY_INCOME ?
                           <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "106%" }}></Box>
@@ -430,60 +444,132 @@ type IProps = {
   type: number;
   data: any
 }
-
-const MultipleInvestmentHandling = (props: IProps) => {
-  const style = {
+const useStyles = makeStyles((theme: any) => (
+  {
     button: {
+      // position: "absolute",
+      // right: "48px",
       height: "48px",
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
       margin: "15px",
       width: "90%",
-      maxWidth: "400px",
-    } as React.CSSProperties,
+      maxWidth: "280px",
+    },
     text: {
-      color: "white"
+      color: "white !important"
+    },
+    typography: {
+      fontFamily: "Roboto",
+      fontSize: "22px",
+      fontWeight: "500",
+      fontStretch: "normal",
+      fontStyle: "normal",
+      lineHeight: "normal",
+      letterSpacing: "normal",
+      textAlign: "left",
+      // color: "#3c3e42",
+    },
+    firstContainer: {
+      display: "flex",
+      // backgroundColor: "",
+      padding: "10px",
+      marginBottom: "25px",
+      height: "50px"
+    },
+    relative: {
+      position: "relative",
+    },
+    absolute: {
+      position: "absolute"
+    },
+    flex: {
+      display: "flex",
+    },
+    flexColumn: {
+      flexDirection: "column"
+    },
+    flexRow: {
+      flexDirection: "row"
+    },
+    boxShadow: {
+      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+    },
+    borderRadius: {
+      borderRadius: "8px"
+    },
+    lsAdvantageCardOne: {
+      backgroundColor: "blue"
+    },
+    lsAdvantageCardTwo: {
+      backgroundColor: "blue"
+    },
+    lsDisdvantageCardOne: {
+      backgroundColor: "green"
+    },
+    miAdvantageCardOne: {
+      backgroundColor: "blue"
+    },
+    miAdvantageCardTwo: {
+      backgroundColor: "violet"
+    },
+    miDisadvantageCardOne: {
+      backgroundColor: "blue"
     }
   }
+))
+
+const MultipleInvestmentHandling = (props: IProps) => {
+  const classes = useStyles();
+
 
   return (
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
-        <Box style={{ display: "flex" }}>
-          <Typography component="span">{props?.data?.title}</Typography>
-          <Button variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText">Get Started Now</Typography>
+        <Box className={classes.firstContainer}>
+          <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ top: "10px", color: "#3c3e42" }}>{props?.data?.title}</Typography>
+          {/* <Button variant="contained" className={classes.button} style={{ position: "absolute", right: "40px", backgroundColor: "#23db7b", }} fullWidth> */}
+          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth>
+            <Typography component="span" className={classes.text} >Get Started Now</Typography>
           </Button>
         </Box>
 
-        <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "grey", height: "100vh" }}>
+        <Box style={{
+          position: "relative", display: "flex", flexDirection: "column", alignItems: "center", height: "100vh"
+        }}>
 
           {/* handle box */}
-          <Box style={{ backgroundColor: "blue" }}>
-            <Typography component="span" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.subHeading}</Typography>
-            <Typography component="h2" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.heading}</Typography>
-            <Typography component="span" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.description}</Typography>
-            <Button variant="contained" style={style.button} fullWidth>Invest Now</Button>
+          < Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "blue", marginTop: "10px", padding: "10px", width: "96%" }}>
+            <Typography component="span" className={classes.text} >{props?.data?.cardDetails?.subHeading}</Typography>
+            <Typography component="h4" className={classes.text + " " + classes.typography} >{props?.data?.cardDetails?.heading}</Typography>
+            <Typography component="span" className={classes.text} >{props?.data?.cardDetails?.description}</Typography>
+            <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", marginTop: "5px" }}>
+              <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", height: "30px" }} fullWidth>Invest Now</Button>
+            </div>
           </Box>
 
           {/* advantage */}
-          <Box style={{ backgroundColor: "yellow", margin: "10px", padding: "10px" }}>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%" }}>
             <Typography>{props?.data?.advantages?.heading}</Typography>
             {
               props?.data?.advantages?.features?.length && props?.data?.advantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
-                  <Box key={featureIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
-                    <ImageListItem>
-                      <img
-                        src={featureItem?.img}
-                        srcSet={featureItem?.img}
-                        alt={"not loaded"}
-                        loading="lazy"
-                      />
-                    </ImageListItem>
-                    <Typography component="h3" style={style.text} className="largeButtonText">{featureItem?.heading}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{featureItem?.description}</Typography>
+                  <Box key={featureIndex} style={{ padding: "10px", margin: "10px" }}>
+                    <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
+                      {/* <ImageListItem>
+                        <img
+                          src={featureItem?.img}
+                          srcSet={featureItem?.img}
+                          alt={"not loaded"}
+                          loading="lazy"
+                        />
+                      </ImageListItem> */}
+                    </div>
+                    <div>
+                      <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
+                    </div>
                   </Box>
                 )
               })
@@ -491,12 +577,12 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  // <Box key={cardIndex} style={cardItem?.className}>
-                  <Box key={cardIndex} >
-                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.subHeading}</Typography>
-                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.heading}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.description}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.price}</Typography>
+                  <Box key={cardIndex} className={cardItem?.className}>
+                    {/* <Box key={cardIndex} > */}
+                    <Typography component="h3" className={classes.text} >{cardItem?.subHeading}</Typography>
+                    <Typography component="h3" className={classes.text} >{cardItem?.heading}</Typography>
+                    <Typography component="span" className={classes.text} >{cardItem?.description}</Typography>
+                    <Typography component="span" className={classes.text} >{cardItem?.price}</Typography>
                   </Box>
                 )
               })
@@ -504,22 +590,24 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Box>
 
           {/* disadvantage */}
-          <Box style={{ backgroundColor: "yellow", margin: "10px", padding: "10px" }}>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%" }}>
             <Typography>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
-                  <Box key={featureIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
-                    <ImageListItem>
+                  <Box key={featureIndex} style={{ padding: "10px", margin: "10px" }}>
+                    {/* <ImageListItem>
                       <img
                         src={featureItem?.img}
                         srcSet={featureItem?.img}
                         alt={"not loaded"}
                         loading="lazy"
                       />
-                    </ImageListItem>
-                    <Typography component="h3" style={style.text} className="largeButtonText">{featureItem?.heading}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{featureItem?.description}</Typography>
+                    </ImageListItem> */}
+                    <div>
+                      <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
+                    </div>
                   </Box>
                 )
               })
@@ -527,12 +615,12 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.disadvantages?.cards?.length && props?.data?.disadvantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  // <Box key={cardIndex} style={cardItem?.className}>
-                  <Box key={cardIndex} >
-                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.subHeading}</Typography>
-                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.heading}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.description}</Typography>
-                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.price}</Typography>
+                  <Box key={cardIndex} className={cardItem?.className}>
+                    {/* <Box key={cardIndex} > */}
+                    <Typography component="h3" className={classes.text} >{cardItem?.subHeading}</Typography>
+                    <Typography component="h3" className={classes.text} >{cardItem?.heading}</Typography>
+                    <Typography component="span" className={classes.text} >{cardItem?.description}</Typography>
+                    <Typography component="span" className={classes.text} >{cardItem?.price}</Typography>
                   </Box>
                 )
               })
@@ -540,30 +628,32 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Box>
 
           {/* factor box */}
-          <Box style={{ backgroundColor: "yellow", padding: "10px", margin: "10px" }}>
-            <Typography component="h3">{props?.data?.factors?.heading}</Typography>
-            <Typography component="span">{props?.data?.factors?.description}</Typography>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", padding: "10px", margin: "10px", width: "96%" }}>
+            <Typography component="h4" className={classes.typography} style={{ color: "black", }}  >{props?.data?.factors?.heading}</Typography>
+            <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{props?.data?.factors?.description}</Typography>
             {
               props?.data?.factors?.features?.length && props?.data?.factors?.features?.map((factorItem: any, factorIndex: number) => {
                 return (
-                  <Box key={factorIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
-                    <Typography component="h3">{factorItem?.heading}</Typography>
-                    <Typography component="span">{factorItem?.description}</Typography>
-                    <Typography component="span">{factorItem?.subDescription}</Typography>
+                  <Box key={factorIndex} style={{ padding: "10px", margin: "10px" }}>
+                    <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
+                    <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.description}</Typography>
+                    <div style={{ marginTop: "10px" }}>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.subDescription}</Typography>
+                    </div>
                   </Box>
                 )
               })
             }
           </Box>
 
-          <Box style={{ marginBottom: "10px" }}>
-            <Button variant="contained" style={style.button} fullWidth>
-              <Typography component="span" style={style.text} className="largeButtonText">Get Started Now</Typography>
+          <Box style={{ paddingBottom: "50px", paddingTop: "20px" }}>
+            <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", width: "100%" }} fullWidth>
+              <Typography component="span" className={classes.text} >Get Started Now</Typography>
             </Button>
           </Box>
 
         </Box>
-      </Grid>
+      </Grid >
     </>
   )
 }
