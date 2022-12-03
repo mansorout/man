@@ -11,10 +11,55 @@
     background-color: #6c63ff !important;
 }
 
+.checkWillAppearHere{
+   
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: normal;
+  color: #919eb1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+}
+.Add-Cancelled-Cheque{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-align: left !important; 
+  font-family: Roboto;
+  letter-spacing: normal;
+  color: #3c3e42;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+}
+.checkWillAppearHere{
+   
+  font-family: Roboto;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: normal;
+  color: #919eb1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  transform: translate(10px, 137px);
+  /* margin-top: 24% !important; */
+}
+
 
 .renderBox {
     border: solid 1px #707070 !important;
-    background-color: #fff !important;
+    background-color: rgb(252, 252, 252) !important;
     min-height: 300px !important;
     width: 80% !important;
     margin-top: 55px !important;
@@ -84,6 +129,16 @@
 
 
 @media only screen and (max-device-width: 480px) {
+    .previewImg {
+
+
+        
+        margin-left: 1px !important;
+       
+        border: 1px solid black !important;
+        width: 370px !important;
+        height: 238px !important;
+    }
 
   
 
@@ -109,6 +164,9 @@
     }
 
     .previewImg {
+
+
+        
         margin-left: 77px !important;
         margin-top: 131px !important;
         border: 1px solid black !important;
@@ -137,8 +195,9 @@
 }
 @media only screen and (min-device-width:1280px) {
     .mainPaper {
-        height: 70% !important;
-        
+        /* margin-left: 10px; */
+        height: 90% !important;
+        width: 50%;
     }
 
     .previewImg {
@@ -270,4 +329,5 @@
         background-color: red !important;
     }
 }
+
 

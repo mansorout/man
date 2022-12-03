@@ -2,7 +2,7 @@
 import { Button, Typography } from "@mui/material";
 
 
-const SaveAndAddButton = () => {
+const SaveAndAddButton1 = () => {
 
   const style = {
       button : {
@@ -14,7 +14,7 @@ const SaveAndAddButton = () => {
           borderRadius: "8px",
           boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
           backgroundColor: "#23db7b",
-        //   width:"788px"
+          width:"750px"
       } as React.CSSProperties,
       text : {
           color: "white"
@@ -30,4 +30,4 @@ const SaveAndAddButton = () => {
   )
 };
 
-export default SaveAndAddButton;
+export default SaveAndAddButton1;

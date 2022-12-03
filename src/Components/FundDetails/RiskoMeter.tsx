@@ -41,6 +41,8 @@ export const RiskoMeter = () => {
       backgroundColor: "white",
     }}>
       <img style={{
+        paddingTop: "20px",
+        paddingBottom: "100px",
         maxWidth: "-webkit-fill-available"
       }} src={Riskometer} />
 

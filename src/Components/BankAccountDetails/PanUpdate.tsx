@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Box, Breadcrumbs, Button, FormControl, Grid, InputAdornment, Link, TextField, Toolbar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ContactError } from "../../Assets";
@@ -12,20 +12,24 @@ import Sidebar from "../CommonComponents/Sidebar";
 const PanUpdate = () => {
 
     const [value, setValue] = useState("");
-
-    const error: string[] = useSelector((state: any) => state.error)
+    const [ error, setError ] = useState(false);
+    
+    //const error: string[] = useSelector((state: any) => state.error)
 
     const dispatch = useDispatch();
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch);
     const navigate = useNavigate();
 
-    const validate = () => {
-        const regex = /A-Za-z]{5}\d{4}[A-Za-z]/;
-        if (!regex.test(value)) {
-            addError('PAN_error')
+    const validate = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const res = event.target.value;
+        setValue(res);
+        const regex = /[A-Za-z]{5}\d{4}[A-Za-z]/;
+    
+
+        if (!regex.test(res)) {
+            setError(true);
         } else {
-            removeError('PAN_error');
-            navigate('/bad');
+            setError(false);
         }
     };
 
@@ -59,7 +63,7 @@ const PanUpdate = () => {
 
                         <Sidebar />
                     </Grid>
-                    <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+                    <Grid container item sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Toolbar />
                         <Box component="form" sx={{
                             width: '30.5rem',
@@ -98,21 +102,13 @@ const PanUpdate = () => {
                                 <TextField
                                     required
                                     label="Enter your PAN number"
-                                    helperText="Your PAN will be used to verify your KYC"
+                                    helperText={ error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
-                                    sx={{
-                                        "& .MuiInputLabel-root": { color: '#acb4bf' },
-                                        "& .MuiOutlinedInput-root": {
-                                            "& > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
-                                            "&:hover > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
-                                            "&.Mui-focused > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
-                                        },
-                                    }}
+                                    error={ error }
+                                    onChange={ validate }
                                     InputProps={{
-                                        endAdornment: error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross" /> </InputAdornment> : "",
+                                        endAdornment: error ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross" /> </InputAdornment> : "",
                                     }}
-                                    inputProps={{ pattern: '[A-Za-z]{5}\d{4}[A-Za-z]' }}
-                                    onChange={(e) => setValue(e.target.value)}
                                 />
                             </FormControl>
 
@@ -132,3 +128,16 @@ const PanUpdate = () => {
 };
 
 export default PanUpdate;   
+/*
+sx={{
+                                        "& .MuiInputLabel-root": { color: '#acb4bf' },
+                                        "& .MuiOutlinedInput-root": {
+                                            "& > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
+                                            "&:hover > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
+                                            "&.Mui-focused > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
+                                        },
+                                    }}
+                                    InputProps={{
+                                        endAdornment: error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross" /> </InputAdornment> : "",
+                                    }}
+*/

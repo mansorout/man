@@ -129,11 +129,14 @@ function EditprofileCard() {
 
   const [dropValueresidence, setDropValueresidence] = useState(false)
   const [dropValue, setDropValue] = useState(false)
+  const [dropValuestate, setDropValuestate] = useState(false)
+  const [drapdownresidense, setDrapdownresidense] = useState(false)
+  const [dropdownfieldstate, setDropdownfieldstate] = useState(false)
+  const [dropownstate, setDropownState] = useState(false)
+  const [error, setError] = useState(false)
+  const [dropdownpincode,setDropdownpincode]=useState(false)
 
-  const [dropdownvalue, setDropownvalue] = useState(false)
-
-
-
+const [dropdowncountryFirst,setDropdowncountryFirst]=useState(false)
   const { register, formState: { errors } } = useForm();
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handlechange = (e: any) => {
@@ -144,6 +147,9 @@ function EditprofileCard() {
       [e.target.name]: value
 
     })
+    if (firstNameError) {
+      setError(true)
+    }
 
 
     if (formData.firstName.length > 0) {
@@ -175,22 +181,25 @@ function EditprofileCard() {
       setIncomeslabError(true)
       // setCheckValue(false)
     }
-
+    console.log(firstNameError)
 
   }
 
   useEffect(() => {
 
 
-    console.log(formData.CountrySecond)
-    console.log(formData.CountrySecond !== "")
     if (formData.firstName.length > 3 && formData.lastName.length > 3 && emailRegex.test(formData.emailaddress) !== false
 
       && formData.mobilenumber.length === 10 && formData.addressline1.length > 3 && formData.IncomeSlab.length > 9) {
       setSubmitError(false)
       setDropValue(true)
-      setDropownvalue(true)
+      setDropownState(true)
       setDropValueresidence(true)
+      setDrapdownresidense(true)
+      setDropdownfieldstate(true)
+      setDropdownpincode(true)
+      setDropdowncountryFirst(true)
+
       console.log('input value should not be empty');
     }
 
@@ -254,7 +263,7 @@ function EditprofileCard() {
       margin: "16px",
       width: "90%",
       maxWidth: "400px",
-      transform: "translate(8px, -23px)"
+      transform: "translate(8px, -5px)"
 
 
     },
@@ -303,18 +312,19 @@ function EditprofileCard() {
               }}
 
             >
-              <Stack m={2} spacing={6}>
-
-                <TextField
-
+              <Stack m={2} spacing={2}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={12}>
+                  <TextField
                   type="text"
-                  aria-label="Email field"
+              
                   label="First Name"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handlechange}
                   fullWidth
 
+                  helperText
                   id='First Name'
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
@@ -323,12 +333,17 @@ function EditprofileCard() {
 
                   }}
 
-                >
-                </TextField>
+                />
+                  </Grid>
+
+                </Grid>
+         
+
                 {firstNameError && formData.firstName.length <= 3 ?
                   <label style={{
                     color: "red", marginTop: "2%",
-                    marginLeft: "-25%"
+                    marginLeft: "-25%",
+                    fontSize:"13px"
                   }} >First Name should be required</label> : ""}
 
                 <TextField label="Middle Name"
@@ -344,7 +359,8 @@ function EditprofileCard() {
                   {MidNameError && formData.middleName.length <= 3 ?
                     <label style={{
                       color: "red", marginTop: "2%",
-                      marginLeft: "-32%"
+                      marginLeft: "-32%",
+                      fontSize:"13px"
                     }} >Middle Name should be required</label> : ""}
 
                 </TextField>
@@ -362,7 +378,7 @@ function EditprofileCard() {
                   }} >
                 </TextField>
                 {lastNameError && formData.lastName.length <= 3 ?
-                  <label style={{ color: "red" }}>last Name should be required</label> : ""}
+                  <label style={{ color: "red", marginLeft:"-27%",  fontSize:"13px"}}>last Name should be required</label> : ""}
 
 
                 <TextField label="Mobile Number"
@@ -379,7 +395,8 @@ function EditprofileCard() {
                 {mobileNumberError && (formData.mobilenumber.length < 10 || formData.mobilenumber.length > 10 ?
                   <label style={{
                     color: "red", marginTop: "2%",
-                    marginLeft: "-32%"
+                    marginLeft: "-14%",
+                    fontSize:"13px"
                   }}>Mobile Number should be 10 digits</label> : "")}
 
                 <TextField label="Email Address"
@@ -397,7 +414,8 @@ function EditprofileCard() {
                 {emailError && emailRegex.test(formData.emailaddress) == false ?
                   <label style={{
                     color: "red", marginTop: "2%",
-                    marginLeft: "-32%"
+                    marginLeft: "-32%",
+                    fontSize:"13px"
                   }}>Email should be required</label> : ""}
                 <Box
                   component="form"
@@ -406,74 +424,88 @@ function EditprofileCard() {
                   }} >
 
 
-                  <FormControl sx={{ width: "50%" }}>
-                    <InputLabel id="demo-simple-select-label" sx={{
-                      color: "rgba(0, 0, 0, 0.6)",
-                      fontSize: "15px",
-                      fontWeight: "normal",
-                    }}>country</InputLabel>
 
-                    <Select
-                      name="CountrySecond"
-                      value={formData.CountrySecond}
-                      onChange={handlechange}
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label" sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                        }}>country</InputLabel>
 
-                    >
-                      <MenuItem value="hai">Delhi</MenuItem>
-                      <MenuItem value="olivier">kanpur</MenuItem>
-                      <MenuItem value="kevin">Noida</MenuItem>
-                    </Select>
-                  </FormControl>
-                  {dropValue && formData.CountrySecond == "" ?
-                    <label style={{
-                      fontSize: "10px",
-                      width: "100%",
-                      maxWidth: "400px",
-                      height: "15px",
-                      color: " red",
-                      marginBottom: "10px",
-                      display: "flex",
-                      marginLeft: "50 %" }}>Required</label> : ""}
+                        <Select
+                          fullWidth={true}
+                          name="CountrySecond"
+                          value={formData.CountrySecond}
+                          onChange={handlechange}
+
+                        >
+                          <MenuItem value="hai">Delhi</MenuItem>
+                          <MenuItem value="olivier">kanpur</MenuItem>
+                          <MenuItem value="kevin">Noida</MenuItem>
+                        </Select>
+                        {dropValue && formData.CountrySecond == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                      </FormControl>
+                    </Grid>
 
 
 
-                  <FormControl sx={{ width: "49%" }}>
-                    <InputLabel id="demo-simple-select-label"
-                      sx={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontSize: "15px",
-                        fontWeight: "normal",
-                      }}>State</InputLabel>
 
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={formData.StateOfBirth}
-                      onChange={handlechange}
-                      name="StateOfBirth"
-                      sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                    >
-                      {State.map((l: any) => (
+                    <Grid item xs={12} md={6}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label"
+                          sx={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                          }}>State</InputLabel>
+
+                        <Select
+                          fullWidth={true}
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={formData.StateOfBirth}
+                          onChange={handlechange}
+                          name="StateOfBirth"
+                          sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                        >
+                          <MenuItem value="hai">Uttarpradesh</MenuItem>
+                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>
+                   
+                          {/* {State.map((l: any) => (
                         <MenuItem value={l}>
                           {l.name}
                         </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                      ))} */}
+                        </Select>
+                        {dropownstate && formData.StateOfBirth == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                      </FormControl>
 
-                  {dropdownvalue && formData.StateOfBirth == "" ?
-                    <label style={{
-                      width: "100%",
-                      maxWidth: "400px",
-                      height: "15px",
-                      color: "red",
-                      marginBottom: "10px",
-                    }}>Required*</label> : ""}
+
+                    </Grid>
+                  </Grid>
                 </Box>
-
-
-
-
               </Stack>
             </Paper>
           </Grid>
@@ -542,13 +574,15 @@ function EditprofileCard() {
 
 
                 </TextField>
+
                 {addresserror && formData.addressline1.length <= 5 ?
                   <label style={{
                     color: "red", marginTop: "2%",
-                    marginLeft: "-32%"
+                    marginLeft: "-32%",
+                    fontSize:"13px"
                   }} >Address should not  be Empty</label> : ""}
-
                 <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
+
                 <Box
                   component="form"
                   sx={{
@@ -563,102 +597,174 @@ function EditprofileCard() {
                 >
 
                   <div style={{ position: "relative", top: "-86px" }}>
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>City of Residence</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.CityofResidence}
-                        onChange={handlechange}
-                        name="CityofResidence"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {Cityofresidence.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    {dropValueresidence && formData.CityofResidence == "" ?
-                      <label style={{ color: "red" }}></label> : ""}
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>State</InputLabel>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true} >
+                          <InputLabel id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>City of Residence</InputLabel>
+                          <Select
+                            fullWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.CityofResidence}
+                            onChange={handlechange}
+                            name="CityofResidence"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          >
+                             {/* <MenuItem value="hai"></MenuItem>
+                          <MenuItem value="olivier"></MenuItem> */}
+                            {Cityofresidence.map((l: any) => (
+                              <MenuItem value={l}>
+                                {l.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          {drapdownresidense && formData.CityofResidence == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                        </FormControl>
+                        {/* const [dropdownfieldstate, setDropdownfieldstate] = useState(false) */}
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.State}
-                        onChange={handlechange}
-                        name="State"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {State.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
 
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true} >
+                          <InputLabel id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>State</InputLabel>
+
+                          <Select
+                            fullWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.state}
+                            onChange={handlechange}
+                            name="State"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          >
+                            {State.map((l: any) => (
+                              <MenuItem value={l}>
+                                {l.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          {dropdownfieldstate && formData.state == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                        </FormControl>
+                      </Grid>
+                    </Grid>
                   </div>
+
+
+
+
+
                   <div style={{ position: "relative", top: "-46px" }}>
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel
-                        id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>Pincode</InputLabel>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true}>
+                          <InputLabel
+                            id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>Pincode</InputLabel>
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.pincode}
-                        label="Age"
-                        onChange={handlechange}
-                        name="pincode"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
+                          <Select
+                            fullWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.pincode}
+                            label="Age"
+                            onChange={handlechange}
+                            name="pincode"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          >
 
-                      </Select>
-                    </FormControl>
+                          </Select>
+                          {dropdownpincode && formData.pincode == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true}>
+                          <InputLabel
+                            id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>Country</InputLabel>
+
+                          <Select
+                            fullWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.CountryFirst}
+                            label="Age"
+                            onChange={handlechange}
+                            name="CountryFirst"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          >
+                                    <MenuItem value="hai">Delhi</MenuItem>
+                          <MenuItem value="olivier">kanpur</MenuItem>
+                          <MenuItem value="kevin">Noida</MenuItem>
+                            {country.map((l: any) => (
+                              <MenuItem value={l}>
+                                {l.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          {dropdowncountryFirst && formData.CountryFirst == "" ?
+                          <label style={{
+                            fontSize: "15px",
+                            width: "100%",
+                            maxWidth: "400px",
+                            height: "15px",
+                            color: " red",
+                            marginBottom: "10px",
+                            display: "flex",
+                            marginLeft: "50 %"
+                          }}>Required</label> : ""}
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+
                     {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel
-                        id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>Country</InputLabel>
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.CountryFirst}
-                        label="Age"
-                        onChange={handlechange}
-                        name="CountryFirst"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {country.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
 
 
                   </div>
@@ -669,11 +775,13 @@ function EditprofileCard() {
                   sx={{ position: "relative", width: "100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
                 {incomeslaberror && formData.IncomeSlab.length <= 9 ?
                   <label style={{
-                    color: "red", marginTop: "2%",
-                    marginLeft: "-32%"
+                    color: "red", marginTop: "-12%",
+                    marginLeft: "-7%",
+                    fontSize:"13px"
+                   
                   }} >IncomeSlab Should not be empty</label> : ""}
 
-                <Button variant="contained" style={style.button}
+                <Button variant="contained"   style={style.button}
                   disabled={submitError}
                   onClick={handleClick} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
