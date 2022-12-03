@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // import './Portfolio.css'
 import '../../Components/Portfolio/Portfolio.css'
 import { Box, styled } from '@mui/system'
-import { Grid, MenuList, Typography } from '@mui/material'
+import { Grid, ImageListItem, MenuList, Typography } from '@mui/material'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
@@ -36,6 +36,175 @@ const enumType = {
   ONE_TIME_LUMSOM: 1,
   MONTHLY_INCOME: 2
 }
+
+const objLumSomeInvestmentData = Object.freeze({
+  title: "Lum Some Investment",
+  cardDetails: {
+    heading: "Looking for convenient investment options?",
+    subHeading: "",
+    description: "Sit back after investing in lumpsum and grow your money over a period of time or in long run."
+  },
+  advantages: {
+    heading: "Advantages of Lump sum investment",
+    features: [{
+      heading: "Convenience",
+      description: "Investing via a one-time investment plan is relatively more convenient than a SIP as you pay only once and your investment can grow. hat said, the auto-debit availability makes a SIP investment easier to invest too. . The difference is probably psychological.",
+      img: ""
+    },
+    {
+      heading: "Capital appreciation over time",
+      description: "With the one-time investment plan, the chances of appreciation of wealth increases as the investment has time to adjust to market corrections and grow significantly.",
+      img: ""
+    }, {
+      heading: "Low Charges",
+      description: "Another advantage of lump sum investment is that it results in lower transaction costs as such investments are generally made for longer durations. Short- term investments often attract exit load and higher taxation liabilities.",
+      img: ""
+    }],
+    cards: [
+      {
+        heading: "Get ₹1.75 Lac after 5 years",
+        subHeading: "Invest ₹1 Lac One time",
+        description: "100% guaranteed return with tax saving options",
+        price: "",
+        className: "lsAdvantageCardOne"
+      },
+      {
+        heading: "TAX SAVING",
+        subHeading: "becomes easier",
+        description: "Click to save tax upto",
+        price: "₹45,000",
+        className: "lsAdvantageCardTwo"
+      },
+    ]
+  },
+  disadvantages: {
+    heading: "Disadvantage of Lump Sum Investment",
+    features: [
+      {
+        heading: "Undisciplined Investment",
+        description: "Lump sum investment plan does not encourage investment discipline.",
+        img: "",
+      },
+      {
+        heading: "No investment adjustment",
+        description: "With the one-time investment plan, an investor cannot spread his/her investment over the highs and lows of the stock market. Thus, he/she is exposed to a greater degree of risk of not being able to bounce back from an investment decision made at a wrong time (during bullish runs when they buy lesser units due to higher prices).",
+        img: "",
+      },
+    ],
+    cards: [{
+      heading: "Know where to invest,",
+      subHeading: "Lump sum or SIP",
+      className: "lsDisdvantageCardOne"
+    }]
+  },
+  factors: {
+    heading: "Factors to consider before investing in lump sum investment",
+    description: "Lump sum investments take large amounts at once; hence most investors often find it difficult to let go of the amount. Nevertheless, it becomes easier when you have considered certain factors beforehand for easy steering.",
+    features: [
+      {
+        heading: "Patience",
+        description: "Patience is the key to handling any situation. This is what remarkably distinguishes the investors from the traditional traders. Investing and then waiting for money to grow over a period of time requires patience and perseverance.",
+        subDescription: "The temptation to exit from the scheme is quite high, but only patience will help you sail through the down trend of the market condition.",
+      },
+      {
+        heading: "Market Valuation",
+        description: "Attaining a perfect market valuation is an arduous task overall; yet you can get hold of the same if you look into the past records closely. Before investing, you can look out for the P/E ratio of various market indices.",
+        subDescription: "A closer look the past three to four quarters will give you a clear idea about the current market scenario.",
+      }
+    ]
+  }
+
+})
+
+const objMonthlyInvestmentData = Object.freeze({
+  title: "Monthly Income",
+  cardDetails: {
+    heading: "Wondering how much you should start investing monthly?",
+    subHeading: "Small Steps to BIG Returns",
+    description: "Our experts will help you choosing the right plan for your financial planning."
+  },
+  advantages: {
+    heading: "Advantages of Monthly Investment",
+    features: [{
+      heading: "Financial Discipline",
+      description: "Investing via a one-time investment plan is relatively more convenient than a SIP as you pay only once and your investment can grow. hat said, the auto-debit availability makes a SIP investment easier to invest too. . The difference is probably psychological.",
+      img: ""
+    },
+    {
+      heading: "Pocket-friendly",
+      description: "With the one-time investment plan, the chances of appreciation of wealth increases as the investment has time to adjust to market corrections and grow significantly.",
+      img: ""
+    }, {
+      heading: "Compounding effect",
+      description: "Another advantage of lump sum investment is that it results in lower transaction costs as such investments are generally made for longer durations. Short- term investments often attract exit load and higher taxation liabilities.",
+      img: ""
+    },
+    {
+      heading: "Rupee cost averaging",
+      description: "The biggest benefit of systematic investment plans is the rupee cost averaging. In simple terms, it means that when the NAV is high, your installment amount is able to acquire lesser units.",
+      img: ""
+    }],
+    cards: [
+      {
+        heading: "financial freedom",
+        subHeading: "Give Your family a lifetime",
+        description: "start with just",
+        price: "2,500 per month",
+        className: "miAdvantageCardOne"
+      },
+      {
+        heading: "Achieve Much More",
+        subHeading: "Dream more",
+        description: "Invest ₹500 every month to create wealth in long run.",
+        price: "",
+        className: "miAdvantageCardTwo"
+      },
+    ],
+
+  },
+  disadvantages: {
+    heading: "Disadvantage of Monthly Investment",
+    features: [
+      {
+        heading: "Unsuitable for irregular income flow",
+        description: "This method is not suitable for investors who do not have reliable and regular cash flow as the investment is to be made at predetermined intervals.",
+        img: "",
+      },
+      {
+        heading: "Uniform investment through ups & downs",
+        description: "An investor cannot immediately change the amount being invested in response to the ups and downs in the market. This keeps the investor from taking advantage of the upswings.",
+        img: "",
+      },
+      {
+        heading: "Insufficient funds",
+        description: "AIf an investor fails to maintain adequate balance in the bank on the day of debit of SIP, the PDC or ECS, as opted, will return dishonoured. This means that the investment will not happen that month.",
+        img: "",
+      },
+    ],
+    cards: [{
+      heading: "Invest ₹5000 monthly,",
+      subHeading: "Get ₹1 Crore after 25 years",
+      description: "100% guaranteed returnwith tax saving options",
+      className: "miDisadvantageCardOne"
+    }]
+  },
+  factors: {
+    heading: "Factors to consider before investing in lump sum investment",
+    description: "Lump sum investments take large amounts at once; hence most investors often find it difficult to let go of the amount. Nevertheless, it becomes easier when you have considered certain factors beforehand for easy steering.",
+    features: [
+      {
+        heading: "Patience",
+        description: "Patience is the key to handling any situation. This is what remarkably distinguishes the investors from the traditional traders. Investing and then waiting for money to grow over a period of time requires patience and perseverance.",
+        subDescription: "The temptation to exit from the scheme is quite high, but only patience will help you sail through the down trend of the market condition.",
+      },
+      {
+        heading: "Market Valuation",
+        description: "Attaining a perfect market valuation is an arduous task overall; yet you can get hold of the same if you look into the past records closely. Before investing, you can look out for the P/E ratio of various market indices.",
+        subDescription: "A closer look the past three to four quarters will give you a clear idea about the current market scenario.",
+      }
+    ]
+  }
+})
 
 const StartInvestment = () => {
 
@@ -233,25 +402,20 @@ const StartInvestment = () => {
                           <>
                             <MultipleInvestmentHandling
                               type={enumType.ONE_TIME_LUMSOM}
-                              data={{
-                                title: "Lum Some Investment"
-                              }}
+                              data={objLumSomeInvestmentData}
                             />
                           </>
                           :
                           <>
                             <MultipleInvestmentHandling
                               type={enumType.MONTHLY_INCOME}
-                              data={{
-                                title: "Monthly Income"
-                              }}
+                              data={objMonthlyInvestmentData}
                             />
                           </>
                       }
                     </Box>
                   </Grid>
                 </Grid>
-
               </Grid>
             </Grid>
           </Grid>
@@ -286,79 +450,122 @@ const MultipleInvestmentHandling = (props: IProps) => {
   return (
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
-        <Box style={{display:"flex"}}>
+        <Box style={{ display: "flex" }}>
           <Typography component="span">{props?.data?.title}</Typography>
           <Button variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Get Started Now</Typography>
           </Button>
         </Box>
 
-        <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "red", height: "100vh" }}>
-          <Box>
-            {/* handle box */}
-          </Box>
-          <Box>
-            {/* advantage */}
-            <Typography>Advantages of {props?.data?.title}</Typography>
-            <Box>
-              {/* convience */}
+        <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "grey", height: "100vh" }}>
 
-            </Box>
-            <Box>
-              {/* capital appreciation */}
-            </Box>
-            <Box>
-              {/* low charges */}
-            </Box>
-            <Box>
-              {/* sub advantage  */}
-            </Box>
-            <Box>
-              {/* sub advantage  */}
-            </Box>
+          {/* handle box */}
+          <Box style={{ backgroundColor: "blue" }}>
+            <Typography component="span" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.subHeading}</Typography>
+            <Typography component="h2" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.heading}</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText">{props?.data?.cardDetails?.description}</Typography>
+            <Button variant="contained" style={style.button} fullWidth>Invest Now</Button>
           </Box>
-          <Box>
-            {/* disadvantage box*/}
-            <Box>
-              {/* sub disadvantage sub comparison */}
-            </Box>
+
+          {/* advantage */}
+          <Box style={{ backgroundColor: "yellow", margin: "10px", padding: "10px" }}>
+            <Typography>{props?.data?.advantages?.heading}</Typography>
+            {
+              props?.data?.advantages?.features?.length && props?.data?.advantages?.features?.map((featureItem: any, featureIndex: any) => {
+                return (
+                  <Box key={featureIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
+                    <ImageListItem>
+                      <img
+                        src={featureItem?.img}
+                        srcSet={featureItem?.img}
+                        alt={"not loaded"}
+                        loading="lazy"
+                      />
+                    </ImageListItem>
+                    <Typography component="h3" style={style.text} className="largeButtonText">{featureItem?.heading}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{featureItem?.description}</Typography>
+                  </Box>
+                )
+              })
+            }
+            {
+              props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
+                return (
+                  // <Box key={cardIndex} style={cardItem?.className}>
+                  <Box key={cardIndex} >
+                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.subHeading}</Typography>
+                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.heading}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.description}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.price}</Typography>
+                  </Box>
+                )
+              })
+            }
           </Box>
-          <Box>
-            {/* factor box */}
+
+          {/* disadvantage */}
+          <Box style={{ backgroundColor: "yellow", margin: "10px", padding: "10px" }}>
+            <Typography>{props?.data?.disadvantages?.heading}</Typography>
+            {
+              props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
+                return (
+                  <Box key={featureIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
+                    <ImageListItem>
+                      <img
+                        src={featureItem?.img}
+                        srcSet={featureItem?.img}
+                        alt={"not loaded"}
+                        loading="lazy"
+                      />
+                    </ImageListItem>
+                    <Typography component="h3" style={style.text} className="largeButtonText">{featureItem?.heading}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{featureItem?.description}</Typography>
+                  </Box>
+                )
+              })
+            }
+            {
+              props?.data?.disadvantages?.cards?.length && props?.data?.disadvantages?.cards?.map((cardItem: any, cardIndex: number) => {
+                return (
+                  // <Box key={cardIndex} style={cardItem?.className}>
+                  <Box key={cardIndex} >
+                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.subHeading}</Typography>
+                    <Typography component="h3" style={style.text} className="largeButtonText">{cardItem?.heading}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.description}</Typography>
+                    <Typography component="span" style={style.text} className="largeButtonText">{cardItem?.price}</Typography>
+                  </Box>
+                )
+              })
+            }
+          </Box>
+
+          {/* factor box */}
+          <Box style={{ backgroundColor: "yellow", padding: "10px", margin: "10px" }}>
+            <Typography component="h3">{props?.data?.factors?.heading}</Typography>
+            <Typography component="span">{props?.data?.factors?.description}</Typography>
+            {
+              props?.data?.factors?.features?.length && props?.data?.factors?.features?.map((factorItem: any, factorIndex: number) => {
+                return (
+                  <Box key={factorIndex} style={{ backgroundColor: "pink", padding: "10px", margin: "10px" }}>
+                    <Typography component="h3">{factorItem?.heading}</Typography>
+                    <Typography component="span">{factorItem?.description}</Typography>
+                    <Typography component="span">{factorItem?.subDescription}</Typography>
+                  </Box>
+                )
+              })
+            }
+          </Box>
+
+          <Box style={{ marginBottom: "10px" }}>
+            <Button variant="contained" style={style.button} fullWidth>
+              <Typography component="span" style={style.text} className="largeButtonText">Get Started Now</Typography>
+            </Button>
           </Box>
 
         </Box>
       </Grid>
-
     </>
   )
 }
-
-
-// const OneTimeLumpsome = () => {
-//   return (
-//     <>
-//       <Grid item xs={12} sx={{ padding: 2 }}>
-//         <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "red" }}>
-//           <Typography >One-Time Lumpsom</Typography>
-//         </Box>
-//       </Grid>
-
-//     </>
-//   )
-// }
-
-// const MonthlyIncome = () => {
-//   return (
-//     <>
-//       <Grid item xs={12} sx={{ padding: 2 }}>
-//         <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "red" }}>
-//           <Typography >Monthky income</Typography>
-//         </Box>
-//       </Grid>
-
-//     </>
-//   )
-// }
 
 export default StartInvestment
