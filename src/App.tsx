@@ -55,6 +55,7 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import StartInvestment from './Components/InvestNowScreen/startInvestment';
+import CancleSIP from './Components/Portfolio/CancleSIP';
 
 
 
@@ -158,8 +159,7 @@ function App() {
 
 
         <Route path="/Insurance" element={<Insurance />} />
-        
-
+        <Route path='/cancleSip' element={<CancleSIP/>} />
 
 
 

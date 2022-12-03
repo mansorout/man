@@ -11,6 +11,7 @@ import PanVerify from './Reducers/PanVerify'
 import NomineeAdd from './Reducers/NomineeAdd'
 import UploadChequeReducer from './Reducers/UploadChequeReducer'
 import { NavToggleReducer } from './Duck/NavToggle'
+import { PinModalHome } from './Duck/PINModalHome'
 
 
 
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     pan: PanVerify,
     nominee: NomineeAdd,
     uploadCheque: UploadChequeReducer,
-    NavToggleReducer: NavToggleReducer
+    NavToggleReducer: NavToggleReducer,
+    PinModalHome : PinModalHome,
 })
 
 export const store = createStore(

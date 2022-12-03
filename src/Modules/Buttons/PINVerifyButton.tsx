@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
+import { PinModalHomeCloseAction } from "../../Store/Duck/PINModalHome";
 
 
 
@@ -25,7 +26,7 @@ import { ActionCreators } from "../../Store";
         }
     }
 
-    const dispatch = useDispatch()
+    const dispatch : any = useDispatch()
     const { addError, removeError } = bindActionCreators(ActionCreators, dispatch)
     const navigate = useNavigate()
 
@@ -47,7 +48,7 @@ import { ActionCreators } from "../../Store";
 
 
     return (
-        <Button variant="contained" style={style.button} fullWidth>
+        <Button onClick={()=>dispatch(PinModalHomeCloseAction())} variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
         </Button> 
     )
