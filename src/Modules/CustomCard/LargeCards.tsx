@@ -35,7 +35,7 @@ function LargeCards({ Heading, Text, Img, }: Props) {
         // console.log(e.target)
         // debugger
         if (cardHeading === 'Get Insured') {
-            navigate("/Insurance")
+            navigate("/insurance")
         }
     }
 

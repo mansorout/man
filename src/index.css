@@ -45,6 +45,7 @@ body {
   --typeDarkGreyColor: #acb4bf;
   --typeLightGreyColor: #d1d6dd;
   --typeIndigoColor: #7b7b9d;
+  --typeLighterGrey: #dddfe2;
 
 
   -ms-overflow-style: none;
@@ -92,6 +93,10 @@ h5 {
   font-size: 18px !important;
   font-weight: 400 !important;
   color: var(--typeIndigoColor) !important;
+}
+
+button {
+  text-transform: capitalize !important;
 }
 
 h6 {
