@@ -58,6 +58,10 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import RedeemFundFull from './Components/RedeemFunds/RedeemFundFull';
+import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
+import AddMoreFundsModal from './Components/Portfolio/AddMoreFundsModal';
+import NetBanking from './Modules/NetBanking/NetBanking';
+import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
 
 
 
@@ -174,6 +178,10 @@ function App() {
 
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/RedeemFundFull' element={<RedeemFundFull />} />
+        <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
+        <Route path='/redemptiondone' element={<RedemptionDone />} />
+        <Route path='/addmorefundsflow' element={<AddMoreFundsModal />} />
+        <Route path='/netbanking' element={<NetBanking />} />
 
 
 

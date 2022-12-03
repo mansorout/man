@@ -7,13 +7,13 @@ import CardContent from '@mui/material/CardContent';
 
 
 import { CardActionArea } from '@mui/material';
-import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
+import { cameraIcon, ellipslogo, GroupSaf, Mylocationicon } from "../../Assets/index";
 
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Modal, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, TextFields } from '@mui/icons-material'
+import { Assessment, Home as HomeIcon, InfoRounded, MenuRounded, PowerSettingsNew, Search, TextFields } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
@@ -43,6 +43,7 @@ import { RedeemFundData } from './RedeemFundData'
 import RedeemNowButton from '../../Modules/Buttons/RedeemNowButton';
 import FundTable from '../FundDetails/FundTable';
 import BankDetailTable from './BankDetailTable';
+import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
 
 
 
@@ -216,7 +217,7 @@ function RedeemFundFull() {
     }
 
 
-
+    const [selected, setSelected] = useState<number>(1)
     const menuActions = React.useRef<MenuUnstyledActions>(null);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
@@ -253,6 +254,10 @@ function RedeemFundFull() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const showPlan = () => {
+        navigate('/verifyoncheckout')
+    }
 
 
 
@@ -554,11 +559,23 @@ function RedeemFundFull() {
                             }
 
                             {
-                                partial ? "" : <Box>
-                                    <h1>
-                                        Full
-                                    </h1>
-                                </Box>
+                                partial ? "" :  RedeemFundData.map((item, index) => {
+                                    return (
+                                        <RedeemFundsCard
+                                            key={index}
+                                            logo={item.logo}
+                                            name={item.name}
+                                            cap={item.cap}
+                                            type={item.type}
+                                            year1={item.year1}
+                                            year3={item.year3}
+                                            year5={item.year5}
+                                            year6={item.year6}
+                                            rating={item.rating}
+                                            morning_star_logo={item.morning_star_logo}
+                                        />
+                                    )
+                                })
                             }
 
 
@@ -633,6 +650,16 @@ function RedeemFundFull() {
                                                     &nbsp; &nbsp;
 
                                                 </Box>
+
+                                                {/* <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                                    <Box onClick={() => { setSelected(2) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                        <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>PARTIAL </Typography>
+                                                    </Box>
+                                                    <Box onClick={() => { setSelected(3) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                        <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>FULL</Typography>
+                                                    </Box>
+                                                </Box> */}
+
                                                 <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
                                                     <Typography sx={{ fontSize: "14px" }} >
 
@@ -746,10 +773,15 @@ function RedeemFundFull() {
 
                                 <RedeemNowButton />
                             </Box>
+
                         </Box>
 
 
-
+                        {/* <Grid container spacing ={2}>
+                            <Grid item xs={12} md={12} >
+                                <FooterBtnWithBox boxIcon={''} boxText={''} boxAmount={''} btnText={'Redeem Now'} btnClick={handleOpen} />
+                            </Grid>
+                          </Grid> */}
 
 
                     </Grid>
@@ -765,7 +797,22 @@ function RedeemFundFull() {
                 aria-labelledby="keep-mounted-modal-title"
                 aria-describedby="keep-mounted-modal-description"
             >
-                <Box style={style.modalContainer}>
+                <Box style={{
+                    width: "90%",
+                    maxWidth: "330px",
+                    borderRadius: "8px",
+                    boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
+                    backgroundColor: "white",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    overflow: "hidden",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%,-50%)"
+                }}>
                     <Grid container spacing={1}>
                         <Grid item xs={12} textAlign="right">
                             <Box onClick={() => {
@@ -776,13 +823,16 @@ function RedeemFundFull() {
                         </Grid>
                     </Grid>
 
-                    <img alt="Money Sprint" src={sipiclogo} style={style.logoIc} />
+                    <img alt="Money Sprint" src={GroupSaf} style={style.logoIc} />
 
-                    <Typography textAlign="center" variant='h5' sx={{ color: "black" }} >Confirm Bank Details</Typography>
-                    <Box sx={{backgroundColor:"#6495ED"}}>
-                        <Typography textAlign="center"  sx={{ color: "white" }} >The money will be credited to the bank account details mentioned in your folio</Typography>
+
+                    <Typography mb={2} style={{ fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Confirm Bank Details</Typography>
+
+
+                    <Box style={{ backgroundColor: "#6c63ff", width: "100%" }}>
+                        <Typography style={{ fontSize: "14px", color: 'white', padding: "10px 20px" }}>The money will be credited to the bank account details mentioned in your folio</Typography>
                     </Box>
-                    
+
 
 
                     <Box
@@ -805,16 +855,20 @@ function RedeemFundFull() {
                     </Box>
 
 
-                   
-                    
-                       <BankDetailTable />
 
-                       <Button autoFocus className={classes.showPlanBtn} fullWidth>
-                        Show Me Plans
+
+                    <BankDetailTable />
+                    <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px", padding: "10px 20px" }}>
+                        <InfoRounded style={{ color: "#6c63ff", width: "20px" }}></InfoRounded>
+                        <Typography style={{ fontSize: "10px", color: '#919eb1' }}>By continuing, a verification code will be sent will be sent to your registered mobile number and email address to verify it's you..</Typography>
+                    </Box>
+
+                    <Button onClick={showPlan} autoFocus className={classes.showPlanBtn} fullWidth>
+                        Continue
                     </Button>
 
                 </Box>
-               
+
 
             </Modal>
 
