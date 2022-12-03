@@ -5,15 +5,17 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { CardActionArea, Grid, Radio, TextField } from '@mui/material';
+import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
+import { useNavigate } from 'react-router-dom';
 import { InvestButton } from '../Buttons/InvestButton';
 import Stack from '@mui/material/Stack';
-import { CardActionArea, Grid, Radio, TextField } from '@mui/material';
+
 import List from '@mui/material/List';
 import { graphimage } from '../../Assets/index'
 import { withdrawiclogo } from '../../Assets/index'
 import { lockinlogo } from '../../Assets/index'
-import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
-import { useNavigate } from 'react-router-dom';
+
 
 const bull = (
     <Box
@@ -107,6 +109,8 @@ export default function RedeemFundCard() {
     return (
         <>
 
+        <Box>
+
 
             <Card sx={{ maxWidth: 488,maxHeight:268, marginTop: "25px", marginLeft: "3%" }}>
                 <CardContent>
@@ -153,7 +157,9 @@ export default function RedeemFundCard() {
 
                         }}>PARTIAL</Button>
 
-                        <Button sx={{
+                        <Button onClick={()=>{
+                            alert("hiii")
+                        }} sx={{
                             color: "#09b85d",
                             width: "56px",
                             height: "35px",
@@ -165,6 +171,7 @@ export default function RedeemFundCard() {
                             marginLeft: "1%"
                         }}>Full</Button>
                         &nbsp; &nbsp;
+
                     </Box>
                     <Box sx={{display:"flex", justifyContent:"center",alignItems:"center",marginTop:"10%"}}>
                         <Typography sx={{fontSize:"14px"}} >
@@ -243,6 +250,8 @@ export default function RedeemFundCard() {
                 </CardContent>
 
             </Card>
+
+            </Box>
 
         </>
 

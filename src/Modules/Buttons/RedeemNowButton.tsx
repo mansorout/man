@@ -2,7 +2,7 @@
 import { Button, Typography } from "@mui/material";
 
 
-const SaveAndAddButton = () => {
+const RedeemNowButton = () => {
 
   const style = {
       button : {
@@ -25,9 +25,9 @@ const SaveAndAddButton = () => {
 
   return (
       <Button variant="contained" style={style.button} fullWidth>
-          <Typography component="span" style={style.text} className="largeButtonText">Save & Addcc</Typography>
+          <Typography component="span" style={style.text} className="largeButtonText">Redeem Now</Typography>
       </Button> 
   )
 };
 
-export default SaveAndAddButton;
+export default RedeemNowButton;

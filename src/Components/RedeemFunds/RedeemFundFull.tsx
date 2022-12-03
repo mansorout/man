@@ -1,5 +1,14 @@
 
 import './RedeemFunds.css'
+
+import Card from '@mui/material/Card';
+
+import CardContent from '@mui/material/CardContent';
+
+
+import { CardActionArea } from '@mui/material';
+import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
+
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Modal, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
@@ -31,6 +40,10 @@ import RedeemFundCard from '../../Modules/Cards/RedeemFundCard'
 import RedeemSecFundCard from '../../Modules/Cards/RedeemSecFundCard'
 
 import { RedeemFundData } from './RedeemFundData'
+import RedeemNowButton from '../../Modules/Buttons/RedeemNowButton';
+import FundTable from '../FundDetails/FundTable';
+import BankDetailTable from './BankDetailTable';
+
 
 
 
@@ -47,8 +60,11 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function RedeemFunds() {
+function RedeemFundFull() {
 
+    const [openModalNew, setOpenModalNew] = useState(true);
+    const [partial, setPartial] = useState(true);
+    const [full, setFull] = useState(true)
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
@@ -57,6 +73,11 @@ function RedeemFunds() {
             height: "64px",
             position: "fixed",
             zIndex: "3000",
+        },
+        showPlanBtn: {
+            backgroundColor: 'var(--primaryColor) !important',
+            color: 'var(--uiWhite) !important',
+            borderRadius: '0px !important'
         },
     }));
 
@@ -194,7 +215,7 @@ function RedeemFunds() {
 
     }
 
-    const [open, setOpen] = useState<boolean>(false)
+
 
     const menuActions = React.useRef<MenuUnstyledActions>(null);
 
@@ -229,20 +250,10 @@ function RedeemFunds() {
     const error: string[] = useSelector((state: any) => state.error)
 
     const [selectedValue, setSelectedValue] = React.useState('a');
-    // const navigate = useNavigate();
-    //     const handleChange = (event: any) => {
-    //         navigate('/completedview')
-    //         setSelectedValue(event.target.value);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-    //     };
-    // function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    //     event.preventDefault();
-    //     console.info('You clicked a breadcrumb.');
-    //   }
-
-    // const [name, setName] = React.useState('Cat in the Hat');
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //   setName(event.target.value);
 
 
 
@@ -393,7 +404,7 @@ function RedeemFunds() {
                         <List sx={{ py: "30px", height: "inherit" }}>
                             <ListItem disablePadding sx={{ background: "rgba(0, 0, 0, 0.05)" }}>
                                 <ListItemButton
-                                   onClick={()=>navigate("/home")}
+                                    onClick={() => navigate("/home")}
                                     sx={{
                                         minHeight: 48,
                                         px: 2.5,
@@ -415,7 +426,7 @@ function RedeemFunds() {
                             </ListItem>
                             <ListItem disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
-                                   onClick={()=>navigate("/portfolio")}
+                                    onClick={() => navigate("/portfolio")}
                                     sx={{
                                         minHeight: 56,
                                         px: 2.5,
@@ -508,20 +519,22 @@ function RedeemFunds() {
 
 
 
-                                    <Link color="#6495ED" underline="always"  href="/portfolio">
+                                    <Link color="#6495ED" underline="always" href="/portfolio">
                                         <Typography className='burgerText'> Portfolio</Typography>
                                     </Link>
-                                 
-                                       
- 
-                                    <Link  underline="always">
+
+
+
+                                    <Link underline="always">
                                         <Typography className='burgerText'>Reddem Fund</Typography>
-                                    
+
                                     </Link>
                                 </Breadcrumbs>
                             </Box>
+
+
                             {
-                                RedeemFundData.map((item, index) => {
+                                partial ? RedeemFundData.map((item, index) => {
                                     return (
                                         <RedeemFundsCard
                                             key={index}
@@ -537,13 +550,168 @@ function RedeemFunds() {
                                             morning_star_logo={item.morning_star_logo}
                                         />
                                     )
-                                })
+                                }) : ""
+                            }
+
+                            {
+                                partial ? "" : <Box>
+                                    <h1>
+                                        Full
+                                    </h1>
+                                </Box>
                             }
 
 
                             <Grid container spacing={1} >
                                 <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
-                                    <RedeemFundCard />
+                                    <Box>
+
+
+                                        <Card sx={{ maxWidth: 488, maxHeight: 268, marginTop: "25px", marginLeft: "3%" }}>
+                                            <CardContent>
+                                                <Box>
+                                                    <Typography
+                                                        sx={{
+
+                                                            height: " 19px",
+                                                            // margin: " 5% 62px 27px 5%",
+                                                            fontFamily: "Roboto",
+                                                            fontSize: "18px",
+                                                            fontWeight: " 500",
+                                                            textAlign: " left",
+                                                            color: " #3c3e42"
+                                                        }}
+                                                    >Redemption type</Typography>
+                                                    &nbsp;       &nbsp;       &nbsp;
+                                                    <Typography sx={{
+
+                                                        height: " 16px",
+                                                        // margin: "5% 62px 27px 5%",
+
+                                                        fontSize: " 14px",
+
+
+
+
+                                                        textAlign: " left",
+                                                        color: "#3c3e42"
+                                                    }}>Redemption by</Typography>
+                                                </Box>
+                                                <Box sx={{ textAlign: "right", marginTop: "-23%", marginLeft: "2%" }}>
+                                                    <Button
+                                                        onClick={() => {
+                                                            setPartial(true)
+                                                        }}
+                                                        sx={{
+
+                                                            color: "#09b85d",
+                                                            width: " 79px",
+                                                            height: " 35px",
+                                                            padding: "10px 12px 9px",
+                                                            borderRadius: "8px",
+
+                                                            border: "solid 1px rgba(123, 123, 157, 0.3)",
+                                                            marginTop: "7%",
+                                                            marginLeft: "-9%",
+
+
+                                                        }}>PARTIAL</Button>
+
+                                                    <Button onClick={() => {
+                                                        setPartial(false)
+                                                    }} sx={{
+                                                        color: "#09b85d",
+                                                        width: "56px",
+                                                        height: "35px",
+                                                        padding: "10px 12px 9px",
+                                                        borderRadius: "8px",
+                                                        border: "solid 1px rgba(123, 123, 157, 0.3)",
+                                                        backgroundColor: "rgba(255, 255, 255, 0)",
+                                                        marginTop: "7%",
+                                                        marginLeft: "1%"
+                                                    }}>Full</Button>
+                                                    &nbsp; &nbsp;
+
+                                                </Box>
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
+                                                    <Typography sx={{ fontSize: "14px" }} >
+
+                                                        <Radio
+
+                                                            sx={{ color: "#23db7b", marginLeft: "-7%" }}
+                                                        />
+
+                                                        Amount: ₹1,46,625
+
+                                                    </Typography>
+                                                    &nbsp; &nbsp;
+                                                    <Typography sx={{ fontSize: "14px" }}>
+
+                                                        <Radio
+                                                            checked={selectedValue === 'b'}
+                                                            onClick={() => navigate('/redeemfund')}
+                                                            // onChange={handleChange}
+                                                            value="b"
+                                                            name="radio-buttons"
+                                                            //componentsProps={{ input: { 'aria-label': 'B' } }}
+                                                            sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
+
+                                                        />
+                                                        Units: 750.762</Typography>
+                                                </Box>
+                                                <Box>
+                                                    <TextField label="Amount"
+                                                        name="Amount"
+                                                        //   value={formData.lastName}
+                                                        sx={{
+                                                            width: " 100%",
+                                                            height: "56px",
+
+                                                            borderRadius: "4px",
+                                                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                                            border: "solid 1px #dddfe2",
+                                                            backgroundColor: "#fff",
+
+                                                            marginTop: "5%"
+                                                        }}
+
+                                                    >
+
+                                                    </TextField>
+                                                </Box>
+
+                                                <Box>
+                                                    <Typography
+                                                        sx={{
+                                                            width: "304px",
+                                                            height: "30px",
+                                                            // margin: "8px 135px 0 8%",
+                                                            fontSize: " 12px",
+                                                            textAlign: "left",
+                                                            color: "#8787a2"
+
+
+
+                                                        }}
+                                                    >Minimum redemption amount ₹500 </Typography>
+
+                                                    <Typography
+                                                        sx={{
+                                                            width: "304px",
+                                                            height: "30px",
+                                                            marginTop: "-8px",
+                                                            fontSize: " 12px",
+                                                            textAlign: "left",
+                                                            color: "#8787a2"
+                                                        }}
+                                                    >Maximum  redemption amount ₹25,000</Typography>
+                                                </Box>
+
+                                            </CardContent>
+
+                                        </Card>
+
+                                    </Box>
 
                                 </Grid>
 
@@ -554,7 +722,7 @@ function RedeemFunds() {
                                     <RedeemSecFundCard />
 
                                 </Grid>
-                               
+
 
 
                             </Grid>
@@ -574,10 +742,13 @@ function RedeemFunds() {
                             boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
                             backgroundColor: '#fff'
                         }}>
-                            <RedeemNowButtom />
+                            <Box onClick={handleOpen}>
+
+                                <RedeemNowButton />
+                            </Box>
                         </Box>
 
-                      
+
 
 
 
@@ -586,39 +757,41 @@ function RedeemFunds() {
                 </Grid>
 
             </Box>
-
-            <Modal open={openModal} onClose={() => setOpenModal(false)}>
+            <Modal
+                sx={{ backdropFilter: "blur(10px)" }}
+                keepMounted
+                open={open}
+                onClose={() => setOpenModal(false)}
+                aria-labelledby="keep-mounted-modal-title"
+                aria-describedby="keep-mounted-modal-description"
+            >
                 <Box style={style.modalContainer}>
                     <Grid container spacing={1}>
                         <Grid item xs={12} textAlign="right">
-                            <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
+                            <Box onClick={() => {
+                                alert("close this")
+                            }}>
+                                <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
+                            </Box>
                         </Grid>
                     </Grid>
 
                     <img alt="Money Sprint" src={sipiclogo} style={style.logoIc} />
 
-                    <Typography textAlign="center" variant='h5' sx={{ color: "#3c3e42" }} >Help us know you better.</Typography>
-                    <Typography textAlign="center" variant='h5' sx={{ fontSize: "14px" }}  >Share details below to view recommendations</Typography>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& > :not(style)': { m: 2, width: '19ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <TextField
-                            id="outlined-name"
-                            label="FirstName"
-                            sx={{ color: "#919eb1", fontSize: "17px" }}
-                        // value={name}
-                        // onChange={handleChange}
-                        />
-                        <TextField
-                            sx={{ color: "#919eb1", fontSize: "17px", marginTop: "3%" }}
-                            label="LastName"
+                    <Typography textAlign="center" variant='h5' sx={{ color: "black" }} >Confirm Bank Details</Typography>
+                    <Box sx={{backgroundColor:"#6495ED"}}>
+                        <Typography textAlign="center"  sx={{ color: "white" }} >The money will be credited to the bank account details mentioned in your folio</Typography>
+                    </Box>
+                    
 
-                        />
+
+                    <Box
+                        sx={{
+
+                            width: "95%",
+                            marginTop: "2%"
+                        }}
+                    >
 
                     </Box>
                     <Box
@@ -628,29 +801,25 @@ function RedeemFunds() {
                             marginTop: "2%"
                         }}
                     >
-                        <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%" }} label="Email Address" id="fullWidth" />
-                    </Box>
-                    <Box
-                        sx={{
 
-                            width: "95%",
-                            marginTop: "2%"
-                        }}
-                    >
-                        <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", }} fullWidth label="Date of Birth" id="fullWidth" />
                     </Box>
 
 
-                    <div style={{ width: "100%" }} onClick={() => setOpenModal(false)}>
-                        <SaveSipDetailsButton otp={OTP} />
-                    </div>
-                    {/* <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-                        <span onClick={() => navigate("/setnewpin")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography> */}
+                   
+                    
+                       <BankDetailTable />
+
+                       <Button autoFocus className={classes.showPlanBtn} fullWidth>
+                        Show Me Plans
+                    </Button>
+
                 </Box>
+               
+
             </Modal>
 
         </Box>
     )
 }
 
-export default RedeemFunds
+export default RedeemFundFull
