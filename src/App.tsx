@@ -42,27 +42,19 @@ import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
 import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
-import TxnFilters from './Components/TxnFilters/TxnFilters'
-//import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';
-
-
-
-import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking';import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
-import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
-//import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
-import RedeemFundFull from './Components/RedeemFunds/RedeemFundFull';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import AddMoreFundsModal from './Components/Portfolio/AddMoreFundsModal';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import { SmallModal } from './Modal/SmallModal';
+import UnderDevelopment from './Components/UnderDevelopment/UnderDevelopment';
+
 
 
 
@@ -89,31 +81,7 @@ function App() {
     fiveYearReturnGrowth: 17.36,
   };
 
-  /*
-    const mfData: MFProp = {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-    };
-  
-    const sipData: SipProp2 = {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      orderNo: 'INF209K01090',
-      fundType: ['Large Cap', 'Equity'],
-      mandatePending: true,
-      sipDate: '9th of every month',
-      sipAmount: 5000,
-      status: 'Active',
-      stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
-    };
-  */
+ 
 
   return (
     <>
@@ -178,11 +146,11 @@ function App() {
 
 
         <Route path='/explorefunds' element={<ExploreFunds />} />
-        <Route path='/RedeemFundFull' element={<RedeemFundFull />} />
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
-        <Route path='/addmorefundsflow' element={<AddMoreFundsModal />} />
-        <Route path='/netbanking' element={<NetBanking />} />
+        <Route path='/payusingnetbanking' element={<NetBanking />} />
+  
+
        
 
 

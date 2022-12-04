@@ -11,7 +11,7 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo } from '../../Assets/index'
+import { Active_Upi, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo } from '../../Assets/index'
 import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 
@@ -40,7 +40,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function NETbanking() {
+function NetBanking() {
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
@@ -252,10 +252,88 @@ function NETbanking() {
                                         </Box>
 
                                     }
-                                    title="Net Banking"
+                                    title="NEFT/RTGS"
                                     subheader="4825 ********** 25"
                                     sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
                                 <Box style={style.divider}></Box>
+
+
+                                <CardHeader
+                                    avatar={
+
+                                        <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
+
+                                    }
+                                    action={
+                                        <Box onClick={() => navigate('/vp')}>
+                                            <img src={hdfclogo} alt="sprint-money" style={{
+                                                width: "29.1px",
+                                                height: "29.4px",
+                                                marginLeft: "-16px"
+
+
+                                            }} />
+                                        </Box>
+
+                                    }
+                                    title="NEFT/RTGS"
+                                    subheader="4825 ********** 25"
+                                    sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
+                                <Box style={style.divider}></Box>
+                                <CardHeader
+                                    avatar={
+                                        <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
+
+                                    }
+                                    action={
+                                        <IconButton aria-label="UPILOGO" sx={{
+                                            width: "44.1px",
+                                            height: " 35px",
+
+                                            padding: "0 0.4px 5.6px 14.6px",
+
+                                          
+                                        }}>
+                                            <img src={Active_Upi} alt="S__M" style={{
+                                                width: "44px",
+                                                height: "35px",
+                                                marginLeft: "-16px"
+
+
+                                            }} />
+                                        </IconButton>
+                                    }
+                                    title="UPI "
+                                    subheader="Saved UPI Options"
+                                    sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
+                                />
+                                <CardHeader
+                                    avatar={
+                                        <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
+
+                                    }
+                                    action={
+                                        <IconButton aria-label="UPILOGO" sx={{
+                                            width: "44.1px",
+                                            height: " 35px",
+
+                                            padding: "0 0.4px 5.6px 14.6px",
+
+                                            opacity: "0.45"
+                                        }}>
+                                            <img src={upilogo} alt="S__M" style={{
+                                                width: "44px",
+                                                height: "35px",
+                                                marginLeft: "-16px"
+
+
+                                            }} />
+                                        </IconButton>
+                                    }
+                                    title="UPI "
+                                    subheader="Send UPI Options"
+                                    sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
+                                />
                                 <CardHeader
                                     avatar={
                                         <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
@@ -285,7 +363,6 @@ function NETbanking() {
                                 />
 
 
-
                             </Card>
                             <MakepaymentNetbankingbutton />
 
@@ -298,4 +375,4 @@ function NETbanking() {
     )
 }
 
-export default NETbanking
+export default NetBanking

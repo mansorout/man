@@ -1,4 +1,4 @@
-import { Box, Grid, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Grid, Toolbar, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useRef, useState } from "react";
@@ -10,10 +10,11 @@ import VerifySecButton from "../../Modules/Buttons/VerifySecButton";
 import Navbar from "../../Components/CommonComponents/Navbar";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import Sidebar from "../../Components/CommonComponents/Sidebar";
+import { VerifySec } from "../../Components/VerifySecOTP/VerifySec";
 
 
 
@@ -67,7 +68,7 @@ export const VerifyonCheckout = () => {
             width: "100%",
             maxWidth: "500px",
             padding: "10px 0px",
-            borderRadius: "20px 20px 0px 0px",
+            borderRadius: "8px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -107,6 +108,7 @@ export const VerifyonCheckout = () => {
     return (
         <>
 
+
             <Box style={{ width: "100vw" }} ref={refContainer}>
                 <Navbar />
                 <Box sx={style.main}>
@@ -125,21 +127,128 @@ export const VerifyonCheckout = () => {
                             <Toolbar />
                             <Sidebar />
                         </Grid>
-                        <Grid
-                            container
-                            xs={13}
-                            sm={11}
-                            md={10}
-                        >
-                            <Grid sx={{ padding: 2 }} item xs={12}>
-                                <Toolbar />
 
+                        <Grid sx={{ padding: 2 }} item xs={12}>
+                            <Toolbar />
+                            {/* <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
+                                <Breadcrumbs aria-label="breadcrumb">
+                                    <Link color="#6495ED" underline="always" href="/home">
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                    <Link
+                                        underline="always"
+                                        color="#6495ED"
+                                    // href="/home"
+                                    >
+                                        <Typography className='burgerText'> Investment</Typography>
 
+                                    </Link>
+                                    <Link
+                                        underline="always"
+                                        color="#6495ED"
+                                        // href="/"
+                                        href="/investnow"
 
-                            </Grid>
+                                    >
+                                        <Typography className='burgerText'> Monthly Investment</Typography>
+
+                                    </Link>
+                                    <Link
+                                        underline="always"
+                                        color="#6495ED"
+
+                                        aria-current="page"
+                                    >
+                                        <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
+
+                                    </Link>
+                                    <Link
+                                        underline="always"
+                                        color="#6495ED"
+                                        // href="/material-ui/react-breadcrumbs/"
+                                        aria-current="page"
+                                    >
+                                        <Typography className='burgerText'>  Customize Plan</Typography>
+
+                                    </Link>
+                                    <Link
+                                        underline="always"
+                                        color="#6495ED"
+                                        // href="/"
+                                        aria-current="page"
+                                    >
+                                        <Typography className='burgerText'>   Choose Fund to Replace</Typography>
+
+                                    </Link>
+                                    <Link
+                                        underline='none'
+                                        color="#8787a2"
+                                        // href="/"
+                                        aria-current="page"
+
+                                    >
+                                        <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
+
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box> */}
+
+                            <Box style={style.background}>
+                                <NavigationBar />
+                                <Box style={style.container}>
+                                    <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
+                                    <Typography mb={1} variant="h1" align="center">
+                                        Verify OTP
+                                    </Typography>
+                                    <Typography mb={2} style={{ maxWidth: "70%" }} className="VerificationOtp" align="center">
+                                        Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
+                                    </Typography>
+                                    <OtpInput
+                                        value={OTP}
+                                        onChange={handleOtpChange}
+                                        numInputs={4}
+                                        shouldAutoFocus={true}
+                                        hasErrored={error?.includes("Login_OTP")}
+                                        containerStyle={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            margin: "10px",
+                                            color: "black"
+                                        }}
+                                        inputStyle={{
+                                            border: "1px solid #dddfe2",
+                                            borderRadius: "4px",
+                                            padding: "10px",
+                                            margin: "10px",
+                                            width: "30px",
+                                            height: "30px",
+                                            color: "black",
+                                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
+                                        }}
+                                        errorStyle={{
+                                            border: "1px solid red",
+                                        }}
+                                    />
+                                    <Button onClick={validateOTP} variant="contained" style={style.button} fullWidth>
+                                        <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
+                                    </Button>
+                                    <Typography mt={2} sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
+                                        <span className="textLink" style={{ cursor: "pointer" }} > Resend</span></Typography>
+
+                                </Box>
+                            </Box>
+
                         </Grid>
+
                     </Grid>
                 </Box>
+                <img alt="logo" src={SBICON} width="275" height="275" style={{
+                    position: "absolute",
+                    right: "0px",
+                    top: "65px"
+                }}
+                />
             </Box>
 
         </>
