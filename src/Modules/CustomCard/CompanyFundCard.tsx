@@ -49,9 +49,11 @@ const CompanyFundCard = (props: Prop) => {
                 }}>
                     <Typography>{ props.name }</Typography>
                     <Chip label={ props.cap } sx={{
-                        marginRight: '10px'
+                        margin: '05px'
                     }} />
-                    <Chip label={ props.type } />
+                    <Chip label={ props.type } sx={{
+                        margin: '05px'
+                    }} />
                 </Box>
                 <Chip label={ formatter.format(props.price) } />
             </Box>

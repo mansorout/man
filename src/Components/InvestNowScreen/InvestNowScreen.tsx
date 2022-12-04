@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Grid, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, Modal, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -12,13 +12,17 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Logo, Profile, SIP } from '../../Assets/index'
- 
+import { closelogo, Logo, MonoLogo, Profile, SIP, sipiclogo } from '../../Assets/index'
+import { useDispatch, useSelector } from 'react-redux'
 import InvestCard from '../../Modules/Cards/InvestCard';
 import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
+import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton';
+import OtpInput from 'react-otp-input'
+import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -120,6 +124,20 @@ function InvestNowScreen() {
       color: "#09b85d",
       cursor: "pointer"
     },
+    modalContainer: {
+      borderRadius: "8px",
+      padding: "20px",
+      boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
+      backgroundColor: "#fff",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)"
+    } as React.CSSProperties,
     button: {
       height: "48px",
       borderRadius: "8px",
@@ -132,6 +150,10 @@ function InvestNowScreen() {
       color: "#6c63ff",
       fontSize: "24px"
     },
+    logo: {
+      width: "50px",
+      padding: "20px 0px",
+    } as React.CSSProperties,
     appBar: {
       backgroundColor: "white",
     }
@@ -153,106 +175,179 @@ function InvestNowScreen() {
   const classes = useStyles()
 
   const refContainer = useRef();
-const navigate=useNavigate()
+  const navigate = useNavigate()
+  const error: string[] = useSelector((state: any) => state.error)
+  const [mpin, setMpin] = useState<string | null>()
+  const [openModal, setOpenModal] = useState<boolean>(true)
+  const { openPin }: any = useSelector((state: any) => state.PinModalHome)
+  const handleModalClose = () => {
+    dispatch(PinModalHomeCloseActon())
+  }
+  const handleOtpChange = (otp: any) => {
+    setOTP(otp)
+  }
+  const [OTP, setOTP] = useState<string>("")
+
+
+
+
+
   return (
 
 
     <Box style={{ width: "100vw" }} ref={refContainer}>
-    <Navbar/>
-    <Box sx={style.main}>
-      <Grid
-        container
-        spacing={0}
-        sx={{ height: "100vh"}}
-      >
-        
-
-
-
-
-        <Grid
-          item
-          xs={0}
-          sm={1}
-          md={2}
-        >
-          <Toolbar />
-          <Sidebar/>
-        </Grid>
+      <Navbar />
+      <Box sx={style.main}>
         <Grid
           container
-          xs={13}
-          sm={11}
-          md={10}
+          spacing={0}
+          sx={{ height: "100vh" }}
         >
 
-          
-<Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+
+
+
+
+          <Grid
+            item
+            xs={0}
+            sm={1}
+            md={2}
+          >
             <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid
+            container
+            xs={13}
+            sm={11}
+            md={10}
+          >
 
-            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                                <Breadcrumbs aria-label="breadcrumb">
+
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+              <Toolbar />
+
+              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Breadcrumbs aria-label="breadcrumb">
 
 
 
-                                    <Link color="#6495ED" underline="always" href='Home' >
-                                        <Typography className='burgerText'> Home</Typography>
-                                    </Link>
-                                 
-                                       
- 
-                                    <Link  underline="always">
-                                        <Typography className='burgerText'>Investment</Typography>
-                                    
-                                    </Link>
-                                    
-                                    <Link underline="none" color="#878782">
-                                        <Typography className='burgerText' >One-time lumpsum</Typography>
-                                    
-                                    </Link>
-                                </Breadcrumbs>
-                            </Box>
-            <Grid container >
-              <Grid item    xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                  <Link color="#6495ED" underline="always" href='Home' >
+                    <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link underline="always">
+                    <Typography className='burgerText'>Investment</Typography>
 
-                <InvestCard />
+                  </Link>
+
+                  <Link underline="none" color="#878782">
+                    <Typography className='burgerText' >One-time lumpsum</Typography>
+
+                  </Link>
+                </Breadcrumbs>
+              </Box>
+              <Grid container >
+                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                  <InvestCard />
+                </Grid>
+                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                  <InvestSecondCard />
+                </Grid>
               </Grid>
-              <Grid item  xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+              <Box
+                textAlign="center"
+                sx={{
+                  margin: "auto",
+                  width: "304px",
+                }}
+              >
 
-                <InvestSecondCard/>
-              </Grid>
 
-              
+              </Box>
+
             </Grid>
 
 
+          </Grid>
+        </Grid>
+      </Box>
+
+
+{/* 
 
 
 
-            <Box
-              textAlign="center"
-              sx={{
-                margin: "auto",
-                width: "304px",
-              }}
-            >
+      <Modal
+        sx={{ backdropFilter: "blur(10px)" }}
+        keepMounted
 
-
-            </Box>
-
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+        open={openModal} >
+        <Box style={style.modalContainer}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} textAlign="right">
+              <img alt="Money Sprint" src={closelogo} style={{ width: "24px" }} />
+            </Grid>
           </Grid>
 
-         
-        </Grid>
-      </Grid>
+          <img alt="Money Sprint" src={sipiclogo} style={{
+            marginTop: "-9%",
+            width: " 38px",
+            height: "38px"
+          }} />
+
+          <b style={{ textAlign: "center" }}>Help us know you better.</b>
+          <Typography textAlign="center" variant='h5' sx={{ fontSize: "14px" }}  >Share details below to view recommendations</Typography>
+          <form>
+          <Box
+            component="form"
+            sx={{
+              '& > :not(style)': { m: 2, width: '19ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField label="FirstName" 
+            sx={{ color: "#919eb1", fontSize: "17px"
+           
+          }}
+             
+            />
+            &nbsp;&nbsp;&nbsp;
+            <TextField sx={{ color: "#919eb1", fontSize: "17px"}} label="LastName" />
+          </Box>
+          <Box sx={{ width: "95%", marginTop: "2%" }}>
+            <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%",marginLeft:"3%" }} label="Email Address" id="fullWidth" />
+          </Box>
+          <Box sx={{ width: "95%", marginTop: "2%" }}>
+            <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft:"3%"}} fullWidth label="Date of Birth" id="fullWidth" />
+          </Box>
+
+
+          <div style={{ width: "100%" }} onClick={() => setOpenModal(false)}>
+            <SaveSipDetailsButton otp={OTP}  />
+          </div>
+          </form>
+        </Box>
+      </Modal> */}
     </Box>
-  </Box>
 
 
 
-   
+
   )
 }
 
 export default InvestNowScreen
+
+function PinModalHomeCloseActon(): any {
+  throw new Error('Function not implemented.');
+}
+
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
 

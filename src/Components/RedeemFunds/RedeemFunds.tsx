@@ -1,8 +1,10 @@
 import './RedeemFunds.css'
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Grid, Modal, Stack, Typography } from '@mui/material'
+
+
+
 import React, { useEffect, useRef, useState } from 'react'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { Breadcrumbs, Drawer as DrawerList, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, TextFields } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
@@ -351,119 +353,7 @@ function RedeemFunds() {
             <RedeemSecFundCard />
 
         </Grid>
-        {/* <Grid item xs={6}>
-            <Card sx={{ maxWidth: 488, marginTop: "5%", marginLeft: "-3%", borderRadius: "8px" }}>
-                <CardActionArea>
-                    <Typography sx={{
-                        width: "318px",
-                        height: "21px",
-                        margin: "5% 108px 22px 5%",
-                        fontFamily: "Roboto",
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        fontStretch: "normal",
-                        fontStyle: "normal",
-                        lineHeight: "normal",
-                        letterSpacing: "normal",
-                        textAlign: "left",
-                        color: " #3c3e42"
-                    }}>Advantages of Lump sum investment</Typography>
-
-                    <Grid container spacing={1}>
-                        <Grid item xs={2}>
-                            <img src={rupconvie} alt="image" style={style.RupConviestyle} />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <Typography sx={{
-                                fontSize: "16px",
-
-
-                            }}>Exit Load</Typography>
-                            <Typography sx={{
-                                width: "353px",
-                                height: " 50px",
-                                margin: " 4px 0 0 ",
-                                fontSize: "14px",
-                                fontWeight: "normal",
-                                lineHeight: "1.21",
-                                textAlign: " left",
-                                color: "#7b7b9d"
-                            }}>Exit load will be applicable if you are redeeming a fund within
-                                365 days from the date of purchase. Exit load
-                                is a percentage of the NAV of the fund.</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={1}>
-                        <Grid item xs={2}>
-                            <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <Typography sx={{ fontSize: "16px", }}>Tax Implications</Typography>
-                            <Typography
-                                sx={{
-                                    width: "353px",
-                                    height: " 50px",
-                                    margin: " 4px 0 0 ",
-                                    fontFamily: " Roboto",
-                                    fontSize: "14px",
-                                    textAlign: " left",
-                                    color: "#7b7b9d"
-                                }}
-                            >Investors earn dividends and capital gains from liquid funds.
-                                Investors do not pay any tax on dividend income from mutual funds.</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Typography sx={{
-                                width: " 363px",
-                                height: "31px",
-                                margin: "19px 7px 19px 56px",
-                                fontSize: " 12px",
-                                fontWeight: "normal",
-                                fontStyle: " normal",
-                                lineHeight: "1.42",
-                                letterSpacing: "normal",
-                                textAlign: " center",
-                                color: "#7b7b9d",
-
-
-                            }}>  Final units or amount will depend on NAV
-                                applicable at the time of actual redemption request.</Typography>
-                        </Grid>
-                        <Grid item xs={12} sx={{ marginTop: "-5%" }}>
-                            <Typography
-                                sx={{
-                                    width: " 363px",
-                                    height: "31px",
-                                    margin: "-4% 7px 19px 56px",
-                                    fontSize: " 12px",
-                                    fontWeight: "normal",
-                                    fontStyle: " normal",
-                                    lineHeight: "1.42",
-                                    letterSpacing: "normal",
-                                    textAlign: " center",
-                                    color: "#7b7b9d",
-                                }}
-                            >By continuing, you’re agreeing to SprintMoneyTM</Typography>
-                            <Typography sx={{
-                                width: " 363px",
-                                height: "31px",
-                                margin: "-5% 7px 19px 56px",
-                                fontSize: " 12px",
-                                fontWeight: "normal",
-                                fontStyle: " normal",
-                                lineHeight: "1.42",
-                                letterSpacing: "normal",
-                                textAlign: " center",
-                                color: "#6c63ff",
-                            }}>  Terms and conditions</Typography>
-                        </Grid>
-                    </Grid>
-                </CardActionArea>
-            </Card>
-
-        </Grid> */}
+ 
 
 
     </Grid>
@@ -486,67 +376,7 @@ function RedeemFunds() {
     <RedeemNowButtom />
 </Box>
 
-<Modal open={openModal} onClose={() => setOpenModal(false)}>
-                <Box style={style.modalContainer}>
-                    <Grid container spacing={1}>
-                        <Grid item xs={12} textAlign="right">
-                            <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
-                        </Grid>
-                    </Grid>
 
-                    <img alt="Money Sprint" src={sipiclogo} style={style.logoIc} />
-
-                    <Typography textAlign="center" variant='h5' sx={{ color: "#3c3e42" }} >Help us know you better.</Typography>
-                    <Typography textAlign="center" variant='h5' sx={{ fontSize: "14px" }}  >Share details below to view recommendations</Typography>
-                    <Box
-                        component="form"
-                        sx={{
-                            '& > :not(style)': { m: 2, width: '19ch' },
-                        }}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <TextField
-                            id="outlined-name"
-                            label="FirstName"
-                            sx={{ color: "#919eb1", fontSize: "17px" }}
-                        // value={name}
-                        // onChange={handleChange}
-                        />
-                        <TextField
-                            sx={{ color: "#919eb1", fontSize: "17px", marginTop: "3%" }}
-                            label="LastName"
-
-                        />
-
-                    </Box>
-                    <Box
-                        sx={{
-
-                            width: "95%",
-                            marginTop: "2%"
-                        }}
-                    >
-                        <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%" }} label="Email Address" id="fullWidth" />
-                    </Box>
-                    <Box
-                        sx={{
-
-                            width: "95%",
-                            marginTop: "2%"
-                        }}
-                    >
-                        <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", }} fullWidth label="Date of Birth" id="fullWidth" />
-                    </Box>
-
-
-                    <div style={{ width: "100%" }} onClick={() => setOpenModal(false)}>
-                        <SaveSipDetailsButton otp={OTP} />
-                    </div>
-                    {/* <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-                        <span onClick={() => navigate("/setnewpin")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography> */}
-                </Box>
-            </Modal>
 
 
 

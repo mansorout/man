@@ -11,6 +11,9 @@ import PanVerify from './Reducers/PanVerify'
 import NomineeAdd from './Reducers/NomineeAdd'
 import UploadChequeReducer from './Reducers/UploadChequeReducer'
 import { NavToggleReducer } from './Duck/NavToggle'
+import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { PinModalHome } from './Duck/PINModalHome'
 
 
 
@@ -25,13 +28,12 @@ const rootReducer = combineReducers({
     pan: PanVerify,
     nominee: NomineeAdd,
     uploadCheque: UploadChequeReducer,
-    NavToggleReducer: NavToggleReducer
+    NavToggleReducer: NavToggleReducer,
+    InsuranceTermConditionReducer: InsuranceTermConditionReducer,
+    PinModalHome: PinModalHome,
 })
 
 export const store = createStore(
     rootReducer,
-
-    applyMiddleware(thunk),
-
-
+    composeWithDevTools(applyMiddleware(thunk))
 )

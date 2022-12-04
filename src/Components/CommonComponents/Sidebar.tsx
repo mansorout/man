@@ -69,7 +69,7 @@ const Sidebar = () => {
                                 // minHeight: 56,
                                 // px: 2.5,
                                 my: 0.5,
-                                background: pathName == '/portfolio' || pathName == '/holdings' || pathName == '/transactions' || pathName == '/reports' || pathName == '/sips' ? "rgba(0, 0, 0, 0.05)" : "transparent",
+                                background: pathName == '/portfolio' || pathName == '/holdings' || pathName == '/transactions' || pathName == '/reports' || pathName == '/sips' || pathName== '/cancleSip' ? "rgba(0, 0, 0, 0.05)" : "transparent",
                                 flexDirection: { sm: "column", md: "row" }
                             }}
                         >
@@ -80,7 +80,7 @@ const Sidebar = () => {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Assessment sx={{ color: pathName == '/portfolio' || pathName == '/holdings' || pathName == '/transactions' || pathName == '/reports' || pathName == '/sips' ? "#23db7b" : 'black' }} />
+                                <Assessment sx={{ color: pathName == '/portfolio' || pathName == '/holdings' || pathName == '/transactions' || pathName == '/reports' || pathName == '/sips' || pathName== '/cancleSip' ? "#23db7b" : 'black' }} />
                             </ListItemIcon>
                             <ListItemText primary="Portfolio" sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>

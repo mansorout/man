@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox'
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -15,12 +16,28 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 
 
+import { Dayjs } from 'dayjs';
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+
+import Paper, { PaperProps } from '@mui/material/Paper';
+import Draggable from 'react-draggable';
+
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import { string } from 'yup';
+import { useNavigate } from 'react-router-dom';
+import LoopIcon from '@mui/icons-material/Loop';
+
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     flexCommon: {
@@ -90,6 +107,49 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     popHeading: {
         textAlign: 'center'
+    },
+    radioGroup: {
+        marginBottom: '24px !important',
+        '& label': {
+            '@media(max-width: 400px)': {
+                width: '100%',
+                display: 'block',
+                margin: '5px 0px',
+                '&>*': {
+                    width: '100%'
+                }
+            },
+        }
+    },
+    genderBtn: {
+        '&:hover': {
+            border: '1px solid var(--primaryColor) !important',
+            backgroundColor: 'rgba(35, 219, 123, 0.12) !important',
+            color: 'var(--primaryColor) !important'
+        },
+    },
+    showPlanBtn: {
+        backgroundColor: 'var(--primaryColor) !important',
+        color: 'var(--uiWhite) !important',
+        borderRadius: '0px !important'
+    },
+    showPlanThankuDetail: {
+        textAlign: 'center',
+        '& p': {
+            margin: '3px 0px',
+        }
+    },
+    noClickBackdrop: {
+        pointerEvents: 'none'
+    },
+    borderAndTextErrorColor: {
+        borderColor: '#d32f2f !important',
+        color: '#d32f2f !important'
+    },
+    borderAndTextErrorColorRemove: {
+        border: '1px solid var(--primaryColor) !important',
+        backgroundColor: 'rgba(35, 219, 123, 0.12) !important',
+        color: 'var(--primaryColor) !important'
     }
 }))
 
@@ -104,15 +164,68 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
+interface genderProp {
+    prop: string;
+    errorShow: boolean;
+    selectoin: React.Dispatch<React.SetStateAction<string>>;
+    value: string;
+    errorRemove: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedItem: string;
+}
+
+const RadioCmp = (props: genderProp) => {
+    const classes = useStyles()
+    return (
+        <div>
+            <Button variant="outlined" style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', border: '1px solid var(--typeLighterGrey)', boxShadow: 'var(--themeShadow)', padding: '6px 5px', lineHeight: '1.4', margin: '0px 6px', borderRadius: '8px', width: '100%' }} className={`${classes.genderBtn} ${props.errorShow && classes.borderAndTextErrorColor} ${props.value === props.selectedItem ? classes.borderAndTextErrorColorRemove : ''}`} onClick={() => {
+                console.log(props)
+                props.errorRemove(false)
+                props.selectoin(props.value);
+
+                debugger
+            }}>{props?.prop}</Button>
+        </div>
+    )
+}
+
+
+
+
+function PaperComponent(props: PaperProps) {
+    return (
+        <Draggable
+            handle="#draggable-dialog-title"
+            cancel={'[class*="MuiDialogContent-root"]'}
+        >
+            <Paper {...props} />
+        </Draggable>
+    );
+}
+
 
 const InsuranceTerms = () => {
     const classes = useStyles()
+    const theme = useTheme();
+    const navigate = useNavigate();
     const [insuranceAmount, setInsuranceAmount] = useState<string>('')
+    // const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
+    const [dob, setDob] = React.useState<Dayjs | null>(null);
+    const [dobError, setDobError] = useState<boolean>(false)
     const [quickPickAmount, setQuickPickAmount] = useState<string[]>(['₹25 L', '₹75 L', '₹50 L', '₹1 Cr', '₹5 Cr', '₹10 Cr'])
+    const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
+    const [genderSelect, setGenderSelect] = useState<string>('')
+    const [genderSelectError, setGenderSelectError] = useState<boolean>(false)
+    const [tobaccoSelect, setTobaccoSelect] = useState<string>('')
+    const [tobaccoSelectError, setTobaccoSelectError] = useState<boolean>(false)
+    const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+
 
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
+        setDob(null)
+        setGenderSelect('');
+        setTobaccoSelect('')
         setOpen(true);
     };
     const handleClose = () => {
@@ -125,6 +238,38 @@ const InsuranceTerms = () => {
 
     const selectFromQuickPick = (e: any) => {
         console.log("quickPickValue: ", e.target)
+    }
+    const handleGenderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        debugger
+        setGenderSelectError(false)
+        setGenderSelect((event.target as HTMLInputElement).value);
+    };
+
+    const handleTobaccoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        debugger
+        setTobaccoSelectError(false)
+        setTobaccoSelect((event.target as HTMLInputElement).value);
+    };
+
+    const feildValidation = (props: any) => {
+        if (props !== '' && props !== null && props !== undefined) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const handlesubmitDetail = () => {
+        if (feildValidation(dob) && feildValidation(genderSelect) && feildValidation(tobaccoSelect)) {
+            setShowPlanDetailSubmit(true)
+            setTimeout(() => {
+                navigate('/explorePlan')
+            }, 1000);
+        } else {
+            !feildValidation(dob) && setDobError(true)
+            !feildValidation(genderSelect) && setGenderSelectError(true)
+            !feildValidation(tobaccoSelect) && setTobaccoSelectError(true)
+        }
     }
 
     return (
@@ -159,65 +304,138 @@ const InsuranceTerms = () => {
                 </div>
             </Box >
 
-            <Box sx={{
-                position: 'relative',
-                zIndex: '1',
-                marginTop: '150px',
-            }}>
-                <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
-                    <Button sx={{ width: { xs: '85%', sm: '40%' } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={handleClickOpen}>Show Me Exact Quote</Button>
-                    <Box className={classes.premiumAmountBox} sx={{ width: { xs: '80%', sm: '35%' } }}>
-                        <div className={classes.insuranceCardIcon}>
-                            <ThumbUpOffAltIcon />
-                        </div>
-                        <b style={{ fontSize: 'var(--titleFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>Monthly Premium</b>
-                        <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', }}>₹599</b>
-                    </Box>
-                </div>
-            </Box>
+            <FooterBtnWithBox
+                boxIcon={<ThumbUpOffAltIcon />}
+                boxText='Monthly Premium'
+                boxAmount='₹599'
+                btnText='Show Me Exact Quote'
+                btnClick={handleClickOpen}
+            />
 
 
-            <BootstrapDialog
-                onClose={handleClose}
-                aria-labelledby="customized-dialog-title"
+            <Dialog
                 open={open}
+                onClose={handleClose}
+                PaperComponent={PaperComponent}
+                aria-labelledby="draggable-dialog-title"
+                fullScreen={fullScreen}
+                sx={{ width: { xs: '100%', sm: '400px', margin: 'auto' } }}
+                disableEscapeKeyDown
+                className={`${showPlanDetailSubmit && classes.noClickBackdrop}`}
+            // disableBackdropClick
             >
-                {/* <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Modal title
-                </BootstrapDialogTitle> */}
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        <CloseIcon />
-                    </Button>
-                </DialogActions>
+
+                {
+                    !showPlanDetailSubmit && (<DialogTitle style={{ cursor: 'move', textAlign: 'end', paddingBottom: '0px', paddingTop: '6px', paddingRight: '0px' }} id="draggable-dialog-title">
+                        <Button style={{ color: 'var(--typeIndigoColor)' }} autoFocus onClick={handleClose}>
+                            <CloseIcon />
+                        </Button>
+                    </DialogTitle>)
+                }
+
+                {/* <DialogActions>
+                </DialogActions> */}
                 <DialogContent>
-                    <div className={classes.popHeading}>
-                        <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
-                        <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
-                            your exact quote</p>
-                    </div>
-                    <Typography gutterBottom>
-                        <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
-                                style={{ display: 'flex' }}
-                            >
-                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                <FormControlLabel value="other" control={<Radio />} label="Other" />
-                            </RadioGroup>
-                        </FormControl>
-                    </Typography>
+                    {
+                        !showPlanDetailSubmit ?
+                            <div className={classes.showPlanDialogWrapper}>
+                                <div className={classes.popHeading}>
+                                    <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
+                                    <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
+                                        your exact quote</p>
+                                </div>
+                                <FormControl className={classes.radioGroup} fullWidth>
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)' }}>Gender</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        style={{ justifyContent: 'center' }}
+                                        onChange={handleGenderSelect}
+                                    >
+                                        <FormControlLabel control={<RadioCmp
+                                            value="male"
+                                            selectoin={setGenderSelect}
+                                            errorShow={genderSelectError}
+                                            errorRemove={setGenderSelectError}
+                                            prop="Male"
+                                            selectedItem={genderSelect}
+                                        />} label="" />
+                                        <FormControlLabel control={<RadioCmp
+                                            value="female"
+                                            selectoin={setGenderSelect}
+                                            errorShow={genderSelectError}
+                                            errorRemove={setGenderSelectError}
+                                            prop="Female"
+                                            selectedItem={genderSelect}
+                                        />} label="" />
+                                        <FormControlLabel control={<RadioCmp
+                                            value="other"
+                                            selectoin={setGenderSelect}
+                                            errorShow={genderSelectError}
+                                            errorRemove={setGenderSelectError}
+                                            prop="Transgender"
+                                            selectedItem={genderSelect}
+                                        />} label="" />
+                                    </RadioGroup>
+                                </FormControl>
+
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        label="Date of Birth"
+                                        value={dob}
+                                        onChange={(newValue) => {
+                                            setDob(newValue);
+                                            setDobError(false)
+                                        }}
+                                        renderInput={(params) => <TextField {...params} style={{ marginBottom: '20px' }} error={dobError} fullWidth />}
+                                    />
+                                </LocalizationProvider>
+
+                                <FormControl className={classes.radioGroup} fullWidth>
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)', marginBottom: '5px' }}>Do you smoke or chew tobacco?</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"
+                                        onChange={handleTobaccoSelect}
+                                    >
+                                        <FormControlLabel control={<RadioCmp
+                                            value="no"
+                                            selectoin={setTobaccoSelect}
+                                            errorShow={tobaccoSelectError}
+                                            errorRemove={setTobaccoSelectError}
+                                            prop="No"
+                                            selectedItem={tobaccoSelect}
+                                        />} label="" />
+                                        <FormControlLabel control={<RadioCmp
+                                            value="yes"
+                                            selectoin={setTobaccoSelect}
+                                            errorShow={tobaccoSelectError}
+                                            errorRemove={setTobaccoSelectError}
+                                            prop="Yes"
+                                            selectedItem={tobaccoSelect}
+                                        />} label="" />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div> :
+                            <div className={classes.showPlanThankuDetail}>
+                                <ThumbUpOffAltIcon style={{ color: 'var(--primaryColor)', fontSize: 'var(--headingFontSize)' }} />
+                                <p style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)' }}>Thank you for the details</p>
+                                <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>Please wait while we bring together best recommendations for you.</p>
+                                <LoopIcon style={{ marginTop: '15px', color: 'var(--ui1Color)' }} />
+                            </div>
+                    }
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Save changes
-                    </Button>
-                </DialogActions>
-            </BootstrapDialog>
+                {
+                    !showPlanDetailSubmit && (<DialogActions style={{ padding: '0px' }}>
+                        <Button autoFocus onClick={handlesubmitDetail} className={classes.showPlanBtn} fullWidth>
+                            Show Me Plans
+                        </Button>
+                    </DialogActions>)
+                }
+            </Dialog>
+
         </div >
     )
 }
