@@ -4,6 +4,7 @@ import { Box, styled } from '@mui/system'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
 
 
+
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
@@ -37,8 +38,22 @@ import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
 import Divider from '@mui/material/Divider';
+import { SuccessLogo } from '../../Assets';
 
+const style = {
+    button3: {
+        height: "48px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "#23db7b",
+        marginBottm: "10px",
+        width: "100%",
+        maxWidth: "400px",
+    } as React.CSSProperties,
 
+    text: {
+        color: "white"
+    },
+}
 const useStyles: any = makeStyles((theme: Theme) => ({
     flexCommon: {
         display: 'flex',
@@ -202,9 +217,10 @@ function PaperComponent(props: PaperProps) {
 
 
 const AddMoreFundsModal = (props: any) => {
+    const [openRealPaymentModal, setOpenRealPaymentModal] = useState<boolean>(false)
     const [TFValue, setTFValue] = useState<any>("")
     const [showDatepicker, setshowDatepicker] = useState<boolean>(true);
-
+    const [dateConfirmModal, setDateConfirmedModal] = useState<boolean>(false)
     const classes = useStyles()
     const theme = useTheme();
     const navigate = useNavigate();
@@ -266,8 +282,8 @@ const AddMoreFundsModal = (props: any) => {
         if (feildValidation(sid) && feildValidation(amountSelect)) {
             setShowPlanDetailSubmit(true)
             setTimeout(() => {
-                // navigate('/explorePlan')
-            }, 20000);
+                setDateConfirmedModal(true)
+            }, 1000);
         } else {
             !feildValidation(sid) && setsidError(true)
             !feildValidation(amountSelect) && setAmountSelectError(true)
@@ -404,6 +420,35 @@ const AddMoreFundsModal = (props: any) => {
                 </DialogContent>
 
             </Dialog>
+
+            <Modal open={dateConfirmModal} onClose={() => setDateConfirmedModal(false)}>
+                <Box style={{
+                    height: "-webkit-fill-available",
+                    width: "90%",
+                    maxWidth: "330px",
+                    borderRadius: "8px 8px 0px 0px",
+                    boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
+                    backgroundColor: "white",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    overflow: "hidden",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%,-50%)"
+                }}>
+                    <Box my={2} style={{     paddingTop: "20px", display: "flex", alignItems: "center", justifyContent: "center", width: "50px", height: '50px', borderRadius: "50%", }}>
+                        <img src={SuccessLogo} style={{ width: "90px", color: "white", paddingTop: "29px" }} />
+                    </Box>
+                    <Typography style={{ paddingTop: "53px", fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Date Confirmed</Typography>
+                    <Typography mx={2} mb={4} style={{ fontSize: "12px", color: "#7b7b9d", textAlign: "center", fontWeight: "500" }}>Your monthly SIP date is 08th of every month.</Typography>
+                    <Button variant="contained" style={style.button3} fullWidth onClick={() => { navigate('/netbanking')}} >
+                        <Typography style={style.text} className="largeButtonText"> Continue to Payment</Typography>
+                    </Button>
+                </Box>
+            </Modal>
 
         </div >
     )

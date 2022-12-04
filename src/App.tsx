@@ -62,6 +62,7 @@ import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout
 import AddMoreFundsModal from './Components/Portfolio/AddMoreFundsModal';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
+import { SmallModal } from './Modal/SmallModal';
 
 
 
@@ -182,6 +183,7 @@ function App() {
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/addmorefundsflow' element={<AddMoreFundsModal />} />
         <Route path='/netbanking' element={<NetBanking />} />
+       
 
 
 
