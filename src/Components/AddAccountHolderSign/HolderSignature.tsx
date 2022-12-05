@@ -34,7 +34,7 @@ import {
 
 import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Logo, Profile } from "../../Assets/index";
+import { Logo, Logoici, Profile } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
@@ -434,7 +434,10 @@ function HolderSignature() {
 
                             </Box>
                             <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                                <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} alignItems="left" sm={12} md={6}>
+                                    <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
+                  <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
                                     By submitting these details, you are agree to share your details
                                     to BSE for further transactions <br />
                                 </Typography>
@@ -446,6 +449,9 @@ function HolderSignature() {
                                 >
                                     Terms and conditions
                                 </Typography>
+                      </Grid>
+                    </Grid>
+                 
                             </Box>
                         </Grid>
                     </Grid>
