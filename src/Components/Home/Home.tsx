@@ -199,15 +199,15 @@ function Home() {
   const handleNavigation = (strNavigationScreenName: string) => {
     let objLocationData = {};
     switch (strNavigationScreenName) {
-      case "startAnSip": {
+      case "sipInvestment": {
         objLocationData = {
-          cardType: "startAnSip"
+          cardType: "sipInvestment"
         }
         break;
       }
-      case "investNow": {
+      case "oneTimeInvestment": {
         objLocationData = {
-          cardType: "investNow"
+          cardType: "oneTimeInvestment"
         }
         break;
       }
