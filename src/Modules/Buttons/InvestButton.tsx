@@ -2,10 +2,18 @@ import React from 'react'
 import { Button,Typography } from '@mui/material'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import ModalInvestNow from '../../Components/InvestNowScreen/ModalInvestNow';
+
+
+
+const handleClick=()=>{
+    alert("eeee")
+}
 
 export const InvestButton = () => {
-   
-    const navigate = useNavigate();
+    const [showLogin, setShowLogin] = useState(false);
+  
+    const naviagte = useNavigate();
     const style = {
         button : {
             height: "48px",
@@ -22,9 +30,14 @@ export const InvestButton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth >
-            <Typography component="span" style={style.text} className="largeButtonText" onClick={()=>navigate("/redeemfund")}>Continue</Typography>
-        </Button> 
+        <>
+           <Button  variant="contained" style={style.button} fullWidth  onClick={() => setShowLogin(true) }>
+          
+          <Typography component="span" style={style.text} className="largeButtonText">Continue</Typography>
+      </Button>
+          <ModalInvestNow open={showLogin}  close={() => setShowLogin(false)} />
+        </>
+      
     )
 }
 
