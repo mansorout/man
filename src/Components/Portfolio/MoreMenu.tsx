@@ -24,7 +24,7 @@ const MoreMenu = (props: MoreMenuProps) => {
                 <ChevronRightIcon />
             </Box>
             <Box>
-                <Typography>Buy More Funds</Typography>
+                <Typography>Buy More</Typography>
                 <ChevronRightIcon />
             </Box>
             <Box>

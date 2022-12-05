@@ -166,6 +166,8 @@ export default function FilterModal(props: any) {
 
     const [timePeriodSelected, setTimePeriodSelected] = React.useState<boolean[]>([true, false, false, false])
 
+    const [opennew,setOpenNew]=React.useState<boolean>();
+
     const [date, setDate] = React.useState<boolean>();
 
     const [valuedate, setValuedate] = React.useState<Date | null>(
@@ -203,7 +205,7 @@ export default function FilterModal(props: any) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Open dialog
             </Button>
-
+                   
 
             <BootstrapDialog
 
@@ -215,14 +217,16 @@ export default function FilterModal(props: any) {
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={props.close}>
                     Filters
                 </BootstrapDialogTitle>
+
+               
                 <DialogContent dividers>
 
-                    <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ flexGrow: 1, width:400}}>
                         <Grid container spacing={0}>
 
 
                             <Grid item xs={4}>
-                                <Box sx={{ backgroundColor: "#f9f9f9"}}>
+                                <Box sx={{ backgroundColor: "#f9f9f9",width:"100%"}}>
                                     <Tabs
                                         orientation="vertical"
                                         variant="scrollable"
@@ -243,10 +247,10 @@ export default function FilterModal(props: any) {
 
 
 
-                            <Grid item xs={8}>
+                            <Grid  item xs={8}>
 
-                                <Box sx={{ backgroundColor: "white ", flexGrow: 1 }}>
-                                    <TabPanel value={value} index={0}>
+                                <Box sx={{ backgroundColor: "white ", flexGrow: 1,width:"100%" }}>
+                                    <TabPanel  value={value} index={0}>
 
 
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -365,7 +369,6 @@ export default function FilterModal(props: any) {
 
     );
 }
-
 
 
 

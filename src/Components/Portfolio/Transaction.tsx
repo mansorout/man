@@ -143,6 +143,8 @@ function Transaction() {
 
   const [open, setOpen] = useState<boolean>(false)
 
+  const [opennew,setOpenNew]=React.useState<boolean>();
+
 
   const menuActions = React.useRef<MenuUnstyledActions>(null);
 
