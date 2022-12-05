@@ -815,9 +815,7 @@ function RedeemFunds() {
                 }}>
                     <Grid container spacing={1}>
                         <Grid item xs={12} textAlign="right">
-                            <Box onClick={() => {
-                                alert("close this")
-                            }}>
+                            <Box onClick={()=>setOpen(false)}>
                                 <img alt="Money Sprint" src={closelogo} style={style.logoclose} />
                             </Box>
                         </Grid>
