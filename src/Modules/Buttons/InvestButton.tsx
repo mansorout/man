@@ -2,7 +2,7 @@ import React from 'react'
 import { Button,Typography } from '@mui/material'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import ModalInvestNow from '../../Components/InvestNowScreen/ModalInvestNow';
+import ModalInvestNow from '../../Components/InvestNowScreen/ModalInvestNow'
 
 
 

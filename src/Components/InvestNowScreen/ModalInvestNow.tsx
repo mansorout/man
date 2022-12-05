@@ -1,57 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Grid, Modal, TextField, Typography } from '@mui/material'
+import { Breadcrumbs, Button, Grid, Modal, Popover, TextField, Typography } from '@mui/material'
 import { closelogo, Logo, MonoLogo, Profile, SIP, sipiclogo } from '../../Assets/index'
 import { useDispatch, useSelector } from 'react-redux'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton'
+import { useForm, Controller } from "react-hook-form";
+import set from 'date-fns/fp/set/index.js'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 
 
 function ModalInvestNow(props: any) {
  
-
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [Email, setEmail] = useState<any>("");
-  const [date, setDate] = useState<any>("");
-  const [errorMessage, setErrorMessage] = React.useState<any>("");
-  // const[firstName,setFirstName]=<any>useState("")
-
-
-  {/* const handleFirstName =(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement)=>{
-
-    setFirstName(e.target.value)
-  }
-  */}
-
-  const handldeFirstname = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setFirstName(e.target.value)
-    if(firstName.length !=10){
-      alert("hhhhh")
-    }
-  }
-
-  console.log(firstName)
-
-  const handldeLastName = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setLastName(e.target.value)
-  }
-
-  console.log(lastName)
-  // handldeEmail
-  const handldeEmail = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-
-  console.log(Email)
-  const handldeDate = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setDate(e.target.value)
-  }
-
-  console.log(date)
-
-
-
+  const navigate=useNavigate()
   const style = {
     main: {
       boxSizing: "border-box",
@@ -159,10 +120,110 @@ function ModalInvestNow(props: any) {
     }
   }
 
+  const btnstyle = {
+    button : {
+        height: "48px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "#23db7b",
+        margin: "20px",
+        width:"90%",
+        maxWidth:"400px",
+    } as React.CSSProperties,
+    text : {
+        color: "white"
+    }
+}
+  const [formData, setFormData] = useState<any>({
+    firstName: "",
+    lastName: "",
+    email:"",
+    DOB:""
+     })
 
 
 
+     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
+  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
+  const [errorMessageLN, setErrorMessageLN] = React.useState<any>("");
+  const [errorMessageEM, setErrorMessageEM] = React.useState<any>("");
+  const [errorMessageDOB, setErrorMessageDOB] = React.useState<any>("");
+  const [showSubmit,setShowSubmit] = useState(true)
+  const [error,setError] = useState(false)
+  
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regexDOB =  /[0-9]{4,}(-[0-9]{2,}){2,}/
+  function  handleChange(e:any){
+        
+         const value = e.target.value;
+         setFormData({
+           ...formData,
+           [e.target.name]: value,
+
+         })
+         
+         
+    }
+
+  function handleOnBlurFirstname(e:any){
+       if(formData.firstName.length<3){
+        setError(true)
+        setErrorMessageFN("First Name is required")
+        }
+        
+       
+  }
+
+  function handleOnBlurLastname(e:any){
+    if(formData.lastName.length<3){
+     setError(true)
+     setErrorMessageLN("Last Name is required")
+   }
+   
+}
+
+function handleOnBlurEamil(e:any){
+  if(!emailRegex.test(formData.email)){
+   setError(true)
+   setErrorMessageEM("Please Enter Valid Email")
+ }
+ 
+}
+
+function handleOnBlurDOB(){
+  if(!regexDOB.test(formData.DOB)){
+    setError(true)
+    setErrorMessageDOB("Please Enter Valid DOB")
+  }
+}
+
+
+useEffect(()=>{
+ 
+ console.log(formData.firstName.length>3 && formData.lastName.length>3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB))
+setShowSubmit(true)
+
+if(formData.firstName.length>3 && formData.lastName.length>3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB)){
+  setShowSubmit(false)
+}
+
+console.log(showSubmit)
+},[formData])
+
+const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  event.stopPropagation();
+  alert("jj")
+  navigate('/onetimemutualfundrecommendation')
+};
+
+// const handleClose = () => {
+//   setAnchorEl(null);
+ 
+// };
+
+// const open = Boolean(anchorEl);
+// const id = open ? 'simple-popover' : undefined;
 
 
 
@@ -203,45 +264,81 @@ function ModalInvestNow(props: any) {
             >
               <TextField label="FirstName"
                 sx={{ color: "#919eb1", fontSize: "17px" }}
-                onChange={handldeFirstname}
+                onBlur={handleOnBlurFirstname}
+                onChange={handleChange}
+                name="firstName"
                 type="text"
-                // error={text.length >= MAX_LENGTH}
-                // helperText={errorMessage}
-                // value={text}
-
-
-
-
-
+                value={formData.firstName}
+                helperText={ formData.firstName.length<3 ?  <label style={{color:"red"}}>{errorMessageFN}</label> : ""}
+          
               />
-
+              {/* {error && firstName.length<3 ? <label style={{display:"flex"}}>{errorMessage}</label>:""} */}
+            
               &nbsp;&nbsp;&nbsp;
               <TextField sx={{ color: "#919eb1", fontSize: "17px" }} label="LastName*"
-                onChange={handldeLastName}
+                    onBlur={handleOnBlurLastname}
+                    onChange={handleChange}
+                    type="text"
+                    name='lastName'
+                    value={formData.lastName}
+                    helperText={ formData.lastName.length<3 ?  <label style={{color:"red"}}>{errorMessageLN}</label> : ""}
               />
 
             </Box>
             <Box sx={{ width: "95%", marginTop: "2%" }}>
-              <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%", marginLeft: "3%" }} label="Email Address" id="fullWidth"
-                onChange={handldeEmail}
+              <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%", marginLeft: "3%" }}
+               label="Email Address" id="fullWidth"
+                 onBlur={handleOnBlurEamil}
+                    onChange={handleChange}
+                    type="text"
+                    name='email'
+                    value={formData.email}
+                    helperText={ !emailRegex.test(formData.email) ?  <label style={{color:"red"}}>{errorMessageEM}</label> : ""}
+               
               />
             </Box>
             <Box sx={{ width: "95%", marginTop: "2%" }}>
               <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft: "3%" }} fullWidth label="Date of Birth"
-                id="fullWidth"
-                onChange={handldeDate}
+               
+                 onBlur={handleOnBlurDOB}
+                    onChange={handleChange}
+                    
+                    name='DOB'
+                    value={formData.DOB}
+                    helperText={ !regexDOB.test(formData.DOB) ?  <label style={{color:"red"}}>{errorMessageDOB}</label> : ""}
+               
+               
               />
             </Box>
 
 
             <div style={{ width: "100%" }} >
-              <SaveSipDetailsButton otp={''} />
+            <Button disabled={showSubmit}  variant="contained" style={btnstyle.button} fullWidth   
+            onClick={handleClick}
+            sx={{
+              pointerEvents: 'fill',
+             }}   >
+            <Typography component="span" style={btnstyle.text} className="largeButtonText"  >Save Details</Typography>
+        </Button>
+        {/* <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover> */}
             </div>
           </form>
         </Box>
       </Modal>
     </>
   )
+
 }
 
 export default ModalInvestNow
