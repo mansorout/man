@@ -209,19 +209,20 @@ function Home() {
             <Toolbar />
             <Sidebar />
 
-            
+
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={8}>
               <Toolbar />
               <Grid container>
+
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                 </Grid>
                 {
                   investingCards.map((item, key) => {
                     return (
-                      <Grid key={key} onClick={() => navigate("/investnowscreen")} item xs={6} sx={{ padding: 2 }}>
+                      <Grid key={key} onClick={() => navigate('/investnowscreen')} item xs={6} sx={{ padding: 2 }}>
                         <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                       </Grid>
                     )

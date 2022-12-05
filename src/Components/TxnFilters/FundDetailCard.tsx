@@ -123,7 +123,7 @@ const FundDetailCard = (props: Prop) => {
         
         <Grid sx={{textAlignLast: "end"}} item xs={4}>
           
-            <Button onClick={() => navigate('/home')} sx={{
+            <Button onClick={() => navigate('/mflist')} sx={{
               backgroundColor: "#23db7b", width: "100%",
                color: "#ffffff", borderRadius: "8px"
             }}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>

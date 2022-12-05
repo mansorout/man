@@ -1,27 +1,25 @@
 
-import './Editprofilescreen.css'
-import Avatar from '@mui/material/Avatar';
-
+import './Under.css'
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Grid, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import { Button, Grid, Modal, Theme, Typography } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Logo, Profile, SIP } from '../../Assets/index'
-// import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-// import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
-import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
-import Link from '@mui/material/Link';
-import { useNavigate } from 'react-router-dom';
+import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Assets/index'
+import FinancialFreedom from '../../Modules/CustomCard/FinancialFreedom'
+import StartInvestingCard from '../../Modules/CustomCard/StartInvestingCard'
+import { investingCards } from '../../Modal/investingCards'
+import { largeCards } from '../../Modal/largeCards'
+import LargeCards from '../../Modules/CustomCard/LargeCards'
+import CompanyFundCard from '../../Modules/CustomCard/CompanyFundCard'
+import { companyCards } from '../../Modal/companyCards'
+import { useNavigate } from 'react-router-dom'
+import OtpInput from 'react-otp-input'
+import { useSelector } from 'react-redux'
+import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
 import Navbar from '../CommonComponents/Navbar';
-import Sidebar from '../CommonComponents/Sidebar';
-
-
-
+import Sidebar from '../CommonComponents/Sidebar'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -35,7 +33,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function Editprofilescreen() {
+function Under() {
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -135,13 +133,31 @@ function Editprofilescreen() {
     },
     appBar: {
       backgroundColor: "white",
-    }
+    },
+    modalContainer: {
+      borderRadius: "8px",
+      padding: "20px",
+      boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
+      backgroundColor: "#fff",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)"
+    } as React.CSSProperties,
+    logo: {
+      width: "50px",
+      padding: "20px 0px",
+    } as React.CSSProperties,
+
   }
 
   const [open, setOpen] = useState<boolean>(false)
 
   const menuActions = React.useRef<MenuUnstyledActions>(null);
-
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
@@ -152,89 +168,58 @@ function Editprofilescreen() {
   };
 
   const classes = useStyles()
-  const navigate = useNavigate()
+
   const refContainer = useRef();
+
+
+
+  const [mpin, setMpin] = useState<string | null>()
+  const [openModal, setOpenModal] = useState<boolean>(true)
+
+  const handleLoad = () => {
+    setMpin(localStorage.getItem("mpin"));
+    setOpen(true)
+  }
+
+  const [OTP, setOTP] = useState<string>("")
+
+  const handleOtpChange = (otp: any) => {
+    setOTP(otp)
+  }
+
+
+  const error: string[] = useSelector((state: any) => state.error)
+  const navigate = useNavigate()
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
-        <Grid
-          container
-          spacing={0}
-          sx={{ height: "100vh" }}
-        >
-
-          <Grid
-            item
-            xs={0}
-            sm={1}
-            md={2}
-          >
+        <Grid container spacing={0} >
+          <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
+
+            
           </Grid>
-          <Grid
-            container
-            xs={13}
-            sm={11}
-            md={10}
-          >
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
-              <Toolbar />
-
-              <Grid container xs={12} sx={{marginTop:"25px",marginLeft:"20px"}}>
-              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
-
-
-
-                  <Link color="#6495ED" underline="always" href='Home' >
-                    <Typography className='burgerText'> Home</Typography>
-                  </Link>
-
-
-
-                  <Link underline="always" href='/vp'>
-                    <Typography className='burgerText'>View Profile</Typography>
-
-                  </Link>
-
-                  <Link underline="none" color="#878782">
-                    <Typography className='burgerText'>Edit Details</Typography>
-
-                  </Link>
-                </Breadcrumbs>
-              </Box>
-              </Grid>
-              <EditprofileCard />
-              <Box
-                textAlign="center"
-                sx={{
-                  margin: "auto",
-                  width: "304px",
-                }}
-              >
-
-                <Typography component="span" className="bottomContentText ">
-                  By submitting these details, you are agree to share your details
-                  to BSE for further transactions <br />
-                </Typography>
-                <Typography
-                  component="span"
-                  style={{ cursor: "pointer" }}
-                  className="textLink"
-                >
-                  Terms and conditions
-                </Typography>
-              </Box>
-
-            </Grid>
-          </Grid>
+        
         </Grid>
       </Box>
+
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box style={style.modalContainer}>
+        
+       
+      
+<Typography  onClick={()=>navigate('/mflist')} sx={{color:"blue"}}>Under Devlopment</Typography>
+          <Typography textAlign="center" variant='caption' onClick={()=>navigate('/under')} >Popup successfully</Typography>
+        
+         
+        </Box>
+    
+      </Modal>
     </Box>
   )
 }
 
-export default Editprofilescreen
+export default Under

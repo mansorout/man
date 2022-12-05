@@ -442,8 +442,7 @@ function SipSuccessScreen() {
             <Box style={style.container}>
             <img alt="Money Sprint" src={SuccessFullOtp } style={style.logo} />
             <Typography mb={1} variant="h1" align="center" className="SipSucessScreen">
-            Success! Your request for stopping
-                has been submitted
+            Your investment is in progress!
             </Typography>
             <Typography mb={2} style={{maxWidth:"90%"}} className="VerificationOtp" align="center">
             We will notify you via email in 1 or 2 working days once the confirmation

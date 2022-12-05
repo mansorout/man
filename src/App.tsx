@@ -151,6 +151,12 @@ function App() {
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/Insurance" element={<Insurance />} />
+        
+       
+        
+
+
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
 
@@ -166,6 +172,8 @@ function App() {
 
 
         <Route path="/funddetails" element={<FundDetails />} />
+
+
 
 
 
