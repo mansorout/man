@@ -39,7 +39,6 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function InvestNowScreen() {
-
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
       backgroundColor: "white",
@@ -49,8 +48,6 @@ function InvestNowScreen() {
       zIndex: "3000",
     },
   }));
-
-
 
   const style = {
     main: {
@@ -160,9 +157,7 @@ function InvestNowScreen() {
   }
 
   const [open, setOpen] = useState<boolean>(false)
-
   const menuActions = React.useRef<MenuUnstyledActions>(null);
-
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 

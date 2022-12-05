@@ -56,6 +56,7 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
+import StartInvestment from './Components/InvestNowScreen/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 
@@ -148,7 +149,12 @@ function App() {
 
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
-        <Route path="/investnowscreen" element={<InvestNowScreen />} />
+
+        <Route path="/startAnSip" element={<StartInvestment />} />
+        <Route path="/investNow" element={<StartInvestment />} />
+        <Route path="/buildWealth" element={<InvestNowScreen />} />
+        <Route path="/getLoan" element={<InvestNowScreen />} />
+
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
