@@ -149,8 +149,12 @@ function App() {
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
 
-        <Route path="/startAnSip" element={<StartInvestment />} />
-        <Route path="/investNow" element={<StartInvestment />} />
+        <Route path="/sipInvestment" element={<StartInvestment />} />
+        <Route path="/oneTimeInvestment" element={<StartInvestment />} />
+
+        <Route path="/startAnSip" element={<InvestNowScreen />} />
+        <Route path="/investNow" element={<InvestNowScreen />} />
+
         <Route path="/buildWealth" element={<InvestNowScreen />} />
         <Route path="/getLoan" element={<InvestNowScreen />} />
 
@@ -158,9 +162,9 @@ function App() {
 
         <Route path="/netbanking" element={<NETbanking />} />
         <Route path="/Insurance" element={<Insurance />} />
-        
-       
-        
+
+
+
 
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}

@@ -183,9 +183,13 @@ function InvestNowScreen() {
   }
   const [OTP, setOTP] = useState<string>("")
 
-
-
-
+  const handleNavigation = () => {
+    navigate("/oneTimeInvestment", {
+      state: {
+        cardType: "oneTimeInvestment"
+      }
+    })
+  }
 
   return (
 
@@ -231,12 +235,12 @@ function InvestNowScreen() {
                   <Link color="#6495ED" underline="always" href='Home' >
                     <Typography className='burgerText'> Home</Typography>
                   </Link>
-                  <Link underline="always">
+                  <Link underline="always" onClick={() => handleNavigation()}>
                     <Typography className='burgerText'>Investment</Typography>
 
                   </Link>
 
-                  <Link underline="none" color="#878782">
+                  <Link underline="none" color="#878782"  >
                     <Typography className='burgerText' >One-time lumpsum</Typography>
 
                   </Link>
@@ -269,7 +273,7 @@ function InvestNowScreen() {
       </Box>
 
 
-{/* 
+      {/* 
 
 
 
