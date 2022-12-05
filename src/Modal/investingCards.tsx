@@ -8,14 +8,14 @@ export const investingCards = [
         Heading: "Start an SIP",
         Text: "Start investing in small amount and reap big returns",
         Img: SIP,
-        Route:"startAnSip"
+        Route:"sipInvestment"
     },
     {
         BgColor: "#ecf6f6",
         Heading: "Invest Now",
         Text: "A right way of investing is to build a mutual fund portfolio",
         Img: InvestNow,
-        Route:"investNow"
+        Route:"oneTimeInvestment"
     },
     {
         BgColor: "#ecf6fa",

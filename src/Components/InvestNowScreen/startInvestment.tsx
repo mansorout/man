@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // import './Portfolio.css'
 import '../../Components/Portfolio/Portfolio.css'
 import { Box, styled } from '@mui/system'
-import { Grid, ImageListItem, MenuList, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, ImageListItem, Link, MenuList, Typography } from '@mui/material'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
@@ -11,7 +11,7 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support } from '@mui/icons-mate
 import { AppBar, Button, Divider, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile } from '../../Assets/index'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { chart, meria } from '../../Assets/index'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
@@ -42,23 +42,24 @@ const objLumSomeInvestmentData = Object.freeze({
   cardDetails: {
     heading: "Looking for convenient investment options?",
     subHeading: "",
-    description: "Sit back after investing in lumpsum and grow your money over a period of time or in long run."
+    description: "Sit back after investing in lumpsum and grow your money over a period of time or in long run.",
+    img: "/assets/images/ManSIp.svg"
   },
   advantages: {
     heading: "Advantages of Lump sum investment",
     features: [{
       heading: "Convenience",
       description: "Investing via a one-time investment plan is relatively more convenient than a SIP as you pay only once and your investment can grow. hat said, the auto-debit availability makes a SIP investment easier to invest too. . The difference is probably psychological.",
-      img: ""
+      img: "./assets/images/ic_convinience.svg"
     },
     {
       heading: "Capital appreciation over time",
       description: "With the one-time investment plan, the chances of appreciation of wealth increases as the investment has time to adjust to market corrections and grow significantly.",
-      img: ""
+      img: "./assets/images/ic_money_returns.svg"
     }, {
       heading: "Low Charges",
       description: "Another advantage of lump sum investment is that it results in lower transaction costs as such investments are generally made for longer durations. Short- term investments often attract exit load and higher taxation liabilities.",
-      img: ""
+      img: "./assets/images/ic_low_charges.svg"
     }],
     cards: [
       {
@@ -83,12 +84,12 @@ const objLumSomeInvestmentData = Object.freeze({
       {
         heading: "Undisciplined Investment",
         description: "Lump sum investment plan does not encourage investment discipline.",
-        img: "",
+        img: "./assets/images/ic_No_investment_adjustment.svg",
       },
       {
         heading: "No investment adjustment",
         description: "With the one-time investment plan, an investor cannot spread his/her investment over the highs and lows of the stock market. Thus, he/she is exposed to a greater degree of risk of not being able to bounce back from an investment decision made at a wrong time (during bullish runs when they buy lesser units due to higher prices).",
-        img: "",
+        img: "./assets/images/ic_undisciplined_investment.svg",
       },
     ],
     cards: [{
@@ -121,28 +122,29 @@ const objMonthlyInvestmentData = Object.freeze({
   cardDetails: {
     heading: "Wondering how much you should start investing monthly?",
     subHeading: "Small Steps to BIG Returns",
-    description: "Our experts will help you choosing the right plan for your financial planning."
+    description: "Our experts will help you choosing the right plan for your financial planning.",
+    img: "/assets/images/ManSIp.svg"
   },
   advantages: {
     heading: "Advantages of Monthly Investment",
     features: [{
       heading: "Financial Discipline",
       description: "Investing via a one-time investment plan is relatively more convenient than a SIP as you pay only once and your investment can grow. hat said, the auto-debit availability makes a SIP investment easier to invest too. . The difference is probably psychological.",
-      img: ""
+      img: "./assets/images/ic_Financial_discipline.svg"
     },
     {
       heading: "Pocket-friendly",
       description: "With the one-time investment plan, the chances of appreciation of wealth increases as the investment has time to adjust to market corrections and grow significantly.",
-      img: ""
+      img: "./assets/images/ic_Pocket-friendly.svg"
     }, {
       heading: "Compounding effect",
       description: "Another advantage of lump sum investment is that it results in lower transaction costs as such investments are generally made for longer durations. Short- term investments often attract exit load and higher taxation liabilities.",
-      img: ""
+      img: "./assets/images/ic_Compounding_effect.svg"
     },
     {
       heading: "Rupee cost averaging",
       description: "The biggest benefit of systematic investment plans is the rupee cost averaging. In simple terms, it means that when the NAV is high, your installment amount is able to acquire lesser units.",
-      img: ""
+      img: "./assets/images/ic_Rupee_cost_averaging.svg"
     }],
     cards: [
       {
@@ -168,17 +170,17 @@ const objMonthlyInvestmentData = Object.freeze({
       {
         heading: "Unsuitable for irregular income flow",
         description: "This method is not suitable for investors who do not have reliable and regular cash flow as the investment is to be made at predetermined intervals.",
-        img: "",
+        img: "./assets/images/ic_income.svg",
       },
       {
         heading: "Uniform investment through ups & downs",
         description: "An investor cannot immediately change the amount being invested in response to the ups and downs in the market. This keeps the investor from taking advantage of the upswings.",
-        img: "",
+        img: "./assets/images/ic_investment.svg",
       },
       {
         heading: "Insufficient funds",
         description: "AIf an investor fails to maintain adequate balance in the bank on the day of debit of SIP, the PDC or ECS, as opted, will return dishonoured. This means that the investment will not happen that month.",
-        img: "",
+        img: "./assets/images/ic_Insufficient_funds.svg",
       },
     ],
     cards: [{
@@ -338,7 +340,7 @@ const StartInvestment = () => {
   const refContainer = useRef();
   const location = useLocation();
 
-  const cardType = location.state.cardType;
+  const cardType = location?.state?.cardType;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
@@ -350,11 +352,13 @@ const StartInvestment = () => {
   useEffect(() => {
     setHolding(AllHolding);
     if (cardType) {
-      if (cardType === "startAnSip") {
+      if (cardType === "sipInvestment") {
         setActiveButton(enumType.MONTHLY_INCOME);
-      } else if (cardType === "investNow") {
+      } else if (cardType === "oneTimeInvestment") {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
       }
+    } else {
+      setActiveButton(enumType.ONE_TIME_LUMSOM);
     }
   }, []);
 
@@ -371,6 +375,23 @@ const StartInvestment = () => {
       setMoreAnchorEl(event.currentTarget)
   }
 
+  const navigate = useNavigate();
+  const handleOnClick = (activeButtonType: number) => {
+    setActiveButton(activeButtonType);
+    if (activeButtonType === enumType.MONTHLY_INCOME) {
+      navigate("/sipInvestment", {
+        state: {
+          cardType: "sipInvestment"
+        }
+      });
+    } else if (activeButtonType === enumType.ONE_TIME_LUMSOM) {
+      navigate("/oneTimeInvestment", {
+        state: {
+          cardType: "oneTimeInvestment"
+        }
+      });
+    }
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -387,23 +408,36 @@ const StartInvestment = () => {
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
               <Toolbar />
               <Grid container>
+                <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="always" style={{ color: "grey" }}>
+                      <Typography className='burgerText'>Investment</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
                 <Grid item xs={12} sx={{ padding: 2 }}>
                   <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
+                        <Typography style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
                         {
                           activeButton === enumType.ONE_TIME_LUMSOM ?
-                            <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "106%" }}></Box>
+                            <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
                             : null
                         }
                       </Box>
-                      <Typography style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => setActiveButton(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
-                      {
-                        activeButton === enumType.MONTHLY_INCOME ?
-                          <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "106%" }}></Box>
-                          : null
-                      }
+                      <Box style={{ position: "relative" }}>
+
+                        <Typography style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
+                        {
+                          activeButton === enumType.MONTHLY_INCOME ?
+                            <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "143px", right: "0px" }}></Box>
+                            : null
+                        }
+                      </Box>
                     </Box>
                   </Box>
                 </Grid>
@@ -474,6 +508,7 @@ const useStyles = makeStyles((theme: any) => (
     firstContainer: {
       display: "flex",
       // backgroundColor: "",
+      justifyContent: "space-between",
       padding: "10px",
       marginBottom: "25px",
       height: "50px"
@@ -516,21 +551,55 @@ const useStyles = makeStyles((theme: any) => (
     },
     miDisadvantageCardOne: {
       backgroundColor: "blue"
-    }
+    },
+    img: {
+      width: "40px !important",
+      height: "40px !important",
+      margin: "24px 16px 40px 0"
+    },
+    manImg: {
+      width: "100px !important",
+      height: "100px !important",
+      position: "absolute",
+      right: "0px",
+      bottom: "-1px"
+    },
+
   }
 ))
 
 const MultipleInvestmentHandling = (props: IProps) => {
+  const style = {
+    container: {
+      backgroundImage: "linear-gradient(109deg, #6c63ff 7%, #23db7b 107%)",
+      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+      borderRadius: { xs: "0px", sm: "16px" },
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+      margin: "0px 20px 20px 20px "
+    }
+  }
+
   const classes = useStyles();
 
+  const navigate = useNavigate();
+  const handleButtonOnClick = (type: number) => {
+    if (type === enumType.MONTHLY_INCOME) {
+      navigate("/startAnSip");
+    } else if (type === enumType.ONE_TIME_LUMSOM) {
+      navigate("/investNow");
+    }
+  }
 
   return (
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
+
+
         <Box className={classes.firstContainer}>
           <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ top: "10px", color: "#3c3e42" }}>{props?.data?.title}</Typography>
-          {/* <Button variant="contained" className={classes.button} style={{ position: "absolute", right: "40px", backgroundColor: "#23db7b", }} fullWidth> */}
-          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth>
+          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)}>
             <Typography component="span" className={classes.text} >Get Started Now</Typography>
           </Button>
         </Box>
@@ -540,34 +609,44 @@ const MultipleInvestmentHandling = (props: IProps) => {
         }}>
 
           {/* handle box */}
-          < Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "blue", marginTop: "10px", padding: "10px", width: "96%" }}>
-            <Typography component="span" className={classes.text} >{props?.data?.cardDetails?.subHeading}</Typography>
-            <Typography component="h4" className={classes.text + " " + classes.typography} >{props?.data?.cardDetails?.heading}</Typography>
-            <Typography component="span" className={classes.text} >{props?.data?.cardDetails?.description}</Typography>
-            <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", marginTop: "5px" }}>
+          < Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "#544ec8", marginTop: "10px", padding: "10px", width: "96%", position: "relative" }}>
+            <Typography style={{ color: "white", fontSize: "18px", margin: "10px" }}>{props?.data?.cardDetails?.subHeading}</Typography>
+            <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
+            <Typography style={{ color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
+            <Box className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", margin: "10px" }}>
               <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", height: "30px" }} fullWidth>Invest Now</Button>
-            </div>
+            </Box>
+            <ImageListItem >
+              <img
+                src={props?.data?.cardDetails?.img}
+                srcSet={props?.data?.cardDetails?.img}
+                alt={"not loaded"}
+                loading="lazy"
+                className={classes.manImg}
+              />
+            </ImageListItem>
           </Box>
 
           {/* advantage */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%" }}>
-            <Typography>{props?.data?.advantages?.heading}</Typography>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+            <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.advantages?.heading}</Typography>
             {
               props?.data?.advantages?.features?.length && props?.data?.advantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
-                  <Box key={featureIndex} style={{ padding: "10px", margin: "10px" }}>
+                  <Box key={featureIndex} style={{ display: "flex", alignItems: "center", padding: "10px", margin: "10px" }}>
                     <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
-                      {/* <ImageListItem>
+                      <ImageListItem >
                         <img
                           src={featureItem?.img}
                           srcSet={featureItem?.img}
                           alt={"not loaded"}
                           loading="lazy"
+                          className={classes?.img}
                         />
-                      </ImageListItem> */}
+                      </ImageListItem>
                     </div>
                     <div>
-                      <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
+                      <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
                       <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
                     </div>
                   </Box>
@@ -577,12 +656,16 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box key={cardIndex} className={cardItem?.className}>
-                    {/* <Box key={cardIndex} > */}
-                    <Typography component="h3" className={classes.text} >{cardItem?.subHeading}</Typography>
-                    <Typography component="h3" className={classes.text} >{cardItem?.heading}</Typography>
-                    <Typography component="span" className={classes.text} >{cardItem?.description}</Typography>
-                    <Typography component="span" className={classes.text} >{cardItem?.price}</Typography>
+                  <Box sx={style.container} key={cardIndex}>
+                    <Box style={{ padding: "60px 30px", }}>
+                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
+                    </Box>
+                    <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                      {/* <img style={{ padding: "0px 30px", }} src={homeConnect} alt='home' width="auto" height="170px" /> */}
+                    </Box>
                   </Box>
                 )
               })
@@ -590,22 +673,25 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Box>
 
           {/* disadvantage */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%" }}>
-            <Typography>{props?.data?.disadvantages?.heading}</Typography>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+            <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
-                  <Box key={featureIndex} style={{ padding: "10px", margin: "10px" }}>
-                    {/* <ImageListItem>
-                      <img
-                        src={featureItem?.img}
-                        srcSet={featureItem?.img}
-                        alt={"not loaded"}
-                        loading="lazy"
-                      />
-                    </ImageListItem> */}
+                  <Box key={featureIndex} style={{ display: "flex", alignItems: "center", padding: "10px", margin: "10px" }}>
+                    <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
+                      <ImageListItem>
+                        <img
+                          src={featureItem?.img}
+                          srcSet={featureItem?.img}
+                          alt={"not loaded"}
+                          loading="lazy"
+                          className={classes.img}
+                        />
+                      </ImageListItem>
+                    </div>
                     <div>
-                      <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
+                      <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
                       <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
                     </div>
                   </Box>
@@ -615,12 +701,16 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.disadvantages?.cards?.length && props?.data?.disadvantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box key={cardIndex} className={cardItem?.className}>
-                    {/* <Box key={cardIndex} > */}
-                    <Typography component="h3" className={classes.text} >{cardItem?.subHeading}</Typography>
-                    <Typography component="h3" className={classes.text} >{cardItem?.heading}</Typography>
-                    <Typography component="span" className={classes.text} >{cardItem?.description}</Typography>
-                    <Typography component="span" className={classes.text} >{cardItem?.price}</Typography>
+                  <Box sx={style.container} key={cardIndex}>
+                    <Box style={{ padding: "60px 30px", }}>
+                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
+                    </Box>
+                    <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                      {/* <img style={{ padding: "0px 30px", }} src={homeConnect} alt='home' width="auto" height="170px" /> */}
+                    </Box>
                   </Box>
                 )
               })
@@ -628,14 +718,15 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Box>
 
           {/* factor box */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", padding: "10px", margin: "10px", width: "96%" }}>
-            <Typography component="h4" className={classes.typography} style={{ color: "black", }}  >{props?.data?.factors?.heading}</Typography>
+          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", padding: "10px", margin: "10px", width: "96%", marginTop: "30px" }}>
+            {/* <Typography component="h4" className={classes.typography} style={{ color: "black", margin: "21px 0px -8px 14px" }}  >{props?.data?.factors?.heading}</Typography> */}
+            <Typography component="h4" className={classes.typography} style={{ color: "black" }}  >{props?.data?.factors?.heading}</Typography>
             <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{props?.data?.factors?.description}</Typography>
             {
               props?.data?.factors?.features?.length && props?.data?.factors?.features?.map((factorItem: any, factorIndex: number) => {
                 return (
                   <Box key={factorIndex} style={{ padding: "10px", margin: "10px" }}>
-                    <Typography component="h3" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
+                    <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
                     <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.description}</Typography>
                     <div style={{ marginTop: "10px" }}>
                       <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.subDescription}</Typography>
@@ -646,8 +737,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
             }
           </Box>
 
-          <Box style={{ paddingBottom: "50px", paddingTop: "20px" }}>
-            <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", width: "100%" }} fullWidth>
+          <Box style={{ paddingBottom: "50px", paddingTop: "20px", width: "95%" }} onClick={() => handleButtonOnClick(props?.type)}>
+            <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", width: "100%", maxWidth: "100%" }} fullWidth>
               <Typography component="span" className={classes.text} >Get Started Now</Typography>
             </Button>
           </Box>
