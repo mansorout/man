@@ -207,6 +207,7 @@ function RedeemFunds() {
             padding: "20px 0px",
         },
         logoclose: {
+            paddingRight:"10px",
             width: " 14px",
             height: "14px",
             // backgroundColor: "#8787a2",
@@ -821,10 +822,12 @@ function RedeemFunds() {
                         </Grid>
                     </Grid>
 
-                    <img alt="Money Sprint" src={GroupSaf} style={style.logoIc} />
+                
+                   <img alt="Money Sprint" src={GroupSaf} style={style.logoIc} />
+                 
 
 
-                    <Typography mb={2} style={{ fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Confirm Bank Details</Typography>
+                    <Typography mb={2} style={{ fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Confirm Your Bank Details</Typography>
 
 
                     <Box style={{ backgroundColor: "#6c63ff", width: "100%" }}>

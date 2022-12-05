@@ -3,10 +3,10 @@ import './NetBanking.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Container, Grid, Paper, Typography } from '@mui/material'
+import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Paper, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
+import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
@@ -41,6 +41,30 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function NetBanking() {
+
+
+    const [timePeriodSelected, setTimePeriodSelected] = useState<boolean[]>([true, false, false, false])
+    const [focus, setFocus] = useState<boolean>(false)
+    console.log(focus);
+    const [upiId, setUpiId] = useState<string>("")
+
+    // const handleupiid =(index:number)=>{
+    //        index === 2 ?  setTimePeriodSelected([ false, false, true]) :""
+    // }
+    const handleTimePeriodChange = (index: number) => {
+        index === 0 ?
+            setTimePeriodSelected([true, false, false, false])
+            : index === 1 ? setTimePeriodSelected([false, true, false, false])
+                : index === 2 ? setTimePeriodSelected([false, false, true, false])
+                    : setTimePeriodSelected([false, false, false, true])
+    }
+
+    const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+
+        setUpiId(e.target.value)
+
+    }
+    console.log(upiId)
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
@@ -234,7 +258,29 @@ function NetBanking() {
                             </Box>
                             <Card sx={{ maxWidth: 456, }}  >
                                 <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
-                                <CardHeader
+
+                                <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
+                                    <Box style={{ paddingLeft: "16px" }}>
+                                        <FormControlLabel
+                                            control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            label="Net Banking" />
+                                    </Box>
+                                    <Box style={style.divider}></Box>
+                                    <Box style={{ paddingLeft: "16px" }}>
+                                        <FormControlLabel
+                                            control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            label="NEFT/RTGS Gain"
+                                        />
+                                    </Box>
+                                    <Box style={style.divider}></Box>
+                                    <Box style={{ paddingLeft: "16px" }}>
+                                        <FormControlLabel
+                                            control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            label="UPI" />
+                                    </Box>
+
+                                </Box>
+                                {/* <CardHeader
                                     avatar={
 
                                         <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
@@ -292,7 +338,7 @@ function NetBanking() {
 
                                             padding: "0 0.4px 5.6px 14.6px",
 
-                                          
+
                                         }}>
                                             <img src={Active_Upi} alt="S__M" style={{
                                                 width: "44px",
@@ -306,62 +352,28 @@ function NetBanking() {
                                     title="UPI "
                                     subheader="Saved UPI Options"
                                     sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
-                                />
-                                <CardHeader
-                                    avatar={
-                                        <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
+                                /> */}
 
-                                    }
-                                    action={
-                                        <IconButton aria-label="UPILOGO" sx={{
-                                            width: "44.1px",
-                                            height: " 35px",
+                                <Box style={{ paddingLeft: "16px" }}>
 
-                                            padding: "0 0.4px 5.6px 14.6px",
+                                    <TextField
 
-                                            opacity: "0.45"
-                                        }}>
-                                            <img src={upilogo} alt="S__M" style={{
-                                                width: "44px",
-                                                height: "35px",
-                                                marginLeft: "-16px"
+                                        autoComplete="off"
+                                        // style={style.contactInput}
+                                        margin="normal"
+                                        label="Enter UPI ID"
+                                        InputProps={{
+                                            startAdornment: focus ? <InputAdornment position="start"></InputAdornment> : "",
 
 
-                                            }} />
-                                        </IconButton>
-                                    }
-                                    title="UPI "
-                                    subheader="Send UPI Options"
-                                    sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
-                                />
-                                <CardHeader
-                                    avatar={
-                                        <img src={Radiobutton} alt="S__M" style={{ width: "18.3px", height: "18.3px" }} />
+                                        }}
+                                        onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
+                                        placeholder=" 9825098250@upi "
+                                        onChange={handleMobile}
+                                    // onFocus={() => setFocus(true)}
+                                    />
 
-                                    }
-                                    action={
-                                        <IconButton aria-label="UPILOGO" sx={{
-                                            width: "44.1px",
-                                            height: " 35px",
-
-                                            padding: "0 0.4px 5.6px 14.6px",
-
-                                            opacity: "0.45"
-                                        }}>
-                                            <img src={upilogo} alt="S__M" style={{
-                                                width: "44px",
-                                                height: "35px",
-                                                marginLeft: "-16px"
-
-
-                                            }} />
-                                        </IconButton>
-                                    }
-                                    title="UPI "
-                                    subheader="Send UPI Options"
-                                    sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
-                                />
-
+                                    </Box>
 
                             </Card>
                             <MakepaymentNetbankingbutton />
