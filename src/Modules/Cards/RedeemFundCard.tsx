@@ -183,8 +183,7 @@ export default function RedeemFundCard() {
                             boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
                             border: "solid 1px #dddfe2",
                             backgroundColor: "#fff",
-                         
-                            marginTop: "5%"
+                             marginTop: "5%"
                         }}
 
                     >

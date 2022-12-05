@@ -1,6 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Paper from "@mui/material/Paper";
-import { Mylocationicon } from "../../Assets/index";
+import { ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
@@ -27,11 +27,12 @@ import FormControl from '@mui/material/FormControl';
 import { Form, useNavigate } from 'react-router-dom';
 import { store } from '../../Store/Store';
 import { submituserdetails } from '../../Store/Reducers/action';
-
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 
 import { FormHelperText } from '@mui/material';
+import '../../Components/EditProfile/Editprofilescreen.css'
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -126,7 +127,7 @@ function EditprofileCard() {
       boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
       border: 'solid 1px rgba(0, 0, 0, 0.08)',
     },
-    button: {
+    buttonbtn: {
       height: "48px",
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
@@ -134,7 +135,7 @@ function EditprofileCard() {
       margin: "16px",
       width: "90%",
       maxWidth: "400px",
-      transform: "translate(8px, -5px)"
+      transform: "translate(10px, -60px)"
 
 
     },
@@ -208,9 +209,9 @@ function EditprofileCard() {
   const [errorrsstate, setErrorsstate] = useState(false)
 
   const [errorPincode, setErrorPincode] = useState(false)
-  const [errorcountryFirst, setErrorCountryFirst]=useState(false)
+  const [errorcountryFirst, setErrorCountryFirst] = useState(false)
 
-  const [errorincomeslabs, setErrorincomeslabs]=useState(false)
+  const [errorincomeslabs, setErrorincomeslabs] = useState(false)
   const [dropdowncountryFirst, setDropdowncountryFirst] = useState(false)
 
   const [isErrorField, setIsErrorField] = useState({})
@@ -237,7 +238,7 @@ function EditprofileCard() {
   const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
   const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
 
-
+  const [showSubmit,setShowSubmit] = useState(true)
   const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
@@ -252,15 +253,15 @@ function EditprofileCard() {
       [e.target.name]: value
 
     })
-
+  
 
   }
 
   useEffect(() => {
 
-    if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber! == "" ||
+    if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length <10 ||
       formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
-      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst!== "" || formData.IncomeSlab !== "") {
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
       setDropValuestateError(false)
       setError(false)
       setCountryError(false)
@@ -273,7 +274,7 @@ function EditprofileCard() {
       setErrorsstate(false)
       setErrorPincode(false)
       setErrorCountryFirst(false)
-setErrorincomeslabs(false)
+      setErrorincomeslabs(false)
     }
     // if(formData.CountrySecond !== ""){
     //   setCountryError(false)
@@ -289,8 +290,10 @@ setErrorincomeslabs(false)
   const [state, setState] = React.useState('');
 
   const navigate = useNavigate();
-  function handleClick() {
-    alert("h")
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    alert("jj")
+    // navigate('/onetimemutualfundrecommendation')
 
 
 
@@ -354,19 +357,23 @@ setErrorincomeslabs(false)
   }
 
   const handleOnBlurmobilenumber = () => {
-    if (formData.mobilenumber.length <=10) {
-      setErrorMessagemobilenumber("Mobile number is required")
+
+    if (formData.mobilenumber.length != 10) {
+
+      setErrorMessagemobilenumber("Mobile number is invalid")
       setErrormobilenumberone(true)
     }
 
   }
   const handleOnBluremailaddress = () => {
     if (formData.emailaddress == "" || !emailRegex.test(formData.emailaddress)) {
-      setErrorMessageemail("Email Address is required")
+      setErrorMessageemail("Email Address is Invalid")
       setEmailError(true)
     }
+    
 
   }
+  console.log(formData.emailaddress)
   const handleOnBlurCountrySecond = () => {
     setErrorCountry("Required")
   }
@@ -399,26 +406,45 @@ setErrorincomeslabs(false)
 
   }
   const handleOnBlurpincode = () => {
-    if (formData.pincode =="") {
+    if (formData.pincode == "") {
       setErrorMessagePincode("Required")
       setErrorPincode(true)
     }
 
   }
   const handleOnBlurCountryFirst = () => {
-    if(formData.CountryFirst == ""){
+    if (formData.CountryFirst == "") {
       setErrorCountryFirst(true)
       setErrorMessagefirstcountry("Required")
     }
-   
+
   }
   const handleOnBlurIncomeSlab = () => {
-    if(formData.IncomeSlab ==''){
+    if (formData.IncomeSlab == '') {
       setErrorincomeslabs(true)
       setErrorMessageIncomeSlab("Required")
     }
-    
+
   }
+  const [showSubmitDetails,setShowSubmitDetails] = useState(true)
+
+  useEffect(()=>{
+    console.log(formData.firstName == "" || !NameRegex.test(formData.firstName) && formData.CountrySecond == "" && formData.middleName == "" || !NameRegex.test(formData.middleName) &&
+    formData.lastName.length <= 3 && formData.mobilenumber.length != 10  && formData.emailaddress == "" || !emailRegex.test(formData.emailaddress) &&
+    formData.StateOfBirth == "" &&  formData.addressline1 <= 3 &&  formData.CityofResidence == "" &&  formData.state == "" && 
+    formData.pincode == "" && formData.CountryFirst == "" &&  formData.IncomeSlab == '' 
+    )
+    setShowSubmitDetails(true)
+
+    if( formData.firstName !== "" || NameRegex.test(formData.firstName) && formData.CountrySecond == "" && formData.middleName == "" || NameRegex.test(formData.middleName) &&
+    formData.lastName !== "" && formData.mobilenumber != 10  && formData.emailaddress == "" || emailRegex.test(formData.emailaddress) &&
+    formData.StateOfBirth == "" &&  formData.addressline1 == "" &&  formData.CityofResidence == "" &&  formData.state == "" && 
+    formData.pincode == "" && formData.CountryFirst == "" &&  formData.IncomeSlab == '' ){
+      setShowSubmitDetails(true)
+
+    }
+    console.log(showSubmitDetails)
+  },[formData])
   const classes = useStyles();
 
   return (
@@ -509,7 +535,8 @@ setErrorincomeslabs(false)
 
                 <TextField label="Mobile Number"
                   onBlur={handleOnBlurmobilenumber}
-                  name="mobilenumber" 
+                  type="number"
+                  name="mobilenumber"
                   value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
                   sx={{
@@ -518,6 +545,11 @@ setErrorincomeslabs(false)
                   }}
                   error={errormobilenumberone}
                   helperText={errormobilenumberone ? errorMessagemobilenumber : ""}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">
+                      +91
+                    </InputAdornment>,
+                  }}
                 />
 
 
@@ -642,7 +674,7 @@ setErrorincomeslabs(false)
 
                 <Button value={formData.gender}
                   name="gender"
-                  
+                
                   onChange={handlechange}
                   variant="outlined"
                   size="small"
@@ -654,13 +686,12 @@ setErrorincomeslabs(false)
                   }}>
 
                   <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-                  {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
-
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Male</Typography>
+               
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} >  Male</Typography>
                 </Button>
                 <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  {/* <Radio   {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
+                
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
                 </Button>
                 <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
@@ -680,6 +711,7 @@ setErrorincomeslabs(false)
 
 
               <Stack m={2} spacing={6}>
+
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
                   name="addressline1"
@@ -689,12 +721,20 @@ setErrorincomeslabs(false)
                   placeholder="Enter your street address"
                   error={addresserrorone}
                   helperText={addresserrorone ? errormessageaddress : ""}
-                />
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="end">
+                        <img src={Mylocationicon} width="22px" alt="location" />
+                      </InputAdornment>
+                    ),
+
+                  }}
+                >
+                  {/* <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment>  */}
+                </TextField>
 
 
 
-
-                <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
 
                 <Box
                   component="form"
@@ -708,8 +748,8 @@ setErrorincomeslabs(false)
 
 
                 >
-
-                  <div style={{ position: "relative", top: "-86px" }}>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true} >
@@ -780,9 +820,9 @@ setErrorincomeslabs(false)
 
 
 
+                  &nbsp;
 
-
-                  <div style={{ position: "relative", top: "-46px" }}>
+                  <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true}>
@@ -864,21 +904,23 @@ setErrorincomeslabs(false)
 
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
+                          type="number"
                   onBlur={handleOnBlurIncomeSlab}
                   onChange={handlechange}
-                  sx={{ position: "relative", width: "100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                  sx={{ position: "relative", width: "100%", top: "-78px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                   error={errorincomeslabs}
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
-                   />
+                />
 
 
 
-
-                <Button variant="contained" style={style.button}
-                  disabled={submitError}
-                  onClick={handleClick} fullWidth >
-                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                </Button>
+                <div style={{ marginTop: "20px" }}>
+                  <Button variant="contained" style={style.buttonbtn}
+                    disabled={showSubmitDetails}
+                    onClick={handleClick} fullWidth >
+                    <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                  </Button>
+                </div>
               </Stack>
 
             </Paper>
