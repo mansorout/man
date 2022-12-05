@@ -57,6 +57,7 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 
 
 
@@ -152,6 +153,8 @@ function App() {
 
         <Route path="/netbanking" element={<NETbanking />} />
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
+
         
        
         

@@ -164,7 +164,7 @@ function ViewProfileCard() {
                             >
 
                                 <ListItemAvatar>
-                                          <Avatar
+<Avatar
                                         alt=""
                                         src={emaillogo}
                                         style={style.ca}
