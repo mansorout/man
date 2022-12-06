@@ -168,17 +168,9 @@ function App() {
         <Route path="/netbanking" element={<NETbanking />} />
         <Route path="/Insurance" element={<Insurance />} />
 
-
-
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
 
-
-
-
-
-
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
-
 
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
@@ -189,23 +181,9 @@ function App() {
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
-
-
-
-
-
         <Route path="/funddetails" element={<FundDetails />} />
-
-
-
-
-
-
-
         <Route path='/explorefunds' element={<ExploreFunds />} />
-
-
-
+        {/* <Route path='/calendar' element={<CustomCalendar />} /> */}
       </Routes>
     </>
   );

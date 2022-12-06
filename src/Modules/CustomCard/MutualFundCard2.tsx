@@ -1,5 +1,7 @@
-import { Box, Checkbox, Grid, Button, Chip, Typography } from "@mui/material";
+import { useState } from "react";
+import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
+import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List } from "@mui/material";
 import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star } from '../../Assets';
 
 export interface MFProp {
@@ -17,7 +19,10 @@ export interface MFProp {
 }
 
 
+
 const MutualFundCard2 = (props: MFProp) => {
+
+  const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
 
   const style = {
     returns: {
@@ -41,9 +46,40 @@ const MutualFundCard2 = (props: MFProp) => {
       borderRadius: '0.625vw',
       fontSize: '11px',
       fontWeight: 500,
+    },
+    text: {
+      color: "white"
     }
   }
-  const naviagte=useNavigate()
+
+
+  const useStyles: any = makeStyles((theme: any) => ({
+    button: {
+      height: "48px",
+      borderRadius: "8px",
+      backgroundColor: "rgba(60, 62, 66, 0.1) !important",
+      margin: "20px",
+      width: "90%",
+      maxWidth: "400px",
+      '&:hover': {
+        backgroundColor: "#23db7b !important",
+      },
+      '& span': {
+        color: "#fff !important"
+      }
+    },
+  }));
+
+  const classes = useStyles();
+  const naviagte = useNavigate();
+
+  const handleClick = (strtype: string) => {
+    if (strtype === "no") {
+      // props?.close
+      setRemoveInvestment(false);
+      return;
+    }
+  }
 
   return (
 
@@ -63,7 +99,7 @@ const MutualFundCard2 = (props: MFProp) => {
       }}>
 
         <Grid item xs={8} sm={5} sx={{
-          display: 'flex',  
+          display: 'flex',
         }}>
           <Box sx={{
             width: '3vw',
@@ -164,44 +200,98 @@ const MutualFundCard2 = (props: MFProp) => {
             <Typography style={style.amount}>{props.fiveYearReturn}%</Typography>
           </Box>
           {
-            props.checkbox && 
-              <Box component="span">
-                <Checkbox />
-              </Box>
+            props.checkbox &&
+            <Box component="span">
+              <Checkbox />
+            </Box>
           }
         </Grid>
-        
+
       </Grid>
-      
-    
+
+
       {
         props.buttons &&
-          <Grid sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '1vw',
-          }}>
-            <Button variant='contained' style={style.buttons} sx={{
-              backgroundColor: 'rgba(123, 123, 157, 0.05)',
-              color: '#7b7b9d'
-          }} 
-          onClick={()=>naviagte('/under')}
+        <Grid sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '1vw',
+        }}>
+          <Button variant='contained' style={style.buttons} sx={{
+            backgroundColor: 'rgba(123, 123, 157, 0.05)',
+            color: '#7b7b9d'
+          }}
+            onClick={() => naviagte('/under')}
           >
-              <img src={ReplaceButtonIcon} />
-              Replace
-            </Button>
-            <Button variant="contained" style={style.buttons} sx={{
-              backgroundColor: 'rgba(255, 83, 0, 0.05)',
-              color: '#ff5300'
+            <img src={ReplaceButtonIcon} />
+            Replace
+          </Button>
+          <Button variant="contained" style={style.buttons} sx={{
+            backgroundColor: 'rgba(255, 83, 0, 0.05)',
+            color: '#ff5300'
+          }}
+            // onClick={() => naviagte('/under')}
+            onClick={() => {
+              setRemoveInvestment(true);
             }}
-            onClick={()=>naviagte('/under')} 
-            >
-              <img src={RemoveButtonIcon} />
-              Remove
-            </Button>
-          </Grid>
+          >
+            <img src={RemoveButtonIcon} />
+            Remove
+          </Button>
+        </Grid>
       }
-  
+
+      {
+        removeInvestment ?
+          <Dialog open={removeInvestment} fullWidth>
+            <Box style={{ margin: "6%", marginBottom: "0%" }}>
+              <List sx={{ pt: 0 }}>
+                <Grid container xs={12} justifyContent="center" spacing={4}>
+                  <Grid item xs={9}>
+                    <Typography variant="h2" display="flex" justifyContent={"center"}>
+                      Remove Funds
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Typography component="p" style={{ color: "grey" }}>
+                      Are you sure you want to remove this fund from the SprintMoney recommended plan?
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      // disabled={showSubmit}
+                      variant="contained"
+                      className={classes?.button}
+                      fullWidth
+                      onClick={() => handleClick("no")}
+                      sx={{
+                        pointerEvents: 'fill',
+                      }}
+                    >
+                      <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >No</Typography>
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      // disabled={showSubmit}
+                      variant="contained"
+                      className={classes?.button}
+                      fullWidth
+                      onClick={() => handleClick("yes")}
+                      sx={{
+                        pointerEvents: 'fill',
+                      }}
+                    >
+                      <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >Yes</Typography>
+                    </Button>
+                  </Grid>
+                </Grid>
+              </List>
+            </Box>
+          </Dialog>
+          : null
+      }
+
     </Box >
 
   )
