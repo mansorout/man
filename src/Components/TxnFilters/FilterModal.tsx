@@ -13,12 +13,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Checkbox, FormControlLabel, Grid, InputAdornment, Stack, TextField } from '@mui/material';
+import { Checkbox,FormControlLabel, Grid, InputAdornment, Paper, Stack, TextField } from '@mui/material';
 import { RadioButtonChecked, RadioButtonUncheckedOutlined } from '@mui/icons-material';
 import { DatePicker, DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import ClearIcon from '@mui/icons-material/Clear';
+import Divider from '@mui/material/Divider';
 
 
 
@@ -140,20 +142,20 @@ export default function FilterModal(props: any) {
     const AntTabs = styled(Tabs)({
         borderBottom: '1px solid #e8e8e8',
         '& .MuiTabs-indicator': {
-          backgroundColor: 'white',
+            backgroundColor: 'white',
         },
-      });
+    });
 
 
 
-//     export default function MaterialUIPickers() {
-//   const [value, setValue] = React.useState<Dayjs | null>(
-//     dayjs('2014-08-18T21:11:54'),
-//   );
+    //     export default function MaterialUIPickers() {
+    //   const [value, setValue] = React.useState<Dayjs | null>(
+    //     dayjs('2014-08-18T21:11:54'),
+    //   );
 
-//   const handleChange = (newValue: Dayjs | null) => {
-//     setValue(newValue);
-//   };
+    //   const handleChange = (newValue: Dayjs | null) => {
+    //     setValue(newValue);
+    //   };
 
 
     const handleTimePeriodChange = (index: number) => {
@@ -166,7 +168,7 @@ export default function FilterModal(props: any) {
 
     const [timePeriodSelected, setTimePeriodSelected] = React.useState<boolean[]>([true, false, false, false])
 
-    const [opennew,setOpenNew]=React.useState<boolean>();
+    const [opennew, setOpenNew] = React.useState<boolean>();
 
     const [date, setDate] = React.useState<boolean>();
 
@@ -205,7 +207,7 @@ export default function FilterModal(props: any) {
             <Button variant="outlined" onClick={handleClickOpen}>
                 Open dialog
             </Button>
-                   
+
 
             <BootstrapDialog
 
@@ -218,15 +220,40 @@ export default function FilterModal(props: any) {
                     Filters
                 </BootstrapDialogTitle>
 
-               
+
                 <DialogContent dividers>
 
-                    <Box sx={{ flexGrow: 1, width:400}}>
+                    <Paper sx={{
+                        flexGrow: 1, width: 400, padding: "12px 0 0",
+                        borderRadius: "8px 8px 0px 0px",
+                        boxShadow: " 0 1px 5px 0 rgba(0, 0, 0, 0.16)"
+                    }}>
                         <Grid container spacing={0}>
+                            <Grid item xs={8}>
+                                <Typography sx={{
+                                    margin: "4px 92px 16px 16px",
+                                    fontFamily: "Roboto",
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                    color:" #3c3e42"
+                                }}>
+                                    Filter
+                                </Typography>
+
+                            </Grid>
+                            <Grid item xs={4} sx={{textAlign:"end"}}>
+                                <ClearIcon sx={{opacity: 0.54}} />
+                            </Grid>
+                           <Box>
+                           <Divider />
+                           </Box>
 
 
                             <Grid item xs={4}>
-                                <Box sx={{ backgroundColor: "#f9f9f9",width:"100%"}}>
+                                <Box sx={{
+
+                                    backgroundColor: "#F8F8F8", width: "100%"
+                                }}>
                                     <Tabs
                                         orientation="vertical"
                                         variant="scrollable"
@@ -247,10 +274,10 @@ export default function FilterModal(props: any) {
 
 
 
-                            <Grid  item xs={8}>
+                            <Grid item xs={8}>
 
-                                <Box sx={{ backgroundColor: "white ", flexGrow: 1,width:"100%" }}>
-                                    <TabPanel  value={value} index={0}>
+                                <Box sx={{ backgroundColor: "white ", width: "100%" }}>
+                                    <TabPanel value={value} index={0}>
 
 
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -292,7 +319,7 @@ export default function FilterModal(props: any) {
 
                                                 </Stack>
                                             </LocalizationProvider>
-                                          
+
                                         </Box>
                                     </TabPanel>
                                     <TabPanel value={value} index={2}>
@@ -348,18 +375,23 @@ export default function FilterModal(props: any) {
 
                                         </Box>
                                     </TabPanel>
-                                   
+
                                 </Box>
+                                <Grid container spacing={2} >
+                                    <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 77px" }} item xs={12}>
+                                        <Button sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }} autoFocus onClick={handleClose}>
+                                            <Typography sx={{ color: "white", fontSize: " 13px" }}>
+                                                Apply Filters
+                                            </Typography>
+                                        </Button>
+
+                                    </Grid>
+
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Box>
-                    <DialogActions>
-                        <Button sx={{ backgroundColor: "#23db7b" }} autoFocus onClick={handleClose}>
-                            <Typography sx={{ color: "white" }}>
-                                Apply Filters
-                            </Typography>
-                        </Button>
-                    </DialogActions>
+
+                    </Paper>
 
                 </DialogContent>
 
