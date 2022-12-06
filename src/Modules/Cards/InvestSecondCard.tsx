@@ -85,11 +85,11 @@ const style = {
         textAlign: "left",
         color: "#7b7b9d"
     },
-    ca_a:{
+    ca_a: {
         backgroundColor: "#64dbff",
         width: "32px",
         height: "32px",
-       
+
         opacity: "0.9",
     },
     ca: {
@@ -97,7 +97,7 @@ const style = {
         backgroundColor: "#64dbff",
         width: "32px",
         height: "32px",
-     
+
         opacity: "0.9",
 
 
@@ -129,30 +129,26 @@ export default function InvestSecondCard() {
                             }}>
 
                         </img>
-                        <Grid container spacing={3}>
-                            <Grid item xs={2} sx={style.Axisstyle}>1Y</Grid>
-                            <Grid item xs={2} sx={style.Axisstyle}>3Y</Grid>
+                        <Box sx={{ display: "fles", justifyContent: "space-between" }}>
+                            <Box>1Y</Box>
+                            <Box>3Y</Box>
+                            <Box sx={{ marginLeft: "11px" }}>5Y  <img alt="Money Sprint" src={ellipslogo} style={{
+                                width: "14px",
+                                marginTop: "-80%",
+                                marginRight: "-50%",
+                                borderRadius: "30px",
+                                position: "relative",
+                                top: "-33px",
+                                left: "-18px",
+                                fontSize: "12px",
+                                 boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)",
+                                backgroundColor: "#6c63ff",
+                            }}></img></Box>
+                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box>
+                            <Box>15Y</Box>
+                            <Box>20Y</Box>
+                        </Box>
 
-                            <Grid item xs={2} sx={style.Axisstyle}> 5Y
-
-                                <img alt="Money Sprint" src={ellipslogo} style={{
-                                    width: "50%",
-
-                                    marginTop: "-70%",
-                                    marginRight: "-50%",
-                                    borderRadius: "30px",
-
-                                    //  margin: "57px 66px 8px 65px",
-                                    boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)",
-                                    backgroundColor: "#6c63ff",
-                                }}></img>
-
-                            </Grid>
-
-                            <Grid item xs={2} sx={style.Axisstyle}>10Y</Grid>
-                            <Grid item xs={2} sx={style.Axisstyle}>15Y</Grid>
-                            <Grid item xs={2} sx={style.Axisstyle}>20Y</Grid>
-                        </Grid>
 
                     </Typography>
                     <Grid container spacing={1} sx={{ marginTop: "5%" }}>
@@ -164,21 +160,15 @@ export default function InvestSecondCard() {
                             fontWeight: "normal",
                             textAlign: "left",
                             color: " #7b7b9d"
-
-
-
-
-                        }}>
+                                }}>
                             Invested Value
                         </Grid>
                         <Grid item xs={6} sx={{
                             width: " 84px",
                             height: "14px",
-
                             fontFamily: " Roboto",
                             fontSize: "12px",
                             fontWeight: "normal",
-
                             textAlign: "right",
                             color: " #7b7b9d"
                         }}>
@@ -223,16 +213,16 @@ export default function InvestSecondCard() {
                     <ListItem sx={{ marginTop: "12px" }} >
 
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={withdrawiclogo}
-                                    style={style.ca}
 
-                                />
-                          
+                            <Avatar
+                                alt=""
+                                src={withdrawiclogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
-                     
+
                         <Typography sx={{ fontSize: "12px" }}>   *Anytime Withdraw</Typography>
                         <Avatar
                             alt=""
@@ -240,8 +230,8 @@ export default function InvestSecondCard() {
                             style={style.ca}
 
                             sx={{ marginLeft: '25px' }} />
-                            &nbsp;   &nbsp;  &nbsp;
-                            <Typography sx={{fontSize:"12px"}}>*No Lock-in Period</Typography>
+                        &nbsp;   &nbsp;  &nbsp;
+                        <Typography sx={{ fontSize: "12px" }}>*No Lock-in Period</Typography>
 
                         {/* <ListItemText
                         

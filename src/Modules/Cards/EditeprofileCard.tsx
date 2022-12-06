@@ -184,7 +184,7 @@ function EditprofileCard() {
 
 
   })
-  const [firstNameError, setFirstNameError] = useState(false)
+ 
   const [lastNameError, setLastNameError] = useState(false)
   const [MidNameError, setMidNameError] = useState(false)
   const [errormobilenumberone, setErrormobilenumberone] = useState(false)
@@ -193,18 +193,14 @@ function EditprofileCard() {
 
 
   const [addresserrorone, setAddressErrorOne] = useState(false)
-  const [incomeslaberror, setIncomeslabError] = useState(false)
-  const [checkValue, setCheckValue] = useState(true)
-  const [submitError, setSubmitError] = useState(true)
-  const [showMessage, setShowMessage] = useState(false)
+ 
+   
 
-
-  const [dropValue, setDropValue] = useState(false)
+ 
   const [dropValuestateerror, setDropValuestateError] = useState(false)
 
   const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
-
-  const [dropdownfieldstate, setDropdownfieldstate] = useState(false)
+ 
 
   const [errorrsstate, setErrorsstate] = useState(false)
 
@@ -212,9 +208,7 @@ function EditprofileCard() {
   const [errorcountryFirst, setErrorCountryFirst] = useState(false)
 
   const [errorincomeslabs, setErrorincomeslabs] = useState(false)
-  const [dropdowncountryFirst, setDropdowncountryFirst] = useState(false)
-
-  const [isErrorField, setIsErrorField] = useState({})
+  
 
 
   const [error, setError] = useState(false)
@@ -237,12 +231,12 @@ function EditprofileCard() {
   const [errormessagepincode, setErrorMessagePincode] = useState<any>("")
   const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
   const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
-
-  const [showSubmit,setShowSubmit] = useState(true)
+  const [showSubmitDetails,setShowSubmitDetails] = useState(true)
+ 
   const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
-
+  const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handlechange = (e: any) => {
     e.preventDefault();
@@ -276,15 +270,24 @@ function EditprofileCard() {
       setErrorCountryFirst(false)
       setErrorincomeslabs(false)
     }
-    // if(formData.CountrySecond !== ""){
-    //   setCountryError(false)
-    // }
+       
+    setTimeout(()=>{
+      setShowSubmitDetails(() => true);
 
+    })
+    
 
-
+  //   console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
+  //  && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
+  //  && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
+  //    )
+    
+  console.log(formData.firstName.length < 0  && formData.middleName.length <0 && formData.LastName.length <0 )
   }, [formData])
 
-
+  const areAllFieldsFilled = (formData.firstName != "") && (formData.lastName != "") && (mobileRegex.test(formData.mobilenumber)) && 
+  (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth  !== "")  && (formData.addressline1  !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
+  && (formData.state !== "")  &&  (formData.CountryFirst !== "") && (formData.IncomeSlab !== "")  && (formData.LastName !== "")
   const dispatch = useDispatch()
   const [city, setCity] = React.useState('');
   const [state, setState] = React.useState('');
@@ -321,12 +324,15 @@ function EditprofileCard() {
 
   const handleBlur = () => {
 
-    if (formData.firstName == "" || !NameRegex.test(formData.firstName)) {
+    if (formData.firstName == ""  ) {
       setError(true)
 
 
       setErrorMessageFN("Please Enter Name")
-
+      setShowSubmitDetails(true)
+    }else{
+      setShowSubmitDetails(false)
+      console.log("kkkk")
     }
 
   }
@@ -342,14 +348,18 @@ function EditprofileCard() {
 
 
   const handleOnBlurmiddleName = () => {
-    if (formData.middleName == "" || !NameRegex.test(formData.middleName)) {
+    if (formData.middleName == "" ) {
       setErrorMessagemiddleName("Please Enter Middle Name")
       setMidNameError(true)
+      setShowSubmitDetails(true)
+    }else{
+      setShowSubmitDetails(false)
+      console.log("hhhh")
     }
 
   }
   const handleOnBlurlastName = () => {
-    if (formData.lastName.length <= 3) {
+    if (formData.lastName.length == "") {
       setErrorMessagelastname("Please Enter LastName")
       setLastNameError(true)
     }
@@ -373,7 +383,7 @@ function EditprofileCard() {
     
 
   }
-  console.log(formData.emailaddress)
+ 
   const handleOnBlurCountrySecond = () => {
     setErrorCountry("Required")
   }
@@ -426,25 +436,9 @@ function EditprofileCard() {
     }
 
   }
-  const [showSubmitDetails,setShowSubmitDetails] = useState(true)
 
-  useEffect(()=>{
-    console.log(formData.firstName == "" || !NameRegex.test(formData.firstName) && formData.CountrySecond == "" && formData.middleName == "" || !NameRegex.test(formData.middleName) &&
-    formData.lastName.length <= 3 && formData.mobilenumber.length != 10  && formData.emailaddress == "" || !emailRegex.test(formData.emailaddress) &&
-    formData.StateOfBirth == "" &&  formData.addressline1 <= 3 &&  formData.CityofResidence == "" &&  formData.state == "" && 
-    formData.pincode == "" && formData.CountryFirst == "" &&  formData.IncomeSlab == '' 
-    )
-    setShowSubmitDetails(true)
 
-    if( formData.firstName !== "" || NameRegex.test(formData.firstName) && formData.CountrySecond == "" && formData.middleName == "" || NameRegex.test(formData.middleName) &&
-    formData.lastName !== "" && formData.mobilenumber != 10  && formData.emailaddress == "" || emailRegex.test(formData.emailaddress) &&
-    formData.StateOfBirth == "" &&  formData.addressline1 == "" &&  formData.CityofResidence == "" &&  formData.state == "" && 
-    formData.pincode == "" && formData.CountryFirst == "" &&  formData.IncomeSlab == '' ){
-      setShowSubmitDetails(true)
-
-    }
-    console.log(showSubmitDetails)
-  },[formData])
+  
   const classes = useStyles();
 
   return (
@@ -472,7 +466,8 @@ function EditprofileCard() {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12}>
                     <TextField
-                      type="text"
+      onKeyPress={e =>/^([a-zA-Z]+\s)*[a-zA-Z]+$/.test(e.key) && e.preventDefault()}
+                   
                       onBlur={handleBlur}
                       label="First Name"
                       name="firstName"
@@ -916,7 +911,7 @@ function EditprofileCard() {
 
                 <div style={{ marginTop: "20px" }}>
                   <Button variant="contained" style={style.buttonbtn}
-                    disabled={showSubmitDetails}
+                    disabled={!areAllFieldsFilled}
                     onClick={handleClick} fullWidth >
                     <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                   </Button>

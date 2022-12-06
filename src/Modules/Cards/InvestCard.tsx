@@ -96,6 +96,12 @@ const style = {
 
 }
 export default function InvestCard() {
+    function handleChange(){
+        alert("select 500 amount")
+    }
+    function handlefivehundred(){
+        alert("33333")
+    }
   return (
     <>
   <Card sx={{ minWidth: 275 }}>
@@ -122,6 +128,7 @@ export default function InvestCard() {
 <List>
 
     <TextField label="I want to invest"
+    onChange={handleChange}
         name="middleName"
         fullWidth
         placeholder='₹1,00,000'
@@ -146,7 +153,8 @@ export default function InvestCard() {
         }}
     >You can start small, starting from ₹5,000</Typography>
     <Stack direction="row" spacing={2} sx={{ marginTop: "12px" }}>
-        <Button variant="contained" disabled
+        <Button variant="contained"
+        onClick={handlefivehundred}
             sx={{
                 BackgroundColor: '#6c63ff',
                 borderRadius: "2px",

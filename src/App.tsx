@@ -45,9 +45,7 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
-import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';
 
 
 
@@ -59,7 +57,9 @@ import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import StartInvestment from './Components/InvestNowScreen/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
+import NETbanking from './Components/CardScreen/NETbanking';
 
 
 
