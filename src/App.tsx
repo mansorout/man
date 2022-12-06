@@ -58,6 +58,9 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import StartInvestment from './Components/InvestNowScreen/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+import HealthInsurance from './Components/Insurance/HealthInsurance';
+import FindInsurance from './Components/Insurance/FindInsurance';
+import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 
 
@@ -181,6 +184,9 @@ function App() {
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
