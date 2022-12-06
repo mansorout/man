@@ -58,15 +58,12 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import StartInvestment from './Components/InvestNowScreen/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
-<<<<<<< HEAD
 import Details from './Components/ExploreFunds/FundDetails';
 import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
-=======
 import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
->>>>>>> f2d976cb69d7caf8315e286ce471762e49dccf35
 
 
 
