@@ -466,9 +466,7 @@ function EditprofileCard() {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12}>
                     <TextField
-      onKeyPress={e =>/^([a-zA-Z]+\s)*[a-zA-Z]+$/.test(e.key) && e.preventDefault()}
-                   
-                      onBlur={handleBlur}
+                     onBlur={handleBlur}
                       label="First Name"
                       name="firstName"
                       value={formData.firstName}
@@ -487,13 +485,7 @@ function EditprofileCard() {
                     />
                   </Grid>
 
-                </Grid>
-
-
-
-
-                {/* errorMesagemiddleName */}
-                <TextField label="Middle Name"
+                </Grid><TextField label="Middle Name"
                   name="middleName"
                   onBlur={handleOnBlurmiddleName}
                   value={formData.middleName} onChange={handlechange} fullWidth
@@ -505,12 +497,7 @@ function EditprofileCard() {
                   }}
                   error={MidNameError}
                   helperText={MidNameError ? errorMesagemiddleName : ""}
-                />
-
-
-
-                {/* lastNameError */}
-                <TextField label="Last Name"
+                /><TextField label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onBlur={handleOnBlurlastName}
@@ -523,12 +510,7 @@ function EditprofileCard() {
                   }}
                   error={lastNameError}
                   helperText={lastNameError ? errorMessagelastname : ""}
-                />
-
-
-                {/* mobileNumberError */}
-
-                <TextField label="Mobile Number"
+                /><TextField label="Mobile Number"
                   onBlur={handleOnBlurmobilenumber}
                   type="number"
                   name="mobilenumber"
@@ -545,13 +527,7 @@ function EditprofileCard() {
                       +91
                     </InputAdornment>,
                   }}
-                />
-
-
-
-
-                {/* emailError */}
-                <TextField label="Email Address"
+                /> <TextField label="Email Address"
                   onBlur={handleOnBluremailaddress}
                   name="emailaddress"
                   sx={{
@@ -561,23 +537,12 @@ function EditprofileCard() {
                   value={formData.emailaddress} onChange={handlechange} fullWidth
                   error={emailError}
                   helperText={emailError ? errorMessageemail : ""}
-                />
-
-
-
-
-
-
-
-                <Box
+                /><Box
                   component="form"
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" }
-                  }} >
-
-
-
-                  <Grid container spacing={2}>
+                  }}>
+                    <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label" sx={{
@@ -603,12 +568,7 @@ function EditprofileCard() {
                           {formData.CountrySecond == "" ? errorMesageCountry : ""}
                         </FormHelperText>
                       </FormControl>
-                    </Grid>
-
-
-
-
-                    <Grid item xs={12} md={6}>
+                    </Grid><Grid item xs={12} md={6}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label"
                           sx={{
@@ -627,11 +587,8 @@ function EditprofileCard() {
                           name="StateOfBirth"
                           sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           error={dropValuestateerror}
-                        >
-                          <MenuItem value="hai">Uttarpradesh</MenuItem>
-                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>
-
-                          {/* {State.map((l: any) => (
+                        ><MenuItem value="hai">Uttarpradesh</MenuItem>
+                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>{/* {State.map((l: any) => (
                         <MenuItem value={l}>
                           {l.name}
                         </MenuItem>
@@ -639,12 +596,8 @@ function EditprofileCard() {
                         </Select>
                         <FormHelperText sx={{ color: "red" }}>
                           {formData.StateOfBirth == "" ? errormessageState : ""}
-                        </FormHelperText>
-
-                      </FormControl>
-
-
-                    </Grid>
+                        </FormHelperText> </FormControl>
+                        </Grid>
                   </Grid>
                 </Box>
               </Stack>
@@ -657,20 +610,9 @@ function EditprofileCard() {
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-16px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-18px"
-              }}
-            >
-
-              <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 } }}>
-
-
-
-
-                <Button value={formData.gender}
-                  name="gender"
-                
-                  onChange={handlechange}
+                marginLeft: "-18px" }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
+              <Box sx={{ '& button': { m: 1 } }}> <Button value={formData.gender}
+                name="gender" onChange={handlechange}
                   variant="outlined"
                   size="small"
                   sx={{
@@ -678,11 +620,9 @@ function EditprofileCard() {
                     borderRadius: "8px",
                     boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
                     height: " 42px", padding: " 6px 10px 6px 6px"
-                  }}>
-
-                  <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-               
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} >  Male</Typography>
+                  }}
+                  ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
+               <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} >  Male</Typography>
                 </Button>
                 <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
@@ -700,13 +640,8 @@ function EditprofileCard() {
                     /> */}
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                 </Button>
-
-              </Box>
-
-
-
-              <Stack m={2} spacing={6}>
-
+                </Box>
+                 <Stack m={2} spacing={6}>
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
                   name="addressline1"
@@ -720,29 +655,14 @@ function EditprofileCard() {
                     startAdornment: (
                       <InputAdornment position="end">
                         <img src={Mylocationicon} width="22px" alt="location" />
-                      </InputAdornment>
-                    ),
-
-                  }}
-                >
-                  {/* <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment>  */}
+                      </InputAdornment> ), }}>
                 </TextField>
-
-
-
-
                 <Box
                   component="form"
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', height: "16px", },
                     marginTop: "-69%",
-
-                  }}
-
-
-
-
-                >
+                  }}>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
@@ -764,8 +684,8 @@ function EditprofileCard() {
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={drapdownresidenseerror}
                           >
-                            <MenuItem value="hai">1,00,000</MenuItem>
-                            <MenuItem value="olivier">2,00,000</MenuItem>
+                            <MenuItem value="hai">Kanpur</MenuItem>
+                            <MenuItem value="olivier">Delhi</MenuItem>
                             {/* {Cityofresidence.map((l: any) => (
                               <MenuItem value={l}>
                                 {l.name}
