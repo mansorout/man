@@ -57,6 +57,9 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+import HealthInsurance from './Components/Insurance/HealthInsurance';
+import FindInsurance from './Components/Insurance/FindInsurance';
+import FindInsurance2 from './Components/Insurance/FindInsurance2';
 
 
 
@@ -159,6 +162,9 @@ function App() {
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
