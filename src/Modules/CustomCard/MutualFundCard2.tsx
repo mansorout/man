@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
-import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List } from "@mui/material";
+import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List, ImageListItem } from "@mui/material";
 import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star } from '../../Assets';
 
 export interface MFProp {
@@ -66,7 +66,15 @@ const MutualFundCard2 = (props: MFProp) => {
       },
       '& span': {
         color: "#fff !important"
+      },
+      manImg: {
+        width: "40px !important",
+        height: "40px !important",
+        // position: "absolute",
+        // right: "0px",
+        // bottom: "-1px"
       }
+
     },
   }));
 
@@ -243,10 +251,23 @@ const MutualFundCard2 = (props: MFProp) => {
 
       {
         removeInvestment ?
-          <Dialog open={removeInvestment} fullWidth>
-            <Box style={{ margin: "6%", marginBottom: "0%" }}>
+          <Dialog open={removeInvestment} fullWidth style={{ borderRadius: "8px" }}>
+            <Box style={{ margin: "6%", marginBottom: "2%" }}>
               <List sx={{ pt: 0 }}>
-                <Grid container xs={12} justifyContent="center" spacing={4}>
+                <Grid container xs={12} justifyContent="center" display="flex" spacing={4} marginLeft="-14px !important">
+                  <Grid item container xs={12} spacing={2} >
+                    <Grid item xs={3} />
+                    <Grid item xs={6} justifyContent="center" display="flex" spacing={2} style={{ marginTop: "25px" }}>
+                      <img
+                        src="./assets/images/Group 5102 (non-optimized).png"
+                        srcSet="./assets/images/Group 5102 (non-optimized).png"
+                        alt={"not loaded"}
+                        loading="lazy"
+                        className={classes.manImg}
+                      />
+                    </Grid>
+                    <Grid item xs={3} />
+                  </Grid>
                   <Grid item xs={9}>
                     <Typography variant="h2" display="flex" justifyContent={"center"}>
                       Remove Funds
