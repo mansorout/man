@@ -122,61 +122,61 @@ export default function RedeemFundCard() {
         setButtonSelect(true)
     }
     const navigate = useNavigate()
-  
+
     return (
-        <> <Card sx={{  marginTop: "25px",}}>
+        <> <Card sx={{ marginTop: "25px", maxHeight: "388px" }}>
             <CardContent>
                 <Grid container spacing={12}>
                     <Grid item xs={7} md={6} >
-                        
-                            <Typography
-                                sx={{
-                                    height: " 19px",
-                                    // margin: " 5% 62px 27px 5%",
-                                    fontFamily: "Roboto",
-                                    fontSize: "18px",
-                                    fontWeight: " 500",
-                                    textAlign: " left",
-                                    color: " #3c3e42"
-                                }}
-                            >Redemption type</Typography>
-                            &nbsp;       &nbsp;       &nbsp;
 
-                        
+                        <Typography
+                            sx={{
+                                height: " 19px",
+                                // margin: " 5% 62px 27px 5%",
+                                fontFamily: "Roboto",
+                                fontSize: "18px",
+                                fontWeight: " 500",
+                                textAlign: " left",
+                                color: " #3c3e42"
+                            }}
+                        >Redemption type</Typography>
+                        &nbsp;       &nbsp;       &nbsp;
+
+
                     </Grid>
-                    <Grid item xs={5} md={6} sx={{marginTop:"-2%"}}>
-                
+                    <Grid item xs={5} md={6} sx={{ marginTop: "-2%" }}>
 
-                            <Button sx={{
-                                color: "#09b85d",
-                                width: " 79px",
-                                height: " 35px",
-                                padding: "10px 12px 9px",
-                                borderRadius: "8px",
-                                border: "solid 1px var(--seaweed)",
-                                backgroundColor: "#dff7ea",
-                                marginTop: "7%",
-                                marginLeft: "-9%",
-                            }}
-                                onClick={handleClickPartial}
-                            >PARTIAL</Button>
 
-                            <Button sx={{
-                                color: "#09b85d",
-                                width: "56px",
-                                height: "35px",
-                                padding: "10px 12px 9px",
-                                borderRadius: "8px",
-                                border: "solid 1px rgba(123, 123, 157, 0.3)",
-                                backgroundColor: "rgba(255, 255, 255, 0)",
-                                marginTop: "7%",
-                                marginLeft: "1%"
-                            }}
-                                onClick={handleClickFull}
-                            >Full</Button>
-                            &nbsp; &nbsp;
+                        <Button sx={{
+                            color: "#09b85d",
+                            width: " 79px",
+                            height: " 35px",
+                            padding: "10px 12px 9px",
+                            borderRadius: "8px",
+                            border: "solid 1px var(--seaweed)",
+                            backgroundColor: "#dff7ea",
+                            marginTop: "7%",
+                            marginLeft: "-9%",
+                        }}
+                            onClick={handleClickPartial}
+                        >PARTIAL</Button>
 
-                
+                        <Button sx={{
+                            color: "#09b85d",
+                            width: "56px",
+                            height: "35px",
+                            padding: "10px 12px 9px",
+                            borderRadius: "8px",
+                            border: "solid 1px rgba(123, 123, 157, 0.3)",
+                            backgroundColor: "rgba(255, 255, 255, 0)",
+                            marginTop: "7%",
+                            marginLeft: "1%"
+                        }}
+                            onClick={handleClickFull}
+                        >Full</Button>
+                        &nbsp; &nbsp;
+
+
                     </Grid>
                 </Grid>
 
@@ -185,72 +185,87 @@ export default function RedeemFundCard() {
                 {
                     buttonSelect ? <>
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>  <Typography sx={{
-                            height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42", marginLeft: "-67%",marginTop:"-10%",fontWeight:"bold"
+                            height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42", marginLeft: "-67%", marginTop: "-10%", fontWeight: "bold"
                         }}>Redemption by</Typography></Box>
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
 
 
                             <FormControlLabel
                                 control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                label="Amount: ₹1,46,625 " sx={{marginLeft:"-11%",marginTop:'-20%'}} />
-                        
+                                label="Amount: ₹1,46,625 " sx={{ marginLeft: "-11%", marginTop: '-20%' }} />
+
                             &nbsp; &nbsp;
                             <FormControlLabel
                                 control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                label="Units: 750.762"  sx={{marginTop:'-20%'}}/>
-                         
+                                label="Units: 750.762" sx={{ marginTop: '-20%' }} />
+
                         </Box>
                         <Box>
-                    <TextField label="Amount"
-                        name="Amount"
-                        //   value={formData.lastName}
-                        sx={{
-                            width: " 100%",
-                            height: "56px",
-                            borderRadius: "4px",
-                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                            border: "solid 1px #dddfe2",
-                            backgroundColor: "#fff",
-                            marginTop: "-7%"
-                        }}
-                      fullWidth
-                    >
+                            <TextField label="Amount"
+                                name="Amount"
+                                //   value={formData.lastName}
+                                sx={{
+                                    width: " 100%",
+                                    height: "56px",
+                                    borderRadius: "4px",
+                                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                    border: "solid 1px #dddfe2",
+                                    backgroundColor: "#fff",
+                                    marginTop: "-7%"
+                                }}
+                                fullWidth
+                            >
 
-                    </TextField>
-                </Box>
-                    </> : <Box>jjjjjjj</Box>
+                            </TextField>
+                        </Box>
+
+                        <Box>
+                            <Typography
+                                sx={{
+                                    width: "304px",
+                                    height: "30px",
+                                    // margin: "8px 135px 0 8%",
+                                    fontSize: " 12px",
+                                    textAlign: "left",
+                                    color: "#8787a2"
+
+
+
+                                }}
+                            >Minimum redemption amount ₹500 </Typography>
+
+                            <Typography
+                                sx={{
+                                    width: "100%",
+
+                                    marginTop: "-4%",
+                                    fontSize: " 12px",
+                                    textAlign: "left",
+                                    color: "#8787a2"
+                                }}
+                            >Maximum  redemption amount ₹25,000</Typography>
+                        </Box> </> : <Grid container spacing={3}>
+                        <Grid item xs={6} md={6}>
+                            <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Invested Value</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6}>
+                            <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6} sx={{ marginTop: "-5%" }}>
+                            <Typography sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹1,25,000</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6} sx={{ marginTop: "-5%" }}>
+                            <Typography>₹1,46,625</Typography>
+                        
+                        </Grid>
+
+                    </Grid>
+
                 }
 
-             
-
-                <Box>
-                    <Typography
-                        sx={{
-                            width: "304px",
-                            height: "30px",
-                            // margin: "8px 135px 0 8%",
-                            fontSize: " 12px",
-                            textAlign: "left",
-                            color: "#8787a2"
 
 
-
-                        }}
-                    >Minimum redemption amount ₹500 </Typography>
-
-                    <Typography
-                        sx={{
-                            width: "100%",
-
-                            marginTop: "-4%",
-                            fontSize: " 12px",
-                            textAlign: "left",
-                            color: "#8787a2"
-                        }}
-                    >Maximum  redemption amount ₹25,000</Typography>
-                </Box>
-
-            </CardContent>             
+            </CardContent>
 
         </Card>
 

@@ -159,71 +159,7 @@ function ProfileCompleted() {
 
   const navigate = useNavigate()
   return (
-    // <Box style={{ width: "100vw" }} ref={refContainer}>
-    //   <Navbar />
-    //   <Box sx={style.main}>
-    //     <Grid
-    //       container
-    //       spacing={0}
-    //       sx={{ height: "100vh" }}
-    //     >
-
-    //       <Grid
-    //         item
-    //         xs={0}
-    //         sm={1}
-    //         md={2}
-    //       >
-    //         <Toolbar />
-    //         <Sidebar />
-    //       </Grid>
-    //       <Grid
-    //         container
-    //         xs={13}
-    //         sm={11}
-    //         md={10}
-    //       >
-    //         <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
-    //           <Toolbar />
-
-
-    //           <Box role="presentation" sx={{ margin: "20px 0px" }}>
-    //             <Breadcrumbs aria-label="breadcrumb">
-
-
-
-    //               <Link color="#6495ED" underline="always" href='Home' >
-    //                 <Typography className='burgerText'> Home</Typography>
-    //               </Link>
-
-
-
-    //               <Link underline="always">
-    //                 <Typography className='burgerText'>View Profile</Typography>
-
-    //               </Link>
-    //             </Breadcrumbs>
-    //           </Box>
-
-
-
-    //           <Grid container  xs={12} >
-    //             <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-    //               <ViewProfileCard />
-    //             </Grid>
-    //             <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
-    //               <VviewprofileCard />
-    //             </Grid>
-
-    //           </Grid>
-
-    //         </Grid>
-
-    //       </Grid>
-    //     </Grid>
-    //   </Box>
-    // </Box>
+  
     <Box style={{ width: "100vw" }} ref={refContainer}>
     <Navbar />
     <Box sx={style.main}>
@@ -236,35 +172,22 @@ function ProfileCompleted() {
         </Grid>
         <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
     
-        <Box role="presentation">
-                <Breadcrumbs aria-label="breadcrumb">
-
-
-
-                  <Link color="#6495ED" underline="always" href='home' >
+                  <Box role="presentation">
+                <Breadcrumbs aria-label="breadcrumb"> <Link color="#6495ED" underline="always" href='home' >
                     <Typography className='burgerText'> Home</Typography>
-                  </Link>
-
-
-
-                  <Link underline="none" color="#878782" href="/vp" >
+                  </Link> <Link underline="none" color="#878782" href="/vp" >
                     <Typography className='burgerText' >View Profile</Typography>
-
-                  </Link>
+                    </Link>
                 </Breadcrumbs>
               </Box>
-
-             <Grid container  xs={12} >
-        
-               <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-                  <CompletedViewProfileCard />
+              <Grid container  xs={12} >
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+                <CompletedViewProfileCard />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                   <CcompletedviewprofileCard />
                </Grid>
-
-             </Grid>
+               </Grid>
         </Grid>
       </Grid>
     </Box>

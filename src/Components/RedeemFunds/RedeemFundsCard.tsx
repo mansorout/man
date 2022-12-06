@@ -162,9 +162,10 @@ const RedeemFundsCard = (props: Prop) => {
               >₹1,25,000
             
               </Typography>
+             
                  
             </Grid>
-        
+            <Box></Box>
 
             <Grid item xs={3}>
               <Typography 
