@@ -112,6 +112,7 @@ export const validMobile =require("./ValidMobileNumber.png")
 export const ic_tax_saving =require("./ic_tax_saving.png")
 export const ic_no_medical =require("./ic_no_medical.png")
 export const ic_low_cost =require("./ic_low_cost.png")
+export const tick = require("./Tick.png")
 
 
 
