@@ -6,6 +6,8 @@ import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import { useSelector } from "react-redux";
+import { globalConstant } from "../../Utils/globalConstant";
 
 
 const CustomizeMF = () => {
@@ -21,6 +23,8 @@ const CustomizeMF = () => {
             height: "100vh"
         } as React.CSSProperties,
     };
+
+    const g_investment = useSelector((state: any) => state?.investment?.investment);
 
     useEffect(() => {
         setMfCards([
@@ -90,13 +94,17 @@ const CustomizeMF = () => {
                                 marginBottom: '3vw',
                             }}>
                                 <Link href="/home">Home</Link>
-                                <Link href="/">Investment</Link>
-                                <Link href="/">One-time lumpsum</Link>
-                                <Link href="/">Mutual Fund Recommendation</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment"}>Investment</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow"}>{g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}</Link>
+                                <Link href="/onetimemutualfundrecommendation">Mutual Fund Recommendation</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
                                 }}>Customize Plan</Typography>
+
+
+
+
                             </Breadcrumbs>
                             <Box className="header" sx={{
                                 display: 'flex',

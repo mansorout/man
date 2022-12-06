@@ -21,6 +21,7 @@ import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { PinModalHomeCloseAction } from '../../Store/Duck/PINModalHome'
+import { globalConstant } from '../../Utils/globalConstant'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -201,13 +202,13 @@ function Home() {
     switch (strNavigationScreenName) {
       case "sipInvestment": {
         objLocationData = {
-          cardType: "sipInvestment"
+          cardType: globalConstant.SIP_INVESTMENT
         }
         break;
       }
       case "oneTimeInvestment": {
         objLocationData = {
-          cardType: "oneTimeInvestment"
+          cardType: globalConstant.LUMPSUM_INVESTMENT
         }
         break;
       }
