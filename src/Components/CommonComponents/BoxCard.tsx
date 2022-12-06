@@ -47,6 +47,7 @@ interface BoxCardProps {
     detailText: string;
     bottomImageUrl: string;
     bottomNavigationIcon: React.ReactElement<any>
+    btnClick: () => void
 }
 const BoxCard = (props: BoxCardProps) => {
     const classes = useStyles()
@@ -58,9 +59,9 @@ const BoxCard = (props: BoxCardProps) => {
                 {/* <ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} /> */}
             </div>
             <p style={{ color: 'var(--typeIndigoColor)', fontSize: '14px', }}>{props.detailText}</p>
-            <div className={`${classes.insuranceCardImage} ${classes.flexCommon}`}>
+            <div className={`${classes.insuranceCardImage} ${classes.flexCommon}`} onClick={props.btnClick}>
                 <img src={props.bottomImageUrl} alt="" />
-                <div className={classes.insuranceCardIcon}>
+                <div className={classes.insuranceCardIcon} >
                     {/* <ArrowForwardIcon /> */}
                     {props.bottomNavigationIcon}
                 </div>

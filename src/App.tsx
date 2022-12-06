@@ -62,6 +62,9 @@ import CancleSIP from './Components/Portfolio/CancleSIP';
 import Details from './Components/ExploreFunds/FundDetails';
 import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
 =======
+import HealthInsurance from './Components/Insurance/HealthInsurance';
+import FindInsurance from './Components/Insurance/FindInsurance';
+import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 >>>>>>> f2d976cb69d7caf8315e286ce471762e49dccf35
 
@@ -186,6 +189,9 @@ function App() {
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
