@@ -24,11 +24,15 @@
     "@types/react-dom": "^18.0.8",
     "@types/underscore": "^1.11.4",
     "canvasjs": "^1.8.3",
+    "chart.js": "^4.0.1",
+    "clsx": "^1.2.1",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.6",
     "gapi-script": "^1.2.0",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
+    "react-calendar": "^4.0.0",
+    "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
     "react-google-login": "^5.2.2",
@@ -76,6 +80,7 @@
   },
   "devDependencies": {
     "@mui/material": "^5.10.13",
+    "@types/react-calendar": "^3.9.0",
     "@types/react-slick": "^0.23.10",
     "jest": "^27.5.1"
   }

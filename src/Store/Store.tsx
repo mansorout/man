@@ -14,6 +14,7 @@ import { NavToggleReducer } from './Duck/NavToggle'
 import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { PinModalHome } from './Duck/PINModalHome'
+import investmentReducer from './Reducers/investmentReducer'
 
 
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     NavToggleReducer: NavToggleReducer,
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
     PinModalHome: PinModalHome,
+    investment: investmentReducer
 })
 
 export const store = createStore(

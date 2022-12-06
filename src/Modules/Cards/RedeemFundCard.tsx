@@ -128,20 +128,10 @@ export default function RedeemFundCard() {
                             }}
                         >Redemption type</Typography>
                         &nbsp;       &nbsp;       &nbsp;
-                        <Typography sx={{
-
-                            height: " 16px",
-                            // margin: "5% 62px 27px 5%",
-
-                            fontSize: " 14px",
-
-
-
-
-                            textAlign: " left",
-                            color: "#3c3e42"
+                        <Typography sx={{height: " 16px", fontSize: " 14px",textAlign: " left",color: "#3c3e42"
                         }}>Redemption by</Typography>
                     </Box>
+
                     <Box sx={{ textAlign: "right", marginTop: "-23%",marginLeft:"2%" }}>
                         <Button sx={{
                             color: "#09b85d",
@@ -153,7 +143,6 @@ export default function RedeemFundCard() {
                             backgroundColor: "#dff7ea",
                             marginTop: "7%",
                             marginLeft: "-9%",
-
 
                         }}>PARTIAL</Button>
 
@@ -175,29 +164,19 @@ export default function RedeemFundCard() {
                     </Box>
                     <Box sx={{display:"flex", justifyContent:"center",alignItems:"center",marginTop:"10%"}}>
                         <Typography sx={{fontSize:"14px"}} >
-
-                            <Radio
-
-                                sx={{ color: "#23db7b", marginLeft: "-7%" }}
-                            />
-
-                            Amount: ₹1,46,625
-
-                        </Typography>
+                      <Radio sx={{ color: "#23db7b", marginLeft: "-7%" }}/>Amount: ₹1,46,625 
+                       </Typography>
                         &nbsp; &nbsp;  
                         <Typography sx={{fontSize:"14px"}}>
 
-                            <Radio
+                               <Radio
                                 checked={selectedValue === 'b'}
                                 onClick={()=>navigate('/redeemfund')}
                                 // onChange={handleChange}
                                 value="b"
                                 name="radio-buttons"
-                                //componentsProps={{ input: { 'aria-label': 'B' } }}
-                                sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
-
-                            />
-                            Units: 750.762</Typography>
+                        sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
+                        />Units: 750.762</Typography>
                     </Box>
                     <Box>
                           <TextField label="Amount"

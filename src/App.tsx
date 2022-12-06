@@ -58,6 +58,15 @@ import DropDownFilter from './Components/TxnFilters/DropDownFilter';
 
 
 
+import StartInvestment from './Components/Investment/startInvestment';
+
+import Details from './Components/ExploreFunds/FundDetails';
+import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
+import HealthInsurance from './Components/Insurance/HealthInsurance';
+import FindInsurance from './Components/Insurance/FindInsurance';
+import FindInsurance2 from './Components/Insurance/FindInsurance2';
+import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import InitiateSip from './Components/SIPScreen/initiateSip';
 
 
 
@@ -128,6 +137,30 @@ function App() {
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
+
+        <Route path="/sipInvestment" element={<StartInvestment />} />
+        <Route path="/oneTimeInvestment" element={<StartInvestment />} />
+
+        <Route path="/startAnSip" element={<InitiateSip />} />
+        <Route path="/investNow" element={<InvestNowScreen />} />
+
+        <Route path="/buildWealth" element={<InvestNowScreen />} />
+        <Route path="/getLoan" element={<InvestNowScreen />} />
+
+        <Route path="/redeemfund" element={<RedeemFunds />} />
+
+        <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/Insurance" element={<Insurance />} />
+
+
+
+        <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
+
+
+
+
+
+
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
 
@@ -136,6 +169,9 @@ function App() {
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
@@ -161,6 +197,8 @@ function App() {
 
        
 
+        <Route path='/details' element={<Details />} />
+        <Route path='/selectedfunds' element={<SelectedFunds />} />
 
 
       </Routes>

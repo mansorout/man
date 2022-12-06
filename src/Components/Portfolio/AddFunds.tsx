@@ -5,6 +5,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import MutualFundCard2 from "../../Modules/CustomCard/MutualFundCard2";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { globalConstant } from "../../Utils/globalConstant";
 
 const AddFunds = () => {
 
@@ -105,6 +108,10 @@ const AddFunds = () => {
     
         }
     */
+   const navigate=useNavigate();
+
+   const g_investment = useSelector((state: any) => state?.investment?.investment);
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -130,10 +137,10 @@ const AddFunds = () => {
                                 color: '#6c63ff'
                             }}>
                                 <Link href="/home">Home</Link>
-                                <Link href="/">Investment</Link>
-                                <Link href="/">Monthly Investment</Link>
-                                <Link href="/">Mutual Fund Recommendation</Link>
-                                <Link href="/">Customize Plan</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment"}>Investment</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow"}>{g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}</Link>
+                                <Link href="/onetimemutualfundrecommendation">Mutual Fund Recommendation</Link>
+                                <Link href="/customizemf">Customize Plan</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'

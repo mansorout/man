@@ -1,6 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Paper from "@mui/material/Paper";
-import { Mylocationicon } from "../../Assets/index";
+import { ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
@@ -8,15 +8,16 @@ import { Editprofilebutton } from '../Buttons/Editprofilebutton'
 // import EEditprofileCard from '../Buttons/EEditprofileCard'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
+import clsx from "clsx";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import React from 'react'
 import { height, padding } from '@mui/system'
 import MenuItem from '@mui/material/MenuItem';
-import { useForm, Controller } from "react-hook-form";
+
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -26,10 +27,12 @@ import FormControl from '@mui/material/FormControl';
 import { Form, useNavigate } from 'react-router-dom';
 import { store } from '../../Store/Store';
 import { submituserdetails } from '../../Store/Reducers/action';
-
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
+import { useForm } from "react-hook-form";
 
-
+import { FormHelperText } from '@mui/material';
+import '../../Components/EditProfile/Editprofilescreen.css'
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -43,13 +46,14 @@ import { useDispatch } from 'react-redux';
 
 
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
-const country = [{ name: "Delhi", code: "de" }, { name: "kanpur" }]
+const country = ["delhi", "kanpur"]
 const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
 
 
 function EditprofileCard() {
+
 
   // const { register, handleSubmit, errors } = useForm();
 
@@ -58,6 +62,8 @@ function EditprofileCard() {
   // };
 
   // console.log(errors);
+
+
 
 
   const [selectedValue, setSelectedValue] = React.useState('a');
@@ -84,53 +90,6 @@ function EditprofileCard() {
       },
     }),
   );
-  const [formData, setFormData] = useState<any>({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    emailaddress: "",
-    mobilenumber: "",
-    dateofbirth: "",
-    pincode: "",
-    gender: "Female",
-    CountrySecond: "",
-    StateOfBirth: "",
-    city: "",
-    CityofResidence: "",
-    IncomeSlab: "",
-    CountryofBirth: "",
-    Placeofbirth: "",
-    addressline1: "",
-    CountryFirst: "",
-    state: "",
-
-
-
-  })
-  const handlechange = (e: any) => {
-
-    const value = e.target.value;
-    setFormData({
-      ...formData,
-      [e.target.name]: value
-
-    })
-
-
-  }
-  const dispatch = useDispatch()
-  const [city, setCity] = React.useState('');
-  const [state, setState] = React.useState('');
-
-  const navigate = useNavigate();
-  function handleClick() {
-    // addUserDEtails("")
-    store.dispatch(submituserdetails({ 'userdata': formData }))
-
-    navigate('/completedview');
-
-
-  }
 
 
   const style = {
@@ -168,7 +127,7 @@ function EditprofileCard() {
       boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
       border: 'solid 1px rgba(0, 0, 0, 0.08)',
     },
-    button: {
+    buttonbtn: {
       height: "48px",
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
@@ -176,7 +135,7 @@ function EditprofileCard() {
       margin: "16px",
       width: "90%",
       maxWidth: "400px",
-      transform: "translate(8px, -23px)"
+      transform: "translate(10px, -60px)"
 
 
     },
@@ -202,17 +161,290 @@ function EditprofileCard() {
 
 
   }
+  const [formData, setFormData] = useState<any>({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    emailaddress: "",
+    mobilenumber: "",
+    dateofbirth: "",
+    pincode: "",
+    gender: "Female",
+    CountrySecond: "",
+    StateOfBirth: "",
+    city: "",
+    CityofResidence: "",
+    IncomeSlab: "",
+    CountryofBirth: "",
+    Placeofbirth: "",
+    addressline1: "",
+    CountryFirst: "",
+    state: "",
+
+
+
+  })
+ 
+  const [lastNameError, setLastNameError] = useState(false)
+  const [MidNameError, setMidNameError] = useState(false)
+  const [errormobilenumberone, setErrormobilenumberone] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+
+
+
+  const [addresserrorone, setAddressErrorOne] = useState(false)
+ 
+   
+
+ 
+  const [dropValuestateerror, setDropValuestateError] = useState(false)
+
+  const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
+ 
+
+  const [errorrsstate, setErrorsstate] = useState(false)
+
+  const [errorPincode, setErrorPincode] = useState(false)
+  const [errorcountryFirst, setErrorCountryFirst] = useState(false)
+
+  const [errorincomeslabs, setErrorincomeslabs] = useState(false)
+  
+
+
+  const [error, setError] = useState(false)
+  const [countryError, setCountryError] = useState(false)
+
+
+
+
+
+  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
+  const [errorMesagemiddleName, setErrorMessagemiddleName] = useState("")
+  const [errorMesageCountry, setErrorMessageCountry] = useState("")
+  const [errorMessagelastname, setErrorMessagelastname] = useState("")
+  const [errorMessagemobilenumber, setErrorMessagemobilenumber] = useState<any>("")
+  const [errorMessageemail, setErrorMessageemail] = useState<any>("")
+  const [errormessageState, setErrorMessageState] = useState<any>("")
+  const [errormessageaddress, setErrorMessageAddresss] = useState<any>("")
+  const [errormessagecityofresi, setErrorMessagecityofersi] = useState<any>("")
+  const [errormessageStatee, setErrorMessageStatee] = useState<any>("")
+  const [errormessagepincode, setErrorMessagePincode] = useState<any>("")
+  const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
+  const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
+  const [showSubmitDetails,setShowSubmitDetails] = useState(true)
+ 
+  const { register, formState: { errors } } = useForm();
+  const NameRegex = /^[a-zA-Z ]{4,30}$/;
+
+  const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const handlechange = (e: any) => {
+    e.preventDefault();
+
+    const value = e.target.value;
+    setFormData({
+      ...formData,
+      [e.target.name]: value
+
+    })
+  
+
+  }
+
+  useEffect(() => {
+
+    if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length <10 ||
+      formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
+      setDropValuestateError(false)
+      setError(false)
+      setCountryError(false)
+      setMidNameError(false)
+      setLastNameError(false)
+      setErrormobilenumberone(false)
+      setEmailError(false)
+      setAddressErrorOne(false)
+      setDrapdownresidenseError(false)
+      setErrorsstate(false)
+      setErrorPincode(false)
+      setErrorCountryFirst(false)
+      setErrorincomeslabs(false)
+    }
+       
+    setTimeout(()=>{
+      setShowSubmitDetails(() => true);
+
+    })
+    
+
+  //   console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
+  //  && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
+  //  && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
+  //    )
+    
+  console.log(formData.firstName.length < 0  && formData.middleName.length <0 && formData.LastName.length <0 )
+  }, [formData])
+
+  const areAllFieldsFilled = (formData.firstName != "") && (formData.lastName != "") && (mobileRegex.test(formData.mobilenumber)) && 
+  (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth  !== "")  && (formData.addressline1  !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
+  && (formData.state !== "")  &&  (formData.CountryFirst !== "") && (formData.IncomeSlab !== "")  && (formData.LastName !== "")
+  const dispatch = useDispatch()
+  const [city, setCity] = React.useState('');
+  const [state, setState] = React.useState('');
+
+  const navigate = useNavigate();
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    alert("jj")
+    // navigate('/onetimemutualfundrecommendation')
+
+
+
+
+  }
+
+  const [errorfirstname, setErrorFirstName] = React.useState<any>("");
+  const [errormiddlename, setErrorMiddleName] = React.useState<any>("");
+  const [errorlastname, setErrorLastName] = React.useState<any>("");
+  const [errormobilenumber, setErrorMobilenumber] = React.useState<any>("");
+  const [erroremiladdress, setErrorEmailAdress] = React.useState<any>("");
+  const [errorcountry, setErrorCountry] = React.useState<any>("");
+  const [errorstate, setErrorState] = React.useState<any>("");
+  const [erroraddresss, setErrorAddress] = React.useState<any>("");
+  const [errorcityofresidence, setErrorcityofresidence] = React.useState<any>("");
+  const [errorstatetwo, setErrorstatetwo] = React.useState<any>("");
+  const [errorpincode, setErrorpincode] = React.useState<any>("");
+  const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
+  const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
+
+
+
+
+
+
+  const handleBlur = () => {
+
+    if (formData.firstName == ""  ) {
+      setError(true)
+
+
+      setErrorMessageFN("Please Enter Name")
+      setShowSubmitDetails(true)
+    }else{
+      setShowSubmitDetails(false)
+      console.log("kkkk")
+    }
+
+  }
+  const handleBlurCountry = () => {
+    if (formData.CountrySecond == "") {
+      setCountryError(true)
+      setErrorMessageCountry("Required")
+
+    }
+  }
+
+
+
+
+  const handleOnBlurmiddleName = () => {
+    if (formData.middleName == "" ) {
+      setErrorMessagemiddleName("Please Enter Middle Name")
+      setMidNameError(true)
+      setShowSubmitDetails(true)
+    }else{
+      setShowSubmitDetails(false)
+      console.log("hhhh")
+    }
+
+  }
+  const handleOnBlurlastName = () => {
+    if (formData.lastName.length == "") {
+      setErrorMessagelastname("Please Enter LastName")
+      setLastNameError(true)
+    }
+
+  }
+
+  const handleOnBlurmobilenumber = () => {
+
+    if (formData.mobilenumber.length != 10) {
+
+      setErrorMessagemobilenumber("Mobile number is invalid")
+      setErrormobilenumberone(true)
+    }
+
+  }
+  const handleOnBluremailaddress = () => {
+    if (formData.emailaddress == "" || !emailRegex.test(formData.emailaddress)) {
+      setErrorMessageemail("Email Address is Invalid")
+      setEmailError(true)
+    }
+    
+
+  }
+ 
+  const handleOnBlurCountrySecond = () => {
+    setErrorCountry("Required")
+  }
+  const handleOnBlurStateOfBirth = () => {
+    if (formData.StateOfBirth == "") {
+      setErrorMessageState("Required")
+      setDropValuestateError(true)
+    }
+
+  }
+  const handleOnBluraddressline1 = () => {
+    if (formData.addressline1 <= 3) {
+      setErrorMessageAddresss("Adresss is required")
+      setAddressErrorOne(true)
+    }
+
+  }
+  const handleOnBlurCityofResidence = () => {
+    if (formData.CityofResidence == "") {
+      setDrapdownresidenseError(true)
+      setErrorMessagecityofersi("Required")
+    }
+
+  }
+  const handleOnBlurstate = () => {
+    if (formData.state == "") {
+      setErrorMessageStatee("Required")
+      setErrorsstate(true)
+    }
+
+  }
+  const handleOnBlurpincode = () => {
+    if (formData.pincode == "") {
+      setErrorMessagePincode("Required")
+      setErrorPincode(true)
+    }
+
+  }
+  const handleOnBlurCountryFirst = () => {
+    if (formData.CountryFirst == "") {
+      setErrorCountryFirst(true)
+      setErrorMessagefirstcountry("Required")
+    }
+
+  }
+  const handleOnBlurIncomeSlab = () => {
+    if (formData.IncomeSlab == '') {
+      setErrorincomeslabs(true)
+      setErrorMessageIncomeSlab("Required")
+    }
+
+  }
+
+
+  
   const classes = useStyles();
-  const handleSubmit=()=>{
 
-  }
-
-  const onSubmit=()=>{
-
-  }
   return (
     <>
-      <div style={{ backgroundColor: '#ffffff',
+      <div style={{
+        backgroundColor: '#ffffff',
         padding: '29px',
         borderRadius: "8px",
         marginBottom: "-15px"
@@ -226,133 +458,148 @@ function EditprofileCard() {
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-               marginLeft: "-25px"
+                marginLeft: "-25px"
               }}
-              onSubmit={handleSubmit}
-            >
-              <Stack m={2} spacing={6}>
 
-                <TextField
-                  label="First Name"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handlechange}
-                  fullWidth
-                  id='First Name'
+            >
+              <Stack m={2} spacing={2}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={12}>
+                    <TextField
+                     onBlur={handleBlur}
+                      label="First Name"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handlechange}
+                      fullWidth
+                      error={error}
+
+                      id='First Name'
+                      sx={{
+                        color: "rgba(0, 0, 0, 0.6)",
+                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        width: "100%", fontSize: "15px", fontWeight: "normal",
+
+                      }}
+                      helperText={error ? errorMessageFN : ""}
+                    />
+                  </Grid>
+
+                </Grid><TextField label="Middle Name"
+                  name="middleName"
+                  onBlur={handleOnBlurmiddleName}
+                  value={formData.middleName} onChange={handlechange} fullWidth
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px", fontWeight: "normal",
-                    
+
                   }}
-                >
-
-
-                </TextField>
-                <TextField label="Middle Name"
-                  name="middleName"
-                  value={formData.middleName} onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)",
-                   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", 
-                   width: "100%", fontSize: "15px", fontWeight: "normal",
-               
-                   }} >
-
-
-                </TextField>
-                
-                <TextField label="Last Name"
+                  error={MidNameError}
+                  helperText={MidNameError ? errorMesagemiddleName : ""}
+                /><TextField label="Last Name"
                   name="lastName"
                   value={formData.lastName}
-                  onChange={handlechange} 
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px",
-                   fontWeight: "normal",
-              
-                 
-                   }} >
+                  onBlur={handleOnBlurlastName}
+                  onChange={handlechange}
+                  sx={{
+                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px",
+                    fontWeight: "normal",
 
 
-                </TextField>
-                <TextField label="Mobile Number"
-                  name="mobilenumber" value={formData.mobilenumber}
+                  }}
+                  error={lastNameError}
+                  helperText={lastNameError ? errorMessagelastname : ""}
+                /><TextField label="Mobile Number"
+                  onBlur={handleOnBlurmobilenumber}
+                  type="number"
+                  name="mobilenumber"
+                  value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                   width: "100%", fontSize: "15px", fontWeight: "normal"}}
-
-                >
-
-
-                </TextField>
-            
-                <TextField label="Email Address"
+                  sx={{
+                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "100%", fontSize: "15px", fontWeight: "normal"
+                  }}
+                  error={errormobilenumberone}
+                  helperText={errormobilenumberone ? errorMessagemobilenumber : ""}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">
+                      +91
+                    </InputAdornment>,
+                  }}
+                /> <TextField label="Email Address"
+                  onBlur={handleOnBluremailaddress}
                   name="emailaddress"
-                  sx={{ color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%",
-                   fontSize: "15px", fontWeight: "normal" }}
-                  value={formData.emailaddress} onChange={handlechange} fullWidth>
-               
-              
-
-               
-                </TextField>
-
-                <Box
+                  sx={{
+                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%",
+                    fontSize: "15px", fontWeight: "normal"
+                  }}
+                  value={formData.emailaddress} onChange={handlechange} fullWidth
+                  error={emailError}
+                  helperText={emailError ? errorMessageemail : ""}
+                /><Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "20px" }
-                  }} >
-                  <div style={{ position: "relative", top: "-20px" }}>
-
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel id="demo-simple-select-label" sx={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontSize: "15px",
-                        fontWeight: "normal",
-                      }}>country</InputLabel>
-
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.CountrySecond}
-                        onChange={handlechange}
-                        name="CountrySecond"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {country.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    
-                    <FormControl sx={{ width: "49%" }}>
-                      <InputLabel id="demo-simple-select-label"
-                        sx={{
+                    '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" }
+                  }}>
+                    <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label" sx={{
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                        }}>State</InputLabel>
+                        }}>country</InputLabel>
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.StateOfBirth}
-                        onChange={handlechange}
-                        name="StateOfBirth"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {State.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
+                        <Select
+                          onBlur={handleBlurCountry}
+                          fullWidth={true}
+                          name="CountrySecond"
+                          value={formData.CountrySecond}
+                          onChange={handlechange}
+                          error={countryError}
 
+                        >
+                          <MenuItem value="hai">Delhi</MenuItem>
+                          <MenuItem value="olivier">kanpur</MenuItem>
+                          <MenuItem value="kevin">Noida</MenuItem>
+                        </Select>
+                        <FormHelperText sx={{ color: "red" }}>
+                          {formData.CountrySecond == "" ? errorMesageCountry : ""}
+                        </FormHelperText>
+                      </FormControl>
+                    </Grid><Grid item xs={12} md={6}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label"
+                          sx={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                          }}>State</InputLabel>
+
+                        <Select
+                          fullWidth={true}
+                          onBlur={handleOnBlurStateOfBirth}
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={formData.StateOfBirth}
+                          onChange={handlechange}
+                          name="StateOfBirth"
+                          sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          error={dropValuestateerror}
+                        ><MenuItem value="hai">Uttarpradesh</MenuItem>
+                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>{/* {State.map((l: any) => (
+                        <MenuItem value={l}>
+                          {l.name}
+                        </MenuItem>
+                      ))} */}
+                        </Select>
+                        <FormHelperText sx={{ color: "red" }}>
+                          {formData.StateOfBirth == "" ? errormessageState : ""}
+                        </FormHelperText> </FormControl>
+                        </Grid>
+                  </Grid>
                 </Box>
-
-
               </Stack>
             </Paper>
           </Grid>
@@ -363,194 +610,238 @@ function EditprofileCard() {
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-16px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-18px"
-              }}
-            >
-
-              <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 } }}>
-
-         
-
-
-                  <Button value={formData.gender}
-                    name="gender"
-                    onChange={handlechange}
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      backgroundColor: " #fff",
-                      borderRadius: "8px",
-                      boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
-                      height: " 42px", padding: " 6px 10px 6px 6px"
-                    }}>
-
-                    <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-9px" }} />
-                    {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
-
-                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Male</Typography>
-                  </Button>
-                  <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                    <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                    {/* <Radio   {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
-                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
-                  </Button>
-                  <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                    <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                    {/* <Radio {...controlProps('c')} sx={{
+                marginLeft: "-18px" }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
+              <Box sx={{ '& button': { m: 1 } }}> <Button value={formData.gender}
+                name="gender" onChange={handlechange}
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    backgroundColor: " #fff",
+                    borderRadius: "8px",
+                    boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
+                    height: " 42px", padding: " 6px 10px 6px 6px"
+                  }}
+                  ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
+               <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} >  Male</Typography>
+                </Button>
+                <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                  <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
+                
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
+                </Button>
+                <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                  <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
+                  {/* <Radio {...controlProps('c')} sx={{
                       '& .MuiSvgIcon-root': { fontSize: 28, },
                       height: "2px", width: "2px",
 
 
                     }}
                     /> */}
-                    <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
-                  </Button>
-           
-              </Box>
-
-
-
-              <Stack m={2} spacing={6}>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
+                </Button>
+                </Box>
+                 <Stack m={2} spacing={6}>
                 <TextField label="Address"
+                  onBlur={handleOnBluraddressline1}
                   name="addressline1"
                   value={formData.addressline1}
                   onChange={handlechange}
                   sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                  placeholder="Enter your street address" >
-
-
+                  placeholder="Enter your street address"
+                  error={addresserrorone}
+                  helperText={addresserrorone ? errormessageaddress : ""}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="end">
+                        <img src={Mylocationicon} width="22px" alt="location" />
+                      </InputAdornment> ), }}>
                 </TextField>
-                <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
                 <Box
                   component="form"
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', height: "16px", },
                     marginTop: "-69%",
+                  }}>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div style={{ position: "relative", top: "-51px" }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true} >
+                          <InputLabel id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>City of Residence</InputLabel>
+                          <Select
+                            fullWidth
+                            onBlur={handleOnBlurCityofResidence}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.CityofResidence}
+                            onChange={handlechange}
+                            name="CityofResidence"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            error={drapdownresidenseerror}
+                          >
+                            <MenuItem value="hai">Kanpur</MenuItem>
+                            <MenuItem value="olivier">Delhi</MenuItem>
+                            {/* {Cityofresidence.map((l: any) => (
+                              <MenuItem value={l}>
+                                {l.name}
+                              </MenuItem>
+                            ))} */}
 
-                  }}
+                          </Select>
+                          <FormHelperText sx={{ color: "red" }}>
+                            {formData.CityofResidence == "" ? errormessagecityofresi : ""}
+                          </FormHelperText>
+                        </FormControl>
+                        {/* const [dropdownfieldstate, setDropdownfieldstate] = useState(false) */}
 
 
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true} >
+                          <InputLabel id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>State</InputLabel>
 
+                          <Select
+                            fullWidth
+                            onBlur={handleOnBlurstate}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.state}
+                            onChange={handlechange}
+                            name="state"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            error={errorrsstate}
+                          >
+                            <MenuItem value="hai">Uttarpradesh</MenuItem>
+                            <MenuItem value="olivier">Madhya Pradesh</MenuItem>
+                          </Select>
+                          <FormHelperText sx={{ color: "red" }}>
+                            {formData.state == "" ? errormessageStatee : ""}
+                          </FormHelperText>
 
-                >
-                  <div style={{ position: "relative", top: "-86px" }}>
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>City of Residence</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.CityofResidence}
-                        onChange={handlechange}
-                        name="CityofResidence"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {Cityofresidence.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>State</InputLabel>
-
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.State}
-                        onChange={handlechange}
-                        name="State"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {State.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-
+                        </FormControl>
+                      </Grid>
+                    </Grid>
                   </div>
-                  <div style={{ position: "relative", top: "-46px" }}>
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel
-                        id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>Pincode</InputLabel>
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.pincode}
-                        label="Age"
-                        onChange={handlechange}
-                        name="pincode"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {pincode.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
+
+
+                  &nbsp;
+
+                  <div style={{ position: "relative", top: "-51px" }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <FormControl fullWidth={true}>
+                          <InputLabel
+                            id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>Pincode</InputLabel>
+
+                          <Select
+                            fullWidth
+                            onBlur={handleOnBlurpincode}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.pincode}
+                            label="Age"
+                            onChange={handlechange}
+                            name="pincode"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            error={errorPincode}
+                          >
+                            <MenuItem value="olivier">208025</MenuItem>
+                            <MenuItem value="olivier">208024</MenuItem>
+                          </Select>
+                          <FormHelperText sx={{ color: "red" }}>
+                            {formData.pincode == "" ? errormessagepincode : ""}
+                          </FormHelperText>
+                        </FormControl>
+
+                      </Grid>
+
+                      <Grid item xs={12} md={6}  >
+                        <FormControl fullWidth={true}>
+                          <InputLabel
+                            id="demo-simple-select-label"
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              fontSize: "15px",
+                              fontWeight: "normal",
+                            }}>Country</InputLabel>
+
+                          <Select
+                            fullWidth
+                            onBlur={handleOnBlurCountryFirst}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.CountryFirst}
+                            label="Age"
+                            onChange={handlechange}
+                            name="CountryFirst"
+                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            error={errorcountryFirst}
+                          >
+                            <MenuItem value="hai">Delhi</MenuItem>
+                            <MenuItem value="olivier">kanpur</MenuItem>
+                            <MenuItem value="kevin">Noida</MenuItem>
+                            {country.map((l: any) => (
+                              <MenuItem value={l}>
+                                {l.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                          <FormHelperText sx={{ color: "red" }}>
+                            {formData.CountryFirst == "" ? errormessagefirstcountry : ""}
+                          </FormHelperText>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+
                     {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
-                    <FormControl sx={{ width: "50%" }}>
-                      <InputLabel
-                        id="demo-simple-select-label"
-                        sx={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                        }}>Country</InputLabel>
 
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={formData.CountryFirst}
-                        label="Age"
-                        onChange={handlechange}
-                        name="CountryFirst"
-                        sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                      >
-                        {country.map((l: any) => (
-                          <MenuItem value={l}>
-                            {l.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
 
 
                   </div>
                 </Box>
+                {/* errormessageincomeslab */}
+
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
+                          type="number"
+                  onBlur={handleOnBlurIncomeSlab}
                   onChange={handlechange}
-                  sx={{ position: "relative",width:"100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }} />
-                <Button variant="contained" style={style.button} onClick={handleClick} fullWidth >
-                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                </Button>
+                  sx={{ position: "relative", width: "100%", top: "-78px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                  error={errorincomeslabs}
+                  helperText={errorincomeslabs ? errormessageincomeslab : ""}
+                />
+
+
+
+                <div style={{ marginTop: "20px" }}>
+                  <Button variant="contained" style={style.buttonbtn}
+                    disabled={!areAllFieldsFilled}
+                    onClick={handleClick} fullWidth >
+                    <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                  </Button>
+                </div>
               </Stack>
 
             </Paper>
           </Grid>
 
-         
+
         </Grid>
       </div>
 

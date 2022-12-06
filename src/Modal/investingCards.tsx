@@ -7,13 +7,15 @@ export const investingCards = [
         BgColor: "rgba(45, 118, 255, 0.07)",
         Heading: "Start an SIP",
         Text: "Start investing in small amount and reap big returns",
-        Img: SIP
+        Img: SIP,
+        Route:"sipInvestment"
     },
     {
         BgColor: "#ecf6f6",
         Heading: "Invest Now",
         Text: "A right way of investing is to build a mutual fund portfolio",
-        Img: InvestNow
+        Img: InvestNow,
+        Route:"oneTimeInvestment"
     },
     {
         BgColor: "#ecf6fa",

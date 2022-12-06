@@ -94,193 +94,291 @@ function ViewProfileCard() {
     return (
 
         <>
-          <Card   
-            sx={{
-                p: 1,
-                 marginTop: "30px",
-                height:" fit-content"
-            }}> 
-      <CardContent>
-      <Box
-              
-            >
-                <List>
-                    <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
-
-                    <ListItem
-
-                        secondaryAction={
-                            <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
-                        }
+            <Card
+                sx={{
+                    p: 1,
+                    marginTop: "30px",
+                    height: " fit-content"
+                }}>
+                <CardContent>
+                    <Box
 
                     >
-                    </ListItem>
+                        <List>
+                            <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
 
-                    <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
+                            <ListItem
 
-                    <ListItem
+                                secondaryAction={
+                                    <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
+                                }
+
+                            >
+                            </ListItem>
+
+                            <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
+
+                            <ListItem
 
 
-                    >
+                            >
 
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={emaillogo}
-                                    style={style.ca}
+
+
+                                <ListItem
+
+                                    secondaryAction={
+                                        <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
+                                    }
+
+                                >
+                                </ListItem>
+
+                                <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
+
+                                <ListItem
+
+
+                                >
+
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            alt=""
+                                            src={emaillogo}
+                                            style={style.ca}
+
+
+                                        />
+
+
+                                    </ListItemAvatar>
+                                    <Typography sx={{ fontSize: "14px" }}>Mobile Number
+                                        <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
+                                    </Typography>
+                                </ListItem>
+
+
+                                <ListItem
+
+
+                                >
+
+                                    <ListItemAvatar>
+
+
+                                        <Avatar
+                                            alt=""
+                                            src={emaillogo}
+                                            style={style.ca}
+
+                                        />
+
+
+                                    </ListItemAvatar>
+                                    <Typography sx={{ fontSize: "14px" }}>Email Address
+                                    </Typography>
+                                </ListItem>
+
+
+                                <ListItem
+
+                                >
+                                    <ListItemAvatar>
+
+
+                                        <Avatar
+                                            alt=""
+                                            src={cakelogo}
+                                            style={style.ca}
+
+                                        />
+
+
+
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={
+                                            <Typography sx={{ fontSize: "14px" }}>Date of Birth</Typography>
+                                        }
+
+                                    />
+                                </ListItem>
+
+
+
+                                <ListItem
+                                >
+
+                                    <ListItemAvatar>
+
+
+                                        <Avatar
+                                            alt=""
+                                            src={icbirthplacelogo}
+                                            style={style.ca}
+
+                                        />
+
+
+                                    </ListItemAvatar>
+
+                                    <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
+                                    <Avatar
+                                        alt=""
+                                        src={emaillogo}
+                                        style={style.ca}
+
+                                    />
+
+                                </ListItem>
+                                <Typography sx={{ fontSize: "14px" }}>Mobile Number
+                                    <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
+                                </Typography>
+                            </ListItem>
+
+
+                            <ListItem
+
+
+                            >
+
+                                <ListItemAvatar>
+
+                                    <Avatar
+                                        alt=""
+                                        src={emaillogo}
+                                        style={style.ca}
+
+                                    />
+
+                                </ListItemAvatar>
+                                <Typography sx={{ fontSize: "14px" }}>Email Address
+                                </Typography>
+                            </ListItem>
+
+
+                            <ListItem
+
+                            >
+                                <ListItemAvatar>
+
+                                    <Avatar
+                                        alt=""
+                                        src={cakelogo}
+                                        style={style.ca}
+
+                                    />
+
+
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={
+                                        <Typography sx={{ fontSize: "14px" }}>Date of Birth</Typography>
+                                    }
 
                                 />
-                            
-                        </ListItemAvatar>
-                        <Typography sx={{ fontSize: "14px" }}>Mobile Number
-                            <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
-                        </Typography>
-                    </ListItem>
+                            </ListItem>
 
 
-                    <ListItem
 
+                            <ListItem
+                            >
 
-                    >
+                                <ListItemAvatar>
 
-                        <ListItemAvatar>
-                            
+                                    <Avatar
+                                        alt=""
+                                        src={icbirthplacelogo}
+                                        style={style.ca}
+
+                                    />
+
+                                </ListItemAvatar>
+
+                                <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
                                 <Avatar
-                                    alt=""
-                                    src={emaillogo}
-                                    style={style.ca}
-
-                                />
-                            
-                        </ListItemAvatar>
-                        <Typography sx={{ fontSize: "14px" }}>Email Address
-                        </Typography>
-                    </ListItem>
-
-
-                    <ListItem
-
-                    >
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={cakelogo}
-                                    style={style.ca}
-
-                                />
-
-                            
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Date of Birth</Typography>
-                            }
-
-                        />
-                    </ListItem>
-
-
-
-                    <ListItem
-                        >
-
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={icbirthplacelogo}
-                                    style={style.ca}
-
-                                />
-                            
-                        </ListItemAvatar>
-                     
-                         <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
-                         <Avatar
                                     alt=""
                                     src={wclogo}
                                     style={style.ca}
 
-                               sx={{marginLeft:'25px'}} />
-                         <ListItemText
+                                    sx={{ marginLeft: '25px' }} />
+                                <ListItemText
                                     primary="Gender"
                                     secondary="Male"
-                                    sx={{marginLeft:'20px'}}
+                                    sx={{ marginLeft: '20px' }}
 
-                                  
+
 
                                 />
-                        {/* <Avatar
+                                {/* <Avatar
                                     alt=""
                                     src={wclogo}
                                     style={style.ca}
 
                                 />
-                                <Typography sx={{marginLeft:"2px"}} >Gender</Typography> */} 
-                    </ListItem>
+                                <Typography sx={{marginLeft:"2px"}} >Gender</Typography> */}
+                            </ListItem>
 
-                    <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
+                            <ListItem
+                                secondaryAction={
+                                    <IconButton edge="end" aria-label="delete">
 
-                            </IconButton>
-                        }
-                    >
+                                    </IconButton>
+                                }
+                            >
 
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={locationlogo}
-                                    style={style.ca}
+                                <ListItemAvatar>
 
-                                />
-                            
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Communication Address</Typography>
-                            }
+                                    <Avatar
+                                        alt=""
+                                        src={locationlogo}
+                                        style={style.ca}
 
-                        />
-                    </ListItem>
+                                    />
 
-
-
-                    <ListItem
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-
-                            </IconButton>
-                        }
-                    >
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={ic_income}
-                                    style={style.ca}
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={
+                                        <Typography sx={{ fontSize: "14px" }}>Communication Address</Typography>
+                                    }
 
                                 />
+                            </ListItem>
 
-                            
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Typography sx={{ fontSize: "14px" }}>Income slab</Typography>
-                            }
 
-                        />
-                    </ListItem>
-                    <EditProfieButton />
-                </List>
-            </Box>
-      </CardContent>
-     
-    </Card>
-           
+
+                            <ListItem
+                                secondaryAction={
+                                    <IconButton edge="end" aria-label="delete">
+
+                                    </IconButton>
+                                }
+                            >
+                                <ListItemAvatar>
+
+                                    <Avatar
+                                        alt=""
+                                        src={ic_income}
+                                        style={style.ca}
+
+                                    />
+
+
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={
+                                        <Typography sx={{ fontSize: "14px" }}>Income slab</Typography>
+                                    }
+
+                                />
+                            </ListItem>
+                            <EditProfieButton />
+                        </List>
+                    </Box>
+                </CardContent>
+
+            </Card>
+
 
 
         </>
