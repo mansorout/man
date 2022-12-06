@@ -7,12 +7,16 @@ import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import BUYNowButton from "../../Modules/Buttons/BUYNowButtton";
 import OneTimeMutualFundCard from "../../Modules/CustomCard/OneTimeMutualFundCard";
+import { useSelector } from "react-redux";
+import { globalConstant } from "../../Utils/globalConstant";
 
 const OneTimeMutualFund = () => {
 
     const navigate = useNavigate();
 
     const [mfCards, setMfCards] = useState<MFProp[]>([]);
+
+    const g_investment = useSelector((state: any) => state?.investment?.investment);
 
     const style = {
         main: {
@@ -66,10 +70,10 @@ const OneTimeMutualFund = () => {
         ]);
     }, []);
     const handlePrice = (value: any) => {
-      
+
         if (value === 12.3) {
             navigate('/funddetails')
-        } 
+        }
 
 
 
@@ -102,8 +106,8 @@ const OneTimeMutualFund = () => {
                                 marginBottom: '3vw',
                             }}>
                                 <Link href="/home">Home</Link>
-                                <Link href="/">Investment</Link>
-                                <Link href="/investnowscreen">One-time lumpsum</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment"}>Investment</Link>
+                                <Link href={g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow"}>{g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
@@ -167,7 +171,9 @@ const OneTimeMutualFund = () => {
                                 marginTop: '3vw',
                             }}>
 
-                                <Button onClick={() => navigate('/customizemf')} sx={{
+                                <Button
+                                 onClick={() => navigate('/customizemf')}
+                                  sx={{
                                     width: '200px',
                                     height: '44px',
                                     padding: '13px 27px 12px 28px',

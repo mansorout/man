@@ -56,12 +56,13 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
-import StartInvestment from './Components/InvestNowScreen/startInvestment';
+import StartInvestment from './Components/Investment/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import InitiateSip from './Components/SIPScreen/initiateSip';
 
 
 
@@ -156,7 +157,7 @@ function App() {
         <Route path="/sipInvestment" element={<StartInvestment />} />
         <Route path="/oneTimeInvestment" element={<StartInvestment />} />
 
-        <Route path="/startAnSip" element={<InvestNowScreen />} />
+        <Route path="/startAnSip" element={<InitiateSip />} />
         <Route path="/investNow" element={<InvestNowScreen />} />
 
         <Route path="/buildWealth" element={<InvestNowScreen />} />
@@ -171,9 +172,9 @@ function App() {
 
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
 
-        
-       
-        
+
+
+
 
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}

@@ -11,8 +11,8 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 
 function ModalInvestNow(props: any) {
- 
-  const navigate=useNavigate()
+
+  const navigate = useNavigate();
   const style = {
     main: {
       boxSizing: "border-box",
@@ -121,111 +121,107 @@ function ModalInvestNow(props: any) {
   }
 
   const btnstyle = {
-    button : {
-        height: "48px",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-        backgroundColor: "#23db7b",
-        margin: "20px",
-        width:"90%",
-        maxWidth:"400px",
+    button: {
+      height: "48px",
+      borderRadius: "8px",
+      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+      backgroundColor: "#23db7b",
+      margin: "20px",
+      width: "90%",
+      maxWidth: "400px",
     } as React.CSSProperties,
-    text : {
-        color: "white"
+    text: {
+      color: "white"
     }
-}
+  }
   const [formData, setFormData] = useState<any>({
     firstName: "",
     lastName: "",
-    email:"",
-    DOB:""
-     })
+    email: "",
+    DOB: ""
+  })
 
 
 
-     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
   const [errorMessageLN, setErrorMessageLN] = React.useState<any>("");
   const [errorMessageEM, setErrorMessageEM] = React.useState<any>("");
   const [errorMessageDOB, setErrorMessageDOB] = React.useState<any>("");
-  const [showSubmit,setShowSubmit] = useState(true)
-  const [error,setError] = useState(false)
-  
-  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const regexDOB =  /[0-9]{4,}(-[0-9]{2,}){2,}/
-  function  handleChange(e:any){
-        
-         const value = e.target.value;
-         setFormData({
-           ...formData,
-           [e.target.name]: value,
+  const [showSubmit, setShowSubmit] = useState(true)
+  const [error, setError] = useState(false);
 
-         })
-         
-         
+  const [investmentData, setInvestmentData] = useState<any>({});
+
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/
+
+  
+
+  function handleChange(e: any) {
+
+    const value = e.target.value;
+    setFormData({
+      ...formData,
+      [e.target.name]: value,
+
+    })
+
+
+  }
+
+  function handleOnBlurFirstname(e: any) {
+    if (formData.firstName.length < 3) {
+      setError(true)
+      setErrorMessageFN("First Name is required")
     }
 
-  function handleOnBlurFirstname(e:any){
-       if(formData.firstName.length<3){
-        setError(true)
-        setErrorMessageFN("First Name is required")
-        }
-        
-       
+
   }
 
-  function handleOnBlurLastname(e:any){
-    if(formData.lastName.length<3){
-     setError(true)
-     setErrorMessageLN("Last Name is required")
-   }
-   
-}
+  function handleOnBlurLastname(e: any) {
+    if (formData.lastName.length < 3) {
+      setError(true)
+      setErrorMessageLN("Last Name is required")
+    }
 
-function handleOnBlurEamil(e:any){
-  if(!emailRegex.test(formData.email)){
-   setError(true)
-   setErrorMessageEM("Please Enter Valid Email")
- }
- 
-}
-
-function handleOnBlurDOB(){
-  if(!regexDOB.test(formData.DOB)){
-    setError(true)
-    setErrorMessageDOB("Please Enter Valid DOB")
   }
-}
+
+  function handleOnBlurEamil(e: any) {
+    if (!emailRegex.test(formData.email)) {
+      setError(true)
+      setErrorMessageEM("Please Enter Valid Email")
+    }
+
+  }
+
+  function handleOnBlurDOB() {
+    if (!regexDOB.test(formData.DOB)) {
+      setError(true)
+      setErrorMessageDOB("Please Enter Valid DOB")
+    }
+  }
 
 
-useEffect(()=>{
- 
- console.log(formData.firstName.length>3 && formData.lastName.length>3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB))
-setShowSubmit(true)
+  useEffect(() => {
 
-if(formData.firstName.length>3 && formData.lastName.length>3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB)){
-  setShowSubmit(false)
-}
+    console.log(formData.firstName.length > 3 && formData.lastName.length > 3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB))
+    setShowSubmit(true)
 
-console.log(showSubmit)
-},[formData])
+    if (formData.firstName.length > 3 && formData.lastName.length > 3 && emailRegex.test(formData.email) && regexDOB.test(formData.DOB)) {
+      setShowSubmit(false)
+    }
 
-const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  event.stopPropagation();
-  alert("jj")
-  navigate('/onetimemutualfundrecommendation')
-};
+    console.log(showSubmit)
+  }, [formData])
 
-// const handleClose = () => {
-//   setAnchorEl(null);
- 
-// };
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    navigate('/onetimemutualfundrecommendation', {
 
-// const open = Boolean(anchorEl);
-// const id = open ? 'simple-popover' : undefined;
-
-
+    })
+  };
 
   return (
     <>
@@ -269,58 +265,63 @@ const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
                 name="firstName"
                 type="text"
                 value={formData.firstName}
-                helperText={ formData.firstName.length<3 ?  <label style={{color:"red"}}>{errorMessageFN}</label> : ""}
-          
+                helperText={formData.firstName.length < 3 ? <label style={{ color: "red" }}>{errorMessageFN}</label> : ""}
+
               />
               {/* {error && firstName.length<3 ? <label style={{display:"flex"}}>{errorMessage}</label>:""} */}
-            
+
               &nbsp;&nbsp;&nbsp;
               <TextField sx={{ color: "#919eb1", fontSize: "17px" }} label="LastName*"
-                    onBlur={handleOnBlurLastname}
-                    onChange={handleChange}
-                    type="text"
-                    name='lastName'
-                    value={formData.lastName}
-                    helperText={ formData.lastName.length<3 ?  <label style={{color:"red"}}>{errorMessageLN}</label> : ""}
+                onBlur={handleOnBlurLastname}
+                onChange={handleChange}
+                type="text"
+                name='lastName'
+                value={formData.lastName}
+                helperText={formData.lastName.length < 3 ? <label style={{ color: "red" }}>{errorMessageLN}</label> : ""}
               />
 
             </Box>
             <Box sx={{ width: "95%", marginTop: "2%" }}>
               <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%", marginLeft: "3%" }}
-               label="Email Address" id="fullWidth"
-                 onBlur={handleOnBlurEamil}
-                    onChange={handleChange}
-                    type="text"
-                    name='email'
-                    value={formData.email}
-                    helperText={ !emailRegex.test(formData.email) ?  <label style={{color:"red"}}>{errorMessageEM}</label> : ""}
-               
+                label="Email Address" id="fullWidth"
+                onBlur={handleOnBlurEamil}
+                onChange={handleChange}
+                type="text"
+                name='email'
+                value={formData.email}
+                helperText={!emailRegex.test(formData.email) ? <label style={{ color: "red" }}>{errorMessageEM}</label> : ""}
+
               />
             </Box>
             <Box sx={{ width: "95%", marginTop: "2%" }}>
               <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft: "3%" }} fullWidth label="Date of Birth"
-               
-                 onBlur={handleOnBlurDOB}
-                    onChange={handleChange}
-                    
-                    name='DOB'
-                    value={formData.DOB}
-                    helperText={ !regexDOB.test(formData.DOB) ?  <label style={{color:"red"}}>{errorMessageDOB}</label> : ""}
-               
-               
+
+                onBlur={handleOnBlurDOB}
+                onChange={handleChange}
+
+                name='DOB'
+                value={formData.DOB}
+                helperText={!regexDOB.test(formData.DOB) ? <label style={{ color: "red" }}>{errorMessageDOB}</label> : ""}
+
+
               />
             </Box>
 
 
             <div style={{ width: "100%" }} >
-            <Button disabled={showSubmit}  variant="contained" style={btnstyle.button} fullWidth   
-            onClick={handleClick}
-            sx={{
-              pointerEvents: 'fill',
-             }}   >
-            <Typography component="span" style={btnstyle.text} className="largeButtonText"  >Save Details</Typography>
-        </Button>
-        {/* <Popover
+              <Button
+                // disabled={showSubmit}
+                variant="contained"
+                style={btnstyle.button}
+                fullWidth
+                onClick={handleClick}
+                sx={{
+                  pointerEvents: 'fill',
+                }}
+              >
+                <Typography component="span" style={btnstyle.text} className="largeButtonText"  >Save Details</Typography>
+              </Button>
+              {/* <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
