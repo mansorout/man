@@ -57,6 +57,8 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+import Details from './Components/ExploreFunds/FundDetails';
+import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
 
 
 
@@ -172,7 +174,8 @@ function App() {
 
 
         <Route path='/explorefunds' element={<ExploreFunds />} />
-
+        <Route path='/details' element={<Details />} />
+        <Route path='/selectedfunds' element={<SelectedFunds />} />
 
 
       </Routes>
