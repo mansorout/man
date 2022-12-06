@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Box, Breadcrumbs, Button, Grid, Link, Toolbar, Typography } from "@mui/material";
 import { HelpOutline } from "../../Assets";
 import MutualFundCard2, { MFProp } from "../../Modules/CustomCard/MutualFundCard2";
-import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import BUYNowButton from "../../Modules/Buttons/BUYNowButtton";
+import OneTimeMutualFundCard from "../../Modules/CustomCard/OneTimeMutualFundCard";
 
-const MutualFundsList = () => {
+const OneTimeMutualFund = () => {
 
     const navigate = useNavigate();
 
@@ -102,7 +103,7 @@ const MutualFundsList = () => {
                             }}>
                                 <Link href="/home">Home</Link>
                                 <Link href="/">Investment</Link>
-                                <Link href="/">One-time lumpsum</Link>
+                                <Link href="/investnowscreen">One-time lumpsum</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
@@ -155,7 +156,7 @@ const MutualFundsList = () => {
                                             onClick={() => handlePrice(mfCard.oneYearReturn)}
                                         >
 
-                                            <MutualFundCard2 {...mfCard} />
+                                            <OneTimeMutualFundCard {...mfCard} />
                                         </Box>
                                     )
                                 }
@@ -189,7 +190,7 @@ const MutualFundsList = () => {
                             boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
                             backgroundColor: '#fff'
                         }}>
-                            <SelectSipDateButton />
+                            <BUYNowButton />
                         </Box>
                     </Grid>
                 </Grid>
@@ -200,7 +201,7 @@ const MutualFundsList = () => {
     )
 };
 
-export default MutualFundsList;
+export default OneTimeMutualFund;
 /*
 <Box sx={{
             width: '80.875vw',

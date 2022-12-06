@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 
-  const SelectSipDateButton = () => {
+  const BUYNowButton = () => {
 
     const style = {
         button : {
@@ -23,9 +23,9 @@ import { useNavigate } from "react-router-dom";
 
     return (
         <Button variant="contained" style={style.button} fullWidth>
-            <Typography component="span" style={style.text} className="largeButtonText"     onClick={()=>navigate('/under')} >Select SIP Date</Typography>
+            <Typography component="span" style={style.text} className="largeButtonText"     onClick={()=>navigate('/under')} >BUY NOW</Typography>
         </Button> 
     )
 };
 
-export default SelectSipDateButton;
+export default BUYNowButton;

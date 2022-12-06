@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <g transform="translate(-20 -1119)">
+        <circle data-name="Ellipse 439" cx="20" cy="20" r="20" transform="translate(20 1119)" style="fill:#64dbff;opacity:.3"/>
+        <path data-name="Path 7770" d="M0 0h25v25H0z" style="fill:none" transform="translate(27.5 1126.5)"/>
+        <path data-name="Path 8750" d="M121 151h1.221v6.1H121z" transform="translate(-86.493 983.727)" style="fill:#544ec8"/>
+        <path data-name="Path 8751" d="M241 196h1.221v4.272H241z" transform="translate(-201.611 940.558)" style="fill:#544ec8"/>
+        <path data-name="Path 8752" d="M361 241h1.221v2.441H361z" transform="translate(-316.728 897.389)" style="fill:#544ec8"/>
+        <path data-name="Path 8753" d="M31 100.417a1.833 1.833 0 0 0 1.831 1.831h6.714v1.366a1.831 1.831 0 1 0 1.221 0v-1.366h6.714a1.833 1.833 0 0 0 1.831-1.831V90H31zm9.155 5.534a.61.61 0 1 1 .61-.61.611.611 0 0 1-.61.61zm3.052-10.417a.61.61 0 0 1 .61-.61h2.441a.61.61 0 0 1 .61.61V99.2a.61.61 0 0 1-.61.61h-2.441a.61.61 0 0 1-.61-.61zM38.324 93.7a.61.61 0 0 1 .61-.61h2.441a.61.61 0 0 1 .61.61v5.5a.61.61 0 0 1-.61.61h-2.44a.61.61 0 0 1-.61-.61zm-4.883-1.831a.61.61 0 0 1 .61-.61h2.441a.61.61 0 0 1 .61.61V99.2a.61.61 0 0 1-.61.61h-2.44a.61.61 0 0 1-.61-.61z" transform="translate(-.156 1042.245)" style="fill:#544ec8"/>
+        <path data-name="Path 8754" d="M20.223 0H.61A.61.61 0 0 0 0 .61v1.831h20.833V.61a.61.61 0 0 0-.61-.61z" style="fill:#544ec8" transform="translate(29.583 1128.583)"/>
+    </g>
+</svg>

@@ -56,9 +56,14 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
+import StartInvestment from './Components/InvestNowScreen/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+<<<<<<< HEAD
 import Details from './Components/ExploreFunds/FundDetails';
 import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
+=======
+import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+>>>>>>> f2d976cb69d7caf8315e286ce471762e49dccf35
 
 
 
@@ -149,10 +154,30 @@ function App() {
 
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
-        <Route path="/investnowscreen" element={<InvestNowScreen />} />
+
+        <Route path="/sipInvestment" element={<StartInvestment />} />
+        <Route path="/oneTimeInvestment" element={<StartInvestment />} />
+
+        <Route path="/startAnSip" element={<InvestNowScreen />} />
+        <Route path="/investNow" element={<InvestNowScreen />} />
+
+        <Route path="/buildWealth" element={<InvestNowScreen />} />
+        <Route path="/getLoan" element={<InvestNowScreen />} />
+
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/Insurance" element={<Insurance />} />
+
+
+
+        <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
+
+        
+       
+        
+
+
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
 
@@ -168,6 +193,8 @@ function App() {
 
 
         <Route path="/funddetails" element={<FundDetails />} />
+
+
 
 
 

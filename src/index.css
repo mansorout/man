@@ -15,6 +15,7 @@ body {
   --titleFontSize: 16px;
   --subTitleFontSize: 12px;
   --buttonFontSize: 16px;
+  --headingMediumFontSize: 24px;
   --fontSize14: 14px;
 
 
@@ -204,6 +205,7 @@ h6 {
   letter-spacing: normal;
   color: #fff;
   background-color: "#3c3e42";
+ 
 
 }
 
