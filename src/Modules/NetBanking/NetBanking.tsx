@@ -28,6 +28,7 @@ import Sidebar from '../../Components/CommonComponents/Sidebar';
 import Navbar from '../../Components/CommonComponents/Navbar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ClearIcon from '@mui/icons-material/Clear';
+import UpiMainCom from './Upi/UpiMainCom';
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -225,7 +226,7 @@ function NetBanking() {
                         sm={11}
                         md={10}
                     >
-                        <Grid sx={{ height: "100vh", padding: 4, boxSizing: "border-box", overflow: "scroll" }} item xs={13}
+                        <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll", paddingLeft: "10%", paddingTop: "7px" }} item xs={13}
                             sm={11}
                             md={10}>
                             <Toolbar />
@@ -259,7 +260,7 @@ function NetBanking() {
                                     </Link>
                                 </Breadcrumbs>
                             </Box>
-                            <Card sx={{ maxWidth: 456, }}  >
+                            <Card sx={{ maxWidth: 456 }}  >
                                 <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
 
                                 <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -362,62 +363,16 @@ function NetBanking() {
                                     />
 
                                     <Box sx={{ maxWidth: 256 }}  >
-                                        <CardHeader
-                                            avatar={
-
-                                                <FormControlLabel sx={{}}
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="" />
-
-                                            }
-                                            action={
-                                                <Box onClick={() => navigate('/vp')}>
-                                                    < DeleteForeverIcon sx={{ color: "#ff5300" }} />
-
-
-
-
-                                                </Box>
-
-                                            }
-                                            title="7979282819@upi"
-                                            subheader=""
-                                            sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
-                                        <Box>
-                                            <CardHeader
-
-                                                avatar={
-
-                                                    <FormControlLabel sx={{}}
-                                                        control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                        label="" />
-
-                                                }
-                                                action={
-                                                    <Box onClick={() => navigate('/vp')}>
-                                                        < DeleteForeverIcon sx={{ color: "#ff5300" }} />
-                                                        {/* width: "29.1px",
-                                                height: "29.4px", */}
-
-
-
-                                                    </Box>
-
-                                                }
-                                                title="9998998999@upi"
-                                                subheader=""
-                                                sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
-                                        </Box>
+                                       
+                                        
 
                                     </Box>
 
                                     <Box sx={{ marginLeft: "20px" }}>
 
-                                        <Typography sx={{ color: "#7b7b9d", fontSize: "12px", marginLeft: "4px" }}>
-                                            Enter UPI ID
-                                        </Typography>
+                                       
 
-                                        <TextField
+                                        {/* <TextField
 
                                             sx={{ paddingRight: "52px" }}
 
@@ -436,7 +391,10 @@ function NetBanking() {
                                             placeholder=" 9825098250@upi "
                                             onChange={handleMobile}
                                         // onFocus={() => setFocus(true)}
-                                        />
+                                        /> */}
+
+                                        <UpiMainCom/>
+                                       
 
                                     </Box>
 
@@ -483,7 +441,7 @@ function NetBanking() {
 
                             <CardHeader
                                 avatar={
-                                    <Box onClick={() => navigate('/vp')}>
+                                    <Box onClick={() => navigate('/processingpayments')}>
                                         <img src={hdfclogo} alt="sprint-money" style={{
                                             width: "29.1px",
                                             height: "29.4px",
@@ -494,18 +452,7 @@ function NetBanking() {
                                     </Box>
 
                                 }
-                                action={
-                                    <Box >
-                                        {/* <img src={hdfclogo} alt="sprint-money" style={{
-                                            width: "29.1px",
-                                            height: "29.4px",
-
-
-
-                                        }} /> */}
-                                    </Box>
-
-                                }
+                                action={""}
                                 title="NEFT/RTGS"
                                 subheader="4825 ********** 25"
                                 sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />

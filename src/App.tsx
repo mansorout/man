@@ -50,10 +50,12 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
-import AddMoreFundsModal from './Components/Portfolio/AddMoreFundsModal';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import UnderDevelopment from './Components/UnderDevelopment/UnderDevelopment';
+import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
+
+
+
 
 
 
@@ -149,6 +151,10 @@ function App() {
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/payusingnetbanking' element={<NetBanking />} />
+        <Route path='/processingpayments' element={<PaymentRequesting />} />
+      
+       
+
   
 
        

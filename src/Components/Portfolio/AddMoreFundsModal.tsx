@@ -444,7 +444,7 @@ const AddMoreFundsModal = (props: any) => {
                     </Box>
                     <Typography style={{ paddingTop: "53px", fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Date Confirmed</Typography>
                     <Typography mx={2} mb={4} style={{ fontSize: "12px", color: "#7b7b9d", textAlign: "center", fontWeight: "500" }}>Your monthly SIP date is 08th of every month.</Typography>
-                    <Button variant="contained" style={style.button3} fullWidth onClick={() => { navigate('/netbanking')}} >
+                    <Button variant="contained" style={style.button3} fullWidth onClick={() => { navigate('/payusingnetbanking')}} >
                         <Typography style={style.text} className="largeButtonText"> Continue to Payment</Typography>
                     </Button>
                 </Box>
