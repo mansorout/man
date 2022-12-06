@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { CircularProgress, Grid, Modal, Theme, Typography } from '@mui/material'
 
 
 
@@ -388,7 +388,7 @@ const AddMoreFundsModal = (props: any) => {
                                         }}
                                         renderInput={(params) => <TextField {...params} style={{ marginBottom: '20px' }} error={sidError} fullWidth />}
                                     />
-                                  
+
 
                                 </LocalizationProvider>
 
@@ -404,17 +404,20 @@ const AddMoreFundsModal = (props: any) => {
                             </div>
                             :
                             <div className={classes.showPlanThankuDetail}>
-
-                                <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>SprintMoney is processing your
+                                <Box sx={{ display: 'flex' }}>
+                                    <CircularProgress />
+                                    <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>SprintMoney is processing your
                                     investment account...</p>
-                                      {/* <LoopIcon style={{ marginTop: '15px', color: 'var(--ui1Color)' }} /> */}
-                                
+                                </Box>
+                              
+                               
+
 
                             </div>
-                       
-                        
 
-                       
+
+
+
                     }
 
                 </DialogContent>
@@ -439,12 +442,12 @@ const AddMoreFundsModal = (props: any) => {
                     left: "50%",
                     transform: "translate(-50%,-50%)"
                 }}>
-                    <Box my={2} style={{     paddingTop: "20px", display: "flex", alignItems: "center", justifyContent: "center", width: "50px", height: '50px', borderRadius: "50%", }}>
+                    <Box my={2} style={{ paddingTop: "20px", display: "flex", alignItems: "center", justifyContent: "center", width: "50px", height: '50px', borderRadius: "50%", }}>
                         <img src={SuccessLogo} style={{ width: "90px", color: "white", paddingTop: "29px" }} />
                     </Box>
                     <Typography style={{ paddingTop: "53px", fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Date Confirmed</Typography>
                     <Typography mx={2} mb={4} style={{ fontSize: "12px", color: "#7b7b9d", textAlign: "center", fontWeight: "500" }}>Your monthly SIP date is 08th of every month.</Typography>
-                    <Button variant="contained" style={style.button3} fullWidth onClick={() => { navigate('/payusingnetbanking')}} >
+                    <Button variant="contained" style={style.button3} fullWidth onClick={() => { navigate('/payusingnetbanking') }} >
                         <Typography style={style.text} className="largeButtonText"> Continue to Payment</Typography>
                     </Button>
                 </Box>

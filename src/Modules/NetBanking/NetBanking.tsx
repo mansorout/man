@@ -226,7 +226,7 @@ function NetBanking() {
                         sm={11}
                         md={10}
                     >
-                        <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll", paddingLeft: "10%", paddingTop: "7px" }} item xs={13}
+                        <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll", paddingLeft: "4%", paddingTop: "7px" }} item xs={13}
                             sm={11}
                             md={10}>
                             <Toolbar />
@@ -260,7 +260,7 @@ function NetBanking() {
                                     </Link>
                                 </Breadcrumbs>
                             </Box>
-                            <Card sx={{ maxWidth: 456 }}  >
+                            <Card sx={{ maxWidth: 456 ,marginTop:"10px" }}  >
                                 <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
 
                                 <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -269,54 +269,42 @@ function NetBanking() {
 
                                     <CardHeader
                                         avatar={
-
-                                            <FormControlLabel sx={{}}
+                                            <FormControlLabel sx={{}}  
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="" />
-
-                                        }
+                                                label="NEFT/RTGS" />
+                                          }
                                         action={
                                             <Box onClick={() => navigate('/vp')}>
                                                 <img src={hdfclogo} alt="sprint-money" style={{
                                                     width: "29.1px",
                                                     height: "29.4px",
-
-
-
-                                                }} />
-                                            </Box>
-
-                                        }
-                                        title="NEFT/RTGS"
-                                        subheader="4825 ********** 25"
-                                        sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
+                                                    marginTop: "15px"
+                                                    }} />
+                                            </Box>}
+                                            sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
+                                          <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>4825 ********** 25</p>
                                     <Box style={style.divider}></Box>
 
 
                                     {/* <Box style={{ paddingLeft: "16px" }}> */}
                                     <CardHeader
                                         avatar={
-
                                             <FormControlLabel sx={{}}
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="" />
-
-                                        }
-                                        action={
+                                                label="NEFT/RTGS" />
+                                                 }
+                                                 action={
                                             <Box onClick={() => setOpenBankAccmodal(true)}>
                                                 <img src={hdfclogo} alt="sprint-money" style={{
                                                     width: "29.1px",
                                                     height: "29.4px",
-
-
-
+                                                    marginTop: "15px"
                                                 }} />
                                             </Box>
-
-                                        }
-                                        title="NEFT/RTGS"
-                                        subheader="4825 ********** 25"
-                                        sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
+                                             }
+                                             sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }}
+                                             />
+                                              <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>4825 ********** 25</p>
                                     <Box style={style.divider}></Box>
 
 
@@ -327,34 +315,25 @@ function NetBanking() {
                                     <Box style={style.divider}></Box>
 
                                     <CardHeader
-
-
-                                        avatar={
+                                     avatar={
                                             <FormControlLabel
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="" />
-
-                                        }
+                                                label="UPI" />
+                                                 }
                                         action={
                                             <IconButton aria-label="UPILOGO" sx={{
                                                 width: "44.1px",
                                                 height: " 35px",
-
-
-
-
+                                                
                                             }}>
                                                 <img src={Active_Upi} alt="S__M" style={{
                                                     width: "44px",
                                                     height: "35px",
-                                                    marginLeft: ""
-
-
+                                                    marginTop: "15px"
                                                 }} />
                                             </IconButton>
                                         }
-                                        title="UPI "
-                                        subheader="Saved UPI Options"
+                                       
                                         sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
 
 
@@ -362,11 +341,7 @@ function NetBanking() {
 
                                     />
 
-                                    <Box sx={{ maxWidth: 256 }}  >
-                                       
-                                        
-
-                                    </Box>
+                                    <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>Saved UPI Options</p>
 
                                     <Box sx={{ marginLeft: "20px" }}>
 
@@ -418,7 +393,7 @@ function NetBanking() {
                     </Grid>
                 </Grid>
             </Box>
-            <Modal open={opneBankAccmodal} onClose={() => setOpenBankAccmodal(false)}>
+            <Modal open={opneBankAccmodal} >
                 <Box style={{
                     width: "90%",
                     maxWidth: "330px",
@@ -435,7 +410,7 @@ function NetBanking() {
                     left: "50%",
                     transform: "translate(-50%,-50%)"
                 }}>
-                    <Grid container xs={12} style={{ backgroundColor: "white", width: "100%" }}>
+                    <Grid container xs={12} style={{ backgroundColor: "white", width: "100%",display:"flex" }}>
                         <Grid item xs={8}>
 
 
@@ -458,12 +433,14 @@ function NetBanking() {
                                 sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
                         </Grid>
 
-                        {/* <Grid sx={{
+                        <Grid sx={{
                             display: "contents",
                             position:" absolute"
-                        }} item xs={8}>
-                            <ClearIcon />
-                        </Grid> */}
+                        }} item xs={4}>
+                            <Box sx={{margin: "12px 0px 8px 73px"}} onClick={() => setOpenBankAccmodal(false)}>
+                            <ClearIcon />  
+                            </Box>
+                        </Grid>
 
 
 
@@ -498,7 +475,10 @@ function NetBanking() {
                     </Box>
 
                 </Box>
+
+                
             </Modal>
+            
 
         </Box>
     )
