@@ -16,6 +16,7 @@ import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { tick } from '../../Assets';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -36,14 +37,14 @@ const style = {
         marginLeft: -8
     },
     modalText: {
-        backgroundColor: '#FFF', 
-        width: 338, 
-        textAlign: 'center', 
-        marginLeft: '1px', 
-        padding: '5px', 
-        borderTopRightRadius: 4, 
-        borderTopLeftRadius: 4, 
-        fontWeight: '500', 
+        backgroundColor: '#FFF',
+        width: 338,
+        textAlign: 'center',
+        marginLeft: '1px',
+        padding: '5px',
+        borderTopRightRadius: 4,
+        borderTopLeftRadius: 4,
+        fontWeight: '500',
         borderColor: '#fff'
     }
 }
@@ -118,7 +119,7 @@ const SelectedFunds = () => {
     const [selected, setSelected] = useState<number>(1)
     const [fundList, setFundList] = useState<any[]>([])
     const [open, setOpen] = React.useState<boolean>(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -128,7 +129,7 @@ const SelectedFunds = () => {
     }
     const handleDateChange = () => {
         console.log("Date is: ");
-      };
+    };
 
     return (
         <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -182,17 +183,36 @@ const SelectedFunds = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <Modal sx={{borderRadius: 8}} open={open} onClose={() => { setOpen(!open) }}>
-                <Box alignItems='center' justifyContent='center' sx={{marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: {xs:'50%', lg: '20%', md: '30%'} }}>
+            <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
+                <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
                     <Typography sx={style.modalText}>Monthly SIP Date</Typography>
-                    <Calendar/>
-                    <Button onClick={() => {setOpen(!open)}} variant='contained' style={style.button} sx={{
-                            backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                            color: '#7b7b9d'
-                        }}>
-                            Confirm SIP Date
-                        </Button>
+                    <Calendar />
+                    <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' style={style.button} sx={{
+                        backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                        color: '#7b7b9d'
+                    }}>
+                        Confirm SIP Date
+                    </Button>
                 </Box>
+            </Modal>
+            <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+                <>
+                    <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
+                        <Box sx={{backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center'}}>
+                            <Box><img style={{ height: 120, width: 120}} src={tick} /></Box>
+                            <Typography sx={{marginTop: 1, fontWeight: '600'}} >Date confirmed!</Typography>
+                            <Typography sx={{marginTop: 1, color: '#8787a2'}} >Your Monthly SIP Date is 8th of every month</Typography>
+                        </Box>
+                        <Button onClick={() => { setOpenConfirmation(!openConfirmation) }} variant='contained' style={style.button} sx={{
+                                backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                                color: '#7b7b9d',
+                                marginLeft: 8
+                            }}>
+                                Continue to Payment
+                            </Button>
+                    </Box>
+
+                </>
             </Modal>
         </Box>
     )

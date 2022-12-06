@@ -111,9 +111,36 @@ interface FundAmtCard {
 }
 
 export default function FundAmtCard(props: FundAmtCard) {
+
+    const [amount, setAmount] = React.useState<any>();
+    const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
+    const [error, setError] = React.useState<any>("")
+
+    function handleChange(e: any) {
+        const value = e.target.value;
+        setAmount(value)
+    }
+
+    function handleOnBlurAmount(e: any) {
+        if (amount < 5000) {
+            setError(true)
+            setErrorMessageFN("Amount should be greater than 5000")
+        } else if (amount > 20000000) {
+            setError(true)
+            setErrorMessageFN("Amount should be less than 2 Cr")
+        } else {
+            setErrorMessageFN("")
+        }
+    }
+    let textColor = "#8787a2"
+    if(amount === "" || !amount || amount?.length == 0 ){
+        textColor = "#8787a2"
+    }else  if(amount < 5000 || amount > 20000000){
+        textColor = 'red'
+    }
     return (
         <>
-            <Card sx={{ maxWidth:{ sm: 600, xs: 350}, marginBottom: 5 }}>
+            <Card sx={{ maxWidth: { sm: 600, xs: 350 }, marginBottom: 5 }}>
                 <CardContent>
                     <Stack m={2} spacing={6}>
                         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -131,20 +158,21 @@ export default function FundAmtCard(props: FundAmtCard) {
                                     letterSpacing: "normal",
                                     textAlign: " left",
                                     color: " #3c3e42",
-                                    minWidth: { md: 600, xs: 350}
+                                    minWidth: { md: 600, xs: 350 }
                                 }}
                             >{`${props.heading}`}</Typography>
                         </Box>
 
                         <List>
 
-                            <TextField label="Enter Investment Amount"
+                            <TextField label={amount > 20000000 ? "" :"Enter Investment Amount"}
                                 name="middleName"
                                 fullWidth
                                 placeholder='₹1,00,000'
+                                onBlur={handleOnBlurAmount}
+                                onChange={handleChange}
+                                value={amount}
                                 sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
-
-
                             </TextField>
                             <Typography
                                 sx={{
@@ -159,9 +187,9 @@ export default function FundAmtCard(props: FundAmtCard) {
                                     lineHeight: " 1.33",
                                     letterSpacing: "normal",
                                     textAlign: " left",
-                                    color: "#8787a2",
+                                    color: textColor,
                                 }}
-                            >Minimum investment amount is ₹5,000</Typography>
+                            >{amount > 20000000 ? `Maximum amount you can invest is ₹2 Cr` : `Minimum investment amount is ₹5,000`}</Typography>
                         </List>
                     </Stack>
                     <Box sx={{
