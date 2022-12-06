@@ -131,7 +131,9 @@ const Sidebar = () => {
                                 <PowerSettingsNew sx={{ color: pathName == '/logout' ? "#23db7b" : 'black' }} />
                             </ListItemIcon>
                             <ListItemText primary="Logout"
-                                onClick={()=>{navigate('/login'); handleMenuOpen()}}
+                              
+                                onClick={()=>{navigate('/login') ; 
+                                handleMenuOpen()}}
                              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>
                     </ListItem>

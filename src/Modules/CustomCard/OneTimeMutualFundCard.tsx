@@ -17,7 +17,7 @@ export interface MFProp {
 }
 
 
-const MutualFundCard2 = (props: MFProp) => {
+const OneTimeMutualFundCard = (props: MFProp) => {
 
   const style = {
     returns: {
@@ -207,4 +207,4 @@ const MutualFundCard2 = (props: MFProp) => {
   )
 };
 
-export default MutualFundCard2;
+export default OneTimeMutualFundCard;
