@@ -140,19 +140,9 @@ function App() {
 
 
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
-
-
-
-
-
-
-        {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
-
-
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
-
         <Route path="/Insurance" element={<Insurance />} />
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
@@ -160,10 +150,8 @@ function App() {
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
         <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
-
         <Route path="/proposalFormStep4" element={<ProposalFormStep4 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
-
         <Route path="/funddetails" element={<FundDetails />} />
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />

@@ -147,7 +147,7 @@ export default function RedeemFundCard() {
                         }}>PARTIAL</Button>
 
                         <Button onClick={()=>{
-                            alert("hiii")
+                            
                         }} sx={{
                             color: "#09b85d",
                             width: "56px",
