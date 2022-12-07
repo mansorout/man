@@ -15,11 +15,13 @@ import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { PinModalHome } from './Duck/PINModalHome'
 import investmentReducer from './Reducers/investmentReducer'
+import { FilterBox } from './Duck/FilterBox'
 
 
 
 
 const rootReducer = combineReducers({
+    filterbox: FilterBox,
     error: errorReducer,
     loginReducer: loginReducer,
     verifyReducer: verifyReducer,

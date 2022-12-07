@@ -42,7 +42,7 @@ import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
 import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
-import TxnFilters from './Components/TxnFilters/TxnFilters'
+// import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
@@ -53,7 +53,7 @@ import NETbanking from './Components/CardScreen/NETbanking';
 
 import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
-import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
+// import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import StartInvestment from './Components/Investment/startInvestment';

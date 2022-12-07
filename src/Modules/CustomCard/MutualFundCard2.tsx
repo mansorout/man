@@ -99,7 +99,6 @@ const MutualFundCard2 = (props: MFProp) => {
   }
 
   return (
-
     <Box sx={{
       padding: '0.625vw 0.625vw 1.5vw 1.5vw',
       borderRadius: '0.625vw',
