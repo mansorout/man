@@ -65,6 +65,7 @@ import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 import InitiateSip from './Components/SIPScreen/initiateSip';
+import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 
 
 
@@ -169,6 +170,8 @@ function App() {
 
         <Route path="/netbanking" element={<NETbanking />} />
         <Route path="/Insurance" element={<Insurance />} />
+
+        <Route path="/replaceFunds" element={<ReplaceFunds />} />
 
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
 
