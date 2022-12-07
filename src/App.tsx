@@ -62,6 +62,10 @@ import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import ProposalForm from './Components/Insurance/ProposalForm';
+import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
+import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
+import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
 
 
 
@@ -187,6 +191,11 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/proposalForm" element={<ProposalForm />} />
+        <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
+        <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
+
+        <Route path="/proposalFormStep4" element={<ProposalFormStep4 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
