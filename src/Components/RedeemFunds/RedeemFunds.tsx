@@ -52,6 +52,10 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 function RedeemFunds() {
 
+    const showPlan = () => {
+        navigate('/verifyoncheckout')
+    }
+
 
     const useStyles: any = makeStyles((theme: Theme) => ({
         appbar: {
@@ -254,41 +258,39 @@ function RedeemFunds() {
 
         <>
             <Box style={{ width: "100vw" }} ref={refContainer}>
-      <Navbar/>
-      <Box sx={style.main}>
-        <Grid
-          container
-          spacing={0}
-          sx={{ height: "100vh"}}
-        >
-          
-          <Grid
-            item
-            xs={0}
-            sm={1}
-            md={2}
-          >
-            <Toolbar />
-            <Sidebar/>
-          </Grid>
-          <Grid
-            container
-            xs={13}
-            sm={11}
-            md={10}
-          >
-           
+                <Navbar />
+                <Box sx={style.main}>
+                    <Grid
+                        container
+                        spacing={0}
+                        sx={{ height: "100vh" }}
+                    >
 
-           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+                        <Grid
+                            item
+                            xs={0}
+                            sm={1}
+                            md={2}
+                        >
+                            <Toolbar />
+                            <Sidebar />
+                        </Grid>
+                        <Grid
+                            container
+                            xs={13}
+                            sm={11}
+                            md={10}
+                        >
 
 
-
-<Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-
-
-    <Toolbar />
+                            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
 
 
+
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
+
+
+                                    <Toolbar />
 
 
 
@@ -302,89 +304,91 @@ function RedeemFunds() {
 
 
 
-    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-        <Breadcrumbs aria-label="breadcrumb">
+
+
+                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                        <Breadcrumbs aria-label="breadcrumb">
 
 
 
-            <Link color="#6495ED" underline="always"  href="/portfolio">
-                <Typography className='burgerText'> Portfolio</Typography>
-            </Link>
-         
-               
-
-            <Link  underline="always">
-                <Typography className='burgerText'>Reddem Fund</Typography>
-            
-            </Link>
-        </Breadcrumbs>
-    </Box>
-    {
-        RedeemFundData.map((item, index) => {
-            return (
-                <RedeemFundsCard
-                    key={index}
-                    logo={item.logo}
-                    name={item.name}
-                    cap={item.cap}
-                    type={item.type}
-                    year1={item.year1}
-                    year3={item.year3}
-                    year5={item.year5}
-                    year6={item.year6}
-                    rating={item.rating}
-                    morning_star_logo={item.morning_star_logo}
-                />
-            )
-        })
-    }
-
-
-    <Grid container spacing={1} >
-        <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
-            <RedeemFundCard />
-
-        </Grid>
+                                            <Link color="#6495ED" underline="always" href="/portfolio">
+                                                <Typography className='burgerText'> Portfolio</Typography>
+                                            </Link>
 
 
 
+                                            <Link underline="always" >
+                                                <Typography className='burgerText'>Redeem Fund</Typography>
 
-        <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
-            <RedeemSecFundCard />
+                                            </Link>
+                                        </Breadcrumbs>
+                                    </Box>
+                                    {
+                                        RedeemFundData.map((item, index) => {
+                                            return (
+                                                <RedeemFundsCard
+                                                    key={index}
+                                                    logo={item.logo}
+                                                    name={item.name}
+                                                    cap={item.cap}
+                                                    type={item.type}
+                                                    year1={item.year1}
+                                                    year3={item.year3}
+                                                    year5={item.year5}
+                                                    year6={item.year6}
+                                                    rating={item.rating}
+                                                    morning_star_logo={item.morning_star_logo}
+                                                />
+                                            )
+                                        })
+                                    }
 
-        </Grid>
- 
 
+                                    <Grid container spacing={1} >
+                                        <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
+                                            <RedeemFundCard />
 
-    </Grid>
+                                        </Grid>
 
 
 
 
-</Grid>
+                                        <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
+                                            <RedeemSecFundCard />
 
-<Box sx={{
-    width: '83.75vw',
-    height: '6.1vw',
-    marginTop: '8vw',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
-    backgroundColor: '#fff'
-}}>
-    <RedeemNowButtom />
-</Box>
+                                        </Grid>
+
+
+
+                                    </Grid>
 
 
 
 
+                                </Grid>
 
-</Grid>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+                                <Box onClick={showPlan} sx={{
+                                    width: '83.75vw',
+                                    height: '6.1vw',
+                                    marginTop: '8vw',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
+                                    backgroundColor: '#fff'
+                                }}>
+                                    <RedeemNowButtom />
+                                </Box>
+
+
+
+
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
 
         </>
     )
