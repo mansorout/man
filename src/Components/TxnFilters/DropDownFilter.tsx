@@ -4,12 +4,7 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+
 import { Checkbox, FormControlLabel, InputAdornment, Paper, Stack, TextField } from '@mui/material';
 import { RadioButtonChecked, RadioButtonUncheckedOutlined } from '@mui/icons-material';
 import { DatePicker, DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -17,16 +12,12 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useRef, useState } from 'react';
-import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
 import { Grid, Modal, Typography } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { useNavigate } from 'react-router-dom'
-import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Assets/index'
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import ClearIcon from '@mui/icons-material/Clear';
@@ -71,29 +62,7 @@ function a11yProps(index: number) {
 
 
 
-// const style = {
-//     button3: {
-//         height: "48px",
-//         borderRadius: "8px",
-//         boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-//         backgroundColor: "#23db7b",
 
-//         marginTop: "20px",
-//     } as React.CSSProperties,
-//     text: {
-//         color: "white"
-//     },
-//     button2: {
-//         height: "48px",
-//         borderRadius: "8px",
-//         boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-//         backgroundColor: "#23db7b",
-//         width: "100%",
-//         maxWidth: "400px",
-//         minWidth: "250px",
-//         marginTop: "20px",
-//     } as React.CSSProperties,
-// }
 
 
 const style = {
@@ -225,15 +194,6 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
-
 
 
 
@@ -245,29 +205,7 @@ export interface DialogTitleProps {
 
 
 
-function BootstrapDialogTitle(props: DialogTitleProps) {
-    const { children, onClose, ...other } = props;
 
-    return (
-        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-            {children}
-            {onClose ? (
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            ) : null}
-        </DialogTitle>
-    );
-}
 
 
 function DropDownFilter() {
