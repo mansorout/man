@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
+import './ConnectWithGoogle.css';
 
 
 
@@ -30,25 +31,8 @@ import { gapi } from "gapi-script";
 
     const onFailure = (err: any) => console.log('failed:', err);
 
-    const style = {
-        button : {
-            height: "48px",
-            borderRadius: "8px",
-            backgroundColor: "white",
-            border: "1px solid red",
-            //boxShadow: "0 4px 8px 0 white",
-            width:"100%",
-            color:'#23db7b',
-            maxWidth:"400px",
-        } as React.CSSProperties,
-        text : {
-            marginLeft: "10px",
-            color : "#23db7b"
-        }
-    }
-
-    
     return  <GoogleLogin 
+                className="google-button"
                 clientId={ clientId }
                 buttonText="Continue with Google"
                 onSuccess={ onSuccess }
@@ -57,7 +41,6 @@ import { gapi } from "gapi-script";
                 isSignedIn={ true }
                 uxMode="redirect"
                 redirectUri="/account_created_with_google"
-                style={ style.button }
             />;
 };
 

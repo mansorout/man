@@ -79,6 +79,7 @@ import CompanyFundCard from './Modules/CustomCard/CompanyFundCard';
 import ULIPRecommendations from './Components/ULIP/ULIPRecommendations';
 import ULIPOptions from './Components/ULIP/ULIPOptions';
 import ULIPDetails from './Components/ULIP/ULIPDetails';
+import ULIPHome from './Components/ULIP/ULIPHome';
 
 
 
@@ -258,6 +259,7 @@ function App() {
         <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
         <Route path="/ulip/options" element={ <ULIPOptions /> } />
         <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
+        <Route path="/ulip/home" element={ <ULIPHome /> } />
 
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />

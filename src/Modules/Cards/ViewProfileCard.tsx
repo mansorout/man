@@ -6,7 +6,7 @@ import { locationlogo } from '../../Assets/index'
 import { ic_income } from '../../Assets/index'
 import { wclogo } from '../../Assets/index'
 import { EditProfieButton } from '../Buttons/EditProfieButton'
-import { mobileIcon } from '../../Assets/index'
+
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
@@ -121,80 +121,6 @@ function ViewProfileCard() {
     return (
 
         <>
-          <Card   
-            sx={{
-                p: 1,
-                 marginTop: "30px",
-                height:" fit-content"
-            }}> 
-      <CardContent>
-      <Box
-              
-            >
-                <List>
-                    <img alt="Money Sprint" src={cameraIcon} style={style.cameraIcon} />
-
-                    <ListItem
-
-                        secondaryAction={
-                            <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
-                        }
-
-                    >
-                    </ListItem>
-
-                    <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
-
-                    <ListItem
-
-
-                    >
-
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={mobileIcon}
-                                    style={style.ca}
-
-                                />
-                            
-                        </ListItemAvatar>
-                        <Typography sx={{ fontSize: "14px" }}>Mobile Number
-                            <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
-                        </Typography>
-                    </ListItem>
-
-
-                    <ListItem
-
-
-                    >
-
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={emaillogo}
-                                    style={style.ca}
-
-                                />
-                            
-                        </ListItemAvatar>
-                        <Typography sx={{ fontSize: "14px" }}>Email Address
-                        </Typography>
-                    </ListItem>
-
-
-                    <ListItem
-
-                    >
-                        <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={cakelogo}
-                                    style={style.ca}
             <Card
                 sx={{
                     p: 1,
