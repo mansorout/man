@@ -34,11 +34,11 @@ function PaymentRequesting() {
     const [showSuccessScreen, setShowSuccessScreen] = useState<boolean>(true);
     const [processing, setprocessing] = useState<boolean>(false);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         setprocessing(true)
-    },3000)
+    }, 50000)
 
-    
+
 
 
 
@@ -246,8 +246,9 @@ function PaymentRequesting() {
                                         <Button onClick={() => navigate("/transactions")} variant="contained" style={style.buttons} fullWidth>
                                             <Typography component="span" style={style.text} className="largeButtonText">Track Transactions</Typography>
                                         </Button>
-                                    </Box> : <Box style={style.container}>
-                                        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+                                    </Box> : 
+                                    <Box style={style.container}>
+                                        <Box sx={{ width: "400px", height: "400px", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
 
                                             {/* <Typography>
                                                 Request Sent for Payment
@@ -257,8 +258,23 @@ function PaymentRequesting() {
                                                 from SprintMoney in your UPI app.
                                             </Typography> */}
 
-                                            <Typography>
-                                                Spinner to be implimented
+                                            <Typography sx={{
+                                                margin: "0 59px 33px 74px",
+                                                fontSize: "16px",
+                                                fontWeight: " 500",
+                                                color: "#3c3e42"
+                                            }}>
+                                                Request Sent for Payment
+                                            </Typography>
+
+                                            <Typography sx={{
+                                                margin: "0 59px 33px 74px",
+                                                fontSize: "14px",
+                                                fontWeight: " 500",
+                                                color: "#7b7b9d;"
+                                            }}>
+                                                Please accept the payment collect request
+                                                from SprintMoney in your UPI app.
                                             </Typography>
 
                                             <CircularProgress size="lg" determinate value={66.67}>
@@ -282,6 +298,10 @@ function PaymentRequesting() {
 }
 
 export default PaymentRequesting
+
+
+
+
 
 
 

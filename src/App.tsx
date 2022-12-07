@@ -45,38 +45,19 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking'; import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
-import DropDownFilter from './Components/TxnFilters/DropDownFilter';
-
-
-
-
 import StartInvestment from './Components/Investment/startInvestment';
-
-import Details from './Components/ExploreFunds/FundDetails';
-import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
 import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 import InitiateSip from './Components/SIPScreen/initiateSip';
-
-
-
-
-
-
-
-
-
-
 
 
 function App() {
@@ -93,7 +74,7 @@ function App() {
     fiveYearReturnGrowth: 17.36,
   };
 
- 
+
 
   return (
     <>
@@ -174,33 +155,11 @@ function App() {
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
-
-
-
-
         <Route path="/funddetails" element={<FundDetails />} />
-
-
-
-
-
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/payusingnetbanking' element={<NetBanking />} />
-        <Route path='/processingpayments' element={<PaymentRequesting />} />
-       
-      
-       
-
-  
-
-       
-
-        <Route path='/details' element={<Details />} />
-        <Route path='/selectedfunds' element={<SelectedFunds />} />
-
-
       </Routes>
     </>
   );

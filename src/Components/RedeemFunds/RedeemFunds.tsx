@@ -586,8 +586,101 @@ function RedeemFunds() {
 
 
                                         <Card sx={{ maxWidth: 488, maxHeight: 268, marginTop: "25px", marginLeft: "3%" }}>
-                                            <CardContent>
+                                          
+
+                                            <Box>
+                                                 <CardContent>
+                                                {/* <Box>
+                                                    <Typography
+                                                        sx={{
+
+                                                            height: " 19px",
+                                                            // margin: " 5% 62px 27px 5%",
+                                                            fontFamily: "Roboto",
+                                                            fontSize: "18px",
+                                                            fontWeight: " 500",
+                                                            textAlign: " left",
+                                                            color: " #3c3e42"
+                                                        }}
+                                                    >Redemption type</Typography>
+                                                    &nbsp;       &nbsp;       &nbsp;
+                                                    <Typography sx={{
+
+                                                        height: " 16px",
+                                                        // margin: "5% 62px 27px 5%",
+
+                                                        fontSize: " 14px",
+
+
+
+
+                                                        textAlign: " left",
+                                                        color: "#3c3e42"
+                                                    }}>Redemption by</Typography>
+                                                </Box> */}
+                                                <Box sx={{ textAlign: "right", marginLeft: "2%" }}>
+                                                    <Button
+                                                        onClick={() => {
+                                                            setPartial(true)
+                                                        }}
+                                                        sx={{
+
+                                                            color: "#09b85d",
+                                                            width: " 79px",
+                                                            height: " 35px",
+                                                            padding: "10px 12px 9px",
+                                                            borderRadius: "8px",
+
+                                                            border: "solid 1px rgba(123, 123, 157, 0.3)",
+                                                            marginTop: "7%",
+                                                            marginLeft: "-9%",
+
+
+                                                        }}>PARTIAL</Button>
+
+                                                    <Button onClick={() => {
+                                                        setPartial(false)
+                                                    }} sx={{
+                                                        color: "#09b85d",
+                                                        width: "56px",
+                                                        height: "35px",
+                                                        padding: "10px 12px 9px",
+                                                        borderRadius: "8px",
+                                                        border: "solid 1px rgba(123, 123, 157, 0.3)",
+                                                        backgroundColor: "rgba(255, 255, 255, 0)",
+                                                        marginTop: "7%",
+                                                        marginLeft: "1%"
+                                                    }}>Full</Button>
+                                                    &nbsp; &nbsp;
+
+                                                </Box>
+
                                                 <Box>
+                                                    
+                                                </Box>
+
+                                                
+
+                                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
+                                                   
+                                                
+                                                   
+
+                                                      
+                                                </Box>
+                                                
+                                               
+
+                                              
+
+                                            </CardContent>
+                                            </Box>
+
+
+                                            <Box>
+
+                                                {/* <CardContent>
+                                                     <Box>
                                                     <Typography
                                                         sx={{
 
@@ -651,91 +744,15 @@ function RedeemFunds() {
                                                     &nbsp; &nbsp;
 
                                                 </Box>
+                                                </CardContent> */}
 
-                                                {/* <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                                    <Box onClick={() => { setSelected(2) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                                        <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>PARTIAL </Typography>
-                                                    </Box>
-                                                    <Box onClick={() => { setSelected(3) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                                        <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>FULL</Typography>
-                                                    </Box>
-                                                </Box> */}
-
-                                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
-                                                    <Typography sx={{ fontSize: "14px" }} >
-
-                                                        <Radio
-
-                                                            sx={{ color: "#23db7b", marginLeft: "-7%" }}
-                                                        />
-
-                                                        Amount: ₹1,46,625
-
-                                                    </Typography>
-                                                    &nbsp; &nbsp;
-                                                    <Typography sx={{ fontSize: "14px" }}>
-
-                                                        <Radio
-                                                            checked={selectedValue === 'b'}
-                                                            onClick={() => navigate('/redeemfund')}
-                                                            // onChange={handleChange}
-                                                            value="b"
-                                                            name="radio-buttons"
-                                                            //componentsProps={{ input: { 'aria-label': 'B' } }}
-                                                            sx={{ color: "#23db7b", marginLeft: "-15%", marginTop: "-6%" }}
-
-                                                        />
-                                                        Units: 750.762</Typography>
-                                                </Box>
-                                                <Box>
-                                                    <TextField label="Amount"
-                                                        name="Amount"
-                                                        //   value={formData.lastName}
-                                                        sx={{
-                                                            width: " 100%",
-                                                            height: "56px",
-
-                                                            borderRadius: "4px",
-                                                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                                            border: "solid 1px #dddfe2",
-                                                            backgroundColor: "#fff",
-
-                                                            marginTop: "5%"
-                                                        }}
-
-                                                    >
-
-                                                    </TextField>
-                                                </Box>
-
-                                                <Box>
-                                                    <Typography
-                                                        sx={{
-                                                            width: "304px",
-                                                            height: "30px",
-                                                            // margin: "8px 135px 0 8%",
-                                                            fontSize: " 12px",
-                                                            textAlign: "left",
-                                                            color: "#8787a2"
+                                            </Box>
 
 
+                                                
+                                            
 
-                                                        }}
-                                                    >Minimum redemption amount ₹500 </Typography>
-
-                                                    <Typography
-                                                        sx={{
-                                                            width: "304px",
-                                                            height: "30px",
-                                                            marginTop: "-8px",
-                                                            fontSize: " 12px",
-                                                            textAlign: "left",
-                                                            color: "#8787a2"
-                                                        }}
-                                                    >Maximum  redemption amount ₹25,000</Typography>
-                                                </Box>
-
-                                            </CardContent>
+                                            
 
                                         </Card>
 

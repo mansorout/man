@@ -323,15 +323,16 @@ function DropDownFilter() {
 
 
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
+    const [anchorEl, setAnchorEl] = useState<any>()
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleFilterClose = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
 
         anchorEl ?
             setAnchorEl(null) :
             setAnchorEl(event.currentTarget)
     };
-
+      
+    const { Anchor }: any = useSelector((state: any) => state.filterbox)
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
@@ -340,25 +341,16 @@ function DropDownFilter() {
     return (
         <>
             <Stack>
-                <Box onClick={handleClick}>
-                    Open Modal
-                </Box>
+                
 
 
-                {/* <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px"}}>
-                  <SearchOutlined style={{color:"#7b7b9d"}}/>
-                  <InputBase placeholder='Search Transactions' onChange={(e)=>setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
-                  <IconButton onClick={()=>setOpen(true)} >
-                    <FilterAltOutlined style={{color:"#09b85d"}}/>
-                  </IconButton>
-                </Box> */}
 
                 <MenuUnstyled
                     style={{ zIndex: 5000 }}
                     actions={menuActions}
-                    open={Boolean(anchorEl)}
+                    open={Boolean(Anchor)}
                     onClose={() => setAnchorEl(null)}
-                    anchorEl={anchorEl}
+                    anchorEl={Anchor}
                 >
                     <StyledMenuItem>
 
@@ -381,7 +373,7 @@ function DropDownFilter() {
 
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: "end" }}>
-                                    <ClearIcon sx={{ opacity: 0.54 }} />
+                                    <ClearIcon onClick={(e)=>handleFilterClose(e)}  sx={{ opacity: 0.54 }} />
                                 </Grid>
 
 
