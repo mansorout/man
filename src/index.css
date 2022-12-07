@@ -39,6 +39,8 @@ body {
   --uiLightGreyColor: #f2f3f8;
   --uiLightGreyColor: #fff;
   --uiWhite: #fff;
+  --bgColor: #67d8fb;
+  --bgLayoutColor: #f9f9f9;
 
 
   --typeBlackColor: #000000;
@@ -205,7 +207,7 @@ h6 {
   letter-spacing: normal;
   color: #fff;
   background-color: "#3c3e42";
- 
+
 
 }
 

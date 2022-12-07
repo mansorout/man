@@ -225,6 +225,10 @@ function Home() {
     // navigate(0);
   }
 
+  const handleNavigationLargeCards = (navigation: string) => {
+    navigate(navigation)
+  }
+
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -257,7 +261,13 @@ function Home() {
                 largeCards.map((item, key) => {
                   return (
                     <Grid item xs={12} sx={{ padding: 2 }}>
-                      <LargeCards Heading={item.Heading} Text={item.Text} Img={item.Img} />
+                      <LargeCards
+                        Heading={item.Heading}
+                        Text={item.Text}
+                        Img={item.Img}
+                        navigationKey={item.navigationKey}
+                        iconNavigation={(naviagtion: string) => handleNavigationLargeCards(naviagtion)}
+                      />
                     </Grid>
                   )
                 })
