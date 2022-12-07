@@ -294,13 +294,9 @@ function EditprofileCard() {
 
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.stopPropagation();
-    alert("jj")
-    // navigate('/onetimemutualfundrecommendation')
-
-
-
-
+    // event.stopPropagation();
+    // alert("jj")
+    navigate('/onetimemutualfundrecommendation')
   }
 
   const [errorfirstname, setErrorFirstName] = React.useState<any>("");
