@@ -1,5 +1,5 @@
 
-import { InputAdornment } from "@mui/material";
+import { InputAdornment,FormControl } from "@mui/material";
 import {
   Box,
   TextField,
@@ -9,12 +9,17 @@ import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import "./Login.css";
 import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
 import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContactError, MonoLogo, validMobile } from "../../Assets";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Modules/Footer/Footer";
 import LoginWithGoogle from "../loginwithgoogle/LoginWithGoogle";
+import { bindActionCreators } from "redux";
+import { ActionCreators } from "../../Store";
+import {login} from "../../Store/Reducers/action"
+import {store} from "../../Store/Store"
+import { useDispatch } from "react-redux"
 
 export const Login = () => {
 
@@ -78,16 +83,28 @@ export const Login = () => {
   }
 
   const error : string[] = useSelector((state : any) => state.error)
+  const dispatch = useDispatch()
+  const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)
 
   const [focus, setFocus] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("")
+  const navigate = useNavigate();
 
   const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     
     setNumber(e.target.value)
+    if(e.target.value.length !== 10){
+      addError("Login_Contact")
+  }else{
+      removeError("Login_Contact")
+     
+    
+  }
 
   }
-  console.log(number)
+
+  
+ 
 
   return (
     
@@ -101,6 +118,7 @@ export const Login = () => {
           <Typography variant="h5" align="center">
             Enter your mobile number to continue
           </Typography>
+        
           <TextField
             sx={{
               "& .MuiInputLabel-root": {color: '#acb4bf'},
@@ -110,6 +128,7 @@ export const Login = () => {
                 "&.Mui-focused > fieldset": { borderColor: error?.includes("Login_Contact") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
               },
             }}
+           
             autoComplete="off"
             style={style.contactInput}
             margin="normal"
@@ -117,13 +136,19 @@ export const Login = () => {
             InputProps = {{
               startAdornment: focus ? <InputAdornment position="start"> +91 - </InputAdornment> : "",
               endAdornment :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : "",
-              // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross"/> </InputAdornment> : ""
+              // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
             }}
             onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
             placeholder="98989 98989"
             onChange={handleMobile}
             onFocus={()=>setFocus(true)}
+            
+            
           />
+          
+
+
+
           <Typography style={style.errorText} className="error">{error?.includes("Login_Contact") ? "Please enter a valid phone number" : ""}</Typography>
           <ContinueWithMobile  number={number}/>
           <Box style={style.divider}>

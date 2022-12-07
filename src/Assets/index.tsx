@@ -37,6 +37,7 @@ export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
+export const mobileIcon = require("./Profile/mobile-icon.png");
 export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
@@ -44,6 +45,13 @@ export const meria = require("./Portfolio/mirae.png")
 
 export const homeConnect = require("./home_connect.png")
 
+
+// ULIP start
+export const ulipPlanPerformanceImage = require('./ULIP/ULIPPlanPerformance3x.png');
+export const questionMarkIcon = require('./ULIP/question_mark.png');
+export const fileDownloadIcon = require('./ULIP/file_download_black_24dp.png');
+export const BajajAllianzLogo = require('./ULIP/BajajAllianzLogo.png');
+// ULIP end
 
 
 
@@ -109,6 +117,9 @@ export const upilogo =require("./Profile/UPIlogo.png")
 export const fundChart =require("./FundChart.png")
 export const signExclamatory =require("./ic_info-24px@2x.png")
 export const validMobile =require("./ValidMobileNumber.png")
+export const GroupSaf  =require("../Assets/Portfolio/GroupSaf.png")
+export const Active_Upi  =require("./Active_Upi.png")
+export const blueCalender =require("./blueCalenderIcon.png")
 export const ic_tax_saving =require("./ic_tax_saving.png")
 export const ic_no_medical =require("./ic_no_medical.png")
 export const ic_low_cost =require("./ic_low_cost.png")

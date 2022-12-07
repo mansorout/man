@@ -10,7 +10,7 @@ export const VerificationpendingButton = () => {
         button_B: {
             height: "48px",
             borderRadius: " 8px",
-            backgroundColor: "rgb(250, 220, 167)",
+            backgroundColor: "rgb(255, 195, 0, 0.3)",
             marginTop: "5%",
             width: " 100%",
             maxWidth: "400px",
@@ -32,7 +32,7 @@ export const VerificationpendingButton = () => {
             display: 'flex',
             justifyContent: 'space-between',
         }}>
-            <img src={Checkcirclelogo} width="16px" height="22.6" alt="Google Logo" />
+            <img src={Checkcirclelogo} width="24" height="24" alt="Google Logo" />
 
 
 

@@ -1,5 +1,4 @@
 import { Box, Checkbox, Grid, Button, Chip, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star } from '../../Assets';
 
 export interface MFProp {
@@ -43,10 +42,8 @@ const MutualFundCard2 = (props: MFProp) => {
       fontWeight: 500,
     }
   }
-  const naviagte=useNavigate()
 
   return (
-
     <Box sx={{
       padding: '0.625vw 0.625vw 1.5vw 1.5vw',
       borderRadius: '0.625vw',
@@ -184,18 +181,14 @@ const MutualFundCard2 = (props: MFProp) => {
             <Button variant='contained' style={style.buttons} sx={{
               backgroundColor: 'rgba(123, 123, 157, 0.05)',
               color: '#7b7b9d'
-          }} 
-          onClick={()=>naviagte('/under')}
-          >
+            }}>
               <img src={ReplaceButtonIcon} />
               Replace
             </Button>
             <Button variant="contained" style={style.buttons} sx={{
               backgroundColor: 'rgba(255, 83, 0, 0.05)',
               color: '#ff5300'
-            }}
-            onClick={()=>naviagte('/under')} 
-            >
+            }}>
               <img src={RemoveButtonIcon} />
               Remove
             </Button>
