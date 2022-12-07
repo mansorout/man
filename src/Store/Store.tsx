@@ -15,6 +15,7 @@ import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { PinModalHome } from './Duck/PINModalHome'
 import investmentReducer from './Reducers/investmentReducer'
+import { ULIPCompare } from './Duck/ULIPCompare'
 import { FilterBox } from './Duck/FilterBox'
 
 
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     NavToggleReducer: NavToggleReducer,
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
     PinModalHome: PinModalHome,
+    ULIPCompare : ULIPCompare,
     investment: investmentReducer
 })
 

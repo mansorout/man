@@ -37,6 +37,7 @@ export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
+export const mobileIcon = require("./Profile/mobile-icon.png");
 export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
@@ -44,6 +45,13 @@ export const meria = require("./Portfolio/mirae.png")
 
 export const homeConnect = require("./home_connect.png")
 
+
+// ULIP start
+export const ulipPlanPerformanceImage = require('./ULIP/ULIPPlanPerformance3x.png');
+export const questionMarkIcon = require('./ULIP/question_mark.png');
+export const fileDownloadIcon = require('./ULIP/file_download_black_24dp.png');
+export const BajajAllianzLogo = require('./ULIP/BajajAllianzLogo.png');
+// ULIP end
 
 
 
