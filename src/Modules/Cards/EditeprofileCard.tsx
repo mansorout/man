@@ -295,6 +295,7 @@ function EditprofileCard() {
 
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+<<<<<<< HEAD
     event.stopPropagation();
   
      navigate('/completedview')
@@ -302,6 +303,11 @@ function EditprofileCard() {
 
 
 
+=======
+    // event.stopPropagation();
+    // alert("jj")
+    navigate('/onetimemutualfundrecommendation')
+>>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
   }
 
   const [errorfirstname, setErrorFirstName] = React.useState<any>("");
