@@ -112,8 +112,6 @@ const style = {
 export default function InvestSecondCard() {
     return (
         <>
-
-
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                     <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Expected returns</Typography>

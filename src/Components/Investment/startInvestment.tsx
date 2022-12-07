@@ -18,6 +18,9 @@ import Sidebar from '../CommonComponents/Sidebar'
 import HoldingCards from '../../Modules/CustomCard/HoldingCards'
 import { AllHolding } from '../../Modal/AllHoldingCards'
 import { InvestButton } from '../../Modules/Buttons/InvestButton'
+import { useDispatch } from 'react-redux'
+import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
+import { globalConstant } from '../../Utils/globalConstant'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -336,7 +339,6 @@ const StartInvestment = () => {
     }
   }
 
-
   const refContainer = useRef();
   const location = useLocation();
 
@@ -347,14 +349,12 @@ const StartInvestment = () => {
   const [holding, setHolding] = useState<any>([])
   const [activeButton, setActiveButton] = useState<number>(enumType.ONE_TIME_LUMSOM);
 
-
-
   useEffect(() => {
     setHolding(AllHolding);
     if (cardType) {
-      if (cardType === "sipInvestment") {
+      if (cardType === globalConstant.SIP_INVESTMENT) {
         setActiveButton(enumType.MONTHLY_INCOME);
-      } else if (cardType === "oneTimeInvestment") {
+      } else if (cardType === globalConstant.LUMPSUM_INVESTMENT) {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
       }
     } else {
@@ -376,20 +376,25 @@ const StartInvestment = () => {
   }
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleOnClick = (activeButtonType: number) => {
     setActiveButton(activeButtonType);
     if (activeButtonType === enumType.MONTHLY_INCOME) {
       navigate("/sipInvestment", {
         state: {
-          cardType: "sipInvestment"
+          cardType: globalConstant.SIP_INVESTMENT
         }
       });
+
+      dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
     } else if (activeButtonType === enumType.ONE_TIME_LUMSOM) {
       navigate("/oneTimeInvestment", {
         state: {
-          cardType: "oneTimeInvestment"
+          cardType: globalConstant.LUMPSUM_INVESTMENT
         }
       });
+
+      dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
     }
   }
 

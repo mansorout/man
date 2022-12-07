@@ -56,8 +56,10 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
-import StartInvestment from './Components/InvestNowScreen/startInvestment';
+import StartInvestment from './Components/Investment/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
+import Details from './Components/ExploreFunds/FundDetails';
+import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
 import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
@@ -66,6 +68,7 @@ import ProposalForm from './Components/Insurance/ProposalForm';
 import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
 import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
+import InitiateSip from './Components/SIPScreen/initiateSip';
 
 
 
@@ -160,7 +163,7 @@ function App() {
         <Route path="/sipInvestment" element={<StartInvestment />} />
         <Route path="/oneTimeInvestment" element={<StartInvestment />} />
 
-        <Route path="/startAnSip" element={<InvestNowScreen />} />
+        <Route path="/startAnSip" element={<InitiateSip />} />
         <Route path="/investNow" element={<InvestNowScreen />} />
 
         <Route path="/buildWealth" element={<InvestNowScreen />} />
@@ -175,9 +178,9 @@ function App() {
 
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
 
-        
-       
-        
+
+
+
 
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
@@ -211,7 +214,8 @@ function App() {
 
 
         <Route path='/explorefunds' element={<ExploreFunds />} />
-
+        <Route path='/details' element={<Details />} />
+        <Route path='/selectedfunds' element={<SelectedFunds />} />
 
 
       </Routes>
