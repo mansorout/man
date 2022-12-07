@@ -11,6 +11,7 @@ import { AppBar, Button, Divider,  Theme} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import {Logo, Profile} from '../../Assets/index'
 import { useNavigate } from 'react-router-dom'
+import AddMoreFundsModal from '../../Components/Portfolio/AddMoreFundsModal'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -253,11 +254,13 @@ function HoldingCards({name,price, year3, current, absolute, year5, result, marg
         <Box style={style.menuContainer}>
             <Box style={{display:"flex", justifyContent:"space-between"}}>
             <MenuList style={{width:"100%", padding:"0px"}}>
-                <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}} onClick={()=>navigate("/redeemfund")}>Redeem Funds</Typography>
+                <ListItemButton onClick={()=>navigate('/redeemfund')} style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}} >Redeem Funds</Typography>
                 <NavigateNext style={{color:"#93a0b2"}}/>
                 </ListItemButton>
-                <ListItemButton style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                <ListItemButton  onClick={()=>{
+                  setOpen(true)
+                }} style={{width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                 <Typography style={{fontSize:"16px", color:"rgba(0, 0, 0, 0.87)"}}>Buy More Funds</Typography>
                 <NavigateNext style={{color:"#93a0b2"}}/>
                 </ListItemButton>
@@ -274,6 +277,9 @@ function HoldingCards({name,price, year3, current, absolute, year5, result, marg
         </Box>
         </StyledMenuItem>
     </MenuUnstyled>
+
+
+    <AddMoreFundsModal open={open} close={()=> setOpen(false)} />
     </>
   )
 }

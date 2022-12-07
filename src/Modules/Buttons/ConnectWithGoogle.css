@@ -1,0 +1,17 @@
+.google-button {
+    width: 384px !important;
+    height: 48px !important;
+    justify-content: center !important ;
+    align-items: center !important;
+    border: 1px solid #23db7b !important;
+    border-radius: 8px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.google-button span {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    color: #23db7b !important;
+}
+

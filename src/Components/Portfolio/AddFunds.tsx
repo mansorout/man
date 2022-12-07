@@ -113,16 +113,9 @@ const AddFunds = () => {
    const g_investment = useSelector((state: any) => state?.investment?.investment);
 
     return (
-        <Box style={{ width: "100vw" }}
-     
-
-
-        >
+        <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Box sx={style.main} 
-           
-            >
-                
+            <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
@@ -154,6 +147,7 @@ const AddFunds = () => {
                                 }}
                               
                                 >Choose fund to add</Typography>
+                                <Typography>Choose fund to add</Typography>
                             </Breadcrumbs>
                             <Box sx={{
                                 display: 'flex',
@@ -166,7 +160,6 @@ const AddFunds = () => {
                                     justifyContent: 'space-between'
                                 }}>
                                     <Box>
-                                    
                                         <Typography sx={{
                                             fontSize: '12px',
                                             color: '#8787a2',
@@ -217,7 +210,6 @@ const AddFunds = () => {
                                     />
 
                                     <Box>
-                                        
                                         <ButtonGroup sx={{
                                             display: 'flex',
                                             gap: '1vw',
@@ -229,16 +221,9 @@ const AddFunds = () => {
                                         </ButtonGroup>
                                     </Box>
                                 </Box>
-
-                                
                             </Box>
-                            
                             {
-                                data.map(d => <MutualFundCard2 {...d} 
-                                />
-                                
-                                )
-                                
+                                data.map(d => <MutualFundCard2 {...d} />)
                             }
                         </Box>
                     </Grid>

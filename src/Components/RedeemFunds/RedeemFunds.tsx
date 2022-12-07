@@ -338,7 +338,7 @@ function RedeemFunds() {
                                     {openFirstCard ?
                                         <Box>
                                             {
-                                                RedeemFundData.map((item, index) => {
+                                                RedeemFundDatacardtwo.map((item:any, index) => {
                                                     return (
                                                         <RedeemFundsCard
                                                             key={index}

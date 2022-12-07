@@ -42,31 +42,51 @@ import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
 import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
-import TxnFilters from './Components/TxnFilters/TxnFilters'
-//import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 
 
 
 
 import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking'; 
+
 import FundDetails from './Components/FundDetails/FundDetails';
-import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
-//import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
-import StartInvestment from './Components/Investment/startInvestment';
 import CancleSIP from './Components/Portfolio/CancleSIP';
-import Details from './Components/ExploreFunds/FundDetails';
-import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
+import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
+import NetBanking from './Modules/NetBanking/NetBanking';
+import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
+import StartInvestment from './Components/Investment/startInvestment';
 import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';
-import InitiateSip from './Components/SIPScreen/initiateSip';
 
+import InitiateSip from './Components/SIPScreen/initiateSip';
+import ProposalForm from './Components/Insurance/ProposalForm';
+import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
+import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
+import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
+
+import ULIPFound from './Components/Insurance/ULIPFound';
+import ULIPCompare from './Components/Insurance/ULIPCompare';
+
+// ULIP start
+import UlipPlanPerformanceCard from './Modules/Cards/ULIP/UlipPlanPerformanceCard';
+import TextRadio from './Modules/Cards/ULIP/textradio/TextRadio';
+import UlipCard from './Modules/Cards/ULIP/UlipCard';
+import UlipBox from './Components/ULIP/UlipBox';
+import ULIPCoFundCard, { ULIPProp } from './Modules/Cards/ULIP/ULIPCoFundCard';
+import ULIPHeader from './Modules/Cards/ULIP/ULIPHeader';
+// ULIP end
+
+import CompanyFundCard from './Modules/CustomCard/CompanyFundCard';
+import ULIPRecommendations from './Components/ULIP/ULIPRecommendations';
+import ULIPOptions from './Components/ULIP/ULIPOptions';
+import ULIPDetails from './Components/ULIP/ULIPDetails';
+import ULIPHome from './Components/ULIP/ULIPHome';
 
 
 
@@ -91,6 +111,40 @@ function App() {
     fiveYearReturnGrowth: 17.36,
   };
 
+  const ulipData: ULIPProp = {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    projectedAmount: 4.75,
+    topPerformingFundReturn: 14.38,
+    lifeCoverAmount: 5,
+    investedValueAmount: 2.5,
+    taxSavings: 15000,
+  }
+/*
+  const mfData: MFProp = {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: ['Large Cap', 'Equity'],
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+  };
+
+  const sipData: SipProp2 = {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    orderNo: 'INF209K01090',
+    fundType: ['Large Cap', 'Equity'],
+    mandatePending: true,
+    sipDate: '9th of every month',
+    sipAmount: 5000,
+    status: 'Active',
+    stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
+  };
+*/
   /*
     const mfData: MFProp = {
       logo: '/Miraelogo.svg',
@@ -147,7 +201,7 @@ function App() {
         <Route path="/completedview" element={<ProfileCompleted />} />
         <Route path="/vp" element={<ViewProfile />} />
         <Route path="/editprofile" element={<Editprofilescreen />} />
-        <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
+        
         <Route path="/mflist" element={<MutualFundsList />} />
         <Route path="/customizemf" element={<CustomizeMF />} />
         <Route path="/sip" element={<SipList />} />
@@ -155,6 +209,10 @@ function App() {
 
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
+        <Route path="/investnowscreen" element={<InvestNowScreen />} />
+        <Route path="/redeemfund" element={<RedeemFunds />} />
+
+        <Route path="/netbanking" element={<NETbanking />} />
 
         <Route path="/sipInvestment" element={<StartInvestment />} />
         <Route path="/oneTimeInvestment" element={<StartInvestment />} />
@@ -181,7 +239,6 @@ function App() {
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
-
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
@@ -190,6 +247,13 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
+        <Route path="/proposalForm" element={<ProposalForm />} />
+        <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
+        <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
+
+        <Route path="/proposalFormStep4" element={<ProposalFormStep4 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 
@@ -197,18 +261,42 @@ function App() {
 
 
         <Route path="/funddetails" element={<FundDetails />} />
+        <Route path='/explorefunds' element={<ExploreFunds/>}/>
 
 
 
 
 
 
+        <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
+        <Route path="/ulipcard" element={ <UlipCard /> } />
+        <Route path="/ulipppcard" element={ <UlipPlanPerformanceCard /> } />
+        <Route path='/tr' element={ <TextRadio { ...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} /> } />
+        <Route path="/ulip" element={ <UlipBox /> } />
+        <Route path="/ulipcofund" element={ <ULIPCoFundCard { ...ulipData } /> } />
+        <Route path="/ulipheader" element={ <ULIPHeader /> } />
+        <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
+        <Route path="/ulip/options" element={ <ULIPOptions /> } />
+        <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
+        <Route path="/ulip/home" element={ <ULIPHome /> } />
 
+        <Route path="/insurance" element={<Insurance />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
+        <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/proposalForm" element={<ProposalForm />} />
+        <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
+        <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
+        <Route path="/proposalFormStep4" element={<ProposalFormStep4 />} />
+        <Route path='/cancleSip' element={<CancleSIP />} />
+        <Route path="/funddetails" element={<FundDetails />} />
         <Route path='/explorefunds' element={<ExploreFunds />} />
-        <Route path='/details' element={<Details />} />
-        <Route path='/selectedfunds' element={<SelectedFunds />} />
-
-
+        <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
+        <Route path='/redemptiondone' element={<RedemptionDone />} />
+        <Route path='/payusingnetbanking' element={<NetBanking />} />
       </Routes>
     </>
   );

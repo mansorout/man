@@ -1,264 +1,248 @@
-import {
-  Box,
-  Chip,
-  TableContainer,
-  Table,
-  TableRow,
-  TableBody,
-  TableHead,
-  TableCell,
-  Avatar,
-  Typography,
-  Button,
-  Grid,
-  Stack,
-} from "@mui/material";
-import { SmallStar } from "../../Assets";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+import Stack from '@mui/material/Stack';
+import { CardActionArea, Checkbox, FormControlLabel, Grid, Radio, TextField } from '@mui/material';
+import List from '@mui/material/List';
+import { graphimage } from '../../Assets/index'
+import { withdrawiclogo } from '../../Assets/index'
+import { lockinlogo } from '../../Assets/index'
+import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
+import { useNavigate } from 'react-router-dom';
+import { RadioButtonChecked, RadioButtonUncheckedOutlined } from '@mui/icons-material';
+import { useState } from 'react';
+
+const bull = (
+    <Box
+        component="span"
+        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+        •
+    </Box>
+);
+const style = {
+    containertwo: {
+        backgroundColor: "#fff",
+        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+        borderRadius: "8px",
+        padding: "21px 40px",
 
 
-import "./RedeemFunds.css";
-import { MorningStarlogo } from "../../Assets";
-import { useNavigate } from "react-router-dom";
+    },
+    dividerBox: {
+        width: "470px",
+        height: "1px",
+        margin: "13.5% 0 17.5%",
+        opacity: "0.2",
+        backgroundColor: "#acb4bf",
+
+    },
+
+    cameraIcon: {
+
+        width: "448px",
+        height: " 67px",
+        margin: "0 0 14px",
+        objectFit: "contain"
+    },
+
+    emailIcon: {
+        borderRadius: "170px 175px 175px 163px",
+        backgroundColor: '#64dbff',
+        width: '80px',
+        height: '80px',
+        margin: '0 54px 22px 34px',
+        padding: '20px',
+        boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
+        border: 'solid 1px rgba(0, 0, 0, 0.08)',
+    },
+    button: {
+        height: "48px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "#23db7b",
+        margin: "16px",
+        width: "90%",
+        maxWidth: "400px",
+        transform: "translate(8px, -23px)"
 
 
+    },
+    Axisstyle: {
+        width: "14px",
+        height: "14px",
+        // margin: "8px 67px 0 0",
+        fontFamily: "Roboto",
+        fontSize: "12px",
+        fontWeight: "normal",
+        letterSpacing: "normal",
+        textAlign: "left",
+        color: "#7b7b9d"
+    },
+    ca: {
 
-interface Prop {
-  logo: string;
-  name: string;
-  cap: string;
-  type: string;
-  year1: number;
-  year3: number;
-  year5: number;
-  year6: string;
-  rating: number;
-  morning_star_logo?: string;
+        backgroundColor: "#64dbff",
+        width: "20px",
+        height: "20px",
+        padding: "10px",
+        opacity: "0.9",
+
+
+    } as React.CSSProperties,
+    text: {
+        color: "white",
+
+    }
+
+
 }
 
 
 
-const RedeemFundsCard = (props: Prop) => {
-  const navigate = useNavigate();
-  const formatter = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  });
+export default function RedeemFundCard() {
+    const [openFirstCard, setOpenFirstCard] = useState<boolean>(true)
+    const [openSecondCard, setOpenSecondCard] = useState<boolean>(false)
 
-  return (
-    <Box
-      id="CoCard"
-      sx={{
-        // backgroundColor:"green",
-        padding: "24px 25px 43.5px 22px",
-        fontFamily: "Roboto",
-        borderRadius: "0.5rem",
-        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-        backgroundColor: "#6c63ff",
-        margin: "1rem",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1.5rem",
-        }}
-      >
-        <img
-          src={props.logo}
+    const [optSelected, setOptSelected] = useState<boolean[]>([true, false, false, false])
+    const [buttonSelect, setButtonSelect] = useState(true)
+    const handleOptChange = (index: number) => {
+        index === 0 ?
+            setOptSelected([true, false, false, false])
+            : index === 1 ? setOptSelected([false, true, false, false])
+                : index === 2 ? setOptSelected([false, false, true, false])
+                    : setOptSelected([false, false, false, true])
+    }
 
-          style={{
-            width: "3rem",
-            height: "3rem",
-            border: "solid 1px #d1d6dd",
-            borderRadius: "50%",
-            backgroundColor: "#ffffff"
-          }}
-        />
+    const handleClickFull = () => {
+    
+        setOpenSecondCard(true)
+        setOpenFirstCard(false)
 
+        setButtonSelect(false)
+    }
+    const handleClickPartial = () => {
+    
 
+        setButtonSelect(true)
+    }
+    const navigate = useNavigate()
 
-        <Box  >
-          <Chip sx={{ backgroundColor: "#ffc300", marginTop: "-15%" }}
-            avatar={<Avatar alt="star" src={SmallStar}
-              sx={{
-                color: "#ffffff",
+    return (
+        <> <Card sx={{ marginTop: "25px", maxHeight: "388px" }}>
+            <CardContent>
+                <Grid container spacing={12}>
+                    <Grid item xs={7} md={6} > <Typography
+                            sx={{
+                                height: " 19px",
+                                // margin: " 5% 62px 27px 5%",
+                                fontFamily: "Roboto",
+                                fontSize: "18px",
+                                fontWeight: " 500",
+                                textAlign: " left",
+                                color: " #3c3e42"
+                            }}
+                        >Redemption type</Typography>
+                        &nbsp;       &nbsp;       &nbsp; </Grid>
+                    <Grid item xs={5} md={6} sx={{ marginTop: "-2%" }}>
+                            <Button sx={{
+                            color: "#09b85d",
+                            width: " 79px",
+                            height: " 35px",
+                            padding: "10px 12px 9px",
+                            borderRadius: "8px",
+                            border: "solid 1px var(--seaweed)",
+                            backgroundColor: "#dff7ea",
+                            marginTop: "7%",
+                            marginLeft: "-9%",
+                        }}
+                            onClick={handleClickPartial}
+                        >PARTIAL</Button>
 
-              }}
-            />}
-            label={props.rating + ".8"}
-
-          />
-          <img alt="MorningStarlogo" src={MorningStarlogo} style={{
-            width: "76px",
-            height: "22px",
-            margin: "10px 0 10px 8px"
-          }} />
-
-        </Box>
-      </Box>
-
-      <Grid container spacing={0}>
-        <Grid item xs={6}>
-          <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-            Axis Small Cap Fund Regular Growth
-          </Typography>
-        </Grid>
-
-
-
-      </Grid>
-      <Box
-        sx={{
-          width: { xs: "246px", sm: "217px" },
-        }}
-      >
-
-        <Chip
-          label={props.cap}
-          sx={{
-
-            backgroundColor: "rgba(255, 255, 255, 0.54)",
-            marginRight: "10px",
-          }}
-        />
-        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props.type} />
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Grid
-          container
-          spacing={2}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          marginTop={2}
-          marginBottom={2}
-        >
-
-          <Grid container spacing={2} textAlign="center" >
-            <Grid item xs={3}>
-              <Typography
-                sx={{
-                  opacity: " 0.74",
-                  color: "#ffffff",
-                  fontSize: "14px"
-
-                }}
-              >Invested Value</Typography>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  fontWeight: "500",
-                  color: "#ffffff"
-                }}
-              >₹1,25,000
-            
-              </Typography>
-             
-                 
-            </Grid>
-            <Box></Box>
-
-            <Grid item xs={3}>
-              <Typography 
-              sx={{
-                opacity: " 0.74",
-                color: "#ffffff",
-                fontSize: "14px"
-              }}
-                 
- 
-                
-              >   Current Value</Typography>
-              <Typography
-             sx={{
-              fontSize: "20px",
-              fontWeight: "500",
-              color: "#ffffff"
-            }}
-              >₹1,46,625</Typography>
-            </Grid>
-
-            <Grid item xs={3}>
-              <Typography
-                sx={{
-                  opacity: " 0.74",
-                  color: "#ffffff",
-                  fontSize: "14px"
-
-                }}
-              >     Total Units</Typography>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  fontWeight: "500",
-                  color: "#ffffff"
-                }}
-              >272750</Typography>
-            </Grid>
-
-            <Grid item xs={3} >
-              <Typography
-                sx={{
-                  opacity: " 0.74",
-                  color: "#ffffff",
-                  fontSize: "14px"
-
-                }}
-              >    AUM</Typography>
-              <Typography sx={{
-                fontSize: "20px",
-                fontWeight: "500",
-                color: "#ffffff"
-              }}>₹21,625 (18.75%)</Typography>
-            </Grid>
+                        <Button sx={{
+                            color: "#09b85d",
+                            width: "56px",
+                            height: "35px",
+                            padding: "10px 12px 9px",
+                            borderRadius: "8px",
+                            border: "solid 1px rgba(123, 123, 157, 0.3)",
+                            backgroundColor: "rgba(255, 255, 255, 0)",
+                            marginTop: "7%",
+                            marginLeft: "1%"
+                        }}
+                            onClick={handleClickFull}
+                        >Full</Button>
+                        &nbsp; &nbsp;
 
 
-          </Grid>
-          {/* <Grid item xs={4}>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow sx={{ color: "red" }}>
-                    <TableCell className="table_head">
-                      Invested Value
-                    </TableCell>
+                    </Grid>
+                </Grid>
 
-                    <TableCell className="table_head">
-                    
-                      Current Value
-                    </TableCell>
-                    <TableCell className="table_head">
-                      Total Units
-                    </TableCell>
-                    <TableCell className="table_head">AUM</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="table_head2">₹{props.year1}%
-                    </TableCell>
 
-                    <TableCell className="table_head2">₹{props.year3}</TableCell>
-                    <TableCell className="table_head2">{props.year5}</TableCell>
-                    <TableCell className="table_head2">₹{props.year6}%</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid> */}
-        </Grid>
-      </Box>
-    </Box >
-  );
-};
 
-export default RedeemFundsCard;
+             <Box>
+             {
+                    buttonSelect ? <>
+                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>  <Typography sx={{
+                            height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42", marginLeft: "-67%", marginTop: "-10%", fontWeight: "bold"
+                        }}>Redemption by</Typography></Box>
+                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>
+
+
+                            <FormControlLabel
+                                control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                label="Amount: ₹1,46,625 " sx={{ marginLeft: "-11%", marginTop: '-20%' }} />
+
+                            &nbsp; &nbsp;
+                            <FormControlLabel
+                                control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                label="Units: 750.762" sx={{ marginTop: '-20%' }} />
+
+                        </Box>
+                        <Box>
+                            <TextField label="Amount"name="Amount" sx={{ width: " 100%", height: "56px", borderRadius: "4px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",border: "solid 1px #dddfe2", backgroundColor: "#fff",marginTop: "-7%"}}
+                                fullWidth>
+
+                            </TextField>
+                        </Box>
+
+                        <Box>
+                            <Typography
+                                sx={{ width: "304px",height: "30px",fontSize: " 12px",textAlign: "left",color: "#8787a2" }}>Minimum redemption amount ₹500 </Typography>
+                            <Typography sx={{width: "100%",marginTop: "-4%",fontSize: " 12px", textAlign: "left",color: "#8787a2"}}>Maximum  redemption amount ₹25,000</Typography>
+                        </Box> </> : <Grid container spacing={3}>
+                        <Grid item xs={6} md={6}>
+                            <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Invested Value</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6}>
+                            <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6} sx={{ marginTop: "-5%" }}>
+                            <Typography sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹1,25,000</Typography>
+                        </Grid>
+                        <Grid item xs={6} md={6} sx={{ marginTop: "-5%" }}>
+                            <Typography>₹1,46,625</Typography>
+
+                        </Grid>
+
+                    </Grid>
+
+                }
+             </Box>
+
+
+
+            </CardContent>
+
+        </Card>
+
+        </>
+
+
+
+    );
+}
