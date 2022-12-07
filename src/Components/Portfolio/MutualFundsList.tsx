@@ -24,12 +24,10 @@ const MutualFundsList = () => {
     useEffect(() => {
         setMfCards([
             {
-
                 logo: '/Miraelogo.svg',
                 title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
                 fundType: ['Large Cap', 'Equity'],
                 price: 30000,
-
                 rating: 5.0,
                 morningStarLogo: true,
                 oneYearReturn: 12.3,
@@ -37,25 +35,21 @@ const MutualFundsList = () => {
                 fiveYearReturn: 24.33,
             },
             {
-
                 logo: '/SBIFundLogo.png',
                 title: 'SBI Equity Hybrid Fund',
                 fundType: ['Mid Cap', 'Debt'],
                 price: 30000,
                 rating: 4.0,
-
                 morningStarLogo: true,
                 oneYearReturn: 18.5,
                 threeYearReturn: 27.49,
                 fiveYearReturn: 35.38,
             },
             {
-
                 logo: '/Miraelogo.svg',
                 title: 'ICICI Prudential Fund',
                 fundType: ['Small Cap', 'Balanced'],
                 price: 40000,
-
                 rating: 3.7,
                 morningStarLogo: true,
                 oneYearReturn: 12.57,
@@ -64,16 +58,6 @@ const MutualFundsList = () => {
             },
         ]);
     }, []);
-    const handlePrice = (value: any) => {
-      
-        if (value === 12.3) {
-            navigate('/funddetails')
-        } 
-
-
-
-
-    }
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -114,7 +98,6 @@ const MutualFundsList = () => {
                                 justifyContent: 'space-between'
                             }}>
                                 <Box className="heading_main">
-
                                     <Typography sx={{
                                         fontSize: '18px',
                                         fontWeight: 500,
@@ -133,7 +116,6 @@ const MutualFundsList = () => {
                                     display: 'flex',
                                     justifyContent: 'flex-end',
                                 }}>
-
                                     <img src={HelpOutline} width={22} height={22} style={{
                                         margin: '0 4px 0 0',
                                         objectFit: 'contain',
@@ -148,13 +130,9 @@ const MutualFundsList = () => {
                                 </Box>
                             </Box>
                             <Box>
-
                                 {
                                     mfCards.map(mfCard =>
-                                        <Box sx={{ marginTop: '1.25vw' }}
-                                            onClick={() => handlePrice(mfCard.oneYearReturn)}
-                                        >
-
+                                        <Box sx={{ marginTop: '1.25vw' }}>
                                             <MutualFundCard2 {...mfCard} />
                                         </Box>
                                     )
@@ -165,7 +143,6 @@ const MutualFundsList = () => {
                                 justifyContent: 'center',
                                 marginTop: '3vw',
                             }}>
-
                                 <Button onClick={() => navigate('/customizemf')} sx={{
                                     width: '200px',
                                     height: '44px',
@@ -176,7 +153,6 @@ const MutualFundsList = () => {
                                     fontWeight: 500,
                                     color: '#fff',
                                 }}>Customize Plan</Button>
-
                             </Box>
                         </Box>
                         <Box sx={{

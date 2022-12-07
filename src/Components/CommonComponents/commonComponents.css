@@ -69,3 +69,8 @@
     z-index: 10;
     cursor: pointer;
 }
+.switchContainer{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}

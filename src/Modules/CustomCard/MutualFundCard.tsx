@@ -13,7 +13,6 @@ export interface MFProp {
   fiveYearReturn: number,
   buttons?: boolean,
   checkbox?: boolean,
-  
 }
 
 

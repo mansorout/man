@@ -6,6 +6,15 @@
   width: 100% !important;
   margin-left: 0 !important;
 }
+/* .MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-et1ao3-MuiTypography-root{
+  margin-left: "-34px";
+}
+.MuiCardHeader-content css-1qbkelo-MuiCardHeader-content{
+  margin-left: "-34px";
+}
+.MuiCardHeader-root css-vjbbn8-MuiCardHeader-root{
+  margin-left: "-34px";
+} */
 
 /* <DrawerList sx={{
   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",

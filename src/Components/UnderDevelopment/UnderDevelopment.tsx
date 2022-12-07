@@ -1,101 +1,131 @@
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 
-import { InputAdornment } from "@mui/material";
-import {
-  Box,
-  TextField,
-  Typography,
-} from "@mui/material";
-import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
+const AntTabs = styled(Tabs)({
+  borderBottom: '1px solid #e8e8e8',
+  '& .MuiTabs-indicator': {
+    backgroundColor: 'white',
+  },
+});
 
-import ContinueWithMobile from "../../Modules/Buttons/ContinueWithMobile";
-import ConnectWithGoogle from "../../Modules/Buttons/ConnectWithGoogle";
-import React, { useState } from "react";
-import { ContactError, MonoLogo } from "../../Assets";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Footer from "../../Modules/Footer/Footer";
-import LoginWithGoogle from "../loginwithgoogle/LoginWithGoogle";
-
-export const UnderDevelopment = () => {
-
-  const style = {
-    background : {
-      height : "100vh",
-      width: "100vw",
-      display:"flex",
-      flexDirection:"column",
-      boxSizing:"border-box",
-      justifyContent:"flex-end",
-      alignItems:"center",
-    } as React.CSSProperties,
-
-    container : {
-      backgroundColor: "white",
-      width: "100%",
-      maxWidth: "500px",
-      padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center"
-    } as React.CSSProperties,
-
-    logo : {
-      width: "50px",
-      padding: "20px 0px",
-    } as React.CSSProperties,
-
-    contactInput : {
-      width:"90%",
-      maxWidth:"400px",
-      marginTop: "20px"
-    } as React.CSSProperties,
-
-    divider : {
-      margin:"10px",
-      width : "90%",
-      maxWidth : "400px",
-      color : "#7b7b9d",
-      display:"flex",
-      alignItems:"center",
-      justifyContent:"space-between"
+const AntTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+  ({ theme }) => ({
+    textTransform: 'none',
+    minWidth: 0,
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 0,
     },
-
-    dividerBox : {
-      width:"45%",
-      height:".5px",
-      padding:".5px",
-      backgroundColor:"#7b7b9d"
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(1),
+    color: 'rgba(0, 0, 0, 0.85)',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      color: '#40a9ff',
+      opacity: 1,
     },
+    '&.Mui-selected': {
+      color: 'red',
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    '&.Mui-focusVisible': {
+      backgroundColor: 'green',
+    },
+  }),
+);
 
-    errorText : {
-      width:"100%",
-      maxWidth:"400px",
-      height: "15px",
-      marginBottom:'10px'
-    } as React.CSSProperties
-  }
+interface StyledTabsProps {
+  children?: React.ReactNode;
+  value: number;
+  onChange: (event: React.SyntheticEvent, newValue: number) => void;
+}
 
-  const error : string[] = useSelector((state : any) => state.error)
+const StyledTabs = styled((props: StyledTabsProps) => (
+  <Tabs
+    {...props}
+    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+  />
+))({
+  '& .MuiTabs-indicator': {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  '& .MuiTabs-indicatorSpan': {
+    maxWidth: 40,
+    width: '10px',
+    backgroundColor: '#635ee7',
+  },
+});
 
-  const [focus, setFocus] = useState<boolean>(false);
-  const [number, setNumber] = useState<string>("")
+interface StyledTabProps {
+  label: string;
+}
 
-  const handleMobile = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setNumber(e.target.value)
-  }
-  console.log(number)
+const StyledTab = styled((props: StyledTabProps) => (
+  <Tab disableRipple {...props} />
+))(({ theme }) => ({
+  textTransform: 'none',
+  fontWeight: theme.typography.fontWeightRegular,
+  fontSize: theme.typography.pxToRem(15),
+  marginRight: theme.spacing(1),
+  color: 'rgba(255, 255, 255, 0.7)',
+  '&.Mui-selected': {
+    color: '#fff',
+  },
+  '&.Mui-focusVisible': {
+    backgroundColor: 'pink',
+  },
+}));
+
+export default function UnderDevelopment() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   return (
-    
-            <Box className="background" style={style.background}>
-        <NavigationBar />
-
-        <Typography>
-            Under Maintanance Page
-        </Typography>
-        
+    <Box sx={{
+      maxWidth: '22.5rem',
+      borderRadius: '0.5rem',
+      boxShadow: '0 -1.5rem 1.5rem 0 rgba(0, 0, 0, 0.16)',
+      backgroundColor: '#fff',
+  }}>
+      <Box sx={{ bgcolor: '#fff' }}>
+        <AntTabs value={value} onChange={handleChange}  aria-label="ant example">
+          <AntTab label="Tab 1" />
+          <AntTab label="Tab 2" />
+          <AntTab label="Tab 3" />
+        </AntTabs>
+        <Box sx={{ p: 3 }} />
       </Box>
+      <Box sx={{ bgcolor: '#2e1534' }}>
+        <StyledTabs
+        
+          value={value}
+          onChange={handleChange}
+          aria-label="styled tabs example"
+        >
+          <StyledTab label="Workflows" />
+          <StyledTab label="Datasets" />
+          <StyledTab label="Connections" />
+        </StyledTabs>
+        <Box sx={{ p: 3 }} />
+      </Box>
+    </Box>
   );
-};
+}
