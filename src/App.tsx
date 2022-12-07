@@ -41,6 +41,11 @@ import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
+import SaveTax from './Components/SaveTax/SaveTax'
+import SaveTaxAmount from './Components/SaveTax/SaveTaxAmount';
+import RecommendationsULIP from './Components/SaveTax/RecommendationsULIP';
+import RecommendationsELSS from './Components/SaveTax/RecommendationsELSS';
+import SaveTaxInvestmentType from './Components/SaveTax/SaveTaxInvestmentType';
 import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 // import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
@@ -67,6 +72,12 @@ import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund'
 import InitiateSip from './Components/SIPScreen/initiateSip';
 import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 
+import ULIPFound from './Components/Insurance/ULIPFound';
+import ULIPCompare from './Components/Insurance/ULIPCompare';
+import ProposalForm from './Components/Insurance/ProposalForm';
+import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
+import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
+import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
 
 
 
@@ -179,12 +190,24 @@ function App() {
 
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/saveTax" element={<SaveTax />} />
+        <Route path="/saveTax/saveTaxAmount" element={<SaveTaxAmount />} />
+        <Route path="/saveTax/saveTaxInvestmentType" element={<SaveTaxInvestmentType />} />
+        <Route path="/saveTax/RecommendationsULIP" element={<RecommendationsULIP />} />
+        <Route path="/saveTax/RecommendationsELSS" element={<RecommendationsELSS />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
+        <Route path="/proposalForm" element={<ProposalForm />} />
+        <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
+        <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
+
+        <Route path="/proposalFormStep4" element={<ProposalFormStep4 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
         <Route path="/funddetails" element={<FundDetails />} />
         <Route path='/explorefunds' element={<ExploreFunds />} />

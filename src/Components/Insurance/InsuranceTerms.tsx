@@ -171,6 +171,7 @@ interface genderProp {
     value: string;
     errorRemove: React.Dispatch<React.SetStateAction<boolean>>;
     selectedItem: string;
+    imgUrl?: string;
 }
 
 const RadioCmp = (props: genderProp) => {
@@ -181,9 +182,11 @@ const RadioCmp = (props: genderProp) => {
                 console.log(props)
                 props.errorRemove(false)
                 props.selectoin(props.value);
+            }}>
 
-                debugger
-            }}>{props?.prop}</Button>
+                <img style={{ marginRight: '6px' }} src={props.imgUrl} alt="" />
+                {props?.prop}
+            </Button>
         </div>
     )
 }
@@ -319,7 +322,7 @@ const InsuranceTerms = () => {
                 PaperComponent={PaperComponent}
                 aria-labelledby="draggable-dialog-title"
                 fullScreen={fullScreen}
-                sx={{ width: { xs: '100%', sm: '400px', margin: 'auto' } }}
+                sx={{ width: { xs: '100%', sm: '480px', margin: 'auto' } }}
                 disableEscapeKeyDown
                 className={`${showPlanDetailSubmit && classes.noClickBackdrop}`}
             // disableBackdropClick
@@ -360,6 +363,7 @@ const InsuranceTerms = () => {
                                             errorRemove={setGenderSelectError}
                                             prop="Male"
                                             selectedItem={genderSelect}
+                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/male-icon.svg`}
                                         />} label="" />
                                         <FormControlLabel control={<RadioCmp
                                             value="female"
@@ -368,6 +372,7 @@ const InsuranceTerms = () => {
                                             errorRemove={setGenderSelectError}
                                             prop="Female"
                                             selectedItem={genderSelect}
+                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/female-icon.svg`}
                                         />} label="" />
                                         <FormControlLabel control={<RadioCmp
                                             value="other"
@@ -376,6 +381,7 @@ const InsuranceTerms = () => {
                                             errorRemove={setGenderSelectError}
                                             prop="Transgender"
                                             selectedItem={genderSelect}
+                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/transgender-icon.svg`}
                                         />} label="" />
                                     </RadioGroup>
                                 </FormControl>
