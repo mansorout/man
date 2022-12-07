@@ -65,6 +65,8 @@ import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
 import InitiateSip from './Components/SIPScreen/initiateSip';
+import ULIPFound from './Components/Insurance/ULIPFound';
+import ULIPCompare from './Components/Insurance/ULIPCompare';
 
 
 
@@ -190,6 +192,8 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
 

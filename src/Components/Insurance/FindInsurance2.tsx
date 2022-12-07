@@ -432,7 +432,7 @@ const FindInsurance2 = () => {
             </Box>
             <FooterWithBtn
                 btnText='Continue'
-                btnClick={() => { }}
+                btnClick={() => { navigate('/healthInsurance/letsfindrightinsurance') }}
             />
         </div >
     )
