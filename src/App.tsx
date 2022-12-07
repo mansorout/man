@@ -40,6 +40,8 @@ import InvestNowScreen from './Components/InvestNowScreen/InvestNowScreen';
 import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
+import ExplorePlan from './Components/Insurance/ExplorePlan';
+import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
@@ -54,6 +56,15 @@ import FundDetails from './Components/FundDetails/FundDetails';
 import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
+import StartInvestment from './Components/Investment/startInvestment';
+import CancleSIP from './Components/Portfolio/CancleSIP';
+import Details from './Components/ExploreFunds/FundDetails';
+import SelectedFunds from './Components/ExploreFunds/SelectedFunds';
+import HealthInsurance from './Components/Insurance/HealthInsurance';
+import FindInsurance from './Components/Insurance/FindInsurance';
+import FindInsurance2 from './Components/Insurance/FindInsurance2';
+import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import InitiateSip from './Components/SIPScreen/initiateSip';
 
 // ULIP start
 import UlipPlanPerformanceCard from './Modules/Cards/ULIP/UlipPlanPerformanceCard';
@@ -79,7 +90,7 @@ import ULIPDetails from './Components/ULIP/ULIPDetails';
 
 function App() {
 
-   
+
   const data: PortfolioProp = {
     image: '../../Assets/Portfolio/Miraelogo.svg',
     title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
@@ -125,6 +136,31 @@ function App() {
     stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
   };
 */
+  /*
+    const mfData: MFProp = {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: ['Large Cap', 'Equity'],
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+    };
+  
+    const sipData: SipProp2 = {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      orderNo: 'INF209K01090',
+      fundType: ['Large Cap', 'Equity'],
+      mandatePending: true,
+      sipDate: '9th of every month',
+      sipAmount: 5000,
+      status: 'Active',
+      stopMessage: 'Requested to stop SIP on 25 Nov, 2020',
+    };
+  */
 
   return (
     <>
@@ -164,15 +200,53 @@ function App() {
 
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
-        <Route path="/investnowscreen" element={<InvestNowScreen />} />
+
+        <Route path="/sipInvestment" element={<StartInvestment />} />
+        <Route path="/oneTimeInvestment" element={<StartInvestment />} />
+
+        <Route path="/startAnSip" element={<InitiateSip />} />
+        <Route path="/investNow" element={<InvestNowScreen />} />
+
+        <Route path="/buildWealth" element={<InvestNowScreen />} />
+        <Route path="/getLoan" element={<InvestNowScreen />} />
+
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/Insurance" element={<Insurance />} />
+
+
+
+        <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
+
+
+
+
+
+
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
+        <Route path="/insurance" element={<Insurance />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
+
         <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path='/cancleSip' element={<CancleSIP />} />
+
+
+
+
+
         <Route path="/funddetails" element={<FundDetails />} />
         <Route path='/explorefunds' element={<ExploreFunds/>}/>
+
+
+
+
+
 
         <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/ulipcard" element={ <UlipCard /> } />
@@ -184,6 +258,34 @@ function App() {
         <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
         <Route path="/ulip/options" element={ <ULIPOptions /> } />
         <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
+
+        <Route path="/insurance" element={<Insurance />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
+
+        <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path='/cancleSip' element={<CancleSIP />} />
+
+
+
+
+
+        <Route path="/funddetails" element={<FundDetails />} />
+
+
+
+
+
+
+
+        <Route path='/explorefunds' element={<ExploreFunds />} />
+        <Route path='/details' element={<Details />} />
+        <Route path='/selectedfunds' element={<SelectedFunds />} />
+
+
       </Routes>
     </>
   );

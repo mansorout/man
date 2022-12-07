@@ -38,6 +38,7 @@ export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
 export const mobileIcon = require("./Profile/mobile-icon.png");
+export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
 export const meria = require("./Portfolio/mirae.png")
@@ -116,6 +117,10 @@ export const upilogo =require("./Profile/UPIlogo.png")
 export const fundChart =require("./FundChart.png")
 export const signExclamatory =require("./ic_info-24px@2x.png")
 export const validMobile =require("./ValidMobileNumber.png")
+export const ic_tax_saving =require("./ic_tax_saving.png")
+export const ic_no_medical =require("./ic_no_medical.png")
+export const ic_low_cost =require("./ic_low_cost.png")
+export const tick = require("./Tick.png")
 
 
 

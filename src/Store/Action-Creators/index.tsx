@@ -63,3 +63,8 @@ export const AddCheque = (chequeimage:string) => {
     }
 }
  
+export const setInvestmentCardTypeAction = (data:any) => {
+        return { type:"SET_INVESTMENT_TYPE", payload: data}
+}
+
+ 

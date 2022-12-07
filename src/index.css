@@ -15,6 +15,7 @@ body {
   --titleFontSize: 16px;
   --subTitleFontSize: 12px;
   --buttonFontSize: 16px;
+  --headingMediumFontSize: 24px;
   --fontSize14: 14px;
 
 
@@ -45,6 +46,7 @@ body {
   --typeDarkGreyColor: #acb4bf;
   --typeLightGreyColor: #d1d6dd;
   --typeIndigoColor: #7b7b9d;
+  --typeLighterGrey: #dddfe2;
 
 
   -ms-overflow-style: none;
@@ -92,6 +94,10 @@ h5 {
   font-size: 18px !important;
   font-weight: 400 !important;
   color: var(--typeIndigoColor) !important;
+}
+
+button {
+  text-transform: capitalize !important;
 }
 
 h6 {
@@ -199,6 +205,7 @@ h6 {
   letter-spacing: normal;
   color: #fff;
   background-color: "#3c3e42";
+ 
 
 }
 
