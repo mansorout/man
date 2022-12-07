@@ -126,9 +126,7 @@ function ViewProfileCard() {
                     p: 1,
                     marginTop: "30px",
                     height: " fit-content"
-                }}>
-                <CardContent>
-                    <Box>
+                }}> <Box>
                         <List>
                             <Box onClick={() =>
                                 uploadInputRef.current && uploadInputRef.current.click()}>
@@ -328,13 +326,8 @@ function ViewProfileCard() {
                             <EditProfieButton />
                         </List>
                     </Box>
-                </CardContent>
-
-            </Card>
-
-
-
-        </>
+                     </Card>
+                 </>
 
 
     )

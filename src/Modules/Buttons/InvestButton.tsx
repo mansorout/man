@@ -7,7 +7,7 @@ import ModalInvestNow from '../../Components/InvestNowScreen/ModalInvestNow'
 
 
 const handleClick=()=>{
-    alert("eeee")
+    
 }
 
 export const InvestButton = () => {

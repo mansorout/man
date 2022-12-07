@@ -152,7 +152,7 @@ const AddFunds = () => {
                                     fontSize: '12px',
                                     color: '#373e42'
                                 }}
-                                onClick={()=>navigate('/mflist')}
+                              
                                 >Choose fund to add</Typography>
                             </Breadcrumbs>
                             <Box sx={{

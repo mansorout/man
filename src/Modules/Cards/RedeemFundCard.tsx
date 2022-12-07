@@ -105,6 +105,9 @@ const style = {
 
 
 export default function RedeemFundCard() {
+    const [openFirstCard, setOpenFirstCard] = useState<boolean>(true)
+    const [openSecondCard, setOpenSecondCard] = useState<boolean>(false)
+
     const [optSelected, setOptSelected] = useState<boolean[]>([true, false, false, false])
     const [buttonSelect, setButtonSelect] = useState(true)
     const handleOptChange = (index: number) => {
@@ -116,9 +119,15 @@ export default function RedeemFundCard() {
     }
 
     const handleClickFull = () => {
+    
+        setOpenSecondCard(true)
+        setOpenFirstCard(false)
+
         setButtonSelect(false)
     }
     const handleClickPartial = () => {
+    
+
         setButtonSelect(true)
     }
     const navigate = useNavigate()
@@ -127,9 +136,7 @@ export default function RedeemFundCard() {
         <> <Card sx={{ marginTop: "25px", maxHeight: "388px" }}>
             <CardContent>
                 <Grid container spacing={12}>
-                    <Grid item xs={7} md={6} >
-
-                        <Typography
+                    <Grid item xs={7} md={6} > <Typography
                             sx={{
                                 height: " 19px",
                                 // margin: " 5% 62px 27px 5%",
@@ -140,14 +147,9 @@ export default function RedeemFundCard() {
                                 color: " #3c3e42"
                             }}
                         >Redemption type</Typography>
-                        &nbsp;       &nbsp;       &nbsp;
-
-
-                    </Grid>
+                        &nbsp;       &nbsp;       &nbsp; </Grid>
                     <Grid item xs={5} md={6} sx={{ marginTop: "-2%" }}>
-
-
-                        <Button sx={{
+                            <Button sx={{
                             color: "#09b85d",
                             width: " 79px",
                             height: " 35px",
@@ -182,7 +184,8 @@ export default function RedeemFundCard() {
 
 
 
-                {
+             <Box>
+             {
                     buttonSelect ? <>
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%" }}>  <Typography sx={{
                             height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42", marginLeft: "-67%", marginTop: "-10%", fontWeight: "bold"
@@ -201,49 +204,16 @@ export default function RedeemFundCard() {
 
                         </Box>
                         <Box>
-                            <TextField label="Amount"
-                                name="Amount"
-                                //   value={formData.lastName}
-                                sx={{
-                                    width: " 100%",
-                                    height: "56px",
-                                    borderRadius: "4px",
-                                    boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                    border: "solid 1px #dddfe2",
-                                    backgroundColor: "#fff",
-                                    marginTop: "-7%"
-                                }}
-                                fullWidth
-                            >
+                            <TextField label="Amount"name="Amount" sx={{ width: " 100%", height: "56px", borderRadius: "4px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",border: "solid 1px #dddfe2", backgroundColor: "#fff",marginTop: "-7%"}}
+                                fullWidth>
 
                             </TextField>
                         </Box>
 
                         <Box>
                             <Typography
-                                sx={{
-                                    width: "304px",
-                                    height: "30px",
-                                    // margin: "8px 135px 0 8%",
-                                    fontSize: " 12px",
-                                    textAlign: "left",
-                                    color: "#8787a2"
-
-
-
-                                }}
-                            >Minimum redemption amount ₹500 </Typography>
-
-                            <Typography
-                                sx={{
-                                    width: "100%",
-
-                                    marginTop: "-4%",
-                                    fontSize: " 12px",
-                                    textAlign: "left",
-                                    color: "#8787a2"
-                                }}
-                            >Maximum  redemption amount ₹25,000</Typography>
+                                sx={{ width: "304px",height: "30px",fontSize: " 12px",textAlign: "left",color: "#8787a2" }}>Minimum redemption amount ₹500 </Typography>
+                            <Typography sx={{width: "100%",marginTop: "-4%",fontSize: " 12px", textAlign: "left",color: "#8787a2"}}>Maximum  redemption amount ₹25,000</Typography>
                         </Box> </> : <Grid container spacing={3}>
                         <Grid item xs={6} md={6}>
                             <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Invested Value</Typography>
@@ -256,12 +226,13 @@ export default function RedeemFundCard() {
                         </Grid>
                         <Grid item xs={6} md={6} sx={{ marginTop: "-5%" }}>
                             <Typography>₹1,46,625</Typography>
-                        
+
                         </Grid>
 
                     </Grid>
 
                 }
+             </Box>
 
 
 
