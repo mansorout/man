@@ -7,11 +7,12 @@ import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, Lis
 import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
-import InsuranceTerms from './InsuranceTerms'
-import GetInsurance from '../ULIP/GetInsurance'
+//import InsuranceTerms from './InsuranceTerms'
+//import GetInsurance from './GetInsurance'
 import { useSelector, useDispatch } from 'react-redux';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import BannerSlider from '../CommonComponents/BannerSlider'
+import GetInsurance from './GetInsurance';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -26,7 +27,8 @@ const style = {
 const useStyles: any = makeStyles((theme: Theme) => ({
 }));
 
-const Insurance = () => {
+const ULIPHome = () => {
+    /*
     const dispatch: any = useDispatch();
     const refContainer = useRef();
     const classes = useStyles()
@@ -42,7 +44,7 @@ const Insurance = () => {
         setInsuranceTermCondition(insuranceTermConditionState)
     }, [insuranceTermConditionState])
 
-
+*/
     const settings = {
         dots: true,
         infinite: true,
@@ -92,7 +94,7 @@ const Insurance = () => {
 
     return (
         <div>
-            <Box style={{ width: "100vw" }} ref={refContainer}>
+            <Box style={{ width: "100vw" }}>
                 <Navbar />
                 <Box sx={style.main}>
                     <Toolbar />
@@ -105,10 +107,10 @@ const Insurance = () => {
                             />
 
                             <div>
-                                {
+                                {/*
                                     insuranceTermCondition ? <InsuranceTerms /> : <GetInsurance />
-                                }
-
+    */}
+                                <GetInsurance />
                             </div>
                         </Grid>
                     </Grid>
@@ -118,4 +120,4 @@ const Insurance = () => {
     )
 }
 
-export default Insurance
+export default ULIPHome;
