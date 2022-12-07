@@ -41,9 +41,14 @@ import SipSuccessScreen from './Components/SIPScreen/SipSuccessScreen';
 import RedeemFunds from './Components/RedeemFunds/RedeemFunds';
 import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
+import SaveTaxAmount from './Components/SaveTax/SaveTaxAmount';
+import RecommendationsULIP from './Components/SaveTax/RecommendationsULIP';
+import RecommendationsELSS from './Components/SaveTax/RecommendationsELSS';
+import SaveTaxInvestmentType from './Components/SaveTax/SaveTaxInvestmentType';
 import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
+import SaveTax from './Components/SaveTax/SaveTax'
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
@@ -161,9 +166,9 @@ function App() {
         <Route path="/Insurance" element={<Insurance />} />
         <Route path="/onetimemutualfundrecommendation" element={<OneTimeMutualFund />} />
 
-        
-       
-        
+
+
+
 
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
@@ -171,6 +176,11 @@ function App() {
 
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/saveTax" element={<SaveTax />} />
+        <Route path="/saveTax/saveTaxAmount" element={<SaveTaxAmount />} />
+        <Route path="/saveTax/saveTaxInvestmentType" element={<SaveTaxInvestmentType />} />
+        <Route path="/saveTax/RecommendationsULIP" element={<RecommendationsULIP />} />
+        <Route path="/saveTax/RecommendationsELSS" element={<RecommendationsELSS />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
