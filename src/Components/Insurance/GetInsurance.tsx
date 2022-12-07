@@ -10,6 +10,7 @@ import LongCard from '../CommonComponents/LongCard'
 import HorizontalImgIconLongcard from '../CommonComponents/HorizontalImgIconLongcard';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const GetInsurance = () => {
@@ -18,6 +19,7 @@ const GetInsurance = () => {
     const handleInsuranceTermCondition = () => {
         dispatch(InsuranceTermConditionAction(true))
     }
+    const navigate = useNavigate();
     return (
         <div>
             <Grid container sx={{ paddingTop: '30px' }}>
@@ -31,6 +33,7 @@ const GetInsurance = () => {
                                 detailText='Unit linked insurance plans Invest and insure!'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/ulip.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
+                                btnClick={()=>{}}
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
@@ -40,6 +43,7 @@ const GetInsurance = () => {
                                 detailText='Be financially prepared for any medical emergencies!'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/health-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
+                                btnClick={()=>{navigate('/healthInsurance');}}
                             />
                         </Grid>
                     </Grid>
@@ -51,6 +55,8 @@ const GetInsurance = () => {
                                 detailText='Get the best car and bike insurance quotes from us'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/vehicle-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
+                                btnClick={()=>{}}
+                                
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
@@ -60,6 +66,7 @@ const GetInsurance = () => {
                                 detailText='Get the best travel insurance quotes from us'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/travel-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
+                                btnClick={()=>{}}
                             />
                         </Grid>
                     </Grid>

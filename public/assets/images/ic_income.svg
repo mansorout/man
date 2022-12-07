@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <g transform="translate(-20 -1011)">
+        <circle data-name="Ellipse 438" cx="20" cy="20" r="20" transform="translate(20 1011)" style="fill:#64dbff;opacity:.3"/>
+        <path data-name="Path 8747" d="M0 0h25v25H0z" style="fill:none" transform="translate(27.5 1018.5)"/>
+        <path data-name="Union 8" d="M2.086 20.832A2.084 2.084 0 0 1 0 18.75L.012 4.166a2.074 2.074 0 0 1 2.074-2.084h1.04V0h2.085v2.082h8.333V0h2.081v2.082h1.044a2.09 2.09 0 0 1 2.081 2.084V18.75a2.089 2.089 0 0 1-2.081 2.082zm0-2.082h14.583V7.289H2.086zm7.662-1.713-2.83-3.318-.006-1.032H8.3a1.255 1.255 0 0 0 1.357-.871H6.772l.3-1.155h2.547a1.224 1.224 0 0 0-1.257-.719h-1.59l.345-1.422h5.505l-.3 1.164h-1.228a2.413 2.413 0 0 1 .35.976h1.178l-.31 1.155h-.874a2.277 2.277 0 0 1-.7 1.389 3.255 3.255 0 0 1-1.614.722l2.559 3.029v.082z" transform="translate(30.624 1019.543)" style="fill:#544ec8"/>
+    </g>
+</svg>

@@ -1,0 +1,56 @@
+.progressContainer{
+    margin: 24px 32px;
+  padding: 22px 21px;
+  object-fit: contain;
+  background-color: #675ff5;
+  border-radius: 8px;
+
+}
+.genderSelect{
+    border-radius: 8px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    max-width: 384px;
+    padding: 23px 42px;
+}
+.genderContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.purpleText{
+    font-size: 16px;
+    color:#6c63ff;
+    font-weight: 500;
+}
+.proposalStep2Container{
+    max-width: 487px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding:16px;
+    margin:16px 32px
+    
+}
+.addressCard{
+    max-width: 487px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding:16px;
+    margin:16px 32px
+
+}
+.fotterText{
+    font-size: 14px;
+    color: rgba(98, 100, 104, 0.74);
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+    border: 1px solid white !important
+}
+
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon{
+    color:white !important
+}
+

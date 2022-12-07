@@ -1,0 +1,76 @@
+.cardWithImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: solid 1px #dddfe2;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.cardWithImageSelected {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: solid 1px #23db7b;
+    background-color: rgba(35, 219, 123, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 0 15px;
+}
+.countCard {
+    width: 100%;
+    height: 54px;
+    border-radius: 8px;
+    border: solid 1px #dddfe2;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-bottom: 11px;
+}
+
+.countCardSelected {
+    width: 100%;
+    height: 54px;
+    border-radius: 8px;
+    border: solid 1px #23db7b;
+    background-color: rgba(35, 219, 123, 0.12);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-bottom: 11px;
+}
+.roundBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: #23db7b;
+    color: #ffffff;
+    margin: 0 5px;
+    z-index: 10;
+    cursor: pointer;
+}
+.switchContainer{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}

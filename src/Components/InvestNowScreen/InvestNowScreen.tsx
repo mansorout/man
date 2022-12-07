@@ -1,4 +1,3 @@
-
 import './InvestNowScreen.css'
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
@@ -23,6 +22,7 @@ import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton';
 import OtpInput from 'react-otp-input'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { globalConstant } from '../../Utils/globalConstant';
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -183,9 +183,13 @@ function InvestNowScreen() {
   }
   const [OTP, setOTP] = useState<string>("")
 
-
-
-
+  const handleNavigation = () => {
+    navigate("/oneTimeInvestment", {
+      state: {
+        cardType: globalConstant.LUMPSUM_INVESTMENT
+      }
+    })
+  }
 
   return (
 
@@ -231,12 +235,12 @@ function InvestNowScreen() {
                   <Link color="#6495ED" underline="always" href='Home' >
                     <Typography className='burgerText'> Home</Typography>
                   </Link>
-                  <Link underline="always">
+                  <Link underline="always" onClick={() => handleNavigation()}>
                     <Typography className='burgerText'>Investment</Typography>
 
                   </Link>
 
-                  <Link underline="none" color="#878782">
+                  <Link underline="none" color="#878782"  >
                     <Typography className='burgerText' >One-time lumpsum</Typography>
 
                   </Link>
@@ -244,7 +248,10 @@ function InvestNowScreen() {
               </Box>
               <Grid container >
                 <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
-                  <InvestCard />
+                  <InvestCard
+                    cardType={globalConstant.LUMPSUM_INVESTMENT}
+                    heading="One-Time Lumpsum"
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
                   <InvestSecondCard />
@@ -269,7 +276,7 @@ function InvestNowScreen() {
       </Box>
 
 
-{/* 
+      {/* 
 
 
 
@@ -345,4 +352,3 @@ function PinModalHomeCloseActon(): any {
 function dispatch(arg0: any) {
   throw new Error('Function not implemented.');
 }
-

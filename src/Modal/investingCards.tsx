@@ -8,28 +8,26 @@ export const investingCards = [
         Heading: "Start an SIP",
         Text: "Start investing in small amount and reap big returns",
         Img: SIP,
-        Route:"startAnSip"
+        Route:"sipInvestment"
     },
     {
         BgColor: "#ecf6f6",
         Heading: "Invest Now",
         Text: "A right way of investing is to build a mutual fund portfolio",
         Img: InvestNow,
-        Route:"investNow"
+        Route:"oneTimeInvestment"
     },
     {
         BgColor: "#ecf6fa",
         Heading: "Build Wealth",
         Text: "Handpicked best performing funds for you based on your future goals",
-        Img: BuildWealth,
-        Route:"buildWealth"
+        Img: BuildWealth
     },
     {
         BgColor: "#ecf6f6",
         Heading: "Get a Loan",
         Text: "With nil foreclosure charges you can close you loan as per your convenience",
-        Img: GetLoan,
-        Route:"getLoan"
+        Img: GetLoan
     },
    
 ]
