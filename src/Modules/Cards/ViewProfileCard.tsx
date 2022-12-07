@@ -6,7 +6,7 @@ import { locationlogo } from '../../Assets/index'
 import { ic_income } from '../../Assets/index'
 import { wclogo } from '../../Assets/index'
 import { EditProfieButton } from '../Buttons/EditProfieButton'
-
+import { mobileIcon } from '../../Assets/index'
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
@@ -66,7 +66,7 @@ function ViewProfileCard() {
         },
         ca: {
             // borderRadius: "170px 175px 175px 163px",
-            backgroundColor: "#64dbff",
+            backgroundColor: "rgba(100, 219, 255, 0.3)",
             width: "20px",
             height: "20px",
             padding: "10px",
@@ -128,7 +128,7 @@ function ViewProfileCard() {
                             
                                 <Avatar
                                     alt=""
-                                    src={emaillogo}
+                                    src={mobileIcon}
                                     style={style.ca}
 
                                 />

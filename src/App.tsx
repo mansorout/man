@@ -55,8 +55,19 @@ import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 
+// ULIP start
+import UlipPlanPerformanceCard from './Modules/Cards/ULIP/UlipPlanPerformanceCard';
+import TextRadio from './Modules/Cards/ULIP/textradio/TextRadio';
+import UlipCard from './Modules/Cards/ULIP/UlipCard';
+import UlipBox from './Components/ULIP/UlipBox';
+import ULIPCoFundCard, { ULIPProp } from './Modules/Cards/ULIP/ULIPCoFundCard';
+import ULIPHeader from './Modules/Cards/ULIP/ULIPHeader';
+// ULIP end
 
-
+import CompanyFundCard from './Modules/CustomCard/CompanyFundCard';
+import ULIPRecommendations from './Components/ULIP/ULIPRecommendations';
+import ULIPOptions from './Components/ULIP/ULIPOptions';
+import ULIPDetails from './Components/ULIP/ULIPDetails';
 
 
 
@@ -80,6 +91,15 @@ function App() {
     fiveYearReturnGrowth: 17.36,
   };
 
+  const ulipData: ULIPProp = {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    projectedAmount: 4.75,
+    topPerformingFundReturn: 14.38,
+    lifeCoverAmount: 5,
+    investedValueAmount: 2.5,
+    taxSavings: 15000,
+  }
 /*
   const mfData: MFProp = {
     logo: '/Miraelogo.svg',
@@ -136,7 +156,7 @@ function App() {
         <Route path="/completedview" element={<ProfileCompleted />} />
         <Route path="/vp" element={<ViewProfile />} />
         <Route path="/editprofile" element={<Editprofilescreen />} />
-        <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
+        
         <Route path="/mflist" element={<MutualFundsList />} />
         <Route path="/customizemf" element={<CustomizeMF />} />
         <Route path="/sip" element={<SipList />} />
@@ -150,25 +170,20 @@ function App() {
         <Route path="/netbanking" element={<NETbanking />} />
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
-
         <Route path="/Insurance" element={<Insurance />} />
-        
-
-
-
-
-
-
         <Route path="/funddetails" element={<FundDetails />} />
-        
-        
-
-
-
         <Route path='/explorefunds' element={<ExploreFunds/>}/>
 
-
-
+        <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
+        <Route path="/ulipcard" element={ <UlipCard /> } />
+        <Route path="/ulipppcard" element={ <UlipPlanPerformanceCard /> } />
+        <Route path='/tr' element={ <TextRadio { ...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} /> } />
+        <Route path="/ulip" element={ <UlipBox /> } />
+        <Route path="/ulipcofund" element={ <ULIPCoFundCard { ...ulipData } /> } />
+        <Route path="/ulipheader" element={ <ULIPHeader /> } />
+        <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
+        <Route path="/ulip/options" element={ <ULIPOptions /> } />
+        <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
       </Routes>
     </>
   );
