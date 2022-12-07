@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Calendar from 'react-calendar';
 import { makeStyles } from "@mui/styles";
-import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List, ImageListItem, Modal } from "@mui/material";
-import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star, tick } from '../../Assets';
-import { RadioButtonChecked } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List, ImageListItem } from "@mui/material";
+import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star } from '../../Assets';
 
 export interface MFProp {
   logo: string,
@@ -20,12 +18,6 @@ export interface MFProp {
   checkbox?: boolean,
 }
 
-
-const enumActiveScreen = Object.freeze({
-  CLOSE_MODAL: 0,
-  OPEN_DATE_PICKER_MODAL: 1,
-  OPEN_CONFIRMATION_MODAL: 2,
-})
 
 
 const MutualFundCard2 = (props: MFProp) => {
@@ -57,9 +49,9 @@ const MutualFundCard2 = (props: MFProp) => {
     },
     text: {
       color: "white"
-    },
-
+    }
   }
+
 
   const useStyles: any = makeStyles((theme: any) => ({
     button: {
@@ -88,14 +80,13 @@ const MutualFundCard2 = (props: MFProp) => {
 
   const classes = useStyles();
   const naviagte = useNavigate();
+
   const handleClick = (strtype: string) => {
     if (strtype === "no") {
       // props?.close
       setRemoveInvestment(false);
       return;
     }
-
-    //delete item
   }
 
   return (
@@ -106,9 +97,6 @@ const MutualFundCard2 = (props: MFProp) => {
       backgroundColor: '#fff',
       fontFamily: 'Roboto',
       margin: 0,
-      marginBottom: "20px",
-      // marginTop: { xs: "25%" },
-      marginLeft: { xs: "-5%", sm: "0%" }
     }}>
       <Grid container spacing={2} sx={{
         width: '78.75vw',
@@ -142,9 +130,9 @@ const MutualFundCard2 = (props: MFProp) => {
               fontSize: '16px',
               fontWeight: 500,
               color: '#3c3e42',
-            }}>{props?.title}</Typography>
+            }}>{props.title}</Typography>
             {
-              props?.fundType.map(ft => <Chip label={ft} key={ft} sx={{
+              props.fundType.map(ft => <Chip label={ft} key={ft} sx={{
                 borderRadius: '2px',
                 backgroundColor: 'rgba(123, 123, 157, 0.16)',
                 padding: '0.05vw 0.1vw',
@@ -219,19 +207,10 @@ const MutualFundCard2 = (props: MFProp) => {
             <Typography style={style.amount}>{props.fiveYearReturn}%</Typography>
           </Box>
           {
-            props?.checkbox ?
-              <Box component="span">
-                <Checkbox />
-              </Box>
-              : <>
-                <Box component="span">
-                  <RadioButtonChecked
-                    style={{
-                      color: "var(--primaryColor)"
-                    }}
-                  />
-                </Box>
-              </>
+            props.checkbox &&
+            <Box component="span">
+              <Checkbox />
+            </Box>
           }
         </Grid>
 
@@ -249,7 +228,7 @@ const MutualFundCard2 = (props: MFProp) => {
             backgroundColor: 'rgba(123, 123, 157, 0.05)',
             color: '#7b7b9d'
           }}
-            onClick={() => naviagte('/replaceFunds')}
+            onClick={() => naviagte('/under')}
           >
             <img src={ReplaceButtonIcon} />
             Replace
@@ -269,65 +248,69 @@ const MutualFundCard2 = (props: MFProp) => {
         </Grid>
       }
 
-      <Dialog open={removeInvestment} fullWidth style={{ borderRadius: "8px" }}>
-        <Box style={{ margin: "6%", marginBottom: "2%" }}>
-          <List sx={{ pt: 0 }}>
-            <Grid container xs={12} justifyContent="center" display="flex" spacing={4} marginLeft="-14px !important">
-              <Grid item container xs={12} spacing={2} >
-                <Grid item xs={3} />
-                <Grid item xs={6} justifyContent="center" display="flex" spacing={2} style={{ marginTop: "25px" }}>
-                  <img
-                    src="./assets/images/Group 5102 (non-optimized).png"
-                    srcSet="./assets/images/Group 5102 (non-optimized).png"
-                    alt={"not loaded"}
-                    loading="lazy"
-                    className={classes.manImg}
-                  />
+      {
+        removeInvestment ?
+          <Dialog open={removeInvestment} fullWidth style={{ borderRadius: "8px" }}>
+            <Box style={{ margin: "6%", marginBottom: "2%" }}>
+              <List sx={{ pt: 0 }}>
+                <Grid container xs={12} justifyContent="center" display="flex" spacing={4} marginLeft="-14px !important">
+                  <Grid item container xs={12} spacing={2} >
+                    <Grid item xs={3} />
+                    <Grid item xs={6} justifyContent="center" display="flex" spacing={2} style={{ marginTop: "25px" }}>
+                      <img
+                        src="./assets/images/Group 5102 (non-optimized).png"
+                        srcSet="./assets/images/Group 5102 (non-optimized).png"
+                        alt={"not loaded"}
+                        loading="lazy"
+                        className={classes.manImg}
+                      />
+                    </Grid>
+                    <Grid item xs={3} />
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Typography variant="h2" display="flex" justifyContent={"center"}>
+                      Remove Funds
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <Typography component="p" style={{ color: "grey" }}>
+                      Are you sure you want to remove this fund from the SprintMoney recommended plan?
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      // disabled={showSubmit}
+                      variant="contained"
+                      className={classes?.button}
+                      fullWidth
+                      onClick={() => handleClick("no")}
+                      sx={{
+                        pointerEvents: 'fill',
+                      }}
+                    >
+                      <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >No</Typography>
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      // disabled={showSubmit}
+                      variant="contained"
+                      className={classes?.button}
+                      fullWidth
+                      onClick={() => handleClick("yes")}
+                      sx={{
+                        pointerEvents: 'fill',
+                      }}
+                    >
+                      <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >Yes</Typography>
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={3} />
-              </Grid>
-              <Grid item xs={9}>
-                <Typography variant="h2" display="flex" justifyContent={"center"}>
-                  Remove Funds
-                </Typography>
-              </Grid>
-              <Grid item xs={9}>
-                <Typography component="p" style={{ color: "grey" }}>
-                  Are you sure you want to remove this fund from the SprintMoney recommended plan?
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  // disabled={showSubmit}
-                  variant="contained"
-                  className={classes?.button}
-                  fullWidth
-                  onClick={() => handleClick("no")}
-                  sx={{
-                    pointerEvents: 'fill',
-                  }}
-                >
-                  <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >No</Typography>
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  // disabled={showSubmit}
-                  variant="contained"
-                  className={classes?.button}
-                  fullWidth
-                  onClick={() => handleClick("yes")}
-                  sx={{
-                    pointerEvents: 'fill',
-                  }}
-                >
-                  <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >Yes</Typography>
-                </Button>
-              </Grid>
-            </Grid>
-          </List>
-        </Box>
-      </Dialog>
+              </List>
+            </Box>
+          </Dialog>
+          : null
+      }
 
     </Box >
 

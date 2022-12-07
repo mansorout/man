@@ -354,14 +354,11 @@ const StartInvestment = () => {
     if (cardType) {
       if (cardType === globalConstant.SIP_INVESTMENT) {
         setActiveButton(enumType.MONTHLY_INCOME);
-        dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
       } else if (cardType === globalConstant.LUMPSUM_INVESTMENT) {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
-        dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
       }
     } else {
       setActiveButton(enumType.ONE_TIME_LUMSOM);
-      dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
     }
   }, []);
 
