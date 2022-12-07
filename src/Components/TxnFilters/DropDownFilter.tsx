@@ -30,6 +30,7 @@ import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Asse
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import ClearIcon from '@mui/icons-material/Clear';
+import { AnchorCloseAction, AnchorOpenAction } from '../../Store/Duck/FilterBox';
 
 
 
@@ -303,9 +304,7 @@ function DropDownFilter() {
     const handleClickOpen = () => {
         setOpen(true);
     };
-    const handleClose = () => {
-        setOpen(false);
-    };
+   
 
     const [value, setValue] = React.useState(0);
 
@@ -325,13 +324,20 @@ function DropDownFilter() {
 
     const [anchorEl, setAnchorEl] = useState<any>()
 
-    const handleFilterClose = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    // const handleFilterClose = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
 
-        anchorEl ?
-            setAnchorEl(null) :
-            setAnchorEl(event.currentTarget)
-    };
-      
+    //     anchorEl ?
+    //         setAnchorEl(null) :
+    //         setAnchorEl(event.currentTarget)
+    // };
+
+
+    
+  const handleClose=(event: React.MouseEvent<SVGSVGElement, MouseEvent>)=>{
+
+    dispatch(AnchorCloseAction())
+  }
+
     const { Anchor }: any = useSelector((state: any) => state.filterbox)
 
     const handleMenuOpen = () => {
@@ -340,195 +346,204 @@ function DropDownFilter() {
 
     return (
         <>
-            <Stack>
-                
 
 
 
-                <MenuUnstyled
-                    style={{ zIndex: 5000 }}
-                    actions={menuActions}
-                    open={Boolean(Anchor)}
-                    onClose={() => setAnchorEl(null)}
-                    anchorEl={Anchor}
-                >
-                    <StyledMenuItem>
-
-                        <Paper sx={{
-                            flexGrow: 1, width: 400, padding: "12px 0 0",
-                            borderRadius: "8px 8px 0px 0px",
-                            boxShadow: " 0 1px 5px 0 rgba(0, 0, 0, 0.16)"
-                        }}>
-                            <Grid container spacing={0}>
-                                <Grid item xs={8}>
-                                    <Typography sx={{
-                                        margin: "4px 92px 16px 16px",
-                                        fontFamily: "Roboto",
-                                        fontSize: "14px",
-                                        fontWeight: "500",
-                                        color: " #3c3e42"
-                                    }}>
-                                        Filter
-                                    </Typography>
-
-                                </Grid>
-                                <Grid item xs={4} sx={{ textAlign: "end" }}>
-                                    <ClearIcon onClick={(e)=>handleFilterClose(e)}  sx={{ opacity: 0.54 }} />
-                                </Grid>
 
 
-                                <Grid item xs={4}>
-                                    <Box sx={{
+            <MenuUnstyled
+                style={{ transform: "translate(-78px, 10px ! important)" }}
+                // style={{ zIndex: 5000 }}
+                actions={menuActions}
+                open={Boolean(Anchor)}
 
-                                        backgroundColor: "#F8F8F8", width: "100%"
-                                    }}>
-                                        <Tabs
-                                            orientation="vertical"
-                                            variant="scrollable"
-                                            value={value}
-                                            onChange={handleChangemodal}
-                                            aria-label="Vertical tabs example"
-                                            sx={{ borderRight: 1, borderColor: 'divider' }}
-                                        >
-                                            <Tab label="Sort" {...a11yProps(0)} />
-                                            <Tab label="Date Range" {...a11yProps(1)} />
-                                            <Tab label="Amount Range" {...a11yProps(2)} />
-                                            <Tab label="Transaction Type" {...a11yProps(3)} />
-                                            <Tab label="Transaction Status" {...a11yProps(4)} />
-                                        </Tabs>
-                                    </Box>
+                anchorEl={Anchor}
+            >
+                <StyledMenuItem>
 
-                                </Grid>
+                    <Paper sx={{
+                        flexGrow: 1, width: 365, transform: "translate(-80px, 10px)", padding: "12px 0 0",
+                        borderRadius: "8px 8px 0px 0px",
+                        boxShadow: " 0 1px 5px 0 rgba(0, 0, 0, 0.16)"
+                    }}>
+                        <Grid container spacing={0}>
+                            <Grid item xs={8}>
+                                <Typography sx={{
+                                    margin: "4px 92px 16px 16px",
+                                    fontFamily: "Roboto",
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                    color: " #3c3e42"
+                                }}>
+                                    Filters
+                                </Typography>
+
+                            </Grid>
+                            <Grid item xs={4} sx={{ textAlign: "end" }}>
+                                <ClearIcon onClick={(e)=>handleClose(e)} sx={{marginRight:"13px", opacity: 0.54 }} />
+                            </Grid>
 
 
+                            <Grid item xs={4}>
+                                <Box sx={{
 
-                                <Grid item xs={8}>
+                                    backgroundColor: "#F8F8F8", width: "100%"
+                                }}>
+                                    <Tabs
+                                        orientation="vertical"
+                                        variant="scrollable"
+                                        value={value}
+                                        onChange={handleChangemodal}
+                                        aria-label="Vertical tabs example"
+                                        sx={{ borderRight: 1, borderColor: 'divider' }}
+                                    >
+                                        <Tab label="Sort" {...a11yProps(0)} />
+                                        <Tab label="Date Range" {...a11yProps(1)} />
+                                        <Tab label="Amount Range" {...a11yProps(2)} />
+                                        <Tab label="Transaction Type" {...a11yProps(3)} />
+                                        <Tab label="Transaction Status" {...a11yProps(4)} />
+                                    </Tabs>
+                                </Box>
 
-                                    <Box sx={{ backgroundColor: "white ", width: "100%" }}>
-                                        <TabPanel value={value} index={0}>
-
-
-                                            <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Date - Latest to Older" />
-
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Date - Older to Latest" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Amount - High to Low" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Amount - Low to High" />
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={1}>
-                                            <Box style={{ display: "flex", alignItems: "center", justifyContent: 'center', padding: "20px", flexDirection: "column", gap: "30px" }}>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                    <Stack spacing={3}>
-                                                        <DesktopDatePicker
-                                                            label="Date desktop"
-                                                            inputFormat="MM/DD/YYYY"
-                                                            value={value}
-                                                            onChange={handleChange}
-                                                            renderInput={(params) => <TextField {...params} />}
-                                                        />
-                                                        <DesktopDatePicker
-                                                            label="Date desktop"
-                                                            inputFormat="MM/DD/YYYY"
-                                                            value={value}
-                                                            onChange={handleChange}
-                                                            renderInput={(params) => <TextField {...params} />}
-                                                        />
+                            </Grid>
 
 
 
-                                                    </Stack>
-                                                </LocalizationProvider>
+                            <Grid item xs={8}>
 
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={2}>
-                                            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                                                <div>
+                                <Box sx={{ backgroundColor: "white ", width: "100%" }}>
+                                    <TabPanel value={value} index={0}>
+
+
+                                        <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Date - Latest to Older" />
+
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Date - Older to Latest" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Amount - High to Low" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Amount - Low to High" />
+                                        </Box>
+                                    </TabPanel>
+                                    <TabPanel value={value} index={1}>
+                                        <Box style={{ display: "flex", alignItems: "center", justifyContent: 'center', padding: "20px", flexDirection: "column", gap: "30px" }}>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <Stack spacing={3}>
+                                                    <DesktopDatePicker
+                                                        label="Date desktop"
+                                                        inputFormat="MM/DD/YYYY"
+                                                        value={value}
+                                                        onChange={handleChange}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+                                                    <DesktopDatePicker
+                                                        label="Date desktop"
+                                                        inputFormat="MM/DD/YYYY"
+                                                        value={value}
+                                                        onChange={handleChange}
+                                                        renderInput={(params) => <TextField {...params} />}
+                                                    />
+
+
+
+                                                </Stack>
+                                            </LocalizationProvider>
+
+                                        </Box>
+                                    </TabPanel>
+                                    <TabPanel value={value} index={2}>
+                                        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={4}>
                                                     <TextField
                                                         label="Min. Transaction Amount"
                                                         id="outlined-start-adornment"
-                                                        sx={{ m: 1, width: "25ch" }}
+                                                        sx={{ m: 1, width: "22ch" }}
                                                         InputProps={{
                                                             startAdornment: <InputAdornment position="start"><CurrencyRupeeIcon sx={{ color: "#3c3e42", fontSize: "18px" }} /></InputAdornment>
                                                         }}
                                                     />
-                                                    <TextField
+                                                </Grid>
+                                            </Grid>
+                                          
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={4}>
+                                                <TextField
                                                         label="Max. Transaction Amount"
                                                         id="outlined-start-adornment"
-                                                        sx={{ m: 1, width: "25ch" }}
+                                                        sx={{ m: 1, width: "22ch" }}
                                                         InputProps={{
                                                             startAdornment: <InputAdornment position="start"><CurrencyRupeeIcon sx={{ color: "#3c3e42", fontSize: "18px" }} /></InputAdornment>
                                                         }}
                                                     />
-                                                </div>
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={3}>
-                                            <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="All" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Buy" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Redeem" />
+                                                </Grid>
+                                            </Grid>
 
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={4}>
-                                            <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="All" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Successfull" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Pending Confirmation" />
-                                                <FormControlLabel
-                                                    control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                    label="Rejected" />
+                                        </Box>
+                                    </TabPanel>
+                                    <TabPanel value={value} index={3}>
+                                        <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="All" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Buy" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Redeem" />
 
-                                            </Box>
-                                        </TabPanel>
+                                        </Box>
+                                    </TabPanel>
+                                    <TabPanel value={value} index={4}>
+                                        <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="All" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Successfull" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Pending Confirmation" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="Rejected" />
 
-                                    </Box>
-                                    <Grid container spacing={2} >
-                                        <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 77px" }} item xs={12}>
-                                            <Button sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }} autoFocus onClick={handleClose}>
-                                                <Typography sx={{ color: "white", fontSize: " 13px" }}>
-                                                    Apply Filters
-                                                </Typography>
-                                            </Button>
+                                        </Box>
+                                    </TabPanel>
 
-                                        </Grid>
+                                </Box>
+                                <Grid container spacing={2} >
+                                    <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 0px" }} item xs={12}>
+                                        <Button sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }} autoFocus >
+                                            <Typography sx={{ color: "white", fontSize: " 13px" }}>
+                                                Apply Filters
+                                            </Typography>
+                                        </Button>
 
                                     </Grid>
+
                                 </Grid>
                             </Grid>
+                        </Grid>
 
-                        </Paper>
+                    </Paper>
 
-                    </StyledMenuItem>
-                </MenuUnstyled>
+                </StyledMenuItem>
+            </MenuUnstyled>
 
-            </Stack>
+
         </>
     )
 }
 
 export default DropDownFilter
 
-{/* <Route path='/dropdown' element={<DropDownFilter />} /> */}
+{/* <Route path='/dropdown' element={<DropDownFilter />} /> */ }
