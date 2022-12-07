@@ -1,5 +1,5 @@
 const objInitialState: any = {
-  investment: { type: "" }
+  investment: { type: "", openDetailDialog: false },
 }
 
 export default function investmentReducer(objState = objInitialState, action: any) {
@@ -8,6 +8,13 @@ export default function investmentReducer(objState = objInitialState, action: an
       objState.investment = {
         ...objState.investment,
         ["type"]: action.payload
+      }
+      break;
+    }
+    case 'OPEN_SAVE_DETAIL_DIALOG': {
+      objState.investment = {
+        ...objState.investment,
+        ["openDetailDialog"]: action.payload
       }
       break;
     }
