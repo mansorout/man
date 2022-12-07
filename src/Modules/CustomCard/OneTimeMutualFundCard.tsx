@@ -43,7 +43,7 @@ const OneTimeMutualFundCard = (props: MFProp) => {
       fontWeight: 500,
     }
   }
-  const naviagte=useNavigate()
+  const naviagte = useNavigate()
 
   return (
 
@@ -63,7 +63,7 @@ const OneTimeMutualFundCard = (props: MFProp) => {
       }}>
 
         <Grid item xs={8} sm={5} sx={{
-          display: 'flex',  
+          display: 'flex',
         }}>
           <Box sx={{
             width: '3vw',
@@ -164,44 +164,44 @@ const OneTimeMutualFundCard = (props: MFProp) => {
             <Typography style={style.amount}>{props.fiveYearReturn}%</Typography>
           </Box>
           {
-            props.checkbox && 
-              <Box component="span">
-                <Checkbox />
-              </Box>
+            props.checkbox &&
+            <Box component="span">
+              <Checkbox />
+            </Box>
           }
         </Grid>
-        
+
       </Grid>
-      
-    
+
+
       {
         props.buttons &&
-          <Grid sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '1vw',
-          }}>
-            <Button variant='contained' style={style.buttons} sx={{
-              backgroundColor: 'rgba(123, 123, 157, 0.05)',
-              color: '#7b7b9d'
-          }} 
-          onClick={()=>naviagte('/under')}
+        <Grid sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '1vw',
+        }}>
+          <Button variant='contained' style={style.buttons} sx={{
+            backgroundColor: 'rgba(123, 123, 157, 0.05)',
+            color: '#7b7b9d'
+          }}
+            onClick={() => naviagte('/replaceFunds')}
           >
-              <img src={ReplaceButtonIcon} />
-              Replace
-            </Button>
-            <Button variant="contained" style={style.buttons} sx={{
-              backgroundColor: 'rgba(255, 83, 0, 0.05)',
-              color: '#ff5300'
-            }}
-            onClick={()=>naviagte('/under')} 
-            >
-              <img src={RemoveButtonIcon} />
-              Remove
-            </Button>
-          </Grid>
+            <img src={ReplaceButtonIcon} />
+            Replace
+          </Button>
+          <Button variant="contained" style={style.buttons} sx={{
+            backgroundColor: 'rgba(255, 83, 0, 0.05)',
+            color: '#ff5300'
+          }}
+            onClick={() => naviagte('/under')}
+          >
+            <img src={RemoveButtonIcon} />
+            Remove
+          </Button>
+        </Grid>
       }
-  
+
     </Box >
 
   )
