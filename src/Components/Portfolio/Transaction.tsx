@@ -16,6 +16,12 @@ import Sidebar from '../CommonComponents/Sidebar'
 import { Transactions } from '../../Modal/Transactions'
 import AllTrancationCard from '../../Modules/CustomCard/AllTransactionCard'
 
+// import FilterModal from '../TxnFilters/FilterModal'
+import DropDownFilter from '../TxnFilters/DropDownFilter'
+import { useDispatch } from 'react-redux'
+import { AnchorOpenAction } from '../../Store/Duck/FilterBox'
+
+
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -30,6 +36,8 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
  
 function Transaction() {
+
+
 
   const useStyles : any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -137,7 +145,10 @@ function Transaction() {
 
   }
 
+
   const [open, setOpen] = useState<boolean>(false)
+
+  const [opennew,setOpenNew]=React.useState<boolean>();
 
 
   const menuActions = React.useRef<MenuUnstyledActions>(null);
@@ -149,6 +160,13 @@ function Transaction() {
     setAnchorEl(null) :
     setAnchorEl(event.currentTarget)
   };
+  const dispatch:any = useDispatch()
+
+  const handleFilter =(event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+
+    dispatch(AnchorOpenAction(event))
+  }
+
   
   const [transactions, setTransactions] = useState<any[]>([])
 
@@ -208,13 +226,18 @@ function Transaction() {
                     <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Rejected ({Transactions.filter((item) => item.reject).length})</Typography>
                   </Box>
                 </Box>
+
+                     {/* Filter Box Goes here */}
+
                 <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px"}}>
                   <SearchOutlined style={{color:"#7b7b9d"}}/>
                   <InputBase placeholder='Search Transactions' onChange={(e)=>setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
-                  <IconButton >
+                  <IconButton onClick={(e)=>handleFilter(e)} >
                     <FilterAltOutlined style={{color:"#09b85d"}}/>
                   </IconButton>
                 </Box>
+
+                <DropDownFilter/>
               </Box>
               {
                 transactions.filter((item) => item.month=='april').length > 0 ?
@@ -250,6 +273,8 @@ function Transaction() {
           </Grid>
           </Grid>
           </Box>
+       
+          
       </Box>
   )
 }

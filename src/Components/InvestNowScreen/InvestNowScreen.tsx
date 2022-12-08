@@ -1,4 +1,3 @@
-
 import './InvestNowScreen.css'
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
@@ -353,4 +352,3 @@ function PinModalHomeCloseActon(): any {
 function dispatch(arg0: any) {
   throw new Error('Function not implemented.');
 }
-

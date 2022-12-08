@@ -1,8 +1,8 @@
 
-import React, { useEffect, useRef, useState } from 'react'
 import './Home.css'
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { makeStyles } from '@mui/styles';
@@ -46,6 +46,8 @@ function Home() {
       zIndex: "3000",
     },
   }));
+
+
 
   const style = {
     main: {
@@ -188,16 +190,23 @@ function Home() {
   }
 
 
-  const navigate = useNavigate();
+  const error: string[] = useSelector((state: any) => state.error)
+  const navigate = useNavigate()
   const dispatch: any = useDispatch()
   const { openPin }: any = useSelector((state: any) => state.PinModalHome)
+  console.log(openPin)
+  console.log(typeof (openPin))
 
-  const error: string[] = useSelector((state: any) => state.error)
   const handleModalClose = () => {
     dispatch(PinModalHomeCloseAction())
   }
 
-  const handleNavigation = (strNavigationScreenName: string) => {
+  const handleNavigation = (strNavigationScreenName: string | undefined) => {
+
+    if (!strNavigationScreenName) {
+      return;
+    }
+
     let objLocationData = {};
     switch (strNavigationScreenName) {
       case "sipInvestment": {
@@ -216,9 +225,12 @@ function Home() {
       default:
         break;
     }
-    // navigate("/")
+
     navigate("../" + strNavigationScreenName, { state: objLocationData, replace: true });
-    // navigate(0);
+  }
+
+  const handleNavigationLargeCards = (navigation: string) => {
+    navigate(navigation)
   }
 
   return (
@@ -236,7 +248,6 @@ function Home() {
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={8}>
               <Toolbar />
               <Grid container>
-
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                 </Grid>
@@ -254,7 +265,13 @@ function Home() {
                 largeCards.map((item, key) => {
                   return (
                     <Grid item xs={12} sx={{ padding: 2 }}>
-                      <LargeCards Heading={item.Heading} Text={item.Text} Img={item.Img} />
+                      <LargeCards
+                        Heading={item.Heading}
+                        Text={item.Text}
+                        Img={item.Img}
+                        navigationKey={item.navigationKey}
+                        iconNavigation={(naviagtion: string) => handleNavigationLargeCards(naviagtion)}
+                      />
                     </Grid>
                   )
                 })

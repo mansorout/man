@@ -28,7 +28,7 @@ export const OtpSuccess = () => {
 
     container : {
       backgroundColor: "white",
-      width: "100%",
+      width: "96%",
       maxWidth: "500px",
       padding: "10px 0px",
       borderRadius: "20px 20px 0px 0px",

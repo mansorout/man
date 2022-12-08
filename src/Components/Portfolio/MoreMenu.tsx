@@ -20,11 +20,11 @@ const MoreMenu = (props: MoreMenuProps) => {
                 <Typography>{ props.title }</Typography>
             </Box>
             <Box>
-                <Typography>Redeem Funds</Typography>
+                <Typography>Redeem Fund</Typography>
                 <ChevronRightIcon />
             </Box>
             <Box>
-                <Typography>Buy More Funds</Typography>
+                <Typography>Buy More</Typography>
                 <ChevronRightIcon />
             </Box>
             <Box>

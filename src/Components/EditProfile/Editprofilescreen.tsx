@@ -17,8 +17,8 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 import EditprofileCard from '../../Modules/Cards/EditeprofileCard';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
+import Navbar from '../CommonComponents/Navbar';
 
 
 
@@ -152,19 +152,21 @@ function Editprofilescreen() {
   };
 
   const classes = useStyles()
-  const navigate = useNavigate()
+const navigate=useNavigate()
   const refContainer = useRef();
 
   return (
-    <Box style={{ width: "100vw" }} ref={refContainer}>
-      <Navbar />
+    
+
+<Box style={{ width: "100vw" }} ref={refContainer}>
+      <Navbar/>
       <Box sx={style.main}>
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh" }}
+          sx={{ height: "100vh"}}
         >
-
+          
           <Grid
             item
             xs={0}
@@ -172,7 +174,7 @@ function Editprofilescreen() {
             md={2}
           >
             <Toolbar />
-            <Sidebar />
+            <Sidebar/>
           </Grid>
           <Grid
             container
@@ -180,60 +182,61 @@ function Editprofilescreen() {
             sm={11}
             md={10}
           >
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
-              <Toolbar />
-
-              <Grid container xs={12} sx={{marginTop:"25px",marginLeft:"20px"}}>
-              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
+           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+            <Toolbar />
 
 
-
-                  <Link color="#6495ED" underline="always" href='Home' >
-                    <Typography className='burgerText'> Home</Typography>
-                  </Link>
+            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                <Breadcrumbs aria-label="breadcrumb">
 
 
 
-                  <Link underline="always" href='/vp'>
-                    <Typography className='burgerText'>View Profile</Typography>
-
-                  </Link>
-
-                  <Link underline="none" color="#878782">
-                    <Typography className='burgerText'>Edit Details</Typography>
-
-                  </Link>
-                </Breadcrumbs>
-              </Box>
-              </Grid>
-              <EditprofileCard />
-              <Box
-                textAlign="center"
-                sx={{
-                  margin: "auto",
-                  width: "304px",
-                }}
+                                    <Link color="#6495ED" underline="always" href='Home' >
+                                        <Typography className='burgerText'> Home</Typography>
+                                    </Link>
+                                 
+                                       
+ 
+                                    <Link  underline="always" href='/vp'>
+                                        <Typography className='burgerText'>View Profile</Typography>
+                                    
+                                    </Link>
+                                    
+                                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                                        <Typography className='burgerText'>Edit Details</Typography>
+                                    
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+            <EditprofileCard/>
+            <Box
+              textAlign="center"
+              sx={{
+                margin: "auto",
+                width: "304px",
+              }}
+            >
+              
+              <Typography component="span" className="bottomContentText ">
+                By submitting these details, you are agree to share your details
+                to BSE for further transactions <br />
+              </Typography>
+              <Typography
+                component="span"
+                style={{ cursor: "pointer" }}
+                className="textLink"
               >
+                Terms and conditions
+              </Typography>
+            </Box>
 
-                <Typography component="span" className="bottomContentText ">
-                  By submitting these details, you are agree to share your details
-                  to BSE for further transactions <br />
-                </Typography>
-                <Typography
-                  component="span"
-                  style={{ cursor: "pointer" }}
-                  className="textLink"
-                >
-                  Terms and conditions
-                </Typography>
-              </Box>
-
-            </Grid>
+          </Grid>
           </Grid>
         </Grid>
       </Box>
     </Box>
+  
+    
   )
 }
 

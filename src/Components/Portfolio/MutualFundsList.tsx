@@ -65,10 +65,10 @@ const MutualFundsList = () => {
         ]);
     }, []);
     const handlePrice = (value: any) => {
-      
+
         if (value === 12.3) {
             navigate('/funddetails')
-        } 
+        }
 
 
 

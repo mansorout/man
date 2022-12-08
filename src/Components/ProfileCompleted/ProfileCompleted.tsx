@@ -148,82 +148,17 @@ function ProfileCompleted() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ?
-      setAnchorEl(null) :
-      setAnchorEl(event.currentTarget)
+    anchorEl ? 
+    setAnchorEl(null) :
+    setAnchorEl(event.currentTarget)
   };
 
   const classes = useStyles()
 
   const refContainer = useRef();
 
-  const navigate = useNavigate()
   return (
-    // <Box style={{ width: "100vw" }} ref={refContainer}>
-    //   <Navbar />
-    //   <Box sx={style.main}>
-    //     <Grid
-    //       container
-    //       spacing={0}
-    //       sx={{ height: "100vh" }}
-    //     >
-
-    //       <Grid
-    //         item
-    //         xs={0}
-    //         sm={1}
-    //         md={2}
-    //       >
-    //         <Toolbar />
-    //         <Sidebar />
-    //       </Grid>
-    //       <Grid
-    //         container
-    //         xs={13}
-    //         sm={11}
-    //         md={10}
-    //       >
-    //         <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={8} md={8}>
-    //           <Toolbar />
-
-
-    //           <Box role="presentation" sx={{ margin: "20px 0px" }}>
-    //             <Breadcrumbs aria-label="breadcrumb">
-
-
-
-    //               <Link color="#6495ED" underline="always" href='Home' >
-    //                 <Typography className='burgerText'> Home</Typography>
-    //               </Link>
-
-
-
-    //               <Link underline="always">
-    //                 <Typography className='burgerText'>View Profile</Typography>
-
-    //               </Link>
-    //             </Breadcrumbs>
-    //           </Box>
-
-
-
-    //           <Grid container  xs={12} >
-    //             <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-    //               <ViewProfileCard />
-    //             </Grid>
-    //             <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
-    //               <VviewprofileCard />
-    //             </Grid>
-
-    //           </Grid>
-
-    //         </Grid>
-
-    //       </Grid>
-    //     </Grid>
-    //   </Box>
-    // </Box>
+  
     <Box style={{ width: "100vw" }} ref={refContainer}>
     <Navbar />
     <Box sx={style.main}>
@@ -236,79 +171,27 @@ function ProfileCompleted() {
         </Grid>
         <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
     
-        <Box role="presentation">
-                <Breadcrumbs aria-label="breadcrumb">
-
-
-
-                  <Link color="#6495ED" underline="always" href='home' >
+                  <Box role="presentation">
+                <Breadcrumbs aria-label="breadcrumb"> <Link color="#6495ED" underline="always" href='home' >
                     <Typography className='burgerText'> Home</Typography>
-                  </Link>
-
-
-
-                  <Link underline="none" color="#878782" href="/vp" >
+                  </Link> <Link underline="none" color="#878782" href="/vp" >
                     <Typography className='burgerText' >View Profile</Typography>
-
-                  </Link>
+                    </Link>
                 </Breadcrumbs>
               </Box>
-
-             <Grid container  xs={12} >
-        
-               <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-                  <CompletedViewProfileCard />
+              <Grid container  xs={12} >
+              <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+                <CompletedViewProfileCard />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                   <CcompletedviewprofileCard />
                </Grid>
-
-             </Grid>
+               </Grid>
         </Grid>
       </Grid>
     </Box>
 
-    {/* <Modal open={openModal} onClose={() => setOpenModal(false)}>
-      <Box style={style.modalContainer}>
-        <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
-        <Typography textAlign="center" variant='h5' >Hi, Rahul Malhotra</Typography>
-        <Typography textAlign="center" variant='h4' >Verify 4-digit PIN</Typography>
-        <OtpInput
-          value={OTP}
-          onChange={handleOtpChange}
-          numInputs={4}
-          shouldAutoFocus={true}
-          hasErrored={error?.includes("Log_PIN")}
-          containerStyle={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "10px",
-            color: "black"
-          }}
-          inputStyle={{
-            border: "1px solid #dddfe2",
-            borderRadius: "4px",
-            padding: "10px",
-            margin: "10px",
-            width: "30px",
-            height: "30px",
-            color: "black",
-            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)"
-          }}
-          errorStyle={{
-            border: "1px solid red",
-          }}
-        />
-        <Typography textAlign="center" variant='caption' >Please enter PIN here</Typography>
-        <div style={{ width: "90%" }} onClick={() => setOpenModal(false)}>
-          <PINVerifyButton otp={OTP} />
-        </div>
-        <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-          <span onClick={() => navigate("/setnewpin")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography>
-      </Box>
-    </Modal> */}
+ 
   </Box>
   )
 }

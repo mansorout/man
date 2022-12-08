@@ -142,6 +142,36 @@ const RedeemFundsCard = (props: Prop) => {
           marginTop={2}
           marginBottom={2}
         >
+          {/* <Grid item xs={4}>
+              <TableContainer>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow sx={{ color: "red" }}>
+                      <TableCell className="table_head">
+                      Invested Value
+                      </TableCell>
+                    
+                      <TableCell className="table_head">
+                      Current Value
+                      </TableCell>
+                      <TableCell className="table_head">
+                      Total Units
+                      </TableCell>
+                      <TableCell className="table_head">AUM</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="table_head2">₹{props.year1}%</TableCell>
+                      
+                      <TableCell className="table_head2">₹{props.year3}</TableCell>
+                      <TableCell className="table_head2">{props.year5}</TableCell>
+                      <TableCell className="table_head2">₹{props.year6}%</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid> */}
 
           <Grid container spacing={2} textAlign="center" >
             <Grid item xs={3}>
@@ -160,29 +190,30 @@ const RedeemFundsCard = (props: Prop) => {
                   color: "#ffffff"
                 }}
               >₹1,25,000
-            
+
               </Typography>
-                 
+
+
             </Grid>
-        
+            <Box></Box>
 
             <Grid item xs={3}>
-              <Typography 
-              sx={{
-                opacity: " 0.74",
-                color: "#ffffff",
-                fontSize: "14px"
-              }}
-                 
- 
-                
+              <Typography
+                sx={{
+                  opacity: " 0.74",
+                  color: "#ffffff",
+                  fontSize: "14px"
+                }}
+
+
+
               >   Current Value</Typography>
               <Typography
-             sx={{
-              fontSize: "20px",
-              fontWeight: "500",
-              color: "#ffffff"
-            }}
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "500",
+                  color: "#ffffff"
+                }}
               >₹1,46,625</Typography>
             </Grid>
 
@@ -222,41 +253,9 @@ const RedeemFundsCard = (props: Prop) => {
 
 
           </Grid>
-          {/* <Grid item xs={4}>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow sx={{ color: "red" }}>
-                    <TableCell className="table_head">
-                      Invested Value
-                    </TableCell>
-
-                    <TableCell className="table_head">
-                    
-                      Current Value
-                    </TableCell>
-                    <TableCell className="table_head">
-                      Total Units
-                    </TableCell>
-                    <TableCell className="table_head">AUM</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="table_head2">₹{props.year1}%
-                    </TableCell>
-
-                    <TableCell className="table_head2">₹{props.year3}</TableCell>
-                    <TableCell className="table_head2">{props.year5}</TableCell>
-                    <TableCell className="table_head2">₹{props.year6}%</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid> */}
         </Grid>
       </Box>
-    </Box >
+    </Box>
   );
 };
 

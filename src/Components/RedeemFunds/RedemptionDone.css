@@ -1,0 +1,66 @@
+.background{
+    background-color: '#f9f9f9' !important;
+ }
+ .SipSucessScreen{
+   font-family: Roboto !important;
+   font-size: 22 px !important;
+   font-weight: 500;
+   font-stretch: normal !important;
+   font-style: normal !important;
+   line-height: normal !important;
+   letter-spacing: normal !important;
+   text-align: center !important;
+   color: #3c3e42 !important;
+ }
+ .OtpSuccessfullDescr{
+    font-family: Roboto!important;
+    font-size: 14px!important;
+    font-weight: normal!important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: 1.43 !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    color: #7b7b9d !important;
+ }
+
+ .mainDiv{
+    width : calc( 100vw - 200px)
+}
+.css-a5rdam-MuiGrid-root{
+    margin-top: 0 !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+
+
+.redemptionDone {
+
+  height: 59px;
+ 
+  font-family: Roboto !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  text-align: center!important;
+  color: #3c3e42 !important;
+}
+
+.redemptionmsg {
+  width: 384px;
+  height: 59px;
+  margin: 8px 0 0;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #7b7b9d;
+}

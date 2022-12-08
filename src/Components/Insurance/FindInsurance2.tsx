@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import InsuranceTerms from './InsuranceTerms'
-import GetInsurance from './GetInsurance'
+import GetInsurance from '../ULIP/GetInsurance'
 import { useSelector, useDispatch } from 'react-redux';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import BannerSlider from '../CommonComponents/BannerSlider'
@@ -436,7 +436,8 @@ const FindInsurance2 = () => {
             <ThanksModal open={openModal} setOpen={setOpenModal} />
             <FooterWithBtn
                 btnText='Continue'
-                btnClick={() => { setOpenModal(true)}}
+                btnClick={() => { setOpenModal(true); setTimeout(()=>{setOpenModal(false);navigate('/healthInsurance/letsfindrightinsurance')},2000)}}
+                // btnClick={() => { navigate('/healthInsurance/letsfindrightinsurance') }}
             />
         </div >
     )

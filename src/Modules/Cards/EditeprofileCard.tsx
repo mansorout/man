@@ -1,6 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Paper from "@mui/material/Paper";
-import { Mylocationicon } from "../../Assets/index";
+import { ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
@@ -27,11 +27,14 @@ import FormControl from '@mui/material/FormControl';
 import { Form, useNavigate } from 'react-router-dom';
 import { store } from '../../Store/Store';
 import { submituserdetails } from '../../Store/Reducers/action';
-
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 
 import { FormHelperText } from '@mui/material';
+import '../../Components/EditProfile/Editprofilescreen.css'
+import { getValue } from '@testing-library/user-event/dist/utils';
+import { Transactions } from '../../Modal/Transactions';
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -126,7 +129,7 @@ function EditprofileCard() {
       boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
       border: 'solid 1px rgba(0, 0, 0, 0.08)',
     },
-    button: {
+    buttonbtn: {
       height: "48px",
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
@@ -134,7 +137,7 @@ function EditprofileCard() {
       margin: "16px",
       width: "90%",
       maxWidth: "400px",
-      transform: "translate(8px, -5px)"
+      transform: "translate(10px, -60px)"
 
 
     },
@@ -168,7 +171,7 @@ function EditprofileCard() {
     mobilenumber: "",
     dateofbirth: "",
     pincode: "",
-    gender: "Female",
+    gender: "",
     CountrySecond: "",
     StateOfBirth: "",
     city: "",
@@ -183,7 +186,7 @@ function EditprofileCard() {
 
 
   })
-  const [firstNameError, setFirstNameError] = useState(false)
+
   const [lastNameError, setLastNameError] = useState(false)
   const [MidNameError, setMidNameError] = useState(false)
   const [errormobilenumberone, setErrormobilenumberone] = useState(false)
@@ -192,28 +195,22 @@ function EditprofileCard() {
 
 
   const [addresserrorone, setAddressErrorOne] = useState(false)
-  const [incomeslaberror, setIncomeslabError] = useState(false)
-  const [checkValue, setCheckValue] = useState(true)
-  const [submitError, setSubmitError] = useState(true)
-  const [showMessage, setShowMessage] = useState(false)
 
 
-  const [dropValue, setDropValue] = useState(false)
+
+
   const [dropValuestateerror, setDropValuestateError] = useState(false)
 
   const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
 
-  const [dropdownfieldstate, setDropdownfieldstate] = useState(false)
 
   const [errorrsstate, setErrorsstate] = useState(false)
 
   const [errorPincode, setErrorPincode] = useState(false)
-  const [errorcountryFirst, setErrorCountryFirst]=useState(false)
+  const [errorcountryFirst, setErrorCountryFirst] = useState(false)
 
-  const [errorincomeslabs, setErrorincomeslabs]=useState(false)
-  const [dropdowncountryFirst, setDropdowncountryFirst] = useState(false)
+  const [errorincomeslabs, setErrorincomeslabs] = useState(false)
 
-  const [isErrorField, setIsErrorField] = useState({})
 
 
   const [error, setError] = useState(false)
@@ -236,12 +233,12 @@ function EditprofileCard() {
   const [errormessagepincode, setErrorMessagePincode] = useState<any>("")
   const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
   const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
-
+  const [showSubmitDetails, setShowSubmitDetails] = useState(true)
 
   const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
-
+  const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handlechange = (e: any) => {
     e.preventDefault();
@@ -258,9 +255,9 @@ function EditprofileCard() {
 
   useEffect(() => {
 
-    if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber! == "" ||
+    if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length < 10 ||
       formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
-      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst!== "" || formData.IncomeSlab !== "") {
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
       setDropValuestateError(false)
       setError(false)
       setCountryError(false)
@@ -273,28 +270,40 @@ function EditprofileCard() {
       setErrorsstate(false)
       setErrorPincode(false)
       setErrorCountryFirst(false)
-setErrorincomeslabs(false)
+      setErrorincomeslabs(false)
     }
-    // if(formData.CountrySecond !== ""){
-    //   setCountryError(false)
-    // }
+
+    setTimeout(() => {
+      setShowSubmitDetails(() => true);
+
+    })
 
 
+    //   console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
+    //  && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
+    //  && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
+    //    )
 
+    console.log(formData.firstName.length < 0 && formData.middleName.length < 0 && formData.LastName.length < 0)
   }, [formData])
 
-
+  const areAllFieldsFilled = (formData.firstName != "") && (formData.lastName != "") && (mobileRegex.test(formData.mobilenumber)) &&
+    (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
+    && (formData.state !== "") && (formData.CountryFirst !== "") && (formData.IncomeSlab !== "") && (formData.LastName !== "")
   const dispatch = useDispatch()
   const [city, setCity] = React.useState('');
   const [state, setState] = React.useState('');
-
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
-  function handleClick() {
-    alert("h")
+  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    setActive(!active);
+     navigate('/completedview')
 
 
 
 
+ 
   }
 
   const [errorfirstname, setErrorFirstName] = React.useState<any>("");
@@ -311,19 +320,22 @@ setErrorincomeslabs(false)
   const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
   const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
 
-
+  const [selected, setSelected] = useState<number>(1)
 
 
 
 
   const handleBlur = () => {
 
-    if (formData.firstName == "" || !NameRegex.test(formData.firstName)) {
+    if (formData.firstName == "") {
       setError(true)
 
 
       setErrorMessageFN("Please Enter Name")
-
+      setShowSubmitDetails(true)
+    } else {
+      setShowSubmitDetails(false)
+      console.log("kkkk")
     }
 
   }
@@ -339,14 +351,18 @@ setErrorincomeslabs(false)
 
 
   const handleOnBlurmiddleName = () => {
-    if (formData.middleName == "" || !NameRegex.test(formData.middleName)) {
+    if (formData.middleName == "") {
       setErrorMessagemiddleName("Please Enter Middle Name")
       setMidNameError(true)
+      setShowSubmitDetails(true)
+    } else {
+      setShowSubmitDetails(false)
+      console.log("hhhh")
     }
 
   }
   const handleOnBlurlastName = () => {
-    if (formData.lastName.length <= 3) {
+    if (formData.lastName.length == "") {
       setErrorMessagelastname("Please Enter LastName")
       setLastNameError(true)
     }
@@ -354,19 +370,23 @@ setErrorincomeslabs(false)
   }
 
   const handleOnBlurmobilenumber = () => {
-    if (formData.mobilenumber.length <=10) {
-      setErrorMessagemobilenumber("Mobile number is required")
+
+    if (formData.mobilenumber.length != 10) {
+
+      setErrorMessagemobilenumber("Mobile number is invalid")
       setErrormobilenumberone(true)
     }
 
   }
   const handleOnBluremailaddress = () => {
     if (formData.emailaddress == "" || !emailRegex.test(formData.emailaddress)) {
-      setErrorMessageemail("Email Address is required")
+      setErrorMessageemail("Email Address is Invalid")
       setEmailError(true)
     }
 
+
   }
+
   const handleOnBlurCountrySecond = () => {
     setErrorCountry("Required")
   }
@@ -399,28 +419,62 @@ setErrorincomeslabs(false)
 
   }
   const handleOnBlurpincode = () => {
-    if (formData.pincode =="") {
+    if (formData.pincode == "") {
       setErrorMessagePincode("Required")
       setErrorPincode(true)
     }
 
   }
   const handleOnBlurCountryFirst = () => {
-    if(formData.CountryFirst == ""){
+    if (formData.CountryFirst == "") {
       setErrorCountryFirst(true)
       setErrorMessagefirstcountry("Required")
     }
-   
+
   }
   const handleOnBlurIncomeSlab = () => {
-    if(formData.IncomeSlab ==''){
+    if (formData.IncomeSlab == '') {
       setErrorincomeslabs(true)
       setErrorMessageIncomeSlab("Required")
     }
-    
-  }
-  const classes = useStyles();
 
+  }
+
+
+  const handleMaleGenderButton = (e: any, id: any) => {
+    const value = e.target.id;
+    setFormData({
+      ...formData,
+      [e.target.name]: id
+
+    })
+    console.log(formData.gender)
+
+  }
+  const [transactions, setTransactions] = useState<any[]>([])
+  //   const  handleFemaleGenderButton=(e:any,id:any)=>{
+  //     const value = e.target.id;
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.name]: id
+
+  //     })
+  //  console.log(formData.gender)
+
+  //   }
+  //   const  handleTransGenderButton=(e:any,id:any)=>{
+  //     const value = e.target.id;
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.name]: id
+
+  //     })
+  //  console.log(formData.gender)
+
+  //   }
+
+  const classes = useStyles();
+console.log(formData)
   return (
     <>
       <div style={{
@@ -446,7 +500,6 @@ setErrorincomeslabs(false)
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12}>
                     <TextField
-                      type="text"
                       onBlur={handleBlur}
                       label="First Name"
                       name="firstName"
@@ -466,13 +519,7 @@ setErrorincomeslabs(false)
                     />
                   </Grid>
 
-                </Grid>
-
-
-
-
-                {/* errorMesagemiddleName */}
-                <TextField label="Middle Name"
+                </Grid><TextField label="Middle Name"
                   name="middleName"
                   onBlur={handleOnBlurmiddleName}
                   value={formData.middleName} onChange={handlechange} fullWidth
@@ -484,12 +531,7 @@ setErrorincomeslabs(false)
                   }}
                   error={MidNameError}
                   helperText={MidNameError ? errorMesagemiddleName : ""}
-                />
-
-
-
-                {/* lastNameError */}
-                <TextField label="Last Name"
+                /><TextField label="Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onBlur={handleOnBlurlastName}
@@ -503,13 +545,10 @@ setErrorincomeslabs(false)
                   error={lastNameError}
                   helperText={lastNameError ? errorMessagelastname : ""}
                 />
-
-
-                {/* mobileNumberError */}
-
                 <TextField label="Mobile Number"
                   onBlur={handleOnBlurmobilenumber}
-                  name="mobilenumber" 
+                  type="number"
+                  name="mobilenumber"
                   value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
                   sx={{
@@ -518,12 +557,12 @@ setErrorincomeslabs(false)
                   }}
                   error={errormobilenumberone}
                   helperText={errormobilenumberone ? errorMessagemobilenumber : ""}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">
+                      +91
+                    </InputAdornment>,
+                  }}
                 />
-
-
-
-
-                {/* emailError */}
                 <TextField label="Email Address"
                   onBlur={handleOnBluremailaddress}
                   name="emailaddress"
@@ -534,22 +573,11 @@ setErrorincomeslabs(false)
                   value={formData.emailaddress} onChange={handlechange} fullWidth
                   error={emailError}
                   helperText={emailError ? errorMessageemail : ""}
-                />
-
-
-
-
-
-
-
-                <Box
+                /><Box
                   component="form"
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" }
-                  }} >
-
-
-
+                  }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                       <FormControl fullWidth>
@@ -577,10 +605,6 @@ setErrorincomeslabs(false)
                         </FormHelperText>
                       </FormControl>
                     </Grid>
-
-
-
-
                     <Grid item xs={12} md={6}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label"
@@ -600,11 +624,8 @@ setErrorincomeslabs(false)
                           name="StateOfBirth"
                           sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           error={dropValuestateerror}
-                        >
-                          <MenuItem value="hai">Uttarpradesh</MenuItem>
-                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>
-
-                          {/* {State.map((l: any) => (
+                        ><MenuItem value="hai">Uttarpradesh</MenuItem>
+                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>{/* {State.map((l: any) => (
                         <MenuItem value={l}>
                           {l.name}
                         </MenuItem>
@@ -612,11 +633,7 @@ setErrorincomeslabs(false)
                         </Select>
                         <FormHelperText sx={{ color: "red" }}>
                           {formData.StateOfBirth == "" ? errormessageState : ""}
-                        </FormHelperText>
-
-                      </FormControl>
-
-
+                        </FormHelperText> </FormControl>
                     </Grid>
                   </Grid>
                 </Box>
@@ -628,42 +645,47 @@ setErrorincomeslabs(false)
             <Paper className={classes.paper}
               sx={{
                 p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-16px", borderRadius: "-22px",
+                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-18px"
-              }}
-            >
-
-              <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
+              }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 } }}>
-
-
-
-
-                <Button value={formData.gender}
+                {/* onClick={() => { this.handleButton(60)}} */}
+                <Button
+                  id={"male"}
                   name="gender"
-                  
-                  onChange={handlechange}
+                  onClick={()=>{setFormData({...formData, gender:"male"}); setSelected(1); setTransactions(Transactions)}} style={{cursor:"pointer", border:`1px solid ${ selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
                   variant="outlined"
                   size="small"
+                
                   sx={{
                     backgroundColor: " #fff",
                     borderRadius: "8px",
                     boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
                     height: " 42px", padding: " 6px 10px 6px 6px"
-                  }}>
-
-                  <img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-                  {/* <Radio {...controlProps('a')} size="small" sx={{ width: "2px", height: "2px" }} /> */}
-
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Male</Typography>
+                  }}
+                ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", marginLeft: "2px", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Male</Typography>
                 </Button>
-                <Button variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+
+                <Button
+                  name="gender"
+                
+                  value={"female"}
+                  onClick={()=>{setFormData({...formData, gender:"female"}); setSelected(2); setTransactions(Transactions.filter((item) => item.confirm))}} style={{cursor:"pointer", border:`1px solid ${ selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px" }}
+                  variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  {/* <Radio   {...controlProps('b')} sx={{ width: "2px", height: "2px" }} /> */}
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
+
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>  Female</Typography>
                 </Button>
-                <Button variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+
+
+                <Button
+                  id={"transgender"}
+                  name="gender"
+                
+                  onClick={()=>{setFormData({...formData, gender:"transgender"}); setSelected(3); setTransactions(Transactions.filter((item) => item.transaction))}} style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
+                  variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
                   {/* <Radio {...controlProps('c')} sx={{
                       '& .MuiSvgIcon-root': { fontSize: 28, },
@@ -672,11 +694,9 @@ setErrorincomeslabs(false)
 
                     }}
                     /> */}
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Transgender</Typography>
                 </Button>
-
               </Box>
-
 
 
               <Stack m={2} spacing={6}>
@@ -689,27 +709,21 @@ setErrorincomeslabs(false)
                   placeholder="Enter your street address"
                   error={addresserrorone}
                   helperText={addresserrorone ? errormessageaddress : ""}
-                />
-
-
-
-
-                <img src={Mylocationicon} width="24px" height="24" alt="Google Logo" style={{ position: "relative", top: "-88px", left: "88%" }} />
-
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="end">
+                        <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%" }} />
+                      </InputAdornment>),
+                  }}>
+                </TextField>
                 <Box
                   component="form"
                   sx={{
                     '& .MuiTextField-root': { m: 1, width: '194px', height: "16px", },
                     marginTop: "-69%",
-
-                  }}
-
-
-
-
-                >
-
-                  <div style={{ position: "relative", top: "-86px" }}>
+                  }}>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true} >
@@ -729,20 +743,14 @@ setErrorincomeslabs(false)
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={drapdownresidenseerror}
                           >
-                            <MenuItem value="hai">1,00,000</MenuItem>
-                            <MenuItem value="olivier">2,00,000</MenuItem>
-                            {/* {Cityofresidence.map((l: any) => (
-                              <MenuItem value={l}>
-                                {l.name}
-                              </MenuItem>
-                            ))} */}
-
+                            <MenuItem value="hai">Kanpur</MenuItem>
+                            <MenuItem value="olivier">Delhi</MenuItem>
                           </Select>
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.CityofResidence == "" ? errormessagecityofresi : ""}
                           </FormHelperText>
                         </FormControl>
-                        {/* const [dropdownfieldstate, setDropdownfieldstate] = useState(false) */}
+
 
 
                       </Grid>
@@ -780,9 +788,9 @@ setErrorincomeslabs(false)
 
 
 
+                  &nbsp;
 
-
-                  <div style={{ position: "relative", top: "-46px" }}>
+                  <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true}>
@@ -864,21 +872,23 @@ setErrorincomeslabs(false)
 
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
+                  type="number"
                   onBlur={handleOnBlurIncomeSlab}
                   onChange={handlechange}
-                  sx={{ position: "relative", width: "100%", top: "-50px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                  sx={{ position: "relative", width: "100%", top: "-78px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                   error={errorincomeslabs}
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
-                   />
+                />
 
 
 
-
-                <Button variant="contained" style={style.button}
-                  disabled={submitError}
-                  onClick={handleClick} fullWidth >
-                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                </Button>
+                <div style={{ marginTop: "20px" }}>
+                  <Button variant="contained" style={style.buttonbtn}
+                    disabled={!areAllFieldsFilled}
+                    onClick={handleClick} fullWidth >
+                    <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                  </Button>
+                </div>
               </Stack>
 
             </Paper>
