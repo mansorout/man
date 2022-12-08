@@ -1,12 +1,22 @@
-import { Box, Breadcrumbs, Grid, Link, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Breadcrumbs, Button, Grid, Link, Toolbar, Typography } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
 import ULIPHeader from "../../Modules/Cards/ULIP/ULIPHeader";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 import ULIPBlueButton from "../../Modules/Buttons/ULIP/ULIPBlueButton";
+import DateConfirmedDialog from "./DateConfirmedDialog";
+import ThirdPartyRedirection from "./ThirdPartyRedirection";
+import TransactionsDone from "./TransactionsDone";
+import ThirdPartyHdfc from "./ThirdPartyHdfc";
 
 const ULIPRecommendations = () => {
+
+    const [ open, setOpen ] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const ulipData: ULIPProp[] = [
         {
@@ -101,9 +111,13 @@ const ULIPRecommendations = () => {
                                     ulipData.map(data => <ULIPCoFundCard { ...data } />)
                                 }
                                 </Box>
-                                <ULIPBlueButton text="EXPLORE OTHER OPTIONS" navigateTo="/" />
+                                <ULIPBlueButton text="EXPLORE OTHER OPTIONS" navigateTo="/ulip/options" />
+                                {/*
+                                <Button onClick={ handleOpen }>Open dialog</Button>
+                                <ThirdPartyHdfc open={ open } handleClose={ handleClose } />
+                            */}
                             </Box>
-                            <ULIPFooter />
+                            <ULIPFooter text="Select ULIP Date" navigateTo="/ulip/datepicker" />
                         </Box>
                     </Grid>
                 </Grid>

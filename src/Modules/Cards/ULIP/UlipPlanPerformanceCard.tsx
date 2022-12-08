@@ -10,6 +10,9 @@ const UlipPlanPerformanceCard = () => {
         },
         amount: {
             fontSize: '20px',
+        },
+        year: {
+            fontSize: '12px',
         }
     };
 
@@ -46,22 +49,21 @@ const UlipPlanPerformanceCard = () => {
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    fontSize: '12px',
                     color: '#7b7b9d'
                 }}>
-                    <Typography>5Y</Typography>
-                    <Typography>7Y</Typography>
-                    <Typography>10Y</Typography>
-                    <Typography>12Y</Typography>
-                    <Typography>15Y</Typography>
-                    <Typography>20Y</Typography>
+                    <Typography style={ style.year }>5Y</Typography>
+                    <Typography style={ style.year }>7Y</Typography>
+                    <Typography style={ style.year }>10Y</Typography>
+                    <Typography style={ style.year }>12Y</Typography>
+                    <Typography style={ style.year }>15Y</Typography>
+                    <Typography style={ style.year }>20Y</Typography>
                 </Box>
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
                 }}>
                     <Typography style={ style.subheading }>Invested Value</Typography>
-                    <Typography>Projected Value</Typography>
+                    <Typography style={ style.subheading }>Projected Value</Typography>
                 </Box>
                 <Box sx={{
                     display: 'flex',

@@ -45,7 +45,8 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking'; import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking'; 
+import AddFunds from './Components/Portfolio/AddFunds';
 import FundDetails from './Components/FundDetails/FundDetails';
 import ExploreFunds from './Components/ExploreFunds/ExploreFunds';
 import CancleSIP from './Components/Portfolio/CancleSIP';
@@ -77,6 +78,8 @@ import ULIPRecommendations from './Components/ULIP/ULIPRecommendations';
 import ULIPOptions from './Components/ULIP/ULIPOptions';
 import ULIPDetails from './Components/ULIP/ULIPDetails';
 import ULIPHome from './Components/ULIP/ULIPHome';
+import DateConfirmedDialog from './Components/ULIP/DateConfirmedDialog';
+import TransactionsDone from './Components/ULIP/TransactionsDone';
 
 
 
@@ -254,14 +257,14 @@ function App() {
         <Route path="/ulipcard" element={ <UlipCard /> } />
         <Route path="/ulipppcard" element={ <UlipPlanPerformanceCard /> } />
         <Route path='/tr' element={ <TextRadio { ...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} /> } />
-        <Route path="/ulip" element={ <UlipBox /> } />
+        <Route path="/ulip/investoptions" element={ <UlipBox /> } />
         <Route path="/ulipcofund" element={ <ULIPCoFundCard { ...ulipData } /> } />
         <Route path="/ulipheader" element={ <ULIPHeader /> } />
         <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
         <Route path="/ulip/options" element={ <ULIPOptions /> } />
         <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
         <Route path="/ulip/home" element={ <ULIPHome /> } />
-
+        
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />

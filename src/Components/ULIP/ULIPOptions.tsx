@@ -113,7 +113,7 @@ const ULIPOptions = () => {
                                     }
                                 </Box>
                             </Box>
-                            <ULIPFooter />
+                            <ULIPFooter text="Replace Plan" navigateTo="/ulip/details" />
                         </Box>
                     </Grid>
                 </Grid>

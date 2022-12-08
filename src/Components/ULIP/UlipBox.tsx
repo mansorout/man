@@ -3,6 +3,7 @@ import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 
 
 const UlipBox = () => {
@@ -60,7 +61,9 @@ const UlipBox = () => {
                                 </Grid>
                             </Grid>
                         </Box>
+                        <ULIPFooter text="Show Me Recommendations" navigateTo="/ulip/recommendations" />
                     </Grid>
+                    
                 </Grid>
             </Box>
         </Box>
