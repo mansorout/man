@@ -17,6 +17,7 @@ import { PinModalHome } from './Duck/PINModalHome'
 import investmentReducer from './Reducers/investmentReducer'
 import { ULIPCompare } from './Duck/ULIPCompare'
 import { FilterBox } from './Duck/FilterBox'
+import {SaveTaxInvestmentTypeReducers} from './Duck/SaveTaxInvestmentType'
 
 
 
@@ -36,7 +37,8 @@ const rootReducer = combineReducers({
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
     PinModalHome: PinModalHome,
     ULIPCompare : ULIPCompare,
-    investment: investmentReducer
+    investment: investmentReducer,
+    SaveTaxInvestmentType: SaveTaxInvestmentTypeReducers,
 })
 
 export const store = createStore(
