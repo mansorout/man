@@ -229,6 +229,7 @@ function App() {
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/details' element={<Details />} />
         <Route path='/selectedfunds' element={<SelectedFunds />} />
+        <Route path='/timeLoader' element={<TimerLoader />} />
         <Route path='/loader' element={<TimerLoader />} />
         <Route path='/loaderwithtime' element={<Loaderwithtime />} />
 
