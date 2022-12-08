@@ -395,7 +395,7 @@ const navigate=useNavigate()
                                  
                                        
  
-                                    <Link  underline="always">
+                                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                                         <Typography className='burgerText'>View Profile</Typography>
                                     
                                     </Link>

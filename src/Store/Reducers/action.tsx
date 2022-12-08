@@ -39,6 +39,7 @@ const SET_EDIT_STATE =(verifyData:any)=>{
 
 export const login = (loginInput: any) => {
     const { number } = loginInput;
+    console.log(number)
     return async (dispatch: any) => {
         const result = {}
         try {

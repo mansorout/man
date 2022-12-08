@@ -89,6 +89,7 @@ function VviewprofileCard() {
     return (
 
         <>
+        
             <Box
                 sx={{
                     p: 1,
@@ -283,9 +284,7 @@ function VviewprofileCard() {
                 </List>
              
             </Box>
-
-
-         <Box
+             <Box
                 sx={{
                     p: 1,
                     width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "30px"

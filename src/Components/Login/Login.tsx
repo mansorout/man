@@ -36,7 +36,7 @@ export const Login = () => {
 
     container : {
       backgroundColor: "white",
-      width: "100%",
+      width: "96%",
       maxWidth: "500px",
       padding: "10px 0px",
       borderRadius: "20px 20px 0px 0px",
@@ -78,7 +78,8 @@ export const Login = () => {
       width:"100%",
       maxWidth:"400px",
       height: "15px",
-      marginBottom:'10px'
+      marginBottom:'10px',
+      marginLeft: "38px"
     } as React.CSSProperties
   }
 
@@ -102,6 +103,8 @@ export const Login = () => {
   }
 
   }
+
+  console.log(number)
 
   
  
