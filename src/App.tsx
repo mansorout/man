@@ -71,6 +71,7 @@ import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
 import InitiateSip from './Components/SIPScreen/initiateSip';
 import ULIPFound from './Components/Insurance/ULIPFound';
 import ULIPCompare from './Components/Insurance/ULIPCompare';
+import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
 
@@ -197,6 +198,7 @@ function App() {
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/knowMore" element={<InsuranceDetails/>} />
         <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />

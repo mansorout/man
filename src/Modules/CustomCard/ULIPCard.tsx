@@ -159,6 +159,11 @@ function ULIPCard({id, logo, name, renewalBonus, cashlessHospital, anualEMI, mon
       navigate("/healthInsurance/compareULIP")
     }
   }
+  const handleKnowMore = () => {
+    if(ULIPId.length > 1){
+      navigate("/healthInsurance/knowMore")
+    }
+  }
 
   return (
     <>
@@ -194,7 +199,7 @@ function ULIPCard({id, logo, name, renewalBonus, cashlessHospital, anualEMI, mon
         </Box>
         <Box style={{cursor:"pointer",  borderRadius:"4px", backgroundColor:`#dff7ea`, textAlign:"center", padding:"4px 14px", display:"flex", alignItems:"center", gap:"5px"}}>
           <HelpOutline style={{color:`#09b85d`, fontSize:"14px"}}/>
-          <Typography style={{color:`#09b85d`, fontSize:"12px"}}>KNOW MORE</Typography>
+          <Typography onClick={handleKnowMore} style={{color:`#09b85d`, fontSize:"12px"}}>KNOW MORE</Typography>
         </Box>
         </Box>
       </Box>
