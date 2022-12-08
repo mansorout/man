@@ -84,7 +84,7 @@ import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import SimpleModal from './Components/Aa/SimpleModal';
+
 
 
 
@@ -228,7 +228,7 @@ function App() {
         <Route path='/payusingnetbanking' element={<NetBanking />} />
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
-        <Route path='/simplemodal' element={<SimpleModal />} />
+
 
       </Routes>
     </>

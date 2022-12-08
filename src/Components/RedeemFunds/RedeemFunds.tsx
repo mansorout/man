@@ -35,7 +35,7 @@ import { RedeemFundData } from './RedeemFundData'
 import Sidebar from '../CommonComponents/Sidebar'
 import Navbar from '../CommonComponents/Navbar'
 import FullAmountCard from './FullAmountCard'
-import SimpleModal from '../Aa/SimpleModal'
+import SimpleModal from '../CommonModals/SimpleModal'
 import RedeemNowButton from '../../Modules/Buttons/RedeemNowButton'
 
 
