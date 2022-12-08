@@ -113,7 +113,7 @@ const style = {
 export default function RedeemSecFundCard() {
     return (
         <>
-            <Card sx={{ maxWidth: 488, maxHeight: 366, marginTop: "5%", marginLeft: "-3%", borderRadius: "8px" }}>
+            <Card sx={{ maxWidth: 488, maxHeight: 366, marginLeft: "-3%", borderRadius: "8px",marginBottom:"5px" }}>
                 {/* 
               <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem>
