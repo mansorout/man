@@ -48,19 +48,10 @@
     font-size: 14px;
     color: rgba(98, 100, 104, 0.74);
 }
-
-.modalContainer {
-    border-radius: 8px;
-    box-shadow: 0 -24px 24px 0 rgba(0, 0, 0, 0.16);
-    background-color: #ffffff;
-    max-width: 431px;
-    position: absolute;
-    padding: 24px;
-   
-}
+/* 
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border: 1px solid white !important
-}
+} */
 
 .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon{
     color:white !important

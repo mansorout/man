@@ -243,13 +243,13 @@ const InsuranceTerms = () => {
         console.log("quickPickValue: ", e.target)
     }
     const handleGenderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        debugger
+        
         setGenderSelectError(false)
         setGenderSelect((event.target as HTMLInputElement).value);
     };
 
     const handleTobaccoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        debugger
+        
         setTobaccoSelectError(false)
         setTobaccoSelect((event.target as HTMLInputElement).value);
     };

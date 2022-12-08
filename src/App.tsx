@@ -43,6 +43,8 @@ import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
 import SaveTax from './Components/SaveTax/SaveTax'
 import SaveTaxAmount from './Components/SaveTax/SaveTaxAmount';
+import TaxCanSave from './Components/SaveTax/TaxCanSave';
+import PaymentOptionCmp from './Components/SaveTax/PaymentOptionCmp'
 import RecommendationsULIP from './Components/SaveTax/RecommendationsULIP';
 import RecommendationsELSS from './Components/SaveTax/RecommendationsELSS';
 import SaveTaxInvestmentType from './Components/SaveTax/SaveTaxInvestmentType';
@@ -90,6 +92,7 @@ import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
 import SimpleModal from './Components/Aa/SimpleModal';
+import SipLastScreen from './Components/CommonComponents/sipLastscreen';
 import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
@@ -212,6 +215,8 @@ function App() {
         <Route path="/saveTax/saveTaxInvestmentType" element={<SaveTaxInvestmentType />} />
         <Route path="/saveTax/RecommendationsULIP" element={<RecommendationsULIP />} />
         <Route path="/saveTax/RecommendationsELSS" element={<RecommendationsELSS />} />
+        <Route path="/saveTax/taxCanSave" element={<TaxCanSave />} />
+        <Route path="/saveTax/paymentOptionCmp" element={<PaymentOptionCmp />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
@@ -240,6 +245,7 @@ function App() {
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/simplemodal' element={<SimpleModal />} />
+        <Route path='/sipLastScreen' element={<SipLastScreen />} />
 
       </Routes>
     </>

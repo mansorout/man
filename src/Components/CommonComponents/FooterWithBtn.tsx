@@ -58,7 +58,7 @@ interface FooterBtnWithBoxType {
     // boxText: string;
     // boxAmount: string;
     btnText: string;
-    btnClick: () => void
+    btnClick: () => void;
 }
 const FooterWithBtn = (props: FooterBtnWithBoxType) => {
     const classes = useStyles()
@@ -69,7 +69,7 @@ const FooterWithBtn = (props: FooterBtnWithBoxType) => {
             marginTop: '150px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
-                <Button sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}>{props.btnText}</Button>
+                <Button type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}>{props.btnText}</Button>
                 {/* <Box className={classes.premiumAmountBox} sx={{ width: { xs: '80%', sm: '35%' } }}>
                 <div className={classes.insuranceCardIcon}>
                     {props.boxIcon}
