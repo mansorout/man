@@ -30,6 +30,7 @@ import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Asse
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import ClearIcon from '@mui/icons-material/Clear';
+import { AnchorCloseAction } from '../../Store/Duck/FilterBox';
 
 
 
@@ -340,16 +341,11 @@ function DropDownFilter() {
 
     return (
         <>
-            <Stack>
-                
-
-
-
                 <MenuUnstyled
                     style={{ zIndex: 5000 }}
                     actions={menuActions}
                     open={Boolean(Anchor)}
-                    onClose={() => setAnchorEl(null)}
+                    onClose={() => dispatch(AnchorCloseAction())}
                     anchorEl={Anchor}
                 >
                     <StyledMenuItem>
@@ -373,7 +369,7 @@ function DropDownFilter() {
 
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: "end" }}>
-                                    <ClearIcon onClick={(e)=>handleFilterClose(e)}  sx={{ opacity: 0.54 }} />
+                                    <ClearIcon onClick={() => dispatch(AnchorCloseAction())}  sx={{ opacity: 0.54 }} />
                                 </Grid>
 
 
@@ -523,8 +519,6 @@ function DropDownFilter() {
 
                     </StyledMenuItem>
                 </MenuUnstyled>
-
-            </Stack>
         </>
     )
 }

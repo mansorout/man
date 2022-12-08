@@ -159,10 +159,10 @@ function Transaction() {
     setAnchorEl(null) :
     setAnchorEl(event.currentTarget)
   };
+
   const dispatch:any = useDispatch()
 
   const handleFilter =(event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-
     dispatch(AnchorOpenAction(event))
   }
 
@@ -235,7 +235,6 @@ function Transaction() {
                     <FilterAltOutlined style={{color:"#09b85d"}}/>
                   </IconButton>
                 </Box>
-
                 <DropDownFilter/>
               </Box>
               {

@@ -4,13 +4,27 @@ import './insurance.css'
 import { Box} from '@mui/system'
 import { FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Table, TableCell, TableContainer, TableHead, TableRow, Theme, Typography } from '@mui/material'
 import { Toolbar } from '@mui/material'
-
+import { makeStyles } from '@mui/styles';
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { ULIPList } from '../../Modal/ULIP'
 import { useSelector } from 'react-redux'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import { Navigate, useNavigate } from 'react-router-dom'
+
+const useStyles: any = makeStyles((theme: Theme) => ({
+  select : {
+    '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
+      border: "1px solid white !important"
+    },
+    '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+      color: "white !important"
+    },
+    '& .MuiSelect-icon' : {
+      color:"white"
+    }
+  }
+}));
 
 function ULIPCompare() {
 
@@ -123,6 +137,12 @@ function ULIPCompare() {
       color:"white",
       '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
         border:"1px solid white"
+      },
+      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+        color: "white !important"
+      },
+      '&svg' : {
+        color: "white"
       }
     }
   }
@@ -140,7 +160,7 @@ function ULIPCompare() {
     setCompany2(ULIPList.filter((item) => item.id == ULIPId[1])[0])
   },[])
 
-
+  const classes = useStyles()
 
   const handleCompany1Change = (e : any) => {
     setCompany1(ULIPList.filter((item) => item.id == e.target.value)[0])
@@ -217,6 +237,7 @@ function ULIPCompare() {
                     <FormControl sx={{width:"300px"}} variant="outlined">
                       <InputLabel style={{color:"white"}}>Company 1</InputLabel>
                       <Select
+                          className={classes.select}
                           style={style.select}
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -250,6 +271,7 @@ function ULIPCompare() {
                     <FormControl sx={{width:"300px"}} variant="outlined">
                       <InputLabel style={{color:"white"}}>Company 2</InputLabel>
                       <Select
+                          className={classes.select}
                           style={style.select}
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
