@@ -78,7 +78,13 @@ import ProposalForm from './Components/Insurance/ProposalForm';
 import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
 import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
-
+import TimerLoader from './Modules/NetBanking/TimerLoader';
+import Loaderwithtime from './Components/CommonComponents/Circular Loader/Loaderwithtime'; 
+import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
+import NetBanking from './Modules/NetBanking/NetBanking';
+import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
+import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
+import SimpleModal from './Components/Aa/SimpleModal';
 import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
@@ -216,6 +222,15 @@ function App() {
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/details' element={<Details />} />
         <Route path='/selectedfunds' element={<SelectedFunds />} />
+        <Route path='/loader' element={<TimerLoader />} />
+        <Route path='/loaderwithtime' element={<Loaderwithtime />} />
+
+        <Route path='/processingpayments' element={<PaymentRequesting />} />
+        <Route path='/payusingnetbanking' element={<NetBanking />} />
+        <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
+        <Route path='/redemptiondone' element={<RedemptionDone />} />
+        <Route path='/simplemodal' element={<SimpleModal />} />
+
       </Routes>
     </>
   );
