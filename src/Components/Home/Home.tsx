@@ -192,16 +192,21 @@ function Home() {
 
   const error: string[] = useSelector((state: any) => state.error)
   const navigate = useNavigate()
-  const dispatch : any = useDispatch()
-  const {openPin} : any = useSelector((state: any) => state.PinModalHome)
+  const dispatch: any = useDispatch()
+  const { openPin }: any = useSelector((state: any) => state.PinModalHome)
   console.log(openPin)
-  console.log(typeof(openPin))
+  console.log(typeof (openPin))
 
   const handleModalClose = () => {
     dispatch(PinModalHomeCloseAction())
   }
 
-  const handleNavigation = (strNavigationScreenName: string) => {
+  const handleNavigation = (strNavigationScreenName: string | undefined) => {
+
+    if (!strNavigationScreenName) {
+      return;
+    }
+
     let objLocationData = {};
     switch (strNavigationScreenName) {
       case "sipInvestment": {
@@ -220,9 +225,8 @@ function Home() {
       default:
         break;
     }
-    // navigate("/")
+
     navigate("../" + strNavigationScreenName, { state: objLocationData, replace: true });
-    // navigate(0);
   }
 
   const handleNavigationLargeCards = (navigation: string) => {
@@ -238,7 +242,7 @@ function Home() {
             <Toolbar />
             <Sidebar />
 
-            
+
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={8}>
@@ -250,7 +254,7 @@ function Home() {
                 {
                   investingCards.map((item, key) => {
                     return (
-                      <Grid key={key} onClick={() => navigate("/investnowscreen")} item xs={6} sx={{ padding: 2 }}>
+                      <Grid key={key} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
                         <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                       </Grid>
                     )
@@ -275,9 +279,9 @@ function Home() {
             </Grid>
             <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
               <Toolbar />
-              <Box sx={{px: '1rem', mt:"1rem", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+              <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
-                <Typography onClick={()=>navigate('/explorefunds')} style={{cursor:"pointer"}} className='textLink'>View All</Typography>
+                <Typography onClick={() => navigate('/explorefunds')} style={{ cursor: "pointer" }} className='textLink'>View All</Typography>
               </Box>
               {
                 companyCards.map((item, index) => {
@@ -307,7 +311,7 @@ function Home() {
                     <img width="100%" src={Ad1_1} alt="Ad1" />
                   </Box>
                 </Grid>
-                <Grid onClick={()=>navigate("/investnowscreen")} item xs={12} sm={12} md={6}>
+                <Grid onClick={() => navigate("/investnowscreen")} item xs={12} sm={12} md={6}>
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad1" />
                   </Box>

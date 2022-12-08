@@ -37,7 +37,8 @@ import { useNavigate } from "react-router-dom";
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} textAlign="center" sx={{marginTop:"47%"}}>
-            <Button variant="contained" style={style.buttonnetbank} fullWidth>
+            <Button variant="contained" style={style.buttonnetbank} fullWidth onClick={()=>navigate("/timeLoader")}>
+            {/* <Button variant="contained" style={style.buttonnetbank} fullWidth onClick={()=>navigate("/sipsuccessscreen")}> */}
                 <Box sx={{display:"flex",justifyContent:'space-between',alignItems:"center"}}>
                     <Typography sx={{fontSize:"11px",width:"111px"}}>Pay ₹5,000</Typography>
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;

@@ -4,11 +4,26 @@ import './insurance.css'
 import { Box} from '@mui/system'
 import { FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, Typography } from '@mui/material'
 import { Toolbar } from '@mui/material'
-
+import { makeStyles } from '@mui/styles';
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { ULIPList } from '../../Modal/ULIP'
 import ULIPCard from '../../Modules/CustomCard/ULIPCard'
+
+const useStyles: any = makeStyles((theme: Theme) => ({
+  select : {
+    '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
+      border: "1px solid white !important"
+    },
+    '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+      color: "white !important"
+    },
+    '& .MuiSelect-icon' : {
+      color:"white"
+    }
+  }
+}));
+
 
 function ULIPFound() {
 
@@ -121,6 +136,12 @@ function ULIPFound() {
       color:"white",
       '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
         border:"1px solid white"
+      },
+      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+        color: "white !important"
+      },
+      '&svg' : {
+        color: "white"
       }
     }
   }
@@ -137,6 +158,8 @@ function ULIPFound() {
   const handleMemberChange = (e : any) => {
     setMember(e.target.value as string)
   }
+
+  const classes = useStyles()
   
 
   return (
@@ -158,6 +181,7 @@ function ULIPFound() {
                 <FormControl sx={{width:"300px"}} variant="outlined">
                   <InputLabel style={{color:"white"}}>Sum Insured</InputLabel>
                   <Select
+                      className={classes.select}
                       style={style.select}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -174,6 +198,7 @@ function ULIPFound() {
                 <FormControl sx={{width:"300px"}} variant="outlined">
                   <InputLabel style={{color:"white"}}>Member Insured</InputLabel>
                   <Select
+                      className={classes.select}
                       style={style.select}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
