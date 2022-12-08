@@ -189,8 +189,8 @@ function HoldingCards({name,price, year3, current, absolute, year5, result, marg
 
   return (
     <>
-    <Box style={{position:"relative",gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 40px 10px 20px"}}>
-        <Box style={{display:"flex", flexWrap:"wrap", gap:"10px", width:"300px"}}>
+    <Box style={{ position:"relative",gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 40px 10px 20px"}}>
+        <Box style={{display:"flex", flexWrap:"wrap", gap:"10px", width:"100%", maxWidth:"300px"}}>
           <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
               <img src={meria} width="100%" alt='mirae'></img>
           </Box>

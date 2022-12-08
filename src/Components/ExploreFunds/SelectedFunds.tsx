@@ -123,9 +123,7 @@ const SelectedFunds = () => {
 
     const navigate = useNavigate()
     const handleClick = () => {
-        if (selected == 1) {
             setOpen(!open)
-        }
     }
     const handleDateChange = () => {
         console.log("Date is: ");
