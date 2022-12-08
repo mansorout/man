@@ -113,7 +113,11 @@ const SaveTax = () => {
     const navigate = useNavigate();
 
     const handleYesBtn = () => {
-        navigate('./saveTaxAmount');
+        navigate('/saveTax/saveTaxAmount');
+    }
+
+    const handleAssitance = () => {
+        navigate('/saveTax/taxCanSave');
     }
 
     return (
@@ -148,7 +152,7 @@ const SaveTax = () => {
                             <Typography component='p'>Do you know how much you wish to invest to save tax?</Typography>
                             <Box className={classes.btnGroupBox}>
                                 <Button variant="contained" onClick={handleYesBtn}>Yes</Button>
-                                <Button variant="contained">No, I Need Assistance</Button>
+                                <Button variant="contained" onClick={handleAssitance}>No, I Need Assistance</Button>
                             </Box>
                         </Box>
 

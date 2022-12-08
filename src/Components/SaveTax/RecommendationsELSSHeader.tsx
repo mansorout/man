@@ -67,12 +67,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& input': {
             color: 'var(--uiWhite)',
-            border: 'none'
+            // border: 'none'
         },
         '& fieldset': {
-            border: 'none',
+            border: 'none !important',
         }
-    }
+    },
 }))
 const RecommendationsELSSHeader = () => {
     const classes = useStyles();
