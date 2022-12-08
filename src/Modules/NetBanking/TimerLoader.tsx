@@ -13,6 +13,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import CircularProgress, {
   CircularProgressProps
 } from "@mui/material/CircularProgress";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 
 
@@ -60,37 +61,10 @@ import CircularProgress, {
 
 function TimerLoader() {
 
-  const [showSuccessScreen, setShowSuccessScreen] = useState<boolean>(true);
-  const [processing, setprocessing] = useState<boolean>(false);
-
-  setTimeout(() => {
-    setprocessing(true)
-  }, 50000)
-
-
-
-
-
-
-
-
-
-
-
-  const number: string = useSelector((state: any) => state.contact)
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const refContainer = useRef();
-
-
-
-
-
-
+  const [timer, setTimer] = useState<number>(120)
   const error: string[] = useSelector((state: any) => state.error)
-
-
 
   const style = {
 
@@ -185,7 +159,8 @@ function TimerLoader() {
       boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
       transform: "translate(-50%, 0%)",
       left: "57%",
-      bottom: "8%",
+      // bottom: "8%",
+      top: "33%",
       position: "absolute"
     } as React.CSSProperties,
 
@@ -193,6 +168,31 @@ function TimerLoader() {
       width: "72px",
     } as React.CSSProperties,
   }
+
+  const timerProps = {
+    isPlaying: true,
+    size: 120,
+    strokeWidth: 6,
+
+  };
+
+  const getTimeSeconds = (obj: any) => {
+    let remainingTime = obj?.remainingTime;
+    console.log(remainingTime);
+    const minutes = Math.floor(remainingTime / 60)
+    const seconds = remainingTime % 60
+
+    return `${minutes}:${seconds}`;
+  }
+
+  const renderTime = (dimension: any, time: any) => {
+    return (
+      <div className="time-wrapper">
+        <div className="time">{time}</div>
+        <div>{dimension}</div>
+      </div>
+    );
+  };
 
   return (
     <><Box style={{ width: "100vw" }} ref={refContainer}>
@@ -203,33 +203,16 @@ function TimerLoader() {
           spacing={0}
           sx={{ height: "100vh" }}
         >
-
-          <Grid
-            item
-            xs={0}
-            sm={1}
-            md={2}
-          >
+          <Grid item xs={0} sm={1} md={2} >
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid
-            container
-            xs={13}
-            sm={11}
-            md={10}
-          >
+          <Grid container xs={12} sm={11} md={10} >
             <Grid sx={{ padding: 2 }} item xs={12}>
               <Toolbar />
-
-              <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+              <Grid sx={{ position: "relative", height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
                 <Toolbar />
-                <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-
-
-
-                </Grid>
-
+                <Grid container sx={{ display: "flex" }} wrap='nowrap' />
                 <Box
                   textAlign="center"
                   sx={{
@@ -237,60 +220,111 @@ function TimerLoader() {
                     width: "304px",
                   }}
                 >
-
-
                 </Box>
 
-
-
+                {/* <Grid container xs={12} sx={{ height: "50%", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}> */}
                 <Box style={style.container}>
-                  <Box sx={{height:"50%", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-                    
-
-
-                    <Typography sx={{
-                      margin: "0 59px 33px 74px",
-                      fontSize: "16px",
-                      fontWeight: " 500",
-                      color: "#3c3e42"
-                    }}>
-                      Request Sent for Payment
-                    </Typography>
-
-                    <Typography sx={{
-                      margin: "0 59px 33px 74px",
-                      fontSize: "14px",
-                      fontWeight: " 500",
-                      color: "#7b7b9d;"
-                    }}>
-                      Please accept the payment collect request
-                      from SprintMoney in your UPI app.
-                    </Typography>
-
-                    {/* <Box sx={{ position: "relative", display: "inline-flex" }}>
-                      <CircularProgress variant="determinate" {...props} />
-                      <Box
-                        sx={{
-                          top: 0,
-                          left: 0,
-                          bottom: 0,
-                          right: 0,
-                          position: "absolute",
+                  <Grid container xs={12} sx={{ height: "50%", display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} spacing={2}>
+                    <Grid item container>
+                      <Grid item xs={2} />
+                      <Grid xs={8} sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}>
+                        <Typography sx={{
+                          // margin: "0 59px 33px 108px",
                           display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center"
-                        }}
-                      >
-                        <Typography
-                          variant="caption"
-                          component="div"
-                          color="text.secondary"
-                        >{`${Math.round(props.value)}%`}</Typography>
-                      </Box>
-                    </Box> */}
+                          justifyContent: "center",
+                          fontSize: "16px",
+                          fontWeight: "500",
+                          color: "#3c3e42"
+                        }}>
+                          Request Sent for Payment
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={2} />
+                    </Grid>
+                    <Grid item container>
+                      <Grid item xs={1} />
+                      <Grid xs={10} sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }} >
+                        <Typography sx={{
+                          // margin: "0 59px 33px 74px",
+                          display: "flex",
+                          justifyContent: "center",
+                          fontSize: "14px",
+                          fontWeight: " 500",
+                          color: "#7b7b9d;"
+                        }}>
+                          Please accept the payment collect request
+                          from SprintMoney in your UPI app.
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={1} />
+                    </Grid>
+                    <Grid item container sx={{
+                      marginTop:"5%",
+                      marginBottom:"5%"
+                    }}>
+                      <Grid item xs={3} />
+                      <Grid xs={6} sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}>
+                        <CountdownCircleTimer
+                          {...timerProps}
+                          rotation="counterclockwise"
+                          colors="#23db7b"
+                          duration={timer}
+                          // initialRemainingTime={remainingTime % minuteSeconds}
+                          onComplete={(totalElapsedTime) => ({
+                            // shouldRepeat: remainingTime - totalElapsedTime > 0
+                          })}
+                        >
+                          {({ remainingTime }) => remainingTime}
+
+                        </CountdownCircleTimer>
+                      </Grid>
+                      <Grid item xs={3} />
+                    </Grid>
+                  </Grid>
+                </Box>
+                {/* <Box style={style.container}>
+                  <Box sx={{ height: "50%", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+
+
+
+
+                    <Grid container xs={12} >
+                      <Grid item xs={3} />
+                      <Grid xs={6} sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}>
+                        <CountdownCircleTimer
+                          {...timerProps}
+                          rotation="counterclockwise"
+                          colors="#23db7b"
+                          duration={timer}
+                          // initialRemainingTime={remainingTime % minuteSeconds}
+                          onComplete={(totalElapsedTime) => ({
+                            // shouldRepeat: remainingTime - totalElapsedTime > 0
+                          })}
+                        >
+                          {({ remainingTime }) => remainingTime}
+
+                        </CountdownCircleTimer>
+                      </Grid>
+                      <Grid item xs={3} />
+
+                    </Grid>
+
+
 
                   </Box>
-                </Box>
+                </Box> */}
 
 
               </Grid>

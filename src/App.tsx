@@ -78,6 +78,7 @@ import ProposalForm from './Components/Insurance/ProposalForm';
 import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
 import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
+import TimerLoader from './Modules/NetBanking/TimerLoader';
 
 
 
@@ -213,6 +214,7 @@ function App() {
         <Route path='/explorefunds' element={<ExploreFunds />} />
         <Route path='/details' element={<Details />} />
         <Route path='/selectedfunds' element={<SelectedFunds />} />
+        <Route path='/timeLoader' element={<TimerLoader />} />
       </Routes>
     </>
   );
