@@ -297,6 +297,7 @@ function EditprofileCard() {
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
+    alert("hhhhh")
     setActive(!active);
      navigate('/completedview')
 
