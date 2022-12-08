@@ -65,6 +65,9 @@ import CardWithImageAndCount from '../CommonComponents/CardWithImageAndCount';
 import ProposalFormCard from '../CommonComponents/ProposalFormCard';
 import TextWithSwitch from '../CommonComponents/TextWithSwitch';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import ConfirmationModal from './ConfirmationModal';
+import CompleteModal from './CompleteModal';
+import HdfcModal from './HdfcModal';
 
 const style = {
     main: {
@@ -272,6 +275,15 @@ const ProposalFormStep4 = () => {
         gurdian:false
     })
     const [open, setOpen] = React.useState(false);
+    const [count, setCount] = React.useState(1);
+    useEffect(() => {
+     setTimeout(()=>{setCount(2)},5000)
+    }, [])
+    
+    const [openConfirmationModal, setOpenConfirmationModal] = React.useState(false);
+    const [openCompleteModal, setOpenCompleteModal] = React.useState(false);
+    const [openHdfcModal, setOpenHdfcModal] = React.useState(false);
+    const [openTakeItEasyModal, setOpenTakeItEasyModal] = React.useState(false);
 
     const handleClickOpen = () => {
         setDob(null)
@@ -718,9 +730,12 @@ const ProposalFormStep4 = () => {
 
 
             </Box>
+            <ConfirmationModal open={openConfirmationModal} setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
+            <HdfcModal open={openHdfcModal} setOpen={setOpenHdfcModal} />
+            <CompleteModal open={openCompleteModal} setOpen={setOpenCompleteModal} onBtnPress={()=>{navigate('/home')}}/>
             <FooterWithBtn
                 btnText='Continue'
-                btnClick={() => { navigate('/proposalFormStep4') }}
+                btnClick={() => { setOpenConfirmationModal(true) }}
             />
         </div >
     )

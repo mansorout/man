@@ -35,6 +35,7 @@ export const InsuranceTermConditionReducer = (state: any = initialState, action:
 }
 
 export const InsuranceTermConditionAction = (props: boolean) => async (dispatch: Dispatch<any>) => {
+    debugger
     dispatch({
         type: GET_INSURANCE_TERM_CONDITION_SUCCESS,
         payload: props

@@ -43,6 +43,8 @@ import Insurance from './Components/Insurance/Insurance'
 import ExplorePlan from './Components/Insurance/ExplorePlan';
 import SaveTax from './Components/SaveTax/SaveTax'
 import SaveTaxAmount from './Components/SaveTax/SaveTaxAmount';
+import TaxCanSave from './Components/SaveTax/TaxCanSave';
+import PaymentOptionCmp from './Components/SaveTax/PaymentOptionCmp'
 import RecommendationsULIP from './Components/SaveTax/RecommendationsULIP';
 import RecommendationsELSS from './Components/SaveTax/RecommendationsELSS';
 import SaveTaxInvestmentType from './Components/SaveTax/SaveTaxInvestmentType';
@@ -50,13 +52,14 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 // import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
-import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';
+
 
 
 
 import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking'; 
+
 import FundDetails from './Components/FundDetails/FundDetails';
 // import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';\
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
@@ -69,6 +72,10 @@ import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
+
+
+
 import InitiateSip from './Components/SIPScreen/initiateSip';
 import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 
@@ -84,6 +91,15 @@ import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
+import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+import SimpleModal from './Components/CommonModals/SimpleModal';
+import InsuranceDetails from './Components/Insurance/InsuranceDetails';
+// import SimpleModal from './Components/Aa/SimpleModal';
+// import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+// import InsuranceDetails from './Components/Insurance/InsuranceDetails';
+
+
+
 
 
 
@@ -202,14 +218,17 @@ function App() {
         <Route path="/saveTax/saveTaxInvestmentType" element={<SaveTaxInvestmentType />} />
         <Route path="/saveTax/RecommendationsULIP" element={<RecommendationsULIP />} />
         <Route path="/saveTax/RecommendationsELSS" element={<RecommendationsELSS />} />
+        <Route path="/saveTax/taxCanSave" element={<TaxCanSave />} />
+        <Route path="/saveTax/paymentOptionCmp" element={<PaymentOptionCmp />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
 
         <Route path="/Insurance" element={<Insurance />} />
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
-        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
-        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/knowMore" element={<InsuranceDetails/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
         <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
@@ -228,7 +247,8 @@ function App() {
         <Route path='/payusingnetbanking' element={<NetBanking />} />
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
-
+        <Route path='/simplemodal' element={<SimpleModal />} />
+        <Route path='/sipLastScreen' element={<SipLastScreen />} />
 
       </Routes>
     </>
