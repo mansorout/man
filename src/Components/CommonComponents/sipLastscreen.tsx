@@ -183,7 +183,7 @@ const SipLastScreen = () => {
             </Typography>
           </Box>
           <Box style={style.containerX} sx={{
-            top: { xs: "419% !important", sm: "803% !important", md: "205% !important" },
+            top: { xs: "455% !important", sm: "803% !important", md: "205% !important" },
             left: { xs: "47% !important", sm: "47% !important", md: "82% !important" },
             width: { xs: "65% !important", sm: "42% !important", md: "33% !important" },
             marginBottom: { xs: "10% !important !important", md: "0% !important" }
@@ -195,7 +195,8 @@ const SipLastScreen = () => {
               backgroundColor: "var(--lightGreenColor)",
               borderRadius: "10px",
               margin: "9%",
-              padding: "2%"
+              padding: "2%",
+              
             }}>
 
               <Typography mb={2} style={{ maxWidth: "90%" }} className="VerificationOtp" align="center">

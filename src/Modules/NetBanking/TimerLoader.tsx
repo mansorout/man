@@ -160,7 +160,7 @@ function TimerLoader() {
       transform: "translate(-50%, 0%)",
       left: "57%",
       // bottom: "8%",
-      top: "33%",
+      // top: "33%",
       position: "absolute"
     } as React.CSSProperties,
 
