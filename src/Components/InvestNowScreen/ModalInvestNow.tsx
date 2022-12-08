@@ -157,7 +157,7 @@ function ModalInvestNow(props: any) {
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/
 
-  
+
 
   function handleChange(e: any) {
 
@@ -294,16 +294,17 @@ function ModalInvestNow(props: any) {
               />
             </Box>
             <Box sx={{ width: "95%", marginTop: "2%" }}>
-              <TextField type="date" sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft: "3%" }} fullWidth label="Date of Birth"
-
+              <TextField
+                type="date"
+                placeholder=''
+                sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft: "3%" }}
+                fullWidth
+                label="Date of Birth"
                 onBlur={handleOnBlurDOB}
                 onChange={handleChange}
-
                 name='DOB'
-                value={formData.DOB}
+                value={formData.DOB || "dd/mm/yyy"}
                 helperText={!regexDOB.test(formData.DOB) ? <label style={{ color: "red" }}>{errorMessageDOB}</label> : ""}
-
-
               />
             </Box>
 
