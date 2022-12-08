@@ -50,13 +50,14 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 // import TxnFilters from './Components/TxnFilters/TxnFilters'
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
-import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
-import NETbanking from './Components/CardScreen/NETbanking';
+
 
 
 
 import AddFunds from './Components/Portfolio/AddFunds';
+import NETbanking from './Components/CardScreen/NETbanking'; 
+
 import FundDetails from './Components/FundDetails/FundDetails';
 // import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';\
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
@@ -69,6 +70,10 @@ import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
+import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
+
+
+
 import InitiateSip from './Components/SIPScreen/initiateSip';
 import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 
@@ -86,6 +91,12 @@ import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
 import SimpleModal from './Components/Aa/SimpleModal';
 import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+import InsuranceDetails from './Components/Insurance/InsuranceDetails';
+
+
+
+
+
 
 
 
@@ -208,8 +219,9 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
-        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
-        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/knowMore" element={<InsuranceDetails/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
         <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
