@@ -90,6 +90,7 @@ import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
 import SimpleModal from './Components/Aa/SimpleModal';
+import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
 
@@ -217,8 +218,9 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
-        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
-        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
+        <Route path="/healthInsurance/knowMore" element={<InsuranceDetails/>} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
         <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />

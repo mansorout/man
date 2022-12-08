@@ -62,6 +62,7 @@ export const BajajAllianzLogo = require('./ULIP/BajajAllianzLogo.png');
   export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
 //  export const locklogo= require("./Profile/locklogo.png")
   export const paymentslogo= require("./Profile/paymentslogo.png")
+  export const paymentslogo2= require("./payments-24px@3x.png")
 //  export const iccancelledchequelogo= require("./Profile/iccancelledchequelogo.png")
 //  export const checkcirclelogo= require("./Profile/checkcirclelogo.png")
   export const accountboxlogo= require("./Profile/accountboxlogo.png")
@@ -124,6 +125,7 @@ export const ic_tax_saving =require("./ic_tax_saving.png")
 export const ic_no_medical =require("./ic_no_medical.png")
 export const ic_low_cost =require("./ic_low_cost.png")
 export const tick = require("./Tick.png")
+export const cross = require("./ic_cross@3x.png")
 
 
 
