@@ -15,6 +15,7 @@ import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import { Transactions } from '../../Modal/Transactions'
 import AllTrancationCard from '../../Modules/CustomCard/AllTransactionCard'
+
 // import FilterModal from '../TxnFilters/FilterModal'
 import DropDownFilter from '../TxnFilters/DropDownFilter'
 import { useDispatch } from 'react-redux'
@@ -272,6 +273,7 @@ function Transaction() {
           </Grid>
           </Grid>
           </Box>
+       
           
       </Box>
   )
