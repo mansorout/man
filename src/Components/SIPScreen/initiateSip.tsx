@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../InvestNowScreen/InvestNowScreen.css'
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
@@ -23,6 +23,7 @@ import OtpInput from 'react-otp-input'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { globalConstant } from '../../Utils/globalConstant';
+import ModalInvestNow from '../InvestNowScreen/ModalInvestNow';
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -244,6 +245,7 @@ const InitiateSip = () => {
             </Grid>
           </Grid>
         </Grid>
+
       </Box>
 
 

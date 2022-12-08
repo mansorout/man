@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom'
 interface Props {
     Heading: string,
     Text: string,
-    Img: string
+    Img: string,
+    navigationKey: string,
+    iconNavigation: (e: string) => void
 }
 
-function LargeCards({ Heading, Text, Img, }: Props) {
+function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props) {
     const navigate = useNavigate()
     const style = {
         container: {
@@ -31,13 +33,6 @@ function LargeCards({ Heading, Text, Img, }: Props) {
         }
     }
 
-    const handleCardClick = (cardHeading: String) => {
-        // console.log(e.target)
-        // debugger
-        if (cardHeading === 'Get Insured') {
-            navigate("/insurance")
-        }
-    }
 
     return (
         <Box style={style.container}>
@@ -55,7 +50,7 @@ function LargeCards({ Heading, Text, Img, }: Props) {
                     {Text}
                 </Typography>
             </Box>
-            <IconButton onClick={() => handleCardClick(Heading)} style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
+            <IconButton onClick={() => iconNavigation(navigationKey)} style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
                 <ArrowForward style={{ color: "white" }} />
             </IconButton>
         </Box>

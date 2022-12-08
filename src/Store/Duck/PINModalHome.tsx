@@ -25,7 +25,7 @@ export const PinModalHome = (state: any = initialState, action: any): any => {
 }
 
 export const PinModalHomeOpenAction = () => async (dispatch: Dispatch<any>) => {
-    console.log("I was called in PINMODALHome.tsx")
+    
     dispatch({
         type: "open",
         payload: true
