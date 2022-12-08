@@ -35,7 +35,7 @@ import { RedeemFundData } from './RedeemFundData'
 import Sidebar from '../CommonComponents/Sidebar'
 import Navbar from '../CommonComponents/Navbar'
 import { RedeemFundDatacardtwo } from './RedeemFundDatacardtwo'
-import RedeemFundsCardtwo from './RedeemFundCardtwo'
+
 
 
 
@@ -253,13 +253,13 @@ function RedeemFunds() {
 
     const showFirstCard = () => {
         setOpenFirstCard(true)
-      
+
 
 
     }
     const showSecondCard = () => {
         setOpenFirstCard(false)
-      
+
 
     }
 
@@ -295,120 +295,25 @@ function RedeemFunds() {
                         >
 
 
-                            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-
-
-
-                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-
-
-                                    <Toolbar />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}> <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
+                                 <Toolbar /><Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
                                         <Breadcrumbs aria-label="breadcrumb">
-
-
-
                                             <Link color="#6495ED" underline="always" href="/portfolio">
                                                 <Typography className='burgerText'> Portfolio</Typography>
-                                            </Link>
-
-
-
-                                            <Link underline="always" >
+                                            </Link><Link underline="always" >
                                                 <Typography className='burgerText'>Reddem Fund</Typography>
-
-                                            </Link>
+                                                </Link>
                                         </Breadcrumbs>
                                     </Box>
-                                    {openFirstCard ?
-                                        <Box>
-                                            {
-                                                RedeemFundDatacardtwo.map((item:any, index) => {
-                                                    return (
-                                                        <RedeemFundsCard
-                                                            key={index}
-                                                            logo={item.logo}
-                                                            name={item.name}
-                                                            cap={item.cap}
-                                                            type={item.type}
-                                                            year1={item.year1}
-                                                            year3={item.year3}
-                                                            year5={item.year5}
-                                                            year6={item.year6}
-                                                            rating={item.rating}
-                                                            morning_star_logo={item.morning_star_logo}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                        </Box> : <Box>
-                                            {
-                                                RedeemFundDatacardtwo.map((item, index) => {
-                                                    return (
-                                                        <RedeemFundsCardtwo
-                                                            key={index}
-                                                            logo={item.logo}
-                                                            name={item.name}
-                                                            cap={item.cap}
-                                                            type={item.type}
-                                                            year1={item.year1}
-                                                            year3={item.year3}
-                                                            year5={item.year5}
-                                                            year6={item.year6}
-                                                            rating={item.rating}
-                                                            morning_star_logo={item.morning_star_logo}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                        </Box> 
-                                    }
-
-                                   
-
-
-
-
-                                    <Grid container spacing={1} >
+                                    <Grid container spacing={1}>
                                         <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
                                             <RedeemFundCard />
-
                                         </Grid>
-
-
-
-
                                         <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
                                             <RedeemSecFundCard />
-                                           
-
-
                                         </Grid>
-
-
-
                                     </Grid>
-
-
-
-
                                 </Grid>
-
                                 <Box sx={{
                                     width: '83.75vw',
                                     height: '6.1vw',
@@ -423,12 +328,7 @@ function RedeemFunds() {
                                     <button onClick={showFirstCard} >First Card</button>
                                     <button onClick={showSecondCard} >Second Card</button>
                                 </Box>
-
-
-
-
-
-                            </Grid>
+                                </Grid>
                         </Grid>
                     </Grid>
                 </Box>

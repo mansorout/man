@@ -51,19 +51,13 @@ import ChoosedPlanDetail from './Components/Insurance/ChoosedPlanDetail';
 //import RedeemSecScreen from './Components/RedeemSecond/RedeemSecScreen';
 
 
-<<<<<<< HEAD
-=======
-import NETbanking from './Components/CardScreen/NETbanking';
->>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
+
 
 
 
 import AddFunds from './Components/Portfolio/AddFunds';
-<<<<<<< HEAD
 import NETbanking from './Components/CardScreen/NETbanking'; 
 
-=======
->>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
 import FundDetails from './Components/FundDetails/FundDetails';
 // import { UnderDevelopment } from './Components/UnderDevelopment/UnderDevelopment';\
 //import TxnFilters from './Components/TxnFilters/TxnFilters';
@@ -76,28 +70,22 @@ import HealthInsurance from './Components/Insurance/HealthInsurance';
 import FindInsurance from './Components/Insurance/FindInsurance';
 import FindInsurance2 from './Components/Insurance/FindInsurance2';
 import OneTimeMutualFund from './Components/OneTimeMutualFund/OneTimeMutualFund';
-<<<<<<< HEAD
 import SipCard2, { SipProp2 } from './Modules/CustomCard/SipCard2';
 
 
-import InitiateSip from './Components/SIPScreen/initiateSip';
-=======
+
 import InitiateSip from './Components/SIPScreen/initiateSip';
 import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 
 import ULIPFound from './Components/Insurance/ULIPFound';
 import ULIPCompare from './Components/Insurance/ULIPCompare';
->>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
 import ProposalForm from './Components/Insurance/ProposalForm';
 import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
 import ProposalFormStep4 from './Components/Insurance/ProposalFormStep4';
-<<<<<<< HEAD
 
-import ULIPFound from './Components/Insurance/ULIPFound';
-import ULIPCompare from './Components/Insurance/ULIPCompare';
-=======
->>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
+
+
 
 
 

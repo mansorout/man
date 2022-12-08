@@ -34,6 +34,7 @@ import { useForm } from "react-hook-form";
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
+import { Transactions } from '../../Modal/Transactions';
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -292,22 +293,17 @@ function EditprofileCard() {
   const dispatch = useDispatch()
   const [city, setCity] = React.useState('');
   const [state, setState] = React.useState('');
-
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-<<<<<<< HEAD
     event.stopPropagation();
-  
+    setActive(!active);
      navigate('/completedview')
 
 
 
 
-=======
-    // event.stopPropagation();
-    // alert("jj")
-    navigate('/onetimemutualfundrecommendation')
->>>>>>> 315595253907f2cd7b953962dd3aff60269b68f4
+ 
   }
 
   const [errorfirstname, setErrorFirstName] = React.useState<any>("");
@@ -324,7 +320,7 @@ function EditprofileCard() {
   const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
   const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
 
-
+  const [selected, setSelected] = useState<number>(1)
 
 
 
@@ -455,6 +451,7 @@ function EditprofileCard() {
     console.log(formData.gender)
 
   }
+  const [transactions, setTransactions] = useState<any[]>([])
   //   const  handleFemaleGenderButton=(e:any,id:any)=>{
   //     const value = e.target.id;
   //     setFormData({
@@ -607,7 +604,8 @@ console.log(formData)
                           {formData.CountrySecond == "" ? errorMesageCountry : ""}
                         </FormHelperText>
                       </FormControl>
-                    </Grid><Grid item xs={12} md={6}>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label"
                           sx={{
@@ -656,10 +654,10 @@ console.log(formData)
                 <Button
                   id={"male"}
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"male"})}}
+                  onClick={()=>{setFormData({...formData, gender:"male"}); setSelected(1); setTransactions(Transactions)}} style={{cursor:"pointer", border:`1px solid ${ selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
                   variant="outlined"
                   size="small"
-
+                
                   sx={{
                     backgroundColor: " #fff",
                     borderRadius: "8px",
@@ -667,24 +665,26 @@ console.log(formData)
                     height: " 42px", padding: " 6px 10px 6px 6px"
                   }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", marginLeft: "2px", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Male</Typography>
                 </Button>
 
                 <Button
                   name="gender"
+                
                   value={"female"}
-                  onClick={()=>{setFormData({...formData, gender:"female"})}}
+                  onClick={()=>{setFormData({...formData, gender:"female"}); setSelected(2); setTransactions(Transactions.filter((item) => item.confirm))}} style={{cursor:"pointer", border:`1px solid ${ selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
 
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>  Female</Typography>
                 </Button>
 
 
                 <Button
                   id={"transgender"}
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"transgender"})}}
+                
+                  onClick={()=>{setFormData({...formData, gender:"transgender"}); setSelected(3); setTransactions(Transactions.filter((item) => item.transaction))}} style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
                   {/* <Radio {...controlProps('c')} sx={{
@@ -694,7 +694,7 @@ console.log(formData)
 
                     }}
                     /> */}
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Transgender</Typography>
                 </Button>
               </Box>
 
