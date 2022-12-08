@@ -35,6 +35,7 @@ import { RedeemFundData } from './RedeemFundData'
 import Sidebar from '../CommonComponents/Sidebar'
 import Navbar from '../CommonComponents/Navbar'
 import FullAmountCard from './FullAmountCard'
+import SimpleModal from '../Aa/SimpleModal'
 
 
 
@@ -53,9 +54,24 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 function RedeemFunds() {
 
+    const [bankModal, setBankModal] = useState<boolean>(false)
+
+
+
+
     const showPlan = () => {
+        setBankModal(true)
+
+       
+
         navigate('/verifyoncheckout')
     }
+
+    // useEffect(()=>{
+    //     alert(
+    //         bankModal
+    //     )
+    // },[bankModal])
 
 
     const useStyles: any = makeStyles((theme: Theme) => ({
@@ -259,6 +275,7 @@ function RedeemFunds() {
                     : setOptSelected([false, false, false, true])
     }
     const [optSelected, setOptSelected] = useState<boolean[]>([true, false, false, false])
+   
 
     const [selected, setSelected] = useState<number>(1)
     const [partial, setPartial] = useState<boolean>(true)
@@ -619,7 +636,7 @@ function RedeemFunds() {
 
 
 
-
+                            <SimpleModal open={bankModal} />
                         </Grid>
 
                     </Grid>
