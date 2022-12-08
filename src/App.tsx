@@ -85,7 +85,7 @@ import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
 import SimpleModal from './Components/Aa/SimpleModal';
-
+import SipLastScreen from './Components/CommonComponents/sipLastscreen';
 
 
 
@@ -229,6 +229,7 @@ function App() {
         <Route path='/verifyoncheckout' element={<VerifyonCheckout />} />
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/simplemodal' element={<SimpleModal />} />
+        <Route path='/sipLastScreen' element={<SipLastScreen />} />
 
       </Routes>
     </>
