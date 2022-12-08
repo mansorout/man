@@ -272,7 +272,7 @@ function Transaction() {
           </Grid>
           </Grid>
           </Box>
-          {/* <FilterModal close={()=>setOpen(false)} open={open}/> */}
+          
       </Box>
   )
 }
