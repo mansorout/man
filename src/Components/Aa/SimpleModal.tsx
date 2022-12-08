@@ -96,8 +96,8 @@ function SimpleModal(props:any) {
                             display: "contents",
                             position: " absolute"
                         }} item xs={4}>
-                            <Box sx={{ margin: "12px 0px 8px 73px" ,opacity:" 0.54 "}} onClick={props.open}>
-                                <ClearIcon />
+                            <Box  onClick={props.close}  sx={{ margin: "12px 0px 8px 73px" ,opacity:" 0.54 "}}  >
+                                <ClearIcon  />
                             </Box>
                         </Grid>
 

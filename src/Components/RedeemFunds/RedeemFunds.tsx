@@ -629,7 +629,7 @@ function RedeemFunds() {
 
 
 
-                            <SimpleModal open={bankModal}  />
+                            <SimpleModal open={bankModal}  close={()=>setBankModal(false)} />
                         </Grid>
 
                     </Grid>
