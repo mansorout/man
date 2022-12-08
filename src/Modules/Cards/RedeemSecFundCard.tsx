@@ -113,125 +113,153 @@ const style = {
 export default function RedeemSecFundCard() {
     return (
         <>
-            <Card sx={{ marginTop: "5%", borderRadius: "8px" }}>
+            <Card sx={{ maxWidth: 488, maxHeight: 366, marginLeft: "-3%", borderRadius: "8px", marginBottom: "5px" }}>
 
-                <CardContent>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    <ListItem>
+                        <ListItemAvatar>
+                            <Avatar sx={{ marginTop: "-4.56ch" }}>
+                                <img src={rupconvie} alt="image" style={style.RupConviestyle} />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary="Exit Load" secondary="Exit load will be applicable if you are redeeming a fund within 365 days
+                 from the date of purchase. Exit load is a percentage of the NAV of the fund." sx={{ fontSize: "12px" }} />
+                    </ListItem>
+                    <ListItem>
+                        <ListItemAvatar>
+                            <Avatar sx={{ marginTop: "-4.56ch" }}>
+                                <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary="Tax Implications" secondary="Investors earn dividends and capital gains from liquid funds.
+                 Investors do not pay any tax on dividend income from mutual funds." sx={{ fontSize: "12px" }} />
+                    </ListItem>
+                    <Box sx={{ textAlign: "center", }}>
+                        <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}>Final units or amount will depend on NAV applicable at the time of actual redemption request.</Typography>
+                    </Box>
                     <Box>
-                        <Typography sx={{
-                            width: "318px",
-                            height: "21px",
-                            margin: "5% 108px 22px 5%",
-                            fontFamily: "Roboto",
-                            fontSize: "18px",
-                            fontWeight: "500",
-                            fontStretch: "normal",
-                            fontStyle: "normal",
-                            lineHeight: "normal",
-                            letterSpacing: "normal",
-                            textAlign: "left",
-                            color: " #3c3e42"
-                        }}>Advantages of Lump sum investment</Typography>
+                        <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}>By continuing, you’re agreeing to SprintMoneyTM
+                            Terms and conditions</Typography>
                     </Box>
 
-                    <Box>
-                        <img src={rupconvie} alt="image" style={style.RupConviestyle} />
-                    </Box>
-                    <Box sx={{ marginLeft: "14%", marginTop: "-12%" }}>
-                        <Typography sx={{
-                            fontSize: "16px",
+                    <CardContent>
+                        <Box>
+                            <Typography sx={{
+                                width: "318px",
+                                height: "21px",
+                                margin: "5% 108px 22px 5%",
+                                fontFamily: "Roboto",
+                                fontSize: "18px",
+                                fontWeight: "500",
+                                fontStretch: "normal",
+                                fontStyle: "normal",
+                                lineHeight: "normal",
+                                letterSpacing: "normal",
+                                textAlign: "left",
+                                color: " #3c3e42"
+                            }}>Advantages of Lump sum investment</Typography>
+                        </Box>
+
+                        <Box>
+                            <img src={rupconvie} alt="image" style={style.RupConviestyle} />
+                        </Box>
+                        <Box sx={{ marginLeft: "14%", marginTop: "-12%" }}>
+                            <Typography sx={{
+                                fontSize: "16px",
 
 
-                        }}>Exit Load</Typography>
-                        <Typography sx={{
-                            width: "100%",
-                            height: " 50px",
-                            margin: " 4px 0 0 ",
-                            fontSize: "14px",
-                            fontWeight: "normal",
-                            lineHeight: "1.21",
-                            textAlign: " left",
-                            color: "#7b7b9d"
-                        }}>Exit load will be applicable if you are redeeming a fund within
-                            365 days from the date of purchase. Exit load
-                            is a percentage of the NAV of the fund.</Typography>
-                    </Box>
-                    &nbsp;
-                    <Box>
-                        <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
-                    </Box>
-                    <Box sx={{ marginLeft: "14%", marginTop: "-12%" }}>
-                        <Typography sx={{ fontSize: "16px", }}>Tax Implications</Typography>
-                        <Typography
-                            sx={{
+                            }}>Exit Load</Typography>
+                            <Typography sx={{
                                 width: "100%",
                                 height: " 50px",
-
-                                fontFamily: " Roboto",
+                                margin: " 4px 0 0 ",
                                 fontSize: "14px",
+                                fontWeight: "normal",
+                                lineHeight: "1.21",
                                 textAlign: " left",
                                 color: "#7b7b9d"
-                            }}
-                        >Investors earn dividends and capital gains from liquid funds.
-                            Investors do not pay any tax on dividend income from mutual funds.</Typography>
-                    </Box>
-                    <Box sx={{ textAlign: " center", }}>
-                        <Typography sx={{
-                            width: " 100%",
-                            height: "31px",
-                            marginTop: '13%',
-                            fontSize: " 12px",
-                            fontWeight: "normal",
-                            fontStyle: " normal",
-                            lineHeight: "1.42",
-                            letterSpacing: "normal",
+                            }}>Exit load will be applicable if you are redeeming a fund within
+                                365 days from the date of purchase. Exit load
+                                is a percentage of the NAV of the fund.</Typography>
+                        </Box>
+                        &nbsp;
+                        <Box>
+                            <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
+                        </Box>
+                        <Box sx={{ marginLeft: "14%", marginTop: "-12%" }}>
+                            <Typography sx={{ fontSize: "16px", }}>Tax Implications</Typography>
+                            <Typography
+                                sx={{
+                                    width: "100%",
+                                    height: " 50px",
 
-                            color: "#7b7b9d",
-
-
-                        }}>  Final units or amount will depend on NAV
-                            applicable at the time of actual redemption request.</Typography>
-                    </Box>
-                    &nbsp;
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
-                            <Box sx={{ textAlign: " center" }}>
-
-                                <Typography sx={{
-                                      
-                                    height: "31px",
-                                    margin: "-4% 7px 19px 40px",
-                                    fontSize: " 12px",
-                                    fontWeight: "normal",
-                                    fontStyle: " normal",
-                                    lineHeight: "1.42",
-                                    letterSpacing: "normal",
-                                    color: "#7b7b9d",
+                                    fontFamily: " Roboto",
+                                    fontSize: "14px",
+                                    textAlign: " left",
+                                    color: "#7b7b9d"
                                 }}
-            
-                                >
-                                    By continuing, you’re agreeing to SprintMoneyTM
+                            >Investors earn dividends and capital gains from liquid funds.
+                                Investors do not pay any tax on dividend income from mutual funds.</Typography>
+                        </Box>
+                        <Box sx={{ textAlign: " center", }}>
+                            <Typography sx={{
+                                width: " 100%",
+                                height: "31px",
+                                marginTop: '13%',
+                                fontSize: " 12px",
+                                fontWeight: "normal",
+                                fontStyle: " normal",
+                                lineHeight: "1.42",
+                                letterSpacing: "normal",
 
-                                </Typography>
-                            </Box>
+                                color: "#7b7b9d",
+
+
+                            }}>  Final units or amount will depend on NAV
+                                applicable at the time of actual redemption request.</Typography>
+                        </Box>
+                        &nbsp;
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={12}>
+                                <Box sx={{ textAlign: " center" }}>
+
+                                    <Typography sx={{
+
+                                        height: "31px",
+                                        margin: "-4% 7px 19px 40px",
+                                        fontSize: " 12px",
+                                        fontWeight: "normal",
+                                        fontStyle: " normal",
+                                        lineHeight: "1.42",
+                                        letterSpacing: "normal",
+                                        color: "#7b7b9d",
+                                    }}
+
+                                    >
+                                        By continuing, you’re agreeing to SprintMoneyTM
+
+                                    </Typography>
+                                </Box>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
 
-                    <Box sx={{ textAlign: " center", }}>
-                        <Typography sx={{
+                        <Box sx={{ textAlign: " center", }}>
+                            <Typography sx={{
 
-                            marginTop: "-8%",
-                            fontSize: " 12px",
-                            fontWeight: "normal",
-                            fontStyle: " normal",
-                            lineHeight: "1.42",
-                            letterSpacing: "normal",
+                                marginTop: "-8%",
+                                fontSize: " 12px",
+                                fontWeight: "normal",
+                                fontStyle: " normal",
+                                lineHeight: "1.42",
+                                letterSpacing: "normal",
 
-                            color: "#6c63ff",
-                        }}>     Terms and conditions</Typography>
-                    </Box>
+                                color: "#6c63ff",
+                            }}>     Terms and conditions</Typography>
+                        </Box>
 
-                </CardContent>
+                    </CardContent>
+                </List>
             </Card>
 
 

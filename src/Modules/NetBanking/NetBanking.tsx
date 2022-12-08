@@ -294,7 +294,7 @@ function NetBanking() {
                                                 label="NEFT/RTGS" />
                                                  }
                                                  action={
-                                            <Box onClick={() => setOpenBankAccmodal(true)}>
+                                            <Box >
                                                 <img src={hdfclogo} alt="sprint-money" style={{
                                                     width: "29.1px",
                                                     height: "29.4px",
@@ -386,7 +386,9 @@ function NetBanking() {
 
 
                             </Card>
-                            <MakepaymentNetbankingbutton />
+                           <Box onClick={() => setOpenBankAccmodal(true)}>
+                           <MakepaymentNetbankingbutton />
+                           </Box>
 
 
                         </Grid>
@@ -476,8 +478,12 @@ function NetBanking() {
 
                 </Box>
 
+               
+
                 
             </Modal>
+
+           
             
 
         </Box>

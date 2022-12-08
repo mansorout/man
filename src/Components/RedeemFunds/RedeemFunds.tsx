@@ -4,8 +4,8 @@ import { Box, styled } from '@mui/system'
 
 
 import React, { useEffect, useRef, useState } from 'react'
-import { Breadcrumbs, Drawer as DrawerList, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, TextFields } from '@mui/icons-material'
+import { Breadcrumbs, Card, CardContent, Checkbox, Drawer as DrawerList, FormControlLabel, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
+import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search, TextFields } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
@@ -34,6 +34,8 @@ import RedeemSecFundCard from '../../Modules/Cards/RedeemSecFundCard'
 import { RedeemFundData } from './RedeemFundData'
 import Sidebar from '../CommonComponents/Sidebar'
 import Navbar from '../CommonComponents/Navbar'
+import FullAmountCard from './FullAmountCard'
+import SimpleModal from '../Aa/SimpleModal'
 import { RedeemFundDatacardtwo } from './RedeemFundDatacardtwo'
 
 
@@ -53,8 +55,16 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 );
 
 function RedeemFunds() {
-    const [openFirstCard, setOpenFirstCard] = useState<boolean>(true)
-    const [openSecondCard, setOpenSecondCard] = useState<boolean>(false)
+
+    const showPlan = () => {
+        navigate('/verifyoncheckout')
+    }
+
+    // useEffect(()=>{
+    //     alert(
+    //         bankModal
+    //     )
+    // },[bankModal])
 
 
     const useStyles: any = makeStyles((theme: Theme) => ({
@@ -251,18 +261,17 @@ function RedeemFunds() {
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //   setName(event.target.value);
 
-    const showFirstCard = () => {
-        setOpenFirstCard(true)
 
+    const [selected, setSelected] = useState<number>(1)
+    const [partial, setPartial] = useState<boolean>(true)
+    const [full, setFull] = useState<boolean>(false)
 
-
+    const Partial = () => {
+        alert("partial")
     }
-    const showSecondCard = () => {
-        setOpenFirstCard(false)
-
-
+    const FullButton = () => {
+        alert("full")
     }
-
 
 
 
@@ -276,9 +285,7 @@ function RedeemFunds() {
                         container
                         spacing={0}
                         sx={{ height: "100vh" }}
-                    >
-
-                        <Grid
+                    ><Grid
                             item
                             xs={0}
                             sm={1}
@@ -292,29 +299,41 @@ function RedeemFunds() {
                             xs={13}
                             sm={11}
                             md={10}
-                        >
-
-
-                            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}> <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-                                 <Toolbar /><Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                                        <Breadcrumbs aria-label="breadcrumb">
-                                            <Link color="#6495ED" underline="always" href="/portfolio">
+                        ><Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
+                                    <Toolbar /> <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                                        <Breadcrumbs aria-label="breadcrumb"><Link color="#6495ED" underline="always" href="/portfolio">
                                                 <Typography className='burgerText'> Portfolio</Typography>
                                             </Link><Link underline="always" >
-                                                <Typography className='burgerText'>Reddem Fund</Typography>
-                                                </Link>
+                                                <Typography className='burgerText'>Redeem Fund</Typography> </Link>
                                         </Breadcrumbs>
                                     </Box>
-                                    <Grid container spacing={1}>
+                                    {
+                                        RedeemFundData.map((item, index) => {
+                                            return (
+                                                <RedeemFundsCard
+                                                    key={index}
+                                                    logo={item.logo}
+                                                    name={item.name}
+                                                    cap={item.cap}
+                                                    type={item.type}
+                                                    year1={item.year1}
+                                                    year3={item.year3}
+                                                    year5={item.year5}
+                                                    year6={item.year6}
+                                                    rating={item.rating}
+                                                    morning_star_logo={item.morning_star_logo}
+                                                />
+                                            )
+                                        })
+                                    }<Grid container spacing={1} >
                                         <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
-                                            <RedeemFundCard />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
+                                            <RedeemFundCard /></Grid><Grid item xs={12} sm={6} sx={{ padding: { xs: 5, sm: 3 }, display: "-webkit-inline-flex" }} >
                                             <RedeemSecFundCard />
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Box sx={{
+                                        </Grid>
+                                         <Box onClick={showPlan} sx={{
                                     width: '83.75vw',
                                     height: '6.1vw',
                                     marginTop: '8vw',
@@ -325,11 +344,15 @@ function RedeemFunds() {
                                     backgroundColor: '#fff'
                                 }}>
                                     <RedeemNowButtom />
-                                    <button onClick={showFirstCard} >First Card</button>
-                                    <button onClick={showSecondCard} >Second Card</button>
                                 </Box>
-                                </Grid>
+
+
+
+
+
+                            </Grid>
                         </Grid>
+
                     </Grid>
                 </Box>
             </Box>
