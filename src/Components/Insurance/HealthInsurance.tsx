@@ -370,7 +370,7 @@ const HealthInsurance = () => {
                                             <div className={classes.termInsuranceCard}>
                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                                                 <p style={{ color:'#6c63ff'}}>Do you have any existing health plan?</p>
-                                                <div><span>No</span><span><Switch  color="primary" /></span><span>Yes</span></div>
+                                                <div style={{width:'150px'}}><span>No</span><span><Switch  color="primary" /></span><span>Yes</span></div>
                                                </div>
                                                 <b style={{ color:'#6c63ff', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }} >Term Insurance</b>
                                                 <FormControl fullWidth>

@@ -57,6 +57,7 @@ import CardWithImage from '../CommonComponents/CardWithImage';
 import { manicon, Mylocationicon } from '../../Assets';
 import CardWithImageAndCount from '../CommonComponents/CardWithImageAndCount';
 import CardWithDatePicker from '../CommonComponents/CardWithDate';
+import ThanksModal from './ThanksModal';
 
 const style = {
     main: {
@@ -271,6 +272,8 @@ const FindInsurance2 = () => {
     };
 
     const [open, setOpen] = React.useState(false);
+    const [openModal, setOpenModal] = React.useState(false);
+
 
     const handleClickOpen = () => {
         setDob(null)
@@ -430,9 +433,10 @@ const FindInsurance2 = () => {
 
 
             </Box>
+            <ThanksModal open={openModal} setOpen={setOpenModal} />
             <FooterWithBtn
                 btnText='Continue'
-                btnClick={() => { }}
+                btnClick={() => { setOpenModal(true)}}
             />
         </div >
     )
