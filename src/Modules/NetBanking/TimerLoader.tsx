@@ -173,8 +173,8 @@ function TimerLoader() {
 
     container: {
       backgroundColor: "white",
-      // width: "50%",
-      // height:"50%",
+      width: "50%",
+      height:"50%",
       maxWidth: "500px",
       padding: "10px 0px",
       borderRadius: "8px",

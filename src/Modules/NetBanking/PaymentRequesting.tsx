@@ -36,7 +36,7 @@ function PaymentRequesting() {
 
     setTimeout(() => {
         setprocessing(true)
-    }, 50000)
+    }, 1000)
 
 
 

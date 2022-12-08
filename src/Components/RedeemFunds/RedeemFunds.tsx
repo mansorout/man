@@ -36,6 +36,7 @@ import Sidebar from '../CommonComponents/Sidebar'
 import Navbar from '../CommonComponents/Navbar'
 import FullAmountCard from './FullAmountCard'
 import SimpleModal from '../Aa/SimpleModal'
+import RedeemNowButton from '../../Modules/Buttons/RedeemNowButton'
 
 
 
@@ -61,17 +62,9 @@ function RedeemFunds() {
 
     const showPlan = () => {
         setBankModal(true)
+ }
 
-       
 
-        navigate('/verifyoncheckout')
-    }
-
-    // useEffect(()=>{
-    //     alert(
-    //         bankModal
-    //     )
-    // },[bankModal])
 
 
     const useStyles: any = makeStyles((theme: Theme) => ({
@@ -630,13 +623,13 @@ function RedeemFunds() {
                                 boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
                                 backgroundColor: '#fff'
                             }}>
-                                <RedeemNowButtom />
+                                <RedeemNowButton />
                             </Box>
 
 
 
 
-                            <SimpleModal open={bankModal} />
+                            <SimpleModal open={bankModal}  />
                         </Grid>
 
                     </Grid>
