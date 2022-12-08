@@ -48,7 +48,7 @@ interface HorizontalImgIconLongcardTypes {
     imgUrl: string;
     headIcon: React.ReactElement<any>;
     navigatIcon: React.ReactElement<any>;
-    showInsuranceTerms: () => void
+    showInsuranceTerms?: () => void
 }
 
 

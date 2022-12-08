@@ -10,7 +10,6 @@ import { ActionCreators } from "../../Store";
 
   const SaveSipDetailsButton = ({otp} : {otp : string}) => {
 
-  
     const style = {
         button : {
             height: "48px",
@@ -44,14 +43,12 @@ import { ActionCreators } from "../../Store";
         }
         
     }
-const handleCickButton=()=>{
 
-}
 
 
     return (
-        <Button variant="contained" style={style.button} fullWidth  >
-            <Typography component="span" style={style.text} className="largeButtonText" >Save Details</Typography>
+        <Button variant="contained" style={style.button} fullWidth>
+            <Typography component="span" style={style.text} className="largeButtonText">Save Details</Typography>
         </Button> 
     )
 };
