@@ -91,9 +91,12 @@ import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import SimpleModal from './Components/Aa/SimpleModal';
 import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+import SimpleModal from './Components/CommonModals/SimpleModal';
 import InsuranceDetails from './Components/Insurance/InsuranceDetails';
+// import SimpleModal from './Components/Aa/SimpleModal';
+// import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+// import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
 

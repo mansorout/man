@@ -34,7 +34,7 @@ import { useForm } from "react-hook-form";
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
-import { Transactions } from '../../Modal/Transactions';
+ 
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -156,10 +156,23 @@ function EditprofileCard() {
       // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
       // border: 'solid 1px rgba(0, 0, 0, 0.08)',
     } as React.CSSProperties,
+    select :{
+      color:"white",
+      '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
+        border:"1px solid white"
+      },
+      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+        color: "white !important"
+      },
+      '&svg' : {
+        color: "white"
+      }
+    },
     text: {
       color: "white",
 
     }
+   
 
 
   }
@@ -279,10 +292,10 @@ function EditprofileCard() {
     })
 
 
-    //   console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
-    //  && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
-    //  && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
-    //    )
+      console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
+     && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
+     && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
+       )
 
     console.log(formData.firstName.length < 0 && formData.middleName.length < 0 && formData.LastName.length < 0)
   }, [formData])
@@ -291,21 +304,21 @@ function EditprofileCard() {
     (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
     && (formData.state !== "") && (formData.CountryFirst !== "") && (formData.IncomeSlab !== "") && (formData.LastName !== "")
   const dispatch = useDispatch()
-  const [city, setCity] = React.useState('');
-  const [state, setState] = React.useState('');
-  const [active, setActive] = useState(false);
+ 
+
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
-    alert("hhhhh")
-    setActive(!active);
+    store.dispatch(submituserdetails({'formData': formData})) 
+    
+    
      navigate('/completedview')
 
 
 
 
- 
   }
+ 
 
   const [errorfirstname, setErrorFirstName] = React.useState<any>("");
   const [errormiddlename, setErrorMiddleName] = React.useState<any>("");
@@ -321,7 +334,7 @@ function EditprofileCard() {
   const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
   const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
 
-  const [selected, setSelected] = useState<number>(1)
+
 
 
 
@@ -452,27 +465,7 @@ function EditprofileCard() {
     console.log(formData.gender)
 
   }
-  const [transactions, setTransactions] = useState<any[]>([])
-  //   const  handleFemaleGenderButton=(e:any,id:any)=>{
-  //     const value = e.target.id;
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: id
-
-  //     })
-  //  console.log(formData.gender)
-
-  //   }
-  //   const  handleTransGenderButton=(e:any,id:any)=>{
-  //     const value = e.target.id;
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: id
-
-  //     })
-  //  console.log(formData.gender)
-
-  //   }
+   
 
   const classes = useStyles();
 console.log(formData)
@@ -586,9 +579,11 @@ console.log(formData)
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                        }}>country</InputLabel>
+                        }}>Country of Birth</InputLabel>
 
                         <Select
+                     
+                       
                           onBlur={handleBlurCountry}
                           fullWidth={true}
                           name="CountrySecond"
@@ -597,9 +592,9 @@ console.log(formData)
                           error={countryError}
 
                         >
-                          <MenuItem value="hai">Delhi</MenuItem>
-                          <MenuItem value="olivier">kanpur</MenuItem>
-                          <MenuItem value="kevin">Noida</MenuItem>
+                          <MenuItem value="Delhi">India</MenuItem>
+                          <MenuItem value="kanpur">Nepal</MenuItem>
+                          <MenuItem value="Noida">China</MenuItem>
                         </Select>
                         <FormHelperText sx={{ color: "red" }}>
                           {formData.CountrySecond == "" ? errorMesageCountry : ""}
@@ -613,7 +608,7 @@ console.log(formData)
                             color: "rgba(0, 0, 0, 0.6)",
                             fontSize: "15px",
                             fontWeight: "normal",
-                          }}>State</InputLabel>
+                          }}>Place of Birth</InputLabel>
 
                         <Select
                           fullWidth={true}
@@ -625,8 +620,8 @@ console.log(formData)
                           name="StateOfBirth"
                           sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           error={dropValuestateerror}
-                        ><MenuItem value="hai">Uttarpradesh</MenuItem>
-                          <MenuItem value="olivier">Madhya Pradesh</MenuItem>{/* {State.map((l: any) => (
+                        ><MenuItem value="Madhya Pradesh">Mumbai</MenuItem>
+                          <MenuItem value="Uttarpradesh">Delhi </MenuItem>{/* {State.map((l: any) => (
                         <MenuItem value={l}>
                           {l.name}
                         </MenuItem>
@@ -655,10 +650,10 @@ console.log(formData)
                 <Button
                   id={"male"}
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"male"}); setSelected(1); setTransactions(Transactions)}} style={{cursor:"pointer", border:`1px solid ${ selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
+                  onClick={()=>{setFormData({...formData, gender:"male"})}}
                   variant="outlined"
                   size="small"
-                
+
                   sx={{
                     backgroundColor: " #fff",
                     borderRadius: "8px",
@@ -666,26 +661,24 @@ console.log(formData)
                     height: " 42px", padding: " 6px 10px 6px 6px"
                   }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", marginLeft: "2px", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Male</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
                 </Button>
 
                 <Button
                   name="gender"
-                
                   value={"female"}
-                  onClick={()=>{setFormData({...formData, gender:"female"}); setSelected(2); setTransactions(Transactions.filter((item) => item.confirm))}} style={{cursor:"pointer", border:`1px solid ${ selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px" }}
+                  onClick={()=>{setFormData({...formData, gender:"female"})}}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
 
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>  Female</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
                 </Button>
 
 
                 <Button
                   id={"transgender"}
                   name="gender"
-                
-                  onClick={()=>{setFormData({...formData, gender:"transgender"}); setSelected(3); setTransactions(Transactions.filter((item) => item.transaction))}} style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}
+                  onClick={()=>{setFormData({...formData, gender:"transgender"})}}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
                   {/* <Radio {...controlProps('c')} sx={{
@@ -695,7 +688,7 @@ console.log(formData)
 
                     }}
                     /> */}
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }} style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Transgender</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                 </Button>
               </Box>
 
@@ -744,8 +737,8 @@ console.log(formData)
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={drapdownresidenseerror}
                           >
-                            <MenuItem value="hai">Kanpur</MenuItem>
-                            <MenuItem value="olivier">Delhi</MenuItem>
+                            <MenuItem value="Kanpur">Kanpur</MenuItem>
+                            <MenuItem value="Delhi">Delhi</MenuItem>
                           </Select>
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.CityofResidence == "" ? errormessagecityofresi : ""}
@@ -775,8 +768,8 @@ console.log(formData)
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={errorrsstate}
                           >
-                            <MenuItem value="hai">Uttarpradesh</MenuItem>
-                            <MenuItem value="olivier">Madhya Pradesh</MenuItem>
+                            <MenuItem value="Uttarpradesh">Uttarpradesh</MenuItem>
+                            <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
                           </Select>
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.state == "" ? errormessageStatee : ""}
@@ -815,8 +808,8 @@ console.log(formData)
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={errorPincode}
                           >
-                            <MenuItem value="olivier">208025</MenuItem>
-                            <MenuItem value="olivier">208024</MenuItem>
+                            <MenuItem value="208025">208025</MenuItem>
+                            <MenuItem value="208024">208024</MenuItem>
                           </Select>
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.pincode == "" ? errormessagepincode : ""}
@@ -847,9 +840,9 @@ console.log(formData)
                             sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={errorcountryFirst}
                           >
-                            <MenuItem value="hai">Delhi</MenuItem>
-                            <MenuItem value="olivier">kanpur</MenuItem>
-                            <MenuItem value="kevin">Noida</MenuItem>
+                            <MenuItem value="Delhi">Delhi</MenuItem>
+                            <MenuItem value="kanpur">kanpur</MenuItem>
+                            <MenuItem value="Noida">Noida</MenuItem>
                             {country.map((l: any) => (
                               <MenuItem value={l}>
                                 {l.name}
@@ -889,6 +882,7 @@ console.log(formData)
                     onClick={handleClick} fullWidth >
                     <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                   </Button>
+                 
                 </div>
               </Stack>
 
