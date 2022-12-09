@@ -57,11 +57,11 @@ function CompletedViewProfileCard() {
             border: 'solid 1px rgba(0, 0, 0, 0.08)',
         },
         ca: {
-            backgroundColor: "#64dbff",
+            backgroundColor: "rgba(100, 219, 255, 0.3)",
             width: "20px",
             height: "20px",
+
             padding: "10px",
-            opacity: "0.9",
         } as React.CSSProperties,
 
 
@@ -101,7 +101,7 @@ function CompletedViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                       
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
@@ -109,7 +109,7 @@ function CompletedViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                      
                         </ListItemAvatar>
                         <ListItemText
                             primary="Mobile Number"
@@ -118,6 +118,12 @@ function CompletedViewProfileCard() {
                         />
                     </ListItem>
 
+                    {/* <Avatar
+                                    alt=""
+                                    src={ic_income}
+                                    style={style.ca}
+
+                                /> */}
 
 
 
@@ -125,7 +131,7 @@ function CompletedViewProfileCard() {
 
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                     
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
@@ -133,7 +139,7 @@ function CompletedViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                         
                         </ListItemAvatar>
                         <ListItemText
                             primary="Email Address"
@@ -155,7 +161,7 @@ function CompletedViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                          
                                 <Avatar
                                     alt=""
                                     src={cakelogo}
@@ -163,7 +169,7 @@ function CompletedViewProfileCard() {
 
                                 />
 
-                            </Avatar>
+                       
                         </ListItemAvatar>
                         <ListItemText
                             primary="Date of Birth"
@@ -192,14 +198,14 @@ function CompletedViewProfileCard() {
 
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar>
+                        
                                 <Avatar
                                     alt=""
                                     src={icbirthplacelogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                         
                         </ListItemAvatar>
                         <ListItemText
                             primary="Place of Birth"
@@ -213,14 +219,14 @@ function CompletedViewProfileCard() {
                     >
 
                         <ListItemAvatar>
-                            <Avatar>
+                        
                                 <Avatar
                                     alt=""
                                     src={locationlogo}
                                     style={style.ca}
 
                                 />
-                            </Avatar>
+                         
                         </ListItemAvatar>
                         <ListItemText
                             primary="Communication Address"
@@ -241,13 +247,13 @@ function CompletedViewProfileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            <Avatar>
+                         
                                 <Avatar
                                     alt=""
                                     src={ic_income}
                                     style={style.ca} />
 
-                            </Avatar>
+                          
                         </ListItemAvatar>
                         <ListItemText
                             primary="Income slab"
