@@ -35,19 +35,30 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }));
 
-const Banner = () => {
+interface BannerPropsType{
+    smText: string;
+    planText: string;
+    saveUptoText: string;
+    bgGradient: string;
+    bannerImageUrl: string;
+    bgLayoutImgUrl: string;
+    btnText: string;
+    btnAction: () => void; 
+}
+
+const Banner = (props:BannerPropsType) => {
     const classes = useStyles()
     return (
         <Box className={classes.bannerWrap}>
             <Box>
-                <b>SprintMoney offers</b>
-                <Typography component="p">tax saving Plans</Typography>
-                <Typography component="span">SAVE Upto ₹1.5 Lacs</Typography>
-                <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', display: 'block', marginTop: '15px', zIndex: '1111' }}>Invest Now</Button>
+                <b>{props.smText}</b>
+                <Typography component="p">{props.planText}</Typography>
+                <Typography component="span">{props.saveUptoText}</Typography>
+                <Button onClick={props.btnAction} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', display: 'block', marginTop: '15px', zIndex: '1111' }}>{props.btnText}</Button>
             </Box>
             <Box>
-                <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-banner.svg'} alt="" />
-                <img className={classes.bannerBoxImg} src={process.env.PUBLIC_URL + '/assets/images/save-tax-banner-bg-layout.svg'} alt="" />
+                <img src={props.bannerImageUrl} alt="" />
+                <img className={classes.bannerBoxImg} src={props.bgLayoutImgUrl} alt="" />
             </Box>
         </Box>
     )
