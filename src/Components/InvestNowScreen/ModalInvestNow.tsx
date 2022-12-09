@@ -311,7 +311,7 @@ function ModalInvestNow(props: any) {
 
             <div style={{ width: "100%" }} >
               <Button
-                // disabled={showSubmit}
+                disabled={showSubmit}
                 variant="contained"
                 style={btnstyle.button}
                 fullWidth

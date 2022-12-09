@@ -37,7 +37,6 @@ export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
-export const mobileIcon = require("./Profile/mobile-icon.png");
 export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
@@ -100,6 +99,7 @@ export const formatter = new Intl.NumberFormat('en-IN', {
 });
 
 export const graphimage=require("./Profile/GraphImage.png")
+export const GrouMobilecicon=require("./Profile/GrouMobileIcon.png")
 export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")
 export const lockinlogo =require("./Profile/Lockinlogo.png")
 export const ellipslogo =require("./Profile/Ellipselogo.png")

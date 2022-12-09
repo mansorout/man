@@ -9,9 +9,6 @@ import { InvestButton } from '../Buttons/InvestButton';
 import Stack from '@mui/material/Stack';
 import { Grid, TextField } from '@mui/material';
 import List from '@mui/material/List';
-import ModalInvestNow from '../../Components/InvestNowScreen/ModalInvestNow';
-import { useDispatch } from 'react-redux';
-import { setOpenDetailDialogAction } from '../../Store/Action-Creators';
 
 
 const bull = (
@@ -104,110 +101,80 @@ type IProps = {
     heading: string;
 }
 
+export default function InvestCard(props: IProps) {
 
-function InvestCard(props: IProps) {
-  const dispatch = useDispatch();
+    return (
+        <>
+            <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                    <Stack m={2} spacing={6}>
 
-  const [openInvestModalDetail, setOpenInvestModalDetail] = React.useState<boolean>(false);
+                        <Typography
+                            sx={{
 
-  React.useEffect(() => {
-    dispatch(setOpenDetailDialogAction(openInvestModalDetail))
-  }, [openInvestModalDetail])
+                                width: "100%",
+                                height: "19px",
+                                margin: "0 303px 25px 0",
+                                fontFamily: "Roboto",
+                                fontSize: "16px",
+                                fontWeight: "500",
+                                fontStretch: "normal",
+                                fontStyle: "normal",
+                                lineHeight: "1.25",
+                                letterSpacing: "normal",
+                                textAlign: " left",
+                                color: " #3c3e42",
+                            }}
+                        >{props?.heading}</Typography>
 
-  return (
-    <>
-      <Grid>
+                        <List>
 
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Stack m={2} spacing={6}>
-
-
-              <Typography
-                sx={{
-                  width: "137px",
-                  height: "19px",
-                  margin: "0 303px 25px 0",
-                  fontFamily: "Roboto",
-                  fontSize: "16px",
-                  fontWeight: "500",
-                  fontStretch: "normal",
-                  fontStyle: "normal",
-                  lineHeight: "1.25",
-                  letterSpacing: "normal",
-                  textAlign: " left",
-                  color: " #3c3e42",
-                }}
-              >{props?.heading}</Typography>
-
-              <List>
-
-                <TextField label="I want to invest"
-                  name="middleName"
-                  fullWidth
-                  placeholder='₹1,00,000'
-                  sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
+                            <TextField label="I want to invest"
+                                name="middleName"
+                                fullWidth
+                                placeholder='₹1,00,000'
+                                sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
 
 
-                </TextField>
-                <Typography
-                  sx={{
-                    width: "304px",
-                    height: "14px",
-                    margin: "-8px 135px 0 1px",
+                            </TextField>
+                            <Typography
+                                sx={{
+                                    width: "304px",
+                                    height: "14px",
+                                    margin: "-8px 135px 0 1px",fontSize: "12px", fontWeight: "normal",
+                                    fontStretch: "normal",fontStyle: "normal",lineHeight: " 1.33",letterSpacing: "normal",
+                                    textAlign: " left",color: "#8787a2",
+                                }}
+                            >You can start small, starting from ₹5,000</Typography>
+                            <Stack direction="row" spacing={2} sx={{ marginTop: "12px" }}>
+                                <Button variant="contained" disabled
+                                    sx={{
+                                        BackgroundColor: '#6c63ff', borderRadius: "2px",width: "64px",
+                                        height: "35px",margin: " 2.2 12px 0 0",padding: "10px 12px 9px"}}>+1000</Button>
+                                <Button variant="contained" disabled>+5000 </Button>
+                                <Button variant="contained" href="#contained-buttons" disabled> +10,000
+                                </Button>
+                            </Stack>
+                            <InvestButton />
+                            <Grid container spacing={2} sx={{
+                                textAlign: "center", fontSize: "11px",
+                                fontWeight: "500",
+                                marginTop: "3%",
+                                color: "#6c63ff"
+                            }}>
+                                <Grid item xs={12} >
+                                    KNOW MORE ABOUT INVESTMENT
+                                </Grid>
+                            </Grid>
+                        </List>
+                    </Stack>
+                </CardContent>
 
-                    fontSize: "12px",
-                    fontWeight: "normal",
-                    fontStretch: "normal",
-                    fontStyle: "normal",
-                    lineHeight: " 1.33",
-                    letterSpacing: "normal",
-                    textAlign: " left",
-                    color: "#8787a2",
-                  }}
-                >You can start small, starting from ₹5,000</Typography>
-                <Stack direction="row" spacing={2} sx={{ marginTop: "12px" }}>
-                  <Button variant="contained" disabled
-                    sx={{
-                      BackgroundColor: '#6c63ff',
-                      borderRadius: "2px",
-                      width: "64px",
-                      height: "35px",
-                      margin: " 2.2 12px 0 0",
-                      padding: "10px 12px 9px"
-                    }}
+            </Card>
 
-                  >+1000</Button>
-                  <Button variant="contained" disabled>
-                    +5000
-                  </Button>
-                  <Button variant="contained" href="#contained-buttons" disabled>
-                    +10,000
-                  </Button>
-                </Stack>
-                <InvestButton />
-                <Grid container spacing={2} sx={{
-                  textAlign: "center", fontSize: "11px",
-                  fontWeight: "500",
-                  marginTop: "3%",
-                  color: "#6c63ff"
-                }}>
-                  <Grid item xs={12} >
-                    KNOW MORE ABOUT INVESTMENT
-                  </Grid>
-                </Grid>
-              </List>
-            </Stack>
-          </CardContent>
-
-        </Card>
-
-      </Grid>
-    </>
+        </>
 
 
 
-  );
+    );
 }
-
-export default InvestCard

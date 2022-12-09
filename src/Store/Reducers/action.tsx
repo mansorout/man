@@ -240,8 +240,9 @@ export const nomineeAdd = ({ fullname, dateofbirth, relation_id }: { fullname: s
 
 
 export const submituserdetails = (userdetails:any) => {
-    const { userdata} = userdetails;
-    console.log(userdata);
+    const { formData} = userdetails;
+    console.log(formData);
+    console.log(userdetails)
   
     let token :any = localStorage.getItem('accesstoken')
     return async (dispatch:any)=>{
@@ -256,19 +257,19 @@ export const submituserdetails = (userdetails:any) => {
                             "Authentication":token
                           },
                           body:JSON.stringify({
-                           "firstname":userdata.firstName,
-                           "middlename":userdata.middleName,
-                           "lastname":userdata.lastName,
-                           "emailaddress":userdata.emailaddress,
-                           "mobilenumber":userdata.mobilenumber,
-                           "dateofbirth":userdata.dateofbirth,
+                           "firstname":formData.firstName,
+                           "middlename":formData.middleName,
+                           "lastname":formData.lastName,
+                           "emailaddress":formData.emailaddress,
+                           "mobilenumber":formData.mobilenumber,
+                           "dateofbirth":formData.dateofbirth,
                            "image":"",
-                           "gender":userdata.gender,
-                           "addressline1":userdata.addressline1,
+                           "gender":formData.gender,
+                           "addressline1":formData.addressline1,
                            "addressline2":"",
-                           "pincode":userdata.pincode,
-                           "incomeslab":userdata.IncomeSlab,
-                           "country":userdata.country
+                           "pincode":formData.pincode,
+                           "incomeslab":formData.IncomeSlab,
+                           "country":formData.country
                            
                         })
                           
