@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -214,7 +214,7 @@ const InsuranceTerms = () => {
     // const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
     const [dob, setDob] = React.useState<Dayjs | null>(null);
     const [dobError, setDobError] = useState<boolean>(false)
-    const [quickPickAmount, setQuickPickAmount] = useState<string[]>(['₹25 L', '₹75 L', '₹50 L', '₹1 Cr', '₹5 Cr', '₹10 Cr'])
+    const [quickPickAmount, setQuickPickAmount] = useState<string[]>(['2500000', '7500000', '5000000', '10000000', '50000000', '100000000'])
     const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
     const [genderSelect, setGenderSelect] = useState<string>('')
     const [genderSelectError, setGenderSelectError] = useState<boolean>(false)
@@ -222,8 +222,12 @@ const InsuranceTerms = () => {
     const [tobaccoSelectError, setTobaccoSelectError] = useState<boolean>(false)
     const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
-
     const [open, setOpen] = React.useState(false);
+
+    useEffect(() => {
+        console.log('useEffect insuranceAmount :',insuranceAmount)
+    }, [insuranceAmount])
+    
 
     const handleClickOpen = () => {
         setDob(null)
@@ -239,17 +243,16 @@ const InsuranceTerms = () => {
         setInsuranceAmount(event.target.value as string);
     };
 
-    const selectFromQuickPick = (e: any) => {
-        console.log("quickPickValue: ", e.target)
+    const selectFromQuickPick = (item: string) => {
+        console.log("quickPickValue: ", item)
+        setInsuranceAmount(item);
     }
     const handleGenderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        
         setGenderSelectError(false)
         setGenderSelect((event.target as HTMLInputElement).value);
     };
 
     const handleTobaccoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        
         setTobaccoSelectError(false)
         setTobaccoSelect((event.target as HTMLInputElement).value);
     };
@@ -289,9 +292,13 @@ const InsuranceTerms = () => {
                             label="insuranceAmount"
                             onChange={handleChange}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={1000000}>₹ 1,00,000</MenuItem>
+                            <MenuItem value={2500000}>₹ 2500000</MenuItem>
+                            <MenuItem value={7500000}>₹ 7500000</MenuItem>
+                            <MenuItem value={5000000}>₹ 5000000</MenuItem>
+                            <MenuItem value={10000000}>₹ 10000000</MenuItem>
+                            <MenuItem value={50000000}>₹ 50000000</MenuItem>
+                            <MenuItem value={100000000}>₹ 100000000</MenuItem>
                         </Select>
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }}>
@@ -299,7 +306,7 @@ const InsuranceTerms = () => {
                         <ul className={classes.quickSelectWrapper}>
                             {
                                 quickPickAmount.map((item, index) => (
-                                    <li key={index} onClick={selectFromQuickPick}>{item}</li>
+                                    <li key={index} onClick={() => setInsuranceAmount(item)}>{`₹${item}`}</li>
                                 ))
                             }
                         </ul>

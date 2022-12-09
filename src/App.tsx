@@ -200,7 +200,6 @@ function App() {
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
-        <Route path="/Insurance" element={<Insurance />} />
 
         <Route path="/replaceFunds" element={<ReplaceFunds />} />
 
@@ -208,7 +207,6 @@ function App() {
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
-        <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/saveTax" element={<SaveTax />} />
         <Route path="/saveTax/saveTaxAmount" element={<SaveTaxAmount />} />

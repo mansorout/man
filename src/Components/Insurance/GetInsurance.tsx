@@ -18,7 +18,6 @@ const GetInsurance = () => {
     const navigate = useNavigate();
 
     const handleInsuranceTermCondition = () => {
-        debugger
         dispatch(InsuranceTermConditionAction(true))
     }
     return (
