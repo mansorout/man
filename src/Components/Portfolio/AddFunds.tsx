@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Breadcrumbs, Button, ButtonGroup, Grid, InputAdornment, Link, TextField, Toolbar, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Breadcrumbs, IconButton, InputAdornment, InputBase, Link, TextField, Toolbar, Typography, Grid } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import MutualFundCard2 from "../../Modules/CustomCard/MutualFundCard2";
@@ -8,77 +8,78 @@ import Sidebar from "../CommonComponents/Sidebar";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { globalConstant } from "../../Utils/globalConstant";
+import { FilterAltOutlined, SearchOutlined } from "@mui/icons-material";
+
+
+const data = [
+  {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: globalConstant.ALL_FUNDS,
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+    checkbox: true,
+    buttons: false
+  },
+  {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: globalConstant.BALANCED,
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+    checkbox: true,
+    buttons: false
+  },
+  {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: globalConstant.BALANCED,
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+    checkbox: true,
+    buttons: false
+  },
+  {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: globalConstant.EQUITY,
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+    checkbox: true,
+    buttons: false
+  },
+  {
+    logo: '/Miraelogo.svg',
+    title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+    fundType: 'Equity',
+    price: 30000,
+    rating: 3.7,
+    morningStarLogo: true,
+    oneYearReturn: 12.3,
+    threeYearReturn: 18.76,
+    fiveYearReturn: 24.33,
+    checkbox: true,
+    buttons: false
+  },
+]
 
 const AddFunds = () => {
-
-  const [value, setValue] = useState(0);
-  const [selected, setSelected] = useState(false);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
-
-  const data = [
-    {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-      checkbox: true,
-    },
-    {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-      checkbox: true,
-    },
-    {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-      checkbox: true,
-    },
-    {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-      checkbox: true,
-    },
-    {
-      logo: '/Miraelogo.svg',
-      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-      fundType: ['Large Cap', 'Equity'],
-      price: 30000,
-      rating: 3.7,
-      morningStarLogo: true,
-      oneYearReturn: 12.3,
-      threeYearReturn: 18.76,
-      fiveYearReturn: 24.33,
-      checkbox: true,
-    },
-  ]
-
   const style = {
     main: {
       boxSizing: "border-box",
@@ -100,36 +101,37 @@ const AddFunds = () => {
       backgroundColor: '#dff7ea',
     } as React.CSSProperties,
   };
-  /*
-      const handleClick = (event: React.SyntheticEvent<HTMLElement>) => {
-          event.preventDefault();
-          const target = event.target;
-          target.set
-  
-      }
-  */
+
   const navigate = useNavigate();
+  const [fundList, setFundList] = useState<any[]>([]);
+  const [selected, setSelected] = useState<number>(1);
 
   const g_investment = useSelector((state: any) => state?.investment?.investment);
 
+  useEffect(() => {
+    setFundList(data);
+  }, [])
+
+  const handleSelection = (key: number, type: string) => {
+    setSelected(key);
+    if (type === globalConstant.ALL_FUNDS) {
+      setFundList(data);
+      return;
+    }
+    setFundList(fundList.filter((item) => item.fundType === type));
+  }
+
   return (
-    <Box style={{ width: "100vw" }}
-
-
-
-    >
+    <Box style={{ width: "100vw" }} >
       <Navbar />
-      <Box sx={style.main}
-
-      >
-
+      <Box sx={style.main}>
         <Grid container spacing={0} >
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
-
             <Sidebar />
           </Grid>
-          <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+          {/* <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}> */}
+          <Grid container sx={{ overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Toolbar />
             <Box id="addfunds" sx={{
               backgroundColor: '#f9f9f9',
@@ -155,7 +157,7 @@ const AddFunds = () => {
                   onClick={() => navigate('/mflist')}
                 >Choose fund to add</Typography>
               </Breadcrumbs>
-              <Box sx={{
+              {/* <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 height: '10vw',
@@ -238,15 +240,50 @@ const AddFunds = () => {
                 </Box>
 
 
+              </Box> */}
+
+              <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
+                <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                  <Box>
+                    <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Choose Funds to Invest</Typography>
+                    <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose funds to add</Typography>
+                    <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{`${fundList.length}`} funds found</Typography>
+                  </Box>
+                </Box>
+                <Box padding={2}>
+                  <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
+                    <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                      <SearchOutlined style={{ color: "#7b7b9d" }} />
+                      <InputBase onChange={(e) => setFundList(data.filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search Transactions' style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
+                    </Box>
+                    <IconButton >
+                      <FilterAltOutlined style={{ color: "#09b85d" }} />
+                    </IconButton>
+                  </Box>
+                  <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                    <Box onClick={() => handleSelection(1, globalConstant.ALL_FUNDS)} style={{ cursor: "poindatater", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected === 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({fundList.length})</Typography>
+                    </Box>
+                    <Box onClick={() => handleSelection(2, globalConstant.EQUITY)} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected === 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({fundList.filter((item) => item.fundType === globalConstant.EQUITY).length})</Typography>
+                    </Box>
+                    <Box onClick={() => handleSelection(3, globalConstant.DEBT)} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected === 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Debt ({fundList.filter((item) => item.fundType === globalConstant.DEBT).length})</Typography>
+                    </Box>
+                    <Box onClick={() => handleSelection(4, globalConstant.BALANCED)} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected === 4 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Balanced ({fundList.filter((item) => item.fundType === globalConstant.BALANCED).length})</Typography>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
 
-              {
-                data.map(d => <MutualFundCard2 {...d}
-                />
-
+              {fundList.length && fundList.map((item, index) => {
+                return (
+                  <Box key={index} >
+                    <MutualFundCard2 {...item} />
+                  </Box>
                 )
-
-              }
+              })}
             </Box>
           </Grid>
         </Grid>
