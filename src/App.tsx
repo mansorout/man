@@ -91,9 +91,12 @@ import PaymentRequesting from './Modules/NetBanking/PaymentRequesting';
 import NetBanking from './Modules/NetBanking/NetBanking';
 import { VerifyonCheckout } from './Modules/VerifyOtpOnCheckout/VerifyonCheckout';
 import { RedemptionDone } from './Components/RedeemFunds/RedemptionDone';
-import SimpleModal from './Components/Aa/SimpleModal';
 import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+import SimpleModal from './Components/CommonModals/SimpleModal';
 import InsuranceDetails from './Components/Insurance/InsuranceDetails';
+// import SimpleModal from './Components/Aa/SimpleModal';
+// import SipLastScreen from './Components/CommonComponents/sipLastscreen';
+// import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
 
@@ -200,7 +203,6 @@ function App() {
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
         <Route path="/netbanking" element={<NETbanking />} />
-        <Route path="/Insurance" element={<Insurance />} />
 
         <Route path="/replaceFunds" element={<ReplaceFunds />} />
 
@@ -208,7 +210,6 @@ function App() {
 
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
 
-        <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/saveTax" element={<SaveTax />} />
         <Route path="/saveTax/saveTaxAmount" element={<SaveTaxAmount />} />

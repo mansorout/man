@@ -170,8 +170,9 @@ function ProfileCompleted() {
 
         </Grid>
         <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-    
-                  <Box role="presentation">
+    <Grid container spacing={2}>
+      <Grid item xs={12} sx={{marginTop:"7%",marginLeft:"5%"}}>
+      <Box role="presentation">
                 <Breadcrumbs aria-label="breadcrumb"> <Link color="#6495ED" underline="always" href='home' >
                     <Typography className='burgerText'> Home</Typography>
                   </Link> <Link underline="none" color="#878782" href="/vp" >
@@ -179,6 +180,9 @@ function ProfileCompleted() {
                     </Link>
                 </Breadcrumbs>
               </Box>
+      </Grid>
+    </Grid>
+               
               <Grid container  xs={12} >
               <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
                 <CompletedViewProfileCard />
