@@ -8,6 +8,8 @@ import Navbar from '../../Components/CommonComponents/Navbar';
 import Sidebar from '../../Components/CommonComponents/Sidebar';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import CircularProgress from '@mui/joy/CircularProgress';
+import TimerLoader from './TimerLoader';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 
 
@@ -33,12 +35,18 @@ function PaymentRequesting() {
 
     const [showSuccessScreen, setShowSuccessScreen] = useState<boolean>(true);
     const [processing, setprocessing] = useState<boolean>(false);
+    const [timer, setTimer] = useState<number>(120)
 
     setTimeout(() => {
         setprocessing(true)
-    }, 50000)
+    }, 2000)
 
+    const timerProps = {
+        isPlaying: true,
+        size: 120,
+        strokeWidth: 6,
 
+    };
 
 
 
@@ -246,43 +254,81 @@ function PaymentRequesting() {
                                         <Button onClick={() => navigate("/transactions")} variant="contained" style={style.buttons} fullWidth>
                                             <Typography component="span" style={style.text} className="largeButtonText">Track Transactions</Typography>
                                         </Button>
-                                    </Box> : 
-                                    <Box style={style.container}>
-                                        <Box sx={{ width: "400px", height: "400px", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+                                    </Box> :
+                                        <Box style={style.container}>
+                                            <Box sx={{ width: "400px", height: "400px", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
+                                                <Grid item container>
+                                                    <Grid item xs={2} />
+                                                    <Grid xs={8} sx={{
+                                                        display: "flex",
+                                                        justifyContent: "center"
+                                                    }}>
+                                                        <Typography sx={{
+                                                            // margin: "0 59px 33px 108px",
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                            fontSize: "16px",
+                                                            fontWeight: "500",
+                                                            color: "#3c3e42"
+                                                        }}>
+                                                            Request Sent for Payment
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={2} />
+                                                </Grid>
+                                                <Grid item container>
+                                                    <Grid item xs={1} />
+                                                    <Grid xs={10} sx={{
+                                                        display: "flex",
+                                                        justifyContent: "center"
+                                                    }} >
+                                                        <Typography sx={{
+                                                            // margin: "0 59px 33px 74px",
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                            fontSize: "14px",
+                                                            fontWeight: " 500",
+                                                            color: "#7b7b9d",
+                                                            textAlign: "center"
+                                                        }}>
+                                                            Please accept the payment collect request
+                                                            from SprintMoney in your UPI app.
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={1} />
+                                                </Grid>
+                                                <Grid item container sx={{
+                                                    marginTop: "5%",
+                                                    marginBottom: "5%"
+                                                }}>
+                                                    <Grid item xs={3} />
+                                                    <Grid xs={6} sx={{
+                                                        display: "flex",
+                                                        justifyContent: "center"
+                                                    }}>
+                                                        <CountdownCircleTimer
+                                                            {...timerProps}
+                                                            rotation="counterclockwise"
+                                                            colors="#23db7b"
+                                                            duration={timer}
+                                                        
+                                                        >
+                                                            {({ remainingTime }) => remainingTime}
 
-                                            {/* <Typography>
-                                                Request Sent for Payment
-                                            </Typography>
-                                            <Typography>
-                                                Please accept the payment collect request
-                                                from SprintMoney in your UPI app.
-                                            </Typography> */}
+                                                        </CountdownCircleTimer>
+                                                    </Grid>
+                                                    <Grid item xs={3} />
+                                                </Grid>
 
-                                            <Typography sx={{
-                                                margin: "0 59px 33px 74px",
-                                                fontSize: "16px",
-                                                fontWeight: " 500",
-                                                color: "#3c3e42"
-                                            }}>
-                                                Request Sent for Payment
-                                            </Typography>
 
-                                            <Typography sx={{
-                                                margin: "0 59px 33px 74px",
-                                                fontSize: "14px",
-                                                fontWeight: " 500",
-                                                color: "#7b7b9d;"
-                                            }}>
-                                                Please accept the payment collect request
-                                                from SprintMoney in your UPI app.
-                                            </Typography>
 
-                                            <CircularProgress size="lg" determinate value={66.67}>
 
-                                            </CircularProgress>
 
+
+
+
+                                            </Box>
                                         </Box>
-                                    </Box>
                                 }
 
                             </Grid>

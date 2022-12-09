@@ -3,17 +3,14 @@ import './NetBanking.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Modal, Paper, TextField, Typography } from '@mui/material'
+import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Modal,Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
+import { Toolbar } from '@mui/material'
+import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded,RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
+import { AppBar, Button, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Active_Upi, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo } from '../../Assets/index'
-import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -29,6 +26,7 @@ import Navbar from '../../Components/CommonComponents/Navbar';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ClearIcon from '@mui/icons-material/Clear';
 import UpiMainCom from './Upi/UpiMainCom';
+import NetBankingButton from '../Buttons/NetBankingButton';
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -260,7 +258,7 @@ function NetBanking() {
                                     </Link>
                                 </Breadcrumbs>
                             </Box>
-                            <Card sx={{ maxWidth: 456 ,marginTop:"10px" }}  >
+                            <Card sx={{ maxWidth: 456, marginTop: "10px" }}  >
                                 <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
 
                                 <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -269,20 +267,20 @@ function NetBanking() {
 
                                     <CardHeader
                                         avatar={
-                                            <FormControlLabel sx={{}}  
+                                            <FormControlLabel sx={{}}
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                                 label="NEFT/RTGS" />
-                                          }
+                                        }
                                         action={
                                             <Box onClick={() => navigate('/vp')}>
                                                 <img src={hdfclogo} alt="sprint-money" style={{
                                                     width: "29.1px",
                                                     height: "29.4px",
                                                     marginTop: "15px"
-                                                    }} />
+                                                }} />
                                             </Box>}
-                                            sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
-                                          <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>4825 ********** 25</p>
+                                        sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }} />
+                                    <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>4825 ********** 25</p>
                                     <Box style={style.divider}></Box>
 
 
@@ -292,8 +290,8 @@ function NetBanking() {
                                             <FormControlLabel sx={{}}
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                                 label="NEFT/RTGS" />
-                                                 }
-                                                 action={
+                                        }
+                                        action={
                                             <Box >
                                                 <img src={hdfclogo} alt="sprint-money" style={{
                                                     width: "29.1px",
@@ -301,10 +299,10 @@ function NetBanking() {
                                                     marginTop: "15px"
                                                 }} />
                                             </Box>
-                                             }
-                                             sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }}
-                                             />
-                                              <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>4825 ********** 25</p>
+                                        }
+                                        sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }}
+                                    />
+                                    <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>4825 ********** 25</p>
                                     <Box style={style.divider}></Box>
 
 
@@ -315,16 +313,16 @@ function NetBanking() {
                                     <Box style={style.divider}></Box>
 
                                     <CardHeader
-                                     avatar={
+                                        avatar={
                                             <FormControlLabel
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                                 label="UPI" />
-                                                 }
+                                        }
                                         action={
                                             <IconButton aria-label="UPILOGO" sx={{
                                                 width: "44.1px",
                                                 height: " 35px",
-                                                
+
                                             }}>
                                                 <img src={Active_Upi} alt="S__M" style={{
                                                     width: "44px",
@@ -333,7 +331,7 @@ function NetBanking() {
                                                 }} />
                                             </IconButton>
                                         }
-                                       
+
                                         sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}
 
 
@@ -341,35 +339,15 @@ function NetBanking() {
 
                                     />
 
-                                    <p style={{marginLeft:"10%",marginTop:"-5.5%"}}>Saved UPI Options</p>
+                                    <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>Saved UPI Options</p>
 
                                     <Box sx={{ marginLeft: "20px" }}>
 
-                                       
-
-                                        {/* <TextField
-
-                                            sx={{ paddingRight: "52px" }}
 
 
 
-                                            autoComplete="off"
-                                            // style={style.contactInput}
-                                            margin="normal"
-                                            label="Enter UPI ID"
-                                            InputProps={{
-                                                startAdornment: focus ? <InputAdornment position="start"></InputAdornment> : "",
+                                        <UpiMainCom />
 
-
-                                            }}
-                                            onKeyPress={e => /^[a-zA-Z0-9.-]{2, 256}@[a-zA-Z][a-zA-Z]{2, 64}$/.test(e.key) && e.preventDefault()}
-                                            placeholder=" 9825098250@upi "
-                                            onChange={handleMobile}
-                                        // onFocus={() => setFocus(true)}
-                                        /> */}
-
-                                        <UpiMainCom/>
-                                       
 
                                     </Box>
 
@@ -386,9 +364,9 @@ function NetBanking() {
 
 
                             </Card>
-                           <Box onClick={() => setOpenBankAccmodal(true)}>
-                           <MakepaymentNetbankingbutton />
-                           </Box>
+                            <Box onClick={() => setOpenBankAccmodal(true)}>
+                                <NetBankingButton />
+                            </Box>
 
 
                         </Grid>
@@ -412,7 +390,7 @@ function NetBanking() {
                     left: "50%",
                     transform: "translate(-50%,-50%)"
                 }}>
-                    <Grid container xs={12} style={{ backgroundColor: "white", width: "100%",display:"flex" }}>
+                    <Grid container xs={12} style={{ backgroundColor: "white", width: "100%", display: "flex" }}>
                         <Grid item xs={8}>
 
 
@@ -437,10 +415,10 @@ function NetBanking() {
 
                         <Grid sx={{
                             display: "contents",
-                            position:" absolute"
+                            position: " absolute"
                         }} item xs={4}>
-                            <Box sx={{margin: "12px 0px 8px 73px"}} onClick={() => setOpenBankAccmodal(false)}>
-                            <ClearIcon />  
+                            <Box sx={{ margin: "12px 0px 8px 73px" }} onClick={() => setOpenBankAccmodal(false)}>
+                                <ClearIcon />
                             </Box>
                         </Grid>
 
@@ -476,15 +454,42 @@ function NetBanking() {
                         <Typography style={{ fontSize: "10px", color: '#919eb1' }}>The transaction will be processed once BSE Star MF gets money from your bank. Your transaction will be cancelled if the money isn’t received within 5 working days.</Typography>
                     </Box>
 
+                    <Grid container spacing={0}>
+                        {/* <Grid item xs={6}>
+
+                            <Typography>
+                                Pay ₹5,000
+                            </Typography>
+
+                        </Grid> */}
+
+                        <Grid xs={12} sx={{textAlign: "center"}}>
+
+                            <Button fullWidth onClick={()=>navigate('/processingpayments')} sx={{
+                                backgroundColor: " #23db7b",
+                               
+                               
+                                padding: "10px 32px 9px",
+                                borderRadius: " 4px"
+                            }}>
+                                <Typography sx={{color:"white"}}>
+                                    Proceed
+                                </Typography>
+                            </Button>
+
+                        </Grid>
+
+                    </Grid>
+
                 </Box>
 
-               
 
-                
+
+
             </Modal>
 
-           
-            
+
+
 
         </Box>
     )
