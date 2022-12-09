@@ -90,5 +90,3 @@ export default MakepaymentNetbankingbutton;
 
 
 
-
-// MakepaymentNetbankingbutton
