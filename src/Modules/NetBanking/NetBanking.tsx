@@ -3,17 +3,14 @@ import './NetBanking.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Modal, Paper, TextField, Typography } from '@mui/material'
+import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Modal,Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
+import { Toolbar } from '@mui/material'
+import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded,RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
+import { AppBar, Button, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Active_Upi, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo } from '../../Assets/index'
-import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -348,26 +345,6 @@ function NetBanking() {
 
 
 
-                                        {/* <TextField
-
-                                            sx={{ paddingRight: "52px" }}
-
-
-
-                                            autoComplete="off"
-                                            // style={style.contactInput}
-                                            margin="normal"
-                                            label="Enter UPI ID"
-                                            InputProps={{
-                                                startAdornment: focus ? <InputAdornment position="start"></InputAdornment> : "",
-
-
-                                            }}
-                                            onKeyPress={e => /^[a-zA-Z0-9.-]{2, 256}@[a-zA-Z][a-zA-Z]{2, 64}$/.test(e.key) && e.preventDefault()}
-                                            placeholder=" 9825098250@upi "
-                                            onChange={handleMobile}
-                                        // onFocus={() => setFocus(true)}
-                                        /> */}
 
                                         <UpiMainCom />
 
@@ -494,7 +471,6 @@ function NetBanking() {
                                
                                 padding: "10px 32px 9px",
                                 borderRadius: " 4px"
-                                // box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
                             }}>
                                 <Typography sx={{color:"white"}}>
                                     Proceed
