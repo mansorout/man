@@ -9,7 +9,7 @@ import { Editprofilebutton } from '../Buttons/Editprofilebutton'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import clsx from "clsx";
-
+import '../../Components/EditProfile/Editprofilescreen.css'
 import { useEffect, useState } from 'react'
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import React from 'react'
 import { height, padding } from '@mui/system'
 import MenuItem from '@mui/material/MenuItem';
-
+import './style.css'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -34,7 +34,7 @@ import { useForm } from "react-hook-form";
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
- 
+
 // import { useForm } from "react-hook-form";
 
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -156,15 +156,15 @@ function EditprofileCard() {
       // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
       // border: 'solid 1px rgba(0, 0, 0, 0.08)',
     } as React.CSSProperties,
-    select :{
-      color:"white",
-      '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
-        border:"1px solid white"
+    select: {
+      color: "white",
+      '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+        border: "1px solid white"
       },
-      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {
         color: "white !important"
       },
-      '&svg' : {
+      '&svg': {
         color: "white"
       }
     },
@@ -172,7 +172,7 @@ function EditprofileCard() {
       color: "white",
 
     }
-   
+
 
 
   }
@@ -213,26 +213,13 @@ function EditprofileCard() {
 
 
   const [dropValuestateerror, setDropValuestateError] = useState(false)
-
   const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
-
-
   const [errorrsstate, setErrorsstate] = useState(false)
-
   const [errorPincode, setErrorPincode] = useState(false)
   const [errorcountryFirst, setErrorCountryFirst] = useState(false)
-
   const [errorincomeslabs, setErrorincomeslabs] = useState(false)
-
-
-
   const [error, setError] = useState(false)
   const [countryError, setCountryError] = useState(false)
-
-
-
-
-
   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
   const [errorMesagemiddleName, setErrorMessagemiddleName] = useState("")
   const [errorMesageCountry, setErrorMessageCountry] = useState("")
@@ -290,54 +277,22 @@ function EditprofileCard() {
       setShowSubmitDetails(() => true);
 
     })
-
-
-      console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
-     && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
-     && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
-       )
-
-    console.log(formData.firstName.length < 0 && formData.middleName.length < 0 && formData.LastName.length < 0)
   }, [formData])
 
-  const areAllFieldsFilled = (formData.firstName != "") && (formData.lastName != "") && (mobileRegex.test(formData.mobilenumber)) &&
+  const areAllFieldsFilled = (formData.firstName != "") && (NameRegex.test(formData.lastName)) && (mobileRegex.test(formData.mobilenumber)) &&
     (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
     && (formData.state !== "") && (formData.CountryFirst !== "") && (formData.IncomeSlab !== "") && (formData.LastName !== "")
   const dispatch = useDispatch()
- 
+
 
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
-    store.dispatch(submituserdetails({'formData': formData})) 
-    
-    
-     navigate('/completedview')
-
-
-
-
+    console.log(formData)
+    store.dispatch(submituserdetails({ 'formData': formData }))
+    navigate('/vp')
   }
- 
-
-  const [errorfirstname, setErrorFirstName] = React.useState<any>("");
-  const [errormiddlename, setErrorMiddleName] = React.useState<any>("");
-  const [errorlastname, setErrorLastName] = React.useState<any>("");
-  const [errormobilenumber, setErrorMobilenumber] = React.useState<any>("");
-  const [erroremiladdress, setErrorEmailAdress] = React.useState<any>("");
   const [errorcountry, setErrorCountry] = React.useState<any>("");
-  const [errorstate, setErrorState] = React.useState<any>("");
-  const [erroraddresss, setErrorAddress] = React.useState<any>("");
-  const [errorcityofresidence, setErrorcityofresidence] = React.useState<any>("");
-  const [errorstatetwo, setErrorstatetwo] = React.useState<any>("");
-  const [errorpincode, setErrorpincode] = React.useState<any>("");
-  const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
-  const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
-
-
-
-
-
 
   const handleBlur = () => {
 
@@ -376,7 +331,7 @@ function EditprofileCard() {
 
   }
   const handleOnBlurlastName = () => {
-    if (formData.lastName.length == "") {
+    if (formData.lastName.length == "" || !NameRegex.test(formData.lastName)) {
       setErrorMessagelastname("Please Enter LastName")
       setLastNameError(true)
     }
@@ -465,10 +420,10 @@ function EditprofileCard() {
     console.log(formData.gender)
 
   }
-   
+
 
   const classes = useStyles();
-console.log(formData)
+  console.log(formData)
   return (
     <>
       <div style={{
@@ -478,7 +433,7 @@ console.log(formData)
         marginBottom: "-15px"
 
       }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} >
 
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}
@@ -486,7 +441,7 @@ console.log(formData)
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-25px"
+                marginLeft: "-1px"
               }}
 
             >
@@ -579,11 +534,13 @@ console.log(formData)
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
+                          top: "-1px",
+                          background: "#fff"
                         }}>Country of Birth</InputLabel>
 
                         <Select
-                     
-                       
+
+
                           onBlur={handleBlurCountry}
                           fullWidth={true}
                           name="CountrySecond"
@@ -592,9 +549,9 @@ console.log(formData)
                           error={countryError}
 
                         >
-                          <MenuItem value="Delhi">India</MenuItem>
-                          <MenuItem value="kanpur">Nepal</MenuItem>
-                          <MenuItem value="Noida">China</MenuItem>
+                          <MenuItem value="India">India</MenuItem>
+                          <MenuItem value="Nepal">Nepal</MenuItem>
+                          <MenuItem value="China">China</MenuItem>
                         </Select>
                         <FormHelperText sx={{ color: "red" }}>
                           {formData.CountrySecond == "" ? errorMesageCountry : ""}
@@ -608,6 +565,8 @@ console.log(formData)
                             color: "rgba(0, 0, 0, 0.6)",
                             fontSize: "15px",
                             fontWeight: "normal",
+                            top: "-1px",
+                            background: "#fff"
                           }}>Place of Birth</InputLabel>
 
                         <Select
@@ -643,14 +602,14 @@ console.log(formData)
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-18px"
+                marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 } }}>
                 {/* onClick={() => { this.handleButton(60)}} */}
                 <Button
                   id={"male"}
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"male"})}}
+                  onClick={() => { setFormData({ ...formData, gender: "male" }) }}
                   variant="outlined"
                   size="small"
 
@@ -667,7 +626,7 @@ console.log(formData)
                 <Button
                   name="gender"
                   value={"female"}
-                  onClick={()=>{setFormData({...formData, gender:"female"})}}
+                  onClick={() => { setFormData({ ...formData, gender: "female" }) }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
 
@@ -678,7 +637,7 @@ console.log(formData)
                 <Button
                   id={"transgender"}
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"transgender"})}}
+                  onClick={() => { setFormData({ ...formData, gender: "transgender" }) }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
                   {/* <Radio {...controlProps('c')} sx={{
@@ -725,7 +684,11 @@ console.log(formData)
                             sx={{
                               color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
                               fontWeight: "normal",
-                            }}>City of Residence</InputLabel>
+                              top: "-1px",
+                              background: "#fff"
+                            }}
+                            className="Drapdownstyle"
+                          >City of Residence</InputLabel>
                           <Select
                             fullWidth
                             onBlur={handleOnBlurCityofResidence}
@@ -755,6 +718,8 @@ console.log(formData)
                               color: "rgba(0, 0, 0, 0.6)",
                               fontSize: "15px",
                               fontWeight: "normal",
+                              top: "-1px",
+                              background: "#fff"
                             }}>State</InputLabel>
 
                           <Select
@@ -787,7 +752,53 @@ console.log(formData)
                   <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={6}>
-                        <FormControl fullWidth={true}>
+                        <FormControl
+                          className="pincodeClass">
+
+
+                          <TextField
+
+                            onBlur={handleOnBlurpincode}
+                            label="Pincode"
+                            name="pincode"
+                            value={formData.pincode}
+                            onChange={handlechange}
+                            fullWidth
+                            error={errorPincode}
+                            className="pincodestayle"
+                            id='Pincode'
+                            sx={{
+                              color: "rgba(0, 0, 0, 0.6)",
+                              // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                              width: "100%", fontSize: "15px", fontWeight: "normal",
+                              boxShadow: "none"
+                            }}
+
+                          />
+                          <FormHelperText sx={{ color: "red" }} className="labelStyle">
+                            {formData.pincode == "" ? errormessagepincode : ""}
+                          </FormHelperText>
+                        </FormControl>
+                        {/* <TextField
+                  
+                      onBlur={handleBlur}
+                      label="First Name"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handlechange}
+                      fullWidth
+                      error={error}
+
+                      id='First Name'
+                      sx={{
+                        color: "rgba(0, 0, 0, 0.6)",
+                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        width: "100%", fontSize: "15px", fontWeight: "normal",
+
+                      }}
+                      helperText={error ? errorMessageFN : ""}
+                    /> */}
+                        {/* <FormControl fullWidth={true}>
                           <InputLabel
                             id="demo-simple-select-label"
                             sx={{
@@ -814,7 +825,7 @@ console.log(formData)
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.pincode == "" ? errormessagepincode : ""}
                           </FormHelperText>
-                        </FormControl>
+                        </FormControl> */}
 
                       </Grid>
 
@@ -826,6 +837,8 @@ console.log(formData)
                               color: "rgba(0, 0, 0, 0.6)",
                               fontSize: "15px",
                               fontWeight: "normal",
+                              top: "-1px",
+                              background: "#fff"
                             }}>Country</InputLabel>
 
                           <Select
@@ -878,11 +891,11 @@ console.log(formData)
 
                 <div style={{ marginTop: "20px" }}>
                   <Button variant="contained" style={style.buttonbtn}
-                    disabled={!areAllFieldsFilled}
+                    // disabled={!areAllFieldsFilled}
                     onClick={handleClick} fullWidth >
                     <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                   </Button>
-                 
+
                 </div>
               </Stack>
 

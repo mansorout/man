@@ -196,7 +196,7 @@ export default function InvestSecondCard() {
                             fontFamily: " Roboto",
                             fontSize: "20px",
                             fontWeight: "500",
-
+                            paddingTop: "20px",
                             textAlign: "right",
                             color: " #23db7b"
                             //   

@@ -23,6 +23,7 @@ import Paper from "@mui/material/Paper";
 
 import React from 'react'
 import { height, padding } from '@mui/system'
+import { useSelector } from 'react-redux'
 
 function CompletedViewProfileCard() {
 
@@ -67,6 +68,8 @@ function CompletedViewProfileCard() {
 
     }
 
+
+  
 
     return (
 

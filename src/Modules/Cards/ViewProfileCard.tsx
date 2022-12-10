@@ -24,9 +24,10 @@ import Paper from "@mui/material/Paper";
 
 
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { height, padding } from '@mui/system'
 import { Console } from 'console'
+import { useSelector } from 'react-redux'
 
 function ViewProfileCard() {
 
@@ -97,7 +98,7 @@ function ViewProfileCard() {
     const [imgSrc, setImgSrc] = useState<any>("");
 
     function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
- 
+
 
         if (e.target.files && e.target.files.length > 0) {
 
@@ -109,10 +110,17 @@ function ViewProfileCard() {
         }
     }
 
-    console.log(imgSrc)
 
-    
-        
+    const [useFormData, setUserFormData] = useState({})
+    console.log(imgSrc)
+    const userData: any = useSelector((state: any) => state.userProfileDetails)
+    console.log(userData?.formData?.mobilenumber)
+
+    // useEffect(()=>{
+    //     setUserFormData(userData)
+    // },[useFormData])
+
+
 
     return (
 
@@ -138,8 +146,8 @@ function ViewProfileCard() {
 
 
                         </Box>
-                         <ListItem
-                         secondaryAction={
+                        <ListItem
+                            secondaryAction={
                                 <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
                             }  >
                         </ListItem>
@@ -147,19 +155,23 @@ function ViewProfileCard() {
                         <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
 
                         <ListItem>
-                       <ListItemAvatar> 
+                            <ListItemAvatar>
                                 <Avatar
                                     alt=""
                                     src={GrouMobilecicon}
-                                    style={style.ca}  />
-                                     </ListItemAvatar>
+                                    style={style.ca} />
+                            </ListItemAvatar>
                             <Typography sx={{ fontSize: "14px" }}>Mobile Number
-                                <Typography sx={{ fontSize: "14px" }}>+91 8601600297</Typography>
+
+                                {
+                                    userData?.formData?.mobilenumber !== "" ?
+                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.mobilenumber}</Typography> : ""
+                                }
                             </Typography>
                         </ListItem>
 
-                        <ListItem> 
-                            <ListItemAvatar> 
+                        <ListItem>
+                            <ListItemAvatar>
                                 <Avatar
                                     alt=""
                                     src={emaillogo}
@@ -167,53 +179,65 @@ function ViewProfileCard() {
 
                                 />  </ListItemAvatar>
                             <Typography sx={{ fontSize: "14px" }}>Email Address
+                                {
+                                    userData?.formData?.emailaddress !== "" ?
+                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.emailaddress}</Typography> : ""
+                                }
                             </Typography>
                         </ListItem>
 
 
                         <ListItem>
-                            <ListItemAvatar> 
-                                 <Avatar
+                            <ListItemAvatar>
+                                <Avatar
                                     alt=""
                                     src={cakelogo}
                                     style={style.ca}
 
                                 />
-                                 </ListItemAvatar>
+                            </ListItemAvatar>
                             <ListItemText
                                 primary={
                                     <Typography sx={{ fontSize: "14px" }}>Date of Birth</Typography>
                                 }
+                                secondary={userData?.formData?.dateofbirth !== "" ?
+                                    <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.dateofbirth}</Typography> : ""}
 
                             />
-                               <Avatar
+                            <Avatar
                                 alt=""
                                 src={wclogo}
-                                style={style.ca} 
-                                 sx={{ marginLeft: '25px' }} />
+                                style={style.ca}
+                                sx={{ marginLeft: '25px' }} />
 
-                                <ListItemText
+                            <ListItemText
                                 primary="Gender"
-                                secondary="Male"
-                                sx={{ marginLeft: '20px' }}  />
+                                secondary={userData?.formData?.gender !== "" ?
+                                    userData?.formData?.gender : ""}
+                                sx={{ marginLeft: '20px' }} />
                         </ListItem>
 
 
 
-                        <ListItem> 
-                             <ListItemAvatar>
-                                    <Avatar
-                                        alt=""
-                                        src={icbirthplacelogo}
-                                        style={style.ca} />
-                                        </ListItemAvatar>
+                        <ListItem>
+                            <ListItemAvatar>
+                                <Avatar
+                                    alt=""
+                                    src={icbirthplacelogo}
+                                    style={style.ca} />
+                            </ListItemAvatar>
 
-                                <Typography sx={{ fontSize: "14px" }}>Place of Birth</Typography>
+                            <Typography sx={{ fontSize: "14px" }}>Place of Birth
+                                {
+                                    userData?.formData?.CountrySecond !== "" ?
+                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.CountrySecond}</Typography> : ""
+                                }
+                            </Typography>
 
-                              
-                      
-                              
-                        </ListItem> 
+
+
+
+                        </ListItem>
                         <ListItem
                             secondaryAction={
                                 <IconButton edge="end" aria-label="delete">
@@ -222,13 +246,18 @@ function ViewProfileCard() {
                             }
                         >
                             <ListItemAvatar> <Avatar
-                                    alt=""
-                                    src={locationlogo}
-                                    style={style.ca} />
-                      </ListItemAvatar> 
-                      <ListItemText
+                                alt=""
+                                src={locationlogo}
+                                style={style.ca} />
+                            </ListItemAvatar>
+                            <ListItemText
                                 primary={
-                                    <Typography sx={{ fontSize: "14px" }}>Communication Address</Typography>
+                                    <Typography sx={{ fontSize: "14px" }}>Communication Address
+                                        {
+                                            userData?.formData?.addressline1 !== "" ?
+                                                <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.addressline1}</Typography> : ""
+                                        }
+                                    </Typography>
                                 }
 
                             />
@@ -258,7 +287,12 @@ function ViewProfileCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={
-                                    <Typography sx={{ fontSize: "14px" }}>Income slab</Typography>
+                                    <Typography sx={{ fontSize: "14px" }}>Income slab
+                                       {
+                                            userData?.formData?.IncomeSlab !== "" ?
+                                                <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.IncomeSlab}</Typography> : ""
+                                        }
+                                    </Typography>
                                 }
 
                             />
@@ -275,4 +309,3 @@ function ViewProfileCard() {
 
 export default ViewProfileCard
 
- 

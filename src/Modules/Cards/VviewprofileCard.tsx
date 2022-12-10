@@ -22,27 +22,12 @@ import ListSubheader from '@mui/material'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material';
 
-
-import React from 'react'
+import {store} from '../../Store/Store'
+import React, { useEffect } from 'react'
 import { Height } from '@mui/icons-material'
+import { useSelector } from 'react-redux'
 
 function VviewprofileCard() {
-    const navigate = useNavigate();
-    function handleSubmit() {
-        navigate('/pan_update');
-        // navigate('/nominee')
-    }
-
-    function handleSubmits() {
-        // navigate('/pan_update');
-        navigate('/nominee')
-    }
-    function handleSubmitss() {
-        navigate('/uploadsignature')
-    }
-    function handleSubmitsss() {
-        navigate('/bad')
-    }
     const style = {
         containertwo: {
             backgroundColor: "#fff",
@@ -83,6 +68,27 @@ function VviewprofileCard() {
         // } as React.CSSProperties,
 
     }
+
+    
+    const navigate = useNavigate();
+    function handleSubmit() {
+        navigate('/pan_update');
+        // navigate('/nominee')
+    }
+
+    function handleSubmits() {
+        // navigate('/pan_update');
+        navigate('/nominee')
+    }
+    function handleSubmitss() {
+        navigate('/uploadsignature')
+    }
+    function handleSubmitsss() {
+        navigate('/bad')
+    }
+ 
+    
+   
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
