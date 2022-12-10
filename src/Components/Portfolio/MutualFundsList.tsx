@@ -7,6 +7,71 @@ import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 
+
+const data = [
+    {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: 'Equity',
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+      checkbox: true,
+    },
+    {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: 'Large Cap',
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+      checkbox: true,
+    },
+    {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: 'Balanced',
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+      checkbox: true,
+    },
+    {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: 'Equity',
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+      checkbox: true,
+    },
+    {
+      logo: '/Miraelogo.svg',
+      title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
+      fundType: 'Equity',
+      price: 30000,
+      rating: 3.7,
+      morningStarLogo: true,
+      oneYearReturn: 12.3,
+      threeYearReturn: 18.76,
+      fiveYearReturn: 24.33,
+      checkbox: true,
+    },
+  ]
+  
+
 const MutualFundsList = () => {
 
     const navigate = useNavigate();
@@ -22,47 +87,7 @@ const MutualFundsList = () => {
     };
 
     useEffect(() => {
-        setMfCards([
-            {
-
-                logo: '/Miraelogo.svg',
-                title: 'Mirae Asset Dynamic Bond Fund Direct Growth',
-                fundType: ['Large Cap', 'Equity'],
-                price: 30000,
-
-                rating: 5.0,
-                morningStarLogo: true,
-                oneYearReturn: 12.3,
-                threeYearReturn: 18.76,
-                fiveYearReturn: 24.33,
-            },
-            {
-
-                logo: '/SBIFundLogo.png',
-                title: 'SBI Equity Hybrid Fund',
-                fundType: ['Mid Cap', 'Debt'],
-                price: 30000,
-                rating: 4.0,
-
-                morningStarLogo: true,
-                oneYearReturn: 18.5,
-                threeYearReturn: 27.49,
-                fiveYearReturn: 35.38,
-            },
-            {
-
-                logo: '/Miraelogo.svg',
-                title: 'ICICI Prudential Fund',
-                fundType: ['Small Cap', 'Balanced'],
-                price: 40000,
-
-                rating: 3.7,
-                morningStarLogo: true,
-                oneYearReturn: 12.57,
-                threeYearReturn: 20.8,
-                fiveYearReturn: 27.15,
-            },
-        ]);
+        setMfCards(data);
     }, []);
     const handlePrice = (value: any) => {
 

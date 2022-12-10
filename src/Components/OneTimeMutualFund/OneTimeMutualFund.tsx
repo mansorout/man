@@ -20,6 +20,20 @@ const enumActiveScreen = Object.freeze({
   OPEN_NET_BANKING: 3,
 })
 
+type  MFPropOneTime= {
+  logo: string,
+  title: string,
+  fundType: string[],
+  price: number,
+  rating: number,
+  morningStarLogo: boolean,
+  oneYearReturn: number,
+  threeYearReturn: number,
+  fiveYearReturn: number,
+  buttons?: boolean,
+  checkbox?: boolean,
+}
+
 
 const OneTimeMutualFund = () => {
   const style = {
@@ -67,7 +81,7 @@ const OneTimeMutualFund = () => {
 
   const navigate = useNavigate();
 
-  const [mfCards, setMfCards] = useState<MFProp[]>([]);
+  const [mfCards, setMfCards] = useState<MFPropOneTime[]>([]);
 
   const g_investment = useSelector((state: any) => state?.investment?.investment);
   const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);

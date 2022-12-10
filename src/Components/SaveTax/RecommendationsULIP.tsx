@@ -156,7 +156,7 @@ const RecommendationsULIP = () => {
 
     const handleBuyNow = () => {
         // loading Com and after that payment screen
-        navigate('/saveTax/paymentOptionCmp');
+        navigate('/payusingnetbanking');
     }
 
     const handleCalender = (value: any) => {
@@ -284,7 +284,8 @@ const RecommendationsULIP = () => {
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
                     <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
                 </Box>
-                <Button onClick={() => { setOpenConfirmation(!openConfirmation); navigate('/saveTax/paymentOptionCmp') }} variant='contained' className={classes.modalTextButton} sx={{
+                <Button onClick={() => { setOpenConfirmation(!openConfirmation);
+        navigate('/payusingnetbanking'); }} variant='contained' className={classes.modalTextButton} sx={{
                     backgroundColor: 'rgba(123, 123, 157, 0.05)',
                     color: '#7b7b9d'
                 }}>

@@ -5,7 +5,7 @@ import '../../Components/Portfolio/Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, ImageListItem, Link, MenuList, Typography } from '@mui/material'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
+import { Assessment, Home as HomeIcon, Image, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support } from '@mui/icons-material';
 import { AppBar, Button, Divider, Theme } from '@mui/material';
@@ -70,14 +70,16 @@ const objLumSomeInvestmentData = Object.freeze({
         subHeading: "Invest ₹1 Lac One time",
         description: "100% guaranteed return with tax saving options",
         price: "",
-        className: "lsAdvantageCardOne"
+        className: "lsAdvantageCardOne",
+        img: "./assets/images/Group 5224.svg"
       },
       {
         heading: "TAX SAVING",
         subHeading: "becomes easier",
         description: "Click to save tax upto",
         price: "₹45,000",
-        className: "lsAdvantageCardTwo"
+        className: "lsAdvantageCardTwo",
+        img: "./assets/images/Group 5234.svg"
       },
     ]
   },
@@ -98,7 +100,9 @@ const objLumSomeInvestmentData = Object.freeze({
     cards: [{
       heading: "Know where to invest,",
       subHeading: "Lump sum or SIP",
-      className: "lsDisdvantageCardOne"
+      className: "lsDisdvantageCardOne",
+      img: "./assets/images/Group 5234.svg"
+      // img:"./assets/images/lumpsum-ad-banner-3.svg"
     }]
   },
   factors: {
@@ -155,14 +159,16 @@ const objMonthlyInvestmentData = Object.freeze({
         subHeading: "Give Your family a lifetime",
         description: "start with just",
         price: "2,500 per month",
-        className: "miAdvantageCardOne"
+        className: "miAdvantageCardOne",
+        img: "./assets/images/Woman.svg"
       },
       {
         heading: "Achieve Much More",
         subHeading: "Dream more",
         description: "Invest ₹500 every month to create wealth in long run.",
         price: "",
-        className: "miAdvantageCardTwo"
+        className: "miAdvantageCardTwo",
+        img: "./assets/images/Group 5244.svg"
       },
     ],
 
@@ -190,7 +196,8 @@ const objMonthlyInvestmentData = Object.freeze({
       heading: "Invest ₹5000 monthly,",
       subHeading: "Get ₹1 Crore after 25 years",
       description: "100% guaranteed returnwith tax saving options",
-      className: "miDisadvantageCardOne"
+      className: "miDisadvantageCardOne",
+      img: "./assets/images/Group 5243.svg"
     }]
   },
   factors: {
@@ -569,10 +576,15 @@ const useStyles = makeStyles((theme: any) => (
       width: "100px !important",
       height: "100px !important",
       position: "absolute",
-      right: "0px",
-      bottom: "-1px"
+      right: "1%",
+      bottom: "2%"
     },
-
+    cardsImg: {
+      width: "33%",
+      height: "85%",
+      // marginRight: "2%",
+      // marginTop: "3%"
+    }
   }
 ))
 
@@ -604,8 +616,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
 
-
-        <Box className={classes.firstContainer}>
+        <Box className={classes.firstContainer} textAlign="center" >
           <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ top: "10px", color: "#3c3e42" }}>{props?.data?.title}</Typography>
           <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)}>
             <Typography component="span" className={classes.text} >Get Started Now</Typography>
@@ -614,23 +625,39 @@ const MultipleInvestmentHandling = (props: IProps) => {
 
         <Box style={{
           position: "relative", display: "flex", flexDirection: "column", alignItems: "center", height: "100vh"
-        }}>
+        }}
+
+        >
 
           {/* handle box */}
-          < Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "#544ec8", marginTop: "10px", padding: "10px", width: "96%", position: "relative" }}>
-            <Typography style={{ color: "white", fontSize: "18px", margin: "10px" }}>{props?.data?.cardDetails?.subHeading}</Typography>
+          < Box
+            className={classes.borderRadius + " " + classes.boxShadow}
+            style={{ backgroundColor: "#544ec8", marginTop: "10px", padding: "10px", width: "96%", position: "relative" }}
+            sx={{
+              paddingBottom: { xs: "31% !important", sm: "4% !important" }
+            }}>
+            <Typography style={{ color: "white", fontSize: "18px", margin: "10px", }} >{props?.data?.cardDetails?.subHeading}</Typography>
             <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
-            <Typography style={{ color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
+            <Typography style={{ maxWidth: "70%", display: "flex", flexWrap: "wrap", color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
             <Box className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", margin: "10px" }}>
               <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", height: "30px" }} fullWidth>Invest Now</Button>
             </Box>
-            <ImageListItem >
+            <ImageListItem sx={{
+              display: { xs: "flex", sm: "block" },
+              flexDirection: { xs: "column", sm: "none" },
+              justifyContent: { xs: "center", sm: "none" },
+              position: {
+                xs: "unset !important",
+                sm: "absolute"
+              }
+            }}>
               <img
                 src={props?.data?.cardDetails?.img}
                 srcSet={props?.data?.cardDetails?.img}
                 alt={"not loaded"}
                 loading="lazy"
                 className={classes.manImg}
+
               />
             </ImageListItem>
           </Box>
@@ -671,8 +698,21 @@ const MultipleInvestmentHandling = (props: IProps) => {
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
                     </Box>
-                    <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                    <Box sx={{
+                      display: "flex",
+                      marginRight: "2% !important",
+                      marginBottom: "3% !important"
+                    }}>
                       {/* <img style={{ padding: "0px 30px", }} src={homeConnect} alt='home' width="auto" height="170px" /> */}
+                      <ImageListItem >
+                        <img
+                          src={cardItem?.img}
+                          srcSet={cardItem?.img}
+                          alt={"not loaded"}
+                          loading="lazy"
+                          className={classes?.cardsImg}
+                        />
+                      </ImageListItem>
                     </Box>
                   </Box>
                 )
@@ -716,7 +756,21 @@ const MultipleInvestmentHandling = (props: IProps) => {
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
                     </Box>
-                    <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                    <Box sx={{
+                      // display: { xs: "flex", sm: "none", md: "block" },
+                      display: "flex",
+                      marginRight: "2% !important",
+                      marginBottom: "3% !important"
+                    }}>
+                      <ImageListItem >
+                        <img
+                          src={cardItem?.img}
+                          srcSet={cardItem?.img}
+                          alt={"not loaded"}
+                          loading="lazy"
+                          className={classes?.cardsImg}
+                        />
+                      </ImageListItem>
                       {/* <img style={{ padding: "0px 30px", }} src={homeConnect} alt='home' width="auto" height="170px" /> */}
                     </Box>
                   </Box>
@@ -728,8 +782,13 @@ const MultipleInvestmentHandling = (props: IProps) => {
           {/* factor box */}
           <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", padding: "10px", margin: "10px", width: "96%", marginTop: "30px" }}>
             {/* <Typography component="h4" className={classes.typography} style={{ color: "black", margin: "21px 0px -8px 14px" }}  >{props?.data?.factors?.heading}</Typography> */}
-            <Typography component="h4" className={classes.typography} style={{ color: "black" }}  >{props?.data?.factors?.heading}</Typography>
-            <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{props?.data?.factors?.description}</Typography>
+
+            <Box sx={{
+              padding:"1%"
+            }}>
+              <Typography component="h4" className={classes.typography} style={{ color: "black" }}  >{props?.data?.factors?.heading}</Typography>
+              <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{props?.data?.factors?.description}</Typography>
+            </Box>
             {
               props?.data?.factors?.features?.length && props?.data?.factors?.features?.map((factorItem: any, factorIndex: number) => {
                 return (
