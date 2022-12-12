@@ -40,9 +40,13 @@ const TextRadio = (props: TextRadioProps) => {
                                         </InputAdornment>
                     }}
                     sx={{
+                        boxSizing: 'border-box',
                         width: '35.55vw',
                         height: '4.375vw',
                         backgroundColor: '#fff',
+                        padding: '1px 1px 0 16px',
+                        border: '1px solid #dddfe2',
+                        borderRadius: '4px',
                     }}
                 />
             </FormControl>
