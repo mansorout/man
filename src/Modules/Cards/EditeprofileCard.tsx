@@ -34,6 +34,7 @@ import { useForm } from "react-hook-form";
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
+import { setSyntheticLeadingComments } from 'typescript';
 
 // import { useForm } from "react-hook-form";
 
@@ -234,7 +235,9 @@ function EditprofileCard() {
   const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
   const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
   const [showSubmitDetails, setShowSubmitDetails] = useState(true)
-
+  const [selected, setSelected] = useState<boolean>(false)
+  const [selectedFemale, setSelectedFemale] = useState<boolean>(false)
+  const [selectedTrans, setSelectedTrans] = useState<boolean>(false)
   const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
@@ -257,7 +260,7 @@ function EditprofileCard() {
 
     if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length < 10 ||
       formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
-      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode.length <6 || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
       setDropValuestateError(false)
       setError(false)
       setCountryError(false)
@@ -277,7 +280,11 @@ function EditprofileCard() {
       setShowSubmitDetails(() => true);
 
     })
+
+
+
   }, [formData])
+
 
   const areAllFieldsFilled = (formData.firstName != "") && (NameRegex.test(formData.lastName)) && (mobileRegex.test(formData.mobilenumber)) &&
     (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
@@ -388,8 +395,8 @@ function EditprofileCard() {
 
   }
   const handleOnBlurpincode = () => {
-    if (formData.pincode == "") {
-      setErrorMessagePincode("Required")
+    if (formData.pincode.length != 6) {
+      setErrorMessagePincode("pincode is invalid")
       setErrorPincode(true)
     }
 
@@ -424,6 +431,7 @@ function EditprofileCard() {
 
   const classes = useStyles();
   console.log(formData)
+
   return (
     <>
       <div style={{
@@ -539,16 +547,12 @@ function EditprofileCard() {
                         }}>Country of Birth</InputLabel>
 
                         <Select
-
-
-                          onBlur={handleBlurCountry}
+                         onBlur={handleBlurCountry}
                           fullWidth={true}
                           name="CountrySecond"
                           value={formData.CountrySecond}
                           onChange={handlechange}
-                          error={countryError}
-
-                        >
+                          error={countryError} >
                           <MenuItem value="India">India</MenuItem>
                           <MenuItem value="Nepal">Nepal</MenuItem>
                           <MenuItem value="China">China</MenuItem>
@@ -605,54 +609,36 @@ function EditprofileCard() {
                 marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 } }}>
-                {/* onClick={() => { this.handleButton(60)}} */}
                 <Button
                   id={"male"}
                   name="gender"
-                  onClick={() => { setFormData({ ...formData, gender: "male" }) }}
+                  onClick={() => { setSelected(true); setSelectedFemale(false); setSelectedTrans(false); setFormData({ ...formData, gender: "male" }) }}
                   variant="outlined"
                   size="small"
-
-                  sx={{
-                    backgroundColor: " #fff",
-                    borderRadius: "8px",
-                    boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
-                    height: " 42px", padding: " 6px 10px 6px 6px"
-                  }}
+                  sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 6px 6px" }}
+                  style={{ cursor: "pointer", border: `1px solid ${selected ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
                 </Button>
-
                 <Button
                   name="gender"
                   value={"female"}
-                  onClick={() => { setFormData({ ...formData, gender: "female" }) }}
+                  onClick={() => { setSelectedFemale(true); setSelected(false); setSelectedTrans(false); setFormData({ ...formData, gender: "female" }) }}
+                  style={{ cursor: "pointer", border: `1px solid ${selectedFemale ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedFemale ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
                 </Button>
-
-
                 <Button
                   id={"transgender"}
-                  name="gender"
-                  onClick={() => { setFormData({ ...formData, gender: "transgender" }) }}
+                  name="gender" onClick={() => { setSelectedTrans(true); setSelected(false); setSelectedFemale(false); setFormData({ ...formData, gender: "transgender" }) }}
+                  style={{ cursor: "pointer", border: `1px solid ${selectedTrans ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedTrans ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  {/* <Radio {...controlProps('c')} sx={{
-                      '& .MuiSvgIcon-root': { fontSize: 28, },
-                      height: "2px", width: "2px",
-
-
-                    }}
-                    /> */}
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                 </Button>
               </Box>
-
-
-              <Stack m={2} spacing={6}>
+               <Stack m={2} spacing={6}>
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
                   name="addressline1"
@@ -707,10 +693,7 @@ function EditprofileCard() {
                             {formData.CityofResidence == "" ? errormessagecityofresi : ""}
                           </FormHelperText>
                         </FormControl>
-
-
-
-                      </Grid>
+                         </Grid>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true} >
                           <InputLabel id="demo-simple-select-label"
@@ -739,25 +722,17 @@ function EditprofileCard() {
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.state == "" ? errormessageStatee : ""}
                           </FormHelperText>
-
                         </FormControl>
                       </Grid>
                     </Grid>
                   </div>
-
-
-
                   &nbsp;
-
                   <div style={{ position: "relative", top: "-51px" }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={6}>
+                    <Grid container spacing={2} >
+                      <Grid item xs={12} md={6} sm={12} >
                         <FormControl
                           className="pincodeClass">
-
-
                           <TextField
-
                             onBlur={handleOnBlurpincode}
                             label="Pincode"
                             name="pincode"
@@ -772,63 +747,12 @@ function EditprofileCard() {
                               // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                               width: "100%", fontSize: "15px", fontWeight: "normal",
                               boxShadow: "none"
-                            }}
-
-                          />
-                          <FormHelperText sx={{ color: "red" }} className="labelStyle">
-                            {formData.pincode == "" ? errormessagepincode : ""}
-                          </FormHelperText>
+                            }} />
                         </FormControl>
-                        {/* <TextField
-                  
-                      onBlur={handleBlur}
-                      label="First Name"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handlechange}
-                      fullWidth
-                      error={error}
-
-                      id='First Name'
-                      sx={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                        width: "100%", fontSize: "15px", fontWeight: "normal",
-
-                      }}
-                      helperText={error ? errorMessageFN : ""}
-                    /> */}
-                        {/* <FormControl fullWidth={true}>
-                          <InputLabel
-                            id="demo-simple-select-label"
-                            sx={{
-                              color: "rgba(0, 0, 0, 0.6)",
-                              fontSize: "15px",
-                              fontWeight: "normal",
-                            }}>Pincode</InputLabel>
-
-                          <Select
-                            fullWidth
-                            onBlur={handleOnBlurpincode}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={formData.pincode}
-                            label="Age"
-                            onChange={handlechange}
-                            name="pincode"
-                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                            error={errorPincode}
-                          >
-                            <MenuItem value="208025">208025</MenuItem>
-                            <MenuItem value="208024">208024</MenuItem>
-                          </Select>
-                          <FormHelperText sx={{ color: "red" }}>
-                            {formData.pincode == "" ? errormessagepincode : ""}
-                          </FormHelperText>
-                        </FormControl> */}
-
+                        <FormHelperText sx={{ color: "red" }} className="labelStyle">
+                          {formData.pincode == "" ? errormessagepincode : ""}
+                        </FormHelperText>
                       </Grid>
-
                       <Grid item xs={12} md={6}  >
                         <FormControl fullWidth={true}>
                           <InputLabel
@@ -868,15 +792,8 @@ function EditprofileCard() {
                         </FormControl>
                       </Grid>
                     </Grid>
-
-                    {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
-
-
-
                   </div>
                 </Box>
-                {/* errormessageincomeslab */}
-
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
                   type="number"
@@ -886,32 +803,19 @@ function EditprofileCard() {
                   error={errorincomeslabs}
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
                 />
-
-
-
                 <div style={{ marginTop: "20px" }}>
                   <Button variant="contained" style={style.buttonbtn}
-                    // disabled={!areAllFieldsFilled}
+                    disabled={!areAllFieldsFilled}
                     onClick={handleClick} fullWidth >
                     <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                   </Button>
-
                 </div>
               </Stack>
-
             </Paper>
           </Grid>
-
-
         </Grid>
       </div>
-
-
-
-
     </>
-
-
   )
 }
 

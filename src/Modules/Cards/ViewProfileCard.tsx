@@ -44,8 +44,8 @@ function ViewProfileCard() {
         cameraIcon: {
             borderRadius: "170px 175px 175px 163px",
 
-            width: '30px',
-            height: '30px',
+            width: '53px',
+            height: '53px',
             marginLeft: "auto",
             marginRight: "auto",
             padding: '15px',
@@ -143,9 +143,7 @@ function ViewProfileCard() {
                                 style={{ display: "none" }}
                                 onChange={onSelectFile}
                             />
-
-
-                        </Box>
+                             </Box>
                         <ListItem
                             secondaryAction={
                                 <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
@@ -185,8 +183,6 @@ function ViewProfileCard() {
                                 }
                             </Typography>
                         </ListItem>
-
-
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar
@@ -233,18 +229,8 @@ function ViewProfileCard() {
                                         <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.CountrySecond}</Typography> : ""
                                 }
                             </Typography>
-
-
-
-
-                        </ListItem>
-                        <ListItem
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="delete">
-
-                                </IconButton>
-                            }
-                        >
+                             </ListItem>
+                        <ListItem>
                             <ListItemAvatar> <Avatar
                                 alt=""
                                 src={locationlogo}
@@ -265,26 +251,15 @@ function ViewProfileCard() {
 
 
 
-                        <ListItem
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="delete">
-
-                                </IconButton>
-                            }
-                        >
+                        <ListItem>
                             <ListItemAvatar>
-
-
-                                <Avatar
+                                 <Avatar
                                     alt=""
                                     src={ic_income}
                                     style={style.ca}
 
                                 />
-
-
-
-                            </ListItemAvatar>
+                                </ListItemAvatar>
                             <ListItemText
                                 primary={
                                     <Typography sx={{ fontSize: "14px" }}>Income slab
