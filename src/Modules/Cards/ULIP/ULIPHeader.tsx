@@ -80,7 +80,7 @@ const ULIPHeader = () => {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} style={style.grid} sx={{
+            <Grid item xs={12} md={6} style={style.grid} className="ulip-header" sx={{
                 display: 'flex',
                 padding: '5px',
                 gap: '24px',
