@@ -1,0 +1,7 @@
+.date-confirmed-dialog .MuiDialog-container .MuiPaper-root {
+    margin: 0 !important;
+    height: 492px !important;
+    max-height: 500px !important;
+    width: 591px !important;
+    max-width: 600px !important;
+}
