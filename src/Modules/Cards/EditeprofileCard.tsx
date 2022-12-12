@@ -35,40 +35,12 @@ import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
 import { setSyntheticLeadingComments } from 'typescript';
-
-// import { useForm } from "react-hook-form";
-
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import MenuItem from '@mui/material/MenuItem';
-
-// import { makeStyles, createStyles } from "@material-ui/core/styles";
-
-
-
-
-
-
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
 const country = ["delhi", "kanpur"]
 const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
-
-
 function EditprofileCard() {
-
-
-  // const { register, handleSubmit, errors } = useForm();
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
-  // console.log(errors);
-
-
-
-
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -84,28 +56,18 @@ function EditprofileCard() {
   const useStyles = makeStyles((theme: any) =>
     createStyles({
       paper: {
-        // padding: theme.spacing(2),
-        textAlign: 'center',
-        // color: theme.palette.text.secondary,
-      },
-      root: {
+         textAlign: 'center',
+         }, root: {
         flexGrow: 1,
       },
     }),
-  );
-
-
-  const style = {
+  ); const style = {
     containertwo: {
       backgroundColor: "#fff",
       boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
       borderRadius: "8px",
-      padding: "21px 40px",
-
-
-    },
-
-    cameraIcon: {
+      padding: "21px 40px",},
+       cameraIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#23db7b',
       width: '30px',
@@ -119,8 +81,7 @@ function EditprofileCard() {
       marginTop: "20px",
       marginBottom: "30px"
     },
-
-    emailIcon: {
+     emailIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#64dbff',
       width: '80px',
@@ -135,28 +96,19 @@ function EditprofileCard() {
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      margin: "16px",
+      marginTop:"-24px",
+      marginRight:"12px",
       width: "90%",
       maxWidth: "400px",
       transform: "translate(10px, -60px)"
-
-
     },
     ca: {
-      // borderRadius: "170px 175px 175px 163px",
       backgroundColor: "#64dbff",
       width: "20px",
       height: "20px",
       padding: "10px",
       opacity: "0.9",
-
-      // width: '80px',
-      // height: '80px',
-      // margin: '0 54px 22px 34px',
-      // padding: '20px',
-      // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
-      // border: 'solid 1px rgba(0, 0, 0, 0.08)',
-    } as React.CSSProperties,
+     } as React.CSSProperties,
     select: {
       color: "white",
       '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
@@ -172,11 +124,7 @@ function EditprofileCard() {
     text: {
       color: "white",
 
-    }
-
-
-
-  }
+    }}
   const [formData, setFormData] = useState<any>({
     firstName: "",
     middleName: "",
@@ -195,24 +143,12 @@ function EditprofileCard() {
     Placeofbirth: "",
     addressline1: "",
     CountryFirst: "",
-    state: "",
-
-
-
-  })
-
+    state: "",})
   const [lastNameError, setLastNameError] = useState(false)
   const [MidNameError, setMidNameError] = useState(false)
   const [errormobilenumberone, setErrormobilenumberone] = useState(false)
   const [emailError, setEmailError] = useState(false)
-
-
-
   const [addresserrorone, setAddressErrorOne] = useState(false)
-
-
-
-
   const [dropValuestateerror, setDropValuestateError] = useState(false)
   const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
   const [errorrsstate, setErrorsstate] = useState(false)
@@ -255,7 +191,6 @@ function EditprofileCard() {
 
 
   }
-
   useEffect(() => {
 
     if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length < 10 ||
@@ -435,15 +370,16 @@ function EditprofileCard() {
   return (
     <>
       <div style={{
-        backgroundColor: '#ffffff',
+    
         padding: '29px',
         borderRadius: "8px",
-        marginBottom: "-15px"
+        marginBottom: "-15px",
+      
 
       }}>
-        <Grid container spacing={3} >
+        <Grid container spacing={3}>
 
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} lg={6}>
             <Paper className={classes.paper}
               sx={{
                 p: 1,
@@ -454,7 +390,10 @@ function EditprofileCard() {
 
             >
               <Stack m={2} spacing={2}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{
+                  maxHeight:"100%",
+
+                }}>
                   <Grid item xs={12} md={12}>
                     <TextField
                       onBlur={handleBlur}
@@ -599,8 +538,10 @@ function EditprofileCard() {
               </Stack>
             </Paper>
           </Grid>
-
-          <Grid item xs={12} sm={6}  >
+          
+          <Grid item xs={12} sm={6} lg={6} sx={{
+              maxHeight:"100%",
+          }} >
             <Paper className={classes.paper}
               sx={{
                 p: 1,
@@ -608,7 +549,7 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 } }}>
+              <Box sx={{ '& button': { m: 1 }, marginRight:"24px"}}>
                 <Button
                   id={"male"}
                   name="gender"

@@ -1,11 +1,12 @@
 import { Box } from '@mui/material';
 import ULIPButton from "../../Buttons/ULIP/ULIPButton";
+import { ULIPButtonProp } from '../../Buttons/ULIP/ULIPButton';
 
-const ULIPFooter = () => {
+const ULIPFooter = (props: ULIPButtonProp) => {
     return (
         <Box sx={{
             width: '83.75vw',
-            height: '6vw',
+            height: '78px',
             position: 'sticky',
             right: 0,
             bottom: 0,
@@ -15,7 +16,12 @@ const ULIPFooter = () => {
             justifyContent: 'center',
             alignItems: 'center',
         }}>
-            <ULIPButton text="Select ULIP Date" navigateTo="/" />
+            <ULIPButton 
+                text={ props.text } 
+                navigateTo={ props.navigateTo } 
+                width={ props.width } 
+                bgColor={ props.bgColor }  
+            />
         </Box>
     )
 };

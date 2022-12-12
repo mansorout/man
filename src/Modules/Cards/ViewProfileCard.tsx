@@ -81,18 +81,7 @@ function ViewProfileCard() {
             // padding: '20px',
             // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
             // border: 'solid 1px rgba(0, 0, 0, 0.08)',
-        } as React.CSSProperties,
-        // ellipse:{
-        //     width:" 40px",
-        //     height:" 40px",
-        //     margin: "0 16px 0 0",
-        //     padding: "10px",
-        //     opacity: "0.3",
-        //     background-color:" #64dbff",
-
-        // } as React.CSSProperties,
-
-    }
+        } as React.CSSProperties,}
 
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const [imgSrc, setImgSrc] = useState<any>("");
@@ -109,8 +98,6 @@ function ViewProfileCard() {
             reader.readAsDataURL(e.target.files[0]);
         }
     }
-
-
     const [useFormData, setUserFormData] = useState({})
     console.log(imgSrc)
     const userData: any = useSelector((state: any) => state.userProfileDetails)
@@ -149,9 +136,7 @@ function ViewProfileCard() {
                                 <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
                             }  >
                         </ListItem>
-
                         <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
-
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar
@@ -159,9 +144,8 @@ function ViewProfileCard() {
                                     src={GrouMobilecicon}
                                     style={style.ca} />
                             </ListItemAvatar>
-                            <Typography sx={{ fontSize: "14px" }}>Mobile Number
-
-                                {
+                            <Typography sx={{ fontSize: "14px" }}>Mobile Number 
+                            {
                                     userData?.formData?.mobilenumber !== "" ?
                                         <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.mobilenumber}</Typography> : ""
                                 }

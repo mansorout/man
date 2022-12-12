@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { accountboxlogo } from '../../Assets/index'
 import { familyrestroomlogo } from '../../Assets/index'
@@ -28,6 +29,10 @@ import { Height } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 
 function VviewprofileCard() {
+
+    const [ panCardNo, setPanCardNo ] = useState('');
+    const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
+
     const style = {
         containertwo: {
             backgroundColor: "#fff",

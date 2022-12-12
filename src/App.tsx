@@ -103,17 +103,25 @@ import InsuranceDetails from './Components/Insurance/InsuranceDetails';
 
 
 
-
-
-
-
-
-
-
+import CompanyFundCard from './Modules/CustomCard/CompanyFundCard';
+import ULIPRecommendations from './Components/ULIP/ULIPRecommendations';
+import ULIPOptions from './Components/ULIP/ULIPOptions';
+import ULIPDetails from './Components/ULIP/ULIPDetails';
+import ULIPHome from './Components/ULIP/ULIPHome';
+import DateConfirmedDialog from './Components/ULIP/DateConfirmedDialog';
+import TransactionsDone from './Components/ULIP/TransactionsDone';
+import UlipCard from './Modules/Cards/ULIP/UlipCard';
+import UlipPlanPerformanceCard from './Modules/Cards/ULIP/UlipPlanPerformanceCard';
+import TextRadio from './Modules/Cards/ULIP/textradio/TextRadio';
+import UlipBox from './Components/ULIP/UlipBox';
+import ULIPCoFundCard, { ULIPProp } from './Modules/Cards/ULIP/ULIPCoFundCard';
+import ULIPHeader from './Modules/Cards/ULIP/ULIPHeader';
+import { BajajAllianzLogo } from './Assets';
+import UlipDropDownFilter from './Components/ULIP/UlipDropDownFilter';
+import DropDownFilter from './Components/TxnFilters/DropDownFilter';
 
 
 function App() {
-
 
   const data: PortfolioProp = {
     image: '../../Assets/Portfolio/Miraelogo.svg',
@@ -124,6 +132,16 @@ function App() {
     currentValue: 146625,
     fiveYearReturn: 21625,
     fiveYearReturnGrowth: 17.36,
+  };
+
+  const ulipData: ULIPProp = {
+    logo: BajajAllianzLogo,
+    title: 'Bajaj Allianz FutureGain',
+    projectedAmount: 4.75,
+    topPerformingFundReturn: 14.28,
+    lifeCoverAmount: 5,
+    investedValueAmount: 2.5,
+    taxSavings: 15000,
   };
 
   /*
@@ -224,9 +242,35 @@ function App() {
         <Route path="/healthInsurance" element={<HealthInsurance />} />
         <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path='/cancleSip' element={<CancleSIP />} />
+
+        <Route path="/funddetails" element={<FundDetails />} />
+        <Route path='/explorefunds' element={<ExploreFunds/>}/>
+
+        <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
+        <Route path="/ulipcard" element={ <UlipCard /> } />
+        <Route path="/ulipppcard" element={ <UlipPlanPerformanceCard /> } />
+        <Route path='/tr' element={ <TextRadio { ...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} /> } />
+        <Route path="/ulip/investoptions" element={ <UlipBox /> } />
+        <Route path="/ulipcofund" element={ <ULIPCoFundCard { ...ulipData } /> } />
+        <Route path="/ulipheader" element={ <ULIPHeader /> } />
+        <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
+        <Route path="/ulip/options" element={ <ULIPOptions /> } />
+        <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
+        <Route path="/ulip/txndone" element={ <TransactionsDone /> } />
+        <Route path="/ulip/home" element={ <ULIPHome /> } />
+
+        <Route path="/insurance" element={<Insurance />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
+        <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
+        <Route path="/Insurance" element={<Insurance />} />
+        <Route path="/healthInsurance" element={<HealthInsurance />} />
+        <Route path="/healthInsurance/findInsurance" element={<FindInsurance />} />
+        <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
+        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare />} />
         <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound/>} />
         <Route path="/healthInsurance/knowMore" element={<InsuranceDetails/>} />
-        <Route path="/healthInsurance/compareULIP" element={<ULIPCompare/>} />
         <Route path="/proposalForm" element={<ProposalForm />} />
         <Route path="/proposalFormStep2" element={<ProposalFormStep2 />} />
         <Route path="/proposalFormStep3" element={<ProposalFormStep3 />} />
@@ -248,6 +292,8 @@ function App() {
         <Route path='/simplemodal' element={<SimpleModal />} />
         <Route path='/sipLastScreen' element={<SipLastScreen />} />
 
+        <Route path="/filters" element={ <UlipDropDownFilter /> } />
+        <Route path="/ddfilters" element={ <DropDownFilter /> } />
       </Routes>
     </>
   );

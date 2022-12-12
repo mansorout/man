@@ -13,7 +13,7 @@ import { graphimage, icbirthplacelogo, wclogo } from '../../Assets/index'
 import { withdrawiclogo } from '../../Assets/index'
 import { lockinlogo } from '../../Assets/index'
 import { cameraIcon, ellipslogo, Mylocationicon } from "../../Assets/index";
-
+import './StyleIn.css'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import { minHeight } from '@mui/system';
