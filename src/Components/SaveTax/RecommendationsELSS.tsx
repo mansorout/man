@@ -59,6 +59,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
+        '@media(max-width: 500px)':{
+            marginLeft: '0px !important',
+        }
     },
     cardImgWrapper: {
         width: '70px',
@@ -163,7 +166,7 @@ const RecommendationsELSS = () => {
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: '0px 8px' }}>
+                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
                                             <Typography component='p'>Mirae Asset Dynamic Bond
                                                 Fund Direct Growth</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>

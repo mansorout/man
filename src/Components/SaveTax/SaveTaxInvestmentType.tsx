@@ -87,6 +87,18 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '&>span': {
             right: '50% !important',
         }
+    },
+    tableStyle:{
+        '& td':{
+            '@media(max-width: 600px)':{
+                padding: '10px',
+            }
+        },
+        '& th':{
+            '@media(max-width: 600px)':{
+                padding: '10px',
+            }
+        }
     }
 
 }))
@@ -167,7 +179,7 @@ const SaveTaxInvestmentType = () => {
 
 
                         <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: { sm: 650 } }} aria-label="a dense table">
+                            <Table aria-label="a dense table" className={classes.tableStyle}>
                                 {/* <TableHead>
                                     <TableRow>
                                         <TableCell>Dessert (100g serving)</TableCell>
