@@ -78,6 +78,7 @@ function SimpleModal(props:any) {
                                         <img src={GroupSaf} alt="sprint-money" style={{
                                             width: "80px",
                                             height: "80px",
+                                            paddingLeft: "114px"
 
 
 
@@ -95,9 +96,9 @@ function SimpleModal(props:any) {
                             display: "contents",
                             position: " absolute"
                         }} item xs={4}>
-                            {/* <Box sx={{ margin: "12px 0px 8px 73px" }} onClick={() => setOpenBankAccmodal(false)}>
-                                <ClearIcon />
-                            </Box> */}
+                            <Box  onClick={props.close}  sx={{ margin: "12px 0px 8px 73px" ,opacity:" 0.54 "}}  >
+                                <ClearIcon  />
+                            </Box>
                         </Grid>
 
 
@@ -146,7 +147,7 @@ function SimpleModal(props:any) {
                     </Box>
 
                     <Box>
-                        <Button sx={{ padding: " 18px 152px 19px", backgroundColor: "#23db7b" }}>
+                        <Button onClick={()=>navigate('/verifyoncheckout')} sx={{ padding: " 18px 152px 19px", backgroundColor: "#23db7b" }}>
                             <Typography sx={{ fonSize: "20px", color: "white" }}>
                                 Continue
                             </Typography>

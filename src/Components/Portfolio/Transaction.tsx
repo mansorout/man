@@ -15,6 +15,7 @@ import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import { Transactions } from '../../Modal/Transactions'
 import AllTrancationCard from '../../Modules/CustomCard/AllTransactionCard'
+
 // import FilterModal from '../TxnFilters/FilterModal'
 import DropDownFilter from '../TxnFilters/DropDownFilter'
 import { useDispatch } from 'react-redux'
@@ -159,10 +160,10 @@ function Transaction() {
     setAnchorEl(null) :
     setAnchorEl(event.currentTarget)
   };
+
   const dispatch:any = useDispatch()
 
   const handleFilter =(event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-
     dispatch(AnchorOpenAction(event))
   }
 
@@ -235,7 +236,6 @@ function Transaction() {
                     <FilterAltOutlined style={{color:"#09b85d"}}/>
                   </IconButton>
                 </Box>
-
                 <DropDownFilter/>
               </Box>
               {
@@ -272,6 +272,7 @@ function Transaction() {
           </Grid>
           </Grid>
           </Box>
+       
           
       </Box>
   )

@@ -37,7 +37,6 @@ export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
-export const mobileIcon = require("./Profile/mobile-icon.png");
 export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
@@ -60,6 +59,7 @@ export const AccountBalancelogo = require("./Profile/AccountBalancelogo.png")
 export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
 //  export const locklogo= require("./Profile/locklogo.png")
   export const paymentslogo= require("./Profile/paymentslogo.png")
+  export const paymentslogo2= require("./payments-24px@3x.png")
 //  export const iccancelledchequelogo= require("./Profile/iccancelledchequelogo.png")
 //  export const checkcirclelogo= require("./Profile/checkcirclelogo.png")
   export const accountboxlogo= require("./Profile/accountboxlogo.png")
@@ -97,6 +97,7 @@ export const formatter = new Intl.NumberFormat('en-IN', {
 });
 
 export const graphimage=require("./Profile/GraphImage.png")
+export const GrouMobilecicon=require("./Profile/GrouMobileIcon.png")
 export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")
 export const lockinlogo =require("./Profile/Lockinlogo.png")
 export const ellipslogo =require("./Profile/Ellipselogo.png")
@@ -122,6 +123,8 @@ export const ic_tax_saving =require("./ic_tax_saving.png")
 export const ic_no_medical =require("./ic_no_medical.png")
 export const ic_low_cost =require("./ic_low_cost.png")
 export const tick = require("./Tick.png")
+export const hdfcErgo = require("./HDFC-Ergo.png")
+export const cross = require("./ic_cross@3x.png")
 
 
 

@@ -89,7 +89,7 @@ const OneTimeMutualFundCard = (props: MFProp) => {
               color: '#3c3e42',
             }}>{props.title}</Typography>
             {
-              props.fundType.map(ft => <Chip label={ft} key={ft} sx={{
+              props?.fundType.map(ft => <Chip label={ft} key={ft} sx={{
                 borderRadius: '2px',
                 backgroundColor: 'rgba(123, 123, 157, 0.16)',
                 padding: '0.05vw 0.1vw',

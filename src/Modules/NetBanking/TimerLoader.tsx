@@ -17,6 +17,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 
 
+
 // const CircularStatic=()=> {
 //   const [progress, setProgress] = React.useState(10);
 
@@ -147,8 +148,8 @@ function TimerLoader() {
 
     container: {
       backgroundColor: "white",
-      // width: "50%",
-      // height:"50%",
+      width: "50%",
+      height:"50%",
       maxWidth: "500px",
       padding: "10px 0px",
       borderRadius: "8px",
@@ -160,7 +161,7 @@ function TimerLoader() {
       transform: "translate(-50%, 0%)",
       left: "57%",
       // bottom: "8%",
-      top: "33%",
+      top: "22%",
       position: "absolute"
     } as React.CSSProperties,
 
@@ -195,7 +196,8 @@ function TimerLoader() {
   };
 
   return (
-    <><Box style={{ width: "100vw" }} ref={refContainer}>
+    <>
+    <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
         <Grid
@@ -256,7 +258,8 @@ function TimerLoader() {
                           justifyContent: "center",
                           fontSize: "14px",
                           fontWeight: " 500",
-                          color: "#7b7b9d;"
+                          color: "#7b7b9d",
+                          textAlign: "center"
                         }}>
                           Please accept the payment collect request
                           from SprintMoney in your UPI app.
@@ -279,11 +282,11 @@ function TimerLoader() {
                           colors="#23db7b"
                           duration={timer}
                           // initialRemainingTime={remainingTime % minuteSeconds}
-                          onComplete={(totalElapsedTime) => ({
-                            // shouldRepeat: remainingTime - totalElapsedTime > 0
-                          })}
+                          // onComplete={(totalElapsedTime) => ({
+                          //   shouldRepeat: remainingTime - totalElapsedTime > 0
+                          // })}
                         >
-                          {({ remainingTime }) => remainingTime}
+                          {({ remainingTime}) => remainingTime}
 
                         </CountdownCircleTimer>
                       </Grid>

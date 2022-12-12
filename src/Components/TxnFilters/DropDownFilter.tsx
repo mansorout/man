@@ -294,7 +294,7 @@ function DropDownFilter() {
                 // style={{ zIndex: 5000 }}
                 actions={menuActions}
                 open={Boolean(Anchor)}
-
+                onClose={()=>dispatch(AnchorCloseAction())}
                 anchorEl={Anchor}
             >
                 <StyledMenuItem>
@@ -476,7 +476,6 @@ function DropDownFilter() {
 
                 </StyledMenuItem>
             </MenuUnstyled>
-
 
         </>
     )

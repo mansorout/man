@@ -24,8 +24,7 @@ export const FilterBox = (state: any = initialState, action: any): any => {
     }
 }
 
-export const AnchorOpenAction = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => async (dispatch: Dispatch<any>) => {
-   console.log(event)
+export const AnchorOpenAction = (event: React.MouseEvent<Element, MouseEvent>) => async (dispatch: Dispatch<any>) => {
     dispatch({
         type: "open",
         payload: event.currentTarget

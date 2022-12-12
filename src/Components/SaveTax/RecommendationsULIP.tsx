@@ -11,6 +11,12 @@ import Button from '@mui/material/Button';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { useDispatch, useSelector } from 'react-redux';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import { tick } from '../../Assets';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -108,16 +114,54 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             backgroundColor: '#00b4ff !important',
             borderRadius: '20px',
         }
+    },
+    modalText: {
+        backgroundColor: 'var(--uiWhite)',
+        // width: 338,
+        textAlign: 'center',
+        padding: '10px 0px',
+        borderTopRightRadius: 4,
+        borderTopLeftRadius: 4,
+        fontWeight: 500,
+        borderColor: 'var(--uiWhite)',
+        fontsize: 'var(--titleFontSize),'
+    },
+    modalTextButton: {
+        height: "48px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+        width: 350,
+    },
+    dateModal: {
+        '&>.MuiBox-root': {
+            display: 'inline-block !important   '
+        }
+
     }
 }))
 
 const RecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const [calenderValue, setCalenderValue] = useState(new Date())
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     const handleULIPDate = () => {
+        setOpen(true)
+    }
 
+    const handleBuyNow = () => {
+        // loading Com and after that payment screen
+        navigate('/payusingnetbanking');
+    }
+
+    const handleCalender = (value: any) => {
+        setCalenderValue(value)
+        console.log("calender value", value)
     }
 
     return (
@@ -197,12 +241,58 @@ const RecommendationsULIP = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText='Select ULIP Date'
-                            btnClick={handleULIPDate}
+                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ULIP Date'}
+                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
                         />
                     </Grid>
                 </Grid >
             </Box >
+
+
+
+            {/* <Modal className={classes.dateModal} sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
+                <Box alignItems='center' justifyContent='center'>
+                    <Typography className={classes.modalText}>Monthly SIP Date</Typography>
+                    <Calendar />
+                    <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                        backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                        color: '#7b7b9d'
+                    }}>
+                        Confirm SIP Date
+                    </Button>
+                </Box>
+            </Modal> */}
+
+
+            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>Set backup account</Typography>
+                <Calendar onChange={handleCalender} value={calenderValue} />
+                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Confirm SIP Date
+                </Button>
+            </Dialog>
+
+            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+
+                <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
+                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
+                </Box>
+                <Button onClick={() => { setOpenConfirmation(!openConfirmation);
+        navigate('/payusingnetbanking'); }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Continue to Payment
+                </Button>
+            </Dialog>
+
         </Box >
     )
 }

@@ -15,11 +15,11 @@ import { useNavigate } from 'react-router-dom';
 
 const GetInsurance = () => {
     const dispatch: any = useDispatch();
+    const navigate = useNavigate();
 
     const handleInsuranceTermCondition = () => {
         dispatch(InsuranceTermConditionAction(true))
     }
-    const navigate = useNavigate();
     return (
         <div>
             <Grid container sx={{ paddingTop: '30px' }}>
@@ -96,7 +96,6 @@ const GetInsurance = () => {
                     </Grid>
                 </Grid>
             </Grid>
-
 
             <Grid container>
                 <Grid item xs={12} sx={{ padding: '20px 14px' }} >

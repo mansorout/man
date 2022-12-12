@@ -18,6 +18,8 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import Divider from '@mui/material/Divider';
+import { useDispatch, useSelector } from 'react-redux';
+import {SaveTaxInvestmentLumpsumAction,SaveTaxInvestmentMonthlyAction } from '../../Store/Duck/SaveTaxInvestmentType'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -84,6 +86,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const SaveTaxAmount = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const dispatch: any = useDispatch()
+    // const {SaveTaxInvestmentLumpsumAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
+    // const {SaveTaxInvestmentMonthlyAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentType, setInvestmentType] = useState<string>('lumpsum')
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
@@ -93,14 +98,17 @@ const SaveTaxAmount = () => {
     };
 
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
         setMonthlyAmount(event.target.value);
     };
 
     const handleNavigationFlow = () => {
+        investmentType === 'lumpsum' ? dispatch(SaveTaxInvestmentLumpsumAction('lumpsum')) : dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
         navigate('/saveTax/saveTaxInvestmentType')
     }
 

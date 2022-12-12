@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const GetInsurance = () => {
+    const navigate = useNavigate()
     /*
     const dispatch: any = useDispatch();
 
@@ -46,7 +47,7 @@ const GetInsurance = () => {
                                 detailText='Be financially prepared for any medical emergencies!'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/health-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
-                                btnClick={()=>{}}
+                                btnClick={()=>{navigate('/healthInsurance');}}
                             />
                         </Grid>
                     </Grid>
