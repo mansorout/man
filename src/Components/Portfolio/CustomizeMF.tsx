@@ -20,6 +20,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import { useSelector } from "react-redux";
 import { globalConstant } from "../../Utils/globalConstant";
 import Calendar from "react-calendar";
+import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 
 const data = [
   {
@@ -298,8 +299,14 @@ const CustomizeMF = () => {
                 backgroundColor: "#fff",
               }}
             >
-              <SelectSipDateButton
+              {/* <SelectSipDateButton
                 openModal={() =>
+                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
+                }
+              /> */}
+              <FooterWithBtn
+                btnText="Select SIP Date"
+                btnClick={() =>
                   setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
                 }
               />
