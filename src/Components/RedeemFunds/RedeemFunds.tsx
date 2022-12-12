@@ -399,11 +399,11 @@ function RedeemFunds() {
 
 
 
-                                <Grid container spacing={3} >
-                                    <Grid item xs={12} sm={6} sx={{ padding: { xs: 0 }, display: "-webkit-inline-flex", }} >
+                                <Grid container spacing={6} >
+                                    <Grid item xs={12} sm={6} sx={{ display: "-webkit-inline-flex" }} >
 
                                         {
-                                            partial ? <Card sx={{ maxWidth: 488, maxHeight: 300, marginLeft: "3%" }}>
+                                            partial ?  <Card sx={{ maxWidth: 488, borderRadius: "8px",marginBottom:"5px" }}>
                                                 <CardContent>
 
                                                     <Box>
