@@ -100,8 +100,8 @@ const GetInsurance = () => {
             <Grid container>
                 <Grid item xs={12} sx={{ padding: '20px 14px' }} >
                     <HorizontalImgIconLongcard
-                        heading='ULIP'
-                        subHeading='Unit linked insurance plans Invest and insure!'
+                        heading='Term Insurance'
+                        subHeading='Get 1 Cr life cover for as low as ₹490 per month!'
                         imgUrl={`${process.env.PUBLIC_URL}/assets/images/term-insurance.svg`}
                         headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
                         navigatIcon={<ArrowForwardIcon />}
