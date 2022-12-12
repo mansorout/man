@@ -48,59 +48,72 @@ const enumActiveScreen = Object.freeze({
   OPEN_CONFIRMATION_MODAL: 2,
 });
 
+const useStyles: any = makeStyles((theme: any) => ({
+  button: {
+    height: "48px",
+    borderRadius: "8px",
+    backgroundColor: "rgba(60, 62, 66, 0.1) !important",
+    margin: "20px",
+    width: "90%",
+    maxWidth: "400px",
+    "&:hover": {
+      backgroundColor: "#23db7b !important",
+    },
+    "& span": {
+      color: "#fff !important",
+    },
+    manImg: {
+      width: "40px !important",
+      height: "40px !important",
+      // position: "absolute",
+      // right: "0px",
+      // bottom: "-1px"
+    },
+  },
+  replaceBtn: {
+    backgroundColor: "var(--uiLightGreyColor) !important",
+    color: "#7b7b9d !important",
+    "&:hover": {
+      backgroundColor: "rgba(123, 123, 157, 0.05) !important",
+    },
+  },
+  removeBtn: {
+    backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+    color: "#ff5300 !important",
+    "&:hover": {
+      backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+    },
+  },
+}));
+
+const style = {
+  returns: {
+    fontSize: "14px",
+    color: "#7b7b9d",
+  },
+  amount: {
+    fontSize: "18px",
+    color: "#3c3e42",
+  },
+  growthRed: {
+    color: "#db2323",
+  },
+  growthGreen: {
+    color: "#23db7b",
+  },
+  buttons: {
+    // width: "9.84vw",
+    // height: "2.5vw",
+    padding: "0.625vw 2.2vw",
+    borderRadius: "0.625vw",
+    fontSize: "11px",
+    fontWeight: 500,
+  },
+  text: {
+    color: "white",
+  },
+};
 const MutualFundCard2 = (props: MFProp) => {
-  const style = {
-    returns: {
-      fontSize: "14px",
-      color: "#7b7b9d",
-    },
-    amount: {
-      fontSize: "18px",
-      color: "#3c3e42",
-    },
-    growthRed: {
-      color: "#db2323",
-    },
-    growthGreen: {
-      color: "#23db7b",
-    },
-    buttons: {
-      // width: "9.84vw",
-      // height: "2.5vw",
-      padding: "0.625vw 2.2vw",
-      borderRadius: "0.625vw",
-      fontSize: "11px",
-      fontWeight: 500,
-    },
-    text: {
-      color: "white",
-    },
-  };
-
-  const useStyles: any = makeStyles((theme: any) => ({
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      backgroundColor: "rgba(60, 62, 66, 0.1) !important",
-      margin: "20px",
-      width: "90%",
-      maxWidth: "400px",
-      "&:hover": {
-        backgroundColor: "#23db7b !important",
-      },
-      "& span": {
-        color: "#fff !important",
-      },
-      manImg: {
-        width: "40px !important",
-        height: "40px !important",
-        // position: "absolute",
-        // right: "0px",
-        // bottom: "-1px"
-      },
-    },
-  }));
-
   const classes = useStyles();
   const naviagte = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
@@ -505,10 +518,11 @@ const MutualFundCard2 = (props: MFProp) => {
                       <Button
                         variant="contained"
                         style={style.buttons}
-                        sx={{
-                          backgroundColor: "rgba(123, 123, 157, 0.05)",
-                          color: "#7b7b9d",
-                        }}
+                        className={classes.replaceBtn}
+                        // sx={{
+                        //   backgroundColor: "rgba(123, 123, 157, 0.05)",
+                        //   color: "#7b7b9d",
+                        // }}
                         onClick={() => naviagte("/replaceFunds")}
                       >
                         <img src={ReplaceButtonIcon} />
@@ -517,10 +531,11 @@ const MutualFundCard2 = (props: MFProp) => {
                       <Button
                         variant="contained"
                         style={style.buttons}
-                        sx={{
-                          backgroundColor: "rgba(255, 83, 0, 0.05)",
-                          color: "#ff5300",
-                        }}
+                        className={classes.removeBtn}
+                        // sx={{
+                        //   backgroundColor: "rgba(255, 83, 0, 0.05)",
+                        //   color: "#ff5300",
+                        // }}
                         onClick={() => {
                           setRemoveInvestment(true);
                         }}

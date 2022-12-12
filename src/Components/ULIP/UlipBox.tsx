@@ -3,6 +3,7 @@ import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 
 
 const UlipBox = () => {
@@ -29,7 +30,7 @@ const UlipBox = () => {
                         <Toolbar />
                         <Box sx={{
                             padding: 0,
-                            margin: '2.5vw',
+                            margin: '5vw',
                             fontFamily: 'Roboto',
                             display: 'flex',
                             flexDirection: 'column',
@@ -40,8 +41,8 @@ const UlipBox = () => {
                                 color: '#6c63ff',
                                 marginBottom: '3vw',
                             }}>
-                                <Link href="/home">Home</Link>
-                                <Link href="/">Get Insured</Link>
+                                <Link href="/">Home</Link>
+                                <Link href="/ulip/home">Get Insured</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
@@ -60,7 +61,14 @@ const UlipBox = () => {
                                 </Grid>
                             </Grid>
                         </Box>
+                        <ULIPFooter 
+                            text="Show Me Recommendations" 
+                            navigateTo="/ulip/recommendations" 
+                            width="384px"
+                            bgColor="#23db7b" 
+                        />
                     </Grid>
+                    
                 </Grid>
             </Box>
         </Box>

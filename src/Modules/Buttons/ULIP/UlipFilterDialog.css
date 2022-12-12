@@ -1,0 +1,7 @@
+.MuiPaper-root {
+    margin: 0;
+}
+
+.MuiPaper-root > h2 {
+    padding: 0;
+}

@@ -6,6 +6,7 @@ import {
   Button,
   Grid,
   Link,
+  
   Modal,
   Toolbar,
   Typography,
@@ -18,6 +19,7 @@ import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import { Calendar } from "react-calendar";
+import { makeStyles } from "@mui/styles";
 
 // const data = [
 //   {
@@ -162,8 +164,17 @@ const enumActiveScreen = Object.freeze({
   OPEN_NET_BANKING: 3,
 });
 
+const useStyles: any = makeStyles((them: any) => ({
+  button: {
+    "&:hover": {
+      backgroundColor: "#00b4ff !important",
+    },
+  },
+}));
+
 const MutualFundsList = () => {
   const navigate = useNavigate();
+  const classes = useStyles();
 
   const [mfCards, setMfCards] = useState<MFProp[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(
@@ -356,6 +367,7 @@ const MutualFundsList = () => {
                     fontWeight: 500,
                     color: "#fff",
                   }}
+                  className={classes.button}
                 >
                   Customize Plan
                 </Button>
