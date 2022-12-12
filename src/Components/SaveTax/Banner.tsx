@@ -15,6 +15,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         position: 'relative',
         display: 'flex',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
         '& b': {
             fontSize: 'var(--fontSize14)',
             fontWeight: 500,
@@ -50,7 +51,7 @@ const Banner = (props:BannerPropsType) => {
     const classes = useStyles()
     return (
         <Box className={classes.bannerWrap}>
-            <Box>
+            <Box sx={{margin: '10px 0px'}}>
                 <b>{props.smText}</b>
                 <Typography component="p">{props.planText}</Typography>
                 <Typography component="span">{props.saveUptoText}</Typography>
