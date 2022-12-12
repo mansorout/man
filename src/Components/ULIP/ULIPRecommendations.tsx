@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Breadcrumbs, Button, Grid, Link, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
@@ -10,13 +10,31 @@ import DateConfirmedDialog from "./DateConfirmedDialog";
 import ThirdPartyRedirection from "./ThirdPartyRedirection";
 import TransactionsDone from "./TransactionsDone";
 import ThirdPartyHdfc from "./ThirdPartyHdfc";
+import SelectUlipDateButton from "../../Modules/Buttons/ULIP/SelectUlipDateButton";
+import Calendar from "react-calendar";
+import { tick } from "../../Assets";
+import { useNavigate } from "react-router-dom";
+
+const enumActiveScreen = Object.freeze({
+    CLOSE_MODAL: 0,
+    OPEN_DATE_PICKER_MODAL: 1,
+    OPEN_CONFIRMATION_MODAL: 2,
+    OPEN_NET_BANKING: 3,
+});
 
 const ULIPRecommendations = () => {
 
-    const [ open, setOpen ] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
+
+    const navigate = useNavigate();
+
+    const [ value, setValue ] = useState(new Date());
+
 
     const ulipData: ULIPProp[] = [
         {
@@ -45,6 +63,40 @@ const ULIPRecommendations = () => {
             backgroundColor: "#f9f9f9",
             height: "100vh",
         } as React.CSSProperties,
+        modalText: {
+            backgroundColor: '#FFF',
+            width: 338,
+            textAlign: 'center',
+            marginLeft: '1px',
+            padding: '5px',
+            borderTopRightRadius: 4,
+            borderTopLeftRadius: 4,
+            fontWeight: '500',
+            borderColor: '#fff'
+        },
+        modalText2: {
+            backgroundColor: '#FFF',
+            width: 338,
+            textAlign: 'center',
+            marginLeft: '1px',
+            padding: '5px',
+            borderTopRightRadius: 4,
+            borderTopLeftRadius: 4,
+            fontSize: '20px',
+            fontWeight: 'bold',
+            color: '#6c63ff',
+            borderColor: '#fff',
+        },
+        button: {
+            height: "48px",
+            boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+            backgroundColor: "#23db7b",
+            transform: "translate(8px, -23px)",
+            color: '#fff',
+            width: 350,
+            marginTop: 21,
+            marginLeft: -8
+        },
     };
 
     return (
@@ -58,7 +110,7 @@ const ULIPRecommendations = () => {
                     </Grid>
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Toolbar />
-                        
+
                         <Box sx={{
                             padding: 0,
                             margin: 0,
@@ -69,7 +121,7 @@ const ULIPRecommendations = () => {
                             gap: '1.5vw',
                         }}>
                             <ULIPHeader />
-                            <Box  sx={{
+                            <Box sx={{
                                 padding: 0,
                                 margin: '2.5vw',
                                 fontFamily: 'Roboto',
@@ -107,9 +159,9 @@ const ULIPRecommendations = () => {
                                     flexDirection: 'column',
                                     gap: '1.5vw',
                                 }}>
-                                {
-                                    ulipData.map(data => <ULIPCoFundCard { ...data } />)
-                                }
+                                    {
+                                        ulipData.map(data => <ULIPCoFundCard {...data} />)
+                                    }
                                 </Box>
                                 <ULIPBlueButton text="EXPLORE OTHER OPTIONS" navigateTo="/ulip/options" />
                                 {/*
@@ -117,12 +169,65 @@ const ULIPRecommendations = () => {
                                 <ThirdPartyHdfc open={ open } handleClose={ handleClose } />
                             */}
                             </Box>
-                            <ULIPFooter text="Select ULIP Date" navigateTo="/ulip/datepicker" />
+                            <Box sx={{
+                                width: '83.75vw',
+                                height: '6.1vw',
+                                marginTop: '8vw',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
+                                backgroundColor: '#fff'
+                            }}>
+                                <SelectUlipDateButton
+                                    openModal={() => setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)}
+                                />
+                            </Box>
                         </Box>
                     </Grid>
                 </Grid>
+                <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
+                    <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '13%', md: '30%' } }}>
+                        <Typography sx={style.modalText}>Select Monthly Instalment Date</Typography>
+                        <Typography sx={ style.modalText2 }>{`${ value.getDate() }`} of every month`</Typography>
+                        <Calendar value={ value } onChange={ setValue } />
+                        <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL) }} variant='contained' style={style.button} sx={{
+                            backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                            color: '#7b7b9d'
+                        }}>
+                            Confirm ULIP Date
+                        </Button>
+                    </Box>
+                </Modal>
+                <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
+                    <>
+                        <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '13%', md: '30%' } }}>
+                            <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                                <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
+                                <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                                <Typography sx={{ 
+                                    marginTop: 1, 
+                                    color: '#7b7b9d',
+                                    fontSize: '14px',
+                                    textAlign: 'center',
+                                }}>
+                                    Your monthly ULIP date is {`${ value.getDate() }`} of every month
+                                </Typography>
+                            </Box>
+                            {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
+                            <Button onClick={() => { navigate("/ulip/txndone") }} variant='contained' style={style.button} sx={{
+                                backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                                color: '#7b7b9d',
+                                marginLeft: 8
+                            }}>
+                                Continue to Payment
+                            </Button>
+                        </Box>
+
+                    </>
+                </Modal>
             </Box>
-        </Box>                
+        </Box>
     )
 };
 

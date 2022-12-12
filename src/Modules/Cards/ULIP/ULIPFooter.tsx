@@ -6,7 +6,7 @@ const ULIPFooter = (props: ULIPButtonProp) => {
     return (
         <Box sx={{
             width: '83.75vw',
-            height: '48px',
+            height: '78px',
             position: 'sticky',
             right: 0,
             bottom: 0,

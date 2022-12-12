@@ -4,19 +4,19 @@ import { useNavigate } from "react-router-dom";
 export interface ULIPButtonProp {
     text: string;
     navigateTo: string;
-    width?: string;
-    bgColor?: string;
+    width: string;
+    bgColor: string;
 }
 
-  const ULIPButton = (props: ULIPButtonProp) => {
+const ULIPButton = (props: ULIPButtonProp) => {
 
     const style = {
         button : {
-            width: `${ props.width }` || '384px',
+            width: `${ props.width }`,
             height: "48px",
             borderRadius: "8px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-            backgroundColor: `${ props.bgColor }` || '#23db7b',
+            backgroundColor: `${ props.bgColor }`,
             maxWidth:"400px",
         } as React.CSSProperties,
         text : {

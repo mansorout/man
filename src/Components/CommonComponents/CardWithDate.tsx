@@ -8,7 +8,7 @@ import { TextField } from '@mui/material';
 
 
 
-interface CardWithDatePickerProps {
+export interface CardWithDatePickerProps {
     value: Date | null;
     headIcon: string;
     text: string;
@@ -24,16 +24,16 @@ const CardWithDatePicker = (props: CardWithDatePickerProps) => {
                 <span style={{ fontSize: '12px' }}>{props.text} </span>
             </div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-                label="Start Date"
-                inputFormat="dd/mm/yyyy"
-                value={props.value}
-                onChange={(value)=>{props.handleChange?.(value)}}
-                renderInput={(param: any) => <TextField sx={{ width: "150px" }} {...param} />}
-                components={{
-                    OpenPickerIcon: CalendarTodayIcon,
-                }}
-            />
+                <DatePicker
+                    label="Start Date"
+                    inputFormat="dd/mm/yyyy"
+                    value={props.value}
+                    onChange={(value)=>{props.handleChange?.(value)}}
+                    renderInput={(param: any) => <TextField sx={{ width: "150px" }} {...param} />}
+                    components={{
+                        OpenPickerIcon: CalendarTodayIcon,
+                    }}
+                />
             </LocalizationProvider>
 
         </div>

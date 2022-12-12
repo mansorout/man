@@ -91,17 +91,18 @@ import ULIPDetails from './Components/ULIP/ULIPDetails';
 import ULIPHome from './Components/ULIP/ULIPHome';
 import DateConfirmedDialog from './Components/ULIP/DateConfirmedDialog';
 import TransactionsDone from './Components/ULIP/TransactionsDone';
-
-
-
-
-
-
-
+import UlipCard from './Modules/Cards/ULIP/UlipCard';
+import UlipPlanPerformanceCard from './Modules/Cards/ULIP/UlipPlanPerformanceCard';
+import TextRadio from './Modules/Cards/ULIP/textradio/TextRadio';
+import UlipBox from './Components/ULIP/UlipBox';
+import ULIPCoFundCard, { ULIPProp } from './Modules/Cards/ULIP/ULIPCoFundCard';
+import ULIPHeader from './Modules/Cards/ULIP/ULIPHeader';
+import { BajajAllianzLogo } from './Assets';
+import UlipDropDownFilter from './Components/ULIP/UlipDropDownFilter';
+import DropDownFilter from './Components/TxnFilters/DropDownFilter';
 
 
 function App() {
-
 
   const data: PortfolioProp = {
     image: '../../Assets/Portfolio/Miraelogo.svg',
@@ -112,6 +113,16 @@ function App() {
     currentValue: 146625,
     fiveYearReturn: 21625,
     fiveYearReturnGrowth: 17.36,
+  };
+
+  const ulipData: ULIPProp = {
+    logo: BajajAllianzLogo,
+    title: 'Bajaj Allianz FutureGain',
+    projectedAmount: 4.75,
+    topPerformingFundReturn: 14.28,
+    lifeCoverAmount: 5,
+    investedValueAmount: 2.5,
+    taxSavings: 15000,
   };
 
   /*
@@ -214,17 +225,8 @@ function App() {
         <Route path="/healthInsurance/findInsurance2" element={<FindInsurance2 />} />
         <Route path='/cancleSip' element={<CancleSIP />} />
 
-
-
-
-
         <Route path="/funddetails" element={<FundDetails />} />
         <Route path='/explorefunds' element={<ExploreFunds/>}/>
-
-
-
-
-
 
         <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/ulipcard" element={ <UlipCard /> } />
@@ -236,8 +238,9 @@ function App() {
         <Route path="/ulip/recommendations" element={ <ULIPRecommendations /> } />
         <Route path="/ulip/options" element={ <ULIPOptions /> } />
         <Route path="/ulip/details" element={ <ULIPDetails { ...ulipData } /> } />
+        <Route path="/ulip/txndone" element={ <TransactionsDone /> } />
         <Route path="/ulip/home" element={ <ULIPHome /> } />
-        
+
         <Route path="/insurance" element={<Insurance />} />
         <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/choosedPlanDetail" element={<ChoosedPlanDetail />} />
@@ -267,6 +270,8 @@ function App() {
         <Route path='/redemptiondone' element={<RedemptionDone />} />
         <Route path='/simplemodal' element={<SimpleModal />} />
 
+        <Route path="/filters" element={ <UlipDropDownFilter /> } />
+        <Route path="/ddfilters" element={ <DropDownFilter /> } />
       </Routes>
     </>
   );

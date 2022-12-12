@@ -1,5 +1,7 @@
 import { Box, Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import { ulipPlanPerformanceImage } from "../../../Assets";
+import './UlipPlanPerformanceCard.css';
+
 
 const UlipPlanPerformanceCard = () => {
 
@@ -18,7 +20,9 @@ const UlipPlanPerformanceCard = () => {
 
     return (
         <Card sx={{ 
+            boxSizing: 'border-box',
             width: '37.22vw',
+            height: '383px',
             padding: '1.5625vw 1.25vw',
             opacity: 0.95,
             borderRadius: '0.625vw',
@@ -37,14 +41,14 @@ const UlipPlanPerformanceCard = () => {
                 alt="ULIP Plan Performance"
                 sx={{
                     width: '35.625vw',
-                    height: '16.56vw',
+                    height: '15vw',
                     marginLeft: '1vw',
                 }}
             />
             <CardContent sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.5vw',
+                gap: '0.5vw',
             }}>
                 <Box sx={{
                     display: 'flex',
