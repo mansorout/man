@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { accountboxlogo } from '../../Assets/index'
 import { familyrestroomlogo } from '../../Assets/index'
@@ -27,6 +28,10 @@ import React from 'react'
 import { Height } from '@mui/icons-material'
 
 function VviewprofileCard() {
+
+    const [ panCardNo, setPanCardNo ] = useState('');
+    const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
+
     const navigate = useNavigate();
     function handleSubmit() {
         navigate('/pan_update');

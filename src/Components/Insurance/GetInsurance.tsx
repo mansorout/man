@@ -33,7 +33,7 @@ const GetInsurance = () => {
                                 detailText='Unit linked insurance plans Invest and insure!'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/ulip.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
-                                btnClick={()=>{}}
+                                btnClick={()=>{navigate('/ulip/home')}}
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
