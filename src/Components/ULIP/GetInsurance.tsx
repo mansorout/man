@@ -14,15 +14,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const GetInsurance = () => {
+    
     const navigate = useNavigate()
-    /*
-    const dispatch: any = useDispatch();
-
-    const handleInsuranceTermCondition = () => {
-        dispatch(InsuranceTermConditionAction(true))
-    }
-    */
-    const navigate = useNavigate();
+       
     
     return (
         <div>
