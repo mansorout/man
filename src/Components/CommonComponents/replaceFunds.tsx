@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { globalConstant } from "../../Utils/globalConstant";
 import Navbar from "../CommonComponents/Navbar";
@@ -16,6 +16,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
+import DropDownFilterInvestment from "../Investment/dropDownFilterInvestment";
 
 const data = [
   {
@@ -90,29 +92,30 @@ const data = [
   },
 ];
 
-const ReplaceFunds = () => {
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh",
-    } as React.CSSProperties,
-    button: {
-      color: "rgba(123, 123, 157, 0.3)",
-      padding: "0.625vw 1.25vw",
-      borderRadius: "0.625vw",
-      border: "solid 1px rgba(123, 123, 157, 0.3)",
-      backgroundColor: "rgba(255, 255, 255, 0)",
-    } as React.CSSProperties,
-    selected: {
-      color: "#23db7b",
-      padding: "0.625vw 1.25vw",
-      borderRadius: "0.625vw",
-      border: "solid 1px #23db7b",
-      backgroundColor: "#dff7ea",
-    } as React.CSSProperties,
-  };
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    height: "100vh",
+  } as React.CSSProperties,
+  button: {
+    color: "rgba(123, 123, 157, 0.3)",
+    padding: "0.625vw 1.25vw",
+    borderRadius: "0.625vw",
+    border: "solid 1px rgba(123, 123, 157, 0.3)",
+    backgroundColor: "rgba(255, 255, 255, 0)",
+  } as React.CSSProperties,
+  selected: {
+    color: "#23db7b",
+    padding: "0.625vw 1.25vw",
+    borderRadius: "0.625vw",
+    border: "solid 1px #23db7b",
+    backgroundColor: "#dff7ea",
+  } as React.CSSProperties,
+};
 
+const ReplaceFunds = () => {
+  const dispatch: any = useDispatch();
   const navigate = useNavigate();
   const [fundList, setFundList] = useState<any[]>(data);
   const [selected, setSelected] = useState<number>(1);
@@ -127,6 +130,10 @@ const ReplaceFunds = () => {
       return;
     }
     setFundList(fundList.filter((item) => item.fundType === type));
+  };
+
+  const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(AnchorOpenAction(event));
   };
 
   return (
@@ -352,9 +359,14 @@ const ReplaceFunds = () => {
                         style={{ color: "#7b7b9d", minWidth: "250px" }}
                       ></InputBase>
                     </Box>
-                    <IconButton>
+                    <IconButton
+                      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+                        handleFilter(e);
+                      }}
+                    >
                       <FilterAltOutlined style={{ color: "#09b85d" }} />
                     </IconButton>
+                    <DropDownFilterInvestment />
                   </Box>
                   <Box
                     style={{
