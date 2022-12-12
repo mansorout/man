@@ -8,7 +8,9 @@ const UlipCard = () => {
 
     return (
         <Box sx={{
+            boxSizing: 'border-box',
             width: '36vw',
+            height: '383px',
             padding: '1.25vw',
             borderRadius: '0.625vw',
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
@@ -27,7 +29,6 @@ const UlipCard = () => {
                 alignItems: 'center',
                 gap: '2vw',
             }}>
-
                 <TextRadio {...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} />
                 <Divider sx={{
                     width: '23.63vw',
@@ -36,8 +37,12 @@ const UlipCard = () => {
                 }}>OR</Divider>
                 <TextRadio {...{ textFieldLabel: 'I want to invest', radioText: 'Monthly' }} />
                 <FormControl sx={{
-                    width: '100%',
+                    width: '95%',
                     marginTop: '1vw',
+                    border: '1px solid #dddfe2',
+                    borderRadius: '4px',
+                    boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
+                    color: '#fff',
                 }}>
                     <InputLabel id="years">For next</InputLabel>
                     <Select labelId="years" value={years} label="For next">

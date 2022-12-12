@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
-import { ULIPButtonProp } from './ULIPButton';
 
-const ULIPBlueButton = (prop: ULIPButtonProp) => {
+export interface ULIPBlueButtonProp {
+    text: string;
+    navigateTo: string;
+}
+
+const ULIPBlueButton = (prop: ULIPBlueButtonProp) => {
 
     const navigate = useNavigate();
 

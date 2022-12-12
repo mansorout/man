@@ -1,13 +1,42 @@
 import { useState } from "react";
-import { Box, Divider, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Divider, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 //import EditIcon from '@mui/icons-material/EditIcon';
 import CreateIcon from '@mui/icons-material/Create';
-import { Typography } from "@mui/joy";
+import InvestmentTypeDialog from "../../../Components/ULIP/InvestmentTypeDialog";
 import { formatter } from "../../../Assets";
 import './ULIPHeader.css';
 
 
 const ULIPHeader = () => {
+
+    const [visible, setVisibility] = useState('hidden');
+    const [disabled, setDisabled] = useState(true);
+
+    const [ error, setError ] = useState(false);
+
+    const [amount, setAmount] = useState('');
+    const [payment, setPayment] = useState('5');
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const regex = /^\d+$/;
+        
+        setDisabled(false);
+        
+
+        if (!regex.test(amount)) {
+            setError(true);
+        } else {
+            setError(false);
+        }
+
+        setAmount(e.target.value);
+    }
+
+    const updatePlans = () => {
+        setVisibility('hidden');
+
+    }
 
     const style = {
         opt: {
@@ -18,7 +47,7 @@ const ULIPHeader = () => {
         }
     };
 
-    const [ amount, setAmount ] = useState(7200);
+
 
     return (
         <Grid container spacing={1} sx={{
@@ -27,39 +56,31 @@ const ULIPHeader = () => {
             color: '#fff',
             display: 'flex',
         }}>
-            <Grid item xs={12} md={6} style={ style.grid } sx={{
+            <Grid item xs={12} md={6} style={style.grid} sx={{
                 borderRight: '1px solid blue',
                 display: 'flex',
-                flexDirection: 'row-reverse',
+                justifyContent: 'right',
+                alignItems: 'baseline'
             }}>
-                <FormControl variant="standard" sx={{
-                    width: '162px',
-                   
-                }}>
-                    <InputLabel 
-                        id="ppt"
-                        sx={{
-                            color: '#fff',
-                        }}>
-                            Premium Payment Term
-                    </InputLabel>
-                    <Select 
+                <FormControl className="payment" variant="outlined" sx={{ width: '162px' }}>
+                    <InputLabel id="ppt" style={{ color: '#fff' }}>Premium Payment Term</InputLabel>
+                    <Select
                         labelId="ppt"
-                        value="5 Years"
-                        onChange={ () => setAmount(amount) }
-                        label="5 Years"
-                        defaultValue="5 Years"
+                        value={payment}
+                        onChange={(e) => setPayment(e.target.value)}
+                        label="paymentTerms"
+                        defaultValue="5"
                         sx={{
-                            color: '#fff',
+                            color: '#fff'
                         }}
                     >
-                        <MenuItem value={5}>5 Years</MenuItem>
-                        <MenuItem value={7}>7 Years</MenuItem>
-                        <MenuItem value={10}>10 Years</MenuItem>
+                        <MenuItem value={'5'}>5 Years</MenuItem>
+                        <MenuItem value={'7'}>7 Years</MenuItem>
+                        <MenuItem value={'10'}>10 Years</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} style={ style.grid } sx={{
+            <Grid item xs={12} md={6} style={style.grid} className="ulip-header" sx={{
                 display: 'flex',
                 padding: '5px',
                 gap: '24px',
@@ -72,17 +93,65 @@ const ULIPHeader = () => {
                     }}>Investment Type</Typography>
                     <Typography sx={{
                         fontSize: '18px',
-                    }}>{ formatter.format(amount) } Monthly</Typography>
+                    }}>{formatter.format(Number(amount))} Monthly</Typography>
                 </Box>
-                <CreateIcon sx={{
+                <CreateIcon onClick={() => setVisibility('visible')} sx={{
                     width: '18px',
                     height: '18px',
                     objectFit: 'contain',
                     opacity: 0.7,
                     margin: '11px 0',
-                }}/>
+                }} />
+                <Box sx={{
+                    position: 'absolute',
+                    top: '11.25vw',
+                    left: '42vw',
+                    width: '385px',
+                    padding: '16px',
+                    borderRadius: '4px',
+                    boxShadow: '0 4px 16px 0 rgba(0, 0, 0, 0.12)',
+                    backgroundColor: '#fff',
+                    visibility: `${ visible }`,
+                }}>
+
+                    <TextField
+                        variant="outlined"
+                        label="Amount I want to invest monthly"
+                        value={amount}
+                        className="monthlyInvest"
+                        error={ error }
+                        helperText={ error ? "Amount can only be numeric" : '' }
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                            endAdornment: <InputAdornment position="end">
+                                <Button
+                                    variant='contained'
+                                    disabled={disabled}
+                                    onClick={updatePlans}
+                                    sx={{
+                                        backgroundColor: '#23db7b',
+                                        borderRadius: '4px',
+                                        boxShadow: '0 4px 8px 0 rgba(35, 219, 123, 0.4)',
+                                        color: '#fff',
+                                        fontSize: '12px',
+                                        fontWeight: 500,
+                                    }}
+                                >Update Plans</Button>
+                            </InputAdornment>
+                        }}
+                        sx={{
+                            margin: '7px 0 0',
+                            padding: '14px 16px',
+                            borderRadius: '4px',
+                            boxShadow: '0 4px 8px 0 rgba(75, 123, 236, 0.2)',
+                            border: 'solid 1px #4b7bec',
+                            backgroundColor: '#fff',
+                        }}
+                        onChange={handleChange}
+                    />
+                </Box>
             </Grid>
-        </Grid>        
+        </Grid>
     )
 };
 
