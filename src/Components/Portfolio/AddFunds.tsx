@@ -36,6 +36,7 @@ const data = [
     fiveYearReturn: 24.33,
     checkbox: true,
     buttons: false,
+    isMutualFundScreen: false,
   },
   {
     logo: "/Miraelogo.svg",
@@ -49,6 +50,7 @@ const data = [
     fiveYearReturn: 24.33,
     checkbox: true,
     buttons: false,
+    isMutualFundScreen: false,
   },
   {
     logo: "/Miraelogo.svg",
@@ -62,6 +64,7 @@ const data = [
     fiveYearReturn: 24.33,
     checkbox: true,
     buttons: false,
+    isMutualFundScreen: false,
   },
   {
     logo: "/Miraelogo.svg",
@@ -75,6 +78,7 @@ const data = [
     fiveYearReturn: 24.33,
     checkbox: true,
     buttons: false,
+    isMutualFundScreen: false,
   },
   {
     logo: "/Miraelogo.svg",
@@ -88,6 +92,7 @@ const data = [
     fiveYearReturn: 24.33,
     checkbox: true,
     buttons: false,
+    isMutualFundScreen: false,
   },
 ];
 const style = {
