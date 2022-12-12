@@ -227,8 +227,6 @@ function ModalInvestNow(props: any) {
     ) {
       setShowSubmit(false);
     }
-
-    console.log(showSubmit);
   }, [formData]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
