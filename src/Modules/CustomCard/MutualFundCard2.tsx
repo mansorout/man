@@ -1,89 +1,119 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Calendar from 'react-calendar';
+import Calendar from "react-calendar";
 import { makeStyles } from "@mui/styles";
-import { Box, Checkbox, Grid, Button, Chip, Typography, Dialog, DialogTitle, List, ImageListItem, Modal, Avatar } from "@mui/material";
-import { formatter, MorningStarLogo, ReplaceButtonIcon, RemoveButtonIcon, Star, tick, Radiobutton } from '../../Assets';
+import {
+  Box,
+  Checkbox,
+  Grid,
+  Button,
+  Chip,
+  Typography,
+  Dialog,
+  DialogTitle,
+  List,
+  ImageListItem,
+  Modal,
+  Avatar,
+} from "@mui/material";
+import {
+  formatter,
+  MorningStarLogo,
+  ReplaceButtonIcon,
+  RemoveButtonIcon,
+  Star,
+  tick,
+  Radiobutton,
+} from "../../Assets";
 import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 
 export interface MFProp {
-  logo: string,
-  title: string,
-  fundType: string,
-  price: number,
-  rating: number,
-  morningStarLogo: boolean,
-  oneYearReturn: number,
-  threeYearReturn: number,
-  fiveYearReturn: number,
-  buttons?: boolean,
-  checkbox?: boolean,
+  logo: string;
+  title: string;
+  fundType: string;
+  price: number;
+  rating: number;
+  morningStarLogo: boolean;
+  oneYearReturn: number;
+  threeYearReturn: number;
+  fiveYearReturn: number;
+  buttons: boolean;
+  checkbox: boolean;
+  isMutualFundScreen: boolean;
 }
-
 
 const enumActiveScreen = Object.freeze({
   CLOSE_MODAL: 0,
   OPEN_DATE_PICKER_MODAL: 1,
   OPEN_CONFIRMATION_MODAL: 2,
-})
+});
 
+const useStyles: any = makeStyles((theme: any) => ({
+  button: {
+    height: "48px",
+    borderRadius: "8px",
+    backgroundColor: "rgba(60, 62, 66, 0.1) !important",
+    margin: "20px",
+    width: "90%",
+    maxWidth: "400px",
+    "&:hover": {
+      backgroundColor: "#23db7b !important",
+    },
+    "& span": {
+      color: "#fff !important",
+    },
+    manImg: {
+      width: "40px !important",
+      height: "40px !important",
+      // position: "absolute",
+      // right: "0px",
+      // bottom: "-1px"
+    },
+  },
+  replaceBtn: {
+    backgroundColor: "var(--uiLightGreyColor) !important",
+    color: "#7b7b9d !important",
+    "&:hover": {
+      backgroundColor: "rgba(123, 123, 157, 0.05) !important",
+    },
+  },
+  removeBtn: {
+    backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+    color: "#ff5300 !important",
+    "&:hover": {
+      backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+    },
+  },
+}));
 
+const style = {
+  returns: {
+    fontSize: "14px",
+    color: "#7b7b9d",
+  },
+  amount: {
+    fontSize: "18px",
+    color: "#3c3e42",
+  },
+  growthRed: {
+    color: "#db2323",
+  },
+  growthGreen: {
+    color: "#23db7b",
+  },
+  buttons: {
+    // width: "9.84vw",
+    // height: "2.5vw",
+    padding: "0.625vw 2.2vw",
+    borderRadius: "0.625vw",
+    fontSize: "11px",
+    fontWeight: 500,
+  },
+  text: {
+    color: "white",
+  },
+};
 const MutualFundCard2 = (props: MFProp) => {
-
-  const style = {
-    returns: {
-      fontSize: '14px',
-      color: '#7b7b9d',
-    },
-    amount: {
-      fontSize: '18px',
-      color: '#3c3e42',
-    },
-    growthRed: {
-      color: '#db2323'
-    },
-    growthGreen: {
-      color: '#23db7b'
-    },
-    buttons: {
-      width: '9.84vw',
-      height: '2.5vw',
-      padding: '0.625vw 2.2vw',
-      borderRadius: '0.625vw',
-      fontSize: '11px',
-      fontWeight: 500,
-    },
-    text: {
-      color: "white"
-    },
-
-  }
-
-  const useStyles: any = makeStyles((theme: any) => ({
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      backgroundColor: "rgba(60, 62, 66, 0.1) !important",
-      margin: "20px",
-      width: "90%",
-      maxWidth: "400px",
-      '&:hover': {
-        backgroundColor: "#23db7b !important",
-      },
-      '& span': {
-        color: "#fff !important"
-      },
-      manImg: {
-        width: "40px !important",
-        height: "40px !important",
-        // position: "absolute",
-        // right: "0px",
-        // bottom: "-1px"
-      }
-
-    },
-  }));
-
   const classes = useStyles();
   const naviagte = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
@@ -95,7 +125,7 @@ const MutualFundCard2 = (props: MFProp) => {
     }
 
     //delete item
-  }
+  };
 
   // return (
   //   <Box sx={{
@@ -248,7 +278,6 @@ const MutualFundCard2 = (props: MFProp) => {
 
   //     </Grid>
 
-
   //     {
   //       props.buttons &&
   //       <Grid sx={{
@@ -347,96 +376,224 @@ const MutualFundCard2 = (props: MFProp) => {
     <>
       <Box
         style={{
-          gap: "20px", flexWrap: "wrap", overflowX: "scroll", marginBottom: "15px", display: "flex", backgroundColor: "white", borderRadius: "8px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding: "10px 20px"
-        }}>
-        <Box style={{ display: "flex", gap: "10px", flexWrap: "wrap", width: "100%", maxWidth: "400px" }}>
-          <Box style={{ overflow: "hidden", height: "32px", width: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
-            <img src={props?.logo} width="100%" alt='mirae'></img>
+          gap: "20px",
+          flexWrap: "wrap",
+          overflowX: "scroll",
+          marginBottom: "15px",
+          display: "flex",
+          backgroundColor: "white",
+          borderRadius: "8px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+          padding: "10px 20px",
+        }}
+      >
+        <Box
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            width: "100%",
+            maxWidth: "400px",
+          }}
+        >
+          <Box
+            style={{
+              overflow: "hidden",
+              height: "32px",
+              width: "32px",
+              border: "1px solid #d1d6dd",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src={props?.logo} width="100%" alt="mirae"></img>
           </Box>
           <Box>
-            <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{props?.title}</Typography>
+            <Typography
+              style={{
+                marginBottom: "10px",
+                color: "#3c3e42",
+                fontSize: "16px",
+                fontWeight: "500",
+                lineHeight: "1.19",
+              }}
+            >
+              {props?.title}
+            </Typography>
             <Box style={{ display: "flex", gap: "10px" }}>
               {/* <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
                   <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{props?.cap}</Typography>
                 </Box> */}
-              <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{props?.fundType}</Typography>
+              <Box
+                style={{
+                  padding: "4px 5px",
+                  backgroundColor: "rgba(123, 123, 157, 0.16)",
+                }}
+              >
+                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>
+                  {props?.fundType}
+                </Typography>
               </Box>
             </Box>
           </Box>
         </Box>
-        <Box style={{ padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
-          <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{props?.price}</Typography>
+        <Box
+          style={{
+            padding: "4px 8px",
+            backgroundColor: "#d6d5ef",
+            borderRadius: "2px",
+          }}
+        >
+          <Typography
+            style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
+          >
+            ₹{props?.price}
+          </Typography>
         </Box>
-        <Chip style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }} avatar={<Avatar alt="star" src={Star} />} label={props?.rating} />
-        <Box style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}>
+        <Chip
+          style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }}
+          avatar={<Avatar alt="star" src={Star} />}
+          label={props?.rating}
+        />
+        <Box
+          // style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}
+          sx={{
+            // width: { ...widthRef.current },
+            width: props?.buttons === true ? { md: "min-content" } : "unset",
+            display: "flex",
+            // gap: "30px",
+            gap: props?.buttons === true ? { xs: "30px", md: "8%" } : "30px",
+            justifyContent:
+              props?.buttons === true ? { xs: "unset", md: "center" } : "unset",
+            flexWrap: "wrap",
+          }}
+        >
           <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>1yrs return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{props?.oneYearReturn}</Typography>
+            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>
+              1yrs return
+            </Typography>
+            <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
+              ₹{props?.oneYearReturn}
+            </Typography>
           </Box>
           <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3yrs return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{props?.threeYearReturn} </Typography>
+            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>
+              3yrs return
+            </Typography>
+            <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
+              ₹{props?.threeYearReturn}{" "}
+            </Typography>
           </Box>
           <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>5yrs return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{props?.fiveYearReturn}</Typography>
+            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>
+              5yrs return
+            </Typography>
+            <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
+              ₹{props?.fiveYearReturn}
+            </Typography>
           </Box>
+          {props?.isMutualFundScreen === true ? (
+            // for mutual fund screen
+            <></>
+          ) : (
+            <>
+              {props?.buttons === true ? (
+                <>
+                  {/* for customize plan screen*/}
+                  <Grid>
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        gap: "1vw",
+                        marginTop: { xs: "unset", sm: "8%" },
+                        // position: { md: "absolute" },
+                        // right: { md: "-5%" },
+                      }}
+                    >
+                      <Button
+                        variant="contained"
+                        style={style.buttons}
+                        className={classes.replaceBtn}
+                        // sx={{
+                        //   backgroundColor: "rgba(123, 123, 157, 0.05)",
+                        //   color: "#7b7b9d",
+                        // }}
+                        onClick={() => naviagte("/replaceFunds")}
+                      >
+                        <img src={ReplaceButtonIcon} />
+                        Replace
+                      </Button>
+                      <Button
+                        variant="contained"
+                        style={style.buttons}
+                        className={classes.removeBtn}
+                        // sx={{
+                        //   backgroundColor: "rgba(255, 83, 0, 0.05)",
+                        //   color: "#ff5300",
+                        // }}
+                        onClick={() => {
+                          setRemoveInvestment(true);
+                        }}
+                      >
+                        <img src={RemoveButtonIcon} />
+                        Remove
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          )}
         </Box>
-        {
-          props?.buttons === true ?
-            <>
-              <Grid>
-                < Grid sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  gap: '1vw',
-                }}>
-                  <Button variant='contained' style={style.buttons} sx={{
-                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                    color: '#7b7b9d'
-                  }}
-                    onClick={() => naviagte('/replaceFunds')}
-                  >
-                    <img src={ReplaceButtonIcon} />
-                    Replace
-                  </Button>
-                  <Button variant="contained" style={style.buttons} sx={{
-                    backgroundColor: 'rgba(255, 83, 0, 0.05)',
-                    color: '#ff5300'
-                  }}
-                    onClick={() => {
-                      setRemoveInvestment(true);
-                    }}
-                  >
-                    <img src={RemoveButtonIcon} />
-                    Remove
-                  </Button>
-                </Grid>
-              </Grid>
-            </>
-            :
-            <>
-              {
-                props?.checkbox === true ?
-                  <Box component="span">
-                    <Checkbox />
-                  </Box>
-                  :
-                  <Box component="span">
-                    <input type="radio" style={{ color: "var(--primaryColor)" }} />
-                  </Box>
-              }
-            </>
-        }
 
-        <Dialog open={removeInvestment} fullWidth style={{ borderRadius: "8px" }}>
+        {props?.isMutualFundScreen === false && props?.buttons === false ? (
+          <>
+            {props?.checkbox === true ? (
+              // for add funds
+              <Box component="span">
+                <Checkbox />
+              </Box>
+            ) : (
+              // for replace funds
+              <Box component="span">
+                <input type="radio" style={{ color: "var(--primaryColor)" }} />
+              </Box>
+            )}
+          </>
+        ) : null}
+
+        <Dialog
+          open={removeInvestment}
+          fullWidth
+          style={{ borderRadius: "8px" }}
+        >
           <Box style={{ margin: "6%", marginBottom: "2%" }}>
             <List sx={{ pt: 0 }}>
-              <Grid container xs={12} justifyContent="center" display="flex" spacing={4} marginLeft="-14px !important">
-                <Grid item container xs={12} spacing={2} >
+              <Grid
+                container
+                xs={12}
+                justifyContent="center"
+                display="flex"
+                spacing={4}
+                marginLeft="-14px !important"
+              >
+                <Grid item container xs={12} spacing={2}>
                   <Grid item xs={3} />
-                  <Grid item xs={6} justifyContent="center" display="flex" spacing={2} style={{ marginTop: "25px" }}>
+                  <Grid
+                    item
+                    xs={6}
+                    justifyContent="center"
+                    display="flex"
+                    spacing={2}
+                    style={{ marginTop: "25px" }}
+                  >
                     <img
                       src="./assets/images/Group 5102 (non-optimized).png"
                       srcSet="./assets/images/Group 5102 (non-optimized).png"
@@ -448,13 +605,18 @@ const MutualFundCard2 = (props: MFProp) => {
                   <Grid item xs={3} />
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography variant="h2" display="flex" justifyContent={"center"}>
+                  <Typography
+                    variant="h2"
+                    display="flex"
+                    justifyContent={"center"}
+                  >
                     Remove Funds
                   </Typography>
                 </Grid>
                 <Grid item xs={9}>
                   <Typography component="p" style={{ color: "grey" }}>
-                    Are you sure you want to remove this fund from the SprintMoney recommended plan?
+                    Are you sure you want to remove this fund from the
+                    SprintMoney recommended plan?
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
@@ -465,10 +627,16 @@ const MutualFundCard2 = (props: MFProp) => {
                     fullWidth
                     onClick={() => handleClick("no")}
                     sx={{
-                      pointerEvents: 'fill',
+                      pointerEvents: "fill",
                     }}
                   >
-                    <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >No</Typography>
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      No
+                    </Typography>
                   </Button>
                 </Grid>
                 <Grid item xs={6}>
@@ -479,10 +647,16 @@ const MutualFundCard2 = (props: MFProp) => {
                     fullWidth
                     onClick={() => handleClick("yes")}
                     sx={{
-                      pointerEvents: 'fill',
+                      pointerEvents: "fill",
                     }}
                   >
-                    <Typography style={{ color: "black !important" }} component="span" className="largeButtonText"  >Yes</Typography>
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      Yes
+                    </Typography>
                   </Button>
                 </Grid>
               </Grid>
@@ -545,7 +719,7 @@ const MutualFundCard2 = (props: MFProp) => {
       </Box>
     </Modal> */}
     </>
-  )
+  );
 };
 
 export default MutualFundCard2;
