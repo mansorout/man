@@ -61,6 +61,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
+        '@media(max-width: 500px)':{
+            marginLeft: '0px !important',
+        }
     },
     cardImgWrapper: {
         width: '70px',
@@ -127,11 +130,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontsize: 'var(--titleFontSize),'
     },
     modalTextButton: {
-        height: "48px",
+        // height: "48px",
         boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
         backgroundColor: "var(--primaryColor) !important",
         color: 'var(--uiWhite) !important',
-        width: 350,
+        // width: 350,
     },
     dateModal: {
         '&>.MuiBox-root': {
@@ -180,24 +183,24 @@ const RecommendationsULIP = () => {
 
                         <Box className={classes.cardStyle}>
                             <Grid container>
-                                <Grid item sm={5}>
+                                <Grid item sm={5} xs={12}>
                                     <Box className={classes.cardStyleCmpName}>
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: '0px 8px' }}>
+                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
                                             <Typography component='p'>Bajaj Allianz Future Gain</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Equity</Typography>
                                         </Box>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={2}>
+                                <Grid item sm={2} xs={12}>
                                     <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
                                         <Typography component='div'>₹6.5 lacs</Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={3}>
+                                <Grid item sm={3} xs={12}>
                                     <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
                                         <Box className={classes.cardContent}>
                                             <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
@@ -209,7 +212,7 @@ const RecommendationsULIP = () => {
                                         </Box>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={2}>
+                                <Grid item sm={2} xs={12}>
                                     <Box>
                                         <Box className={classes.cardContent}>
                                             <Typography component='span'>Life Cover</Typography>
@@ -279,8 +282,8 @@ const RecommendationsULIP = () => {
             <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
 
-                <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
-                    <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
+                <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
                     <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
                 </Box>

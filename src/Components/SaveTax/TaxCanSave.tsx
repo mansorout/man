@@ -221,7 +221,7 @@ const TaxCanSave = () => {
 
 
                         <form onSubmit={formik.handleSubmit} className={classes.form}>
-                            <Box className={classes.inputFeildContainer} sx={{ width: { xs: '100%', sm: '50%' } }}>
+                            <Box className={classes.inputFeildContainer} sx={{ width: { xs: '90%', sm: '50%' }, margin: {xs:'auto', sm: '0px'}, borderRadius: '8px', }}>
                                 <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 21-22</Typography>
                                 <Box className={classes.inputWrap}>
                                     <Box className={classes.lableAndIcon}>

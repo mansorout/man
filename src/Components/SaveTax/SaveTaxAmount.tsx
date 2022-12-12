@@ -19,7 +19,7 @@ import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
-import {SaveTaxInvestmentLumpsumAction,SaveTaxInvestmentMonthlyAction } from '../../Store/Duck/SaveTaxInvestmentType'
+import { SaveTaxInvestmentLumpsumAction, SaveTaxInvestmentMonthlyAction } from '../../Store/Duck/SaveTaxInvestmentType'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -41,10 +41,15 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         backgroundColor: 'var(--bgColor)',
         margin: '0px 15px',
+        '@media(max-width: 500px)':{
+            width: '45px',
+            height: '45px',
+        }
     },
     BlueBoxCustom: {
         display: 'flex',
         alignItems: 'center',
+        flexWrap: 'wrap',
         '& p': {
             color: 'var(--uiWhite)',
             fontSize: 'var(--subHeadingFontSize)',
@@ -55,7 +60,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         // backgroundColor: '#000',
         boxShadow: 'var(--themeShadow)',
         padding: '15px',
-        margin: '15px',
         borderRadius: '8px',
     },
     investmentField: {
@@ -73,13 +77,24 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
     textField: {
         margin: '10px 0px !important',
-        display: 'block'
+        display: 'block',
+        position: 'relative',
+        '& .MuiOutlinedInput-root.MuiInputBase-fullWidth': {
+            '& label': {
+                backgroundColor: 'rgb(135 135 162 / 20%)',
+                position: 'absolute',
+                right: '0px',
+                padding: '7px',
+                margin: '0px !important',
+                '@media(min-width: 600px)':{
+                    width: '140px !important',
+                }
+            }
+        }
     },
     rupeesIcon: {
-        '& svg': {
-            fontSize: 'var(--fontSize14)',
-            color: 'var(--typeLightBlackColor)',
-        }
+        fontSize: '16px !important',
+        color: 'var(--typeLightBlackColor)',
     }
 }))
 
@@ -128,7 +143,7 @@ const SaveTaxAmount = () => {
                             <Typography component='p'>Amount I want to invest in current F.Y 21-22</Typography>
                         </Box>
 
-                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', }}>
+                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: {xs: '15px 0px', sm: '15px'} }}>
 
                             <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -159,7 +174,11 @@ const SaveTaxAmount = () => {
                                     <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 21-22</Typography>
                                 </Box>
 
-                                <Divider />
+                                        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                <Divider sx={{width: '30%'}} /> 
+                                    <Typography component='span'  sx={{padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)'}}>OR</Typography>
+                                <Divider sx={{width: '30%'}} /> 
+                                </Box>
 
                                 <Box className={classes.investmentField}>
                                     <Typography component='p'>Monthly investment</Typography>
