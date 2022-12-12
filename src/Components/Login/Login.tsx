@@ -20,12 +20,31 @@ import { ActionCreators } from "../../Store";
 import {login} from "../../Store/Reducers/action"
 import {store} from "../../Store/Store"
 import { useDispatch } from "react-redux"
+import { makeStyles } from '@mui/styles';
+import { Grid, Modal, Theme, } from '@mui/material'
+
+
+const useStyles: any = makeStyles((theme: Theme) => ({
+  background:{
+    paddingTop: '65px',
+    '@media(max-width: 1200px)':{
+      justifyContent: 'center !important',
+    }
+  },
+  containerRes:{
+    marginTop: '30px',
+    '@media(max-width: 600px)':{
+      // marginTop: '0px',
+      margin: '15px'
+    }
+  }
+}))
 
 export const Login = () => {
 
   const style = {
     background : {
-      height : "100vh",
+      minHeight : "100vh",
       width: "100vw",
       display:"flex",
       flexDirection:"column",
@@ -43,7 +62,7 @@ export const Login = () => {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     } as React.CSSProperties,
 
     logo : {
@@ -83,6 +102,7 @@ export const Login = () => {
     } as React.CSSProperties
   }
 
+    const classes = useStyles()
   const error : string[] = useSelector((state : any) => state.error)
   const dispatch = useDispatch()
   const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)
@@ -111,9 +131,9 @@ export const Login = () => {
 
   return (
     
-            <Box className="background" style={style.background}>
+            <Box className={`${classes.background} background`} style={style.background}>
         <NavigationBar />
-        <Box className="LoginContainer" style={style.container}>
+        <Box style={style.container} className={`${classes.containerRes} LoginContainer`}>
           <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
           <Typography variant="h1" align="center">
             Login with Mobile

@@ -32,7 +32,13 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItem: 'flex-start',
+        flexWrap: 'wrap',
         margin: '20px 0px',
+        '@media(max-width: 600px)':{
+            '&>div':{
+                width: '100%',
+            }
+        }
         // paddingBottom: '50px',
     },
     whyBuyTermInsuranceContentWrapper: {
