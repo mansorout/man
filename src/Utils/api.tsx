@@ -1,16 +1,20 @@
 import siteConfig from "./siteConfig";
 
-export async function postData(data: any, urlPath: string) {
+export async function postData(
+  data: any,
+  urlPath: string,
+  strContentType: string
+) {
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": strContentType,
       Origin: process.env.ORIGIN || "http://localhost:3000",
       authorization:
-        'Bearer ' + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: JSON.stringify(data),
   });
@@ -18,50 +22,59 @@ export async function postData(data: any, urlPath: string) {
   return await res;
 }
 
-export async function getData(urlPath: string) {
+export async function getData(urlPath: string, strContentType: string) {
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
-    method: 'GET',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json',
-      Origin: 'http://localhost:3000',
+      "Content-Type": strContentType,
+      Origin: "http://localhost:3000",
 
-      authorization: 'Bearer ' + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      authorization:
+        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
   });
   return await res;
 }
 
-export async function patchData(data: any, urlPath: string) {
+export async function patchData(
+  data: any,
+  urlPath: string,
+  strContentType: string
+) {
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
-    method: 'PATCH',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+    method: "PATCH",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json',
-      Origin: 'http://localhost:3000',
+      "Content-Type": strContentType,
+      Origin: "http://localhost:3000",
       authorization:
-        'Bearer ' + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: JSON.stringify(data),
   });
   return await res;
 }
 
-export async function putData(data: any, urlPath: string) {
+export async function putData(
+  data: any,
+  urlPath: string,
+  strContentType: string
+) {
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
-    method: 'PUT',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
+    method: "PUT",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json',
-      Origin: 'http://localhost:3000',
+      "Content-Type": strContentType,
+      Origin: "http://localhost:3000",
       authorization:
-        'Bearer ' + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: JSON.stringify(data),
   });
