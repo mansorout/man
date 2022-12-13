@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { tick } from '../../Assets';
+import DialogContent from '@mui/material/DialogContent';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -61,7 +62,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
-        '@media(max-width: 500px)':{
+        '@media(max-width: 500px)': {
             marginLeft: '0px !important',
         }
     },
@@ -149,6 +150,7 @@ const RecommendationsULIP = () => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
     const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
     const [calenderValue, setCalenderValue] = useState(new Date())
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
@@ -188,7 +190,7 @@ const RecommendationsULIP = () => {
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
+                                        <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
                                             <Typography component='p'>Bajaj Allianz Future Gain</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Equity</Typography>
@@ -227,7 +229,7 @@ const RecommendationsULIP = () => {
                             </Grid>
                             <Box>
                                 <Box className={classes.btnGroup}>
-                                    <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                    <Button variant="contained" onClick={() => setKnowMoreDialog(true)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
                                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
                                     </Button>
                                     <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
@@ -287,13 +289,26 @@ const RecommendationsULIP = () => {
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
                     <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
                 </Box>
-                <Button onClick={() => { setOpenConfirmation(!openConfirmation);
-        navigate('/payusingnetbanking'); }} variant='contained' className={classes.modalTextButton} sx={{
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
                     backgroundColor: 'rgba(123, 123, 157, 0.05)',
                     color: '#7b7b9d'
                 }}>
                     Continue to Payment
                 </Button>
+            </Dialog>
+
+
+            <Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog}>
+                <DialogTitle sx={{boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)'}}>
+                    Set backup account
+                    
+                    </DialogTitle>
+                <DialogContent>
+
+                </DialogContent>
             </Dialog>
 
         </Box >
