@@ -231,6 +231,7 @@ function ModalInvestNow(props: any) {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+   
     if (g_investment.type === globalConstant.SIP_INVESTMENT) {
       navigate("/mflist", {});
     } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
