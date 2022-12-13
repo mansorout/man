@@ -231,6 +231,7 @@ function ModalInvestNow(props: any) {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+   
     if (g_investment.type === globalConstant.SIP_INVESTMENT) {
       navigate("/mflist", {});
     } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
@@ -273,16 +274,10 @@ function ModalInvestNow(props: any) {
           <Typography textAlign="center" variant="h5" sx={{ fontSize: "14px" }}>
             Share details below to view recommendations
           </Typography>
-          <form>
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 2, width: "19ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
+         <Grid container spacing={2}>
+          <Grid item xs={6}  md={6}>
+            <TextField
+                fullWidth
                 label="FirstName"
                 sx={{ color: "#919eb1", fontSize: "17px" }}
                 onBlur={handleOnBlurFirstname}
@@ -298,9 +293,10 @@ function ModalInvestNow(props: any) {
                   )
                 }
               />
-              {/* {error && firstName.length<3 ? <label style={{display:"flex"}}>{errorMessage}</label>:""} */}
-              &nbsp;&nbsp;&nbsp;
-              <TextField
+          </Grid>
+          <Grid item xs={6} md={6}>
+          <TextField
+                 fullWidth
                 sx={{ color: "#919eb1", fontSize: "17px" }}
                 label="LastName*"
                 onBlur={handleOnBlurLastname}
@@ -316,9 +312,12 @@ function ModalInvestNow(props: any) {
                   )
                 }
               />
-            </Box>
-            <Box sx={{ width: "95%", marginTop: "2%" }}>
-              <TextField
+          </Grid>
+         </Grid>
+
+          <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
+            <Grid item xs={12} md={12}>
+            <TextField
                 fullWidth
                 sx={{
                   color: "#919eb1",
@@ -341,8 +340,10 @@ function ModalInvestNow(props: any) {
                   )
                 }
               />
-            </Box>
-            <Box sx={{ width: "95%", marginTop: "2%" }}>
+            </Grid>
+            </Grid>
+            <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
+            <Grid item xs={12} md={12}>
               <TextField
                 type="date"
                 placeholder=""
@@ -366,9 +367,9 @@ function ModalInvestNow(props: any) {
                   )
                 }
               />
-            </Box>
-
-            <div style={{ width: "100%" }}>
+              </Grid>
+              </Grid>
+              <div style={{ width: "100%" }}>
               <Button
                 disabled={showSubmit}
                 variant="contained"
@@ -387,20 +388,9 @@ function ModalInvestNow(props: any) {
                   Save Details
                 </Typography>
               </Button>
-              {/* <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover> */}
+    
             </div>
-          </form>
+        
         </Box>
       </Modal>
     </>

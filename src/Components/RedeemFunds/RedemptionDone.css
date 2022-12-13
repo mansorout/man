@@ -64,3 +64,12 @@
   text-align: center;
   color: #7b7b9d;
 }
+
+@media (max-width: 468px){
+  .redemptiondonecard{
+    width: 95% !important;
+    
+    left: 50% !important;
+   
+  }
+}
