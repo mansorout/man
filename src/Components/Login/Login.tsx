@@ -110,7 +110,7 @@ export const Login = () => {
     } as React.CSSProperties
   }
 
-    const classes = useStyles()
+  const classes = useStyles()
   const error : string[] = useSelector((state : any) => state.error)
   const dispatch = useDispatch()
   const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)

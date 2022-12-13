@@ -399,7 +399,7 @@ function RedeemFunds() {
                                 }
 
                                 <Box sx={{ width: '100%' }}>
-                                    <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                    <Grid sx={{padding: "0px 7px !important"}} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                         <Grid item md={6} xs={12}>
                                             {
                                                 partial ? <Card>
@@ -668,12 +668,15 @@ function RedeemFunds() {
                                                         <Divider sx={{ width: "100%" }} />
                                                     </Grid>
 
-                                                    <Grid container rowSpacing={2} sx={{ display: "flex", flexDirection: "column" }}>
+                                                    <Grid container rowSpacing={2} sx={{
+                                                        maxWidth: "fit-content",
+                                                        margin: "1rem", display: "flex", flexDirection: "column"
+                                                    }}>
                                                         <Grid item xs={12} sx={{
 
                                                             padding: "15px 0px 0px 0px"
                                                         }}>
-                                                            <Box sx={{ textAlign: " center",paddingTop: "15px" }}>
+                                                            <Box sx={{ textAlign: " center", paddingTop: "15px" }}>
                                                                 <Typography sx={{
                                                                     texAlign: " center",
                                                                     fontSize: " 12px",
@@ -712,7 +715,8 @@ function RedeemFunds() {
                                                             <Box sx={{ textAlign: " center" }}>
                                                                 <Typography sx={{
 
-
+                                                                    textDecoration: 'underline',
+                                                                    cursor: "pointer",
                                                                     fontSize: " 12px",
                                                                     fontWeight: "normal",
                                                                     fontStyle: " normal",
@@ -723,72 +727,9 @@ function RedeemFunds() {
                                                                 }}>     Terms and conditions</Typography>
                                                             </Box>
                                                         </Grid>
-                                                        {/* <Grid item xs={2}>
-                                                            <Box sx={{ textAlign: " center", }}>
-                                                                <Typography sx={{
 
-
-                                                                    fontSize: " 12px",
-                                                                    fontWeight: "normal",
-                                                                    fontStyle: " normal",
-                                                                    lineHeight: "1.42",
-                                                                    letterSpacing: "normal",
-
-                                                                    color: "#6c63ff",
-                                                                }}>     Terms and conditions</Typography>
-                                                            </Box>
-                                                        </Grid> */}
                                                     </Grid>
-                                                    {/* <Divider style={{ width: '100%' }} /> */}
 
-
-                                                    {/* <Box sx={{ textAlign: " center", }}>
-                                                        <Typography sx={{
-                                                           
-                                                            fontSize: " 12px",
-                                                            fontWeight: "normal",
-                                                            fontStyle: " normal",
-                                                            lineHeight: "1.42",
-                                                            letterSpacing: "normal",
-
-                                                            color: "#7b7b9d",
-
-
-                                                        }}>  Final units or amount will depend on NAV
-                                                            applicable at the time of actual redemption request.</Typography>
-                                                    </Box> */}
-
-                                                    {/* <Box sx={{ textAlign: " center" }}>
-                                                        <Typography sx={{
-
-
-
-                                                            fontSize: " 12px",
-                                                            fontWeight: "normal",
-                                                            fontStyle: " normal",
-                                                            lineHeight: "1.42",
-                                                            letterSpacing: "normal",
-
-                                                            color: "#7b7b9d",
-                                                        }}>
-                                                            By continuing, you’re agreeing to SprintMoneyTM
-
-                                                        </Typography>
-                                                    </Box> */}
-
-                                                    {/* <Box sx={{ textAlign: " center", }}>
-                                                        <Typography sx={{
-
-
-                                                            fontSize: " 12px",
-                                                            fontWeight: "normal",
-                                                            fontStyle: " normal",
-                                                            lineHeight: "1.42",
-                                                            letterSpacing: "normal",
-
-                                                            color: "#6c63ff",
-                                                        }}>     Terms and conditions</Typography>
-                                                    </Box> */}
 
                                                 </CardContent>
                                             </Card>
