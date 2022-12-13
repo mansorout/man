@@ -8,59 +8,30 @@ import { arrowlogo } from '../../Assets/index'
 import { Locklogo } from '../../Assets/index'
 import { Logoici } from '../../Assets/index'
 import Switch from '@mui/material/Switch';
-
-
-
 import { chequelogo } from '../../Assets/index'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListSubheader from '@mui/material'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
-import { Box, Checkbox, Grid, IconButton, Typography } from '@mui/material';
-
-
+import { Box, IconButton, Typography } from '@mui/material';
 import React from 'react'
-import { Height } from '@mui/icons-material'
+
 
 function VviewprofileCard() {
-
+       
     const [ panCardNo, setPanCardNo ] = useState('');
     const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
 
-    const navigate = useNavigate();
-    function handleSubmit() {
-        navigate('/pan_update');
-        // navigate('/nominee')
-    }
-
-    function handleSubmits() {
-        // navigate('/pan_update');
-        navigate('/nominee')
-    }
-    function handleSubmitss() {
-        navigate('/uploadsignature')
-    }
-    function handleSubmitsss() {
-        navigate('/bad')
-    }
     const style = {
         containertwo: {
             backgroundColor: "#fff",
             boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
             borderRadius: "8px",
             padding: "21px 40px",
-
-
-        },
-
-
-
-        emailIcon: {
+         },
+           emailIcon: {
             borderRadius: "170px 175px 175px 163px",
             backgroundColor: '#64dbff',
             width: '80px',
@@ -88,6 +59,27 @@ function VviewprofileCard() {
         // } as React.CSSProperties,
 
     }
+
+    
+    const navigate = useNavigate();
+    function handleSubmit() {
+        navigate('/pan_update');
+        // navigate('/nominee')
+    }
+
+    function handleSubmits() {
+        // navigate('/pan_update');
+        navigate('/nominee')
+    }
+    function handleSubmitss() {
+        navigate('/uploadsignature')
+    }
+    function handleSubmitsss() {
+        navigate('/bad')
+    }
+ 
+    
+   
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
