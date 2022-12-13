@@ -23,6 +23,7 @@ import { useForm, Controller } from "react-hook-form";
 import set from "date-fns/fp/set/index.js";
 import { Navigate, useNavigate } from "react-router-dom";
 import { globalConstant } from "../../Utils/globalConstant";
+import './ModalInvestNow.css'
 
 function ModalInvestNow(props: any) {
   const navigate = useNavigate();
@@ -140,7 +141,7 @@ function ModalInvestNow(props: any) {
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
       margin: "20px",
-      width: "90%",
+      width: "100%",
       maxWidth: "400px",
     } as React.CSSProperties,
     text: {
@@ -213,9 +214,9 @@ function ModalInvestNow(props: any) {
   useEffect(() => {
     console.log(
       formData.firstName.length > 3 &&
-        formData.lastName.length > 3 &&
-        emailRegex.test(formData.email) &&
-        regexDOB.test(formData.DOB)
+      formData.lastName.length > 3 &&
+      emailRegex.test(formData.email) &&
+      regexDOB.test(formData.DOB)
     );
     setShowSubmit(true);
 
@@ -231,7 +232,6 @@ function ModalInvestNow(props: any) {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-   
     if (g_investment.type === globalConstant.SIP_INVESTMENT) {
       navigate("/mflist", {});
     } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
@@ -247,6 +247,7 @@ function ModalInvestNow(props: any) {
         open={props.open}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
+
       >
         <Box style={style.modalContainer}>
           <Grid container spacing={1}>
@@ -274,102 +275,111 @@ function ModalInvestNow(props: any) {
           <Typography textAlign="center" variant="h5" sx={{ fontSize: "14px" }}>
             Share details below to view recommendations
           </Typography>
-         <Grid container spacing={2}>
-          <Grid item xs={6}  md={6}>
-            <TextField
-                fullWidth
-                label="FirstName"
-                sx={{ color: "#919eb1", fontSize: "17px" }}
-                onBlur={handleOnBlurFirstname}
-                onChange={handleChange}
-                name="firstName"
-                type="text"
-                value={formData.firstName}
-                helperText={
-                  formData.firstName.length < 3 ? (
-                    <label style={{ color: "red" }}>{errorMessageFN}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
-          </Grid>
-          <Grid item xs={6} md={6}>
-          <TextField
-                 fullWidth
-                sx={{ color: "#919eb1", fontSize: "17px" }}
-                label="LastName*"
-                onBlur={handleOnBlurLastname}
-                onChange={handleChange}
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                helperText={
-                  formData.lastName.length < 3 ? (
-                    <label style={{ color: "red" }}>{errorMessageLN}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
-          </Grid>
-         </Grid>
+          <form>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sm={12}>
+                <TextField
+                  fullWidth
+                  label="FirstName"
+                  sx={{ color: "#919eb1", fontSize: "17px" }}
+                  onBlur={handleOnBlurFirstname}
+                  onChange={handleChange}
+                  name="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  helperText={
+                    formData.firstName.length < 3 ? (
+                      <label style={{ color: "red" }}>{errorMessageFN}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sm={12}>
+                <TextField
+                  fullWidth
+                  sx={{ color: "#919eb1", fontSize: "17px" }}
+                  label="LastName*"
+                  onBlur={handleOnBlurLastname}
+                  onChange={handleChange}
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  helperText={
+                    formData.lastName.length < 3 ? (
+                      <label style={{ color: "red" }}>{errorMessageLN}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
 
-          <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
-            <Grid item xs={12} md={12}>
-            <TextField
-                fullWidth
-                sx={{
-                  color: "#919eb1",
-                  fontSize: "17px",
-                  marginTop: "1%",
-                  marginLeft: "3%",
-                }}
-                label="Email Address"
-                id="fullWidth"
-                onBlur={handleOnBlurEamil}
-                onChange={handleChange}
-                type="text"
-                name="email"
-                value={formData.email}
-                helperText={
-                  !emailRegex.test(formData.email) ? (
-                    <label style={{ color: "red" }}>{errorMessageEM}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
-            </Grid>
-            </Grid>
-            <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
-            <Grid item xs={12} md={12}>
-              <TextField
-                type="date"
-                placeholder=""
-                sx={{
-                  color: "#919eb1",
-                  fontSize: "17px",
-                  marginTop: "4%",
-                  marginLeft: "3%",
-                }}
-                fullWidth
-                label="Date of Birth"
-                onBlur={handleOnBlurDOB}
-                onChange={handleChange}
-                name="DOB"
-                value={formData.DOB || "dd/mm/yyy"}
-                helperText={
-                  !regexDOB.test(formData.DOB) ? (
-                    <label style={{ color: "red" }}>{errorMessageDOB}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
               </Grid>
+            </Grid>
+
+
+
+
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={12}>
+                <TextField
+                  fullWidth
+                  sx={{
+                    color: "#919eb1",
+                    fontSize: "17px",
+                    marginTop: "2%",
+                    marginRight: "6%",
+                  }}
+                  label="Email Address"
+                  id="fullWidth"
+                  onBlur={handleOnBlurEamil}
+                  onChange={handleChange}
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  helperText={
+                    !emailRegex.test(formData.email) ? (
+                      <label style={{ color: "red" }}>{errorMessageEM}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
               </Grid>
-              <div style={{ width: "100%" }}>
+
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={12}>
+                <TextField
+                  type="date"
+                  placeholder=""
+                  sx={{
+                    color: "#919eb1",
+                    fontSize: "17px",
+                    marginTop: "4%",
+                    marginRight: "6%",
+                  }}
+                  fullWidth
+                  label="Date of Birth"
+                  onBlur={handleOnBlurDOB}
+                  onChange={handleChange}
+                  name="DOB"
+                  value={formData.DOB || "dd/mm/yyy"}
+                  helperText={
+                    !regexDOB.test(formData.DOB) ? (
+                      <label style={{ color: "red" }}>{errorMessageDOB}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
+            </Grid>
+
+
+
+            <div style={{ width: "100%" }}>
               <Button
                 disabled={showSubmit}
                 variant="contained"
@@ -378,19 +388,21 @@ function ModalInvestNow(props: any) {
                 onClick={handleClick}
                 sx={{
                   pointerEvents: "fill",
+                  marginRight:"12px"
                 }}
               >
                 <Typography
+             
                   component="span"
                   style={btnstyle.text}
-                  className="largeButtonText"
+                  className="largeButtonText3"
                 >
                   Save Details
                 </Typography>
               </Button>
-    
+
             </div>
-        
+          </form>
         </Box>
       </Modal>
     </>
