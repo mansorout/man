@@ -55,7 +55,7 @@ import {
           borderRadius: "0.5rem",
           boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
           backgroundColor: "#6c63ff",
-          margin: "1rem",
+          margin: "7px",
         }}
       >
         <Box

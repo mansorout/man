@@ -7,8 +7,13 @@ import { setInvestmentCardTypeAction } from "../../Store/Action-Creators";
 import { globalConstant } from "../../Utils/globalConstant";
 import { Button, Typography } from "@mui/material";
 
-export const InvestButton = (props: any) => {
+type IProps = {
+  cardType: string;
+};
+
+export const InvestButton = (props: IProps) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showLogin, setShowLogin] = useState(false);
   const style = {
     button: {
@@ -25,15 +30,15 @@ export const InvestButton = (props: any) => {
     },
   };
 
-  //   const handleClick = () => {
-  //     if (props?.openSaveModal) {
-  //       props?.openSaveModal();
-  //     } else {
-  //       navigate("/redeemfund"); //for handling side effects
-  //     }
-  //   };
+  const handleClick = () => {
+    if (props?.cardType === globalConstant.SIP_INVESTMENT) {
+      dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+    } else if (props?.cardType === globalConstant.LUMPSUM_INVESTMENT) {
+      dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+    }
 
-  const dispatch = useDispatch();
+    setShowLogin(true);
+  };
 
   return (
     <>
@@ -42,8 +47,7 @@ export const InvestButton = (props: any) => {
         style={style.button}
         fullWidth
         onClick={() => {
-          dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
-          setShowLogin(true);
+          handleClick();
         }}
       >
         <Typography
