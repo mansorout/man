@@ -1,3 +1,9 @@
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Box,
   Breadcrumbs,
@@ -10,13 +16,6 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -29,6 +28,7 @@ import TimerLoader from "./TimerLoader";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import SipLastScreen from "../../Components/CommonComponents/sipLastscreen";
 import { globalConstant } from "../../Utils/globalConstant";
+import "./NetBanking.css";
 
 const style = {
   deducted: {

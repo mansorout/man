@@ -63,7 +63,7 @@ const ULIPHeader = () => {
                 alignItems: 'baseline'
             }}>
                 <FormControl className="payment" variant="outlined" sx={{ width: '162px' }}>
-                    <InputLabel id="ppt" style={{ color: '#fff' }}>Premium Payment Term</InputLabel>
+                    <InputLabel id="ppt" style={{ color: '#fff', fontSize: '10px', marginTop: '1vw' }}>Premium Payment Term</InputLabel>
                     <Select
                         labelId="ppt"
                         value={payment}
@@ -103,11 +103,10 @@ const ULIPHeader = () => {
                     margin: '11px 0',
                 }} />
                 <Box sx={{
-                    position: 'absolute',
-                    top: '11.25vw',
-                    left: '42vw',
-                    width: '385px',
-                    padding: '16px',
+                    position: 'relative',
+                    top: '8vw',
+                    left: '-30vw',
+                    padding: '0',
                     borderRadius: '4px',
                     boxShadow: '0 4px 16px 0 rgba(0, 0, 0, 0.12)',
                     backgroundColor: '#fff',
@@ -115,6 +114,7 @@ const ULIPHeader = () => {
                 }}>
 
                     <TextField
+                        fullWidth
                         variant="outlined"
                         label="Amount I want to invest monthly"
                         value={amount}
@@ -140,11 +140,11 @@ const ULIPHeader = () => {
                             </InputAdornment>
                         }}
                         sx={{
-                            margin: '7px 0 0',
+                        
                             padding: '14px 16px',
                             borderRadius: '4px',
                             boxShadow: '0 4px 8px 0 rgba(75, 123, 236, 0.2)',
-                            border: 'solid 1px #4b7bec',
+                            
                             backgroundColor: '#fff',
                         }}
                         onChange={handleChange}

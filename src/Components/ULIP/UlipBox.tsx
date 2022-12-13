@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Breadcrumbs, Divider, FormControlLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Theme, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Divider, FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, TextField, Theme, Toolbar, Typography } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
 import Navbar from "../CommonComponents/Navbar";
@@ -9,6 +9,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     main: {
@@ -29,7 +30,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         backgroundColor: 'var(--bgColor)',
         margin: '0px 15px',
-        '@media(max-width: 500px)':{
+        '@media(max-width: 500px)': {
             width: '45px',
             height: '45px',
         }
@@ -74,12 +75,13 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 right: '0px',
                 padding: '7px',
                 margin: '0px !important',
-                '@media(min-width: 600px)':{
+                '@media(min-width: 600px)': {
                     width: '140px !important',
                 }
             }
         }
     },
+
     rupeesIcon: {
         fontSize: '16px !important',
         color: 'var(--typeLightBlackColor)',
@@ -92,6 +94,8 @@ const UlipBox = () => {
     const navigate = useNavigate();
     const dispatch: any = useDispatch()
 
+    const [ years, setYears ] = useState('5');
+
     const [investmentType, setInvestmentType] = useState<string>('lumpsum')
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
@@ -101,17 +105,17 @@ const UlipBox = () => {
     };
 
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
-       // dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
+        // dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
-       // dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
+        // dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
         setMonthlyAmount(event.target.value);
     };
 
     const handleNavigationFlow = () => {
-       // investmentType === 'lumpsum' ? dispatch(SaveTaxInvestmentLumpsumAction('lumpsum')) : dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
+        // investmentType === 'lumpsum' ? dispatch(SaveTaxInvestmentLumpsumAction('lumpsum')) : dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
         //navigate('/saveTax/saveTaxInvestmentType')
     }
 
@@ -158,17 +162,25 @@ const UlipBox = () => {
 
                             <Grid container item className="header" spacing={2} xs={12} sx={{
                                 display: 'flex',
-                                justifyContent: 'space-between'
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start'
                             }}>
-                                <Grid item xs={12} md={6}>
-                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '15px' } }}>
+                                <Grid item xs={12} md={6} sx={{
+                                    width: '38vw',                        
+                                }}>
+                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '15px' } }}>
+
+                                        <Typography sx={{
+                                            fontSize: '18px',
+                                            fontWeight: 500,
+                                            color: '#3c3e42',
+                                        }}>ULIP</Typography>
 
                                         <RadioGroup
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
                                             value={investmentType}
                                             onChange={handleRadioChange}
-                                        // style={{ backgroundColor: '#8787a2' }}
                                         >
                                             <Box className={classes.investmentField}>
                                                 <TextField
@@ -187,7 +199,7 @@ const UlipBox = () => {
                                                     className={classes.textField}
                                                     fullWidth
                                                 />
-                                                
+
                                             </Box>
 
                                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -197,7 +209,7 @@ const UlipBox = () => {
                                             </Box>
 
                                             <Box className={classes.investmentField}>
-                                                
+
                                                 <TextField
                                                     label="I want to invest"
                                                     id="outlined-start-adornment"
@@ -214,9 +226,24 @@ const UlipBox = () => {
                                                     className={classes.textField}
                                                     fullWidth
                                                 />
-                                                
+
                                             </Box>
                                         </RadioGroup>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={ years }
+                                                label="For next"
+                                                onChange={ (e) => setYears(e.target.value) }
+                                            >
+                                                <MenuItem value={5}>5 Years</MenuItem>
+                                                <MenuItem value={10}>10 Years</MenuItem>
+                                                <MenuItem value={15}>15 Years</MenuItem>
+                                                <MenuItem value={20}>20 Years</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6}>

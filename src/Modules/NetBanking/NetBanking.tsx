@@ -472,7 +472,8 @@ function NetBanking() {
                 onClick={() => {
                   if (timePeriodSelected[3] === true) {
                     navigate("/processingpayments", {
-                      cradType: cardType,
+                      state: { cardType: cardType },
+                      replace: true,
                     });
                     return;
                   }
@@ -516,7 +517,8 @@ function NetBanking() {
                   <Box
                     onClick={() =>
                       navigate("/processingpayments", {
-                        cardType: cardType,
+                        state: { cardType: cardType },
+                        replace: true,
                       })
                     }
                   >
@@ -744,7 +746,8 @@ function NetBanking() {
                 fullWidth
                 onClick={() =>
                   navigate("/processingpayments", {
-                    cradType: cardType,
+                    state: { cardType: cardType },
+                    replace: true,
                   })
                 }
                 sx={{

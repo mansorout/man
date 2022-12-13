@@ -73,7 +73,7 @@ function IInvestNowScreenCard() {
             backgroundColor: "#64dbff",
             width: "20px",
             height: "20px",
-            padding: "10px",
+            padding: "18px",
             opacity: "0.9",
 
             // width: '80px',
