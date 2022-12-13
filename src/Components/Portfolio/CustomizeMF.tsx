@@ -103,7 +103,7 @@ const enumActiveScreen = Object.freeze({
 });
 
 const CustomizeMF = () => {
-  const navigate = useNavigate();
+  const navigate: any = useNavigate();
 
   const [fundList, setFundList] = useState<MFProp[]>(data);
 
@@ -305,10 +305,23 @@ const CustomizeMF = () => {
                 }
               /> */}
               <FooterWithBtn
-                btnText="Select SIP Date"
-                btnClick={() =>
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
+                btnText={
+                  g_investment?.type === globalConstant.SIP_INVESTMENT
+                    ? "Select SIP Date"
+                    : "Buy Now"
                 }
+                btnClick={() => {
+                  if (
+                    g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
+                  ) {
+                    navigate("/netbanking", {
+                      state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                      replace: true,
+                    });
+                    return;
+                  }
+                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+                }}
               />
             </Box>
           </Grid>
@@ -391,7 +404,10 @@ const CustomizeMF = () => {
               {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
               <Button
                 onClick={() => {
-                  navigate("/netbanking");
+                  navigate("/netbanking", {
+                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                    replace: true,
+                  });
                 }}
                 variant="contained"
                 style={style.button}
