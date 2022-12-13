@@ -33,9 +33,17 @@ const useStyles: any = makeStyles((theme: Theme) => ({
   },
   containerRes:{
     marginTop: '30px',
+    paddingTop: '15px !important',
     '@media(max-width: 600px)':{
       // marginTop: '0px',
-      margin: '15px'
+      margin: '15px',
+    },
+    '@media(max-width: 1200px)':{
+      marginTop: '0px',
+      borderRadius: "20px !important",
+    },
+    '@media(min-width: 1400px)':{
+      paddingTop: '30px !important',
     }
   }
 }))
@@ -67,13 +75,13 @@ export const Login = () => {
 
     logo : {
       width: "50px",
-      padding: "20px 0px",
+      marginBottom: '15px'
     } as React.CSSProperties,
 
     contactInput : {
       width:"90%",
       maxWidth:"400px",
-      marginTop: "20px"
+      marginTop: "35px"
     } as React.CSSProperties,
 
     divider : {
