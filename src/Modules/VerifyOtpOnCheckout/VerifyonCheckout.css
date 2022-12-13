@@ -33,3 +33,18 @@
 
 
 
+
+
+
+
+
+    @media (max-width: 468px){
+      .verifyoncheckoutcard {
+     
+        width: 95% !important;
+        
+        bottom: 8%;
+       
+       
+      }
+    }
