@@ -273,35 +273,35 @@ function ModalInvestNow(props: any) {
           <Typography textAlign="center" variant="h5" sx={{ fontSize: "14px" }}>
             Share details below to view recommendations
           </Typography>
-          <form>
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 2, width: "19ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
+         <Grid container spacing={2}>
+          <Grid item xs={6}  md={6}>
+            <TextField
+                fullWidth
                 label="FirstName"
                 sx={{ color: "#919eb1", fontSize: "17px" }}
                 onBlur={handleOnBlurFirstname}
                 onChange={handleChange}
                 name="firstName"
                 type="text"
-                fullWidth
                 value={formData.firstName}
-                helperText={formData.firstName.length < 3 ? <label style={{ color: "red" }}>{errorMessageFN}</label> : ""}
-
+                helperText={
+                  formData.firstName.length < 3 ? (
+                    <label style={{ color: "red" }}>{errorMessageFN}</label>
+                  ) : (
+                    ""
+                  )
+                }
               />
-              {/* {error && firstName.length<3 ? <label style={{display:"flex"}}>{errorMessage}</label>:""} */}
-
-              &nbsp;&nbsp;&nbsp;
-              <TextField sx={{ color: "#919eb1", fontSize: "17px" }} label="LastName*"
+          </Grid>
+          <Grid item xs={6} md={6}>
+          <TextField
+                 fullWidth
+                sx={{ color: "#919eb1", fontSize: "17px" }}
+                label="LastName*"
                 onBlur={handleOnBlurLastname}
                 onChange={handleChange}
                 type="text"
-                name='lastName'
+                name="lastName"
                 value={formData.lastName}
                 helperText={
                   formData.lastName.length < 3 ? (
@@ -311,37 +311,64 @@ function ModalInvestNow(props: any) {
                   )
                 }
               />
+          </Grid>
+         </Grid>
 
-            </Box>
-            <Box sx={{ width: "95%", marginTop: "2%" }}>
-              <TextField fullWidth sx={{ color: "#919eb1", fontSize: "17px", marginTop: "1%", marginLeft: "3%" }}
-                label="Email Address" id="fullWidth"
+          <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
+            <Grid item xs={12} md={12}>
+            <TextField
+                fullWidth
+                sx={{
+                  color: "#919eb1",
+                  fontSize: "17px",
+                  marginTop: "1%",
+                  marginLeft: "3%",
+                }}
+                label="Email Address"
+                id="fullWidth"
                 onBlur={handleOnBlurEamil}
                 onChange={handleChange}
                 type="text"
-                name='email'
+                name="email"
                 value={formData.email}
-                helperText={!emailRegex.test(formData.email) ? <label style={{ color: "red" }}>{errorMessageEM}</label> : ""}
-
+                helperText={
+                  !emailRegex.test(formData.email) ? (
+                    <label style={{ color: "red" }}>{errorMessageEM}</label>
+                  ) : (
+                    ""
+                  )
+                }
               />
-            </Box>
-            <Box sx={{ width: "95%", marginTop: "2%" }}>
+            </Grid>
+            </Grid>
+            <Grid container spacing={2} sx={{marginRight:"5.3%"}}>
+            <Grid item xs={12} md={12}>
               <TextField
                 type="date"
-                placeholder=''
-                sx={{ color: "#919eb1", fontSize: "17px", marginTop: "4%", marginLeft: "3%" }}
+                placeholder=""
+                sx={{
+                  color: "#919eb1",
+                  fontSize: "17px",
+                  marginTop: "4%",
+                  marginLeft: "3%",
+                }}
                 fullWidth
                 label="Date of Birth"
                 onBlur={handleOnBlurDOB}
                 onChange={handleChange}
-                name='DOB'
+                name="DOB"
                 value={formData.DOB || "dd/mm/yyy"}
-                helperText={!regexDOB.test(formData.DOB) ? <label style={{ color: "red" }}>{errorMessageDOB}</label> : ""}
+                helperText={
+                  !regexDOB.test(formData.DOB) ? (
+                    <label style={{ color: "red" }}>{errorMessageDOB}</label>
+                  ) : (
+                    ""
+                  )
+                }
               />
-            </Box>
-
-
-            <div style={{ width: "100%" }} >
+              </Grid>
+              </Grid>
+              <div style={{ width: "100%" }}>
               <Button
                 disabled={showSubmit}
                 variant="contained"
@@ -349,25 +376,20 @@ function ModalInvestNow(props: any) {
                 fullWidth
                 onClick={handleClick}
                 sx={{
-                  pointerEvents: 'fill',
+                  pointerEvents: "fill",
                 }}
               >
-                <Typography component="span" style={btnstyle.text} className="largeButtonText"  >Save Details</Typography>
+                <Typography
+                  component="span"
+                  style={btnstyle.text}
+                  className="largeButtonText"
+                >
+                  Save Details
+                </Typography>
               </Button>
-              {/* <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover> */}
+    
             </div>
-          </form>
+        
         </Box>
       </Modal>
     </>

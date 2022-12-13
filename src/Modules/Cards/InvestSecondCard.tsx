@@ -139,7 +139,7 @@ export default function InvestSecondCard() {
                                 top: "-33px",
                                 left: "-18px",
                                 fontSize: "12px",
-                                 boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)",
+                                boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)",
                                 backgroundColor: "#6c63ff",
                             }}></img></Box>
                             <Box sx={{ marginLeft: "-11px" }}>10Y</Box>
@@ -158,7 +158,7 @@ export default function InvestSecondCard() {
                             fontWeight: "normal",
                             textAlign: "left",
                             color: " #7b7b9d"
-                                }}>
+                        }}>
                             Invested Value
                         </Grid>
                         <Grid item xs={6} sx={{
@@ -174,15 +174,13 @@ export default function InvestSecondCard() {
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={1}>
+                    <Grid container spacing={1} sx={{  paddingTop: "20px"}}>
                         <Grid item xs={6} sx={{
                             width: " 57px",
                             height: "24px",
-
                             fontFamily: " Roboto",
                             fontSize: "20px",
                             fontWeight: "300",
-
                             textAlign: "left",
                             color: " #3c3e42"
 
@@ -192,11 +190,10 @@ export default function InvestSecondCard() {
                         <Grid item xs={6} sx={{
                             width: " 87px",
                             height: "24px",
-
+                            paddingTop: "17px",
                             fontFamily: " Roboto",
                             fontSize: "20px",
                             fontWeight: "500",
-                            paddingTop: "20px",
                             textAlign: "right",
                             color: " #23db7b"
                             //   
@@ -231,65 +228,9 @@ export default function InvestSecondCard() {
                         &nbsp;   &nbsp;  &nbsp;
                         <Typography sx={{ fontSize: "12px" }}>*No Lock-in Period</Typography>
 
-                        {/* <ListItemText
-                        
-                            secondary="No Lock-in Period"
-                            sx={{ marginLeft: '20px', fontSize: '12px' }}
-                            style={style.ca_a}
-
-
-                        /> */}
-                        {/* <Avatar
-                                    alt=""
-                                    src={wclogo}
-                                    style={style.ca}
-
-                                />
-                                <Typography sx={{marginLeft:"2px"}} >Gender</Typography> */}
+                 
                     </ListItem>
-                    {/* <Grid container spacing={3}>
-    <Grid item xs={6}>
-    <img alt="Money Sprint" src={withdrawiclogo} style={{ width: "32px", height: "32px", margin: "17.4% 42% 0 40%" }}>
-      
-    </img>
-       
-    </Grid>
-    <Grid item xs={6}>
-        sssssss
-    </Grid>
-
-</Grid> */}
-                    {/* <Box>
-                        <Typography>
-                            <img alt="Money Sprint" src={withdrawiclogo} style={{ width: "32px", height: "32px", margin: "17.4% 42% 0 -22%" }} />
-                        </Typography>
-                        <Typography>*No Lock-in Period </Typography>
-                        <Typography>*No Lock-in Period </Typography>
-                        <Typography>
-                            <img alt="Money Sprint" src={lockinlogo} style={{ width: "32px", height: "32px", margin: "18.5% 42% 0 15px" }} />
-                        </Typography>
-                    </Box> */}
-
-                    {/* <Grid container spacing={8} sx={{ marginTop: "-35%" }}>
-              
-
-                        <Grid item xs={6} >
-                            <Typography>
-                                <img alt="Money Sprint" src={withdrawiclogo} style={{ width: "32px", height: "32px", margin: "17.4% 42% 0 -22%" }} />
-                            </Typography>
-                           
-                        </Grid>
-
-                        <Typography sx={{ fontSize: "12px", marginTop: "-14%", marginLeft: "29%", textAlign: " left", color: " #7b7b9d" }} > 
-                            *Anytime Withdraw</Typography>
-                        <Grid item xs={6}>
-                            <Typography>
-                                <img alt="Money Sprint" src={lockinlogo} style={{ width: "32px", height: "32px", margin: "18.5% 42% 0 15px" }} />
-                            </Typography>
-                            <Typography sx={{ fontSize: "12px", marginTop: "-14%", textAlign: " right", color: " #7b7b9d" }}> 
-                            *No Lock-in Period</Typography>
-                        </Grid>
-                    </Grid> */}
+        
                 </CardContent>
 
             </Card>

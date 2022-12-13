@@ -549,14 +549,14 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 }, marginRight:"24px"}}>
+              <Box sx={{ '& button': { m: 1 }, marginRight:"-40px", marginLeft:"-12%"}}>
                 <Button
                   id={"male"}
                   name="gender"
                   onClick={() => { setSelected(true); setSelectedFemale(false); setSelectedTrans(false); setFormData({ ...formData, gender: "male" }) }}
                   variant="outlined"
                   size="small"
-                  sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 6px 6px" }}
+                  sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 1px 6px" }}
                   style={{ cursor: "pointer", border: `1px solid ${selected ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
@@ -579,6 +579,7 @@ function EditprofileCard() {
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                 </Button>
               </Box>
+
                <Stack m={2} spacing={6}>
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
