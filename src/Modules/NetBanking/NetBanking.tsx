@@ -224,7 +224,7 @@ function NetBanking() {
                         sm={11}
                         md={10}
                     >
-                        <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll", paddingLeft: "4%", paddingTop: "7px" }} item xs={13}
+                        <Grid className='netbankingcard' sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll", paddingLeft: "4%", paddingTop: "7px" }} item xs={13}
                             sm={11}
                             md={10}>
                             <Toolbar />

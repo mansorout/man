@@ -348,9 +348,10 @@ const StartInvestment = () => {
 
   const refContainer = useRef();
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const cardType = location?.state?.cardType;
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
   const [holding, setHolding] = useState<any>([])
@@ -385,8 +386,6 @@ const StartInvestment = () => {
       setMoreAnchorEl(event.currentTarget)
   }
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const handleOnClick = (activeButtonType: number) => {
     setActiveButton(activeButtonType);
     if (activeButtonType === enumType.MONTHLY_INCOME) {

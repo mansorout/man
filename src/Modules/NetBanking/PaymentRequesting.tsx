@@ -1,16 +1,12 @@
-import { Box, Breadcrumbs, Button, Grid, Link, makeStyles, Paper, Theme, Toolbar, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Grid, Toolbar, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { blueCalender, SBICON, SuccessFullOtp } from '../../Assets';
 import Navbar from '../../Components/CommonComponents/Navbar';
 import Sidebar from '../../Components/CommonComponents/Sidebar';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import CircularProgress from '@mui/joy/CircularProgress';
-import TimerLoader from './TimerLoader';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-
+import './NetBanking.css'
 
 
 
@@ -39,7 +35,7 @@ function PaymentRequesting() {
 
     setTimeout(() => {
         setprocessing(true)
-    }, 2000)
+    },2000)
 
     const timerProps = {
         isPlaying: true,
@@ -161,7 +157,7 @@ function PaymentRequesting() {
             justifyContent: "center",
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
             transform: "translate(-50%, 0%)",
-            left: "57%",
+            left: "50%",
             bottom: "8%",
             position: "absolute"
         } as React.CSSProperties,
@@ -202,10 +198,7 @@ function PaymentRequesting() {
                             <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
                                 <Toolbar />
                                 <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-                                    {/* <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
-                <InvestNowScreenCard/>
-              </Grid> */}
 
 
 
@@ -224,7 +217,7 @@ function PaymentRequesting() {
 
 
                                 {
-                                    processing ? <Box style={style.container}>
+                                    processing ? <Box style={style.container} className="paysuccessfull"> 
                                         <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
                                         <Typography sx={{ width: "57% " }} mb={1} align="center" className="redemptionDone">
                                             Success! Your transaction request is submitted to RTA
@@ -255,7 +248,7 @@ function PaymentRequesting() {
                                             <Typography component="span" style={style.text} className="largeButtonText">Track Transactions</Typography>
                                         </Button>
                                     </Box> :
-                                        <Box style={style.container}>
+                                        <Box className='payloader' style={style.container}>
                                             <Box sx={{ width: "400px", height: "400px", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
                                                 <Grid item container>
                                                     <Grid item xs={2} />
@@ -311,7 +304,7 @@ function PaymentRequesting() {
                                                             rotation="counterclockwise"
                                                             colors="#23db7b"
                                                             duration={timer}
-                                                        
+
                                                         >
                                                             {({ remainingTime }) => remainingTime}
 
