@@ -12,10 +12,9 @@ import OtpInput from "react-otp-input";
 import React, { useRef, useState } from "react";
 import { VerifyOtpLogo, SBICON, SuccessFullOtp } from "../../Assets";
 // import "..//VerifyOtpOnCheckout/VerifyonCheckout.css";
-import "../RedeemFunds/RedemptionDone.css"
+import "./RedemptionDone.css"
 import { useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
-import VerifySecButton from "../../Modules/Buttons/VerifySecButton";
 import Navbar from "../../Components/CommonComponents/Navbar";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -24,10 +23,7 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import Sidebar from "../../Components/CommonComponents/Sidebar";
 import IInvestNowScreenCard from "../../Modules/Cards/IIvestNowScreenCard";
-import SipSuccessButton from "../../Modules/Buttons/SipSuccesssButton";
 
-import TrackTransButton from "../../Modules/Buttons/TrackTransButton";
-import '../../Components/RedeemFunds/RedemptionDone.css'
 
 
 
@@ -177,7 +173,7 @@ export const RedemptionDone = () => {
 
 
                   </Box>
-                  <Box style={style.container}>
+                  <Box  style={style.container} className="redemptiondonecard">
                     <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
                     <Typography mb={1}  align="center" className="redemptionDone">
                       Success! Your account is verified & redemption has been submitted
