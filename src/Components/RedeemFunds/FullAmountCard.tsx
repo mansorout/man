@@ -169,7 +169,10 @@ import {
                
                    
               </Grid>
-              <Box></Box>
+              
+              {/* <Grid padding={2} item sm={1} xs={0}>
+                          <Divider orientation="vertical"/>
+                        </Grid> */}
   
               <Grid item xs={3}>
                 <Typography 
