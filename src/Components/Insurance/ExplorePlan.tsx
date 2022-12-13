@@ -107,7 +107,7 @@ const ExplorePlan = () => {
                                         </Box>
                                         <span>5 Plans with annually investment of ₹50,000</span>
                                     </Box>
-                                    <Box className={classes.filterIconBox}>
+                                    <Box className={classes.filterIconBox} sx={{alignItems: {xs : 'flex-start', sm: 'flex-end'}}}>
                                         <IconWithBgColor
                                             icon={<FilterAltOutlinedIcon />}
                                             bgColor='var(--primaryColor)'
