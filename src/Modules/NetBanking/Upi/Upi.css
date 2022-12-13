@@ -28,20 +28,21 @@ ul {
 }
 
 .upi-row {
- 
+
   margin: 8px 0px 8px 0px;
   display: flex;
   width: 91%;
   justify-content: space-between;
   align-items: center;
-padding: 7px 9.9px 7.1px 12px;
- border-radius: 4px;
-background-color: #f3f3f5;
+  padding: 7px 9.9px 7.1px 12px;
+  border-radius: 4px;
+  background-color: #f3f3f5;
 
 }
 
 .todo-row input {
   margin-right: 10px;
+  background-color: red;
 }
 
 /* Dropdown Styling */
@@ -76,5 +77,20 @@ background-color: #f3f3f5;
   border: none;
 }
 
+
+
+
+@media (max-width:560px) {
+  .upi-input {
+
+    padding: 17px 194px 11px 20px;
+  }
+
+  .upi-row {
+    padding: 7px 9.9px 7.1px 0px;
+  }
+
+
+}
 
 

@@ -1,4 +1,6 @@
-import { Box, Breadcrumbs, Grid, Link, Toolbar, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { Box, Breadcrumbs, Grid, InputBase, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
@@ -6,8 +8,26 @@ import ULIPHeader from "../../Modules/Cards/ULIP/ULIPHeader";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 import ULIPBlueButton from "../../Modules/Buttons/ULIP/ULIPBlueButton";
 import SearchBar from "../../Modules/Buttons/ULIP/SearchBar";
+import { SearchOutlined, FilterAltOutlined } from "@mui/icons-material";
+import UlipDropDownFilter from "./UlipDropDownFilter";
+import { Transactions } from "../../Modal/Transactions";
+import { AnchorOpenAction } from '../../Store/Duck/FilterBox';
+import { useDispatch } from "react-redux";
 
 const ULIPOptions = () => {
+
+    const dispatch:any = useDispatch()
+
+    const handleFilter =(event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+        dispatch(AnchorOpenAction(event))
+    }
+    
+      
+      const [transactions, setTransactions] = useState<any[]>([])
+    
+      useEffect(()=>{
+       setTransactions(Transactions) 
+      },[])
 
     const ulipData: ULIPProp[] = [
         {
@@ -49,7 +69,7 @@ const ULIPOptions = () => {
                     </Grid>
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Toolbar />
-                        
+
                         <Box sx={{
                             padding: 0,
                             margin: 0,
@@ -59,7 +79,7 @@ const ULIPOptions = () => {
                             justifyContent: 'center',
                             gap: '1.5vw',
                         }}>
-                            <Box  sx={{
+                            <Box sx={{
                                 padding: 0,
                                 margin: '2.5vw',
                                 fontFamily: 'Roboto',
@@ -98,32 +118,37 @@ const ULIPOptions = () => {
                                             color: '#3c3e42',
                                         }}>Choose plan to Replace</Typography>
                                     </Box>
-                                    <Box>
-                                        <SearchBar />
+                                    <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", gap: "10px", padding: "5px 14px" }}>
+                                        <SearchOutlined style={{ color: "#7b7b9d" }} />
+                                        <InputBase placeholder='Search Transactions' onChange={(e) => setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
+                                        <IconButton onClick={(e) => handleFilter(e)} >
+                                            <FilterAltOutlined style={{ color: "#09b85d" }} />
+                                        </IconButton>
                                     </Box>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '1.5vw',
-                                }}>
-                                    <Typography>{ ulipData.length } plans found</Typography>
-                                    {
-                                        ulipData.map(data => <ULIPCoFundCard { ...data } />)
-                                    }
+                                    <UlipDropDownFilter />
                                 </Box>
                             </Box>
-                            <ULIPFooter 
-                                text="Replace Plan" 
-                                navigateTo="/ulip/details" 
-                                width="384px"
-                                bgColor="#23db7b"
-                            />
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1.5vw',
+                            }}>
+                                <Typography>{ulipData.length} plans found</Typography>
+                                {
+                                    ulipData.map(data => <ULIPCoFundCard {...data} />)
+                                }
+                            </Box>
                         </Box>
+                        <ULIPFooter
+                            text="Replace Plan"
+                            navigateTo="/ulip/details"
+                            width="384px"
+                            bgColor="#23db7b"
+                        />
                     </Grid>
-                </Grid>
-            </Box>
-        </Box>                
+            </Grid>
+        </Box>
+        </Box >                
     )
 };
 
