@@ -99,13 +99,11 @@ const style = {
 export default function RedeemSecFundCard() {
     return (
         <>
-            <Card sx={{ maxWidth: 488, borderRadius: "8px",marginBottom:"5px" }}>
+            <Card sx={{borderRadius: "8px",marginBottom:"5px" }}>
                
                 <CardContent>
                     <Box>
                         <Typography sx={{
-                            width: "318px",
-                            height: "21px",
                             margin: "5% 108px 22px 5%",
                             fontFamily: "Roboto",
                             fontSize: "18px",

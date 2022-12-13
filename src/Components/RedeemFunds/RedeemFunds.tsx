@@ -37,6 +37,7 @@ import Navbar from '../CommonComponents/Navbar'
 import FullAmountCard from './FullAmountCard'
 import SimpleModal from '../CommonModals/SimpleModal'
 import RedeemNowButton from '../../Modules/Buttons/RedeemNowButton'
+import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 
 
 
@@ -62,7 +63,7 @@ function RedeemFunds() {
 
     const showPlan = () => {
         setBankModal(true)
- }
+    }
 
 
 
@@ -116,7 +117,7 @@ function RedeemFunds() {
         RupConviestyle: {
             width: "40px",
             height: "40px",
-            margin: "0 16px 33px 20%"
+
 
         },
 
@@ -268,7 +269,7 @@ function RedeemFunds() {
                     : setOptSelected([false, false, false, true])
     }
     const [optSelected, setOptSelected] = useState<boolean[]>([true, false, false, false])
-   
+
 
     const [selected, setSelected] = useState<number>(1)
     const [partial, setPartial] = useState<boolean>(true)
@@ -397,16 +398,132 @@ function RedeemFunds() {
                                         </Box>
                                 }
 
+                                <Box sx={{ width: '100%' }}>
+                                    <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                        <Grid item md={6} xs={12}>
+                                            {
+                                                partial ? <Card>
+                                                    <CardContent>
+
+                                                        <Box>
+                                                            <Grid container spacing={0}>
+                                                                <Grid item xs={9}>
+                                                                    <Typography
+                                                                        sx={{
+
+                                                                            fontSize: "16px",
+                                                                            fontWeight: "500",
+                                                                            marginTop: "10px",
+                                                                            height: " 19px",
+                                                                            // margin: " 5% 62px 27px 5%",
+                                                                            fontFamily: "Roboto",
+                                                                            textAlign: " left",
+                                                                            color: " #3c3e42"
+                                                                        }}
+                                                                    >Redemption type</Typography>
+                                                                </Grid>
+                                                                <Grid item xs={3} sx={{
+                                                                    textAlign: " center",
+
+                                                                    justifyContent: "flex-start",
+                                                                    alignItems: "flex-start",
+                                                                    flexWrap: "wrap"
+                                                                }}>
+                                                                    <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                                                        <Box onClick={() => { setSelected(2); }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
+                                                                            <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
+                                                                        </Box>
+                                                                        <Box onClick={() => { setSelected(3); setPartial(false) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
+                                                                            <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
+                                                                        </Box>
+
+                                                                    </Box>
+                                                                </Grid>
+
+                                                                <Grid item xs={6}>
+                                                                    <Typography sx={{
+                                                                        height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42"
+                                                                    }}>Redemption by</Typography>
+                                                                </Grid>
+
+                                                                <Grid item xs={12}>
 
 
-                                <Grid container spacing={6} >
-                                    <Grid item xs={12} sm={6} sx={{ display: "-webkit-inline-flex" }} >
+                                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%", padding: "14px 0px 0px 17px" }}>
 
-                                        {
-                                            partial ?  <Card sx={{ maxWidth: 488, borderRadius: "8px",marginBottom:"5px" }}>
-                                                <CardContent>
 
-                                                    <Box>
+                                                                        <FormControlLabel
+                                                                            control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                                            label="Amount: ₹1,46,625 " sx={{ marginLeft: "-11%", marginTop: '-20%' }} />
+
+
+                                                                        <FormControlLabel
+                                                                            control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                                            label="Units: 750.762" sx={{ marginTop: '-20%' }} />
+
+                                                                    </Box>
+
+                                                                </Grid>
+
+                                                                <Grid item xs={12}>
+                                                                    <Box>
+                                                                        <TextField label="No. of Units"
+                                                                            name="Amount"
+                                                                            //   value={formData.lastName}
+                                                                            sx={{
+                                                                                width: " 100%",
+
+
+                                                                                borderRadius: "4px",
+                                                                                boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                                                                border: "solid 1px #dddfe2",
+                                                                                backgroundColor: "#fff",
+
+                                                                                marginTop: "5%"
+                                                                            }}
+
+                                                                        >
+
+                                                                        </TextField>
+                                                                    </Box>
+                                                                </Grid>
+
+                                                                <Grid item xs={12} sx={{ paddingTop: "5px" }}>
+
+                                                                    <Box >
+                                                                        <Typography
+                                                                            sx={{
+                                                                                width: "304px",
+                                                                                height: "30px",
+                                                                                // margin: "8px 135px 0 8%",
+                                                                                fontSize: " 12px",
+                                                                                textAlign: "left",
+                                                                                color: "#8787a2"
+
+
+
+                                                                            }}
+                                                                        >Minimum redemption amount ₹500 </Typography>
+
+                                                                        <Typography
+                                                                            sx={{
+                                                                                width: "304px",
+                                                                                height: "30px",
+                                                                                marginTop: "-8px",
+                                                                                fontSize: " 12px",
+                                                                                textAlign: "left",
+                                                                                color: "#8787a2"
+                                                                            }}
+                                                                        >Maximum  redemption amount ₹25,000</Typography>
+                                                                    </Box>
+
+                                                                </Grid>
+
+                                                            </Grid>
+                                                        </Box>
+                                                    </CardContent>
+                                                </Card> : <Card >
+                                                    <CardContent>
                                                         <Grid container spacing={0}>
                                                             <Grid item xs={7}>
                                                                 <Typography
@@ -423,218 +540,280 @@ function RedeemFunds() {
                                                                     }}
                                                                 >Redemption type</Typography>
                                                             </Grid>
-                                                            <Grid item xs={5} sx={{
-                                                                textAlign: " center",
-
-                                                                justifyContent: "flex-start",
-                                                                alignItems: "flex-start",
-                                                                flexWrap: "wrap"
-                                                            }}>
+                                                            <Grid item xs={5}>
                                                                 <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                                                    <Box onClick={() => { setSelected(2); }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
+                                                                    <Box onClick={() => { setSelected(2); setPartial(true) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
                                                                         <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
                                                                     </Box>
-                                                                    <Box onClick={() => { setSelected(3); setPartial(false) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
+                                                                    <Box onClick={() => { setSelected(3) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
                                                                         <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
                                                                     </Box>
 
                                                                 </Box>
                                                             </Grid>
 
-                                                            <Grid item xs={6}>
-                                                                <Typography sx={{
-                                                                    height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42"
-                                                                }}>Redemption by</Typography>
-                                                            </Grid>
+                                                            <Grid container spacing={3}>
+                                                                <Grid item xs={6}>
+                                                                    <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Invested Value</Typography>
+                                                                </Grid>
+                                                                <Grid item xs={6}>
+                                                                    <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
+                                                                </Grid>
+                                                                <Grid item xs={6} sx={{ marginTop: "-5%" }}>
+                                                                    <Typography sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹1,25,000</Typography>
+                                                                </Grid>
+                                                                <Grid item xs={6} sx={{ marginTop: "-5%" }}>
+                                                                    <Typography>₹1,46,625</Typography>
 
-                                                            <Grid item xs={12}>
-
-
-                                                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10%", padding: "14px 0px 0px 17px" }}>
-
-
-                                                                    <FormControlLabel
-                                                                        control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                                        label="Amount: ₹1,46,625 " sx={{ marginLeft: "-11%", marginTop: '-20%' }} />
-
-                                                                    &nbsp; &nbsp;
-                                                                    <FormControlLabel
-                                                                        control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                                        label="Units: 750.762" sx={{ marginTop: '-20%' }} />
-
-                                                                </Box>
+                                                                </Grid>
 
                                                             </Grid>
-
-                                                            <Grid item xs={12}>
-                                                                <Box>
-                                                                    <TextField label="No. of Units"
-                                                                        name="Amount"
-                                                                        //   value={formData.lastName}
-                                                                        sx={{
-                                                                            width: " 100%",
-
-
-                                                                            borderRadius: "4px",
-                                                                            boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                                                            border: "solid 1px #dddfe2",
-                                                                            backgroundColor: "#fff",
-
-                                                                            marginTop: "5%"
-                                                                        }}
-
-                                                                    >
-
-                                                                    </TextField>
-                                                                </Box>
-                                                            </Grid>
-
-                                                            <Grid item xs={12} sx={{ paddingTop: "5px" }}>
-
-                                                                <Box >
-                                                                    <Typography
-                                                                        sx={{
-                                                                            width: "304px",
-                                                                            height: "30px",
-                                                                            // margin: "8px 135px 0 8%",
-                                                                            fontSize: " 12px",
-                                                                            textAlign: "left",
-                                                                            color: "#8787a2"
-
-
-
-                                                                        }}
-                                                                    >Minimum redemption amount ₹500 </Typography>
-
-                                                                    <Typography
-                                                                        sx={{
-                                                                            width: "304px",
-                                                                            height: "30px",
-                                                                            marginTop: "-8px",
-                                                                            fontSize: " 12px",
-                                                                            textAlign: "left",
-                                                                            color: "#8787a2"
-                                                                        }}
-                                                                    >Maximum  redemption amount ₹25,000</Typography>
-                                                                </Box>
-
-                                                            </Grid>
-
                                                         </Grid>
-                                                    </Box>
-                                                </CardContent>
-                                            </Card> : <Card sx={{ maxWidth: 488, maxHeight: 137, marginLeft: "3%" }}>
+
+
+
+                                                        <Box>
+
+
+
+                                                        </Box>
+
+
+
+
+
+
+
+                                                    </CardContent>
+
+                                                </Card>
+                                            }
+                                        </Grid>
+                                        <Grid item md={6} xs={12}>
+                                            <Card sx={{ borderRadius: "8px", marginBottom: "5px" }}>
+
                                                 <CardContent>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={7}>
-                                                            <Typography
-                                                                sx={{
+                                                    <Box sx={{ padding: "14px 0px 16px 0px" }}>
+                                                        <Typography sx={{
 
-                                                                    fontSize: "16px",
-                                                                    fontWeight: "500",
-                                                                    marginTop: "10px",
-                                                                    height: " 19px",
-                                                                    // margin: " 5% 62px 27px 5%",
-                                                                    fontFamily: "Roboto",
-                                                                    textAlign: " left",
-                                                                    color: " #3c3e42"
-                                                                }}
-                                                            >Redemption type</Typography>
+                                                            fontFamily: "Roboto",
+                                                            fontSize: "18px",
+                                                            fontWeight: "500",
+                                                            fontStretch: "normal",
+                                                            fontStyle: "normal",
+                                                            lineHeight: "normal",
+                                                            letterSpacing: "normal",
+                                                            textAlign: "left",
+                                                            color: " #3c3e42"
+                                                        }}>Advantages of Lump sum investment</Typography>
+                                                    </Box>
+
+
+                                                    <Grid container columnSpacing={0} sx={{ paddingBottom: "16px" }}>
+                                                        <Grid xs={2}>
+                                                            <Box>
+                                                                <img src={rupconvie} alt="image" style={style.RupConviestyle} />
+                                                            </Box>
                                                         </Grid>
-                                                        <Grid item xs={5}>
-                                                            <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                                                <Box onClick={() => { setSelected(2); setPartial(true) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
-                                                                    <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
-                                                                </Box>
-                                                                <Box onClick={() => { setSelected(3) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
-                                                                    <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
-                                                                </Box>
+                                                        <Grid xs={10}>
+                                                            <Box>
+                                                                <Typography sx={{
+                                                                    fontSize: "16px",
+                                                                    fontWeight: 500
 
+
+                                                                }}>Exit Load</Typography>
+                                                                <Typography sx={{
+                                                                    width: "100%",
+                                                                    height: " 50px",
+                                                                    margin: " 4px 0 0 ",
+                                                                    fontSize: "14px",
+                                                                    fontWeight: "normal",
+                                                                    lineHeight: "1.21",
+                                                                    textAlign: " left",
+                                                                    color: "#7b7b9d"
+                                                                }}>Exit load will be applicable if you are redeeming a fund within
+                                                                    365 days from the date of purchase. Exit load
+                                                                    is a percentage of the NAV of the fund.</Typography>
                                                             </Box>
                                                         </Grid>
 
-                                                        <Grid container spacing={3}>
-                                                            <Grid item xs={6}>
-                                                                <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Invested Value</Typography>
-                                                            </Grid>
-                                                            <Grid item xs={6}>
-                                                                <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
-                                                            </Grid>
-                                                            <Grid item xs={6} sx={{ marginTop: "-5%" }}>
-                                                                <Typography sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹1,25,000</Typography>
-                                                            </Grid>
-                                                            <Grid item xs={6} sx={{ marginTop: "-5%" }}>
-                                                                <Typography>₹1,46,625</Typography>
-
-                                                            </Grid>
-
-                                                        </Grid>
                                                     </Grid>
 
 
 
-                                                    <Box>
+                                                    <Grid container spacing={0}>
+                                                        <Grid xs={2}>
+                                                            <Box>
+                                                                <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid xs={10} sx={{ padding: " 14px 0px 16px 0px" }}>
+                                                            <Box sx={{}}>
+                                                                <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>Tax Implications</Typography>
+                                                                <Typography
+                                                                    sx={{
+                                                                        width: "100%",
+                                                                        height: " 50px",
+
+                                                                        fontFamily: " Roboto",
+                                                                        fontSize: "14px",
+                                                                        textAlign: " left",
+                                                                        color: "#7b7b9d"
+                                                                    }}
+                                                                >Investors earn dividends and capital gains from liquid funds.
+                                                                    Investors do not pay any tax on dividend income from mutual funds.</Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Divider sx={{ width: "100%" }} />
+                                                    </Grid>
+
+                                                    <Grid container rowSpacing={2} sx={{ display: "flex", flexDirection: "column" }}>
+                                                        <Grid item xs={12} sx={{
+
+                                                            padding: "15px 0px 0px 0px"
+                                                        }}>
+                                                            <Box sx={{ textAlign: " center",paddingTop: "15px" }}>
+                                                                <Typography sx={{
+                                                                    texAlign: " center",
+                                                                    fontSize: " 12px",
+                                                                    fontWeight: "normal",
+                                                                    fontStyle: " normal",
+                                                                    lineHeight: "1.42",
+                                                                    letterSpacing: "normal",
+
+                                                                    color: "#7b7b9d"
+
+
+                                                                }}>  Final units or amount will depend on NAV
+                                                                    applicable at the time of actual redemption request.</Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Box sx={{ textAlign: " center" }}>
+                                                                <Typography sx={{
 
 
 
-                                                    </Box>
+                                                                    fontSize: " 12px",
+                                                                    fontWeight: "normal",
+                                                                    fontStyle: " normal",
+                                                                    lineHeight: "1.42",
+                                                                    letterSpacing: "normal",
+
+                                                                    color: "#7b7b9d",
+                                                                }}>
+                                                                    By continuing, you’re agreeing to SprintMoneyTM
+
+                                                                </Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Box sx={{ textAlign: " center" }}>
+                                                                <Typography sx={{
+
+
+                                                                    fontSize: " 12px",
+                                                                    fontWeight: "normal",
+                                                                    fontStyle: " normal",
+                                                                    lineHeight: "1.42",
+                                                                    letterSpacing: "normal",
+
+                                                                    color: "#6c63ff",
+                                                                }}>     Terms and conditions</Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                        {/* <Grid item xs={2}>
+                                                            <Box sx={{ textAlign: " center", }}>
+                                                                <Typography sx={{
+
+
+                                                                    fontSize: " 12px",
+                                                                    fontWeight: "normal",
+                                                                    fontStyle: " normal",
+                                                                    lineHeight: "1.42",
+                                                                    letterSpacing: "normal",
+
+                                                                    color: "#6c63ff",
+                                                                }}>     Terms and conditions</Typography>
+                                                            </Box>
+                                                        </Grid> */}
+                                                    </Grid>
+                                                    {/* <Divider style={{ width: '100%' }} /> */}
+
+
+                                                    {/* <Box sx={{ textAlign: " center", }}>
+                                                        <Typography sx={{
+                                                           
+                                                            fontSize: " 12px",
+                                                            fontWeight: "normal",
+                                                            fontStyle: " normal",
+                                                            lineHeight: "1.42",
+                                                            letterSpacing: "normal",
+
+                                                            color: "#7b7b9d",
+
+
+                                                        }}>  Final units or amount will depend on NAV
+                                                            applicable at the time of actual redemption request.</Typography>
+                                                    </Box> */}
+
+                                                    {/* <Box sx={{ textAlign: " center" }}>
+                                                        <Typography sx={{
 
 
 
+                                                            fontSize: " 12px",
+                                                            fontWeight: "normal",
+                                                            fontStyle: " normal",
+                                                            lineHeight: "1.42",
+                                                            letterSpacing: "normal",
+
+                                                            color: "#7b7b9d",
+                                                        }}>
+                                                            By continuing, you’re agreeing to SprintMoneyTM
+
+                                                        </Typography>
+                                                    </Box> */}
+
+                                                    {/* <Box sx={{ textAlign: " center", }}>
+                                                        <Typography sx={{
 
 
+                                                            fontSize: " 12px",
+                                                            fontWeight: "normal",
+                                                            fontStyle: " normal",
+                                                            lineHeight: "1.42",
+                                                            letterSpacing: "normal",
 
+                                                            color: "#6c63ff",
+                                                        }}>     Terms and conditions</Typography>
+                                                    </Box> */}
 
                                                 </CardContent>
-
                                             </Card>
-                                        }
-
-
-
-
-
+                                        </Grid>
 
                                     </Grid>
-
-
-
-
-                                    <Grid item xs={12} sm={6} sx={{ padding: { xs: 0 }, display: "-webkit-inline-flex" }} >
-                                        <RedeemSecFundCard />
-
-                                    </Grid>
-
-
-
-                                </Grid>
-
+                                </Box>
 
 
 
                             </Grid>
 
-                            <Box onClick={showPlan} sx={{
-                                height: "fit-content",
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
-                                backgroundColor: '#fff'
-                            }}>
-                                <RedeemNowButton />
-                            </Box>
+                            <FooterWithBtn
+                                btnText='Redeem Now'
+                                btnClick={showPlan}
+                            />
 
 
 
-
-                            <SimpleModal open={bankModal}  close={()=>setBankModal(false)} />
+                            <SimpleModal open={bankModal} close={() => setBankModal(false)} />
                         </Grid>
 
                     </Grid>
                 </Box>
-            </Box>
+            </Box >
 
         </>
     )
