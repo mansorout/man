@@ -7,11 +7,13 @@ export async function postData(
 ) {
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
     method: "POST",
-    mode: "cors",
+    mode: "no-cors",
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
       "Content-Type": strContentType,
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       "x-api-key": siteConfig.X_API_KEY,
       Origin: process.env.ORIGIN || "http://localhost:3000",
       authorization:
