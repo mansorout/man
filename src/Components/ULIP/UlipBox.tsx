@@ -1,12 +1,119 @@
-import { Box, Breadcrumbs, Grid, Link, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Breadcrumbs, Divider, FormControlLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Theme, Toolbar, Typography } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { makeStyles } from "@mui/styles";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
+const useStyles: any = makeStyles((theme: Theme) => ({
+    main: {
+        boxSizing: "border-box",
+        backgroundColor: "var(--bgLayoutColor)",
+    },
+    blueBoxWithoutBorder: {
+        backgroundColor: 'var(--ui1Color)',
+        padding: '15px',
+        margin: '0px -16px',
+    },
+    blueBoxIconBox: {
+        width: '64px',
+        height: '64px',
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'var(--bgColor)',
+        margin: '0px 15px',
+        '@media(max-width: 500px)':{
+            width: '45px',
+            height: '45px',
+        }
+    },
+    BlueBoxCustom: {
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        '& p': {
+            color: 'var(--uiWhite)',
+            fontSize: 'var(--subHeadingFontSize)',
+        }
+    },
+    investmentType: {
+        backgroundColor: 'var(--uiWhite)',
+        // backgroundColor: '#000',
+        boxShadow: 'var(--themeShadow)',
+        padding: '15px',
+        borderRadius: '8px',
+    },
+    investmentField: {
+        color: 'var(--ui1Color)',
+        fontSize: 'var(--titleFontSize)',
+        marginBottom: '15px',
+        '& p': {
+            fontweight: 500,
+        },
+        '& span': {
+            color: 'var(--typeIndigoColor)',
+            fontSize: 'var(--fontSize14)',
+        },
+    },
+
+    textField: {
+        margin: '10px 0px !important',
+        display: 'block',
+        position: 'relative',
+        '& .MuiOutlinedInput-root.MuiInputBase-fullWidth': {
+            '& label': {
+                backgroundColor: 'rgb(135 135 162 / 20%)',
+                position: 'absolute',
+                right: '0px',
+                padding: '7px',
+                margin: '0px !important',
+                '@media(min-width: 600px)':{
+                    width: '140px !important',
+                }
+            }
+        }
+    },
+    rupeesIcon: {
+        fontSize: '16px !important',
+        color: 'var(--typeLightBlackColor)',
+    }
+}))
 
 const UlipBox = () => {
+
+    const classes = useStyles();
+    const navigate = useNavigate();
+    const dispatch: any = useDispatch()
+
+    const [investmentType, setInvestmentType] = useState<string>('lumpsum')
+    const [lumpsumAmount, setLumpsumAmount] = useState('')
+    const [monthlyAmount, setMonthlyAmount] = useState('')
+
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInvestmentType((event.target as HTMLInputElement).value);
+    };
+
+    const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
+       // dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
+        setLumpsumAmount(event.target.value);
+    };
+
+    const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
+       // dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
+        setMonthlyAmount(event.target.value);
+    };
+
+    const handleNavigationFlow = () => {
+       // investmentType === 'lumpsum' ? dispatch(SaveTaxInvestmentLumpsumAction('lumpsum')) : dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
+        //navigate('/saveTax/saveTaxInvestmentType')
+    }
 
     const style = {
         main: {
@@ -54,21 +161,77 @@ const UlipBox = () => {
                                 justifyContent: 'space-between'
                             }}>
                                 <Grid item xs={12} md={6}>
-                                    <UlipCard />
+                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '15px' } }}>
+
+                                        <RadioGroup
+                                            aria-labelledby="demo-controlled-radio-buttons-group"
+                                            name="controlled-radio-buttons-group"
+                                            value={investmentType}
+                                            onChange={handleRadioChange}
+                                        // style={{ backgroundColor: '#8787a2' }}
+                                        >
+                                            <Box className={classes.investmentField}>
+                                                <TextField
+                                                    label="I want to invest"
+                                                    id="outlined-start-adornment"
+                                                    value={lumpsumAmount}
+                                                    onChange={handleLumpsum}
+                                                    type='number'
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment position="start">
+                                                            <FormControlLabel value="lumpsum" control={<Radio />} label="Lumpsum" />
+                                                        </InputAdornment>,
+                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                        readOnly: investmentType === 'lumpsum' ? false : true,
+                                                    }}
+                                                    className={classes.textField}
+                                                    fullWidth
+                                                />
+                                                
+                                            </Box>
+
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                <Divider sx={{ width: '30%' }} />
+                                                <Typography component='span' sx={{ padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)' }}>OR</Typography>
+                                                <Divider sx={{ width: '30%' }} />
+                                            </Box>
+
+                                            <Box className={classes.investmentField}>
+                                                
+                                                <TextField
+                                                    label="I want to invest"
+                                                    id="outlined-start-adornment"
+                                                    value={monthlyAmount}
+                                                    onChange={handleMonthly}
+                                                    type='number'
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment position="start">
+                                                            <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
+                                                        </InputAdornment>,
+                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                        readOnly: investmentType === 'monthly' ? false : true,
+                                                    }}
+                                                    className={classes.textField}
+                                                    fullWidth
+                                                />
+                                                
+                                            </Box>
+                                        </RadioGroup>
+                                    </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <UlipPlanPerformanceCard />
                                 </Grid>
                             </Grid>
                         </Box>
-                        <ULIPFooter 
-                            text="Show Me Recommendations" 
-                            navigateTo="/ulip/recommendations" 
+                        <ULIPFooter
+                            text="Show Me Recommendations"
+                            navigateTo="/ulip/recommendations"
                             width="384px"
-                            bgColor="#23db7b" 
+                            bgColor="#23db7b"
                         />
                     </Grid>
-                    
+
                 </Grid>
             </Box>
         </Box>

@@ -1,5 +1,9 @@
+
+
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+
 
 import { Checkbox, FormControlLabel, InputAdornment, Paper, Stack, TextField } from '@mui/material';
 import { RadioButtonChecked, RadioButtonUncheckedOutlined } from '@mui/icons-material';
@@ -36,8 +40,8 @@ function TabPanel(props: TabPanelProps) {
         <div
             role="tabpanel"
             hidden={value !== index}
-            id={`vertical-tab-${index}`}
-            aria-labelledby={`vertical-tabpanel-${index}`}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
             {...other}
         >
             {value === index && (
@@ -285,7 +289,7 @@ function UlipDropDownFilter() {
                 // style={{ zIndex: 5000 }}
                 actions={menuActions}
                 open={Boolean(Anchor)}
-
+                onClose={()=>dispatch(AnchorCloseAction())}
                 anchorEl={Anchor}
             >
                 <StyledMenuItem>
@@ -327,8 +331,8 @@ function UlipDropDownFilter() {
                                         sx={{ borderRight: 1, borderColor: 'divider' }}
                                     >
                                         <Tab label="Sort" {...a11yProps(0)} />
-                                        <Tab label="Date Range" {...a11yProps(1)} />
-                                        <Tab label="Amount Range" {...a11yProps(2)} />
+                                        <Tab label="Policy Term" {...a11yProps(1)} />
+                                        <Tab label="Life Cover" {...a11yProps(2)} />
                                     </Tabs>
                                 </Box>
 
@@ -345,107 +349,64 @@ function UlipDropDownFilter() {
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
                                             <FormControlLabel
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Date - Latest to Older" />
+                                                label="Return - High to Low" />
 
                                             <FormControlLabel
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Date - Older to Latest" />
+                                                label="Rating - High to Low" />
                                             <FormControlLabel
                                                 control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Amount - High to Low" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Amount - Low to High" />
+                                                label="Fund Size - High to Low" />
                                         </Box>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
-                                        <Box style={{ display: "flex", alignItems: "center", justifyContent: 'center', padding: "20px", flexDirection: "column", gap: "30px" }}>
-                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                <Stack spacing={3}>
-                                                    <DesktopDatePicker
-                                                        label="Date desktop"
-                                                        inputFormat="MM/DD/YYYY"
-                                                        value={value}
-                                                        onChange={handleChange}
-                                                        renderInput={(params) => <TextField {...params} />}
-                                                    />
-                                                    <DesktopDatePicker
-                                                        label="Date desktop"
-                                                        inputFormat="MM/DD/YYYY"
-                                                        value={value}
-                                                        onChange={handleChange}
-                                                        renderInput={(params) => <TextField {...params} />}
-                                                    />
 
 
+                                        <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="5 Years" />
 
-                                                </Stack>
-                                            </LocalizationProvider>
-
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="7 Years" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="10 Years" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="15 Years" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="20 Years" />
                                         </Box>
                                     </TabPanel>
+                                    
                                     <TabPanel value={value} index={2}>
-                                        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={4}>
-                                                    <TextField
-                                                        label="Min. Transaction Amount"
-                                                        id="outlined-start-adornment"
-                                                        sx={{ m: 1, width: "22ch" }}
-                                                        InputProps={{
-                                                            startAdornment: <InputAdornment position="start"><CurrencyRupeeIcon sx={{ color: "#3c3e42", fontSize: "18px" }} /></InputAdornment>
-                                                        }}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                          
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={4}>
-                                                <TextField
-                                                        label="Max. Transaction Amount"
-                                                        id="outlined-start-adornment"
-                                                        sx={{ m: 1, width: "22ch" }}
-                                                        InputProps={{
-                                                            startAdornment: <InputAdornment position="start"><CurrencyRupeeIcon sx={{ color: "#3c3e42", fontSize: "18px" }} /></InputAdornment>
-                                                        }}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                        </Box>
-                                    </TabPanel>
-                                    <TabPanel value={value} index={3}>
+
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="All" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Buy" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Redeem" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹1 Crore" />
 
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹75 Lacs" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹50 Lacs" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹25 Lacs" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹10 Lacs" />
+                                            <FormControlLabel
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label="₹5 Lacs" />
                                         </Box>
                                     </TabPanel>
-                                    <TabPanel value={value} index={4}>
-                                        <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="All" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Successfull" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Pending Confirmation" />
-                                            <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Rejected" />
-
-                                        </Box>
-                                    </TabPanel>
-
                                 </Box>
                                 <Grid container spacing={2} >
                                     <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 0px" }} item xs={12}>
@@ -466,9 +427,10 @@ function UlipDropDownFilter() {
                 </StyledMenuItem>
             </MenuUnstyled>
 
-
         </>
     )
 }
 
-export default UlipDropDownFilter;
+export default UlipDropDownFilter
+
+{/* <Route path='/dropdown' element={<DropDownFilter />} /> */ }
