@@ -135,7 +135,7 @@ const MutualFundCard2 = (props: MFProp) => {
   return (
     <>
       <Box
-        style={{
+        sx={{
           gap: "20px",
           flexWrap: "wrap",
           overflowX: "scroll",
@@ -147,6 +147,10 @@ const MutualFundCard2 = (props: MFProp) => {
           alignItems: "center",
           boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
           padding: "10px 20px",
+          width:
+            props?.isMutualFundScreen === true
+              ? { xs: "unset", lg: "100vh" }
+              : "unset",
         }}
       >
         <Box
