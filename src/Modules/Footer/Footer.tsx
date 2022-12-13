@@ -8,7 +8,7 @@ function Footer() {
 
     const style = {
         footer : {
-            marginTop : "50px",
+            marginTop : "40px",
         },
         
         footerLogos : {
