@@ -18,6 +18,8 @@ import investmentReducer from './Reducers/investmentReducer'
 import { ULIPCompare } from './Duck/ULIPCompare'
 import { FilterBox } from './Duck/FilterBox'
 import {SaveTaxInvestmentTypeReducers} from './Duck/SaveTaxInvestmentType'
+import { submituserdetails } from './Reducers/action'
+import UserDetailsReducer from './Reducers/UserDetailsReducer'
 
 
 
@@ -39,6 +41,7 @@ const rootReducer = combineReducers({
     ULIPCompare : ULIPCompare,
     investment: investmentReducer,
     SaveTaxInvestmentType: SaveTaxInvestmentTypeReducers,
+    userProfileDetails:UserDetailsReducer
 })
 
 export const store = createStore(

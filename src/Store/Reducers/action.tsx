@@ -240,56 +240,63 @@ export const nomineeAdd = ({ fullname, dateofbirth, relation_id }: { fullname: s
 
 
 export const submituserdetails = (userdetails:any) => {
+    
     const { formData} = userdetails;
     console.log(formData);
     console.log(userdetails)
   
     let token :any = localStorage.getItem('accesstoken')
-    return async (dispatch:any)=>{
+    return (dispatch:any) => {
+        dispatch({
+            type:"UserDetails",
+            payload:userdetails
+        })
+    }
+    // return async (dispatch:any)=>{
        
-                const result ={}
-                try{
-                    const result = await fetch(userDetailsApi,{
-                        method:"POST",
-                        headers: {  
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                            "Authentication":token
-                          },
-                          body:JSON.stringify({
-                           "firstname":formData.firstName,
-                           "middlename":formData.middleName,
-                           "lastname":formData.lastName,
-                           "emailaddress":formData.emailaddress,
-                           "mobilenumber":formData.mobilenumber,
-                           "dateofbirth":formData.dateofbirth,
-                           "image":"",
-                           "gender":formData.gender,
-                           "addressline1":formData.addressline1,
-                           "addressline2":"",
-                           "pincode":formData.pincode,
-                           "incomeslab":formData.IncomeSlab,
-                           "country":formData.country
+    //             const result ={}
+    //             try{
+    //                 const result = await fetch(userDetailsApi,{
+    //                     method:"POST",
+    //                     headers: {  
+    //                         Accept: 'application/json',
+    //                         'Content-Type': 'application/json',
+    //                         "Authentication":token
+    //                       },
+    //                       body:JSON.stringify({
+    //                        "firstname":formData.firstName,
+    //                        "middlename":formData.middleName,
+    //                        "lastname":formData.lastName,
+    //                        "emailaddress":formData.emailaddress,
+    //                        "mobilenumber":formData.mobilenumber,
+    //                        "dateofbirth":formData.dateofbirth,
+    //                        "image":"",
+    //                        "gender":formData.gender,
+    //                        "addressline1":formData.addressline1,
+    //                        "addressline2":"",
+    //                        "pincode":formData.pincode,
+    //                        "incomeslab":formData.IncomeSlab,
+    //                        "country":formData.country
                            
-                        })
+    //                     })
                           
                     
-                    }).then((response) => response.json())
-                    .then((data) => {
-                      console.log(data.error)
-                      dispatch({
-                        type:'USERDETAILS_SUCCESS',
-                        payload:data
-                      })
+    //                 }).then((response) => response.json())
+    //                 .then((data) => {
+    //                   console.log(data.error)
+    //                   dispatch({
+    //                     type:'USERDETAILS_SUCCESS',
+    //                     payload:data
+    //                   })
                         
-                    })
-                } 
-                catch (err){
-                     //dispatch({type: 'LOGIN_FAILED'})
-                     console.log(err)}
+    //                 })
+    //             } 
+    //             catch (err){
+    //                  //dispatch({type: 'LOGIN_FAILED'})
+    //                  console.log(err)}
 
-        return result
-    };
+    //     return result
+    // };
 
     
 }
