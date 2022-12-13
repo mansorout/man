@@ -103,7 +103,7 @@ const enumActiveScreen = Object.freeze({
 });
 
 const CustomizeMF = () => {
-  const navigate = useNavigate();
+  const navigate:any = useNavigate();
 
   const [fundList, setFundList] = useState<MFProp[]>(data);
 
@@ -391,7 +391,9 @@ const CustomizeMF = () => {
               {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
               <Button
                 onClick={() => {
-                  navigate("/netbanking");
+                  navigate("/netbanking", {
+                    cardType: globalConstant.SIP_INVESTMENT,
+                  });
                 }}
                 variant="contained"
                 style={style.button}

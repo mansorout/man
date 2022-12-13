@@ -12,6 +12,7 @@ export async function postData(
     credentials: "same-origin",
     headers: {
       "Content-Type": strContentType,
+      "x-api-key": siteConfig.X_API_KEY,
       Origin: process.env.ORIGIN || "http://localhost:3000",
       authorization:
         "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
@@ -30,8 +31,8 @@ export async function getData(urlPath: string, strContentType: string) {
     credentials: "same-origin",
     headers: {
       "Content-Type": strContentType,
+      "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
-
       authorization:
         "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
@@ -51,6 +52,7 @@ export async function patchData(
     credentials: "same-origin",
     headers: {
       "Content-Type": strContentType,
+      "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
       authorization:
         "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
@@ -72,6 +74,7 @@ export async function putData(
     credentials: "same-origin",
     headers: {
       "Content-Type": strContentType,
+      "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
       authorization:
         "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),

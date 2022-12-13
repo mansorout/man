@@ -20,6 +20,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import { Calendar } from "react-calendar";
 import { makeStyles } from "@mui/styles";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
+import { globalConstant } from "../../Utils/globalConstant";
 
 // const data = [
 //   {
@@ -173,7 +174,7 @@ const useStyles: any = makeStyles((them: any) => ({
 }));
 
 const MutualFundsList = () => {
-  const navigate = useNavigate();
+  const navigate: any = useNavigate();
   const classes = useStyles();
 
   const [mfCards, setMfCards] = useState<MFProp[]>([]);
@@ -484,7 +485,9 @@ const MutualFundsList = () => {
                   {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
                   <Button
                     onClick={() => {
-                      navigate("/netbanking");
+                      navigate("/netbanking", {
+                        cardType: globalConstant.SIP_INVESTMENT,
+                      });
                     }}
                     variant="contained"
                     style={style.button}

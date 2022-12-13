@@ -79,7 +79,7 @@ const OneTimeMutualFund = () => {
 
   const classes = useStyles();
 
-  const navigate = useNavigate();
+  const navigate:any = useNavigate();
 
   const [mfCards, setMfCards] = useState<MFPropOneTime[]>([]);
 
@@ -296,7 +296,7 @@ const OneTimeMutualFund = () => {
               <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
             </Box>
             {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
-            <Button onClick={() => { navigate("/netbanking") }} variant='contained' style={style.button} sx={{
+            <Button onClick={() => { navigate("/netbanking",{cardType: globalConstant.LUMPSUM_INVESTMENT}) }} variant='contained' style={style.button} sx={{
               backgroundColor: 'rgba(123, 123, 157, 0.05)',
               color: '#7b7b9d',
               marginLeft: 8
