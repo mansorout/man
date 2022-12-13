@@ -74,8 +74,8 @@ export const VerifyonCheckout = () => {
             alignItems: "center",
             justifyContent: "center",
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-            transform: "translate(-50%, 0%)",
-            left: "57%",
+            // transform: "translate(-50%, 0%)",
+            // left: "57%",
             bottom: "8%",
             position: "absolute"
         } as React.CSSProperties,
@@ -115,7 +115,7 @@ export const VerifyonCheckout = () => {
                     <Grid
                         container
                         spacing={0}
-                        sx={{ height: "100vh" }}
+                        
                     >
 
                         <Grid
