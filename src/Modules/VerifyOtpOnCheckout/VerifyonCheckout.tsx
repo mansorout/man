@@ -195,7 +195,7 @@ export const VerifyonCheckout = () => {
 
                             <Box style={style.background}>
                                 <NavigationBar />
-                                <Box style={style.container}>
+                                <Box style={style.container}  className="verifyoncheckoutcard">
                                     <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
                                     <Typography mb={1} variant="h1" align="center">
                                         Verify OTP
