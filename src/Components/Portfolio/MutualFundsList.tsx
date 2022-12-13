@@ -6,7 +6,6 @@ import {
   Button,
   Grid,
   Link,
-  
   Modal,
   Toolbar,
   Typography,
@@ -20,6 +19,7 @@ import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import { Calendar } from "react-calendar";
 import { makeStyles } from "@mui/styles";
+import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 
 // const data = [
 //   {
@@ -375,6 +375,14 @@ const MutualFundsList = () => {
             </Box>
             <Box
               sx={{
+                // width: "83.75vw",
+                // height: "6.1vw",
+                // marginTop: "8vw",
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                // backgroundColor: "#fff",
                 width: "83.75vw",
                 height: "6.1vw",
                 marginTop: "8vw",
@@ -385,11 +393,17 @@ const MutualFundsList = () => {
                 backgroundColor: "#fff",
               }}
             >
-              <SelectSipDateButton
-                openModal={() =>
+              <FooterWithBtn
+                btnText="Select SIP Date"
+                btnClick={() =>
                   setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
                 }
               />
+              {/* <SelectSipDateButton
+                openModal={() =>
+                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
+                }
+              /> */}
             </Box>
 
             <Modal
