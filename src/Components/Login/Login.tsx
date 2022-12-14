@@ -144,7 +144,7 @@ export const Login = () => {
       siteConfig.AUTHENTICATION_OTP_SEND,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON
     )
-      .then((res) => res.json())
+      .then(res => res.json())
       .then((data) => {
         console.log(data);
       })
