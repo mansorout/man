@@ -157,12 +157,12 @@ const AddFunds = () => {
           </Grid>
           {/* <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}> */}
           <Grid container sx={{ overflow: "scroll" }} xs={13} sm={11} md={10}>
-            <Toolbar />
+            {/* <Toolbar /> */}
             <Box
               id="addfunds"
               sx={{
                 backgroundColor: "#f9f9f9",
-                width: "83.75vw",
+                width: { xs: "94.75vw", sm: "83.75vw" },
                 padding: "3.75vw 2.4vw",
                 display: "flex",
                 flexDirection: "column",
@@ -210,90 +210,6 @@ const AddFunds = () => {
                   Choose fund to add
                 </Typography>
               </Breadcrumbs>
-              {/* <Box sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                height: '10vw',
-                marginBottom: { xs: "33%", sm: "0%" }
-              }}>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  marginRight: { xs: "1%", sm: "0%" }
-                }}>
-                  <Box>
-
-                    <Typography sx={{
-                      fontSize: '12px',
-                      color: '#8787a2',
-                    }}>Explore Funds</Typography>
-                    <Typography sx={{
-                      fontSize: '18px',
-                      fontWeight: 500,
-                      color: '#3c3e42',
-                    }}>Choose Fund to Add</Typography>
-                  </Box>
-                  <Box>
-                    <Typography sx={{
-                      fontSize: '12px',
-                      color: '#8787a2',
-                    }}>SIP Investment</Typography>
-                    <Typography sx={{
-                      fontSize: '14px',
-                      color: '#7b7b9d',
-                    }}>20 funds found</Typography>
-                  </Box>
-                </Box>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  marginTop: { xs: "13%", sm: "0%" },
-                  height: { xs: "100%", sm: "unset" },
-                  maxHeight: { xs: "100%", sm: "unset" }
-                }}>
-                  <TextField
-                    placeholder="Search funds..."
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start"><SearchOutlinedIcon /></InputAdornment>,
-                      endAdornment: <InputAdornment position="end" sx={{
-                        width: '30px',
-                        height: '30px',
-                        backgroundColor: '#efefef',
-                        borderRadius: '50%',
-                        padding: '0.375vw',
-                        color: '#09b85d',
-                      }}><FilterAltOutlinedIcon /></InputAdornment>
-                    }}
-                    sx={{
-                      width: '30vw',
-                      height: '3.6vw',
-                      borderRadius: '0.3125vw',
-                      boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
-                      border: 'solid 1px #dddfe2',
-                      backgroundColor: '#fff'
-                    }}
-                  />
-
-                  <Box sx={{
-                    marginTop: { xs: "23%", sm: "0%" }
-                  }}>
-
-                    <ButtonGroup sx={{
-                      display: 'flex',
-                      gap: '1vw',
-                    }}>
-                      <Button variant="contained" style={style.selected}>All</Button>
-                      <Button variant="contained" style={style.button}>Equity</Button>
-                      <Button variant="contained" style={style.button}>Debt</Button>
-                      <Button variant="contained" style={style.button}>Balanced</Button>
-                    </ButtonGroup>
-                  </Box>
-                </Box>
-
-
-              </Box> */}
 
               <Box
                 style={{
@@ -376,7 +292,7 @@ const AddFunds = () => {
                         handleFilter(e);
                       }}
 
-                      // onClick={(e) => handleFilter(e)}
+                    // onClick={(e) => handleFilter(e)}
                     >
                       <IconButton>
                         <FilterAltOutlined style={{ color: "#09b85d" }} />
@@ -398,13 +314,11 @@ const AddFunds = () => {
                       }
                       style={{
                         cursor: "poindatater",
-                        border: `1px solid ${
-                          selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -423,13 +337,11 @@ const AddFunds = () => {
                       onClick={() => handleSelection(2, globalConstant.EQUITY)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -454,13 +366,11 @@ const AddFunds = () => {
                       onClick={() => handleSelection(3, globalConstant.DEBT)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -487,13 +397,11 @@ const AddFunds = () => {
                       }
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -517,15 +425,21 @@ const AddFunds = () => {
                   </Box>
                 </Box>
               </Box>
-
-              {fundList.length &&
-                fundList.map((item, index) => {
-                  return (
-                    <Box key={index}>
-                      <MutualFundCard2 {...item} />
-                    </Box>
-                  );
-                })}
+              <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: { xs: "100%" }
+              }}>
+                {fundList.length &&
+                  fundList.map((item, index) => {
+                    return (
+                      <Box key={index}>
+                        <MutualFundCard2 {...item} />
+                      </Box>
+                    );
+                  })}
+              </Box>
             </Box>
           </Grid>
         </Grid>

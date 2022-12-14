@@ -351,8 +351,8 @@ const MutualFundCard2 = (props: MFProp) => {
                     style={{ marginTop: "25px" }}
                   >
                     <img
-                      src="./assets/images/Group 5102 (non-optimized).png"
-                      srcSet="./assets/images/Group 5102 (non-optimized).png"
+                      src="./assets/images/Group_5102.png"
+                      srcSet="./assets/images/Group_5102.png"
                       alt={"not loaded"}
                       loading="lazy"
                       className={classes.manImg}
