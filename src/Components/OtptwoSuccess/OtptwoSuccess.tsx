@@ -3,6 +3,7 @@ import {
   Button,
   Box,
   Typography,
+  Grid,
 } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import "./OtptwoSuccess.css";
@@ -31,7 +32,7 @@ export const OtptwoSuccess = () => {
       width: "100%",
       maxWidth: "500px",
       padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
+      borderRadius: "8px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -39,7 +40,7 @@ export const OtptwoSuccess = () => {
       boxShadow:'0 1px 5px 0 rgba(0, 0, 0, 0.2)',
       transform: "translate(-50%, 0%)",
       left: "50%",
-      bottom: "0px",
+      bottom: "23%",
       position: "absolute"
     } as React.CSSProperties,
 
@@ -61,9 +62,16 @@ return (
           <Typography mb={2} style={{maxWidth:"90%"}} className="VerificationOtp" align="center">
           Please use your new PIN when logging in.
           </Typography>
-          <BacktoLogin/>
-          <Footer/>
+          <Grid container sx={{textAlign:"center",paddingBottom: "5%"}}  >
+               <Grid item xs={12}>
+               <BacktoLogin/>
+               </Grid>
+         </Grid>
+         
+          
         </Box>
+
+        <Footer/>
       </Box>
       <img alt="logo" src={ SBICON } width="275" height="275" style={{
             position: "absolute",

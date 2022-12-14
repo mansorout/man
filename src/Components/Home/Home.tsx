@@ -362,7 +362,7 @@ function Home() {
             <PINVerifyButton otp={OTP} />
           </div>
           <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-            <span onClick={() => navigate("/setnewpin")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography>
+            <span onClick={() => navigate("/verifysec")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography>
         </Box>
       </Modal>
     </Box>
