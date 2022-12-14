@@ -247,26 +247,17 @@ function InvestNowScreen() {
                 </Breadcrumbs>
               </Box>
               <Grid container >
-                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
                   <InvestCard
                     cardType={globalConstant.LUMPSUM_INVESTMENT}
-                    heading="One-Time Lumpsum"
+                    heading="Start an SIP"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex",height:"360px" }} >
                   <InvestSecondCard />
                 </Grid>
               </Grid>
-              <Box
-                textAlign="center"
-                sx={{
-                  margin: "auto",
-                  width: "304px",
-                }}
-              >
-
-
-              </Box>
+            
 
             </Grid>
 
