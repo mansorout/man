@@ -2,6 +2,7 @@
   "name": "sprint-money_frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://k41xvsg1t7.execute-api.ap-south-1.amazonaws.com",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
