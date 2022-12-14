@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react'
 
 
@@ -90,7 +90,7 @@ function VviewprofileCard() {
              <Box
                 sx={{
                     p: 1,
-                    width: '1',  bgcolor: 'background.paper', marginTop: "30px"
+                    width: '1',  bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
             >
                 <List  >
@@ -277,7 +277,12 @@ function VviewprofileCard() {
 
                         />
                     </ListItem>
-                    <VerificationpendingButton />
+                    <Grid container spacing={1} textAlign="center" sx={{paddingLeft:"10px"}}>
+                        <Grid item xs={12} md={12} >
+                        <VerificationpendingButton />
+                        </Grid>
+                    </Grid>
+                    
                 </List>
              
              </Box>
@@ -285,7 +290,7 @@ function VviewprofileCard() {
              <Box
                 sx={{
                     p: 1,
-                    width: '1',  bgcolor: 'background.paper', marginTop: "30px"
+                    width: '1',  bgcolor: 'background.paper', marginTop: "30px",borderRadius: "8px"
                 }}
             >
                 <List>
@@ -328,8 +333,8 @@ function VviewprofileCard() {
 
              <Box
                 sx={{
-                    p: 0.05,
-                    width: '1', bgcolor: 'background.paper', marginTop: "30px"
+                    p: 2,
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px",borderRadius: "8px"
                 }}
             >
                 <List>
