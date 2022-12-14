@@ -25,6 +25,10 @@ const ULIPBlueButton = (prop: ULIPBlueButtonProp) => {
                 fontSize: '12px',
                 fontWeight: 500,
                 color: '#fff',
+                '&:hover': {
+                    backgroundColor: '#00b4ff',
+                    color: '#fff',
+                }
             }}>{ prop.text }</Button>
         </Box>
     )

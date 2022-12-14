@@ -189,7 +189,7 @@ const ULIPRecommendations = () => {
                 <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
                     <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '13%', md: '30%' } }}>
                         <Typography sx={style.modalText}>Select Monthly Instalment Date</Typography>
-                        <Typography sx={ style.modalText2 }>{`${ value.getDate() }`} of every month`</Typography>
+                        <Typography sx={ style.modalText2 }>{`${ value.getDate() }`} of every month</Typography>
                         <Calendar value={ value } onChange={ setValue } />
                         <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL) }} variant='contained' style={style.button} sx={{
                             backgroundColor: 'rgba(123, 123, 157, 0.05)',
