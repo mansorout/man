@@ -4,7 +4,7 @@ import { ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
-import { Editprofilebutton } from '../Buttons/Editprofilebutton'
+
 // import EEditprofileCard from '../Buttons/EEditprofileCard'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
@@ -96,11 +96,11 @@ function EditprofileCard() {
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      marginTop:"-24px",
-      marginRight:"12px",
-      width: "90%",
+      marginTop:"-60px",
+      marginLeft:"4%",
+      width: "100%",
       maxWidth: "400px",
-      transform: "translate(10px, -60px)"
+     
     },
     ca: {
       backgroundColor: "#64dbff",
@@ -382,7 +382,7 @@ function EditprofileCard() {
           <Grid item xs={12} sm={6} lg={6}>
             <Paper className={classes.paper}
               sx={{
-                p: 1,
+                p: 2,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
@@ -549,7 +549,7 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 }, marginRight:"-40px", marginLeft:"-12%"}}>
+              <Box sx={{ '& button': { m: 1 }, marginLeft:"4px", textAlign:"left"}}>
                 <Button
                   id={"male"}
                   name="gender"
@@ -745,13 +745,13 @@ function EditprofileCard() {
                   error={errorincomeslabs}
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
                 />
-                <div style={{ marginTop: "20px" }}>
+             
                   <Button variant="contained" style={style.buttonbtn}
                     disabled={!areAllFieldsFilled}
                     onClick={handleClick} fullWidth >
                     <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
                   </Button>
-                </div>
+           
               </Stack>
             </Paper>
           </Grid>

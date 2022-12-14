@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import { Grid, TextField } from "@mui/material";
 import List from "@mui/material/List";
 import { globalConstant } from "../../Utils/globalConstant";
+import './style.css'
 
 const bull = (
   <Box
@@ -92,27 +93,21 @@ type IProps = {
 export default function InvestCard(props: IProps) {
   return (
     <>
+   
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Stack m={2} spacing={6}>
-            <Typography
-              sx={{
-                width: "100%",
-                height: "19px",
-                margin: "0 303px 25px 0",
-                fontFamily: "Roboto",
-                fontSize: "16px",
-                fontWeight: "500",
-                fontStretch: "normal",
-                fontStyle: "normal",
-                lineHeight: "1.25",
-                letterSpacing: "normal",
-                textAlign: " left",
-                color: " #3c3e42",
+            <b
+              style={{
+             
+                margin: "-4% 303px 25px 0",
+                
+                textAlign: "left",
+                color: "#3c3e42" 
               }}
             >
               {props?.heading}
-            </Typography>
+            </b>
 
             <List>
               <TextField
@@ -143,28 +138,44 @@ export default function InvestCard(props: IProps) {
               >
                 You can start small, starting from ₹5,000
               </Typography>
-              <Stack direction="row" spacing={2} sx={{ marginTop: "12px" }}>
+              <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
                 <Button
                   variant="contained"
                   disabled
                   sx={{
                     BackgroundColor: "#6c63ff",
                     borderRadius: "2px",
-                    width: "64px",
-                    height: "35px",
+                  
+                    width: "60px",
+                    height: "33px",
                     margin: " 2.2 12px 0 0",
                     padding: "10px 12px 9px",
                   }}
                 >
-                  +1000
+                 <b style={{color:"#6c63ff"}}>+1000</b>
                 </Button>
-                <Button variant="contained" disabled>
-                  +5000{" "}
+                <Button variant="contained" disabled  
+                    sx={{
+                      BackgroundColor: "#6c63ff",
+                      borderRadius: "2px",
+                      color:"#6c63ff",
+                      width: "64px",
+                      height: "35px",
+                      margin: " 2.2 12px 0 0",
+                      padding: "10px 12px 9px",
+                    }}
+                >
+                 <b style={{color:"#6c63ff"}}>+5000</b> 
                 </Button>
-                <Button variant="contained" href="#contained-buttons" disabled>
-                  {" "}
-                  +10,000
-                </Button>
+                <Button variant="contained" href="#contained-buttons" disabled 
+                  sx={{
+                    BackgroundColor: "#6c63ff",
+                    borderRadius: "2px",
+                    color:"#6c63ff",
+                    width: "75px",
+                    height: "35px", }}
+                > <b style={{color:"#6c63ff"}}>  +10,000</b>
+                 </Button>
               </Stack>
               <InvestButton cardType={props?.cardType} />
               <Grid
@@ -186,6 +197,7 @@ export default function InvestCard(props: IProps) {
           </Stack>
         </CardContent>
       </Card>
+ 
     </>
   );
 }

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import { Box, Grid, Toolbar, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
@@ -37,17 +29,8 @@ export const RedemptionDone = () => {
   const navigate = useNavigate()
 
   const refContainer = useRef();
-
-
-
-
-
-
-  const error: string[] = useSelector((state: any) => state.error)
-
-  
-
-  const style = {
+const error: string[] = useSelector((state: any) => state.error)
+const style = {
     buttons: {
       height: "48px",
       borderRadius: "8px",
