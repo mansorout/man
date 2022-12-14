@@ -45,12 +45,28 @@ import {store} from "../../Store/Store";
     
      const validateOTP = (otp : string) => {
         //store.dispatch(verifycxotp({'otp': otp,'number':number}))
+
+        
+        // if (OTP.length != 4) {
+        //     addError("Login_OTP")
+        // } else if (OTP != "1234") {
+        //     addError("Login_OTP")
+        // } else {
+        //     removeError("Login_OTP")
+        //     navigate('/redemptiondone')
+
+        // }
     
         
          
         if(otp.length != 4){
             addError("Login_OTP")
-        }else {
+        }   
+            else if (otp != "1234"){
+                addError("Login_OTP")
+            }
+
+        else {
             removeError("Login_OTP")
             store.dispatch(verifycxotp({'otp': otp,'number':number})) 
           

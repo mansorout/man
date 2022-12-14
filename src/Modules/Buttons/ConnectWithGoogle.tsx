@@ -34,7 +34,7 @@ import './ConnectWithGoogle.css';
     return  <GoogleLogin 
                 className="google-button"
                 clientId={ clientId }
-                buttonText="Continue with Google"
+                buttonText="Connect with Google"
                 onSuccess={ onSuccess }
                 onFailure={ onFailure }
                 cookiePolicy={ 'single_host_origin' }

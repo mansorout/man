@@ -640,6 +640,7 @@ function RedeemFunds() {
                                                     </Grid>
 
                                                     <Grid container rowSpacing={2} sx={{
+                                                        paddingLeft:"25px",
                                                         maxWidth: "fit-content",
                                                         margin: "1rem", display: "flex", flexDirection: "column"
                                                     }}>
