@@ -5,18 +5,25 @@ export async function postData(
   urlPath: string,
   strContentType: string
 ) {
+  console.log(strContentType);
+  let objHeader = {
+    // "Content-Type": strContentType,
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    "x-api-key": siteConfig.X_API_KEY,
+    Origin: process.env.ORIGIN || "http://localhost:3000",
+    authorization:
+      "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+  }
+  console.log(objHeader);
   const res = await fetch(siteConfig.BASE_URL + urlPath, {
     method: "POST",
-    mode: "cors",
+    mode: "no-cors",
     cache: "no-cache",
     credentials: "same-origin",
-    headers: {
-      "Content-Type": strContentType,
-      "x-api-key": siteConfig.X_API_KEY,
-      Origin: process.env.ORIGIN || "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
-    },
+    // @ts-ignore
+    headers: JSON.stringify(objHeader),
     body: JSON.stringify(data),
   });
 
