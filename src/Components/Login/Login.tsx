@@ -178,6 +178,7 @@ export const Login = () => {
         <TextField
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
+            "&.Mui-focused >.MuiInputLabel-root": { color: "red"},
             "& .MuiOutlinedInput-root": {
               "& > fieldset": {
                 borderColor: error?.includes("Login_Contact")
