@@ -38,8 +38,7 @@ const style = {
     dividerBox: {
         width: "470px",
         height: "1px",
-        margin: "13.5% 0 17.5%",
-        opacity: "0.2",
+        margin: "9% -3% 14%",
         backgroundColor: "#acb4bf",
 
     },
@@ -112,128 +111,85 @@ const style = {
 export default function InvestSecondCard() {
     return (
         <>
+
             <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                    <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Expected returns</Typography>
 
-                    <Typography>
+                <CardContent >
 
-                        <img alt="Money Sprint" src={graphimage}
-                            style={{
-                                width: " 100%",
-                                height: "67px",
-                                margin: "0 0 14px",
-
-                            }}>
-
-                        </img>
-                        <Box sx={{ display: "fles", justifyContent: "space-between" }}>
-                            <Box>1Y</Box>
-                            <Box>3Y</Box>
-                            <Box sx={{ marginLeft: "11px" }}>5Y  <img alt="Money Sprint" src={ellipslogo} style={{
-                                width: "14px",
-                                marginTop: "-80%",
-                                marginRight: "-50%",
-                                borderRadius: "30px",
-                                position: "relative",
-                                top: "-33px",
-                                left: "-18px",
-                                fontSize: "12px",
-                                boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)",
-                                backgroundColor: "#6c63ff",
+                    <b style={{ color: "#3c3e42", }}>Expected returns</b>
+                    <Typography><img alt="Money Sprint" src={graphimage} style={{ width: " 100%", height: "67px", margin: "0 0 14px", }}></img>
+                        <Box sx={{ display: "fles", justifyContent: "space-between" }}> <Box>1Y</Box><Box>3Y</Box>
+                            <Box sx={{ marginLeft: "11px" }}> <b style={{ color: "#6c63ff" }}>5Y</b>  <img alt="Money Sprint" src={ellipslogo} style={{
+                                width: "14px", marginTop: "-80%", marginRight: "-50%", borderRadius: "30px", position: "relative", top: "-33px", left: "-18px",
+                                fontSize: "12px", boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)", backgroundColor: "#6c63ff",
                             }}></img></Box>
-                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box>
-                            <Box>15Y</Box>
-                            <Box>20Y</Box>
+                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box> <Box>15Y</Box> <Box>20Y</Box>
                         </Box>
-
-
                     </Typography>
                     <Grid container spacing={1} sx={{ marginTop: "5%" }}>
                         <Grid item xs={6} sx={{
-                            width: " 84px",
-                            height: "14px",
-                            fontFamily: " Roboto",
-                            fontSize: "12px",
-                            fontWeight: "normal",
-                            textAlign: "left",
-                            color: " #7b7b9d"
+                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px",
+                            fontWeight: "normal", textAlign: "left", color: " #7b7b9d"
                         }}>
                             Invested Value
                         </Grid>
                         <Grid item xs={6} sx={{
-                            width: " 84px",
-                            height: "14px",
-                            fontFamily: " Roboto",
-                            fontSize: "12px",
-                            fontWeight: "normal",
-                            textAlign: "right",
-                            color: " #7b7b9d"
+                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px", fontWeight: "normal",
+                            textAlign: "right", color: " #7b7b9d"
                         }}>
                             Projected Value
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={1} sx={{  paddingTop: "20px"}}>
+                    <Grid container spacing={1} sx={{ paddingTop: "20px" }}>
                         <Grid item xs={6} sx={{
-                            width: " 57px",
-                            height: "24px",
-                            fontFamily: " Roboto",
-                            fontSize: "20px",
-                            fontWeight: "300",
-                            textAlign: "left",
-                            color: " #3c3e42"
-
+                            width: " 57px", height: "24px", fontFamily: " Roboto",
+                            fontWeight: "300", textAlign: "left",
                         }}>
-                            ₹1 Lac
+                            <b style={{ color: " #3c3e42", fontSize: "20px" }}>₹2.25 Lac</b>
                         </Grid>
                         <Grid item xs={6} sx={{
-                            width: " 87px",
-                            height: "24px",
-                            paddingTop: "17px",
-                            fontFamily: " Roboto",
-                            fontSize: "20px",
-                            fontWeight: "500",
-                            textAlign: "right",
-                            color: " #23db7b"
-                            //   
+                            width: " 87px", height: "24px", paddingTop: "17px",
+                            fontFamily: " Roboto", fontWeight: "500", textAlign: "right",
+
                         }}>
-                            ₹2.25 Lac
+                            <b style={{ color: " #23db7b", fontSize: "20px", }}>₹2.25 Lac</b>
                         </Grid>
                     </Grid>
+                    <Box style={style.dividerBox}>
+                        <Grid container spacing={4} sx={{marginLeft:"2%",marginTop:"-3%"}} >
+                            <Grid item xs={6} md={6}>
+
+                                <Box textAlign="left" sx={{ display: "flex",marginTop:"-7%", marginLeft:"-10%" }}>
+                                    <Avatar alt="" src={withdrawiclogo} style={style.ca} sx={{}} />
+
+                                    <Typography sx={{ fontSize: "12px", color: "#7b7b9d", marginLeft: "5%",marginTop:"4%" }}>*Anytime Withdraw</Typography>
+                                </Box>
 
 
-                    <Box style={style.dividerBox} ></Box>
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                                <Box textAlign="right" sx={{display:"flex",marginTop:"-6%", marginLeft:"7%"}}>
+                                    <Avatar alt="" src={lockinlogo} style={style.ca} sx={{ marginLeft: '15px' }} />
 
-                    <ListItem sx={{ marginTop: "12px" }} >
+                                    <Typography sx={{ fontSize: "12px", color: "#7b7b9d", marginLeft: "5%",marginTop:"4%"}}>*No Lock-in Period</Typography>
+                                </Box>
 
-                        <ListItemAvatar>
 
-                            <Avatar
-                                alt=""
-                                src={withdrawiclogo}
-                                style={style.ca}
+                            </Grid>
+                        </Grid>
+                    </Box>
 
-                            />
 
-                        </ListItemAvatar>
 
-                        <Typography sx={{ fontSize: "12px" }}>   *Anytime Withdraw</Typography>
-                        <Avatar
-                            alt=""
-                            src={lockinlogo}
-                            style={style.ca}
 
-                            sx={{ marginLeft: '25px' }} />
-                        &nbsp;   &nbsp;  &nbsp;
-                        <Typography sx={{ fontSize: "12px" }}>*No Lock-in Period</Typography>
 
-                 
-                    </ListItem>
-        
                 </CardContent>
 
             </Card>
+
+
+
         </>
 
 

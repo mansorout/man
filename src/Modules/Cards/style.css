@@ -37,7 +37,7 @@
         margin-right: -5px;
     }
     .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 160px) !important;
+        width: calc(100% + 140px) !important;
     }
 
     .IpadStyle {
@@ -53,9 +53,11 @@
     }
 
     .css-skdto5 button {
-        margin: 0px !important;
+        margin: 1px !important;
         padding: 0px 0px !important;
+    
     }
+   
 
     .css-skdto5 {
         margin-right: 68px !important;
@@ -89,3 +91,4 @@
     }
 
 }
+

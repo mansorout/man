@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import ModalInvestNow from "../../Components/InvestNowScreen/ModalInvestNow";
 import { setInvestmentCardTypeAction } from "../../Store/Action-Creators";
 import { globalConstant } from "../../Utils/globalConstant";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 type IProps = {
   cardType: string;
@@ -50,13 +50,18 @@ export const InvestButton = (props: IProps) => {
           handleClick();
         }}
       >
-        <Typography
+        <Grid container spacing={2} textAlign="center">
+          <Grid item xs={12} md={12}>
+          <Typography
           component="span"
           style={style.text}
           className="largeButtonText"
         >
           Continue
         </Typography>
+          </Grid>
+        </Grid>
+      
       </Button>
       <ModalInvestNow open={showLogin} close={() => setShowLogin(false)} />
     </>

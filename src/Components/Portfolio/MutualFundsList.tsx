@@ -232,8 +232,8 @@ const MutualFundsList = () => {
           <Grid
             container
             sx={{
-              height: "100vh",
-              overflow: "scroll",
+              // height: "100vh",
+              overflowY: "scroll",
               marginTop: "4%",
               justifyContent: "center",
             }}
