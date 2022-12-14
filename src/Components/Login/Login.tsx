@@ -142,9 +142,13 @@ export const Login = () => {
     postData(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON
+      // siteConfig.CONTENT_TYPE_APPLICATION_JSON
+      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED
     )
-      .then(res => res.json())
+      .then(res => {
+        console.log(res.json(), "login res.json()")
+        return res.json()
+      })
       .then((data) => {
         console.log(data);
       })
@@ -178,6 +182,7 @@ export const Login = () => {
         <TextField
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
+            "&.Mui-focused >.MuiInputLabel-root": { color: "red"},
             "& .MuiOutlinedInput-root": {
               "& > fieldset": {
                 borderColor: error?.includes("Login_Contact")

@@ -151,7 +151,7 @@ const ReplaceFunds = () => {
               id="addfunds"
               sx={{
                 backgroundColor: "#f9f9f9",
-                width: "83.75vw",
+                width: { xs: "94.75vw", sm: "83.75vw" },
                 padding: "3.75vw 2.4vw",
                 display: "flex",
                 flexDirection: "column",
@@ -382,13 +382,11 @@ const ReplaceFunds = () => {
                       }
                       style={{
                         cursor: "poindatater",
-                        border: `1px solid ${
-                          selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -407,13 +405,11 @@ const ReplaceFunds = () => {
                       onClick={() => handleSelection(2, globalConstant.EQUITY)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -438,13 +434,11 @@ const ReplaceFunds = () => {
                       onClick={() => handleSelection(3, globalConstant.DEBT)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -471,13 +465,11 @@ const ReplaceFunds = () => {
                       }
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -501,16 +493,22 @@ const ReplaceFunds = () => {
                   </Box>
                 </Box>
               </Box>
-              <>{console.log(fundList)}</>
-              {fundList.length &&
-                fundList.map((item, index) => {
-                  console.log(item);
-                  return (
-                    <Box key={index}>
-                      <MutualFundCard2 {...item} />
-                    </Box>
-                  );
-                })}
+              <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: { xs: "100%" }
+              }}>
+                {fundList.length &&
+                  fundList.map((item, index) => {
+                    console.log(item);
+                    return (
+                      <Box key={index}>
+                        <MutualFundCard2 {...item} />
+                      </Box>
+                    );
+                  })}
+              </Box>
             </Box>
           </Grid>
         </Grid>
