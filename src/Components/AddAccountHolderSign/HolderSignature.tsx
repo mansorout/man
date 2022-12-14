@@ -167,7 +167,7 @@ function HolderSignature() {
             height: "633",
         },
 
-      
+
 
 
 
@@ -201,7 +201,7 @@ function HolderSignature() {
     const refContainer = useRef();
     const navigate = useNavigate();
 
-  
+
 
     return (
         <Box style={{ width: "100%" }} ref={refContainer}>
@@ -257,7 +257,7 @@ function HolderSignature() {
                                     aria-current="page"
                                 >
 
-                                    <Typography className='burgerText'>  Add Account Holder Signature</Typography>
+                                    <Typography className='burgerText'>Account Holder Signature</Typography>
                                 </Link>
                             </Breadcrumbs>
 
@@ -278,7 +278,7 @@ function HolderSignature() {
 
                                         {
                                             enableShowText ? <Grid container spacing={3}>
-                                                <Grid sx={{ textAlign: "center" }} item xs={12}>
+                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
                                                     <Typography className="checkWillAppearHere">
                                                         Draw Here...
                                                     </Typography>
@@ -288,7 +288,7 @@ function HolderSignature() {
                                         }
                                         {
                                             enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
-                                                <Grid sx={{ textAlign: "center" }} item xs={12}>
+                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
                                                     <Typography className="checkWillAppearHere">
                                                         Draw Here...
                                                     </Typography>
@@ -301,16 +301,16 @@ function HolderSignature() {
 
 
                                                 <SignaturePad
-                                                      
+
                                                     ref={sigCanvas}
                                                     backgroundColor="white"
                                                     penColor="black"
                                                     onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
                                                     canvasProps={{
                                                         // width: 600,
-                                                        height:450,
+                                                        height: 450,
                                                         className: styles.sigPad
-                                                         
+
                                                     }}
 
                                                 />
@@ -325,7 +325,7 @@ function HolderSignature() {
                                                 <Grid container sx={{
                                                     display: "flex",
                                                     justifyContent: "center",
-
+                                                    backgroundColor: "white",
                                                     top: "50%",
                                                     left: "50%",
 
@@ -338,7 +338,7 @@ function HolderSignature() {
                                                             style={{
 
                                                                 maxWidth: "-webkit-fill-available",
-                                                                 height: "250px"
+                                                                height: "250px"
                                                             }}
                                                         />
                                                     </Grid>
@@ -364,10 +364,15 @@ function HolderSignature() {
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
                                                     marginBottom: "32px",
-                                                    height: "45px"
+                                                    height: "45px",
+                                                    padding: "19px"
                                                 }}
                                             >
-                                                CLEAR & TRY AGAIN
+
+                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                    CLEAR & TRY AGAIN
+                                                </Typography>
+
                                             </Button>
                                         </Box>}
 
@@ -377,10 +382,15 @@ function HolderSignature() {
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
                                                     marginBottom: "32px",
-                                                    height: "45px"
+                                                    height: "45px",
+                                                    padding: "19px"
                                                 }}
                                             >
-                                                CLEAR & TRY AGAIN
+
+                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                    CLEAR & TRY AGAIN
+                                                </Typography>
+
                                             </Button>
                                         </Box>}
 
