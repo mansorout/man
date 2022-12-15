@@ -24,8 +24,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { AnchorCloseAction, AnchorOpenAction } from '../../Store/Duck/FilterBox';
 
 
-
-
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -59,11 +57,6 @@ function a11yProps(index: number) {
         'aria-controls': `vertical-tabpanel-${index}`,
     };
 }
-
-
-
-
-
 
 const style = {
     main: {
