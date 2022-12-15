@@ -41,7 +41,7 @@ export const ChoosePin = () => {
       width: "100%",
       maxWidth: "500px",
       padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
+      borderRadius: "8px 8px 0px 0px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -75,7 +75,11 @@ export const ChoosePin = () => {
             In case the biometric doesn’t work, you can quickly
             access the app via PIN to unlock
           </Typography>
+          <Typography variant="h4" align="center">
+            Enter 4 Digit PIN
+          </Typography>
           <OtpInput
+          isInputNum={true}
             value={OTP}
             isInputSecure
             onChange={handleOtpChange}
@@ -105,11 +109,11 @@ export const ChoosePin = () => {
             }}
           />
           <ChooseButton otp={OTP}/>
-          <Typography onClick={()=>navigate("/home")}  sx={{ fontSize: "16px", color: " #6c63ff", cursor:"pointer" }}>Skip</Typography>
+          <Typography onClick={()=>navigate("/home")}  sx={{ fontSize: "16px", color: " #6c63ff", cursor:"pointer",textDecoration:"underline" }}>Skip</Typography>
           <Footer/>
         </Box>
       </Box>
-      <img alt="logo" src={ SBICON } width="275" height="275" style={{
+      <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px" }}
