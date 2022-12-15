@@ -69,12 +69,12 @@ const ULIPCoFundCard = (props: ULIPProp) => {
       backgroundColor: '#fff',
       fontFamily: 'Roboto',
       gap: '1.5vw',
+      marginBottom: '2vw'
     }}>
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
       }}>
-
         <Box sx={{
           display: 'flex',
           justifyContent: 'flex-start',
@@ -139,7 +139,7 @@ const ULIPCoFundCard = (props: ULIPProp) => {
           </Box>
           <Box>
             <Typography style={style.returns}>Life Cover</Typography>
-            <Typography style={style.amount}>{props.lifeCoverAmount}% Lac</Typography>
+            <Typography style={style.amount}>₹{props.lifeCoverAmount} Lac</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} md={6} sx={{ 
