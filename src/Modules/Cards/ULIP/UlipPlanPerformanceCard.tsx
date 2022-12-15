@@ -21,14 +21,15 @@ const UlipPlanPerformanceCard = () => {
     return (
         <Card sx={{ 
             boxSizing: 'border-box',
-            width: '37.22vw',
-            height: '383px',
             padding: '1.5625vw 1.25vw',
             opacity: 0.95,
             borderRadius: '0.625vw',
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
             backgroundColor: '#fff',
             fontFamily: 'Roboto', 
+            width: { sm: '90%' }, 
+            marginTop: '30px', 
+            margin: { xs: '15px 0px', sm: '15px' }
         }}>
             <CardHeader title="ULIP Plan Performance" sx={{
                 fontSize: '16px',
@@ -40,8 +41,8 @@ const UlipPlanPerformanceCard = () => {
                 image={ ulipPlanPerformanceImage }
                 alt="ULIP Plan Performance"
                 sx={{
-                    width: '35.625vw',
-                    height: '15vw',
+                    width: { xs: '300px', sm: '456px' },
+                    height: '212px',
                     marginLeft: '1vw',
                 }}
             />

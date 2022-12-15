@@ -9,6 +9,8 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import './UlipBox.css';
+
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -128,7 +130,7 @@ const UlipBox = () => {
     };
 
     return (
-        <Box style={{ width: "100vw" }}>
+        <Box className="ulip-box" style={{ width: "100vw" }}>
             <Navbar />
             <Box sx={style.main}>
                 <Grid container spacing={0} >
@@ -141,11 +143,12 @@ const UlipBox = () => {
                         <Toolbar />
                         <Box sx={{
                             padding: 0,
-                            margin: '5vw',
+                            margin: '4vw',
+                            marginLeft: '7vw',
                             fontFamily: 'Roboto',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'center',
+                            justifyContent: 'center',                     
                         }}>
                             <Breadcrumbs sx={{
                                 fontSize: '12px',
@@ -163,12 +166,19 @@ const UlipBox = () => {
                             <Grid container item className="header" spacing={2} xs={12} sx={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
-                                alignItems: 'flex-start'
+                                alignItems: 'flex-start',
                             }}>
                                 <Grid item xs={12} md={6} sx={{
                                     width: '38vw',                        
                                 }}>
-                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '15px' } }}>
+                                    <Box className={classes.investmentType} sx={{ 
+                                        width: { sm: '90%' }, 
+                                        marginTop: '30px', 
+                                        margin: { xs: '15px 0px', sm: '15px' },
+                                        borderRadius: '8px',
+                                        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+                                        backgroundColor: '#fff', 
+                                    }}>                                                                    
 
                                         <Typography sx={{
                                             fontSize: '18px',

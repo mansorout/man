@@ -21,10 +21,9 @@ const PanUpdate = () => {
     const navigate = useNavigate();
 
     const validate = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const res = event.target.value;
+        const res = event.target.value?.trim();
         setValue(res);
-        const regex = /[A-Za-z]{5}\d{4}[A-Za-z]/;
-
+        const regex = /[A-Z]{5}\d{4}[A-Z]/;
 
         if (!regex.test(res)) {
             setError(true);
@@ -32,6 +31,14 @@ const PanUpdate = () => {
             setError(false);
         }
     };
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (value === '' || error) {
+            setError(true);
+        } else {
+            navigate('/viewprofile');
+        }
+    }
 
     const style = {
         button: {
@@ -66,7 +73,6 @@ const PanUpdate = () => {
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
-
                         <Sidebar />
                     </Grid>
                     <Grid container item xs={12} sm={11} md={10} sx={{
@@ -83,7 +89,7 @@ const PanUpdate = () => {
                             marginBottom: '3vw',
                         }}>
                             <Link href="/home">Home</Link>
-                            <Link href="/vp">View Profile</Link>
+                            <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
@@ -113,7 +119,7 @@ const PanUpdate = () => {
                             <FormControl>
                                 <TextField
                                     required
-                                    label="Enter your PAN number"
+                                    label="Enter your PAN number (AAAAA9999A format) "
                                     helperText={error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
                                     error={error}
@@ -125,7 +131,7 @@ const PanUpdate = () => {
                             </FormControl>
 
                             <FormControl>
-                                <Button variant="contained" style={style.button} fullWidth onClick={() => navigate("/completedview")} >
+                                <Button variant="contained" style={style.button} fullWidth onClick={ handleClick } >
                                     <Typography style={style.text} className="largeButtonText">
                                         Continue
                                     </Typography>
@@ -150,7 +156,7 @@ const PanUpdate = () => {
                             fontWeight: 500,
                             color: '#6c63ff',
                         }}>
-                            <Link href="#">Terms and conditions</Link>
+                            <Link href="/termsandcondition">Terms and conditions</Link>
                         </Typography>
                     </Box>
                 </Grid>

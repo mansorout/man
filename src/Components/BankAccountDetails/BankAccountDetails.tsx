@@ -1,30 +1,51 @@
-import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormLabel, Grid, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { store } from '../../Store/Store';
 import { bankuserdetails } from "../../Store/Reducers/action";
 import { submitPostuserdetails } from '../../Store/Reducers/action'
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import { ContactTick } from "../../Assets";
+
 
 const BankAccountDetails = () => {
 
     const navigate = useNavigate();
-
+    
     const [ ifscCode, setIfscCode ] = useState('');
     const [ bankAcNo, setBankAcNo ] = useState('');
     const [ confirmBankAcNo, setConfirmBankAcNo ] = useState('');
-    const [ accountType, setAccountType ] = useState('Savings');
+    const [ accountType, setAccountType ] = useState('');
     const [ accountHolder, setAccountHolder ] = useState('');
 
     const [ ifscError, setIfscError ] = useState(false);
     const [ bankAcNoError, setBankAcNoError ] = useState(false);
     const [ confirmBankAcNoError, setConfirmBankAcNoError ] = useState(false);
     const [ accountHolderError, setAccountHolderError ] = useState(false);
+    const [ accountTypeError, setAccountTypeError ] = useState(false);
 
-    function handleSubmit() {
+    const [ accountTypeHelperText, setAccountTypeHelperText ] = useState('');
+    const [ passwordsMatch, setPasswordsMatch ] = useState(false);
+
+
+    function handleSubmit(event: any) {
         //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
-        navigate('/completedview');
+
+        if (accountType === '') {
+            setAccountTypeHelperText('Please select an option');
+            setAccountTypeError(true);
+        } else if (ifscCode === '') {
+            setIfscError(true);
+        } else if (bankAcNo === '') {
+            setBankAcNoError(true);
+        } else if (confirmBankAcNo === '') {
+            setConfirmBankAcNoError(true);
+        } else if (accountHolder === '') {
+            setAccountHolderError(true);
+        } else {
+            navigate('/viewprofile');
+        }
     }
 
     const style = {
@@ -35,11 +56,17 @@ const BankAccountDetails = () => {
         } as React.CSSProperties,
     };
 
+
+    const handleAccountTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAccountType((event.target as HTMLInputElement).value);
+        setAccountTypeHelperText('');
+        setAccountTypeError(false);
+    }
   
     const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setIfscCode(value);
-        const pattern = /[A-Za-z]{4}0\d{6}/;
+        const pattern = /[A-Z]{4}0\d{6}/;
         if (!pattern.test(value)) {
             setIfscError(true);
         } else {
@@ -47,18 +74,32 @@ const BankAccountDetails = () => {
         }
     }
 
+    const bankAcNoPattern = /^[A-Z0-9]+$/;
+
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
+        const value = e.target.value.trim();
         setBankAcNo(value);
+        if (!bankAcNoPattern.test(value)) {
+            setBankAcNoError(true)
+        } else {
+            setBankAcNoError(false);
+        }
     }
 
     const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setConfirmBankAcNo(value);
-        if (value !== bankAcNo) {
+
+        if (!bankAcNoPattern.test(value)) {
             setConfirmBankAcNoError(true)
         } else {
             setConfirmBankAcNoError(false);
+        }
+        
+        if (value === bankAcNo) {
+            setPasswordsMatch(true);
+        } else {
+            setPasswordsMatch(false);
         }
     }
 
@@ -129,7 +170,7 @@ const BankAccountDetails = () => {
                                 marginBottom: '3vw',
                             }}>
                                 <Link href="/home">Home</Link>
-                                <Link href="/vp">View Profile</Link>
+                                <Link href="/viewprofile">View Profile</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
@@ -141,14 +182,18 @@ const BankAccountDetails = () => {
                                 color: '#3c3e42',
 
                             }}>Add Bank Account Details</Typography>
-
+                            
                             <FormControl>
-                                <FormLabel sx={{
+                                <FormLabel id='account_type' sx={{
                                     fontSize: '14px',
                                     fontWeight: 500,
                                     color: '#6c63ff',
                                 }}>Select your account type</FormLabel>
-                                <RadioGroup>
+                                <RadioGroup 
+                                    row
+                                    value={ accountType }
+                                    onChange={ handleAccountTypeChange }
+                                >
                                     <FormControlLabel 
                                         control={<Radio />} 
                                         label="Savings"
@@ -162,6 +207,10 @@ const BankAccountDetails = () => {
                                         value="current"
                                     />
                                 </RadioGroup>
+                                <FormHelperText sx={{
+                                    color: 'red',
+                                    fontSize: '12px'
+                                }}>{ accountTypeError ? accountTypeHelperText : '' }</FormHelperText>
                             </FormControl>
 
                             <FormControl>
@@ -179,7 +228,7 @@ const BankAccountDetails = () => {
 
                             <FormControl>
                                 <TextField 
-                                    type="password"
+                                    type="text"
                                     id="outlined-bank-acc-no"
                                     required 
                                     label="Bank Account Number"
@@ -187,6 +236,9 @@ const BankAccountDetails = () => {
                                     onChange={handleBankAcNoChange}
                                     error={ bankAcNoError }
                                     helperText={ bankAcNoError ? "Please enter a valid Password" : "" }
+                                    InputProps={{
+                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                    }}
                                 />
                             </FormControl>
 
@@ -199,6 +251,9 @@ const BankAccountDetails = () => {
                                     onChange={handleConfirmBankAcNoChange}
                                     error={ confirmBankAcNoError }
                                     helperText={ confirmBankAcNoError ? "Passwords do not match" : "" }
+                                    InputProps={{
+                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                    }}
                                 />
                             </FormControl>
 

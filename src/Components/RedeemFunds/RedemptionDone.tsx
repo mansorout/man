@@ -43,8 +43,7 @@ const style = {
     } as React.CSSProperties,
     main: {
       boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh"
+    
     } as React.CSSProperties,
     background: {
       backgroundColor: "#f9f9f9",
@@ -78,7 +77,7 @@ const style = {
       width: "100%",
       maxWidth: "500px",
       padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
+      borderRadius: "8px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -182,7 +181,7 @@ const style = {
             </Grid>
           </Grid>
         </Box>
-        <img alt="logo" src={ SBICON } width="275" height="275" style={{
+        <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px" }}
