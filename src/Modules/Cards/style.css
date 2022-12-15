@@ -24,6 +24,19 @@
    }
 }
 
+@media (max-width:820px){
+    .pincodestayle{
+        margin: 8px !important;
+        width: 242px !important;
+        height: 16px !important;
+    }  
+ 
+.ExpendsStyle{
+    
+}
+   
+}
+
 
 
 
@@ -57,6 +70,9 @@
         padding: 0px 0px !important;
     
     }
+
+
+
    
 
     .css-skdto5 {
@@ -65,7 +81,13 @@
         display: flex;
         margin-left: 15px !important;
 
-    }}
+    }
+    .pincodestayle{
+        margin: 8px;
+        width: 239px;
+        height: 16px;
+    }   
+}
  
 
     @media (max-width:560px) {
@@ -92,3 +114,27 @@
 
 }
 
+ 
+
+@media (max-width:560px) {
+   
+    .NoLockinperiod{
+       
+        padding-left: 32px !important;
+        transform: translate(10px, 10px) !important;
+        width: 100% !important;
+        margin: -40px !important;
+        padding-top: 43px !important;
+    }
+}
+@media (max-width:560px) {
+   
+    .iconstyle{
+        padding-left: 43px !important;
+        padding-top: 5px !important;
+    }
+    
+}
+
+
+/* iconstyle */

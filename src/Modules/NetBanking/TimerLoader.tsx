@@ -209,7 +209,7 @@ function TimerLoader() {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={12} sm={11} md={10} >
+          <Grid container xs={12} sm={11} md={10}>
             <Grid sx={{ padding: 2 }} item xs={12}>
               <Toolbar />
               <Grid sx={{ position: "relative", height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
@@ -225,7 +225,7 @@ function TimerLoader() {
                 </Box>
 
                 {/* <Grid container xs={12} sx={{ height: "50%", display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}> */}
-                <Box style={style.container}>
+                <Box style={style.container} className="styletimer">
                   <Grid container xs={12} sx={{ height: "50%", display: 'flex', alignItems: 'center', flexWrap: 'wrap' }} spacing={2}>
                     <Grid item container>
                       <Grid item xs={2} />
@@ -242,6 +242,7 @@ function TimerLoader() {
                           color: "#3c3e42"
                         }}>
                           Request Sent for Payment
+                        
                         </Typography>
                       </Grid>
                       <Grid item xs={2} />

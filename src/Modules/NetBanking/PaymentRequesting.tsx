@@ -29,6 +29,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import SipLastScreen from "../../Components/CommonComponents/sipLastscreen";
 import { globalConstant } from "../../Utils/globalConstant";
 import "./NetBanking.css";
+import './styles.css'
 
 const style = {
   deducted: {
@@ -170,7 +171,7 @@ function PaymentRequesting() {
         return;
       }
       setProcessing(true);
-    }, timer * 1000);
+    }, timer * 10000);
   };
 
   return (
@@ -300,7 +301,7 @@ function PaymentRequesting() {
                       </Button>
                     </Box>
                   ) : (
-                    <Box style={style.container}>
+                    <Box style={style.container} className="timerStyle">
                       <Box
                         sx={{
                           width: "400px",
@@ -331,6 +332,7 @@ function PaymentRequesting() {
                               }}
                             >
                               Request Sent for Payment
+                          hhh
                             </Typography>
                           </Grid>
                           <Grid item xs={2} />
