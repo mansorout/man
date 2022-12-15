@@ -89,7 +89,7 @@ const PanUpdate = () => {
                             marginBottom: '3vw',
                         }}>
                             <Link href="/home">Home</Link>
-                            <Link href="/vp">View Profile</Link>
+                            <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
