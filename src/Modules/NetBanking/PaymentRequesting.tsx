@@ -28,7 +28,8 @@ import TimerLoader from "./TimerLoader";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import SipLastScreen from "../../Components/CommonComponents/sipLastscreen";
 import { globalConstant } from "../../Utils/globalConstant";
-import "./NetBanking.css";
+import "./styles.css";
+
 
 const style = {
   deducted: {
@@ -115,6 +116,23 @@ const style = {
     position: "absolute",
   } as React.CSSProperties,
 
+  container2: {
+    backgroundColor: "white",
+    width: "26%",
+    maxWidth: "500px",
+    padding: "10px 0px",
+    borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.2)",
+    transform: "translate(-50%, 0%)",
+    left: "57%",
+    bottom: "31%",
+    position: "absolute",
+  } as React.CSSProperties,
+
   logo: {
     width: "72px",
   } as React.CSSProperties,
@@ -138,7 +156,7 @@ function PaymentRequesting() {
   const refContainer = useRef();
   const counterRef = useRef<any>(null);
 
-  const [timer, setTimer] = useState<number>(10);
+  const [timer, setTimer] = useState<number>(9);
   const [activeScreen, setActiveScreen] = useState<number>(
     enumType.TRANSACTION_FLOW
   );
@@ -190,7 +208,6 @@ function PaymentRequesting() {
 
                 <Grid
                   sx={{
-                    height: "100vh",
                     padding: 0,
                     boxSizing: "border-box",
                     overflow: "scroll",
@@ -217,7 +234,7 @@ function PaymentRequesting() {
                   ></Box>
 
                   {processing ? (
-                    <Box style={style.container}>
+                    <Box className="requestpaymentbody" style={style.container}>
                       <img
                         alt="Money Sprint"
                         src={SuccessFullOtp}
@@ -300,22 +317,15 @@ function PaymentRequesting() {
                       </Button>
                     </Box>
                   ) : (
-                    <Box style={style.container}>
-                      <Box
-                        sx={{
-                          width: "400px",
-                          height: "400px",
-                          display: "flex",
-                          gap: 2,
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                        }}
-                      >
-                        <Grid item container>
+                    <Box className="requestpaymentbody" style={style.container2}>
+                      
+                        <Grid item container sx={{paddingBottom: "20px"}}>
                           <Grid item xs={2} />
-                          <Grid
+                          <Grid  
+
                             xs={8}
                             sx={{
+                              paddingTop: "20px",
                               display: "flex",
                               justifyContent: "center",
                             }}
@@ -353,6 +363,7 @@ function PaymentRequesting() {
                                 fontWeight: " 500",
                                 color: "#7b7b9d",
                                 textAlign: "center",
+                               
                               }}
                             >
                               Please accept the payment collect request from
@@ -388,7 +399,7 @@ function PaymentRequesting() {
                           </Grid>
                           <Grid item xs={3} />
                         </Grid>
-                      </Box>
+                      
                     </Box>
                   )}
                 </Grid>
