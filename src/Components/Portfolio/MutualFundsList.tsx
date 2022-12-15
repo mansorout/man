@@ -21,6 +21,7 @@ import { Calendar } from "react-calendar";
 import { makeStyles } from "@mui/styles";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import { globalConstant } from "../../Utils/globalConstant";
+import { useSelector } from "react-redux";
 
 // const data = [
 //   {
@@ -96,8 +97,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: false,
+    showCheckbox: false,
+    showButtons: false,
     isMutualFundScreen: true,
   },
   {
@@ -110,8 +111,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: false,
+    showCheckbox: false,
+    showButtons: false,
     isMutualFundScreen: true,
   },
   {
@@ -124,8 +125,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: false,
+    showCheckbox: false,
+    showButtons: false,
     isMutualFundScreen: true,
   },
   {
@@ -138,8 +139,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: false,
+    showCheckbox: false,
+    showButtons: false,
     isMutualFundScreen: true,
   },
   {
@@ -152,8 +153,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: false,
+    showCheckbox: false,
+    showButtons: false,
     isMutualFundScreen: true,
   },
 ];
@@ -206,19 +207,25 @@ const MutualFundsList = () => {
   const navigate: any = useNavigate();
   const classes = useStyles();
 
-  const [mfCards, setMfCards] = useState<MFProp[]>([]);
+  const [mfCards, setMfCards] = useState<any[]>(data);
   const [activeScreen, setActiveScreen] = useState<number>(
     enumActiveScreen.CLOSE_MODAL
   );
 
-  useEffect(() => {
-    setMfCards(data);
-  }, []);
+  const g_investment: any = useSelector(
+    (state: any) => state?.investment?.investment
+  );
+
+
   const handlePrice = (value: any) => {
     if (value === 12.3) {
       navigate("/funddetails");
     }
   };
+
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
 
   return (
     <Box style={{ width: "100vw" }}>
@@ -252,7 +259,7 @@ const MutualFundsList = () => {
                 justifyContent: "center",
               }}
             >
-              <Breadcrumbs
+              {/* <Breadcrumbs
                 // sx={{
                 //   fontSize: "12px",
                 //   color: "#6c63ff",
@@ -274,7 +281,38 @@ const MutualFundsList = () => {
                 >
                   Mutual Fund Recommendation
                 </Typography>
+              </Breadcrumbs> */}
+
+
+              <Breadcrumbs
+                sx={{
+                  fontSize: "12px",
+                  color: "#6c63ff",
+                }}
+              >
+                <Link href="/home">Home</Link>
+                <Link
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                >
+                  Investment
+                </Link>
+                <Link
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+                >
+                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                </Link>
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    color: "#373e42",
+                  }}
+                >
+                  Mutual Fund Recommendation
+                </Typography>
               </Breadcrumbs>
+
+
 
               <Box
                 className="header"

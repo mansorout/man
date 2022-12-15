@@ -19,11 +19,11 @@ export async function postData(
     headers: {
       "Content-Type": strContentType,
       "X-API-Key": siteConfig.X_API_KEY,
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-      Origin: process.env.ORIGIN || "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      // "Access-Control-Allow-Origin": "*",
+      // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      // Origin: process.env.ORIGIN || "http://localhost:3000",
+      // authorization:
+      //   "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: JSON.stringify(data),
   });

@@ -24,6 +24,7 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 
 const data = [
   {
+    id: 1,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Equity",
@@ -33,11 +34,12 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: true,
+    showCheckbox: false,
+    showButtons: true,
     isMutualFundScreen: false,
   },
   {
+    id: 2,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Large Cap",
@@ -47,11 +49,12 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: true,
+    showCheckbox: false,
+    showButtons: true,
     isMutualFundScreen: false,
   },
   {
+    id: 3,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Balanced",
@@ -61,11 +64,12 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: true,
+    showCheckbox: false,
+    showButtons: true,
     isMutualFundScreen: false,
   },
   {
+    id: 4,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Equity",
@@ -75,11 +79,12 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: true,
+    showCheckbox: false,
+    showButtons: true,
     isMutualFundScreen: false,
   },
   {
+    id: 5,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Equity",
@@ -89,8 +94,8 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: false,
-    buttons: true,
+    showCheckbox: false,
+    showButtons: true,
     isMutualFundScreen: false,
   },
 ];
@@ -147,6 +152,10 @@ const CustomizeMF = () => {
     // setMfCards(data);
   }, []);
 
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
+
   return (
     <Box style={{ width: "100vw" }}>
       <Navbar />
@@ -179,31 +188,23 @@ const CustomizeMF = () => {
                 sx={{
                   fontSize: "12px",
                   color: "#6c63ff",
-                  marginBottom: "3vw",
                 }}
               >
                 <Link href="/home">Home</Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/sipInvestment"
-                      : "/oneTimeInvestment"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                 >
                   Investment
                 </Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/startAnSip"
-                      : "/investNow"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
                 >
-                  {g_investment?.type === globalConstant.SIP_INVESTMENT
-                    ? "monthly investment"
-                    : "one time lumpsum"}
+                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                 </Link>
-                <Link href="/onetimemutualfundrecommendation">
+                <Link
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                >
                   Mutual Fund Recommendation
                 </Link>
                 <Typography
@@ -215,6 +216,7 @@ const CustomizeMF = () => {
                   Customize Plan
                 </Typography>
               </Breadcrumbs>
+
               <Box
                 className="header"
                 sx={{
@@ -299,11 +301,7 @@ const CustomizeMF = () => {
                 backgroundColor: "#fff",
               }}
             >
-              {/* <SelectSipDateButton
-                openModal={() =>
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
-                }
-              /> */}
+
               <FooterWithBtn
                 btnText={
                   g_investment?.type === globalConstant.SIP_INVESTMENT
