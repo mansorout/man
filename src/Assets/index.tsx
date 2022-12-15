@@ -4,6 +4,7 @@ export const MonoLogo = require("./monoLogo.png")
 export const AMFI = require("./amfi.png")
 export const IRDA = require("./irda.png")
 export const ContactError = require('./contactError.png')
+export const ContactTick = require('./contactTick.png')
 export const SuccessLogo = require('./success.png')
 export const SBIcon = require('./SB_icon.png');
 export const Profile = require('./profile.jpeg')
