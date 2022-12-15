@@ -1,29 +1,30 @@
+// import { Headers } from "node-fetch";
 import siteConfig from "./siteConfig";
+const strApiKey: string = siteConfig.X_API_KEY;
 
 export async function postData(
   data: any,
   urlPath: string,
   strContentType: string
 ) {
-  console.log(strContentType);
-  let objHeader = {
-    // "Content-Type": strContentType,
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    "x-api-key": siteConfig.X_API_KEY,
-    Origin: process.env.ORIGIN || "http://localhost:3000",
-    authorization:
-      "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
-  }
-  console.log(objHeader);
-  const res = await fetch(siteConfig.BASE_URL + urlPath, {
+
+
+  const res = await fetch("https://k41xvsg1t7.execute-api.ap-south-1.amazonaws.com/staging/authentication/otp/send", {
+  // const res = await fetch(siteConfig.BASE_URL + urlPath, {
+  // const res = await fetch(urlPath, {
     method: "POST",
     mode: "no-cors",
     cache: "no-cache",
     credentials: "same-origin",
-    // @ts-ignore
-    headers: JSON.stringify(objHeader),
+    headers: {
+      "Content-Type": strContentType,
+      "X-API-Key": siteConfig.X_API_KEY,
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      Origin: process.env.ORIGIN || "http://localhost:3000",
+      authorization:
+        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+    },
     body: JSON.stringify(data),
   });
 

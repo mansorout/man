@@ -71,7 +71,7 @@ const objLumSomeInvestmentData = Object.freeze({
         description: "100% guaranteed return with tax saving options",
         price: "",
         className: "lsAdvantageCardOne",
-        img: "./assets/images/Group 5224.svg"
+        img: "./assets/images/Group_5224.svg"
       },
       {
         heading: "TAX SAVING",
@@ -79,7 +79,7 @@ const objLumSomeInvestmentData = Object.freeze({
         description: "Click to save tax upto",
         price: "₹45,000",
         className: "lsAdvantageCardTwo",
-        img: "./assets/images/Group 5234.svg"
+        img: "./assets/images/Group_5234.svg"
       },
     ]
   },
@@ -101,7 +101,7 @@ const objLumSomeInvestmentData = Object.freeze({
       heading: "Know where to invest,",
       subHeading: "Lump sum or SIP",
       className: "lsDisdvantageCardOne",
-      img: "./assets/images/Group 5234.svg"
+      img: "./assets/images/piggy.svg"
       // img:"./assets/images/lumpsum-ad-banner-3.svg"
     }]
   },
@@ -168,7 +168,7 @@ const objMonthlyInvestmentData = Object.freeze({
         description: "Invest ₹500 every month to create wealth in long run.",
         price: "",
         className: "miAdvantageCardTwo",
-        img: "./assets/images/Group 5244.svg"
+        img: "./assets/images/Group_5244.svg"
       },
     ],
 
@@ -197,7 +197,7 @@ const objMonthlyInvestmentData = Object.freeze({
       subHeading: "Get ₹1 Crore after 25 years",
       description: "100% guaranteed returnwith tax saving options",
       className: "miDisadvantageCardOne",
-      img: "./assets/images/Group 5243.svg"
+      img: "./assets/images/Group_5243.svg"
     }]
   },
   factors: {
@@ -615,9 +615,9 @@ const MultipleInvestmentHandling = (props: IProps) => {
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
 
-        <Box className={classes.firstContainer} textAlign="center" >
-          <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ top: "10px", color: "#3c3e42" }}>{props?.data?.title}</Typography>
-          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)}>
+        <Box className={classes.firstContainer} sx={{ flexWrap: {xs: "wrap",sm:"no-wrap"}, alignItems: "center", justifyContent: { xs: "center !important", sm: "space-between !important" } }} textAlign="center" >
+          <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ color: "#3c3e42" }}>{props?.data?.title}</Typography>
+          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)} sx={{ marginTop: { xs: "2%", sm: "unset" } }}>
             <Typography component="span" className={classes.text} >Get Started Now</Typography>
           </Button>
         </Box>
@@ -631,9 +631,10 @@ const MultipleInvestmentHandling = (props: IProps) => {
           {/* handle box */}
           < Box
             className={classes.borderRadius + " " + classes.boxShadow}
-            style={{ backgroundColor: "#544ec8", marginTop: "10px", padding: "10px", width: "96%", position: "relative" }}
+            style={{ backgroundColor: "#544ec8", padding: "10px", width: "96%", position: "relative" }}
             sx={{
-              paddingBottom: { xs: "31% !important", sm: "4% !important" }
+              paddingBottom: { xs: "31% !important", sm: "4% !important" },
+              marginTop: { xs: "5%", sm: "0%" }
             }}>
             <Typography style={{ color: "white", fontSize: "18px", margin: "10px", }} >{props?.data?.cardDetails?.subHeading}</Typography>
             <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
@@ -783,7 +784,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {/* <Typography component="h4" className={classes.typography} style={{ color: "black", margin: "21px 0px -8px 14px" }}  >{props?.data?.factors?.heading}</Typography> */}
 
             <Box sx={{
-              padding:"1%"
+              padding: "1%"
             }}>
               <Typography component="h4" className={classes.typography} style={{ color: "black" }}  >{props?.data?.factors?.heading}</Typography>
               <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{props?.data?.factors?.description}</Typography>
