@@ -264,7 +264,7 @@ const navigate=useNavigate()
                   received. You can track status under <b style={{ color: "#6c63ff" }}>transactions</b> tab of your portfolio.
                   
                 </Typography>
-                <Grid container spacing={1.2} direction="column" textAlign="center" >
+                <Grid container direction="column" textAlign="center" >
                   <Grid item xs={6} md={6}>
                   <SipSuccessButton/>
                   </Grid>

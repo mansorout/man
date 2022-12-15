@@ -30,7 +30,7 @@ import { submituserdetails } from '../../Store/Reducers/action';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-
+import './style.css'
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
@@ -56,18 +56,21 @@ function EditprofileCard() {
   const useStyles = makeStyles((theme: any) =>
     createStyles({
       paper: {
-         textAlign: 'center',
-         }, root: {
+        textAlign: 'center',
+      }, root: {
         flexGrow: 1,
-      },
+      }
+  
+   
     }),
   ); const style = {
     containertwo: {
       backgroundColor: "#fff",
       boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
       borderRadius: "8px",
-      padding: "21px 40px",},
-       cameraIcon: {
+      padding: "21px 40px",
+    },
+    cameraIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#23db7b',
       width: '30px',
@@ -81,7 +84,7 @@ function EditprofileCard() {
       marginTop: "20px",
       marginBottom: "30px"
     },
-     emailIcon: {
+    emailIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#64dbff',
       width: '80px',
@@ -96,11 +99,11 @@ function EditprofileCard() {
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      marginTop:"-60px",
-      marginLeft:"4%",
+      marginTop: "-60px",
+      marginLeft: "4%",
       width: "100%",
       maxWidth: "400px",
-     
+
     },
     ca: {
       backgroundColor: "#64dbff",
@@ -108,7 +111,7 @@ function EditprofileCard() {
       height: "20px",
       padding: "10px",
       opacity: "0.9",
-     } as React.CSSProperties,
+    } as React.CSSProperties,
     select: {
       color: "white",
       '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
@@ -124,7 +127,8 @@ function EditprofileCard() {
     text: {
       color: "white",
 
-    }}
+    }
+  }
   const [formData, setFormData] = useState<any>({
     firstName: "",
     middleName: "",
@@ -143,7 +147,8 @@ function EditprofileCard() {
     Placeofbirth: "",
     addressline1: "",
     CountryFirst: "",
-    state: "",})
+    state: "",
+  })
   const [lastNameError, setLastNameError] = useState(false)
   const [MidNameError, setMidNameError] = useState(false)
   const [errormobilenumberone, setErrormobilenumberone] = useState(false)
@@ -195,7 +200,7 @@ function EditprofileCard() {
 
     if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length < 10 ||
       formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
-      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode.length <6 || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode.length < 6 || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
       setDropValuestateError(false)
       setError(false)
       setCountryError(false)
@@ -370,16 +375,15 @@ function EditprofileCard() {
   return (
     <>
       <div style={{
-    
+
         padding: '29px',
         borderRadius: "8px",
         marginBottom: "-15px",
-      
 
-      }}>
-        <Grid container spacing={3}>
 
-          <Grid item xs={12} sm={6} lg={6}>
+      }}> 
+      <Grid container spacing={3}>
+         <Grid item xs={12} sm={6} lg={6} >
             <Paper className={classes.paper}
               sx={{
                 p: 2,
@@ -387,11 +391,12 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
               }}
+              
 
             >
               <Stack m={2} spacing={2}>
                 <Grid container spacing={2} sx={{
-                  maxHeight:"100%",
+                  maxHeight: "100%",
 
                 }}>
                   <Grid item xs={12} md={12}>
@@ -486,7 +491,7 @@ function EditprofileCard() {
                         }}>Country of Birth</InputLabel>
 
                         <Select
-                         onBlur={handleBlurCountry}
+                          onBlur={handleBlurCountry}
                           fullWidth={true}
                           name="CountrySecond"
                           value={formData.CountrySecond}
@@ -538,18 +543,23 @@ function EditprofileCard() {
               </Stack>
             </Paper>
           </Grid>
-          
+
+
+
           <Grid item xs={12} sm={6} lg={6} sx={{
-              maxHeight:"100%",
-          }} >
+            maxHeight: "100%",
+          }}
+          className="paperstyle"
+         >
             <Paper className={classes.paper}
+          
               sx={{
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "2px"
               }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 }, marginLeft:"4px", textAlign:"left"}}>
+              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }}>
                 <Button
                   id={"male"}
                   name="gender"
@@ -580,7 +590,7 @@ function EditprofileCard() {
                 </Button>
               </Box>
 
-               <Stack m={2} spacing={6}>
+              <Stack m={2} spacing={6}>
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
                   name="addressline1"
@@ -635,7 +645,7 @@ function EditprofileCard() {
                             {formData.CityofResidence == "" ? errormessagecityofresi : ""}
                           </FormHelperText>
                         </FormControl>
-                         </Grid>
+                      </Grid>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true} >
                           <InputLabel id="demo-simple-select-label"
@@ -670,7 +680,7 @@ function EditprofileCard() {
                   </div>
                   &nbsp;
                   <div style={{ position: "relative", top: "-51px" }}>
-                    <Grid container spacing={2} >
+                    <Grid container spacing={2}  >
                       <Grid item xs={12} md={6} sm={12} >
                         <FormControl
                           className="pincodeClass">
@@ -745,13 +755,13 @@ function EditprofileCard() {
                   error={errorincomeslabs}
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
                 />
-             
-                  <Button variant="contained" style={style.buttonbtn}
-                    disabled={!areAllFieldsFilled}
-                    onClick={handleClick} fullWidth >
-                    <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                  </Button>
-           
+
+                <Button variant="contained" style={style.buttonbtn}
+                  disabled={!areAllFieldsFilled}
+                  onClick={handleClick} fullWidth >
+                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                </Button>
+
               </Stack>
             </Paper>
           </Grid>

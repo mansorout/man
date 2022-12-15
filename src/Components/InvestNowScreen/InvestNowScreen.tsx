@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Card, CardContent, Grid, Modal, TextField, Typography } from '@mui/material'
+import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -11,7 +11,7 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { closelogo, ellipslogo, graphimage, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
+import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
 import { useDispatch, useSelector } from 'react-redux'
 import InvestCard from '../../Modules/Cards/InvestCard';
 import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
@@ -23,7 +23,8 @@ import OtpInput from 'react-otp-input'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { globalConstant } from '../../Utils/globalConstant';
-
+import { InvestButton } from '../../Modules/Buttons/InvestButton';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -37,8 +38,13 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   }
   `,
 );
+type IProps = {
+  cardType: string;
+  heading: string;
+};
 
-function InvestNowScreen() {
+
+function InvestNowScreen(props: IProps) {
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
       backgroundColor: "white",
@@ -165,10 +171,14 @@ function InvestNowScreen() {
       color: "#6c63ff",
       fontSize: "24px"
     },
-    logo: {
-      width: "50px",
-      padding: "20px 0px",
+    ca_M: {
+      backgroundColor: "#64dbff",
+      width: "32px",
+      height: "32px",
+
+      opacity: "0.5",
     } as React.CSSProperties,
+
     appBar: {
       backgroundColor: "white",
     }
@@ -264,18 +274,193 @@ function InvestNowScreen() {
                   </Link>
                 </Breadcrumbs>
               </Box>
-              <Grid container >
-                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
-                  <InvestCard
-                    cardType={globalConstant.LUMPSUM_INVESTMENT}
-                    heading="Start an SIP"
-                  />
-                </Grid>
+              <Box>
 
-                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-                <InvestSecondCard/>
+              </Box>
+
+
+              <Box sx={{ width: '100%' }}>
+                <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                  <Grid item md={6} xs={12}>
+                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}>
+                      <CardContent>
+                        <Stack m={2} spacing={6}>
+                          <b
+                            style={{
+                              width: "100%",
+                              margin: "-4% 303px 25px 0",
+
+                              textAlign: "left",
+                              color: "#3c3e42"
+                            }}
+                          >
+                           One-time lumpsum
+                          </b>
+
+                          <List>
+                            <TextField
+                              label="I want to invest"
+                              name="middleName"
+                              fullWidth
+                              placeholder="₹1,00,000"
+                              sx={{
+                                margin: " -55px 0 20px",
+                                boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                backgroundColor: " #fff",
+                              }}
+                            ></TextField>
+                            <Typography
+                              sx={{
+                                width: "304px",
+                                height: "14px",
+                                margin: "-8px 135px 0 1px",
+                                fontSize: "12px",
+                                fontWeight: "normal",
+                                fontStretch: "normal",
+                                fontStyle: "normal",
+                                lineHeight: " 1.33",
+                                letterSpacing: "normal",
+                                textAlign: " left",
+                                color: "#8787a2",
+                              }}
+                            >
+                              You can start small, starting from ₹5,000
+                            </Typography>
+                            <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
+                              <Button
+                                variant="contained"
+                                disabled
+                                sx={{
+                                  BackgroundColor: "#6c63ff",
+                                  borderRadius: "2px",
+
+                                  width: "60px",
+                                  height: "33px",
+                                  margin: " 2.2 12px 0 0",
+                                  padding: "10px 12px 9px",
+                                }}
+                              >
+                                <b style={{ color: "#6c63ff" }}>+1000</b>
+                              </Button>
+                              <Button variant="contained" disabled
+                                sx={{
+                                  BackgroundColor: "#6c63ff",
+                                  borderRadius: "2px",
+                                  color: "#6c63ff",
+                                  width: "64px",
+                                  height: "35px",
+                                  margin: " 2.2 12px 0 0",
+                                  padding: "10px 12px 9px",
+                                }}
+                              >
+                                <b style={{ color: "#6c63ff" }}>+5000</b>
+                              </Button>
+                              <Button variant="contained" href="#contained-buttons" disabled
+                                sx={{
+                                  BackgroundColor: "#6c63ff",
+                                  borderRadius: "2px",
+                                  color: "#6c63ff",
+                                  width: "75px",
+                                  height: "35px",
+                                }}
+                              > <b style={{ color: "#6c63ff" }}>  +10,000</b>
+                              </Button>
+                            </Stack>
+                            <InvestButton cardType={props?.cardType} />
+                            <Grid container spacing={2} textAlign="center">
+                              <Grid item xs={12} md={12}>
+
+                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
+                                  <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
+                                  KNOW MORE ABOUT INVESTMENT</Typography>
+                              </Grid>
+                            </Grid>
+
+
+
+
+                          </List>
+                        </Stack>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item md={6} xs={12}>
+                    <Card sx={{ borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff", }}>
+
+                      <CardContent >
+
+                        <b style={{ color: "#3c3e42", }}>Expected returns</b>
+                        <Typography sx={{ marginTop: "-2%" }}>
+                          <img alt="Money Sprint" src={graphimage} style={{ width: " 100%", height: "67px", margin: "0 0 14px", }}></img>
+                          <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "-3%" }}> <Box>1Y</Box><Box>3Y</Box>
+                            <Box sx={{ marginLeft: "11px" }}> <b style={{ color: "#6c63ff" }}>5Y</b>  <img alt="Money Sprint" src={ellipslogo} style={{
+                              width: "14px", marginTop: "-80%", marginRight: "-50%", borderRadius: "30px", position: "relative", top: "-20px", left: "-18px",
+                              fontSize: "12px", boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)", backgroundColor: "#6c63ff",
+                            }}></img></Box>
+                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box> <Box>15Y</Box> <Box>20Y</Box>
+                          </Box>
+                        </Typography>
+                        <Grid container spacing={1} sx={{}}>
+                          <Grid item xs={6} sx={{
+                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px",
+                            textAlign: "left", color: " #7b7b9d", paddingLeft: "0px"
+                          }}>
+                            Invested Value
+                          </Grid>
+                          <Grid item xs={6} sx={{
+                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px", fontWeight: "normal",
+                            textAlign: "right", color: " #7b7b9d"
+                          }}>
+                            Projected Value
+                          </Grid>
+                        </Grid>
+
+                        <Grid container spacing={1} sx={{ paddingTop: "15px", paddingLeft: '2%' }}>
+                          <Grid item xs={6} sx={{
+                            width: " 57px", height: "24px", fontFamily: " Roboto",
+                            fontWeight: "300", textAlign: "left",
+                          }}>
+                            <b style={{ color: " #3c3e42", fontSize: "20px" }}>₹1 Lac</b>
+                          </Grid>
+                          <Grid item xs={6} sx={{
+                            width: " 87px", height: "24px", paddingTop: "17px",
+                            fontFamily: " Roboto", fontWeight: "500", textAlign: "right",
+
+                          }}>
+                            <b style={{ color: " #23db7b", fontSize: "20px", }}>₹2.25 Lac</b>
+                          </Grid>
+                        </Grid>
+                        {/* <Box style={style.dividerBox}/> */}
+                        <div style={{ paddingTop: "5%" }}>
+                          <Divider />
+                        </div>
+
+                        <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
+                          <Grid item xs={1}>
+
+                            <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
+                          </Grid>
+
+                          <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px" }}>
+                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*Anytime Withdraw</Typography>
+                          </Grid>
+                          <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
+                            <Avatar alt="" src={lockinlogo} style={style.ca} />
+
+                          </Grid>
+                          <Grid item xs={3} sx={{ paddingTop: "12px", paddingLeft: "6px" }} className="NoLockinperiod">
+                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
+                          </Grid>
+
+                        </Grid>
+                      </CardContent>
+
+                    </Card>
+                  </Grid>
+
                 </Grid>
-              </Grid>
+              </Box>
+
 
 
             </Grid>
