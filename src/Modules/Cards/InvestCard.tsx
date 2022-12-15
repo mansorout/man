@@ -11,6 +11,7 @@ import { Grid, TextField } from "@mui/material";
 import List from "@mui/material/List";
 import { globalConstant } from "../../Utils/globalConstant";
 import './style.css'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const bull = (
   <Box
@@ -78,7 +79,7 @@ const style = {
     width: "20px",
     height: "20px",
     padding: "10px",
-    opacity: "0.9",
+
   } as React.CSSProperties,
   text: {
     color: "white",
@@ -93,17 +94,17 @@ type IProps = {
 export default function InvestCard(props: IProps) {
   return (
     <>
-   
-      <Card sx={{ minWidth: 275 }}>
+
+      <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}>
         <CardContent>
           <Stack m={2} spacing={6}>
             <b
               style={{
-             
+                width: "100%",
                 margin: "-4% 303px 25px 0",
-                
+
                 textAlign: "left",
-                color: "#3c3e42" 
+                color: "#3c3e42"
               }}
             >
               {props?.heading}
@@ -145,59 +146,57 @@ export default function InvestCard(props: IProps) {
                   sx={{
                     BackgroundColor: "#6c63ff",
                     borderRadius: "2px",
-                  
+
                     width: "60px",
                     height: "33px",
                     margin: " 2.2 12px 0 0",
                     padding: "10px 12px 9px",
                   }}
                 >
-                 <b style={{color:"#6c63ff"}}>+1000</b>
+                  <b style={{ color: "#6c63ff" }}>+1000</b>
                 </Button>
-                <Button variant="contained" disabled  
-                    sx={{
-                      BackgroundColor: "#6c63ff",
-                      borderRadius: "2px",
-                      color:"#6c63ff",
-                      width: "64px",
-                      height: "35px",
-                      margin: " 2.2 12px 0 0",
-                      padding: "10px 12px 9px",
-                    }}
-                >
-                 <b style={{color:"#6c63ff"}}>+5000</b> 
-                </Button>
-                <Button variant="contained" href="#contained-buttons" disabled 
+                <Button variant="contained" disabled
                   sx={{
                     BackgroundColor: "#6c63ff",
                     borderRadius: "2px",
-                    color:"#6c63ff",
+                    color: "#6c63ff",
+                    width: "64px",
+                    height: "35px",
+                    margin: " 2.2 12px 0 0",
+                    padding: "10px 12px 9px",
+                  }}
+                >
+                  <b style={{ color: "#6c63ff" }}>+5000</b>
+                </Button>
+                <Button variant="contained" href="#contained-buttons" disabled
+                  sx={{
+                    BackgroundColor: "#6c63ff",
+                    borderRadius: "2px",
+                    color: "#6c63ff",
                     width: "75px",
-                    height: "35px", }}
-                > <b style={{color:"#6c63ff"}}>  +10,000</b>
-                 </Button>
+                    height: "35px",
+                  }}
+                > <b style={{ color: "#6c63ff" }}>  +10,000</b>
+                </Button>
               </Stack>
               <InvestButton cardType={props?.cardType} />
-              <Grid
-                container
-                spacing={2}
-                sx={{
-                  textAlign: "center",
-                  fontSize: "11px",
-                  fontWeight: "500",
-                  marginTop: "3%",
-                  color: "#6c63ff",
-                }}
-              >
-                <Grid item xs={12}>
-                  KNOW MORE ABOUT INVESTMENT
+              <Grid container spacing={2} textAlign="center">
+                <Grid item xs={12} md={12}>
+              
+                 <Typography sx={{ fontSize: "11px",  fontWeight: "500", textAlign:"center",color:"#6c63ff"}}>
+                <b style={{marginTop:"2%",transform: "translate(10px, 20px)",color:"#6c63ff"}}><HelpOutlineIcon/></b>  
+                  KNOW MORE ABOUT INVESTMENT</Typography>
                 </Grid>
               </Grid>
-            </List>
-          </Stack>
-        </CardContent>
-      </Card>
- 
+             
+
+           
+        
+          </List>
+        </Stack>
+      </CardContent>
+    </Card>
+
     </>
   );
 }
