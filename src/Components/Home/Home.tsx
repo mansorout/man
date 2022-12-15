@@ -331,6 +331,7 @@ function Home() {
           <Typography textAlign="center" variant='h5' >Hi, Rahul Malhotra</Typography>
           <Typography textAlign="center" variant='h4' >Verify 4-digit PIN</Typography>
           <OtpInput
+             isInputNum={true}
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
@@ -357,12 +358,12 @@ function Home() {
               border: "1px solid red",
             }}
           />
-          <Typography textAlign="center" variant='caption' >Please enter PIN here</Typography>
+          <Typography textAlign="center" variant='caption' sx={{color:" #8787a2"}} >Please enter PIN here</Typography>
           <div style={{ width: "90%" }} onClick={() => setOpenModal(false)}>
             <PINVerifyButton otp={OTP} />
           </div>
           <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
-            <span onClick={() => navigate("/verifysec")} className="textLink" style={{ fontSize: "14px", cursor: "pointer" }} >Forgot PIN?</span></Typography>
+            <span onClick={() => navigate("/verifysec")} className="textLink" style={{ fontSize: "14px", cursor: "pointer",textDecoration:"underline" }} >Forgot PIN?</span></Typography>
         </Box>
       </Modal>
     </Box>

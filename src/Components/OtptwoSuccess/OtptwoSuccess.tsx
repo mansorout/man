@@ -73,7 +73,7 @@ return (
 
         <Footer/>
       </Box>
-      <img alt="logo" src={ SBICON } width="275" height="275" style={{
+      <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px" }}
