@@ -198,7 +198,7 @@ function App() {
         <Route path="/nominee" element={<Nominee />} />
         <Route path="/pan_update" element={<PanUpdate />} />
         <Route path="/completedview" element={<ProfileCompleted />} />
-        <Route path="/vp" element={<ViewProfile />} />
+        <Route path="/viewprofile" element={<ViewProfile />} />
         <Route path="/editprofile" element={<Editprofilescreen />} />
         <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/mflist" element={<MutualFundsList />} />
