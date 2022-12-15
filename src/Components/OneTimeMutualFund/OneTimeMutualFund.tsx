@@ -22,6 +22,7 @@ import { makeStyles } from "@mui/styles";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
+import { globalConstant } from "../../Utils/globalConstant";
 
 // const data = [
 //   {
@@ -166,51 +167,59 @@ const enumActiveScreen = Object.freeze({
   OPEN_NET_BANKING: 3,
 });
 
-const useStyles: any = makeStyles((them: any) => ({
+const useStyles: any = makeStyles((theme: any) => ({
   button: {
     "&:hover": {
       backgroundColor: "#00b4ff !important",
     },
   },
+  myBtn: {
+    "&:hover": {
+      backgroundColor: "var(--uiDarkGreyColor)",
+      "& span": {
+        color: "var(--typeBlackColor)",
+      },
+    },
+  },
 }));
 
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    // height: "100vh",
+  } as React.CSSProperties,
+  button: {
+    height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    transform: "translate(8px, -23px)",
+    color: "#fff",
+    width: 350,
+    marginTop: 21,
+    marginLeft: -8,
+  } as React.CSSProperties,
+  modalText: {
+    backgroundColor: "#FFF",
+    width: 338,
+    textAlign: "center",
+    marginLeft: "1px",
+    padding: "5px",
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4,
+    fontWeight: "500",
+    borderColor: "#fff",
+  } as React.CSSProperties,
+};
+
 const OneTimeMutualFund = () => {
-  const navigate = useNavigate();
+  const navigate: any = useNavigate();
   const classes = useStyles();
 
   const [mfCards, setMfCards] = useState<MFProp[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(
     enumActiveScreen.CLOSE_MODAL
   );
-
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      // height: "100vh",
-    } as React.CSSProperties,
-    button: {
-      height: "48px",
-      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-      backgroundColor: "#23db7b",
-      transform: "translate(8px, -23px)",
-      color: "#fff",
-      width: 350,
-      marginTop: 21,
-      marginLeft: -8,
-    } as React.CSSProperties,
-    modalText: {
-      backgroundColor: "#FFF",
-      width: 338,
-      textAlign: "center",
-      marginLeft: "1px",
-      padding: "5px",
-      borderTopRightRadius: 4,
-      borderTopLeftRadius: 4,
-      fontWeight: "500",
-      borderColor: "#fff",
-    } as React.CSSProperties,
-  };
 
   useEffect(() => {
     setMfCards(data);
@@ -233,9 +242,9 @@ const OneTimeMutualFund = () => {
           <Grid
             container
             sx={{
-              // height: "100vh",
+              height: "100vh",
               overflow: "scroll",
-              // marginTop: "4%",
+              marginTop: "4%",
               justifyContent: "center",
             }}
             xs={13}
@@ -255,32 +264,31 @@ const OneTimeMutualFund = () => {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
-                <Breadcrumbs
-                // sx={{
-                //   fontSize: "12px",
-                //   color: "#6c63ff",
-                // }}
-                sx={{
-                  fontSize: "12px",
-                  color: "#6c63ff",
-                  marginBottom: "1vw",
-                }}
-              >
-                <Link href="/home">Home</Link>
-                <Link href="/startInvestment">Investment</Link>
-                <Link href="/startAnSip">One-time Investment </Link>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#373e42",
-                  }}
-                >
-                  Mutual Fund Recommendation
-                </Typography>
-              </Breadcrumbs>
+                  <Breadcrumbs
+                    // sx={{
+                    //   fontSize: "12px",
+                    //   color: "#6c63ff",
+                    // }}
+                    sx={{
+                      fontSize: "12px",
+                      color: "#6c63ff",
+                      marginBottom: "1vw",
+                    }}
+                  >
+                    <Link href="/home">Home</Link>
+                    <Link href="/startInvestment">Investment</Link>
+                    <Link href="/startAnSip">One-time Investment </Link>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        color: "#373e42",
+                      }}
+                    >
+                      Mutual Fund Recommendation
+                    </Typography>
+                  </Breadcrumbs>
                 </Grid>
               </Grid>
-           
 
               <Box
                 className="header"
@@ -382,14 +390,6 @@ const OneTimeMutualFund = () => {
             </Box>
             <Box
               sx={{
-                // width: "83.75vw",
-                // height: "6.1vw",
-                // marginTop: "8vw",
-                // display: "flex",
-                // justifyContent: "center",
-                // alignItems: "center",
-                // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
-                // backgroundColor: "#fff",
                 width: "83.75vw",
                 height: "6.1vw",
                 marginTop: "8vw",
@@ -403,109 +403,13 @@ const OneTimeMutualFund = () => {
               <FooterWithButton2
                 btnText="BUY NOW"
                 btnClick={() =>
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
+                  navigate("/netbanking", {
+                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                    replace: true,
+                  })
                 }
               />
-              {/* <SelectSipDateButton
-                openModal={() =>
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)
-                }
-              /> */}
             </Box>
-
-            <Modal
-              sx={{ borderRadius: 8 }}
-              open={
-                activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
-                  ? true
-                  : false
-              }
-              onClose={() => {
-                setActiveScreen(enumActiveScreen.CLOSE_MODAL);
-              }}
-            >
-              <Box
-                alignItems="center"
-                justifyContent="center"
-                sx={{
-                  marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-                  marginTop: { xs: "50%", lg: "13%", md: "30%" },
-                }}
-              >
-                <Typography sx={style.modalText}>Monthly SIP Date</Typography>
-                <Calendar />
-                <Button
-                  onClick={() => {
-                    setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
-                  }}
-                  variant="contained"
-                  style={style.button}
-                  sx={{
-                    backgroundColor: "rgba(123, 123, 157, 0.05)",
-                    color: "#7b7b9d",
-                  }}
-                >
-                  Confirm SIP Date
-                </Button>
-              </Box>
-            </Modal>
-            <Modal
-              sx={{ borderRadius: 8 }}
-              open={
-                activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL
-                  ? true
-                  : false
-              }
-              onClose={() => {
-                setActiveScreen(enumActiveScreen.CLOSE_MODAL);
-              }}
-            >
-              <>
-                <Box
-                  alignItems="center"
-                  justifyContent="center"
-                  sx={{
-                    marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-                    marginTop: { xs: "50%", lg: "13%", md: "30%" },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      backgroundColor: "#fff",
-                      width: 300,
-                      alignItems: "center",
-                      padding: 3,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Box>
-                      <img style={{ height: 120, width: 120 }} src={tick} />
-                    </Box>
-                    <Typography sx={{ marginTop: 1, fontWeight: "600" }}>
-                      Date confirmed!
-                    </Typography>
-                    <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
-                      Your Monthly SIP Date is 8th of every month
-                    </Typography>
-                  </Box>
-                  {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
-                  <Button
-                    onClick={() => {
-                      navigate("/netbanking");
-                    }}
-                    variant="contained"
-                    style={style.button}
-                    sx={{
-                      backgroundColor: "rgba(123, 123, 157, 0.05)",
-                      color: "#7b7b9d",
-                      marginLeft: 8,
-                    }}
-                  >
-                    Continue to Payment
-                  </Button>
-                </Box>
-              </>
-            </Modal>
           </Grid>
         </Grid>
       </Box>

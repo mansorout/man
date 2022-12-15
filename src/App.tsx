@@ -220,7 +220,7 @@ function App() {
 
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
-        <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/netbanking" element={<NetBanking />} />
 
         <Route path="/replaceFunds" element={<ReplaceFunds />} />
 

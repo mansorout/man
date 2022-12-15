@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useEffect, useState } from "react";
-import { VerifyOtpLogo, SBICON } from "../../Assets";
+import { VerifyOtpLogo, SBICON, commonlogo, cross, SBIcon } from "../../Assets";
 import { OtpVerifyButton } from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
 import { useSelector } from "react-redux";
@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
+import commonLogo from '../../Assets/MainLogo.svg'
+
+
 
 
 export const VerifyOtp = () => {
@@ -56,6 +59,7 @@ export const VerifyOtp = () => {
   };
 
   const handleOtpChange = (otp: any) => {
+    
     setOTP(otp)
     if (otp.length === 4) {
       store.dispatch(verifycxotp({ 'otp': otp, 'number': number }))
@@ -119,11 +123,14 @@ export const VerifyOtp = () => {
             we sent you on your mobile number
           </Typography>
           <OtpInput
+              
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
+            isInputNum={true}
             shouldAutoFocus={true}
             hasErrored={error?.includes("Login_OTP")}
+
             containerStyle={{
               display: "flex",
               justifyContent: "center",
@@ -156,7 +163,7 @@ export const VerifyOtp = () => {
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
               <span
                 // disabled={seconds > 0 || minutes > 0}
-                style={{cursor:"pointer",
+                style={{cursor:"pointer",textDecoration:"underline",
                   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#FF5630",
                 }}
                 onClick={resendOTP}  className="textLink" > Resend</span> </Typography>
@@ -166,7 +173,7 @@ export const VerifyOtp = () => {
           <Footer />
         </Box>
       </Box>
-      <img alt="logo" src={SBICON} width="275" height="275" style={{
+      <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
         position: "absolute",
         right: "0px",
         top: "65px"
@@ -175,3 +182,5 @@ export const VerifyOtp = () => {
     </>
   );
 };
+
+

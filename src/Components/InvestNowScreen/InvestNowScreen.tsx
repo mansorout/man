@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
 
 import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Grid, Modal, TextField, Typography } from '@mui/material'
+import { Breadcrumbs, Card, CardContent, Grid, Modal, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -11,7 +11,7 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
 import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { closelogo, Logo, MonoLogo, Profile, SIP, sipiclogo } from '../../Assets/index'
+import { closelogo, ellipslogo, graphimage, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
 import { useDispatch, useSelector } from 'react-redux'
 import InvestCard from '../../Modules/Cards/InvestCard';
 import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
@@ -102,6 +102,17 @@ function InvestNowScreen() {
       alignItems: "center",
       margin: "10px 0px"
     } as React.CSSProperties,
+    ca: {
+
+      backgroundColor: "#64dbff",
+      width: "32px",
+      height: "32px",
+
+      opacity: "0.5",
+
+
+    } as React.CSSProperties,
+
     menuText: {
       color: "black",
       fontSize: "10px",
@@ -110,6 +121,13 @@ function InvestNowScreen() {
       borderRadius: "4px",
       backgroundColor: "#ffc300",
       cursor: "pointer"
+    },
+
+    dividerBox: {
+      width: "100%",
+      height: "1px",
+      backgroundColor: "#acb4bf",
+
     },
     menuText2: {
       padding: "6px 12px",
@@ -247,26 +265,18 @@ function InvestNowScreen() {
                 </Breadcrumbs>
               </Box>
               <Grid container >
-                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
+                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex", }} >
                   <InvestCard
                     cardType={globalConstant.LUMPSUM_INVESTMENT}
-                    heading="One-Time Lumpsum"
+                    heading="Start an SIP"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} sx={{ padding: { xs: 0, sm: 3 }, display: "-webkit-inline-flex" }} >
-                  <InvestSecondCard />
+
+                <Grid item xs={12} sm={6} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+                <InvestSecondCard/>
                 </Grid>
               </Grid>
-              <Box
-                textAlign="center"
-                sx={{
-                  margin: "auto",
-                  width: "304px",
-                }}
-              >
 
-
-              </Box>
 
             </Grid>
 

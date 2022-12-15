@@ -115,7 +115,7 @@ export const VerifyonCheckout = () => {
                     <Grid
                         container
                         spacing={0}
-                        
+
                     >
 
                         <Grid
@@ -195,7 +195,7 @@ export const VerifyonCheckout = () => {
 
                             <Box style={style.background}>
                                 <NavigationBar />
-                                <Box style={style.container}  className="verifyoncheckoutcard">
+                                <Box style={style.container} className="verifyoncheckoutcard">
                                     <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
                                     <Typography mb={1} variant="h1" align="center">
                                         Verify OTP
@@ -204,6 +204,7 @@ export const VerifyonCheckout = () => {
                                         Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
                                     </Typography>
                                     <OtpInput
+                                        isInputNum={true}
                                         value={OTP}
                                         onChange={handleOtpChange}
                                         numInputs={4}

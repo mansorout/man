@@ -75,7 +75,7 @@ const style = {
                     <Typography component="h4" style={{margin:"30px 0px 10px 0px"}}>Terms of Use</Typography>
                     <Divider style={{margin:"10px 0px"}}/>
                     <Typography className="body1" style={{margin:"10px 0px"}}>
-                        Please read on to learn the rules and restrictions that govern your use of our Services. These Terms and Conditions (the “Terms”) are a binding contract between you and SprintMoney. If you have any questions, comments, or concerns regarding these terms or the Services, please contact us at <Typography component="span" style={{cursor:"pointer"}} className="textLink">support@sprintmoney.in</Typography>, <Typography component="span" style={{cursor:"pointer"}} className="textLink">support@sprintmoney.com</Typography>
+                        Please read on to learn the rules and restrictions that govern your use of our Services. These Terms and Conditions (the “Terms”) are a binding contract between you and SprintMoney. If you have any questions, comments, or concerns regarding these terms or the Services, please contact us at <Typography component="span" style={{cursor:"pointer",textDecoration:"underline"}} className="textLink">support@sprintmoney.in</Typography>, <Typography component="span" style={{cursor:"pointer",textDecoration:"underline"}} className="textLink">support@sprintmoney.com</Typography>
                     </Typography>
                     <Typography className="body1" style={{margin:"10px 0px"}}>
                         You must agree to and accept all of the Terms, or you don’t have the right to use the Services. Your using the Services in any way means that you agree to all of Terms, and these Terms will remain in effect while you use the Services.
@@ -90,7 +90,7 @@ const style = {
                     </Button>
                 </Box>
             </Box>
-            <img alt="logo" src={ SBIcon } width="275" height="275" style={{
+            <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px"

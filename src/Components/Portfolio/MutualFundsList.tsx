@@ -20,6 +20,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import { Calendar } from "react-calendar";
 import { makeStyles } from "@mui/styles";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
+import { globalConstant } from "../../Utils/globalConstant";
 
 // const data = [
 //   {
@@ -172,43 +173,43 @@ const useStyles: any = makeStyles((them: any) => ({
   },
 }));
 
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    // height: "100vh",
+  } as React.CSSProperties,
+  button: {
+    height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    transform: "translate(8px, -23px)",
+    color: "#fff",
+    width: 350,
+    marginTop: 21,
+    marginLeft: -8,
+  } as React.CSSProperties,
+  modalText: {
+    backgroundColor: "#FFF",
+    width: 338,
+    textAlign: "center",
+    marginLeft: "1px",
+    padding: "5px",
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4,
+    fontWeight: "500",
+    borderColor: "#fff",
+  } as React.CSSProperties,
+};
+
 const MutualFundsList = () => {
-  const navigate = useNavigate();
+  const navigate: any = useNavigate();
   const classes = useStyles();
 
   const [mfCards, setMfCards] = useState<MFProp[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(
     enumActiveScreen.CLOSE_MODAL
   );
-
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      // height: "100vh",
-    } as React.CSSProperties,
-    button: {
-      height: "48px",
-      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-      backgroundColor: "#23db7b",
-      transform: "translate(8px, -23px)",
-      color: "#fff",
-      width: 350,
-      marginTop: 21,
-      marginLeft: -8,
-    } as React.CSSProperties,
-    modalText: {
-      backgroundColor: "#FFF",
-      width: 338,
-      textAlign: "center",
-      marginLeft: "1px",
-      padding: "5px",
-      borderTopRightRadius: 4,
-      borderTopLeftRadius: 4,
-      fontWeight: "500",
-      borderColor: "#fff",
-    } as React.CSSProperties,
-  };
 
   useEffect(() => {
     setMfCards(data);
@@ -232,8 +233,8 @@ const MutualFundsList = () => {
             container
             sx={{
               // height: "100vh",
-              overflow: "scroll",
-              // marginTop: "4%",
+              overflowY: "scroll",
+              marginTop: "4%",
               justifyContent: "center",
             }}
             xs={13}
@@ -484,7 +485,10 @@ const MutualFundsList = () => {
                   {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
                   <Button
                     onClick={() => {
-                      navigate("/netbanking");
+                      navigate("/netbanking", {
+                        state: { cardType: globalConstant.SIP_INVESTMENT },
+                        replace: true,
+                      });
                     }}
                     variant="contained"
                     style={style.button}
