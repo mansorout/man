@@ -139,16 +139,8 @@ export const Login = () => {
       mobilenumber: number,
       type: "auth",
     };
-    postData(
-      objBody,
-      siteConfig.AUTHENTICATION_OTP_SEND,
-      // siteConfig.CONTENT_TYPE_APPLICATION_JSON
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED
-    )
-      .then(res => {
-        console.log(res.json(), "login res.json()")
-        return res.json()
-      })
+    postData(objBody, siteConfig.AUTHENTICATION_OTP_SEND, siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, siteConfig.AUTHENTICATION_API_ID)
+      .then(res => res.json())
       .then((data) => {
         console.log(data);
       })
@@ -182,7 +174,7 @@ export const Login = () => {
         <TextField
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
-            "&.Mui-focused >.MuiInputLabel-root": { color: "red"},
+            "&.Mui-focused >.MuiInputLabel-root": { color: "red" },
             "& .MuiOutlinedInput-root": {
               "& > fieldset": {
                 borderColor: error?.includes("Login_Contact")

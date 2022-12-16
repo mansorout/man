@@ -17,6 +17,7 @@ import './style.css'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import { minHeight } from '@mui/system';
+import './style.css'
 // ;
 // const bull = (
 //     <Box
@@ -89,11 +90,18 @@ export default function InvestSecondCard() {
           backgroundColor: "#64dbff",
           width: "32px",
           height: "32px",
-    
+  
           opacity: "0.5",
     
     
         } as React.CSSProperties,
+        ca_M:{
+          backgroundColor: "#64dbff",
+          width: "32px",
+          height: "32px",
+   
+          opacity: "0.5",
+        }as React.CSSProperties,
     
         menuText: {
           color: "black",
@@ -158,85 +166,7 @@ export default function InvestSecondCard() {
     return (
         <>
 
-            <Card sx={{ borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}>
-
-                <CardContent >
-
-                    <b style={{ color: "#3c3e42", }}>Expected returns</b>
-                    <Typography sx={{ marginTop: "-2%" }}>
-                        <img alt="Money Sprint" src={graphimage} style={{ width: " 100%", height: "67px", margin: "0 0 14px", }}></img>
-                        <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "-3%" }}> <Box>1Y</Box><Box>3Y</Box>
-                            <Box sx={{ marginLeft: "11px" }}> <b style={{ color: "#6c63ff" }}>5Y</b>  <img alt="Money Sprint" src={ellipslogo} style={{
-                                width: "14px", marginTop: "-80%", marginRight: "-50%", borderRadius: "30px", position: "relative", top: "-20px", left: "-18px",
-                                fontSize: "12px", boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)", backgroundColor: "#6c63ff",
-                            }}></img></Box>
-                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box> <Box>15Y</Box> <Box>20Y</Box>
-                        </Box>
-                    </Typography>
-                    <Grid container spacing={1} sx={{}}>
-                        <Grid item xs={6} sx={{
-                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px",
-                            textAlign: "left", color: " #7b7b9d",paddingLeft:"0px"
-                        }}>
-                            Invested Value
-                        </Grid>
-                        <Grid item xs={6} sx={{
-                            width: " 84px", height: "14px", fontFamily: " Roboto", fontSize: "12px", fontWeight: "normal",
-                            textAlign: "right", color: " #7b7b9d"
-                        }}>
-                            Projected Value
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={1} sx={{ paddingTop: "15px",paddingLeft:'2%' }}>
-                        <Grid item xs={6} sx={{
-                            width: " 57px", height: "24px", fontFamily: " Roboto",
-                            fontWeight: "300", textAlign: "left",
-                        }}>
-                            <b style={{ color: " #3c3e42", fontSize: "20px" }}>₹1 Lac</b>
-                        </Grid>
-                        <Grid item xs={6} sx={{
-                            width: " 87px", height: "24px", paddingTop: "17px",
-                            fontFamily: " Roboto", fontWeight: "500", textAlign: "right",
-
-                        }}>
-                            <b style={{ color: " #23db7b", fontSize: "20px", }}>₹2.25 Lac</b>
-                        </Grid>
-                    </Grid>
-                    {/* <Box style={style.dividerBox}/> */}
-                    <div style={{ paddingTop: "5%" }}>
-                        <Divider />
-                    </div>
-
-                    <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
-                        <Grid item xs={1}>
-
-                            <Avatar alt="" src={withdrawiclogo} style={style.ca} />
-                        </Grid>
-
-                        <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px" }}>
-                            <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}>*Anytime Withdraw</Typography>
-                        </Grid>
-                        <Grid item xs={3} sx={{ paddingLeft: "74px" }}>
-                            <Avatar alt="" src={withdrawiclogo} style={style.ca} />
-
-                        </Grid>
-                        <Grid item xs={3} sx={{ paddingTop: "10px" }}>
-                            <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
-                        </Grid>
-
-                    </Grid>
-
-
-
-
-
-
-
-
-                </CardContent>
-
-            </Card>
+          
 
 
 

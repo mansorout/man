@@ -7,9 +7,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Breadcrumbs, Card, CardContent, Checkbox, Drawer as DrawerList, FormControlLabel, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search, TextFields } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { Theme} from '@mui/material';
+import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import {  rupconvie, rupreturnlogo } from '../../Assets/index'
+import { rupconvie, rupreturnlogo } from '../../Assets/index'
 
 import { useNavigate } from 'react-router-dom'
 import Link from '@mui/material/Link';
@@ -236,7 +236,7 @@ function RedeemFunds() {
     const error: string[] = useSelector((state: any) => state.error)
 
     const [selectedValue, setSelectedValue] = React.useState('a');
-    
+
     const handleOptChange = (index: number) => {
         index === 0 ?
             setOptSelected([true, false, false, false])
@@ -640,7 +640,7 @@ function RedeemFunds() {
                                                     </Grid>
 
                                                     <Grid container rowSpacing={2} sx={{
-                                                        paddingLeft:"25px",
+                                                        paddingLeft: "25px",
                                                         maxWidth: "fit-content",
                                                         margin: "1rem", display: "flex", flexDirection: "column"
                                                     }}>
