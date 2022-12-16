@@ -26,7 +26,7 @@ const GovernmentSecurities = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? "#64dbff" : '#308fe8',
+    backgroundColor: theme.palette.mode === 'light' ? "#4749ab" : '#308fe8',
   },
 }));
 const Energy = styled(LinearProgress)(({ theme }) => ({
@@ -37,7 +37,7 @@ const Energy = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#4b7bec' : '#308fe8',
+    backgroundColor: theme.palette.mode === 'light' ? '#4749ab' : '#308fe8',
   },
 }));
 const FixedDeposits = styled(LinearProgress)(({ theme }) => ({
@@ -48,7 +48,7 @@ const FixedDeposits = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#eaa221' : '#308fe8',
+    backgroundColor: theme.palette.mode === 'light' ? '#4749ab' : '#308fe8',
   },
 }));
 const Consumerstaples2 = styled(LinearProgress)(({ theme }) => ({
@@ -59,13 +59,13 @@ const Consumerstaples2 = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#6495ED' : '#308fe8',
+    backgroundColor: theme.palette.mode === 'light' ? '#4749ab' : '#308fe8',
   },
 }));
 
 
 
-export default function ProgressBars() {
+export default function Companies() {
   return (
     <Box sx={{ flexGrow: 1 }}>
     
@@ -74,55 +74,55 @@ export default function ProgressBars() {
 
           <Grid container spacing={3}>
             <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Consumer staples</Typography>
+            <Typography className='ProgressTitle'>Reliance Industries</Typography>
             </Grid>
             <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>18.88%</Typography>
+            <Typography sx={{alignItems:"right"}} className='percentageValue'>11.19%</Typography>
             </Grid>
           </Grid>
 
 
-      <Consumerstaples variant="determinate" value={18.88} />
+      <Consumerstaples variant="determinate" value={11.19} />
       <br/>
       <Grid container spacing={3}>
             <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Government Securities</Typography>
+            <Typography className='ProgressTitle'>TATA steel</Typography>
             </Grid>
             <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>22.8%</Typography>
+            <Typography sx={{alignItems:"right"}} className='percentageValue'>7.66%</Typography>
             </Grid>
           </Grid>
-      <GovernmentSecurities variant="determinate" value={22.8} />
+      <GovernmentSecurities variant="determinate" value={7.66} />
       <br/>
       <Grid container spacing={3}>
             <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Energy</Typography>
+            <Typography className='ProgressTitle'>HDFC Finance</Typography>
             </Grid>
             <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>7%</Typography>
+            <Typography sx={{alignItems:"right"}} className='percentageValue'>5%</Typography>
             </Grid>
           </Grid>
-      <Energy variant="determinate" value={7} />
+      <Energy variant="determinate" value={5} />
       <br/>
       <Grid container spacing={3}>
             <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Fixed Deposits</Typography>
+            <Typography className='ProgressTitle'>Power finance corp</Typography>
             </Grid>
             <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>16.1%</Typography>
+            <Typography sx={{alignItems:"right"}} className='percentageValue'>4.45%</Typography>
             </Grid>
           </Grid>
-      <FixedDeposits variant="determinate" value={16.1} />
+      <FixedDeposits variant="determinate" value={4.45} />
       <br/>
       <Grid container spacing={3}>
             <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Consumer staples</Typography>
+            <Typography className='ProgressTitle'>Bajaj auto</Typography>
             </Grid>
             <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>5.8%</Typography>
+            <Typography sx={{alignItems:"right"}} className='percentageValue'>3.90%</Typography>
             </Grid>
           </Grid>
-      <Consumerstaples2 variant="determinate" value={5.8} />
+      <Consumerstaples2 variant="determinate" value={3.90} />
       
       <Box sx={{padding:" 11px 78px"}}>
          <Typography className='viewmoretext'>VIEW MORE</Typography>

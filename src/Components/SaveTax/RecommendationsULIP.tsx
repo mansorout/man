@@ -61,7 +61,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
-        '@media(max-width: 500px)':{
+        '@media(max-width: 500px)': {
             marginLeft: '0px !important',
         }
     },
@@ -188,7 +188,7 @@ const RecommendationsULIP = () => {
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
+                                        <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
                                             <Typography component='p'>Bajaj Allianz Future Gain</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Equity</Typography>
@@ -287,8 +287,10 @@ const RecommendationsULIP = () => {
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
                     <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
                 </Box>
-                <Button onClick={() => { setOpenConfirmation(!openConfirmation);
-        navigate('/payusingnetbanking'); }} variant='contained' className={classes.modalTextButton} sx={{
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
                     backgroundColor: 'rgba(123, 123, 157, 0.05)',
                     color: '#7b7b9d'
                 }}>
