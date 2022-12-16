@@ -183,7 +183,7 @@ function App() {
         <Route path="/uploadsignature" element={<HolderSignature />} />
         <Route path="/uploadCheque" element={<UploadCheck />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/termsandcondition" element={<TermsandCondition />} />
+        <Route path="/termsandcondition" element={<TermsandCondition heading={""} />} />
         <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
         <Route path="/otpverify" element={<VerifyOtp />} />
         <Route path="/otpverified" element={<OtpSuccess />} />
@@ -212,11 +212,11 @@ function App() {
         <Route path="/sipInvestment" element={<StartInvestment />} />
         <Route path="/oneTimeInvestment" element={<StartInvestment />} />
 
-        <Route path="/startAnSip" element={<InitiateSip />} />
-        <Route path="/investNow" element={<InvestNowScreen />} />
+        <Route path="/startAnSip" element={<InitiateSip cardType={''} heading={''} />} />
+        <Route path="/investNow" element={<InvestNowScreen cardType={''} heading={''} />} />
 
-        <Route path="/buildWealth" element={<InvestNowScreen />} />
-        <Route path="/getLoan" element={<InvestNowScreen />} />
+        <Route path="/buildWealth" element={<InvestNowScreen cardType={''} heading={''} />} />
+        <Route path="/getLoan" element={<InvestNowScreen cardType={''} heading={''} />} />
 
         <Route path="/redeemfund" element={<RedeemFunds />} />
 

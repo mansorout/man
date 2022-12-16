@@ -17,11 +17,12 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react'
+import './style.css'
 
 
 function VviewprofileCard() {
-       
-    const [ panCardNo, setPanCardNo ] = useState('');
+
+    const [panCardNo, setPanCardNo] = useState('');
     const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
 
     const style = {
@@ -30,8 +31,8 @@ function VviewprofileCard() {
             boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
             borderRadius: "8px",
             padding: "21px 40px",
-         },
-           emailIcon: {
+        },
+        emailIcon: {
             borderRadius: "170px 175px 175px 163px",
             backgroundColor: '#64dbff',
             width: '80px',
@@ -60,7 +61,7 @@ function VviewprofileCard() {
 
     }
 
-    
+
     const navigate = useNavigate();
     function handleSubmit() {
         navigate('/pan_update');
@@ -77,21 +78,23 @@ function VviewprofileCard() {
     function handleSubmitsss() {
         navigate('/bad')
     }
- 
-    
-   
+
+
+
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
     return (
 
         <>
-        
-             <Box
+
+            <Box
                 sx={{
                     p: 1,
-                    width: '1',  bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
+                  
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
             >
                 <List  >
                     <ListItem
@@ -102,10 +105,10 @@ function VviewprofileCard() {
 
                     >
                     </ListItem>
-
-                    <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>KYC Details</Typography>
-                    <Typography sx={{ color: "#7b7b9d", fontSize: "12px" }} >Details once saved cannot be edited</Typography>
-
+                    <Box sx={{ marginTop: "-3%" }}>
+                        <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>KYC Details</Typography>
+                        <Typography sx={{ color: "#7b7b9d", fontSize: "12px" }} >Details once saved cannot be edited</Typography>
+                    </Box>
 
                     <ListItem
                         secondaryAction={
@@ -128,14 +131,14 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={accountboxlogo}
-                                    style={style.ca}
 
-                                />
-                            
+                            <Avatar
+                                alt=""
+                                src={accountboxlogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -176,14 +179,14 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={familyrestroomlogo}
-                                    style={style.ca}
 
-                                />
-                            
+                            <Avatar
+                                alt=""
+                                src={familyrestroomlogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -215,15 +218,15 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={paymentslogo}
-                                    style={style.ca}
 
-                                />
+                            <Avatar
+                                alt=""
+                                src={paymentslogo}
+                                style={style.ca}
 
-                            
+                            />
+
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -258,14 +261,14 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={AccountBalancelogo}
-                                    style={style.ca}
 
-                                />
-                            
+                            <Avatar
+                                alt=""
+                                src={AccountBalancelogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -277,21 +280,23 @@ function VviewprofileCard() {
 
                         />
                     </ListItem>
-                    <Grid container spacing={1} textAlign="center" sx={{paddingLeft:"10px"}}>
+                    <Grid container spacing={1} textAlign="center" sx={{ paddingLeft: "32px" }}>
                         <Grid item xs={12} md={12} >
-                        <VerificationpendingButton />
+                            <VerificationpendingButton />
                         </Grid>
                     </Grid>
-                    
-                </List>
-             
-             </Box>
 
-             <Box
+                </List>
+
+            </Box>
+
+            <Box
                 sx={{
                     p: 1,
-                    width: '1',  bgcolor: 'background.paper', marginTop: "30px",borderRadius: "8px"
+                
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
             >
                 <List>
                     <ListItem
@@ -309,14 +314,14 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={chequelogo}
-                                    style={style.ca}
 
-                                />
-                            
+                            <Avatar
+                                alt=""
+                                src={chequelogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -329,13 +334,16 @@ function VviewprofileCard() {
                         />
                     </ListItem>
                 </List>
-             </Box> 
+            </Box>
 
-             <Box
+            <Box
                 sx={{
-                    p: 2,
-                    width: '1', bgcolor: 'background.paper', marginTop: "30px",borderRadius: "8px"
+                    p: 1,
+                
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
+            
             >
                 <List>
                     {/* 
@@ -353,14 +361,14 @@ function VviewprofileCard() {
                         }
                     >
                         <ListItemAvatar>
-                            
-                                <Avatar
-                                    alt=""
-                                    src={Locklogo}
-                                    style={style.ca}
 
-                                />
-                            
+                            <Avatar
+                                alt=""
+                                src={Locklogo}
+                                style={style.ca}
+
+                            />
+
                         </ListItemAvatar>
                         <ListItemText
                             primary={
@@ -371,7 +379,7 @@ function VviewprofileCard() {
                         />
                     </ListItem>
                 </List>
-             </Box> 
+            </Box>
 
 
         </>

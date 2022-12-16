@@ -206,7 +206,7 @@ const Navbar = () => {
                                 <Typography className="caption">rahul.malhotra@gamil.com</Typography>
                                 <Box style={style.menuButton}>
                                     <Typography style={style.menuText}>KYC PENDING</Typography>
-                                    <Typography style={style.menuText2} onClick={() => navigate('/vp')}>View Profile</Typography>
+                                    <Typography style={style.menuText2} onClick={() => navigate('/viewprofile')}>View Profile</Typography>
                                 </Box>
                                 <Divider style={{ margin: "15px 0px" }} />
                                 <Button variant="contained" style={style.button} fullWidth startIcon={<Support style={style.menuIcon} />}>

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { tick } from '../../Assets';
+import DialogContent from '@mui/material/DialogContent';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -149,6 +150,7 @@ const RecommendationsULIP = () => {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
     const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
     const [calenderValue, setCalenderValue] = useState(new Date())
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
@@ -227,7 +229,7 @@ const RecommendationsULIP = () => {
                             </Grid>
                             <Box>
                                 <Box className={classes.btnGroup}>
-                                    <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                    <Button variant="contained" onClick={() => setKnowMoreDialog(true)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
                                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
                                     </Button>
                                     <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
@@ -296,6 +298,17 @@ const RecommendationsULIP = () => {
                 }}>
                     Continue to Payment
                 </Button>
+            </Dialog>
+
+
+            <Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog}>
+                <DialogTitle sx={{boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)'}}>
+                    Set backup account
+                    
+                    </DialogTitle>
+                <DialogContent>
+
+                </DialogContent>
             </Dialog>
 
         </Box >

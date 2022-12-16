@@ -22,9 +22,12 @@ import { globalConstant } from "../../Utils/globalConstant";
 import { FilterAltOutlined, SearchOutlined } from "@mui/icons-material";
 import DropDownFilterInvestment from "../Investment/dropDownFilterInvestment";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
+import SelectedFunds from "../ExploreFunds/SelectedFunds";
+import AddToPlanComp from "../CommonComponents/AddToPlanComp";
 
 const data = [
   {
+    id: 1,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.ALL_FUNDS,
@@ -34,11 +37,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 2,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.BALANCED,
@@ -48,11 +53,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 3,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.BALANCED,
@@ -62,11 +69,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 4,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.EQUITY,
@@ -76,11 +85,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 5,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Equity",
@@ -90,11 +101,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
 ];
+
 const style = {
   main: {
     boxSizing: "border-box",
@@ -123,28 +136,71 @@ const AddFunds = () => {
 
   const [fundList, setFundList] = useState<any[]>([]);
   const [selected, setSelected] = useState<number>(1);
-  const [openFilterDialog, setOpenFilterDialog] = useState<boolean>(false);
-
-  const g_investment = useSelector(
+  const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
+  const g_investment: any = useSelector(
     (state: any) => state?.investment?.investment
   );
+
 
   useEffect(() => {
     setFundList(data);
   }, []);
 
-  const handleSelection = (key: number, type: string) => {
+  const handleSelection = (key: number, type: string, arrData: any[]) => {
     setSelected(key);
+    setFundSelecteds([]);
     if (type === globalConstant.ALL_FUNDS) {
       setFundList(data);
       return;
     }
-    setFundList(fundList.filter((item) => item.fundType === type));
+    setFundList(arrData.filter((item: any) => item.fundType === type));
   };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
   };
+
+  const handleAddFundsSelection = (id: number, type: any, elt: string) => {
+    let arrFundSelecteds: any = [...fundSelecteds];
+    let fundSelectedsIndex: number = 0;
+    let isItemAlreadyPresent: boolean = false
+
+    arrFundSelecteds.forEach((item: any, index: number) => {
+      if (item.id === id) {
+        fundSelectedsIndex = index;
+        isItemAlreadyPresent = true;
+        return;
+      }
+      isItemAlreadyPresent = false;
+    });
+
+    let fundListSelectedItem: number = fundList.length && fundList.filter(item => item.id === id)[0];
+
+    if (type === true) {
+      if (isItemAlreadyPresent) {
+        return;
+      }
+      arrFundSelecteds.push(fundListSelectedItem);
+    } else {
+      arrFundSelecteds.splice(fundSelectedsIndex, 1);
+    }
+
+    // let arrSelectedFundList: any[] = [...fundList];
+    // // arrSelectedFundList[]
+
+    // arrSelectedFundList.forEach((item: any) => {
+    //   if (item.id === id) {
+    //     item.checked = !item.checked;
+    //   }
+    // })
+
+    // setFundList(arrSelectedFundList)
+    setFundSelecteds(arrFundSelecteds);
+  }
+
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
 
   return (
     <Box style={{ width: "100vw" }}>
@@ -177,37 +233,32 @@ const AddFunds = () => {
               >
                 <Link href="/home">Home</Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/sipInvestment"
-                      : "/oneTimeInvestment"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                 >
                   Investment
                 </Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/startAnSip"
-                      : "/investNow"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
                 >
-                  {g_investment?.type === globalConstant.SIP_INVESTMENT
-                    ? "monthly investment"
-                    : "one time lumpsum"}
+                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                 </Link>
-                <Link href="/onetimemutualfundrecommendation">
+                <Link
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                >
                   Mutual Fund Recommendation
                 </Link>
-                <Link href="/customizemf">Customize Plan</Link>
+                <Link
+                  onClick={() => handleNavigation("/customizemf")}
+                >
+                  Customize Plan</Link>
                 <Typography
                   sx={{
                     fontSize: "12px",
                     color: "#373e42",
                   }}
-                  onClick={() => navigate("/mflist")}
                 >
-                  Choose fund to add
+                  Choose fund to Add
                 </Typography>
               </Breadcrumbs>
 
@@ -310,7 +361,7 @@ const AddFunds = () => {
                   >
                     <Box
                       onClick={() =>
-                        handleSelection(1, globalConstant.ALL_FUNDS)
+                        handleSelection(1, globalConstant.ALL_FUNDS, [])
                       }
                       style={{
                         cursor: "poindatater",
@@ -330,11 +381,11 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        All Funds ({fundList.length})
+                        All Funds ({data.length})
                       </Typography>
                     </Box>
                     <Box
-                      onClick={() => handleSelection(2, globalConstant.EQUITY)}
+                      onClick={() => handleSelection(2, globalConstant.EQUITY, data)}
                       style={{
                         cursor: "pointer",
                         border: `1px solid ${selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
@@ -355,7 +406,7 @@ const AddFunds = () => {
                       >
                         Equity (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.EQUITY
                           ).length
                         }
@@ -363,7 +414,7 @@ const AddFunds = () => {
                       </Typography>
                     </Box>
                     <Box
-                      onClick={() => handleSelection(3, globalConstant.DEBT)}
+                      onClick={() => handleSelection(3, globalConstant.DEBT, data)}
                       style={{
                         cursor: "pointer",
                         border: `1px solid ${selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
@@ -384,7 +435,7 @@ const AddFunds = () => {
                       >
                         Debt (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.DEBT
                           ).length
                         }
@@ -393,7 +444,7 @@ const AddFunds = () => {
                     </Box>
                     <Box
                       onClick={() =>
-                        handleSelection(4, globalConstant.BALANCED)
+                        handleSelection(4, globalConstant.BALANCED, data)
                       }
                       style={{
                         cursor: "pointer",
@@ -415,7 +466,7 @@ const AddFunds = () => {
                       >
                         Balanced (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.BALANCED
                           ).length
                         }
@@ -435,12 +486,26 @@ const AddFunds = () => {
                   fundList.map((item, index) => {
                     return (
                       <Box key={index}>
-                        <MutualFundCard2 {...item} />
+                        <MutualFundCard2
+                          {...item}
+                          onClick={(val, type, elt) => handleAddFundsSelection(val, type, elt)}
+                          index={index}
+                        />
                       </Box>
                     );
                   })}
               </Box>
             </Box>
+            {
+              fundSelecteds.length > 0 ?
+                <>
+                  <AddToPlanComp
+                    fundsCount={fundSelecteds.length}
+                    onClick={() => null}
+                  />
+                </>
+                : null
+            }
           </Grid>
         </Grid>
       </Box>

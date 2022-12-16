@@ -10,7 +10,6 @@ import { EditProfieButton } from '../Buttons/EditProfieButton'
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
-
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -18,12 +17,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work'
 import Paper from "@mui/material/Paper";
-
-
-
-
-
-
+import './style.css'
 import React, { useEffect, useRef, useState } from 'react'
 import { height, padding } from '@mui/system'
 import { Console } from 'console'
@@ -114,10 +108,14 @@ function ViewProfileCard() {
         <>
             <Card
                 sx={{
-                    p: 1,
+                    p: 3,
                     marginTop: "30px",
-                    height: " fit-content"
-                }}> <Box>
+                    height: " fit-content",
+                   
+                 
+                }}
+                className="paddingviewprofilestyle"
+                > <Box>
                     <List>
                         <Box onClick={() =>
                             uploadInputRef.current && uploadInputRef.current.click()}>
@@ -136,7 +134,7 @@ function ViewProfileCard() {
                                 <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
                             }  >
                         </ListItem>
-                        <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "500" }}>Personal Details</Typography>
+                        <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "600" }}>Personal Details</Typography>
                         <ListItem>
                             <ListItemAvatar>
                                 <Avatar

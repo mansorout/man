@@ -23,6 +23,7 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
 import { globalConstant } from "../../Utils/globalConstant";
+import { useSelector } from "react-redux";
 
 // const data = [
 //   {
@@ -216,9 +217,13 @@ const OneTimeMutualFund = () => {
   const navigate: any = useNavigate();
   const classes = useStyles();
 
-  const [mfCards, setMfCards] = useState<MFProp[]>([]);
+  const [mfCards, setMfCards] = useState<any[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(
     enumActiveScreen.CLOSE_MODAL
+  );
+
+  const g_investment: any = useSelector(
+    (state: any) => state?.investment?.investment
   );
 
   useEffect(() => {
@@ -230,6 +235,9 @@ const OneTimeMutualFund = () => {
     }
   };
 
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
   return (
     <Box style={{ width: "100vw" }}>
       <Navbar />
@@ -264,7 +272,7 @@ const OneTimeMutualFund = () => {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
-                  <Breadcrumbs
+                  {/* <Breadcrumbs
                     // sx={{
                     //   fontSize: "12px",
                     //   color: "#6c63ff",
@@ -278,6 +286,35 @@ const OneTimeMutualFund = () => {
                     <Link href="/home">Home</Link>
                     <Link href="/startInvestment">Investment</Link>
                     <Link href="/startAnSip">One-time Investment </Link>
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        color: "#373e42",
+                      }}
+                    >
+                      Mutual Fund Recommendation
+                    </Typography>
+                  </Breadcrumbs> */}
+
+
+                  <Breadcrumbs
+                    sx={{
+                      fontSize: "12px",
+                      color: "#6c63ff",
+                    }}
+                  >
+                    <Link href="/home">Home</Link>
+                    <Link
+                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                    >
+                      Investment
+                    </Link>
+                    <Link
+                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+                    >
+                      {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                    </Link>
                     <Typography
                       sx={{
                         fontSize: "12px",

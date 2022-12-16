@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { store } from '../../Store/Store';
 import { bankuserdetails } from "../../Store/Reducers/action";
@@ -6,6 +6,8 @@ import { submitPostuserdetails } from '../../Store/Reducers/action'
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import { ContactTick } from "../../Assets";
+
 
 const BankAccountDetails = () => {
 
@@ -24,6 +26,7 @@ const BankAccountDetails = () => {
     const [ accountTypeError, setAccountTypeError ] = useState(false);
 
     const [ accountTypeHelperText, setAccountTypeHelperText ] = useState('');
+    const [ passwordsMatch, setPasswordsMatch ] = useState(false);
 
 
     function handleSubmit(event: any) {
@@ -93,10 +96,10 @@ const BankAccountDetails = () => {
             setConfirmBankAcNoError(false);
         }
         
-        if (value !== bankAcNo) {
-            setConfirmBankAcNoError(true)
+        if (value === bankAcNo) {
+            setPasswordsMatch(true);
         } else {
-            setConfirmBankAcNoError(false);
+            setPasswordsMatch(false);
         }
     }
 
@@ -233,6 +236,9 @@ const BankAccountDetails = () => {
                                     onChange={handleBankAcNoChange}
                                     error={ bankAcNoError }
                                     helperText={ bankAcNoError ? "Please enter a valid Password" : "" }
+                                    InputProps={{
+                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                    }}
                                 />
                             </FormControl>
 
@@ -245,6 +251,9 @@ const BankAccountDetails = () => {
                                     onChange={handleConfirmBankAcNoChange}
                                     error={ confirmBankAcNoError }
                                     helperText={ confirmBankAcNoError ? "Passwords do not match" : "" }
+                                    InputProps={{
+                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                    }}
                                 />
                             </FormControl>
 
