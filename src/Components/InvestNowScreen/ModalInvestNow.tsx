@@ -145,14 +145,12 @@ function ModalInvestNow(props:any) {
       setShowSubmit(false);
     }
   }, [formData]);
-    // const [opneBankAccmodal, setOpenBankAccmodal] = useState<boolean>(false)
+    
     return (
 
 
         <div>
-            {/* <button onClick={() => setOpenBankAccmodal(true)}>
-                open modal
-            </button> */}
+          
 
 
             <Modal open={props.open} >

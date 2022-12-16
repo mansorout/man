@@ -237,7 +237,7 @@ function EditprofileCard() {
     event.stopPropagation();
     console.log(formData)
     store.dispatch(submituserdetails({ 'formData': formData }))
-    navigate('/vp')
+    navigate('/viewprofile')
   }
   const [errorcountry, setErrorCountry] = React.useState<any>("");
 
@@ -381,10 +381,12 @@ function EditprofileCard() {
         marginBottom: "-15px",
 
 
-      }}> 
+      }}
+      
+      > 
       <Grid container spacing={3}>
          <Grid item xs={12} sm={6} lg={6} >
-            <Paper className={classes.paper}
+            <Paper className='paddingstyle'
               sx={{
                 p: 2,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
@@ -551,17 +553,18 @@ function EditprofileCard() {
           }}
           className="paperstyle"
          >
-            <Paper className={classes.paper}
+            <Paper className='paddingstyle'
           
               sx={{
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "2px"
-              }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
+              }} > <Typography sx={{ color: "#6c63ff",}}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }}>
                 <Button
                   id={"male"}
+                  className="malestyle"
                   name="gender"
                   onClick={() => { setSelected(true); setSelectedFemale(false); setSelectedTrans(false); setFormData({ ...formData, gender: "male" }) }}
                   variant="outlined"
@@ -574,6 +577,7 @@ function EditprofileCard() {
                 <Button
                   name="gender"
                   value={"female"}
+                  className="femalestyle"
                   onClick={() => { setSelectedFemale(true); setSelected(false); setSelectedTrans(false); setFormData({ ...formData, gender: "female" }) }}
                   style={{ cursor: "pointer", border: `1px solid ${selectedFemale ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedFemale ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
@@ -582,6 +586,7 @@ function EditprofileCard() {
                 </Button>
                 <Button
                   id={"transgender"}
+                  className="buttontransgender"
                   name="gender" onClick={() => { setSelectedTrans(true); setSelected(false); setSelectedFemale(false); setFormData({ ...formData, gender: "transgender" }) }}
                   style={{ cursor: "pointer", border: `1px solid ${selectedTrans ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedTrans ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>

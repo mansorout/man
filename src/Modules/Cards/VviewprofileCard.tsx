@@ -17,6 +17,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react'
+import './style.css'
 
 
 function VviewprofileCard() {
@@ -89,10 +90,11 @@ function VviewprofileCard() {
 
             <Box
                 sx={{
-                    p: 0,
+                    p: 1,
                   
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
             >
                 <List  >
                     <ListItem
@@ -103,7 +105,7 @@ function VviewprofileCard() {
 
                     >
                     </ListItem>
-                    <Box sx={{ marginTop: "-5%" }}>
+                    <Box sx={{ marginTop: "-3%" }}>
                         <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>KYC Details</Typography>
                         <Typography sx={{ color: "#7b7b9d", fontSize: "12px" }} >Details once saved cannot be edited</Typography>
                     </Box>
@@ -294,6 +296,7 @@ function VviewprofileCard() {
                 
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
             >
                 <List>
                     <ListItem
@@ -335,10 +338,12 @@ function VviewprofileCard() {
 
             <Box
                 sx={{
-                    p: 0.05,
+                    p: 1,
                 
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
+                className="thirdboxstyle"
+            
             >
                 <List>
                     {/* 
