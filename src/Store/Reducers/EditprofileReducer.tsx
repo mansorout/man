@@ -7,5 +7,6 @@ export default function(state = initialState, action:any) {
       return action.payload 
     default:
       return state;
+      
   }
 }

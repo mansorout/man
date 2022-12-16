@@ -90,7 +90,7 @@ const style = {
                     </Button>
                 </Box>
             </Box>
-            <img alt="logo" src={ SBIcon } width="275" height="275" style={{
+            <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px"

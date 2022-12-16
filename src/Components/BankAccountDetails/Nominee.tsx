@@ -13,17 +13,49 @@ const Nominee = () => {
     const [ dateOfBirth, setDateOfBirth ] = useState('');
     const [ relation, setRelation ] = useState('');
 
-    const [ nameError, setNameError ] = useState(false);
+    const [ selectErrorMsg, setSelectErrorMsg ] = useState('');
 
+    const [ nameError, setNameError ] = useState(false);
+    const [ dobError, setDobError ] = useState(false);
+    const [ relationError, setRelationError ] = useState(false);
+/*
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
+        const value = e.target.value.trim();
         setName(value);
-        const pattern = /[A-Za-z]+/;
+        const pattern = /^[A-Za-z\s\.]+$/;
         if (!pattern.test(value)) {
             setNameError(true);
         } else {
             setNameError(false);
             
+        }
+    }
+*/
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+        setNameError(false);
+    }
+
+    const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDateOfBirth(e.target.value); 
+        setDobError(false);
+    }
+
+    const handleRelationChange = (e: any) => {
+        setRelation(e.target.value); 
+        setRelationError(false);
+    }
+    
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (name === '') {
+            setNameError(true);
+        } else if (dateOfBirth === '') {
+            setDobError(true);
+        } else if (relation === '') {
+            setRelationError(true);
+            setSelectErrorMsg('Please select a relation');
+        } else {
+            navigate('/viewprofile');
         }
     }
 
@@ -68,7 +100,7 @@ const Nominee = () => {
                                 marginBottom: '3vw',
                             }}>
                                 <Link href="/home">Home</Link>
-                                <Link href="/vp">View Profile</Link>
+                                <Link href="/viewprofile">View Profile</Link>
                                 <Typography sx={{
                                     fontSize: '12px',
                                     color: '#373e42'
@@ -81,16 +113,36 @@ const Nominee = () => {
                             }}>Add Nominee & Declarations</Typography>
 
                             <FormControl>
-                                <TextField required label="Full Name" value={ name } onChange={ handleNameChange } />
+                                <TextField 
+                                    required 
+                                    label="Full Name" 
+                                    value={ name } 
+                                    onChange={ handleNameChange }
+                                    error={ nameError }
+                                    helperText= { nameError ? "Please enter correct name" : '' }
+                                />
                             </FormControl>
 
                             <FormControl>
-                                <TextField type="date" label="Date of Birth" />
+                                <TextField 
+                                    required
+                                    type="date" 
+                                    label="Date of Birth"
+                                    value={ dateOfBirth }
+                                    onChange={ handleDateOfBirthChange }
+                                    error={ dobError }
+                                    helperText={ dobError ? "Please choose a date" : '' }
+                                 />
                             </FormControl>
 
                             <FormControl>
                                 <InputLabel>Relation</InputLabel>
-                                <Select label="Relation">
+                                <Select 
+                                    label={ relationError ? "Please choose a relation" : "Relation" }
+                                    value={ relation }
+                                    onChange={ handleRelationChange }
+                                    error={ relationError }
+                                >
                                     <MenuItem value="father">Father</MenuItem>
                                     <MenuItem value="mother">Mother</MenuItem>
                                     <MenuItem value="wife">Wife</MenuItem>
@@ -101,6 +153,11 @@ const Nominee = () => {
                                     <MenuItem value="daughter">Daughter</MenuItem>
                                     <MenuItem value="nephew">Nephew</MenuItem>
                                 </Select>
+                                <Box component="span" className="select-box" sx={{
+                                    color: 'red',
+                                    fontSize: '12px',
+                                    marginTop: '2px',
+                                }}>{ relationError ? selectErrorMsg : '' }</Box>
                             </FormControl>
 
                             <FormControl>
@@ -110,7 +167,7 @@ const Nominee = () => {
                                     backgroundColor: '#23db7b',
                                     padding: '1rem',
                                     textTransform: 'capitalize'
-                                }} onClick={() => navigate("/completedview")}>Submit Details</Button>
+                                }} onClick={ handleClick }>Submit Details</Button>
                             </FormControl>
                         </Box>
                     </Grid>

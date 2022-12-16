@@ -184,7 +184,7 @@ function ExploreFunds() {
                         <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px", padding:"5px 14px"}}>
                             <Box style={{display:"flex", gap:"10px", alignItems:"center"}}>
                             <SearchOutlined style={{color:"#7b7b9d"}}/>
-                            <InputBase onChange={(e)=>setFundList(ExploreFundsList.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search Transactions' style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
+                            <InputBase onChange={(e)=>setFundList(ExploreFundsList.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search funds...' style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
                             </Box>
                             <IconButton >
                                 <FilterAltOutlined style={{color:"#09b85d"}}/>

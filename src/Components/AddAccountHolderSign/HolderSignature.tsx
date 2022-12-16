@@ -78,6 +78,7 @@ function HolderSignature() {
     const [hidecontent, setHideContent] = useState<boolean>(true)
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
+    const [bcaktovp,setBacktoVp]= useState<boolean>(true)
 
 
     const clear = () => {
@@ -91,12 +92,14 @@ function HolderSignature() {
     }
 
     const setSignature = () => {
+        setBacktoVp(false)
         setHideContent(true)
         setTryagain(false)
         setShowSignBox(false)
 
         setAddsign(false)
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+        // navigate('/vp')
     };
 
 
@@ -427,36 +430,67 @@ function HolderSignature() {
                                     >
 
                                         <SaveAndAddButton />
+                                        <Grid container >
+                                            <Grid xs={8} md={8} sm={12} sx={{
+                                                paddingTop: "15px",
+                                                display: "flex"
+                                               
+                                            }}>
+                                                <Typography component="span" className="bottomContentText ">
+                                                    Signatures provided here will be used on official documents. <br />
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
                                     </Box>
                                 ) : (
                                     ""
                                 )}
-
+                                     
                                 {disable ? "" : <Box className="saveandaddButton"
                                     textAlign="center"
                                     width="80%" onClick={setSignature}>
 
                                     <SaveAndAddButton />
+                                    <Grid container  >
+                                        <Grid xs={12} md={8} sm={12} sx={{
+                                            paddingTop: "15px",
+                                            display: "flex",
+                                            
+                                        }}>
+                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
+                                                Signatures provided here will be used on official documents.
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
                                 </Box>
 
                                 }
 
+                                {/* {bcaktovp ?  "" : <Box className="saveandaddButton"
+                                    textAlign="center"
+                                    width="80%" onClick={()=>navigate('/vp')}>
+
+                                    <SaveAndAddButton />
+                                    <Grid container  >
+                                        <Grid xs={12} md={8} sm={12} sx={{
+                                            paddingTop: "15px",
+                                            display: "flex",
+                                            
+                                        }}>
+                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
+                                                Signatures provided here will be used on official documents.
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                </Box> 
+
+                                } */}
+
 
                             </Box>
-                            <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                                <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
-                                    By submitting these details, you are agree to share your details
-                                    to BSE for further transactions <br />
-                                </Typography>
-                                <Typography mb={2}
-                                    textAlign="center"
-                                    component="span"
-                                    style={{ cursor: "pointer" }}
-                                    className="textLink"
-                                >
-                                    Terms and conditions
-                                </Typography>
-                            </Box>
+
                         </Grid>
                     </Grid>
                 </Grid>

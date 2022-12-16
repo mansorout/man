@@ -56,7 +56,6 @@ const GetInsurance = () => {
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/vehicle-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
                                 btnClick={()=>{}}
-                                
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>

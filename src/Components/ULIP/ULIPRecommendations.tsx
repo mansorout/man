@@ -114,6 +114,7 @@ const ULIPRecommendations = () => {
                         <Box sx={{
                             padding: 0,
                             margin: 0,
+                            marginLeft: '4vw',
                             fontFamily: 'Roboto',
                             display: 'flex',
                             flexDirection: 'column',
@@ -136,8 +137,8 @@ const ULIPRecommendations = () => {
                                     marginBottom: '3vw',
                                 }}>
                                     <Link href="/home">Home</Link>
-                                    <Link href="/">Get Insured</Link>
-                                    <Link href="/">ULIP</Link>
+                                    <Link href="/insurance">Get Insured</Link>
+                                    <Link href="/ulip/investoptions">ULIP</Link>
                                     <Typography sx={{
                                         fontSize: '12px',
                                         color: '#373e42'

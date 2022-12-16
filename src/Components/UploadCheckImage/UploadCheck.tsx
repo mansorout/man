@@ -461,7 +461,7 @@ function UploadCheck() {
                   )}
                 </Box>
                 <Box>
-                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
+                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px",backgroundColor:"#FFFFFF" }}>
                     <input
                       ref={uploadInputRef}
                       type="file"
@@ -480,11 +480,11 @@ function UploadCheck() {
                           backgroundColor: "#00b4ff",
 
                           height: "45px",
-                          width: "150px",
                           borderRadius: "32px",
+                          padding: "22px"
                         }}
                       >
-                        <Typography className="subTitle4">
+                        <Typography sx={{color:"#FFFFFF",fontSize:"14px",fontWeight:"500"}}>
                           UPLOAD CHEQUE
                         </Typography>
                       </Button>
@@ -499,14 +499,13 @@ function UploadCheck() {
                         onClick={() => handleCancel()}
                         sx={{
                           backgroundColor: "rgba(0, 0, 0, 0.05)",
-
+                          padding:"22px",
                           height: "45px",
-                          width: "150px",
                           borderRadius: "32px",
                         }}
                       >
                         <Typography className="textLink">
-                          Clear & Try Again
+                          CLEAR & TRY AGAIN
                         </Typography>
                       </Button>
                     )}
