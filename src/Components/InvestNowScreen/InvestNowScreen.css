@@ -103,3 +103,21 @@
       </ListItem>
     </List>
   </DrawerList> */
+
+
+
+  @media screen and (max-width: 480px) {
+    .smallmodal {
+      min-width: 90% !important;
+    }
+    .ImageIconStyle{
+      color: aliceblue;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .smallmodal {
+      max-width: 49% !important;
+    }
+
+  }
