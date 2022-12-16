@@ -55,7 +55,7 @@ const Banner = (props:BannerPropsType) => {
                 <b>{props.smText}</b>
                 <Typography component="p">{props.planText}</Typography>
                 <Typography component="span">{props.saveUptoText}</Typography>
-                <Button onClick={props.btnAction} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', display: 'block', marginTop: '15px', zIndex: '1111' }}>{props.btnText}</Button>
+                <Button onClick={props.btnAction} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', display: 'block', marginTop: '15px', zIndex: '1' }}>{props.btnText}</Button>
             </Box>
             <Box>
                 <img src={props.bannerImageUrl} alt="" />

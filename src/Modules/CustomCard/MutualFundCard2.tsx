@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import { makeStyles } from "@mui/styles";
@@ -25,9 +25,10 @@ import {
   tick,
   Radiobutton,
 } from "../../Assets";
-import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
+import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 
 export interface MFProp {
+  id: number;
   logo: string;
   title: string;
   fundType: string;
@@ -37,9 +38,11 @@ export interface MFProp {
   oneYearReturn: number;
   threeYearReturn: number;
   fiveYearReturn: number;
-  buttons: boolean;
-  checkbox: boolean;
+  showButtons: boolean;
+  showCheckbox: boolean;
   isMutualFundScreen: boolean;
+  onClick?: (data: any, type: any, element: string) => void | undefined;
+  isChecked?: boolean
 }
 
 const enumActiveScreen = Object.freeze({
@@ -227,12 +230,12 @@ const MutualFundCard2 = (props: MFProp) => {
           // style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}
           sx={{
             // width: { ...widthRef.current },
-            width: props?.buttons === true ? { md: "min-content" } : "unset",
+            width: props?.showButtons === true ? { md: "min-content" } : "unset",
             display: "flex",
             // gap: "30px",
-            gap: props?.buttons === true ? { xs: "30px", md: "8%" } : "30px",
+            gap: props?.showButtons === true ? { xs: "30px", md: "8%" } : "30px",
             justifyContent:
-              props?.buttons === true ? { xs: "unset", md: "center" } : "unset",
+              props?.showButtons === true ? { xs: "unset", md: "center" } : "unset",
             flexWrap: "wrap",
           }}
         >
@@ -265,7 +268,7 @@ const MutualFundCard2 = (props: MFProp) => {
             <></>
           ) : (
             <>
-              {props?.buttons === true ? (
+              {props?.showButtons === true ? (
                 <>
                   {/* for customize plan screen*/}
                   <Grid>
@@ -309,17 +312,34 @@ const MutualFundCard2 = (props: MFProp) => {
           )}
         </Box>
 
-        {props?.isMutualFundScreen === false && props?.buttons === false ? (
+        {props?.isMutualFundScreen === false && props?.showButtons === false ? (
           <>
-            {props?.checkbox === true ? (
+            {props?.showCheckbox === true ? (
               // for add funds
-              <Box component="span">
-                <Checkbox />
+              <Box component="span" >
+                <Checkbox
+                  // checked={props?.isChecked}
+                  onClick={(e: any) => {
+                    if (props?.onClick) props?.onClick(props?.id, e?.target?.checked, "checked")
+                  }} />
               </Box>
             ) : (
               // for replace funds
-              <Box component="span">
-                <input type="radio" style={{ color: "var(--primaryColor)" }} />
+              <Box
+                component="span"
+                onClick={(e: any) => {
+                  if (props?.onClick) props?.onClick(props?.id, null, "radio")
+                }}
+              >
+                {
+                  props?.isChecked === true ?
+                    <>
+                      <RadioButtonChecked sx={{ color: "var(--primaryColor)" }} />
+                    </>
+                    : <>
+                      <RadioButtonUnchecked />
+                    </>
+                }
               </Box>
             )}
           </>
@@ -340,6 +360,7 @@ const MutualFundCard2 = (props: MFProp) => {
                 spacing={4}
                 marginLeft="-14px !important"
               >
+
                 <Grid item container xs={12} spacing={2}>
                   <Grid item xs={3} />
                   <Grid
