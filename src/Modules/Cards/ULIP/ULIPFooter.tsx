@@ -10,6 +10,8 @@ const ULIPFooter = (props: ULIPButtonProp) => {
             position: 'sticky',
             right: 0,
             bottom: 0,
+            margin: 'auto',
+            marginBottom: '0',
             boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
             backgroundColor: '#fff',
             display: 'flex',

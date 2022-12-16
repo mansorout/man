@@ -152,21 +152,21 @@ function Editprofilescreen() {
   };
 
   const classes = useStyles()
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const refContainer = useRef();
 
   return (
-    
 
-<Box style={{ width: "100vw" }} ref={refContainer}>
-      <Navbar/>
+
+    <Box style={{ width: "100vw" }} ref={refContainer}>
+      <Navbar />
       <Box sx={style.main}>
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh"}}
+          sx={{ height: "100vh" }}
         >
-          
+
           <Grid
             item
             xs={0}
@@ -174,7 +174,7 @@ const navigate=useNavigate()
             md={2}
           >
             <Toolbar />
-            <Sidebar/>
+            <Sidebar />
           </Grid>
           <Grid
             container
@@ -182,61 +182,55 @@ const navigate=useNavigate()
             sm={11}
             md={10}
           >
-           <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
-            <Toolbar />
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+              <Toolbar />
 
 
-            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                                <Breadcrumbs aria-label="breadcrumb">
+              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Breadcrumbs aria-label="breadcrumb">
 
 
 
-                                    <Link color="#6495ED" underline="always" href='Home' >
-                                        <Typography className='burgerText'> Home</Typography>
-                                    </Link>
-                                 
-                                       
- 
-                                    <Link  underline="always" href='/vp'>
-                                        <Typography className='burgerText'>View Profile</Typography>
-                                    
-                                    </Link>
-                                    
-                                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                                        <Typography className='burgerText'>Edit Details</Typography>
-                                    
-                                    </Link>
-                                </Breadcrumbs>
-                            </Box>
-            <EditprofileCard/>
-            <Box
-              textAlign="center"
-              sx={{
-                margin: "auto",
-                width: "304px",
-              }}
-            >
+                  <Link color="#6495ED" underline="always" href='Home' >
+                    <Typography className='burgerText'> Home</Typography>
+                  </Link> <Link underline="always" href='/vp'>
+                    <Typography className='burgerText'>View Profile</Typography>
+                    </Link><Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                    <Typography className='burgerText'>Edit Details</Typography>
+
+                  </Link>
+                </Breadcrumbs>
+              </Box>
               
-              <Typography component="span" className="bottomContentText ">
-                By submitting these details, you are agree to share your details
-                to BSE for further transactions <br />
-              </Typography>
-              <Typography
-                component="span"
-                style={{ cursor: "pointer" }}
-                className="textLink"
+              <EditprofileCard />
+              <Box
+                textAlign="center"
+                sx={{
+                  margin: "auto",
+                  width: "304px",
+                }}
               >
-                Terms and conditions
-              </Typography>
-            </Box>
 
-          </Grid>
+                <Typography component="span" className="bottomContentText ">
+                  By submitting these details, you are agree to share your details
+                  to BSE for further transactions <br />
+                </Typography>
+                <Typography
+                  component="span"
+                  style={{ cursor: "pointer" }}
+                  className="textLink"
+                >
+                  Terms and conditions
+                </Typography>
+              </Box>
+
+            </Grid>
           </Grid>
         </Grid>
       </Box>
     </Box>
-  
-    
+
+
   )
 }
 

@@ -8,13 +8,13 @@ import { store } from "./Store/Store";
 // import * as dotenv from "dotenv";
 // dotenv.config();
 // console.log(dotenv.config(), "env integrated");
-
+console.log("index.js()")
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={store} >
       <App />
     </Provider>
   </BrowserRouter>

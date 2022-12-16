@@ -22,9 +22,12 @@ import { globalConstant } from "../../Utils/globalConstant";
 import { FilterAltOutlined, SearchOutlined } from "@mui/icons-material";
 import DropDownFilterInvestment from "../Investment/dropDownFilterInvestment";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
+import SelectedFunds from "../ExploreFunds/SelectedFunds";
+import AddToPlanComp from "../CommonComponents/AddToPlanComp";
 
 const data = [
   {
+    id: 1,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.ALL_FUNDS,
@@ -34,11 +37,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 2,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.BALANCED,
@@ -48,11 +53,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 3,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.BALANCED,
@@ -62,11 +69,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 4,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: globalConstant.EQUITY,
@@ -76,11 +85,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
   {
+    id: 5,
     logo: "/Miraelogo.svg",
     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
     fundType: "Equity",
@@ -90,11 +101,13 @@ const data = [
     oneYearReturn: 12.3,
     threeYearReturn: 18.76,
     fiveYearReturn: 24.33,
-    checkbox: true,
-    buttons: false,
+    showCheckbox: true,
+    showButtons: false,
     isMutualFundScreen: false,
+    isChecked: false
   },
 ];
+
 const style = {
   main: {
     boxSizing: "border-box",
@@ -123,28 +136,71 @@ const AddFunds = () => {
 
   const [fundList, setFundList] = useState<any[]>([]);
   const [selected, setSelected] = useState<number>(1);
-  const [openFilterDialog, setOpenFilterDialog] = useState<boolean>(false);
-
-  const g_investment = useSelector(
+  const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
+  const g_investment: any = useSelector(
     (state: any) => state?.investment?.investment
   );
+
 
   useEffect(() => {
     setFundList(data);
   }, []);
 
-  const handleSelection = (key: number, type: string) => {
+  const handleSelection = (key: number, type: string, arrData: any[]) => {
     setSelected(key);
+    setFundSelecteds([]);
     if (type === globalConstant.ALL_FUNDS) {
       setFundList(data);
       return;
     }
-    setFundList(fundList.filter((item) => item.fundType === type));
+    setFundList(arrData.filter((item: any) => item.fundType === type));
   };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
   };
+
+  const handleAddFundsSelection = (id: number, type: any, elt: string) => {
+    let arrFundSelecteds: any = [...fundSelecteds];
+    let fundSelectedsIndex: number = 0;
+    let isItemAlreadyPresent: boolean = false
+
+    arrFundSelecteds.forEach((item: any, index: number) => {
+      if (item.id === id) {
+        fundSelectedsIndex = index;
+        isItemAlreadyPresent = true;
+        return;
+      }
+      isItemAlreadyPresent = false;
+    });
+
+    let fundListSelectedItem: number = fundList.length && fundList.filter(item => item.id === id)[0];
+
+    if (type === true) {
+      if (isItemAlreadyPresent) {
+        return;
+      }
+      arrFundSelecteds.push(fundListSelectedItem);
+    } else {
+      arrFundSelecteds.splice(fundSelectedsIndex, 1);
+    }
+
+    // let arrSelectedFundList: any[] = [...fundList];
+    // // arrSelectedFundList[]
+
+    // arrSelectedFundList.forEach((item: any) => {
+    //   if (item.id === id) {
+    //     item.checked = !item.checked;
+    //   }
+    // })
+
+    // setFundList(arrSelectedFundList)
+    setFundSelecteds(arrFundSelecteds);
+  }
+
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
 
   return (
     <Box style={{ width: "100vw" }}>
@@ -157,12 +213,12 @@ const AddFunds = () => {
           </Grid>
           {/* <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}> */}
           <Grid container sx={{ overflow: "scroll" }} xs={13} sm={11} md={10}>
-            <Toolbar />
+            {/* <Toolbar /> */}
             <Box
               id="addfunds"
               sx={{
                 backgroundColor: "#f9f9f9",
-                width: "83.75vw",
+                width: { xs: "94.75vw", sm: "83.75vw" },
                 padding: "3.75vw 2.4vw",
                 display: "flex",
                 flexDirection: "column",
@@ -177,123 +233,34 @@ const AddFunds = () => {
               >
                 <Link href="/home">Home</Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/sipInvestment"
-                      : "/oneTimeInvestment"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                 >
                   Investment
                 </Link>
                 <Link
-                  href={
-                    g_investment?.type === globalConstant.SIP_INVESTMENT
-                      ? "/startAnSip"
-                      : "/investNow"
-                  }
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
                 >
-                  {g_investment?.type === globalConstant.SIP_INVESTMENT
-                    ? "monthly investment"
-                    : "one time lumpsum"}
+                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                 </Link>
-                <Link href="/onetimemutualfundrecommendation">
+                <Link
+                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                >
                   Mutual Fund Recommendation
                 </Link>
-                <Link href="/customizemf">Customize Plan</Link>
+                <Link
+                  onClick={() => handleNavigation("/customizemf")}
+                >
+                  Customize Plan</Link>
                 <Typography
                   sx={{
                     fontSize: "12px",
                     color: "#373e42",
                   }}
-                  onClick={() => navigate("/mflist")}
                 >
-                  Choose fund to add
+                  Choose fund to Add
                 </Typography>
               </Breadcrumbs>
-              {/* <Box sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                height: '10vw',
-                marginBottom: { xs: "33%", sm: "0%" }
-              }}>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  marginRight: { xs: "1%", sm: "0%" }
-                }}>
-                  <Box>
-
-                    <Typography sx={{
-                      fontSize: '12px',
-                      color: '#8787a2',
-                    }}>Explore Funds</Typography>
-                    <Typography sx={{
-                      fontSize: '18px',
-                      fontWeight: 500,
-                      color: '#3c3e42',
-                    }}>Choose Fund to Add</Typography>
-                  </Box>
-                  <Box>
-                    <Typography sx={{
-                      fontSize: '12px',
-                      color: '#8787a2',
-                    }}>SIP Investment</Typography>
-                    <Typography sx={{
-                      fontSize: '14px',
-                      color: '#7b7b9d',
-                    }}>20 funds found</Typography>
-                  </Box>
-                </Box>
-                <Box sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  marginTop: { xs: "13%", sm: "0%" },
-                  height: { xs: "100%", sm: "unset" },
-                  maxHeight: { xs: "100%", sm: "unset" }
-                }}>
-                  <TextField
-                    placeholder="Search funds..."
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start"><SearchOutlinedIcon /></InputAdornment>,
-                      endAdornment: <InputAdornment position="end" sx={{
-                        width: '30px',
-                        height: '30px',
-                        backgroundColor: '#efefef',
-                        borderRadius: '50%',
-                        padding: '0.375vw',
-                        color: '#09b85d',
-                      }}><FilterAltOutlinedIcon /></InputAdornment>
-                    }}
-                    sx={{
-                      width: '30vw',
-                      height: '3.6vw',
-                      borderRadius: '0.3125vw',
-                      boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
-                      border: 'solid 1px #dddfe2',
-                      backgroundColor: '#fff'
-                    }}
-                  />
-
-                  <Box sx={{
-                    marginTop: { xs: "23%", sm: "0%" }
-                  }}>
-
-                    <ButtonGroup sx={{
-                      display: 'flex',
-                      gap: '1vw',
-                    }}>
-                      <Button variant="contained" style={style.selected}>All</Button>
-                      <Button variant="contained" style={style.button}>Equity</Button>
-                      <Button variant="contained" style={style.button}>Debt</Button>
-                      <Button variant="contained" style={style.button}>Balanced</Button>
-                    </ButtonGroup>
-                  </Box>
-                </Box>
-
-
-              </Box> */}
 
               <Box
                 style={{
@@ -376,7 +343,7 @@ const AddFunds = () => {
                         handleFilter(e);
                       }}
 
-                      // onClick={(e) => handleFilter(e)}
+                    // onClick={(e) => handleFilter(e)}
                     >
                       <IconButton>
                         <FilterAltOutlined style={{ color: "#09b85d" }} />
@@ -394,17 +361,15 @@ const AddFunds = () => {
                   >
                     <Box
                       onClick={() =>
-                        handleSelection(1, globalConstant.ALL_FUNDS)
+                        handleSelection(1, globalConstant.ALL_FUNDS, [])
                       }
                       style={{
                         cursor: "poindatater",
-                        border: `1px solid ${
-                          selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 1 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 1 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -416,20 +381,18 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        All Funds ({fundList.length})
+                        All Funds ({data.length})
                       </Typography>
                     </Box>
                     <Box
-                      onClick={() => handleSelection(2, globalConstant.EQUITY)}
+                      onClick={() => handleSelection(2, globalConstant.EQUITY, data)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 2 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 2 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -443,7 +406,7 @@ const AddFunds = () => {
                       >
                         Equity (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.EQUITY
                           ).length
                         }
@@ -451,16 +414,14 @@ const AddFunds = () => {
                       </Typography>
                     </Box>
                     <Box
-                      onClick={() => handleSelection(3, globalConstant.DEBT)}
+                      onClick={() => handleSelection(3, globalConstant.DEBT, data)}
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 3 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 3 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -474,7 +435,7 @@ const AddFunds = () => {
                       >
                         Debt (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.DEBT
                           ).length
                         }
@@ -483,17 +444,15 @@ const AddFunds = () => {
                     </Box>
                     <Box
                       onClick={() =>
-                        handleSelection(4, globalConstant.BALANCED)
+                        handleSelection(4, globalConstant.BALANCED, data)
                       }
                       style={{
                         cursor: "pointer",
-                        border: `1px solid ${
-                          selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
-                        }`,
+                        border: `1px solid ${selected == 4 ? "#23db7b" : "rgba(123, 123, 157, 0.3)"
+                          }`,
                         borderRadius: "8px",
-                        backgroundColor: `${
-                          selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
-                        }`,
+                        backgroundColor: `${selected == 4 ? "#dff7ea" : "rgba(255, 255, 255, 0)"
+                          }`,
                         textAlign: "center",
                         padding: "12px 14px",
                       }}
@@ -507,7 +466,7 @@ const AddFunds = () => {
                       >
                         Balanced (
                         {
-                          fundList.filter(
+                          data.filter(
                             (item) => item.fundType === globalConstant.BALANCED
                           ).length
                         }
@@ -517,16 +476,36 @@ const AddFunds = () => {
                   </Box>
                 </Box>
               </Box>
-
-              {fundList.length &&
-                fundList.map((item, index) => {
-                  return (
-                    <Box key={index}>
-                      <MutualFundCard2 {...item} />
-                    </Box>
-                  );
-                })}
+              <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: { xs: "100%" }
+              }}>
+                {fundList.length &&
+                  fundList.map((item, index) => {
+                    return (
+                      <Box key={index}>
+                        <MutualFundCard2
+                          {...item}
+                          onClick={(val, type, elt) => handleAddFundsSelection(val, type, elt)}
+                          index={index}
+                        />
+                      </Box>
+                    );
+                  })}
+              </Box>
             </Box>
+            {
+              fundSelecteds.length > 0 ?
+                <>
+                  <AddToPlanComp
+                    fundsCount={fundSelecteds.length}
+                    onClick={() => null}
+                  />
+                </>
+                : null
+            }
           </Grid>
         </Grid>
       </Box>

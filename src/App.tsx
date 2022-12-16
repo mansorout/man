@@ -183,7 +183,7 @@ function App() {
         <Route path="/uploadsignature" element={<HolderSignature />} />
         <Route path="/uploadCheque" element={<UploadCheck />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/termsandcondition" element={<TermsandCondition />} />
+        <Route path="/termsandcondition" element={<TermsandCondition heading={""} />} />
         <Route path="/account_created_with_google" element={<AccountCreatedWithGoogle />} />\
         <Route path="/otpverify" element={<VerifyOtp />} />
         <Route path="/otpverified" element={<OtpSuccess />} />
@@ -198,7 +198,7 @@ function App() {
         <Route path="/nominee" element={<Nominee />} />
         <Route path="/pan_update" element={<PanUpdate />} />
         <Route path="/completedview" element={<ProfileCompleted />} />
-        <Route path="/vp" element={<ViewProfile />} />
+        <Route path="/viewprofile" element={<ViewProfile />} />
         <Route path="/editprofile" element={<Editprofilescreen />} />
         <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/mflist" element={<MutualFundsList />} />
@@ -212,15 +212,15 @@ function App() {
         <Route path="/sipInvestment" element={<StartInvestment />} />
         <Route path="/oneTimeInvestment" element={<StartInvestment />} />
 
-        <Route path="/startAnSip" element={<InitiateSip />} />
-        <Route path="/investNow" element={<InvestNowScreen />} />
+        <Route path="/startAnSip" element={<InitiateSip cardType={''} heading={''} />} />
+        <Route path="/investNow" element={<InvestNowScreen cardType={''} heading={''} />} />
 
-        <Route path="/buildWealth" element={<InvestNowScreen />} />
-        <Route path="/getLoan" element={<InvestNowScreen />} />
+        <Route path="/buildWealth" element={<InvestNowScreen cardType={''} heading={''} />} />
+        <Route path="/getLoan" element={<InvestNowScreen cardType={''} heading={''} />} />
 
         <Route path="/redeemfund" element={<RedeemFunds />} />
 
-        <Route path="/netbanking" element={<NETbanking />} />
+        <Route path="/netbanking" element={<NetBanking />} />
 
         <Route path="/replaceFunds" element={<ReplaceFunds />} />
 

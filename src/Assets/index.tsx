@@ -4,6 +4,7 @@ export const MonoLogo = require("./monoLogo.png")
 export const AMFI = require("./amfi.png")
 export const IRDA = require("./irda.png")
 export const ContactError = require('./contactError.png')
+export const ContactTick = require('./contactTick.png')
 export const SuccessLogo = require('./success.png')
 export const SBIcon = require('./SB_icon.png');
 export const Profile = require('./profile.jpeg')
@@ -125,6 +126,7 @@ export const ic_low_cost =require("./ic_low_cost.png")
 export const tick = require("./Tick.png")
 export const hdfcErgo = require("./HDFC-Ergo.png")
 export const cross = require("./ic_cross@3x.png")
+export const commonlogo = require("./MainLogo.svg")
 
 
 

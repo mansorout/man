@@ -8,7 +8,7 @@ function Footer() {
 
     const style = {
         footer : {
-            marginTop : "40px",
+            marginTop : "80px",
         },
         
         footerLogos : {
@@ -48,9 +48,9 @@ function Footer() {
         <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
         <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
         <br/>
-        <Typography component="span" onClick={()=>navigate("/TermsandCondition")} style={{cursor:"pointer"}} className="textLink">Terms and conditions</Typography>
+        <Typography component="span" onClick={()=>navigate("/TermsandCondition")} style={{cursor:"pointer",textDecoration:"underline"}} className="textLink">Terms and conditions</Typography>
         <Typography component="span" className="body1"> and </Typography>
-        <Typography component="span" style={{cursor:"pointer"}} className="textLink">Privacy policy</Typography>
+        <Typography component="span" style={{cursor:"pointer",textDecoration:"underline"}} className="textLink">Privacy Policy</Typography>
     </Box>
     </>
   )

@@ -24,8 +24,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { AnchorCloseAction, AnchorOpenAction } from '../../Store/Duck/FilterBox';
 
 
-
-
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -59,11 +57,6 @@ function a11yProps(index: number) {
         'aria-controls': `vertical-tabpanel-${index}`,
     };
 }
-
-
-
-
-
 
 const style = {
     main: {
@@ -410,7 +403,14 @@ function UlipDropDownFilter() {
                                 </Box>
                                 <Grid container spacing={2} >
                                     <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 0px" }} item xs={12}>
-                                        <Button sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }} autoFocus >
+                                        <Button autoFocus sx={{ 
+                                            backgroundColor: "#23db7b", 
+                                            borderRadius: "0", 
+                                            padding: "15px 46px 14px",
+                                            '&:hover': {
+                                                backgroundColor: '#23db7b',
+                                            } 
+                                        }}>
                                             <Typography sx={{ color: "white", fontSize: " 13px" }}>
                                                 Apply Filters
                                             </Typography>

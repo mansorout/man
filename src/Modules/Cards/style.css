@@ -1,0 +1,190 @@
+
+
+
+
+
+.MuiGrid-root .pincodeClass {
+     display: flex;
+    margin-top: -8px;
+    margin-bottom: 34px;
+    padding: 0px;
+    margin-left: -8px;
+    margin-right: -9px;
+    flex-direction: inherit;
+}
+@media (max-width:780px) {
+    .MuiGrid-root .pincodeClass {
+        display: flex;
+       margin-top: -8px;
+       margin-bottom: 34px;
+       padding: 0px;
+       margin-left: -8px;
+       margin-right: -9px;
+       flex-direction: inherit;
+   }
+}
+
+@media (max-width:820px){
+    .pincodestayle{
+        margin: 8px !important;
+        width: 242px !important;
+        height: 16px !important;
+    }  
+    .buttontransgender{
+        width: 36%!important;
+         /* margin: 10px !important; */
+         padding-left: 17px !important;
+     }
+     .malestyle{
+        width: 20px !important;
+     }
+     .femalestyle{
+
+         margin: -4px!important;
+        
+     }
+     .css-1o59boh .MuiTextField-root {
+        width: 100% !important;
+    }
+    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+        width: calc(100% + 140px) !important;
+    }
+    .IpadStyle {
+        overflow: inherit;
+    }
+    .css-1fkyat8-MuiGrid-root {
+        overflow: inherit !important;
+    }
+   
+   
+}
+
+
+
+
+@media (max-width:768px) {
+    .css-1o59boh .MuiTextField-root {
+        width: 100% !important;
+    }
+    .MuiGrid-root .pincodeClass {
+        margin-bottom: 34px;
+        margin-left: -4px;
+        margin-right: -5px;
+    }
+    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+        width: calc(100% + 140px) !important;
+    }
+
+    .IpadStyle {
+        overflow: inherit;
+    }
+
+    .css-1fkyat8-MuiGrid-root {
+        overflow: inherit !important;
+    }
+
+    .css-q98jr-MuiTypography-root {
+        font-size: 0.7rem !important;
+    }
+
+    .css-skdto5 button {
+        margin: 1px !important;
+        padding: 0px 0px !important;
+    
+    }
+    .buttontransgender{
+       width: 32%!important;
+        margin: 8px !important
+    }
+    .femalestyle{
+        width: 30% !important;
+        margin: -4px!important;
+    }
+
+
+
+   
+
+    .css-skdto5 {
+        margin-right: 68px !important;
+        justify-content: space-between;
+        display: flex;
+        margin-left: 15px !important;
+
+    }
+    .pincodestayle{
+        margin: 8px;
+        width: 239px;
+        height: 16px;
+    }   
+}
+ 
+
+    @media (max-width:560px) {
+    .MuiGrid-root .pincodeClass {
+        margin-top: -8px;
+        margin-bottom: 34px;
+        margin-left: -9px;
+        margin-right: -5px;
+    }
+    .css-skdto5 {
+        margin-right: 46px !important;
+        justify-content: space-between;
+        display: flex;
+        margin-left: 15px !important;
+    }
+
+    .css-1o59boh .MuiTextField-root {
+        width: 100% !important;
+    }
+
+    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+        width: calc(100% + 24px) !important;
+    }
+    .paddingstyle{
+        padding: 29px !important;
+        margin-top: 2px !important;
+        margin-left: -29px !important;
+    }
+
+}
+
+ 
+
+@media (max-width:560px) {
+   
+    .NoLockinperiod{
+       
+        padding-left: 32px !important;
+        transform: translate(10px, 10px) !important;
+        width: 100% !important;
+        margin: -40px !important;
+        padding-top: 43px !important;
+    }
+    .paddingviewprofilestyle{
+    
+/*        
+        margin-left: 3% !important;
+    margin-right: -3% !important; */
+    
+    }
+    .boxviewstyle{
+      color: black !important;
+    }
+    .thirdboxstyle{
+        
+        width: 95% !important;
+    }
+}
+@media (max-width:560px) {
+   
+    .iconstyle{
+        padding-left: 43px !important;
+        padding-top: 5px !important;
+    }
+
+    
+}
+
+
+/* iconstyle */

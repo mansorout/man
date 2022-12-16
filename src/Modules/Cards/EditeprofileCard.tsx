@@ -4,12 +4,12 @@ import { ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
-import { Editprofilebutton } from '../Buttons/Editprofilebutton'
+
 // import EEditprofileCard from '../Buttons/EEditprofileCard'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
 import clsx from "clsx";
-
+import '../../Components/EditProfile/Editprofilescreen.css'
 import { useEffect, useState } from 'react'
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import React from 'react'
 import { height, padding } from '@mui/system'
 import MenuItem from '@mui/material/MenuItem';
-
+import './style.css'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { makeStyles } from "@material-ui/core/styles";
 
@@ -30,44 +30,17 @@ import { submituserdetails } from '../../Store/Reducers/action';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-
+import './style.css'
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { getValue } from '@testing-library/user-event/dist/utils';
- 
-// import { useForm } from "react-hook-form";
-
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import MenuItem from '@mui/material/MenuItem';
-
-// import { makeStyles, createStyles } from "@material-ui/core/styles";
-
-
-
-
-
-
+import { setSyntheticLeadingComments } from 'typescript';
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
 const country = ["delhi", "kanpur"]
 const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
-
-
 function EditprofileCard() {
-
-
-  // const { register, handleSubmit, errors } = useForm();
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
-  // console.log(errors);
-
-
-
-
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -83,27 +56,20 @@ function EditprofileCard() {
   const useStyles = makeStyles((theme: any) =>
     createStyles({
       paper: {
-        // padding: theme.spacing(2),
         textAlign: 'center',
-        // color: theme.palette.text.secondary,
-      },
-      root: {
+      }, root: {
         flexGrow: 1,
-      },
+      }
+  
+   
     }),
-  );
-
-
-  const style = {
+  ); const style = {
     containertwo: {
       backgroundColor: "#fff",
       boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
       borderRadius: "8px",
       padding: "21px 40px",
-
-
     },
-
     cameraIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#23db7b',
@@ -118,7 +84,6 @@ function EditprofileCard() {
       marginTop: "20px",
       marginBottom: "30px"
     },
-
     emailIcon: {
       borderRadius: "170px 175px 175px 163px",
       backgroundColor: '#64dbff',
@@ -134,37 +99,28 @@ function EditprofileCard() {
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      margin: "16px",
-      width: "90%",
+      marginTop: "-60px",
+      marginLeft: "4%",
+      width: "100%",
       maxWidth: "400px",
-      transform: "translate(10px, -60px)"
-
 
     },
     ca: {
-      // borderRadius: "170px 175px 175px 163px",
       backgroundColor: "#64dbff",
       width: "20px",
       height: "20px",
       padding: "10px",
       opacity: "0.9",
-
-      // width: '80px',
-      // height: '80px',
-      // margin: '0 54px 22px 34px',
-      // padding: '20px',
-      // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
-      // border: 'solid 1px rgba(0, 0, 0, 0.08)',
     } as React.CSSProperties,
-    select :{
-      color:"white",
-      '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline' : {
-        border:"1px solid white"
+    select: {
+      color: "white",
+      '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
+        border: "1px solid white"
       },
-      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon' : {
+      '& .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon': {
         color: "white !important"
       },
-      '&svg' : {
+      '&svg': {
         color: "white"
       }
     },
@@ -172,9 +128,6 @@ function EditprofileCard() {
       color: "white",
 
     }
-   
-
-
   }
   const [formData, setFormData] = useState<any>({
     firstName: "",
@@ -195,44 +148,20 @@ function EditprofileCard() {
     addressline1: "",
     CountryFirst: "",
     state: "",
-
-
-
   })
-
   const [lastNameError, setLastNameError] = useState(false)
   const [MidNameError, setMidNameError] = useState(false)
   const [errormobilenumberone, setErrormobilenumberone] = useState(false)
   const [emailError, setEmailError] = useState(false)
-
-
-
   const [addresserrorone, setAddressErrorOne] = useState(false)
-
-
-
-
   const [dropValuestateerror, setDropValuestateError] = useState(false)
-
   const [drapdownresidenseerror, setDrapdownresidenseError] = useState(false)
-
-
   const [errorrsstate, setErrorsstate] = useState(false)
-
   const [errorPincode, setErrorPincode] = useState(false)
   const [errorcountryFirst, setErrorCountryFirst] = useState(false)
-
   const [errorincomeslabs, setErrorincomeslabs] = useState(false)
-
-
-
   const [error, setError] = useState(false)
   const [countryError, setCountryError] = useState(false)
-
-
-
-
-
   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
   const [errorMesagemiddleName, setErrorMessagemiddleName] = useState("")
   const [errorMesageCountry, setErrorMessageCountry] = useState("")
@@ -247,7 +176,9 @@ function EditprofileCard() {
   const [errormessagefirstcountry, setErrorMessagefirstcountry] = useState<any>("")
   const [errormessageincomeslab, setErrorMessageIncomeSlab] = useState<any>("")
   const [showSubmitDetails, setShowSubmitDetails] = useState(true)
-
+  const [selected, setSelected] = useState<boolean>(false)
+  const [selectedFemale, setSelectedFemale] = useState<boolean>(false)
+  const [selectedTrans, setSelectedTrans] = useState<boolean>(false)
   const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
@@ -265,12 +196,11 @@ function EditprofileCard() {
 
 
   }
-
   useEffect(() => {
 
     if (formData.firstName !== "" || formData.CountrySecond !== "" || formData.middleName !== "" || formData.LastName !== "" || formData.mobilenumber.length < 10 ||
       formData.emailaddress! == "" || formData.StateOfBirth! == "" || formData.addressline1! == ""
-      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode! == "" || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
+      || formData.CityofResidence !== "" || formData.state !== "" || formData.pincode.length < 6 || formData.CountryFirst !== "" || formData.IncomeSlab !== "") {
       setDropValuestateError(false)
       setError(false)
       setCountryError(false)
@@ -292,52 +222,24 @@ function EditprofileCard() {
     })
 
 
-      console.log(formData.firstName !== "" && formData.CountrySecond !== "" && formData.middleName !== "" && formData.mobilenumber.length <10
-     && emailRegex.test(formData.emailaddress)  &&  formData.StateOfBirth! == "" && formData.addressline1! == "" && formData.pincode! == "" && formData.CityofResidence !== ""
-     && formData.state !== "" &&  formData.CountryFirst !== "" && formData.IncomeSlab !== "" && formData.LastName !== ""
-       )
 
-    console.log(formData.firstName.length < 0 && formData.middleName.length < 0 && formData.LastName.length < 0)
   }, [formData])
 
-  const areAllFieldsFilled = (formData.firstName != "") && (formData.lastName != "") && (mobileRegex.test(formData.mobilenumber)) &&
+
+  const areAllFieldsFilled = (formData.firstName != "") && (NameRegex.test(formData.lastName)) && (mobileRegex.test(formData.mobilenumber)) &&
     (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
     && (formData.state !== "") && (formData.CountryFirst !== "") && (formData.IncomeSlab !== "") && (formData.LastName !== "")
   const dispatch = useDispatch()
- 
+
 
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
-    store.dispatch(submituserdetails({'formData': formData})) 
-    
-    
-     navigate('/completedview')
-
-
-
-
+    console.log(formData)
+    store.dispatch(submituserdetails({ 'formData': formData }))
+    navigate('/viewprofile')
   }
- 
-
-  const [errorfirstname, setErrorFirstName] = React.useState<any>("");
-  const [errormiddlename, setErrorMiddleName] = React.useState<any>("");
-  const [errorlastname, setErrorLastName] = React.useState<any>("");
-  const [errormobilenumber, setErrorMobilenumber] = React.useState<any>("");
-  const [erroremiladdress, setErrorEmailAdress] = React.useState<any>("");
   const [errorcountry, setErrorCountry] = React.useState<any>("");
-  const [errorstate, setErrorState] = React.useState<any>("");
-  const [erroraddresss, setErrorAddress] = React.useState<any>("");
-  const [errorcityofresidence, setErrorcityofresidence] = React.useState<any>("");
-  const [errorstatetwo, setErrorstatetwo] = React.useState<any>("");
-  const [errorpincode, setErrorpincode] = React.useState<any>("");
-  const [errorcountrytwo, setErrorcountrytwo] = React.useState<any>("");
-  const [errorincomeslab, setErrorincomeslab] = React.useState<any>("");
-
-
-
-
-
 
   const handleBlur = () => {
 
@@ -376,7 +278,7 @@ function EditprofileCard() {
 
   }
   const handleOnBlurlastName = () => {
-    if (formData.lastName.length == "") {
+    if (formData.lastName.length == "" || !NameRegex.test(formData.lastName)) {
       setErrorMessagelastname("Please Enter LastName")
       setLastNameError(true)
     }
@@ -433,8 +335,8 @@ function EditprofileCard() {
 
   }
   const handleOnBlurpincode = () => {
-    if (formData.pincode == "") {
-      setErrorMessagePincode("Required")
+    if (formData.pincode.length != 6) {
+      setErrorMessagePincode("pincode is invalid")
       setErrorPincode(true)
     }
 
@@ -465,33 +367,40 @@ function EditprofileCard() {
     console.log(formData.gender)
 
   }
-   
+
 
   const classes = useStyles();
-console.log(formData)
+  console.log(formData)
+
   return (
     <>
       <div style={{
-        backgroundColor: '#ffffff',
+
         padding: '29px',
         borderRadius: "8px",
-        marginBottom: "-15px"
+        marginBottom: "-15px",
 
-      }}>
-        <Grid container spacing={3}>
 
-          <Grid item xs={12} sm={6}>
-            <Paper className={classes.paper}
+      }}
+      
+      > 
+      <Grid container spacing={3}>
+         <Grid item xs={12} sm={6} lg={6} >
+            <Paper className='paddingstyle'
               sx={{
-                p: 1,
+                p: 2,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-25px"
+                marginLeft: "-1px"
               }}
+              
 
             >
               <Stack m={2} spacing={2}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{
+                  maxHeight: "100%",
+
+                }}>
                   <Grid item xs={12} md={12}>
                     <TextField
                       onBlur={handleBlur}
@@ -579,22 +488,20 @@ console.log(formData)
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
+                          top: "-1px",
+                          background: "#fff"
                         }}>Country of Birth</InputLabel>
 
                         <Select
-                     
-                       
                           onBlur={handleBlurCountry}
                           fullWidth={true}
                           name="CountrySecond"
                           value={formData.CountrySecond}
                           onChange={handlechange}
-                          error={countryError}
-
-                        >
-                          <MenuItem value="Delhi">India</MenuItem>
-                          <MenuItem value="kanpur">Nepal</MenuItem>
-                          <MenuItem value="Noida">China</MenuItem>
+                          error={countryError} >
+                          <MenuItem value="India">India</MenuItem>
+                          <MenuItem value="Nepal">Nepal</MenuItem>
+                          <MenuItem value="China">China</MenuItem>
                         </Select>
                         <FormHelperText sx={{ color: "red" }}>
                           {formData.CountrySecond == "" ? errorMesageCountry : ""}
@@ -608,6 +515,8 @@ console.log(formData)
                             color: "rgba(0, 0, 0, 0.6)",
                             fontSize: "15px",
                             fontWeight: "normal",
+                            top: "-1px",
+                            background: "#fff"
                           }}>Place of Birth</InputLabel>
 
                         <Select
@@ -637,61 +546,54 @@ console.log(formData)
             </Paper>
           </Grid>
 
-          <Grid item xs={12} sm={6}  >
-            <Paper className={classes.paper}
+
+
+          <Grid item xs={12} sm={6} lg={6} sx={{
+            maxHeight: "100%",
+          }}
+          className="paperstyle"
+         >
+            <Paper className='paddingstyle'
+          
               sx={{
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-18px"
-              }} > <Typography sx={{ color: "#6c63ff", marginLeft: "-72%" }}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 } }}>
-                {/* onClick={() => { this.handleButton(60)}} */}
+                marginLeft: "2px"
+              }} > <Typography sx={{ color: "#6c63ff",}}>Gender</Typography>
+              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }}>
                 <Button
                   id={"male"}
+                  className="malestyle"
                   name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"male"})}}
+                  onClick={() => { setSelected(true); setSelectedFemale(false); setSelectedTrans(false); setFormData({ ...formData, gender: "male" }) }}
                   variant="outlined"
                   size="small"
-
-                  sx={{
-                    backgroundColor: " #fff",
-                    borderRadius: "8px",
-                    boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
-                    height: " 42px", padding: " 6px 10px 6px 6px"
-                  }}
+                  sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 1px 6px" }}
+                  style={{ cursor: "pointer", border: `1px solid ${selected ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
                 </Button>
-
                 <Button
                   name="gender"
                   value={"female"}
-                  onClick={()=>{setFormData({...formData, gender:"female"})}}
+                  className="femalestyle"
+                  onClick={() => { setSelectedFemale(true); setSelected(false); setSelectedTrans(false); setFormData({ ...formData, gender: "female" }) }}
+                  style={{ cursor: "pointer", border: `1px solid ${selectedFemale ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedFemale ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
                 </Button>
-
-
                 <Button
                   id={"transgender"}
-                  name="gender"
-                  onClick={()=>{setFormData({...formData, gender:"transgender"})}}
+                  className="buttontransgender"
+                  name="gender" onClick={() => { setSelectedTrans(true); setSelected(false); setSelectedFemale(false); setFormData({ ...formData, gender: "transgender" }) }}
+                  style={{ cursor: "pointer", border: `1px solid ${selectedTrans ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedTrans ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  {/* <Radio {...controlProps('c')} sx={{
-                      '& .MuiSvgIcon-root': { fontSize: 28, },
-                      height: "2px", width: "2px",
-
-
-                    }}
-                    /> */}
                   <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
                 </Button>
               </Box>
-
 
               <Stack m={2} spacing={6}>
                 <TextField label="Address"
@@ -725,7 +627,11 @@ console.log(formData)
                             sx={{
                               color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
                               fontWeight: "normal",
-                            }}>City of Residence</InputLabel>
+                              top: "-1px",
+                              background: "#fff"
+                            }}
+                            className="Drapdownstyle"
+                          >City of Residence</InputLabel>
                           <Select
                             fullWidth
                             onBlur={handleOnBlurCityofResidence}
@@ -744,9 +650,6 @@ console.log(formData)
                             {formData.CityofResidence == "" ? errormessagecityofresi : ""}
                           </FormHelperText>
                         </FormControl>
-
-
-
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <FormControl fullWidth={true} >
@@ -755,6 +658,8 @@ console.log(formData)
                               color: "rgba(0, 0, 0, 0.6)",
                               fontSize: "15px",
                               fontWeight: "normal",
+                              top: "-1px",
+                              background: "#fff"
                             }}>State</InputLabel>
 
                           <Select
@@ -774,50 +679,37 @@ console.log(formData)
                           <FormHelperText sx={{ color: "red" }}>
                             {formData.state == "" ? errormessageStatee : ""}
                           </FormHelperText>
-
                         </FormControl>
                       </Grid>
                     </Grid>
                   </div>
-
-
-
                   &nbsp;
-
                   <div style={{ position: "relative", top: "-51px" }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={6}>
-                        <FormControl fullWidth={true}>
-                          <InputLabel
-                            id="demo-simple-select-label"
+                    <Grid container spacing={2}  >
+                      <Grid item xs={12} md={6} sm={12} >
+                        <FormControl
+                          className="pincodeClass">
+                          <TextField
+                            onBlur={handleOnBlurpincode}
+                            label="Pincode"
+                            name="pincode"
+                            value={formData.pincode}
+                            onChange={handlechange}
+                            fullWidth
+                            error={errorPincode}
+                            className="pincodestayle"
+                            id='Pincode'
                             sx={{
                               color: "rgba(0, 0, 0, 0.6)",
-                              fontSize: "15px",
-                              fontWeight: "normal",
-                            }}>Pincode</InputLabel>
-
-                          <Select
-                            fullWidth
-                            onBlur={handleOnBlurpincode}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={formData.pincode}
-                            label="Age"
-                            onChange={handlechange}
-                            name="pincode"
-                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                            error={errorPincode}
-                          >
-                            <MenuItem value="208025">208025</MenuItem>
-                            <MenuItem value="208024">208024</MenuItem>
-                          </Select>
-                          <FormHelperText sx={{ color: "red" }}>
-                            {formData.pincode == "" ? errormessagepincode : ""}
-                          </FormHelperText>
+                              // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                              width: "100%", fontSize: "15px", fontWeight: "normal",
+                              boxShadow: "none"
+                            }} />
                         </FormControl>
-
+                        <FormHelperText sx={{ color: "red" }} className="labelStyle">
+                          {formData.pincode == "" ? errormessagepincode : ""}
+                        </FormHelperText>
                       </Grid>
-
                       <Grid item xs={12} md={6}  >
                         <FormControl fullWidth={true}>
                           <InputLabel
@@ -826,6 +718,8 @@ console.log(formData)
                               color: "rgba(0, 0, 0, 0.6)",
                               fontSize: "15px",
                               fontWeight: "normal",
+                              top: "-1px",
+                              background: "#fff"
                             }}>Country</InputLabel>
 
                           <Select
@@ -855,15 +749,8 @@ console.log(formData)
                         </FormControl>
                       </Grid>
                     </Grid>
-
-                    {/* &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; */}
-
-
-
                   </div>
                 </Box>
-                {/* errormessageincomeslab */}
-
                 <TextField label="Income Slab" name="IncomeSlab"
                   value={formData.IncomeSlab}
                   type="number"
@@ -874,31 +761,18 @@ console.log(formData)
                   helperText={errorincomeslabs ? errormessageincomeslab : ""}
                 />
 
+                <Button variant="contained" style={style.buttonbtn}
+                  disabled={!areAllFieldsFilled}
+                  onClick={handleClick} fullWidth >
+                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                </Button>
 
-
-                <div style={{ marginTop: "20px" }}>
-                  <Button variant="contained" style={style.buttonbtn}
-                    disabled={!areAllFieldsFilled}
-                    onClick={handleClick} fullWidth >
-                    <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                  </Button>
-                 
-                </div>
               </Stack>
-
             </Paper>
           </Grid>
-
-
         </Grid>
       </div>
-
-
-
-
     </>
-
-
   )
 }
 

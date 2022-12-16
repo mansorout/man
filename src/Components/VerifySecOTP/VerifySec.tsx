@@ -69,6 +69,7 @@ export const VerifySec = () => {
           Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
           </Typography>
           <OtpInput
+            isInputNum={true}
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}

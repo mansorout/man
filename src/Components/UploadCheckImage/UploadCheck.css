@@ -59,7 +59,7 @@
 
 .renderBox {
     border: solid 1px #707070 !important;
-    background-color: rgb(252, 252, 252) !important;
+    background-color: #FFFFFF !important;
     min-height: 300px !important;
     width: 80% !important;
     margin-top: 55px !important;
