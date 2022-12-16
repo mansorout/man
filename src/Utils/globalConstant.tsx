@@ -4,5 +4,6 @@ export const globalConstant = Object.freeze({
     ALL_FUNDS: "All",
     EQUITY: "Equity",
     DEBT: "Debt",
-    BALANCED: "Balanced"
+    BALANCED: "Balanced",
+    ERROR_OCCURRED:"Some error occurred!"
 })  

@@ -7,6 +7,7 @@ import { VerifyOtp } from './Components/VerifyOtp/VerifyOtp';
 import { OtpSuccess } from './Components/OtpSuccess/OtpSuccess';
 import { ChoosePin } from './Components/ChoosePin/ChoosePin';
 import { LoginSecond } from './Components/LoginSecScreen/LoginSecond';
+import { ToastContainer } from "react-toastify";
 
 import './app.css';
 
@@ -172,6 +173,7 @@ function App() {
 
   return (
     <>
+    {/* <ToastContainer autoClose={5000}/> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />

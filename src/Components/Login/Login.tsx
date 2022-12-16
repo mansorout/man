@@ -139,8 +139,6 @@ export const Login = () => {
       mobilenumber: number,
       type: "auth",
     };
-
-
     postData(objBody, siteConfig.AUTHENTICATION_OTP_SEND, siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, siteConfig.AUTHENTICATION_API_ID)
       .then(res => res.json())
       .then((data) => {
@@ -151,7 +149,7 @@ export const Login = () => {
         
         removeError("Login_Contact");
         addContactNumber(number);
-        store.dispatch(login({ number: number }));
+        // store.dispatch(login({ number: number }));
         navigate("/termsandcondition");
       })
       .catch((err) => {
