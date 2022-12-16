@@ -550,6 +550,7 @@ const useStyles = makeStyles((theme: any) => (
     },
     lsAdvantageCardOne: {
       backgroundColor: "blue"
+      
     },
     lsAdvantageCardTwo: {
       backgroundColor: "blue"
@@ -573,7 +574,7 @@ const useStyles = makeStyles((theme: any) => (
     },
     manImg: {
       width: "100px !important",
-      height: "100px !important",
+      height: "108px !important",
       position: "absolute",
       right: "1%",
       bottom: "2%"
@@ -682,7 +683,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     </div>
                     <div>
                       <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
-                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey",}} >{featureItem?.description}</Typography>
                     </div>
                   </Box>
                 )
@@ -692,7 +693,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
                   <Box sx={style.container} key={cardIndex}>
-                    <Box style={{ padding: "60px 30px", }}>
+                    <Box style={{ padding: "60px 30px",}}>
                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
@@ -728,6 +729,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
                 return (
                   <Box key={featureIndex} style={{ display: "flex", alignItems: "center", padding: "10px", margin: "10px" }}>
                     <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
+                    
                       <ImageListItem>
                         <img
                           src={featureItem?.img}
@@ -796,7 +798,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
                     <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.description}</Typography>
                     <div style={{ marginTop: "10px" }}>
-                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.subDescription}</Typography>
+                  
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} > {factorItem?.subDescription}</Typography>
                     </div>
                   </Box>
                 )
