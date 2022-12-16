@@ -10,7 +10,6 @@ import { EditProfieButton } from '../Buttons/EditProfieButton'
 
 import { cameraIcon } from '../../Assets/index'
 import List from '@mui/material/List';
-
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -18,12 +17,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import WorkIcon from '@mui/icons-material/Work'
 import Paper from "@mui/material/Paper";
-
-
-
-
-
-
+import './style.css'
 import React, { useEffect, useRef, useState } from 'react'
 import { height, padding } from '@mui/system'
 import { Console } from 'console'
@@ -114,11 +108,14 @@ function ViewProfileCard() {
         <>
             <Card
                 sx={{
-                    p: 1,
+                    p: 3,
                     marginTop: "30px",
                     height: " fit-content",
+                   
                  
-                }}> <Box>
+                }}
+                className="paddingviewprofilestyle"
+                > <Box>
                     <List>
                         <Box onClick={() =>
                             uploadInputRef.current && uploadInputRef.current.click()}>
