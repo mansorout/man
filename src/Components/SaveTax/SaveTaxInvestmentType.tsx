@@ -22,6 +22,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -107,7 +108,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const SaveTaxInvestmentType = () => {
     const classes = useStyles();
     const navigate = useNavigate();
-
+    const dispatch: any = useDispatch()
+    const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
 
     function createData(
@@ -219,9 +221,10 @@ const SaveTaxInvestmentType = () => {
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! Your total investment is'
-                            boxAmount='₹15,000 Every Year'
+                            boxAmount={`₹${investmentAmount}  Every Year`}
                             btnText='Show Me Recommendations'
                             btnClick={handleShowRecommendation}
+                            btnDisable={false}
                         />
                     </Grid>
                 </Grid>

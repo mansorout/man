@@ -3,48 +3,55 @@ import { useDispatch } from "react-redux"
 import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import {login} from "../../Store/Reducers/action"
-import {store} from "../../Store/Store"
-const ContWithMobile = ({number} : {number : string}) => {
+import { login } from "../../Store/Reducers/action"
+import { store } from "../../Store/Store"
+import {postData} from '../../Utils/api'
+const ContWithMobile = ({ number }: { number: string }) => {
 
-    const style = {
-        button : {
-            height: "48px",
-            borderRadius: "8px",
-            boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-            backgroundColor: "#23db7b",
-            marginBottm: "10px",
-            width:"90%",
-            maxWidth:"400px",
-        } as React.CSSProperties,
-        text : {
-            color: "white"
-        }
+  const style = {
+    button: {
+      height: "48px",
+      borderRadius: "8px",
+      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+      backgroundColor: "#23db7b",
+      marginBottm: "10px",
+      width: "90%",
+      maxWidth: "400px",
+    } as React.CSSProperties,
+    text: {
+      color: "white"
+    }
+  }
+
+  const dispatch = useDispatch()
+  const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)
+
+  const navigate = useNavigate()
+
+  const validateNumber = (number: string) => {
+
+    if (number.length != 10) {
+      addError("Login_Contact")
+    } else {
+      removeError("Login_Contact")
+     const data = {
+        mobilenumber: number,
+        type: 'auth'
+      }
+      postData(data,"/authentication/otp/send/",'application/json')
+
+      // addContactNumber(number)
+      // store.dispatch(login({'number': number})) 
+      // navigate("/termsandcondition")
     }
 
-    const dispatch = useDispatch()
-    const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch)
+  }
 
-    const navigate = useNavigate()
-
-    const validateNumber = (number : string) => {
-
-        if(number.length != 10){
-            addError("Login_Contact")
-        }else{
-            removeError("Login_Contact")
-            addContactNumber(number)
-            store.dispatch(login({'number': number})) 
-            navigate("/termsandcondition")
-        }
-       
-    }
-
-    return (
-        <Button variant="contained" style={style.button} fullWidth onClick={() => validateNumber(number)}>
-            <Typography style={style.text} className="largeButtonText">Continue with Mobile Number</Typography>
-        </Button>            
-    )
+  return (
+    <Button variant="contained" style={style.button} fullWidth onClick={() => validateNumber(number)}>
+      <Typography style={style.text} className="largeButtonText">Continue with Mobile Number</Typography>
+    </Button>
+  )
 };
 
 export default ContWithMobile;
