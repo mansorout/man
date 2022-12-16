@@ -17,6 +17,10 @@ const siteConfig = Object.freeze({
 
   //API
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
+
+  
+
+
 });
 
 export default siteConfig;
