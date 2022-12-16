@@ -19,7 +19,7 @@ import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
-import { SaveTaxInvestmentLumpsumAction, SaveTaxInvestmentMonthlyAction } from '../../Store/Duck/SaveTaxInvestmentType'
+import { SaveTaxInvestmentLumpsumAction, SaveTaxInvestmentMonthlyAction,SaveTaxInvestmentAmount } from '../../Store/Duck/SaveTaxInvestmentType'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -67,7 +67,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontSize: 'var(--titleFontSize)',
         marginBottom: '15px',
         '& p': {
-            fontweight: 500,
+            fontWeight: 500,
         },
         '& span': {
             color: 'var(--typeIndigoColor)',
@@ -88,8 +88,19 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 margin: '0px !important',
                 '@media(min-width: 600px)':{
                     width: '140px !important',
+                },
+                '& span':{
+                    color: '#8787a299 !important',
                 }
             }
+        },
+        '& svg':{
+            color: '#8787a266',
+        }
+    },
+    radioStyle:{
+        '& svg':{
+            color: 'var(--primaryColor)',
         }
     },
     rupeesIcon: {
@@ -123,7 +134,13 @@ const SaveTaxAmount = () => {
     };
 
     const handleNavigationFlow = () => {
-        investmentType === 'lumpsum' ? dispatch(SaveTaxInvestmentLumpsumAction('lumpsum')) : dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
+        if(investmentType === 'lumpsum'){
+            dispatch(SaveTaxInvestmentLumpsumAction('lumpsum'));
+            dispatch(SaveTaxInvestmentAmount(lumpsumAmount)) 
+        }else{
+            dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
+            dispatch(SaveTaxInvestmentAmount(monthlyAmount))
+        }
         navigate('/saveTax/saveTaxInvestmentType')
     }
 
@@ -163,7 +180,7 @@ const SaveTaxAmount = () => {
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value="lumpsum" control={<Radio />} label="Lumpsum" />
+                                                <FormControlLabel value="lumpsum" control={<Radio className={investmentType === 'lumpsum' ? classes.radioStyle : ''} />} label="Lumpsum" />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === 'lumpsum' ? false : true,
@@ -176,7 +193,7 @@ const SaveTaxAmount = () => {
 
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                 <Divider sx={{width: '30%'}} /> 
-                                    <Typography component='span'  sx={{padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)'}}>OR</Typography>
+                                    <Typography component='span'  sx={{padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)',fontWeight: 500}}>OR</Typography>
                                 <Divider sx={{width: '30%'}} /> 
                                 </Box>
 
@@ -191,7 +208,7 @@ const SaveTaxAmount = () => {
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
+                                                <FormControlLabel value="monthly" control={<Radio className={investmentType === 'monthly' ? classes.radioStyle : ''} />} label="Monthly" />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === 'monthly' ? false : true,
@@ -208,9 +225,10 @@ const SaveTaxAmount = () => {
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! Your total investment is'
-                            boxAmount='₹15,000'
+                            boxAmount={investmentType === 'lumpsum' ? `₹${lumpsumAmount === '' ? '0' :lumpsumAmount }` :  `₹${monthlyAmount === '' ? '0' : monthlyAmount}`}
                             btnText='Continue'
                             btnClick={handleNavigationFlow}
+                            btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
                         />
                     </Grid>
                 </Grid>
