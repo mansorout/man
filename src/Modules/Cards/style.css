@@ -30,10 +30,32 @@
         width: 242px !important;
         height: 16px !important;
     }  
- 
-.ExpendsStyle{
-    
-}
+    .buttontransgender{
+        width: 36%!important;
+         /* margin: 10px !important; */
+         padding-left: 17px !important;
+     }
+     .malestyle{
+        width: 20px !important;
+     }
+     .femalestyle{
+
+         margin: -4px!important;
+        
+     }
+     .css-1o59boh .MuiTextField-root {
+        width: 100% !important;
+    }
+    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+        width: calc(100% + 140px) !important;
+    }
+    .IpadStyle {
+        overflow: inherit;
+    }
+    .css-1fkyat8-MuiGrid-root {
+        overflow: inherit !important;
+    }
+   
    
 }
 
@@ -69,6 +91,14 @@
         margin: 1px !important;
         padding: 0px 0px !important;
     
+    }
+    .buttontransgender{
+       width: 32%!important;
+        margin: 8px !important
+    }
+    .femalestyle{
+        width: 30% !important;
+        margin: -4px!important;
     }
 
 
@@ -111,6 +141,11 @@
     .css-zow5z4-MuiGrid-root.MuiGrid-container {
         width: calc(100% + 24px) !important;
     }
+    .paddingstyle{
+        padding: 29px !important;
+        margin-top: 2px !important;
+        margin-left: -29px !important;
+    }
 
 }
 
@@ -126,6 +161,20 @@
         margin: -40px !important;
         padding-top: 43px !important;
     }
+    .paddingviewprofilestyle{
+    
+/*        
+        margin-left: 3% !important;
+    margin-right: -3% !important; */
+    
+    }
+    .boxviewstyle{
+      color: black !important;
+    }
+    .thirdboxstyle{
+        
+        width: 95% !important;
+    }
 }
 @media (max-width:560px) {
    
@@ -133,6 +182,7 @@
         padding-left: 43px !important;
         padding-top: 5px !important;
     }
+
     
 }
 
