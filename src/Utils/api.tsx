@@ -41,9 +41,9 @@ export async function postData(data: any, urlPath: string, strContentType: strin
   return await res;
 }
 
-export async function getData(urlPath: string, strContentType: string) {
+export async function getData(urlPath: string, strContentType: string, strApiId: string) {
 
-  const res = await fetch(siteConfig.BASE_URL + urlPath, {
+  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
@@ -59,7 +59,7 @@ export async function getData(urlPath: string, strContentType: string) {
   return await res;
 }
 
-export async function patchData(data: any, urlPath: string, strContentType: string) {
+export async function patchData(data: any, urlPath: string, strContentType: string, strApiId: string) {
   let objBody: any;
   if (strContentType === siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED) {
     objBody = getEncodedData(data);
@@ -67,7 +67,7 @@ export async function patchData(data: any, urlPath: string, strContentType: stri
     objBody = JSON.stringify(data);
   }
 
-  const res = await fetch(siteConfig.BASE_URL + urlPath, {
+  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
     method: "PATCH",
     mode: "cors",
     cache: "no-cache",
@@ -84,7 +84,7 @@ export async function patchData(data: any, urlPath: string, strContentType: stri
   return await res;
 }
 
-export async function putData(data: any, urlPath: string, strContentType: string) {
+export async function putData(data: any, urlPath: string, strContentType: string, strApiId: string) {
   let objBody: any;
   if (strContentType === siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED) {
     objBody = getEncodedData(data);
@@ -92,7 +92,7 @@ export async function putData(data: any, urlPath: string, strContentType: string
     objBody = JSON.stringify(data);
   }
 
-  const res = await fetch(siteConfig.BASE_URL + urlPath, {
+  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
     method: "PUT",
     mode: "cors",
     cache: "no-cache",
