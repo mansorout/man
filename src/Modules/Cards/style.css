@@ -31,7 +31,7 @@
         height: 16px !important;
     }  
     .buttontransgender{
-        width: 36%!important;
+        width: 36% !important;
          /* margin: 10px !important; */
          padding-left: 17px !important;
      }
@@ -54,6 +54,10 @@
     }
     .css-1fkyat8-MuiGrid-root {
         overflow: inherit !important;
+    }
+    .paddingstyle{
+      
+        margin-left: -19px !important;
     }
    
    
@@ -99,13 +103,7 @@
     .femalestyle{
         width: 30% !important;
         margin: -4px!important;
-    }
-
-
-
-   
-
-    .css-skdto5 {
+    }.css-skdto5 {
         margin-right: 68px !important;
         justify-content: space-between;
         display: flex;
@@ -118,23 +116,20 @@
         height: 16px;
     }   
 }
- 
-
-    @media (max-width:560px) {
+ @media (max-width:560px) {
     .MuiGrid-root .pincodeClass {
         margin-top: -8px;
         margin-bottom: 34px;
         margin-left: -9px;
         margin-right: -5px;
     }
-    .css-skdto5 {
+     .css-skdto5 {
         margin-right: 46px !important;
         justify-content: space-between;
         display: flex;
         margin-left: 15px !important;
     }
-
-    .css-1o59boh .MuiTextField-root {
+        .css-1o59boh .MuiTextField-root {
         width: 100% !important;
     }
 
@@ -146,6 +141,10 @@
         margin-top: 2px !important;
         margin-left: -29px !important;
     }
+    .buttontransgender{
+        width: 40%!important;
+         margin: 8px !important
+     }
 
 }
 
@@ -161,19 +160,16 @@
         margin: -40px !important;
         padding-top: 43px !important;
     }
-    .paddingviewprofilestyle{
-    
-/*        
-        margin-left: 3% !important;
-    margin-right: -3% !important; */
-    
-    }
+  
     .boxviewstyle{
       color: black !important;
     }
     .thirdboxstyle{
         
         width: 95% !important;
+    }
+    .buttoncenterstyle{
+        margin-left: 1% !important;
     }
 }
 @media (max-width:560px) {
