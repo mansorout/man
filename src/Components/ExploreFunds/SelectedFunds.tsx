@@ -120,10 +120,14 @@ const SelectedFunds = () => {
     const [fundList, setFundList] = useState<any[]>([])
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
 
     const navigate = useNavigate()
     const handleClick = () => {
-            setOpen(!open)
+        setOpen(!open)
+    }
+    const handleClick2 = () => {
+        navigate('/payusingnetbanking')
     }
     const handleDateChange = () => {
         console.log("Date is: ");
@@ -158,6 +162,24 @@ const SelectedFunds = () => {
                                     <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
                                     <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
                                 </Box>
+                                <Grid item xs={8}>
+                                    <Button
+                                        onClick={() =>
+                                            alert("hiii")
+                                        }
+                                        sx={{
+                                            backgroundColor: "#00b4ff",
+
+                                            height: "45px",
+                                            borderRadius: "32px",
+                                            padding: "22px"
+                                        }}
+                                    >
+                                        <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
+                                            ADD MORE FUNDS
+                                        </Typography>
+                                    </Button>
+                                </Grid>
                             </Grid>
                             <Grid item >
                                 <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '400px' }}>
@@ -166,17 +188,27 @@ const SelectedFunds = () => {
                                         <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                                             <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>
                                         </Box>
-                                        <Box onClick={() => { setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                                             <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
                                         </Box>
                                     </Box>
                                 </Box>
                             </Grid>
                         </Grid>
-                        <FooterWithBtn
-                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                            btnClick={handleClick}
-                        />
+
+
+                        {
+                            onetimeLumpsum ? <FooterWithBtn
+                                btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                btnClick={handleClick2}
+                            /> : <FooterWithBtn
+                                btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                btnClick={handleClick}
+                            />
+                        }
+
+
+
 
                     </Grid>
                 </Grid>
@@ -196,18 +228,18 @@ const SelectedFunds = () => {
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
                 <>
                     <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
-                        <Box sx={{backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center'}}>
-                            <Box><img style={{ height: 120, width: 120}} src={tick} /></Box>
-                            <Typography sx={{marginTop: 1, fontWeight: '600'}} >Date confirmed!</Typography>
-                            <Typography sx={{marginTop: 1, color: '#8787a2'}} >Your Monthly SIP Date is 8th of every month</Typography>
+                        <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                            <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
+                            <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                            <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
                         </Box>
-                        <Button onClick={() => { setOpenConfirmation(!openConfirmation) }} variant='contained' style={style.button} sx={{
-                                backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                                color: '#7b7b9d',
-                                marginLeft: 8
-                            }}>
-                                Continue to Payment
-                            </Button>
+                        <Button onClick={() => { navigate('/payusingnetbanking') }} variant='contained' style={style.button} sx={{
+                            backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                            color: '#7b7b9d',
+                            marginLeft: 8
+                        }}>
+                            Continue to Payment
+                        </Button>
                     </Box>
 
                 </>
