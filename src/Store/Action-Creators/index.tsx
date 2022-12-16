@@ -1,74 +1,73 @@
 
 
-export const addMoney = (amount:number) => {
-    return (dispatch : any) => {
+export const addMoney = (amount: number) => {
+    return (dispatch: any) => {
         dispatch({
-            type : "AddMoney",
-            payload : amount
+            type: "AddMoney",
+            payload: amount
         })
     }
 }
 
 
-export const subMoney = (amount:number) => {
-    return (dispatch:any) => {
+export const subMoney = (amount: number) => {
+    return (dispatch: any) => {
         dispatch({
-            type : "SubMoney",
-            payload : amount
+            type: "SubMoney",
+            payload: amount
         })
     }
 }
 
-export const removeError = (msg:string) => {
-    return (dispatch:any) => {
+export const removeError = (msg: string) => {
+    return (dispatch: any) => {
         dispatch({
-            type : "RemoveError",
-            payload : msg
+            type: "RemoveError",
+            payload: msg
         })
     }
 }
 
-export const addError = (msg:string) => {
-    return (dispatch:any) => {
+export const addError = (msg: string) => {
+    return (dispatch: any) => {
         dispatch({
-            type : "AddError",
-            payload : msg
+            type: "AddError",
+            payload: msg
         })
     }
 }
 
-export const addContactNumber = (num:string) => {
-    return (dispatch:any) => {
+export const addContactNumber = (num: string) => {
+    return (dispatch: any) => {
         dispatch({
-            type:"AddContact",
-            payload:num
+            type: "AddContact",
+            payload: num
         })
     }
 }
-export const addSignature = (signdata:string) => {
-    return (dispatch:any) => {
+export const addSignature = (signdata: string) => {
+    return (dispatch: any) => {
         dispatch({
-            type:"AddCheque",
-            payload:signdata
+            type: "AddCheque",
+            payload: signdata
         })
     }
 }
 
-export const AddCheque = (chequeimage:string) => {
-    return (dispatch:any) => {
+export const AddCheque = (chequeimage: string) => {
+    return (dispatch: any) => {
         dispatch({
-            type:"AddCheque",
-            payload:chequeimage
+            type: "AddCheque",
+            payload: chequeimage
         })
     }
 }
- 
-export const setInvestmentCardTypeAction = (data:any) => {
-        return { type:"SET_INVESTMENT_TYPE", payload: data}
+
+export const setInvestmentCardTypeAction = (data: any) => {
+    return { type: "SET_INVESTMENT_TYPE", payload: data }
 }
 
-export const setOpenDetailDialogAction = (data:any) => {
-        return { type:"OPEN_SAVE_DETAIL_DIALOG", payload: data}
+export const setOpenDetailDialogAction = (data: any) => {
+    return { type: "OPEN_SAVE_DETAIL_DIALOG", payload: data }
 }
 
- 
