@@ -59,6 +59,12 @@
       
         margin-left: -19px !important;
     }
+    .paddingstyle_style{
+        margin-left: 9px !important;
+    }
+    .wholedivbuttonstyle{
+        color: red;
+    }
    
    
 }
@@ -97,7 +103,7 @@
     
     }
     .buttontransgender{
-       width: 32%!important;
+       width: 40%!important;
         margin: 8px !important
     }
     .femalestyle{
