@@ -100,6 +100,7 @@ export const VerifyOtp = () => {
       // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
       store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
       localStorage.setItem("loggedin", "true");
+      navigate("/home")
     }
 
   }

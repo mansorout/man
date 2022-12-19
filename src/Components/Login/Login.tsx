@@ -19,6 +19,7 @@ import { makeStyles } from "@mui/styles";
 import { Grid, Modal, Theme } from "@mui/material";
 import { postData } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
+import { setIsUserAuthenticatedAction } from "../../Store/Authentication/actions/auth-actions";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   background: {
@@ -156,6 +157,7 @@ export const Login = () => {
         removeError("Login_Contact");
         addContactNumber(number);
         navigate("/termsandcondition");
+        dispatch(setIsUserAuthenticatedAction(true));
       })
       .catch((err) => {
         console.log(err);

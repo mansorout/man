@@ -8,6 +8,7 @@ import { makeStyles } from '@mui/styles';
 // import { RootStore } from '../../Redux/Store';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
+import { setIsUserAuthenticatedAction } from '../../Store/Authentication/actions/auth-actions'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -32,6 +33,7 @@ const Sidebar = () => {
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
+        dispatch(setIsUserAuthenticatedAction(false));
     }
 
     return (
