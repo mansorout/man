@@ -131,7 +131,7 @@ function ViewProfileCard() {
                              </Box>
                         <ListItem
                             secondaryAction={
-                                <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px", padding: "2px 21px 2px 23px" }}>Incomplete</Typography>
+                                <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px",color:"#000", padding: "2px 21px 3px 23px" }}>Incomplete</Typography>
                             }  >
                         </ListItem>
                         <Typography sx={{ marginLeft: "25px", marginTop: "-18px", fontSize: "14px", fontWeight: "600" }}>Personal Details</Typography>
@@ -142,7 +142,7 @@ function ViewProfileCard() {
                                     src={GrouMobilecicon}
                                     style={style.ca} />
                             </ListItemAvatar>
-                            <Typography sx={{ fontSize: "14px" }}>Mobile Number 
+                            <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Mobile Number 
                             {
                                     userData?.formData?.mobilenumber !== "" ?
                                         <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.mobilenumber}</Typography> : ""
@@ -158,7 +158,7 @@ function ViewProfileCard() {
                                     style={style.ca}
 
                                 />  </ListItemAvatar>
-                            <Typography sx={{ fontSize: "14px" }}>Email Address
+                            <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Email Address
                                 {
                                     userData?.formData?.emailaddress !== "" ?
                                         <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.emailaddress}</Typography> : ""
@@ -176,7 +176,7 @@ function ViewProfileCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={
-                                    <Typography sx={{ fontSize: "14px" }}>Date of Birth</Typography>
+                                    <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Date of Birth</Typography>
                                 }
                                 secondary={userData?.formData?.dateofbirth !== "" ?
                                     <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.dateofbirth}</Typography> : ""}
@@ -192,7 +192,7 @@ function ViewProfileCard() {
                                 primary="Gender"
                                 secondary={userData?.formData?.gender !== "" ?
                                     userData?.formData?.gender : ""}
-                                sx={{ marginLeft: '20px' }} />
+                                sx={{ marginLeft: '20px',color:"#3c3e42" }} />
                         </ListItem>
 
 
@@ -205,7 +205,7 @@ function ViewProfileCard() {
                                     style={style.ca} />
                             </ListItemAvatar>
 
-                            <Typography sx={{ fontSize: "14px" }}>Place of Birth
+                            <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Place of Birth
                                 {
                                     userData?.formData?.CountrySecond !== "" ?
                                         <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.CountrySecond}</Typography> : ""
@@ -220,7 +220,7 @@ function ViewProfileCard() {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={
-                                    <Typography sx={{ fontSize: "14px" }}>Communication Address
+                                    <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Communication Address
                                         {
                                             userData?.formData?.addressline1 !== "" ?
                                                 <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.addressline1}</Typography> : ""

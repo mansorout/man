@@ -282,7 +282,9 @@ function InvestNowScreen(props: IProps) {
               <Box sx={{ width: '100%' }}>
                 <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   <Grid item md={6} xs={12}>
-                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}>
+                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
+                    className="InvestStylepadview"
+                    >
                       <CardContent>
                         <Stack m={2} spacing={6}>
                           <b
@@ -330,10 +332,10 @@ function InvestNowScreen(props: IProps) {
                               <Button
                                 variant="contained"
                                 disabled
+                           
                                 sx={{
                                   BackgroundColor: "#6c63ff",
                                   borderRadius: "2px",
-
                                   width: "60px",
                                   height: "33px",
                                   margin: " 2.2 12px 0 0",
@@ -356,6 +358,8 @@ function InvestNowScreen(props: IProps) {
                                 <b style={{ color: "#6c63ff" }}>+5000</b>
                               </Button>
                               <Button variant="contained" href="#contained-buttons" disabled
+                             
+
                                 sx={{
                                   BackgroundColor: "#6c63ff",
                                   borderRadius: "2px",
@@ -370,7 +374,7 @@ function InvestNowScreen(props: IProps) {
                             <Grid container spacing={2} textAlign="center">
                               <Grid item xs={12} md={12}>
 
-                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
+                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
                                   KNOW MORE ABOUT INVESTMENT</Typography>
                               </Grid>
@@ -436,19 +440,19 @@ function InvestNowScreen(props: IProps) {
                         </div>
 
                         <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
-                          <Grid item xs={1}>
+                          <Grid item xs={1} className="withlogoiconstyle_style">
 
-                            <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
+                            <Avatar alt="" src={withdrawiclogo} style={style.ca_M}  />
                           </Grid>
 
                           <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px" }}>
-                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }} >*Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
                             <Avatar alt="" src={lockinlogo} style={style.ca} />
 
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingTop: "12px", paddingLeft: "6px" }} className="NoLockinperiod">
+                          <Grid item xs={3} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
                             <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
                           </Grid>
 

@@ -194,7 +194,7 @@ function Portfolio() {
               <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13}>
                 <Toolbar/>
                 <Grid container>
-                  <Grid item xs={12} sx={{padding:2}}>
+                   <Grid item xs={12} sx={{padding:2}}>
                     <Box style={{marginBottom:"20px", padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center"}}>
                       <Box style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"90%", maxWidth:"600px", flexWrap:"wrap", gap:"20px"}}>
                         <Box style={{position:"relative", display:"flex", flexDirection:"column", alignItems:"center"}}>
