@@ -155,8 +155,10 @@ function ModalInvestNow(props:any) {
 
             <Modal open={props.open} >
                 <Box style={{
-                    width: "90%",
-                    maxWidth: "370px",
+                  
+                    maxWidth: "30%",
+                    minWidth:"20%",
+                    
                     borderRadius: " 8px 8px 0px 0px",
                     boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
                     backgroundColor: "white",
@@ -168,9 +170,10 @@ function ModalInvestNow(props:any) {
                     position: "absolute",
                     top: "50%",
                     left: "50%",
+                    padding:"11px",
                     transform: "translate(-50%,-50%)"
-                }}>
-                    <Grid container xs={12} style={{ backgroundColor: "white", width: "100%", display: "flex" }}>
+                }} className="smallmodal">
+                    <Grid container style={{ backgroundColor: "white", display: "flex" }}>
                         <Grid item xs={8}>
                           <CardHeader
                                 avatar={
@@ -179,7 +182,8 @@ function ModalInvestNow(props:any) {
                                             width: "38px",
                                             height: "38px",
                                             paddingLeft: "150px",
-                                            }} />
+                                            }} 
+                                            />
                                     </Box> }
                                 action={""}
                                 title=""
@@ -204,8 +208,8 @@ function ModalInvestNow(props:any) {
 
                     </Grid>
                     <Grid container spacing={2}>
-             <Grid item xs={12} md={6} sm={12}>
-             <TextField
+             <Grid item xs={12} md={6} sm={12} >
+                <TextField
                   fullWidth
                   label="FirstName"
                   sx={{ color: "#ffffff", background:"#ffffff", fontSize: "17px" }}
