@@ -59,24 +59,6 @@ export async function getData(urlPath: string, strContentType: string, strApiId:
   return await res;
 }
 
-export async function getDataWithParam(urlPath: string, param: string, strContentType: string, strApiId: string) {
-
-  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath + param, {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": strContentType,
-      "x-api-key": siteConfig.X_API_KEY,
-      Origin: "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
-    },
-  });
-  return await res;
-}
-
 export async function patchData(data: any, urlPath: string, strContentType: string, strApiId: string) {
   let objBody: any;
   if (strContentType === siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED) {
