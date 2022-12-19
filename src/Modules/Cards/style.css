@@ -143,9 +143,14 @@
         width: calc(100% + 24px) !important;
     }
     .paddingstyle{
-        padding: 29px !important;
+        padding: 20px !important;
         margin-top: 2px !important;
-        margin-left: -29px !important;
+        margin-left: -20px !important;
+    }
+    .paddingstyle_style{
+        padding: 20px !important;
+        margin-top: 2px !important;
+        margin-left: -20px !important;
     }
     .buttontransgender{
         width: 40%!important;

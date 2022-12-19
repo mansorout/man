@@ -180,6 +180,7 @@ const OneTimeMutualFundCard = (props: MFProp) => {
             <img src={RemoveButtonIcon} />
             Remove
           </Button>
+          
         </Box>
       }
       

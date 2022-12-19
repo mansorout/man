@@ -332,10 +332,10 @@ function InvestNowScreen(props: IProps) {
                               <Button
                                 variant="contained"
                                 disabled
+                           
                                 sx={{
                                   BackgroundColor: "#6c63ff",
                                   borderRadius: "2px",
-
                                   width: "60px",
                                   height: "33px",
                                   margin: " 2.2 12px 0 0",
@@ -358,6 +358,8 @@ function InvestNowScreen(props: IProps) {
                                 <b style={{ color: "#6c63ff" }}>+5000</b>
                               </Button>
                               <Button variant="contained" href="#contained-buttons" disabled
+                             
+
                                 sx={{
                                   BackgroundColor: "#6c63ff",
                                   borderRadius: "2px",
@@ -372,7 +374,7 @@ function InvestNowScreen(props: IProps) {
                             <Grid container spacing={2} textAlign="center">
                               <Grid item xs={12} md={12}>
 
-                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
+                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
                                   KNOW MORE ABOUT INVESTMENT</Typography>
                               </Grid>
