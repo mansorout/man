@@ -10,7 +10,7 @@ const Nominee = () => {
     const navigate = useNavigate();
 
     const [ name, setName ] = useState('');
-    const [ dateOfBirth, setDateOfBirth ] = useState('');
+    const [ dateOfBirth, setDateOfBirth ] = useState('dd-mm-yyyy');
     const [ relation, setRelation ] = useState('');
 
     const [ selectErrorMsg, setSelectErrorMsg ] = useState('');
@@ -81,13 +81,13 @@ const Nominee = () => {
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Toolbar />
                         <Box component="form" sx={{
-                            width: '30.5rem',
-                            height: '25rem',
+                            width: '30.5vw',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5rem',
-                            borderRadius: '0.5rem',
+                            gap: '1.5vw',
+                            padding: '1.5vw',
+                            borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
                             fontFamily: 'Roboto',

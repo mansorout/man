@@ -13,6 +13,7 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
+import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 
 
 const style = {
@@ -58,7 +59,7 @@ export const VerifyOtp = () => {
   let refreshtokendata: any = localStorage.getItem('refreshtoken')
 
   const ResendOtp = () => {
-    store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
+    // store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
 
   }
 
@@ -93,11 +94,12 @@ export const VerifyOtp = () => {
   };
 
   const handleOtpChange = (otp: any) => {
-    
+
     setOTP(otp)
     if (otp.length === 4) {
-      store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type':'auth' }))
-      localStorage.setItem("loggedin", "true")
+      // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
+      store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
+      localStorage.setItem("loggedin", "true");
     }
 
   }
@@ -122,7 +124,7 @@ export const VerifyOtp = () => {
             we sent you on your mobile number
           </Typography>
           <OtpInput
-              
+
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
@@ -162,10 +164,11 @@ export const VerifyOtp = () => {
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
               <span
                 // disabled={seconds > 0 || minutes > 0}
-                style={{cursor:"pointer",textDecoration:"underline",
+                style={{
+                  cursor: "pointer", textDecoration: "underline",
                   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#FF5630",
                 }}
-                onClick={resendOTP}  className="textLink" > Resend</span> </Typography>
+                onClick={resendOTP} className="textLink" > Resend</span> </Typography>
           )}
 
 

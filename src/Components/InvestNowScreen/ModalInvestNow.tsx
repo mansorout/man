@@ -39,20 +39,33 @@ import ClearIcon from '@mui/icons-material/Clear';
  function ModalInvestNow(props:any) {
  
    
-   const emailRegex =
-     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
-   const [formData, setFormData] = useState<any>({
-         firstName: "",
-         lastName: "",
-         email: "",
-         DOB: "",
-       });
-       const g_investment: any = useSelector(
-             (state: any) => state?.investment?.investment
-           );
-   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
+  //  const emailRegex =
+  //    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
+  //  const [formData, setFormData] = useState<any>({
+  //        firstName: "",
+  //        lastName: "",
+  //        email: "",
+  //        DOB: "",
+  //      });
+  //      const g_investment: any = useSelector(
+  //            (state: any) => state?.investment?.investment
+  //          );
+  //  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
   
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
+  const [formData, setFormData] = useState<any>({
+        firstName: "",
+        lastName: "",
+        email: "",
+        DOB: "",
+      });
+      const g_investment: any = useSelector(
+            (state: any) => state?.investmentReducer?.investment
+          );
+  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
      const [errorMessageLN, setErrorMessageLN] = React.useState<any>("");
      const [errorMessageEM, setErrorMessageEM] = React.useState<any>("");
      const [errorMessageDOB, setErrorMessageDOB] = React.useState<any>("");

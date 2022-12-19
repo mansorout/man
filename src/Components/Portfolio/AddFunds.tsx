@@ -138,7 +138,7 @@ const AddFunds = () => {
   const [selected, setSelected] = useState<number>(1);
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const g_investment: any = useSelector(
-    (state: any) => state?.investment?.investment
+    (state: any) => state?.investmentReducer?.investment
   );
 
 
