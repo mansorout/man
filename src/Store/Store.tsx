@@ -21,9 +21,11 @@ import { submituserdetails } from './Reducers/action'
 import UserDetailsReducer from './Reducers/UserDetailsReducer'
 import authReducer from './Authentication/reducer/auth-reducers'
 import exploreFundReducer from './Explore funds/reducers/explore-funds-reducer'
-import insuranceReducer from './Home/Insurance/reducers/insurance-reducer'
-import investmentReducer from './Home/Investment/reducers/investment-reducer'
+// import insuranceReducer from './Home/Insurance/reducers/insurance-reducer'
+// import investmentReducer from './Home/Investment/reducers/investment-reducer'
 import portfolioReducer from './Portfolio/reducers/protfolio-reducer'
+import insuranceReducer from './Insurance/reducers/insurance-reducer'
+import investmentReducer from './Investment/reducers/investment-reducer'
 // import investmentReducer from './Reducers/investmentReducer'
 
 
@@ -44,7 +46,7 @@ const rootReducer = combineReducers({
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
     PinModalHome: PinModalHome,
     ULIPCompare: ULIPCompare,
-    investment: investmentReducer,
+    // investment: investmentReducer,
     SaveTaxInvestmentType: SaveTaxInvestmentTypeReducers,
     userProfileDetails: UserDetailsReducer,
 

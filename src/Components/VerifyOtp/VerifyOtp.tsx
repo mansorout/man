@@ -13,7 +13,7 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
-import { verifyOtp } from "../../Store/Authentication/actions/auth-actions";
+import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 
 
 const style = {
@@ -59,7 +59,7 @@ export const VerifyOtp = () => {
   let refreshtokendata: any = localStorage.getItem('refreshtoken')
 
   const ResendOtp = () => {
-    store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
+    // store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
 
   }
 
@@ -98,7 +98,7 @@ export const VerifyOtp = () => {
     setOTP(otp)
     if (otp.length === 4) {
       // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
-      store.dispatch(verifyOtp({ 'otp': otp, 'number': number, 'type': 'auth' }));
+      store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
       localStorage.setItem("loggedin", "true");
     }
 

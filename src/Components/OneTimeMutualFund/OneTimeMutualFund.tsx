@@ -223,7 +223,7 @@ const OneTimeMutualFund = () => {
   );
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investment?.investment
+    (state: any) => state?.investmentReducer?.investment
   );
 
   useEffect(() => {

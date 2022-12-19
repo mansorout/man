@@ -19,8 +19,9 @@ import HoldingCards from '../../Modules/CustomCard/HoldingCards'
 import { AllHolding } from '../../Modal/AllHoldingCards'
 import { InvestButton } from '../../Modules/Buttons/InvestButton'
 import { useDispatch } from 'react-redux'
-import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
+// import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
 import { globalConstant } from '../../Utils/globalConstant'
+import { setInvestmentCardTypeAction } from '../../Store/Investment/actions/investment-action'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
