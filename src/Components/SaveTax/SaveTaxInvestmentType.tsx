@@ -23,7 +23,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {getDataWithParam} from '../../Utils/api';
+import {getDataSaveTaxInvestmentType} from '../../Store/Save Tax/thunk/save-tax-thunk'
 import siteConfig from '../../Utils/siteConfig'
 
 
@@ -110,7 +110,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const SaveTaxInvestmentType = () => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const dispatch: any = useDispatch()
+    const dispatch:any =useDispatch()
     const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
 
@@ -133,9 +133,7 @@ const SaveTaxInvestmentType = () => {
 
     
     useEffect(() => {
-        
-        
-        getDataWithParam(siteConfig.SAVE_TAX_COMPARISON, `/?amount=${investmentAmount}`, siteConfig.CONTENT_TYPE_APPLICATION_JSON, siteConfig.SAVE_TAX_API_ID,)
+        dispatch(getDataSaveTaxInvestmentType(investmentAmount))
     }, [])
 
 
