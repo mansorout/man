@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -23,6 +23,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
+import {getDataWithParam} from '../../Utils/api';
+import siteConfig from '../../Utils/siteConfig'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -112,6 +114,8 @@ const SaveTaxInvestmentType = () => {
     const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
 
+    
+
     function createData(
         heading: string,
         ulip: number | string,
@@ -126,6 +130,15 @@ const SaveTaxInvestmentType = () => {
         createData('Life Insurance Cover', '₹ 5,00,000', '(NIL)'),
         createData('Minimum investment period & Lock-in period', '5 Years', '3 Years'),
     ];
+
+    
+    useEffect(() => {
+        
+        
+        getDataWithParam(siteConfig.SAVE_TAX_COMPARISON, `/?amount=${investmentAmount}`, siteConfig.CONTENT_TYPE_APPLICATION_JSON, siteConfig.SAVE_TAX_API_ID,)
+    }, [])
+
+
 
     const handleInvestmentRecommendation = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentRecommendation((event.target as HTMLInputElement).value);

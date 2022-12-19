@@ -91,44 +91,40 @@ const FundDetailCard = (props: Prop) => {
 
 
         <Box >
-          <Chip  sx={{ height:"22px", backgroundColor: "#ffc300", }}
+          <Chip sx={{ backgroundColor: "#ffc300", }}
             avatar={<Avatar alt="star" src={SmallStar}
               sx={{
-
+                width: "16px ! important", height: "16px ! important"
               }}
             />}
-            
-            label={props.rating + ".0"}
+
+
+            label={<Box sx={{ color: "#fff", fontSize: "16px ! important", fontWeight: "500" }}>{props.rating + ".0"} </Box>}
 
           />
           <Chip sx={{ backgroundColor: "transparent", }}
             avatar={<img alt="star" src={MorningStarlogo}
-              style={{width:"76px",height:"22px"
+              style={{
+                width: "76px", height: "22px"
 
               }}
             />}
-            
+
 
           />
-          </Box>
+        </Box>
       </Box>
 
-      <Grid sx={{  paddingBottom:"3px",  display: "flex"
-}} container spacing={2}>
+      <Grid sx={{
+        paddingBottom: "3px", display: "flex"
+      }} container spacing={2}>
         <Grid item xs={8}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
             Axis Small Cap Fund Regular Growth
           </Typography>
         </Grid>
-        
-        <Grid sx={{textAlignLast: "end"}} item xs={4}>
-          
-            <Button onClick={() => navigate('/home')} sx={{
-              backgroundColor: "#23db7b", width: "100%",
-               color: "#ffffff", borderRadius: "8px"
-            }}><Typography className="Add-this-Fund-to-Plan">Add this Fund to Plan</Typography></Button>
-          
-        </Grid>
+
+      
 
       </Grid>
       <Box
@@ -138,14 +134,15 @@ const FundDetailCard = (props: Prop) => {
       >
 
         <Chip
-          label={props.cap}
+
+          label={<Box sx={{ color: "#544ec8", size: "16px", fontWeight: "500" }}>{props.cap}</Box>}
           sx={{
 
             backgroundColor: "rgba(255, 255, 255, 0.54)",
             marginRight: "10px",
           }}
         />
-        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props.type} />
+        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={<Box sx={{ color: "#544ec8", size: "16px", fontWeight: "500" }}>{props.type} </Box>} />
       </Box>
 
       <Box
@@ -167,22 +164,23 @@ const FundDetailCard = (props: Prop) => {
           <Grid item xs={4}>
             <TableContainer>
               <Table size="small">
-                <TableHead>
+                <TableHead >
                   <TableRow sx={{ color: "red" }}>
-                    <TableCell className="table_head">
-                      NAV - 16/09/2020
+                    <TableCell sx={{ borderRight: "2px solid #f9f9f9", size: "14px", color: "#FFFFFF !important" }}  >
+                      NAV - 16/09/2020 <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9" }}><span style={{}}>%</span>{props.year1}%</p>
                     </TableCell>
-                    <TableCell className="table_head">
-                      Returns (5 Yrs)
+                    <TableCell sx={{ borderRight: "2px solid #f9f9f9" }} className="table_head">
+                      Returns (5 Yrs)  <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9 ! important" }}>{props.year3}%</p>
                     </TableCell>
-                    <TableCell  className="table_head">AUM</TableCell>
+                    <TableCell className="table_head">AUM  <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9" }}>₹{props.year5}Cr</p>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="table_head2">₹{props.year1}%</TableCell>
+                    {/* <TableCell className="table_head2">₹{props.year1}%</TableCell>
                     <TableCell className="table_head2">{props.year3}%</TableCell>
-                    <TableCell className="table_head2">₹{props.year5}Cr</TableCell>
+                    <TableCell className="table_head2">₹{props.year5}Cr</TableCell> */}
                   </TableRow>
                 </TableBody>
               </Table>
