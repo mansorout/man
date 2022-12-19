@@ -70,7 +70,7 @@
 }
 
 
-
+/* meidaqueary 768px */
 
 @media (max-width:768px) {
     .css-1o59boh .MuiTextField-root {
@@ -120,8 +120,11 @@
         margin: 8px;
         width: 239px;
         height: 16px;
+
     }   
 }
+
+
  @media (max-width:560px) {
     .MuiGrid-root .pincodeClass {
         margin-top: -8px;
