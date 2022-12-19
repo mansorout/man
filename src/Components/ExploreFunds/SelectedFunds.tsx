@@ -214,8 +214,8 @@ const SelectedFunds = () => {
                 </Grid>
             </Box>
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
-                <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
-                    <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+                <Box  >
+                    <Typography sx={style.modalText}>SIP Instalment Date</Typography>
                     <Calendar />
                     <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' style={style.button} sx={{
                         backgroundColor: 'rgba(123, 123, 157, 0.05)',
@@ -225,6 +225,7 @@ const SelectedFunds = () => {
                     </Button>
                 </Box>
             </Modal>
+            
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
                 <>
                     <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
