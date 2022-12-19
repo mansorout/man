@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 // import './Portfolio.css'
+
 import '../../Components/Portfolio/Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, ImageListItem, Link, MenuList, Typography } from '@mui/material'
@@ -19,8 +20,9 @@ import HoldingCards from '../../Modules/CustomCard/HoldingCards'
 import { AllHolding } from '../../Modal/AllHoldingCards'
 import { InvestButton } from '../../Modules/Buttons/InvestButton'
 import { useDispatch } from 'react-redux'
-import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
+// import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
 import { globalConstant } from '../../Utils/globalConstant'
+import { setInvestmentCardTypeAction } from '../../Store/Investment/actions/investment-action'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -550,6 +552,7 @@ const useStyles = makeStyles((theme: any) => (
     },
     lsAdvantageCardOne: {
       backgroundColor: "blue"
+      
     },
     lsAdvantageCardTwo: {
       backgroundColor: "blue"
@@ -573,7 +576,7 @@ const useStyles = makeStyles((theme: any) => (
     },
     manImg: {
       width: "100px !important",
-      height: "100px !important",
+      height: "108px !important",
       position: "absolute",
       right: "1%",
       bottom: "2%"
@@ -682,7 +685,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     </div>
                     <div>
                       <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
-                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey",}} >{featureItem?.description}</Typography>
                     </div>
                   </Box>
                 )
@@ -691,9 +694,10 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box sx={style.container} key={cardIndex}>
-                    <Box style={{ padding: "60px 30px", }}>
-                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
+                  <Box sx={style.container} key={cardIndex} >
+                 
+                    <Box style={{ padding: "60px 30px",}}>
+                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
@@ -722,12 +726,14 @@ const MultipleInvestmentHandling = (props: IProps) => {
 
           {/* disadvantage */}
           <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+            
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
                   <Box key={featureIndex} style={{ display: "flex", alignItems: "center", padding: "10px", margin: "10px" }}>
                     <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
+                    
                       <ImageListItem>
                         <img
                           src={featureItem?.img}
@@ -796,7 +802,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
                     <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.description}</Typography>
                     <div style={{ marginTop: "10px" }}>
-                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.subDescription}</Typography>
+                  
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} > {factorItem?.subDescription}</Typography>
                     </div>
                   </Box>
                 )

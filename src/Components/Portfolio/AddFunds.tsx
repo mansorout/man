@@ -138,7 +138,7 @@ const AddFunds = () => {
   const [selected, setSelected] = useState<number>(1);
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const g_investment: any = useSelector(
-    (state: any) => state?.investment?.investment
+    (state: any) => state?.investmentReducer?.investment
   );
 
 
@@ -441,6 +441,7 @@ const AddFunds = () => {
                         }
                         )
                       </Typography>
+                    
                     </Box>
                     <Box
                       onClick={() =>
@@ -491,6 +492,7 @@ const AddFunds = () => {
                           onClick={(val, type, elt) => handleAddFundsSelection(val, type, elt)}
                           index={index}
                         />
+                    
                       </Box>
                     );
                   })}
@@ -499,14 +501,17 @@ const AddFunds = () => {
             {
               fundSelecteds.length > 0 ?
                 <>
+              
                   <AddToPlanComp
                     fundsCount={fundSelecteds.length}
                     onClick={() => null}
                   />
+                  
                 </>
                 : null
             }
           </Grid>
+        
         </Grid>
       </Box>
     </Box>

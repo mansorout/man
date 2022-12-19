@@ -142,7 +142,7 @@ const CustomizeMF = () => {
   };
 
   const g_investment = useSelector(
-    (state: any) => state?.investment?.investment
+    (state: any) => state?.investmentReducer?.investment
   );
   const [activeScreen, setActiveScreen] = useState<number>(
     enumActiveScreen.CLOSE_MODAL

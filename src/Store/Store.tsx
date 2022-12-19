@@ -14,12 +14,19 @@ import { NavToggleReducer } from './Duck/NavToggle'
 import { InsuranceTermConditionReducer } from './Duck/InsuranceTermCondition'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { PinModalHome } from './Duck/PINModalHome'
-import investmentReducer from './Reducers/investmentReducer'
 import { ULIPCompare } from './Duck/ULIPCompare'
 import { FilterBox } from './Duck/FilterBox'
-import {SaveTaxInvestmentTypeReducers} from './Duck/SaveTaxInvestmentType'
+import { SaveTaxInvestmentTypeReducers } from './Duck/SaveTaxInvestmentType'
 import { submituserdetails } from './Reducers/action'
 import UserDetailsReducer from './Reducers/UserDetailsReducer'
+import authReducer from './Authentication/reducer/auth-reducers'
+import exploreFundReducer from './Explore funds/reducers/explore-funds-reducer'
+// import insuranceReducer from './Home/Insurance/reducers/insurance-reducer'
+// import investmentReducer from './Home/Investment/reducers/investment-reducer'
+import portfolioReducer from './Portfolio/reducers/protfolio-reducer'
+import insuranceReducer from './Insurance/reducers/insurance-reducer'
+import investmentReducer from './Investment/reducers/investment-reducer'
+// import investmentReducer from './Reducers/investmentReducer'
 
 
 
@@ -38,10 +45,18 @@ const rootReducer = combineReducers({
     NavToggleReducer: NavToggleReducer,
     InsuranceTermConditionReducer: InsuranceTermConditionReducer,
     PinModalHome: PinModalHome,
-    ULIPCompare : ULIPCompare,
-    investment: investmentReducer,
+    ULIPCompare: ULIPCompare,
+    // investment: investmentReducer,
     SaveTaxInvestmentType: SaveTaxInvestmentTypeReducers,
-    userProfileDetails:UserDetailsReducer
+    userProfileDetails: UserDetailsReducer,
+
+    authReducer: authReducer,
+    exploreFundReducer: exploreFundReducer,
+    insuranceReducer: insuranceReducer,
+    investmentReducer: investmentReducer,
+    portfolioReducer: portfolioReducer
+
+
 })
 
 export const store = createStore(

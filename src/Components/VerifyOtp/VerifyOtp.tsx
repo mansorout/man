@@ -13,7 +13,43 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
+import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 
+
+const style = {
+  background: {
+    backgroundColor: "#f9f9f9",
+    height: "100vh",
+    width: "100vw",
+    display: "flex",
+    flexDirection: "column",
+    boxSizing: "border-box",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  } as React.CSSProperties,
+
+  container: {
+    backgroundColor: "white",
+    width: "96%",
+    maxWidth: "500px",
+    padding: "10px 0px",
+    borderRadius: "20px 20px 0px 0px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
+    transform: "translate(-50%, 0%)",
+    left: "50%",
+    bottom: "0px",
+    position: "absolute"
+  } as React.CSSProperties,
+
+  logo: {
+    width: "72px",
+    margin: "20px 0px"
+  } as React.CSSProperties,
+}
 
 
 
@@ -21,10 +57,9 @@ export const VerifyOtp = () => {
 
   const [OTP, setOTP] = useState<string>("")
   let refreshtokendata: any = localStorage.getItem('refreshtoken')
-  console.log(refreshtokendata);
 
   const ResendOtp = () => {
-    store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
+    // store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
 
   }
 
@@ -59,51 +94,17 @@ export const VerifyOtp = () => {
   };
 
   const handleOtpChange = (otp: any) => {
-    
+
     setOTP(otp)
     if (otp.length === 4) {
-      store.dispatch(verifycxotp({ 'otp': otp, 'number': number }))
-      localStorage.setItem("loggedin", "true")
+      // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
+      store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
+      localStorage.setItem("loggedin", "true");
     }
 
   }
 
   const error: string[] = useSelector((state: any) => state.error)
-
-  const style = {
-    background: {
-      backgroundColor: "#f9f9f9",
-      height: "100vh",
-      width: "100vw",
-      display: "flex",
-      flexDirection: "column",
-      boxSizing: "border-box",
-      justifyContent: "flex-end",
-      alignItems: "center",
-    } as React.CSSProperties,
-
-    container: {
-      backgroundColor: "white",
-      width: "96%",
-      maxWidth: "500px",
-      padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-      transform: "translate(-50%, 0%)",
-      left: "50%",
-      bottom: "0px",
-      position: "absolute"
-    } as React.CSSProperties,
-
-    logo: {
-      width: "72px",
-      margin: "20px 0px"
-    } as React.CSSProperties,
-  }
 
   const navigate = useNavigate()
 
@@ -123,7 +124,7 @@ export const VerifyOtp = () => {
             we sent you on your mobile number
           </Typography>
           <OtpInput
-              
+
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
@@ -163,10 +164,11 @@ export const VerifyOtp = () => {
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
               <span
                 // disabled={seconds > 0 || minutes > 0}
-                style={{cursor:"pointer",textDecoration:"underline",
+                style={{
+                  cursor: "pointer", textDecoration: "underline",
                   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#FF5630",
                 }}
-                onClick={resendOTP}  className="textLink" > Resend</span> </Typography>
+                onClick={resendOTP} className="textLink" > Resend</span> </Typography>
           )}
 
 
