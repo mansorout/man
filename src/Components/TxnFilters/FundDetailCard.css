@@ -4,18 +4,19 @@
 }
 
 #CoCard .table_head {
-    font-size: 10px;
+    font-size: 14px;
     color: #ffffff;
+   
 }
 
 #CoCard .table_head2 {
-    font-size: 20px;
+    font-size: 20px ! important;
     color: #ffffff;
 }
 
 #CoCard .MuiTableCell-root {
     border-bottom: none;
-    text-align: left;
+    text-align: center;
     margin-bottom: 0;
     margin-top: 0;
     padding-bottom: 0;

@@ -69,7 +69,7 @@ export default function FundPerformance() {
                     id="panel2a-header"
                 >
                     <Box sx={{}}>
-                        <Typography className='risko_meter'>Risk Performance</Typography>
+                        <Typography className='risko_meter'>Fund Performance</Typography>
                         <Typography className='Level-of-Risk-in-the-Scheme'>* Return over one year as analysed</Typography>
                     </Box>
 
