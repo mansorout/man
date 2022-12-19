@@ -555,7 +555,7 @@ function EditprofileCard() {
           }}
           className="paperstyle"
          >
-            <Paper className='paddingstyle'
+            <Paper className='paddingstyle_style'
           
               sx={{
                 p: 1,
@@ -563,7 +563,7 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "12px"
               }} > <Typography sx={{ color: "#6c63ff",}}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }}>
+              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }} className='wholedivbuttons'>
                 <Button
                   id={"male"}
                   className="malestyle"

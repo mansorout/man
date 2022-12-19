@@ -59,13 +59,12 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+
 function HolderSignature() {
+    
     const dispatch = useDispatch();
-
-
-
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
-
+    
     const [uploadChequeButton, setUploadChequeButtonDisable] =
         useState<boolean>(true);
 

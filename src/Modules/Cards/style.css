@@ -59,12 +59,18 @@
       
         margin-left: -19px !important;
     }
+    .paddingstyle_style{
+        margin-left: 9px !important;
+    }
+    .wholedivbuttonstyle{
+        color: red;
+    }
    
    
 }
 
 
-
+/* meidaqueary 768px */
 
 @media (max-width:768px) {
     .css-1o59boh .MuiTextField-root {
@@ -97,7 +103,7 @@
     
     }
     .buttontransgender{
-       width: 32%!important;
+       width: 40%!important;
         margin: 8px !important
     }
     .femalestyle{
@@ -114,8 +120,11 @@
         margin: 8px;
         width: 239px;
         height: 16px;
+
     }   
 }
+
+
  @media (max-width:560px) {
     .MuiGrid-root .pincodeClass {
         margin-top: -8px;
@@ -137,9 +146,14 @@
         width: calc(100% + 24px) !important;
     }
     .paddingstyle{
-        padding: 29px !important;
+        padding: 20px !important;
         margin-top: 2px !important;
-        margin-left: -29px !important;
+        margin-left: -20px !important;
+    }
+    .paddingstyle_style{
+        padding: 20px !important;
+        margin-top: 2px !important;
+        margin-left: -20px !important;
     }
     .buttontransgender{
         width: 40%!important;

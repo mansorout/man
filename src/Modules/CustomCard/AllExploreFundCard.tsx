@@ -166,7 +166,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
         <Chip style={{borderRadius:"0px", backgroundColor:"#fef4d6"}} avatar={<Avatar alt="star" src={ Star } />}  label={ star } />
         <Box style={{display:"flex", gap:"30px", flexWrap:"wrap"}}>
             <Box>
-                <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>1yrs return</Typography>
+                <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>1yr return</Typography>
                 <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹{year1}</Typography>
             </Box>
             <Box>

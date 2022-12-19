@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 // import './Portfolio.css'
+
 import '../../Components/Portfolio/Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, ImageListItem, Link, MenuList, Typography } from '@mui/material'
@@ -693,9 +694,10 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box sx={style.container} key={cardIndex}>
+                  <Box sx={style.container} key={cardIndex} >
+                 
                     <Box style={{ padding: "60px 30px",}}>
-                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
@@ -724,6 +726,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
 
           {/* disadvantage */}
           <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+            
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {

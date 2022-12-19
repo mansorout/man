@@ -103,3 +103,112 @@
       </ListItem>
     </List>
   </DrawerList> */
+  /* @media screen and (max-width:1024px) {
+    .closeIconStyle{
+    
+      padding-left: 0% !important;
+      margin-left: 18% !important;
+    }
+    .siplogoStyle{
+   
+      margin-left: -21% !important;
+      padding-left: 1% !important;
+    }
+    .HelpUsStyle{
+   
+      padding-left: 23% !important; 
+     }
+     .KnowMoreStyle{
+      
+       padding-left: 2% !important;
+     }
+    
+   } */
+@media screen and (max-width:820px) {
+ .smallmodal{
+  max-width: 51% !important;  
+ } 
+ 
+}
+@media screen and (max-width: 768px) {
+  .smallmodal {
+    max-width: 49% !important;
+  }
+  .closeIconStyle{
+    
+    padding-left: 1% !important;
+  }
+  .siplogoStyle{
+ 
+    margin-left: -29px !important;
+    padding-left: 10% !important;
+  }
+
+}
+
+
+  @media screen and (max-width: 480px) {
+    .smallmodal {
+      min-width: 90% !important;
+    }
+    .ImageIconStyle{
+      color: aliceblue;
+    }
+    .closeIconStyle{
+    
+      padding-left: 1% !important;
+    }
+    .siplogoStyle{
+   
+      margin-left: -29px !important;
+    }
+    .HelpUsStyle{
+   
+     padding-left: 23% !important; 
+    }
+    .KnowMoreStyle{
+     
+      padding-left: 8% !important;
+    }
+ .withdraliconstyle{
+  color: red !important;
+  padding-left: 52px !important;
+  
+ }
+ .withlogoiconstyle_style{
+  color: black !important;
+  padding: 10px 5px 23px 22px !important;
+ }
+ .iconstyle{
+  color: blue !important;
+  padding-top: 11px !important;
+    padding-left: 26px !important;
+ }
+  }
+  
+  @media screen and (max-width: 375px) {
+    .siplogoStyle{
+   
+      margin-left: -29px !important;
+      padding-left: 1% !important;
+    }
+ 
+  }
+  @media screen and (max-width: 360px) {
+    
+   
+      .closeIconStyle{
+    
+        padding-left: 0% !important;
+      }
+      .siplogoStyle{
+   
+      
+        padding-left: 0% !important;
+      }
+ 
+ 
+  }
+  
+
+
