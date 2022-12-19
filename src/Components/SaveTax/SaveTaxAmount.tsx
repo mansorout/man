@@ -141,6 +141,8 @@ const SaveTaxAmount = () => {
             dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
             dispatch(SaveTaxInvestmentAmount(monthlyAmount))
         }
+
+        
         navigate('/saveTax/saveTaxInvestmentType')
     }
 

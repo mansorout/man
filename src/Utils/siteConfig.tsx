@@ -17,6 +17,7 @@ const siteConfig = Object.freeze({
 
   //API
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
+  SAVE_TAX_COMPARISON:'/savetax/comparison',
 
   
 
