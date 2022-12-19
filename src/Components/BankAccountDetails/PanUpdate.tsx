@@ -80,7 +80,7 @@ const PanUpdate = () => {
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        marginLeft: '20vw',
+                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
@@ -96,13 +96,13 @@ const PanUpdate = () => {
                             }}>PAN Update</Typography>
                         </Breadcrumbs>
                         <Box component="form" sx={{
-                            width: '30.5rem',
-                            gap: '2rem',
+                            gap: { xs: '1vw', sm: '1vw', md: '1.5vw', lg: '2vw' },
+                            width: '90%',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5rem',
-                            borderRadius: '0.5rem',
+                            padding: '1.5vw',
+                            borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
                             fontFamily: 'Roboto',
