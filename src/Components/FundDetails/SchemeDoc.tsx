@@ -47,7 +47,7 @@ export const SchemeDoc = () => {
                 height: "20px",
                 padding: "10px",
                 opacity: "0.9",
-                backgroundColor: "#64dbff"
+                backgroundColor: "#C1F0FF"
 
               }}
             />

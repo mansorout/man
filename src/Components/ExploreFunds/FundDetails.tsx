@@ -178,8 +178,23 @@ function Details() {
                                     item xs={13}>
                                     <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
                                         <Breadcrumbs aria-label="breadcrumb">
-                                            <Link color="#6495ED" underline="always" href="/explorefunds">
-                                                <Typography className='burgerText'>Explore Funds</Typography>
+                                            <Link color="#6495ED" underline="always" href="/home">
+                                                <Typography className='burgerText'>Home</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" href="/investNow">
+                                                <Typography className='burgerText'>Investment</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" href="/sipInvestment">
+                                                <Typography className='burgerText'>Monthly Investment</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" href="/mflist">
+                                                <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" href="/customizemf">
+                                                <Typography className='burgerText'>Customize Plan </Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" href="/replaceFunds">
+                                                <Typography className='burgerText'>Choose Fund to Replace </Typography>
                                             </Link>
                                             <Link underline='none' color="#8787a2" aria-current="page">
                                                 <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
