@@ -211,6 +211,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                             <img src={RemoveButtonIcon} />
                             Remove
                         </Button>
+                    
                     </Box>
                 </CardContent>
             </Card>

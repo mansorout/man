@@ -17,10 +17,11 @@ import { useNavigate } from 'react-router-dom';
     year1: string,
     year3: string,
     year5: string,
-    star:string
+    star:string,
+  
   }
 
-function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, cap} : Prop) {
+function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, cap,} : Prop) {
 
     
       
@@ -177,6 +178,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
                 <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5yrs return</Typography>
                 <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹{year5}</Typography>
             </Box>
+           
         </Box>
       </Box>
     
@@ -231,6 +233,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
         <Button variant="contained" style={style.button3} fullWidth onClick={()=>{setOpenPaymentModal(false)}} >
             <Typography style={style.text} className="largeButtonText">Continue</Typography>
         </Button>
+
       </Box>
     </Modal>
     </>

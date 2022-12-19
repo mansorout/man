@@ -1,4 +1,4 @@
-import { meria } from "../Assets";
+import { meria, mask,quart, maskLogo } from "../Assets";
 
 export const ExploreFundsList = [
     {
@@ -13,7 +13,7 @@ export const ExploreFundsList = [
         star:"5.0"
     },
     {
-        logo: meria,
+        logo: maskLogo,
         name: "Invesco India Mid Cap Fund Growth",
         cap: "Mid Cap",
         type: "Debt",
@@ -24,7 +24,7 @@ export const ExploreFundsList = [
         star:"3.0"
     },
     {
-        logo: meria,
+        logo: quart,
         name: "Quant Mid Cap Fund Growth",
         cap: "Small Cap",
         type: "Balanced",
@@ -35,7 +35,7 @@ export const ExploreFundsList = [
         star:"3.0"
     },
     {
-        logo: meria,
+        logo: mask,
         name: "PGIM India Midcap Opportunities Fund Regular",
         cap: "Large Cap",
         type: "Equity",
@@ -46,7 +46,7 @@ export const ExploreFundsList = [
         star:"5.0"
     },
     {
-        logo: meria,
+        logo: quart,
         name: "Quant Mid Cap Fund Growth",
         cap: "Small Cap",
         type: "Balanced",

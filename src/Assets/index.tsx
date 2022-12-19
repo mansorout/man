@@ -98,6 +98,9 @@ export const formatter = new Intl.NumberFormat('en-IN', {
 });
 
 export const graphimage=require("./Profile/GraphImage.png")
+export const mask=require("./Profile/Mask.png")
+export const quart=require("./Profile/Quart.png")
+export const maskLogo=require("./Profile/masklogo.png")
 export const GrouMobilecicon=require("./Profile/GrouMobileIcon.png")
 export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")
 export const lockinlogo =require("./Profile/Lockinlogo.png")

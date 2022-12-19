@@ -63,6 +63,7 @@ interface FooterBtnWithBoxType {
 const FooterWithBtn = (props: FooterBtnWithBoxType) => {
     const classes = useStyles()
     return (
+      
         <Box sx={{
             position: 'relative',
             zIndex: '1',
