@@ -23,7 +23,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {getData} from '../../Utils/api';
+import {getDataWithParam} from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig'
 
 
@@ -133,6 +133,9 @@ const SaveTaxInvestmentType = () => {
 
     
     useEffect(() => {
+        
+        
+        getDataWithParam(siteConfig.SAVE_TAX_COMPARISON, `/?amount=${investmentAmount}`, siteConfig.CONTENT_TYPE_APPLICATION_JSON, siteConfig.SAVE_TAX_API_ID,)
     }, [])
 
 
