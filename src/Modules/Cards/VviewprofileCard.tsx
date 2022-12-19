@@ -142,7 +142,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}
+                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}
 
                                 >PAN Number
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
@@ -190,7 +190,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Nominee & Declarations
+                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Nominee & Declarations
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -230,7 +230,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Account Holder Signature
+                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Account Holder Signature
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -272,7 +272,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Bank Account
+                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Bank Account
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -325,7 +325,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Cancelled Cheque
+                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Cancelled Cheque
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -372,7 +372,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" }}>Quick Access Options</Typography>
+                                <Typography sx={{ fontSize: "14px" ,color:"#7b7b9d"}}>Quick Access Options</Typography>
                             }
                             secondary="PIN"
 

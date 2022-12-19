@@ -437,6 +437,7 @@ const OneTimeMutualFund = () => {
                 backgroundColor: "#fff",
               }}
             >
+            
               <FooterWithButton2
                 btnText="BUY NOW"
                 btnClick={() =>

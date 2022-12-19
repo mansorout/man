@@ -490,11 +490,13 @@ function EditprofileCard() {
                           fontWeight: "normal",
                           top: "-1px",
                           background: "#fff"
+                          
                         }}>Country of Birth</InputLabel>
 
                         <Select
                           onBlur={handleBlurCountry}
                           fullWidth={true}
+                          sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           name="CountrySecond"
                           value={formData.CountrySecond}
                           onChange={handlechange}
@@ -553,15 +555,15 @@ function EditprofileCard() {
           }}
           className="paperstyle"
          >
-            <Paper className='paddingstyle'
+            <Paper className='paddingstyle_style'
           
               sx={{
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "2px"
+                marginLeft: "12px"
               }} > <Typography sx={{ color: "#6c63ff",}}>Gender</Typography>
-              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }}>
+              <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }} className='wholedivbuttons'>
                 <Button
                   id={"male"}
                   className="malestyle"
@@ -571,8 +573,8 @@ function EditprofileCard() {
                   size="small"
                   sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 1px 6px" }}
                   style={{ cursor: "pointer", border: `1px solid ${selected ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
-                ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "-3px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Male</Typography>
+                ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "-3px" }} />
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px"  }}>Male</Typography>
                 </Button>
                 <Button
                   name="gender"
@@ -581,8 +583,8 @@ function EditprofileCard() {
                   onClick={() => { setSelectedFemale(true); setSelected(false); setSelectedTrans(false); setFormData({ ...formData, gender: "female" }) }}
                   style={{ cursor: "pointer", border: `1px solid ${selectedFemale ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedFemale ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                  <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>  Female</Typography>
+                  <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px"  }}>  Female</Typography>
                 </Button>
                 <Button
                   id={"transgender"}
@@ -590,8 +592,8 @@ function EditprofileCard() {
                   name="gender" onClick={() => { setSelectedTrans(true); setSelected(false); setSelectedFemale(false); setFormData({ ...formData, gender: "transgender" }) }}
                   style={{ cursor: "pointer", border: `1px solid ${selectedTrans ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedTrans ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                  <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "2px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d" }}>Transgender</Typography>
+                  <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px" }}>Transgender</Typography>
                 </Button>
               </Box>
 
@@ -762,6 +764,7 @@ function EditprofileCard() {
                 />
 
                 <Button variant="contained" style={style.buttonbtn}
+                className="buttoncenterstyle"
                   disabled={!areAllFieldsFilled}
                   onClick={handleClick} fullWidth >
                   <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
