@@ -1,6 +1,14 @@
 import { postData } from "../../../../Utils/api";
 import siteConfig from "../../../../Utils/siteConfig";
 
+export const setInvestmentCardTypeAction = (data: any) => {
+  return { type: "SET_INVESTMENT_TYPE", payload: data }
+}
+
+export const setOpenDetailDialogAction = (data: any) => {
+  return { type: "OPEN_SAVE_DETAIL_DIALOG", payload: data }
+}
+
 export const mutualFundGenerateApiAction = (verifyInput: any) => {
 
   return (dispatch: any) => {

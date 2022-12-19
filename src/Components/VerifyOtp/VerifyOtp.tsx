@@ -13,7 +13,7 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
-import { verifyXOtpNew } from "../../Store/Authentication/actions/auth-actions";
+import { verifyOtp } from "../../Store/Authentication/actions/auth-actions";
 
 
 const style = {
@@ -97,9 +97,9 @@ export const VerifyOtp = () => {
 
     setOTP(otp)
     if (otp.length === 4) {
-      store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
-      // store.dispatch(verifyXOtpNew({ 'otp': otp, 'number': number, 'type': 'auth' }))
-      localStorage.setItem("loggedin", "true")
+      // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
+      store.dispatch(verifyOtp({ 'otp': otp, 'number': number, 'type': 'auth' }));
+      localStorage.setItem("loggedin", "true");
     }
 
   }

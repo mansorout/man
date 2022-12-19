@@ -5,15 +5,18 @@ const initialState: any = {
 }
 
 const authReducer = (state = initialState, action: any) => {
-  
   switch (action.type) {
     case SET_LOGIN_DATA: {
-      return action.payload
+      state.login = {
+        ...state.login,
+        data: action.payload
+      }
+      break;
     }
-
     case SET_LOGIN_SUCCESS: {
-      return action.payload
+      // return action.payload
 
+      break;
     }
     case SET_LOGIN_FAILED: {
       // return action.payload
@@ -21,6 +24,8 @@ const authReducer = (state = initialState, action: any) => {
       break
     }
   }
+
+  return state;
 }
 
 export default authReducer;

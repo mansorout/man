@@ -2,16 +2,25 @@ import { postData } from "../../../Utils/api"
 import siteConfig from "../../../Utils/siteConfig"
 import { SET_LOGIN_DATA } from "../constants/auth-constants"
 
-export const setloginDataAction = (dummy: any) => {
+export const setloginDataOnSuccessAction = (data: any) => {
   return (dispatch: any) => {
     dispatch({
       type: SET_LOGIN_DATA,
-      payload: dummy
+      payload: data
     })
   }
 }
 
-export const verifyXOtpNew = (verifyInput: any) => {
+export const setloginDataOnFailAction = (data: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_LOGIN_DATA,
+      payload: data
+    })
+  }
+}
+
+export const verifyOtp = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
 
   return (dispatch: any) => {
@@ -24,18 +33,17 @@ export const verifyXOtpNew = (verifyInput: any) => {
       .then(res => res.json())
       .then((data) => {
         if (data?.error === true) {
-          dispatch({ type: 'LOGIN_FAILED' })
+          dispatch(setloginDataOnFailAction({}));
           return;
         }
-        let response = data?.data
+        let response = data?.data;
 
-        localStorage.setItem("accesstoken", response?.accesstoken)
-        dispatch({
-          type: 'LOGIN_SUCCESS',
-          payload: data
-        })
+
+        localStorage.setItem("accesstoken", response?.accesstoken);
+
+        dispatch(setloginDataOnSuccessAction(data));
       }).catch(err => {
-        dispatch({ type: 'LOGIN_FAILED' })
+        dispatch(setloginDataOnFailAction({}));
         console.log(err);
       })
   }

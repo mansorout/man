@@ -1,8 +1,24 @@
+
+// const initialState: any = {
+
+// }
+
+// const insuranceReducer = (state = initialState, action: any) => {
+
+//   switch (action.type) {
+//     case "": {
+//       return action.payload
+//     }
+//   }
+// }
+
+// export default insuranceReducer;
+
 const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
 }
 
-export default function investmentReducerold(objState = objInitialState, action: any) {
+export default function investmentReducer(objState = objInitialState, action: any) {
   switch (action.type) {
     case 'SET_INVESTMENT_TYPE': {
       objState.investment = {
@@ -24,3 +40,5 @@ export default function investmentReducerold(objState = objInitialState, action:
 
   return objState;
 }
+
+
