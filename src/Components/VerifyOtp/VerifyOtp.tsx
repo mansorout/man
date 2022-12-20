@@ -14,6 +14,7 @@ import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
 import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import siteConfig from "../../Utils/siteConfig";
 
 
 const style = {
@@ -67,6 +68,8 @@ export const VerifyOtp = () => {
   const [minutes, setMinutes] = useState<number>(1);
   const [seconds, setSeconds] = useState<number>(30);
 
+  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (seconds > 0) {
@@ -88,21 +91,29 @@ export const VerifyOtp = () => {
     };
   }, [seconds]);
 
+  useEffect(() => {
+    console.log(g_loginData);
+    if (g_loginData?.accesstoken) {
+      localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
+      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
+      navigate("/home");
+    }else {
+      
+    }
+  }, [g_loginData])
+
   const resendOTP = () => {
     setMinutes(1);
     setSeconds(30);
   };
 
-  const handleOtpChange = (otp: any) => {
+  const handleOtpChange = async (otp: any) => {
 
-    setOTP(otp)
+    setOTP(otp);
     if (otp.length === 4) {
       // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
-      store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
-      localStorage.setItem("loggedin", "true");
-      navigate("/home")
+      await store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
     }
-
   }
 
   const error: string[] = useSelector((state: any) => state.error)
