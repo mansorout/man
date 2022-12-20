@@ -1,6 +1,6 @@
 import { postData } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
-import { setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
+import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
 
 export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
@@ -18,12 +18,8 @@ export const verifyOtpThunk = (verifyInput: any) => {
           dispatch(setloginDataOnFailAction({}));
           return;
         }
-        let response = data?.data;
-
-
-        localStorage.setItem("accesstoken", response?.accesstoken);
-
-        dispatch(setloginDataOnSuccessAction(data));
+        const response = data?.data;
+        dispatch(setloginDataOnSuccessAction(response));
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);

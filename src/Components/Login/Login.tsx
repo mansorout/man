@@ -153,13 +153,10 @@ export const Login = () => {
           console.log("error true");
           return;
         }
-        
 
-        localStorage.setItem("isUserAuthenticated", "true")
         removeError("Login_Contact");
         addContactNumber(number);
         navigate("/termsandcondition");
-        dispatch(setIsUserAuthenticatedAction(true));
       })
       .catch((err) => {
         console.log(err);
