@@ -128,7 +128,13 @@
  .smallmodal{
   max-width: 51% !important;  
  } 
- 
+ .NoLockinperiod{
+  color: red !important;
+  padding-left: 1% !important;
+ }
+ .iconstyle{
+  padding-left: 17% !important;
+ }
 }
 @media screen and (max-width: 768px) {
   .smallmodal {
@@ -171,8 +177,8 @@
       padding-left: 8% !important;
     }
  .withdraliconstyle{
-  color: red !important;
-  padding-left: 52px !important;
+  padding-left: 10% !important;
+    padding-top: 5% !important;
   
  }
  .withlogoiconstyle_style{
@@ -182,8 +188,13 @@
  .iconstyle{
   color: blue !important;
   padding-top: 11px !important;
-    padding-left: 26px !important;
+    padding-left: 20px !important;
  }
+ .NoLockinperiod {
+ 
+  padding-left: 1% !important;
+  padding-top: 14% !important;
+}
   }
   
   @media screen and (max-width: 375px) {
