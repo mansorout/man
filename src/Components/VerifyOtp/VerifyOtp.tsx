@@ -61,8 +61,8 @@ export const VerifyOtp = () => {
   const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
 
   const [OTP, setOTP] = useState<string>("");
-  const [minutes, setMinutes] = useState<number>(0);
-  const [seconds, setSeconds] = useState<number>(5);
+  const [minutes, setMinutes] = useState<number>(1);
+  const [seconds, setSeconds] = useState<number>(30);
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
   useEffect(() => {
@@ -70,7 +70,8 @@ export const VerifyOtp = () => {
     if (g_loginData?.accesstoken) {
       localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
       localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
-      navigate("/home");
+      // navigate("/home");
+      navigate("/otpverified");
     } else {
 
     }
