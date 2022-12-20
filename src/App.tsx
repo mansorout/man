@@ -176,7 +176,7 @@ function App() {
         }
         <Route path="/termsandcondition" element={<TermsandCondition heading={""} />} />
         <Route path="/otpverify" element={<VerifyOtp />} />
-        <Route path="/otpverified" element={<OtpSuccess />} />
+        {/* <Route path="/otpverified" element={<OtpSuccess />} /> */}
         <Route path="/choosepin" element={<ChoosePin />} />
         <Route path="/successpin" element={<Mpinsuccess />} />
         <Route path="/loginsecond" element={<LoginSecond />} />
