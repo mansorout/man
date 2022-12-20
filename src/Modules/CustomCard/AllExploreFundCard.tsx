@@ -264,7 +264,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
           </Button>
         </Box>
       </Modal>
-      <Box onClick={() => {navigate('/details')}} style={{ gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
+      {/* <Box onClick={() => {navigate('/details')}} style={{ gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", alignItems:"center", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
         <Box style={{display:"flex", gap:"10px", flexWrap:"wrap", width:"100%", maxWidth:"400px"}}>
             <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
                 <img src={logo} width="100%" alt='mirae'></img>
@@ -300,7 +300,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
                 <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5yrs return</Typography>
                 <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹{year5}</Typography>
             </Box>
-           <h1>h</h1>
+          
         </Box>
       </Box>
     
@@ -357,7 +357,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
         </Button>
 
       </Box>
-    </Modal>
+    </Modal> */}
     </>
   )
   }
