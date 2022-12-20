@@ -253,7 +253,7 @@ function Details() {
                                                 textTransform: 'capitalize',
                                             }}>Add This Fund To Plan</Button>
                                     </Grid> */}
-                                    <FooterWithBtn 
+                                    <FooterWithBtn
                                         btnText='Add This Fund to Plan'
                                         btnClick={handleClick}
                                     />
