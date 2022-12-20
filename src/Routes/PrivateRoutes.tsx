@@ -5,7 +5,8 @@ const PrivateRoute = ({ children }: any) => {
   const location = useLocation();
   const g_authUser = useSelector((state: any) => state?.authReducer.authUser);
 
-  if (!g_authUser?.isUserAuthenticated) {
+
+  if (!g_authUser?.isUserAuthenticated || !localStorage.getItem("isUserAuthenticated")) {
     // not logged in so redirect to login page with the return url
     return <Navigate to="/login" state={{ from: location }} />
   }

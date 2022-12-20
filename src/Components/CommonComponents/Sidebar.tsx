@@ -33,7 +33,12 @@ const Sidebar = () => {
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
+    }
+    
+    const handleUserLogout = () =>{
+        dispatch(NavToggleAction(!toggleState))
         dispatch(setIsUserAuthenticatedAction(false));
+        localStorage.setItem("isUserAuthenticated", "");
     }
 
     return (
@@ -133,7 +138,7 @@ const Sidebar = () => {
                                 <PowerSettingsNew sx={{ color: pathName == '/logout' ? "#23db7b" : 'black' }} />
                             </ListItemIcon>
                             <ListItemText primary="Logout"
-                                onClick={()=>{navigate('/login'); handleMenuOpen()}}
+                                onClick={()=>{navigate('/login'); handleUserLogout()}}
                              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                         </ListItemButton>
                     </ListItem>
