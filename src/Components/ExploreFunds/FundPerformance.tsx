@@ -12,11 +12,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.white,
+        color: '#919eb1',
+        fontSize: 12,
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
+        fontSize: 16,
+        color:"#7b7b9d"
     },
 }));
 
@@ -59,7 +61,7 @@ export default function FundPerformance() {
                 <AccordionSummary
                     sx={{
                         height: "84px",
-                        padding: "12px 12px 21px 16px",
+                        padding: "0px 16px 0px 0px",
                         borderRadius: " 8px",
                         margin: "0px 16px 0px 16px",
                         backgroundColor: "#fff"
@@ -74,15 +76,15 @@ export default function FundPerformance() {
                     </Box>
 
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{padding:"8px 0px 22px"}}>
                    
                         
                             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                 <TableHead style={{  }}>
                                     <TableRow>
-                                        <StyledTableCell>Period</StyledTableCell>
-                                        <StyledTableCell align="right">Return</StyledTableCell>
-                                        <StyledTableCell align="right">Benchmark</StyledTableCell>
+                                        <StyledTableCell sx={{backgroundColor:"red"}}>PERIOD</StyledTableCell>
+                                        <StyledTableCell align="right">RETURN</StyledTableCell>
+                                        <StyledTableCell align="right">BENCHMARK</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

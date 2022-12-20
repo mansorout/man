@@ -239,7 +239,7 @@ function Details() {
                                     }
                                     <Grid container rowSpacing={1} columnSpacing={2}>
                                         <Grid item md={12} xs={12}>
-                                            <ExploreFundChart />
+                                            {/* <ExploreFundChart /> */}
                                         </Grid>
                                         <Grid item md={12} xs={12}>
                                             <FundPerformance />
