@@ -14,15 +14,14 @@ export const RiskoMeter = () => {
       {
         data: [20, 20, 20, 20, 20],
         backgroundColor: [
-          "#55cb76",
-          "#b1e842",
-          "#e7a604",
-          "#fa9923",
-          "#a82c07"
+          "#8ad400",
+          "#d2eb00",
+          "#ecb004",
+          "#ff7800",
+          "#ef0200"
         ],
         display: true,
-        borderColor: "#D1D6DC",
-        spacing: 60,
+        spacing: 35,
       }
     ]
   };

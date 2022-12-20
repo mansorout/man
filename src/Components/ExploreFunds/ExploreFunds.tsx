@@ -212,10 +212,11 @@ function ExploreFunds() {
                 </Box>
                 
                 {
-                  fundList.map((item,key) => {
+                  fundList.length &&   fundList.map((item:any,key:number) => {
                     return(
-                      <AllExploreFundCard {...item} key={key} />
-                    
+                      <>
+                        <AllExploreFundCard {...item} key={key} />
+                      </>
                     )
                   })
                 }

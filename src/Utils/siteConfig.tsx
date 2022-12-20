@@ -18,8 +18,8 @@ const siteConfig = Object.freeze({
   //API
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
-  RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate/",
-
+  RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
+  SAVETAX_COMPARISON: "/savetax/comparison",
 });
 
 export default siteConfig;
