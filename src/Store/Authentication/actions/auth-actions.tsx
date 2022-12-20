@@ -1,4 +1,4 @@
-import { SET_LOGIN_DATA } from "../constants/auth-constants"
+import { SET_IS_USER_AUTENTICATED, SET_LOGIN_DATA } from "../constants/auth-constants"
 
 export const setloginDataOnSuccessAction = (data: any) => {
   return (dispatch: any) => {
@@ -16,4 +16,8 @@ export const setloginDataOnFailAction = (data: any) => {
       payload: data
     })
   }
+}
+
+export const setIsUserAuthenticatedAction = (payload: any) => {
+  return { type: SET_IS_USER_AUTENTICATED, payload: payload }
 }
