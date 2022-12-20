@@ -39,7 +39,8 @@ const Sidebar = () => {
     const handleUserLogout = () => {
         dispatch(NavToggleAction(!toggleState))
         dispatch(setIsUserAuthenticatedAction(false));
-        localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, "");
+        localStorage.clear();
+        // localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, "");
     }
 
     return (
