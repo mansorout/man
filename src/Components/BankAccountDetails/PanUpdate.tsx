@@ -98,6 +98,7 @@ const PanUpdate = () => {
                         <Box component="form" sx={{
                             gap: { xs: '1vw', sm: '1vw', md: '1.5vw', lg: '2vw' },
                             width: '90%',
+                            maxWidth: '488px',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
