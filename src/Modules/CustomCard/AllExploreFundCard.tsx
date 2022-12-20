@@ -158,7 +158,9 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
                 <Box style={{padding:"4px 5px", backgroundColor:"rgba(123, 123, 157, 0.16)"}}>
                     <Typography style={{color:"#7b7b9d", fontSize:"12px"}}>{type}</Typography>
                 </Box>
+              
                 </Box>
+          
             </Box>
         </Box>
         <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
@@ -178,7 +180,7 @@ function AllExploreFundCard({name,price,year1,year5, year3, type, logo, star, ca
                 <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>5yrs return</Typography>
                 <Typography style={{color:'#3c3e42', fontSize:"18px"}}>₹{year5}</Typography>
             </Box>
-           
+           <h1>h</h1>
         </Box>
       </Box>
     

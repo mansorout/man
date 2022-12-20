@@ -4,16 +4,16 @@ import {setSaveTaxInvestmentTypeOnFailAction, setSaveTaxInvestmentTypeOnSuccessA
 
 export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
     return (dispatch: any) => {
-        getData(
-            siteConfig.SAVE_TAX_COMPARISON + `/?amount=${investmentAmount}`,
-            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-            siteConfig.SAVE_TAX_API_ID,
-            // `/?amount=${investmentAmount}`,
-        ).then((res)=>{
-            debugger
-        }).catch((error) => {
-            debugger
-        })
+        // getData(
+        //     siteConfig.SAVE_TAX_COMPARISON + `/?amount=${investmentAmount}`,
+        //     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+        //     siteConfig.SAVE_TAX_API_ID,
+        //     // `/?amount=${investmentAmount}`,
+        // ).then((res)=>{
+        //     debugger
+        // }).catch((error) => {
+        //     debugger
+        // })
         
         
         // then(res => res.json()).then((data) => {
