@@ -157,7 +157,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
         {
           privateRoutesConstants.map((item, index) => {
             return (
@@ -220,12 +220,12 @@ function App() {
         <Route path="/replaceFunds" element={<ReplaceFunds />} /> */}
 
         {/* <Route path="/sipsuccessscreen" element={<SipSuccessScreen />} />
+        <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/sip" element={<SipList />} />
         <Route path="/buildWealth" element={<InvestNowScreen cardType={''} heading={''} />} />
         <Route path="/getLoan" element={<InvestNowScreen cardType={''} heading={''} />} />
         <Route path="/redeemfund" element={<RedeemFunds />} />
         <Route path="/netbanking" element={<NetBanking />} />
-        <Route path="/explorePlan" element={<ExplorePlan />} />
         <Route path="/saveTax" element={<SaveTax />} />
         <Route path="/saveTax/saveTaxAmount" element={<SaveTaxAmount />} />
         <Route path="/saveTax/saveTaxInvestmentType" element={<SaveTaxInvestmentType />} /> */}
