@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
+import './stylesss.css'
 
 export interface ULIPBlueButtonProp {
     text: string;
@@ -11,12 +12,16 @@ const ULIPBlueButton = (prop: ULIPBlueButtonProp) => {
     const navigate = useNavigate();
 
     return (
-        <Box sx={{
+        <Box
+        className="UlipBluebuttonStyle"
+         sx={{
             display: 'flex',
             justifyContent: 'center',
             marginTop: '3vw',
         }}>
-            <Button onClick={() => navigate(prop.navigateTo)} sx={{
+            <Button
+          
+             onClick={() => navigate(prop.navigateTo)} sx={{
                 width: '210px',
                 height: '44px',
                 padding: '13px 27px 12px 28px',

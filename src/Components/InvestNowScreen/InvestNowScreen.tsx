@@ -446,7 +446,7 @@ function InvestNowScreen(props: IProps) {
                           </Grid>
 
                           <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px" }}>
-                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }} >*Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}  >*Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
                             <Avatar alt="" src={lockinlogo} style={style.ca} />

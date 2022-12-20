@@ -1,6 +1,7 @@
 
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import './stylesss.css'
 
 
 const SelectUlipDateButton = (props: any) => {
@@ -28,9 +29,14 @@ const SelectUlipDateButton = (props: any) => {
     }
 
     return (
-        <Button variant="contained" style={style.button} fullWidth onClick={() => handleClick()} sx={{ marginLeft: { xs: '17%', sm: "0%" } }}>
+       
+           <Button
+    
+        variant="contained" style={style.button} fullWidth onClick={() => handleClick()} sx={{ marginLeft: { xs: '17%', sm: "0%",} }}>
             <Typography component="span" style={style.text} className="largeButtonText"  >Select ULIP Date</Typography>
         </Button>
+     
+     
     )
 };
 
