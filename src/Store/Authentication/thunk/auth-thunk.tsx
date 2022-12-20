@@ -1,6 +1,6 @@
 import { postData } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
-import { setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
+import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
 
 export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
@@ -18,12 +18,8 @@ export const verifyOtpThunk = (verifyInput: any) => {
           dispatch(setloginDataOnFailAction({}));
           return;
         }
-        let response = data?.data;
-
-
-        localStorage.setItem("accesstoken", response?.accesstoken);
-
-        dispatch(setloginDataOnSuccessAction(data));
+        const response = data?.data;
+        dispatch(setloginDataOnSuccessAction(response));
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
@@ -32,6 +28,24 @@ export const verifyOtpThunk = (verifyInput: any) => {
 }
 
 
-export const resendOtpThunk = (refreshtokendata: any) => {
-
+export const resendOtpThunk = ({ mobilenumber, type }: any) => {
+  return (dispatch: any) => {
+    postData(
+      { mobilenumber: mobilenumber, type: type },
+      siteConfig.AUTHENTICATION_OTP_SEND,
+      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then((data) => {
+        if (data?.error === true) {
+          console.log("error true");
+          return;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
+

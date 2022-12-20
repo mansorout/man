@@ -13,7 +13,8 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
-import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { resendOtpThunk, verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import siteConfig from "../../Utils/siteConfig";
 
 
 const style = {
@@ -51,21 +52,29 @@ const style = {
   } as React.CSSProperties,
 }
 
-
-
 export const VerifyOtp = () => {
 
-  const [OTP, setOTP] = useState<string>("")
-  let refreshtokendata: any = localStorage.getItem('refreshtoken')
+  const navigate = useNavigate();
 
-  const ResendOtp = () => {
-    // store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
+  const error: string[] = useSelector((state: any) => state.error);
+  const number: string = useSelector((state: any) => state.contact);
+  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
 
-  }
+  const [OTP, setOTP] = useState<string>("");
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(5);
+  const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
-  const [otp, setOtp] = useState<string>("");
-  const [minutes, setMinutes] = useState<number>(1);
-  const [seconds, setSeconds] = useState<number>(30);
+  useEffect(() => {
+    console.log(g_loginData);
+    if (g_loginData?.accesstoken) {
+      localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
+      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
+      navigate("/home");
+    } else {
+
+    }
+  }, [g_loginData]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,25 +100,16 @@ export const VerifyOtp = () => {
   const resendOTP = () => {
     setMinutes(1);
     setSeconds(30);
+    store.dispatch(resendOtpThunk({ mobilenumber: number, type: "auth" }))
   };
 
-  const handleOtpChange = (otp: any) => {
-
-    setOTP(otp)
+  const handleOtpChange = async (otp: any) => {
+    setOTP(otp);
+    setIsShowEnableVerifyBtn(true);
     if (otp.length === 4) {
-      // store.dispatch(verifycxotp({ 'otp': otp, 'number': number, 'type': 'auth' }))
-      store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
-      localStorage.setItem("loggedin", "true");
-      navigate("/home")
+      setIsShowEnableVerifyBtn(false);
     }
-
   }
-
-  const error: string[] = useSelector((state: any) => state.error)
-
-  const navigate = useNavigate()
-
-  const number: string = useSelector((state: any) => state.contact)
 
   return (
     <>
@@ -125,14 +125,12 @@ export const VerifyOtp = () => {
             we sent you on your mobile number
           </Typography>
           <OtpInput
-
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
             isInputNum={true}
             shouldAutoFocus={true}
             hasErrored={error?.includes("Login_OTP")}
-
             containerStyle={{
               display: "flex",
               justifyContent: "center",
@@ -154,8 +152,7 @@ export const VerifyOtp = () => {
               border: "1px solid red",
             }}
           />
-          <OtpVerifyButton otp={OTP} number={number} />
-
+          <OtpVerifyButton disabled={isShowEnableVerifyBtn} otp={OTP} number={number} />
           {seconds > 0 || minutes > 0 ? (
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
               Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -171,8 +168,6 @@ export const VerifyOtp = () => {
                 }}
                 onClick={resendOTP} className="textLink" > Resend</span> </Typography>
           )}
-
-
           <Footer />
         </Box>
       </Box>
