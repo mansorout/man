@@ -75,19 +75,10 @@ export default function FundPerformance() {
 
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Box sx={{
-                        margin: "1rem",
-
-                        // margin: "24px 32px",
-                        padding: " 12px 12px 21px 16px",
-                        borderRadius: "8px",
-
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                    }}>
-                        <TableContainer component={Paper}>
+                   
+                        
                             <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                                <TableHead style={{ backgroundColor: '#fff', color: '#fff' }}>
+                                <TableHead style={{  }}>
                                     <TableRow>
                                         <StyledTableCell>Period</StyledTableCell>
                                         <StyledTableCell align="right">Return</StyledTableCell>
@@ -106,8 +97,8 @@ export default function FundPerformance() {
                                     ))}
                                 </TableBody>
                             </Table>
-                        </TableContainer>
-                    </Box>
+                    
+                
                 </AccordionDetails>
             </Accordion>
         </Box>

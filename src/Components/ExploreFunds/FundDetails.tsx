@@ -16,6 +16,7 @@ import {
 import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import FundPerformance from './FundPerformance';
 import { useNavigate } from 'react-router-dom';
+import ExploreFundChart from './ExploreFundChart';
 
 function Details() {
     const refContainer = useRef();
@@ -138,8 +139,24 @@ function Details() {
         Legend
     )
 
+    // const data = {
+    //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    //     datasets: [
+    //         {
+    //             label: "First dataset",
+    //             data: [10,1,2,3,4,5,6,7,8,9, 12, 15, 12, 12, 34,12, 12, 34,12, 12, 34,12, 12, 34,12, 12, 34],
+    //             fill: true,
+    //             backgroundColor: "rgba(75,192,192,0.2)",
+    //             borderColor: "rgba(75,192,192,1)"
+    //         }
+    //     ]
+    // };
+
+
+
+
     const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        labels: ["18Jan", "28Feb", "5Mar", "13Apr", "May", "Jun"],
         datasets: [
             {
                 label: "First dataset",
@@ -149,7 +166,7 @@ function Details() {
                 borderColor: "rgba(75,192,192,1)"
             }
         ]
-    };
+    }
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -220,10 +237,19 @@ function Details() {
                                             )
                                         })
                                     }
+                                    <Grid container rowSpacing={1} columnSpacing={2}>
+                                        <Grid item md={12} xs={12}>
+                                            <ExploreFundChart />
+                                        </Grid>
+                                        <Grid item md={12} xs={12}>
+                                            <FundPerformance />
+                                        </Grid>
+                                    </Grid>
+                                    
 
-                                    <Line data={data} />
 
-                                    <FundPerformance />
+
+
 
                                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                         <Grid item xs={12} sm={6}>

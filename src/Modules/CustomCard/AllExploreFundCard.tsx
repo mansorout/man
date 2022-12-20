@@ -253,6 +253,7 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
       </Modal>
     </>
   )
-}
+  }
+
 
 export default AllExploreFundCard
