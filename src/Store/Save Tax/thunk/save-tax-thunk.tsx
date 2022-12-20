@@ -1,21 +1,21 @@
 import siteConfig from '../../../Utils/siteConfig'
 import { getData } from '../../../Utils/api'
-import {setSaveTaxInvestmentTypeOnFailAction, setSaveTaxInvestmentTypeOnSuccessAction} from '../actions/save-tax-actions'
+import { setSaveTaxInvestmentTypeOnFailAction, setSaveTaxInvestmentTypeOnSuccessAction } from '../actions/save-tax-actions'
 
 export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
     return (dispatch: any) => {
         getData(
-            siteConfig.SAVE_TAX_COMPARISON + `/?amount=${investmentAmount}`,
+            siteConfig.SAVETAX_COMPARISON + `/?amount=${investmentAmount}`,
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.SAVE_TAX_API_ID,
             // `/?amount=${investmentAmount}`,
-        ).then((res)=>{
+        ).then((res) => {
             debugger
         }).catch((error) => {
             debugger
         })
-        
-        
+
+
         // then(res => res.json()).then((data) => {
         //     debugger
         //     if (data?.error === true) {
