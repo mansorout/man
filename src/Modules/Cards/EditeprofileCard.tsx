@@ -29,7 +29,7 @@ import { store } from '../../Store/Store';
 import { submituserdetails } from '../../Store/Reducers/action';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { useDispatch } from 'react-redux';
-import { useForm } from "react-hook-form";
+
 import './style.css'
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
@@ -179,7 +179,7 @@ function EditprofileCard() {
   const [selected, setSelected] = useState<boolean>(false)
   const [selectedFemale, setSelectedFemale] = useState<boolean>(false)
   const [selectedTrans, setSelectedTrans] = useState<boolean>(false)
-  const { register, formState: { errors } } = useForm();
+  // const { register, formState: { errors } } = useForm();
   const NameRegex = /^[a-zA-Z ]{4,30}$/;
 
   const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
