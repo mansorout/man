@@ -50,19 +50,23 @@ const ULIPHeader = () => {
 
 
     return (
-        <Grid container spacing={1} sx={{
+        <Grid container spacing={1} 
+        className="WholeBodyStyleUlip"
+        sx={{
             width: '83.75vw',
             backgroundColor: '#6c63ff',
             color: '#fff',
             display: 'flex',
         }}>
-            <Grid item xs={12} sm={6} style={style.grid} className="ulip-header" sx={{
+            <Grid item xs={12} sm={6} style={style.grid}  sx={{
                 borderRight: '1px solid blue',
                 display: 'flex',
                 justifyContent: 'right',
                 alignItems: 'baseline'
-            }}>
-                <FormControl className="payment" variant="outlined" sx={{ width: '162px' }}>
+            }}
+            className="premiumpaymentStyle" 
+            >
+                <FormControl variant="outlined" sx={{ width: '162px' }}>
                     <InputLabel id="ppt" style={{ color: '#fff', fontSize: '10px', marginTop: '1vw' }}>Premium Payment Term</InputLabel>
                     <Select
                         labelId="ppt"
@@ -85,7 +89,7 @@ const ULIPHeader = () => {
                 padding: '5px',
                 gap: '24px',
             }}>
-                <Box>
+                <Box className="InvestmentMonthlyStyle">
                     <Typography sx={{
                         fontSize: '10px',
                         letterSpacing: '0.3px',
@@ -93,7 +97,7 @@ const ULIPHeader = () => {
                     }}>Investment Type</Typography>
                     <Typography sx={{
                         fontSize: '18px',
-                    }}>{formatter.format(Number(amount))} Monthly</Typography>
+                    }} className="MonthlyStyle">{formatter.format(Number(amount))} Monthly</Typography>
                 </Box>
                 <CreateIcon onClick={() => setVisibility('visible')} sx={{
                     width: '18px',
@@ -102,7 +106,9 @@ const ULIPHeader = () => {
                     opacity: 0.7,
                     margin: '11px 0',
                 }} />
-                <Box sx={{
+                <Box
+                 className="ToastterStyle"
+                 sx={{
                     position: 'relative',
                     top: '8vw',
                     left: '-30vw',
@@ -118,7 +124,7 @@ const ULIPHeader = () => {
                         variant="outlined"
                         label="Amount I want to invest monthly"
                         value={amount}
-                        className="monthlyInvest"
+                       
                         error={ error }
                         helperText={ error ? "Amount can only be numeric" : '' }
                         InputProps={{

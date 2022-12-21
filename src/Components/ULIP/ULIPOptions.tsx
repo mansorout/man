@@ -59,7 +59,9 @@ const ULIPOptions = () => {
     };
 
     return (
-        <Box style={{ width: "100vw" }}>
+        <Box style={{ width: "100vw" }}
+     
+        >
             <Navbar />
             <Box sx={style.main}>
                 <Grid container spacing={0} >
@@ -70,7 +72,9 @@ const ULIPOptions = () => {
                     <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
                         <Toolbar />
 
-                        <Box sx={{
+                        <Box 
+                           className="UlipoptionStyle"
+                        sx={{
                             padding: 0,
                             margin: 0,
                             fontFamily: 'Roboto',
@@ -79,6 +83,7 @@ const ULIPOptions = () => {
                             justifyContent: 'center',
                             gap: '1.5vw',
                         }}>
+                        
                             <Box sx={{
                                 padding: 0,
                                 margin: '2.5vw',
@@ -147,6 +152,7 @@ const ULIPOptions = () => {
                                 flexDirection: 'column',
                                 gap: '1.5vw',
                             }}>
+
                                 <Typography>{ulipData.length} plans found</Typography>
                                 {
                                     ulipData.map(data => <ULIPCoFundCard {...data} />)
