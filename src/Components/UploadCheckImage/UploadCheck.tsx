@@ -74,7 +74,12 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+
+
 function UploadCheck() {
+ 
+
+
   const dispatch = useDispatch();
   const [imagePreviewToLast, setImagePreviewToLast] = useState<any>();
   const [base64Image, setCanvasImageToBase64] = useState<any>("");
@@ -94,10 +99,11 @@ function UploadCheck() {
     useState<boolean>(true);
   const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
-  const [enableShowText,setenableShowText] = useState<boolean>(true);
+  const [enableShowText, setenableShowText] = useState<boolean>(true);
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-    
+
+
     setenableShowText(false);
     setUploadChequeButtonDisable(false);
     saveAndAddButtonDisable(false);
@@ -137,7 +143,12 @@ function UploadCheck() {
 
   const dataURL = previewCanvasRef.current?.toDataURL();
 
+        useEffect(()=>{
 
+        },[])
+
+
+        
 
   //  All Button in components goes here
 
@@ -159,7 +170,7 @@ function UploadCheck() {
   };
 
   const handleConfirm = () => {
- 
+
     setImagePreviewToLast(dataURL)
     setCanvasDisable(false);
     setPreview(false);
@@ -170,7 +181,7 @@ function UploadCheck() {
   };
 
   const sendToApi = () => {
-   
+
     setCanvasImageToBase64(dataURL)
     store.dispatch(uploadcheque({ chequedata: base64Image }));
   };
@@ -262,14 +273,14 @@ function UploadCheck() {
       height: "633",
     },
 
-  
-  
 
-   
-  
-   
-   
-   
+
+
+
+
+
+
+
     menuIcon: {
       color: "#6c63ff",
       fontSize: "24px",
@@ -292,18 +303,18 @@ function UploadCheck() {
   const classes = useStyles();
 
   const refContainer = useRef();
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
-      <Navbar/>
+      <Navbar />
       <Box sx={style.main}>
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh"}}
+          sx={{ height: "100vh" }}
         >
-          
+
           <Grid
             item
             xs={0}
@@ -311,7 +322,7 @@ function UploadCheck() {
             md={2}
           >
             <Toolbar />
-            <Sidebar/>
+            <Sidebar />
           </Grid>
           <Grid
             container
@@ -319,11 +330,11 @@ function UploadCheck() {
             sm={11}
             md={10}
           >
-            <Grid sx={{padding:2}} item xs={12}>
-              <Toolbar/>
-              <Box sx={{mb:"10px"}} className="checkHeadingStack">
+            <Grid sx={{ padding: 2 }} item xs={12}>
+              <Toolbar />
+              <Box sx={{ mb: "10px" }} className="checkHeadingStack">
                 <Typography
-                
+
                   component="span"
                   className="subTitle5"
                 >
@@ -331,9 +342,9 @@ function UploadCheck() {
                   electronic clearing system (ECS) mandate.
                 </Typography>
               </Box >
-              <Breadcrumbs sx={{mb:"10px"}} aria-label="breadcrumb">
+              <Breadcrumbs sx={{ mb: "10px" }} aria-label="breadcrumb">
                 <Link color="#6495ED" underline="always" href="/home">
-                <Typography className='burgerText'> Home</Typography>
+                  <Typography className='burgerText'> Home</Typography>
                 </Link>
                 <Link
                   underline="always"
@@ -341,19 +352,19 @@ function UploadCheck() {
                   href="/vp"
                 >
                   <Typography className='burgerText'>  View Profile</Typography>
-                  
+
                 </Link>
                 <Link
                   underline="none"
                   color="#8787a2"
                   aria-current="page"
                 >
-                
-                <Typography className='burgerText'>  Cancelled Cheque </Typography>
+
+                  <Typography className='burgerText'>  Cancelled Cheque </Typography>
                 </Link>
               </Breadcrumbs>
 
-              <Box style={{position:"relative", marginBottom:"20px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center", flexDirection:"column"}}>
+              <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                 {/* <Grid container  spacing={2} >
                   <Grid item   xs={12}>
                   <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
@@ -361,42 +372,42 @@ function UploadCheck() {
                 </Typography>
                   </Grid>
                 </Grid> */}
-                 <Grid  container >
-                                <Grid xs={12} md={8} sm={10}>
-                                <Typography style={{ padding: "15px",display: "flex" }} className="largeHeadingText" >
-                                Add Cancelled Cheque
-                                </Typography>
-                                </Grid>
-                              </Grid>
-                 
+                <Grid container >
+                  <Grid xs={12} md={8} sm={10}>
+                    <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
+                      Add Cancelled Cheque
+                    </Typography>
+                  </Grid>
+                </Grid>
+
                 <Box style={style.dividerBox}></Box>
-                <Box sx={{width:"100%", padding:"20px", display:"flex", alignItems:"center", justifyContent:"center", gap:"40px", flexWrap:'wrap', flexDirection:{sm:"column", md:"row"}}}>
-                  { preview ? 
-                    <Box className = "renderBox">
-                      
+                <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}>
+                  {preview ?
+                    <Box className="renderBox">
+
                       {
-                        enableShowText ?   <Grid container spacing={3}>
-                          <Grid sx={{textAlign:"center"}} item xs={12}>
-                          <Typography className="checkWillAppearHere">
-                        Your cheque will appear here…
-                        </Typography> 
+                        enableShowText ? <Grid container spacing={3}>
+                          <Grid sx={{ textAlign: "center" }} item xs={12}>
+                            <Typography className="checkWillAppearHere">
+                              Your cheque will appear here…
+                            </Typography>
 
                           </Grid>
-                        </Grid>  : "" 
+                        </Grid> : ""
                       }
                       {
-                        enableShowText ? "" :  <Grid container sx={{display:"none"}} spacing={3}>
-                          <Grid sx={{textAlign:"center"}} item xs={12}>
-                          <Typography className="checkWillAppearHere">
-                        Your cheque will appear here…
-                        </Typography> 
+                        enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
+                          <Grid sx={{ textAlign: "center" }} item xs={12}>
+                            <Typography className="checkWillAppearHere">
+                              Your cheque will appear here…
+                            </Typography>
 
                           </Grid>
-                        </Grid>   
+                        </Grid>
                       }
                       {!!imgSrc && (
                         <ReactCrop
-                          style={{width:"100%"}}
+                          style={{ width: "100%" }}
                           crop={crop}
                           onChange={(_, percentCrop) => setCrop(percentCrop)}
                           onComplete={(c) => setCompletedCrop(c)}
@@ -407,7 +418,7 @@ function UploadCheck() {
                             alt="Crop me"
                             src={imgSrc}
                             style={{
-                              margin:"auto",
+                              margin: "auto",
                               width: "100%",
                               height: "300px",
                               transform: `rotate(${rotate90}deg)`,
@@ -416,19 +427,19 @@ function UploadCheck() {
                           />
                         </ReactCrop>
                       )}
-                    </Box> : 
+                    </Box> :
                     <Box style={{ height: "fit-content", width: "fit-content" }} >
                       <img
                         className="previewImg"
-                        src={imagePreviewToLast}/>
+                        src={imagePreviewToLast} />
                     </Box>
                   }
                   {showSideButton ? (
                     " "
                   ) : (
 
-                    <Box sx={{ "& > :not(style)": { m: .5 },  display:"flex",gap:"10px", flexWrap:'wrap', padding:"10px", flexDirection: { sm:"row", md: "column"}}}>
-                      
+                    <Box sx={{ "& > :not(style)": { m: .5 }, display: "flex", gap: "10px", flexWrap: 'wrap', padding: "10px", flexDirection: { sm: "row", md: "column" } }}>
+
                       <Box>
                         <Fab onClick={handleRotate} >
                           <RotateRightIcon />
@@ -440,7 +451,7 @@ function UploadCheck() {
                           <CropIcon />
                         </Fab>
                         <Typography> Crop </Typography>
-                      </Box> 
+                      </Box>
 
                       <Box>
                         <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
@@ -461,7 +472,7 @@ function UploadCheck() {
                   )}
                 </Box>
                 <Box>
-                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px",backgroundColor:"#FFFFFF" }}>
+                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px", backgroundColor: "#FFFFFF" }}>
                     <input
                       ref={uploadInputRef}
                       type="file"
@@ -471,7 +482,8 @@ function UploadCheck() {
                     />
 
                     {uploadChequeButton ? (
-                      <Button 
+                      <Button
+                        variant="contained"
                         onClick={() =>
                           uploadInputRef.current &&
                           uploadInputRef.current.click()
@@ -481,10 +493,14 @@ function UploadCheck() {
 
                           height: "45px",
                           borderRadius: "32px",
-                          padding: "22px"
+                          padding: "22px",
+                          ml: 1,
+                          "&.MuiButtonBase-root:hover": {
+                            bgcolor: "#00b4ff"
+                          }
                         }}
                       >
-                        <Typography sx={{color:"#FFFFFF",fontSize:"14px",fontWeight:"500"}}>
+                        <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
                           UPLOAD CHEQUE
                         </Typography>
                       </Button>
@@ -496,12 +512,17 @@ function UploadCheck() {
                       ""
                     ) : (
                       <Button
+                        variant="contained"
                         onClick={() => handleCancel()}
                         sx={{
                           backgroundColor: "rgba(0, 0, 0, 0.05)",
-                          padding:"22px",
+                          padding: "22px",
                           height: "45px",
                           borderRadius: "32px",
+                          ml: 1,
+                          "&.MuiButtonBase-root:hover": {
+                            bgcolor: "rgba(0, 0, 0, 0.05)"
+                          }
                         }}
                       >
                         <Typography className="textLink">
@@ -516,7 +537,7 @@ function UploadCheck() {
                     textAlign="center"
                     width="80%"
                     mb={2}
-                    sx={{pointerEvents: "none", opacity: "0.7" }}
+                    sx={{ pointerEvents: "none", opacity: "0.7" }}
                     onClick={sendToApi}
                   >
                     <SaveAndAddButton />
@@ -544,22 +565,23 @@ function UploadCheck() {
                     }}
                   />
                 )}
-                  
-                </Box>
-                <Box style={{ width:"100%", display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center"}}>
-                  <Typography mt={2} textAlign="center"  component="span" className="bottomContentText ">
-                    By submitting these details, you are agree to share your details
-                    to BSE for further transactions <br />
-                  </Typography>
-                  <Typography mb={2}
+
+              </Box>
+              <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+                <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
+                  By submitting these details, you are agree to share your details
+                  to BSE for further transactions <br />
+                </Typography>
+                <Typography mb={2}
                   textAlign="center"
-                    component="span"
-                    style={{ cursor: "pointer" }}
-                    className="textLink"
-                  >
-                    Terms and conditions
-                  </Typography>
-                </Box>
+                  component="span"
+                  style={{ cursor: "pointer" }}
+                  className="textLink"
+                  sx={{ textDecoration: "underline" }}
+                >
+                  Terms and conditions
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
         </Grid>

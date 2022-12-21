@@ -52,7 +52,7 @@ const rows = [
 
 export default function FundPerformance() {
     return (
-        <Box sx={{ margin: "1rem" }}>
+        <Box >
             <Accordion sx={{
                 borderRadius: "8px",
                 backgroundColor: "white",
@@ -79,7 +79,7 @@ export default function FundPerformance() {
                 <AccordionDetails sx={{padding:"8px 0px 22px"}}>
                    
                         
-                            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                            <Table sx={{ minWidth: 340 }} aria-label="customized table">
                                 <TableHead style={{  }}>
                                     <TableRow>
                                         <StyledTableCell sx={{backgroundColor:"red"}}>PERIOD</StyledTableCell>

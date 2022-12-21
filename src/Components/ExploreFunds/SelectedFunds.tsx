@@ -172,7 +172,11 @@ const SelectedFunds = () => {
 
                                             height: "45px",
                                             borderRadius: "32px",
-                                            padding: "22px"
+                                            padding: "22px",
+                                            ml: 1,
+                                            "&.MuiButtonBase-root:hover": {
+                                              bgcolor: "#00b4ff"
+                                            }
                                         }}
                                     >
                                         <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
@@ -213,6 +217,7 @@ const SelectedFunds = () => {
                     </Grid>
                 </Grid>
             </Box>
+
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
                 <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
                     <Typography sx={style.modalText}>Monthly SIP Date</Typography>

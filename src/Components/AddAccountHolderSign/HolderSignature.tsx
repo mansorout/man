@@ -361,13 +361,18 @@ function HolderSignature() {
 
 
                                         {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
-                                            <Button
+                                            <Button variant="contained"
                                                 sx={{
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
                                                     marginBottom: "32px",
                                                     height: "45px",
-                                                    padding: "19px"
+                                                    padding: "19px",
+                                                    ml: 1,
+                                                    "&.MuiButtonBase-root:hover": {
+                                                      bgcolor: "rgba(0, 0, 0, 0.05)"
+                                                    }
+                                                    
                                                 }}
                                             >
 

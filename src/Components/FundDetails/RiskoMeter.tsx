@@ -26,7 +26,7 @@ export const RiskoMeter = () => {
   };
   return (
     <>
-      <Box sx={{ margin: "1rem" }}>
+      <Box >
         <Accordion sx={{
           borderRadius: "8px",
           backgroundColor: "white",

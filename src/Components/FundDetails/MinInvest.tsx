@@ -25,7 +25,7 @@ const FundInvest = () => {
         // borderRadius: "0.5rem",
         // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         // backgroundColor: "white",
-        margin: "1rem",
+        // margin: "1rem",
 
         // margin: "24px 32px",
         padding: " 12px 12px 21px 16px",
