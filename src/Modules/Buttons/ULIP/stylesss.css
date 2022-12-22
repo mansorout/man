@@ -1,0 +1,11 @@
+@media (max-width:480px){
+    .UlipBluebuttonStyle{
+      
+        margin-left: -21% !important;
+    }
+    .SlectUlipButtondateStyle{
+       
+        width: 100vw !important;
+         margin-left: -19% !important;
+    }
+}

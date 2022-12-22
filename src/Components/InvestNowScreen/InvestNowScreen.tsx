@@ -279,8 +279,8 @@ function InvestNowScreen(props: IProps) {
               </Box>
 
 
-              <Box sx={{ width: '100%' }}>
-                <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+              <Box sx={{ width: '100%' }} >
+                <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}  className="investWholeStyle">
                   <Grid item md={6} xs={12}>
                     <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
                     className="InvestStylepadview"
@@ -446,7 +446,7 @@ function InvestNowScreen(props: IProps) {
                           </Grid>
 
                           <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px" }}>
-                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }} >*Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}  >*Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
                             <Avatar alt="" src={lockinlogo} style={style.ca} />

@@ -193,7 +193,7 @@ function Editprofilescreen() {
 
                   <Link color="#6495ED" underline="always" href='Home' >
                     <Typography className='burgerText'> Home</Typography>
-                  </Link> <Link underline="always" href='/vp'>
+                  </Link> <Link underline="always" href='/viewprofile'>
                     <Typography className='burgerText'>View Profile</Typography>
                     </Link><Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                     <Typography className='burgerText'>Edit Details</Typography>

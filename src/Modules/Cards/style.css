@@ -23,6 +23,7 @@
        flex-direction: inherit;
    }
 }
+/* mediaqueary 900px */
 
 @media (max-width:820px){
     .pincodestayle{
@@ -63,8 +64,13 @@
     .paddingstyle_style{
         margin-left: 9px !important;
     }
-    .wholedivbuttonstyle{
-        color: red;
+  
+    .graphUlipStyle{
+        
+    width: 96% !important;
+    }
+    .investWholeStyle{
+        margin-left: 7% !important;
     }
    
    
@@ -123,6 +129,13 @@
         height: 16px;
 
     }   
+    .graphUlipStyle{
+        
+        width: 96% !important;
+        }
+        .investWholeStyle{
+            margin-left: 7% !important;
+        }
 }
 
 
@@ -166,6 +179,19 @@
  
 
 @media (max-width:560px) {
+    .MonthlyStyle{
+        /* color: red !important; */
+    }
+    .ToastterStyle{
+        position: relative !important;
+    top: 32vw !important;
+    left: -75vw !important;
+    }
+    .WholeBodyStyleUlip{
+        width: 95.75vw !important;
+        border-radius: 8px !important;
+        margin-top: -35% !important;
+    }
    
     .NoLockinperiod{
        
@@ -186,6 +212,25 @@
     .buttoncenterstyle{
         margin-left: 1% !important;
     }
+    .InvestmentMonthlyStyle{
+       
+        padding-left: 65% !important;
+        width: 100% !important;
+        padding-top: 2% !important;
+    }
+    .premiumpaymentStyle{
+       
+        position: relative;
+        left: -45%;
+        top: 50% !important;
+    }
+  .UlipFundCardStyle{
+    width: 81% !important;
+    margin-left: -4% !important;
+    gap: 5vw !important;
+    margin-bottom: 6vw !important;
+    border-radius: 8px !important;
+  }
 }
 @media (max-width:560px) {
    
@@ -197,5 +242,10 @@
     
 }
 
+@media (max-width:375px){
+    .withdraliconstyle{
+        color:red !important
+    }
+}
 
 /* iconstyle */

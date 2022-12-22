@@ -67,6 +67,7 @@ import SimpleModal from "../Components/CommonModals/SimpleModal"
 import SipLastScreen from "../Components/CommonComponents/sipLastscreen"
 import UlipDropDownFilter from "../Components/ULIP/UlipDropDownFilter"
 import DropDownFilter from "../Components/TxnFilters/DropDownFilter"
+import { OtpSuccess } from "../Components/OtpSuccess/OtpSuccess"
 
 type prConstant = {
   path: string,
@@ -109,6 +110,10 @@ export const privateRoutesConstants: prConstant[] = [
   {
     path: "/account_created_with_google",
     component: <AccountCreatedWithGoogle />
+  },
+  {
+    path: "/otpverified",
+    component: <OtpSuccess />
   },
   {
     path: "/Otptwosuccess",
