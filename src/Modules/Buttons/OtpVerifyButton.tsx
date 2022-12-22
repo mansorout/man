@@ -41,6 +41,7 @@ export const OtpVerifyButton = ({ otp, number, disabled }: IProps) => {
       addError("Login_OTP")
       return;
     }
+    
     removeError("Login_OTP");
     store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
 
