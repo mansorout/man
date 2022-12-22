@@ -379,7 +379,7 @@ function HolderSignature() {
 
                                         {tryagain ? "" : <Box textAlign="center" onClick={() => window.location.reload()}>
                                             <Button
-                                           
+
                                                 sx={{
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
@@ -417,6 +417,9 @@ function HolderSignature() {
                                     </Box>
 
 
+
+
+
                                 </Box>
                                 <Box style={style.dividerBox}></Box>
                                 {disable ? (
@@ -429,23 +432,7 @@ function HolderSignature() {
                                     >
 
                                         <SaveAndAddButton />
-                                        <Grid container >
-                                            <Grid item >
-                                                <Box>
-                                                    <img alt="logo" src={sipiclogo} style={{ height: "24px", width: "24px" }} />
-                                                </Box>
-                                            </Grid>
-                                            <Grid sx={{
-                                                paddingTop: "15px",
-                                                display: "flex"
 
-                                            }}>
-
-                                                <Typography component="span" className="bottomContentText ">
-                                                    Signatures provided here will be used on official documents. <br />
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
                                     </Box>
                                 ) : (
                                     ""
@@ -456,31 +443,9 @@ function HolderSignature() {
                                     width="80%" onClick={setSignature}>
 
                                     <SaveAndAddButton />
-                                    {/* <Grid container  >
 
-                                        <Grid item >
-                                            <Box>
-                                                <img alt="logo" src={sipiclogo} style={{ height: "24px", width: "24px" }} />
-                                            </Box>
-                                        </Grid>
-                                        <Grid  sx={{
-                                            paddingTop: "15px",
-                                            display: "flex",
 
-                                        }}>
 
-                                            <Typography component="span" sx={{ paddingBottom: "15px" }} className="bottomContentText ">
-                                                Signatures provided here will be used on official documents.
-                                            </Typography>
-                                        </Grid>
-                                    </Grid> */}
-
-                                    <div style={{ textAlign: "center" }}>
-                                        <Box>
-                                            <img src={sipiclogo} alt="" />
-                                        </Box>
-                                        <span >Take a photo</span>
-                                    </div>
 
                                 </Box>
 
@@ -506,6 +471,19 @@ function HolderSignature() {
                                 </Box> 
 
                                 } */}
+
+
+                                <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
+                                    <Grid item >
+                                        <div style={{ display: "flex" }}>
+                                            <Box>
+                                                <img style={{ height: "24px", width: "24px" }} src={sipiclogo} alt="signature" />
+                                            </Box>
+                                            <span style={{ padding: "5px 0px 0px 7px", fontSize: "14px", color: "#919eb1" }}> Signatures provided here will be used on official documents.</span>
+                                        </div>
+                                    </Grid>
+
+                                </Grid>
 
 
                             </Box>
