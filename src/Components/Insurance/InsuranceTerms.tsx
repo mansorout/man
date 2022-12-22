@@ -37,6 +37,8 @@ import { useTheme } from '@mui/material/styles';
 import { string } from 'yup';
 import { useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
+import { useDispatch } from 'react-redux';
+import {postTermPurchase} from '../../Store/Insurance/thunk/insurance-thunk'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -209,12 +211,13 @@ function PaperComponent(props: PaperProps) {
 const InsuranceTerms = () => {
     const classes = useStyles()
     const theme = useTheme();
+    const dispatch:any = useDispatch();
     const navigate = useNavigate();
-    const [insuranceAmount, setInsuranceAmount] = useState<string>('')
+    const [insuranceAmount, setInsuranceAmount] = useState<number | null>(null)
     // const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
     const [dob, setDob] = React.useState<Dayjs | null>(null);
     const [dobError, setDobError] = useState<boolean>(false)
-    const [quickPickAmount, setQuickPickAmount] = useState<string[]>(['2500000', '7500000', '5000000', '10000000', '50000000', '100000000'])
+    const [quickPickAmount, setQuickPickAmount] = useState<number[]>([2500000, 7500000, 5000000, 10000000, 50000000, 100000000])
     const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
     const [genderSelect, setGenderSelect] = useState<string>('')
     const [genderSelectError, setGenderSelectError] = useState<boolean>(false)
@@ -240,10 +243,10 @@ const InsuranceTerms = () => {
     };
 
     const handleChange = (event: SelectChangeEvent) => {
-        setInsuranceAmount(event.target.value as string);
+        setInsuranceAmount(parseInt(event.target.value) as number);
     };
 
-    const selectFromQuickPick = (item: string) => {
+    const selectFromQuickPick = (item: number) => {
         console.log("quickPickValue: ", item)
         setInsuranceAmount(item);
     }
@@ -268,6 +271,12 @@ const InsuranceTerms = () => {
     const handlesubmitDetail = () => {
         if (feildValidation(dob) && feildValidation(genderSelect) && feildValidation(tobaccoSelect)) {
             setShowPlanDetailSubmit(true)
+            const data = {
+                lifecover : insuranceAmount,
+                frequencytype: 0,
+                issmoker : tobaccoSelect === 'yes' ? 1 : 0,
+            }
+            dispatch(postTermPurchase(data))
             setTimeout(() => {
                 navigate('/explorePlan')
             }, 1000);
@@ -288,7 +297,7 @@ const InsuranceTerms = () => {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={insuranceAmount}
+                            value={`${insuranceAmount}`}
                             label="insuranceAmount"
                             onChange={handleChange}
                         >
@@ -317,7 +326,7 @@ const InsuranceTerms = () => {
             <FooterBtnWithBox
                 boxIcon={<ThumbUpOffAltIcon />}
                 boxText='Monthly Premium'
-                boxAmount='₹599'
+                boxAmount={insuranceAmount}
                 btnText='Show Me Exact Quote'
                 btnClick={handleClickOpen}
             />
