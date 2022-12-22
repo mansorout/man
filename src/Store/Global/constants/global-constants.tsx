@@ -1,0 +1,1 @@
+export const SET__DISABLE_BUTTON = 'SET__DISABLE_BUTTON'
