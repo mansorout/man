@@ -37,11 +37,12 @@ const UlipPlanPerformanceCard = () => {
                 color: '#3c3e42',
             }} />
             <CardMedia 
+            className="graphUlipStyle"
                 component="img" 
                 image={ ulipPlanPerformanceImage }
                 alt="ULIP Plan Performance"
                 sx={{
-                    width: { xs: '300px', sm: '456px' },
+                    width: { xs: '300px', sm: '93%' },
                     height: '212px',
                     marginLeft: '1vw',
                 }}

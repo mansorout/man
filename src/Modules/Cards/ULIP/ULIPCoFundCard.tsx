@@ -59,7 +59,9 @@ const ULIPCoFundCard = (props: ULIPProp) => {
 
   return (
 
-    <Box sx={{
+    <Box 
+    className="UlipFundCardStyle"
+     sx={{
       width: '76vw',
       display: 'flex',
       flexDirection: 'column',
@@ -69,7 +71,8 @@ const ULIPCoFundCard = (props: ULIPProp) => {
       backgroundColor: '#fff',
       fontFamily: 'Roboto',
       gap: '1.5vw',
-      marginBottom: '2vw'
+      marginBottom: '2vw',
+     
     }}>
       <Box sx={{
         display: 'flex',
