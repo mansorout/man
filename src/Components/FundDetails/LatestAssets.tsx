@@ -66,7 +66,7 @@ export const LatestAssets = () => {
 
   return (
     <>
-      <Box sx={{ margin: "1rem" }}>
+      <Box>
         <Accordion sx={{
           borderRadius: "8px",
           backgroundColor: "white",

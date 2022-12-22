@@ -12,11 +12,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.white,
+        color: '#919eb1',
+        fontSize: 12,
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
+        fontSize: 16,
+        color: "#7b7b9d"
     },
 }));
 
@@ -50,7 +52,7 @@ const rows = [
 
 export default function FundPerformance() {
     return (
-        <Box sx={{ margin: "1rem" }}>
+        <Box >
             <Accordion sx={{
                 borderRadius: "8px",
                 backgroundColor: "white",
@@ -59,7 +61,7 @@ export default function FundPerformance() {
                 <AccordionSummary
                     sx={{
                         height: "84px",
-                        padding: "12px 12px 21px 16px",
+                        padding: "0px 16px 0px 0px",
                         borderRadius: " 8px",
                         margin: "0px 16px 0px 16px",
                         backgroundColor: "#fff"
@@ -74,40 +76,31 @@ export default function FundPerformance() {
                     </Box>
 
                 </AccordionSummary>
-                <AccordionDetails>
-                    <Box sx={{
-                        margin: "1rem",
+                <AccordionDetails sx={{ padding: "8px 0px 22px" }}>
 
-                        // margin: "24px 32px",
-                        padding: " 12px 12px 21px 16px",
-                        borderRadius: "8px",
 
-                        boxSizing: "border-box",
-                        backgroundColor: "white",
-                    }}>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                                <TableHead style={{ backgroundColor: '#fff', color: '#fff' }}>
-                                    <TableRow>
-                                        <StyledTableCell>Period</StyledTableCell>
-                                        <StyledTableCell align="right">Return</StyledTableCell>
-                                        <StyledTableCell align="right">Benchmark</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <StyledTableRow key={row.name}>
-                                            <StyledTableCell component="th" scope="row">
-                                                {row.name}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                        </StyledTableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Box>
+                    <Table sx={{ minWidth: 340 }} aria-label="customized table">
+                        <TableHead style={{}}>
+                            <TableRow>
+                                <StyledTableCell >PERIOD</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>RETURN</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "end" }}>BENCHMARK</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <StyledTableRow key={row.name}>
+                                    <StyledTableCell  component="th" scope="row">
+                                        {row.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell sx={{textAlign:"center"}}>{row.calories}</StyledTableCell>
+                                    <StyledTableCell sx={{textAlign:"end"}}>{row.fat}</StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+
+
                 </AccordionDetails>
             </Accordion>
         </Box>
