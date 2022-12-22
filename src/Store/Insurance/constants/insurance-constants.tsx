@@ -1,1 +1,2 @@
-export const insuranceConst = ""
+export const SET_TERM_PURCHASE_SUCCESS = 'SET_TERM_PURCHASE_SUCCESS';
+export const SET_TERM_PURCHASE_FAILED = 'SET_TERM_PURCHASE_FAILED';

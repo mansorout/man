@@ -21,6 +21,7 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   SAVETAX_COMPARISON: "/savetax/comparison",
+  TERM_PURCHASE: '/insurance/term/purchase/'
 });
 
 export default siteConfig;
