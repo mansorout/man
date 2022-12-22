@@ -20,6 +20,7 @@ import { Grid, Modal, Theme } from "@mui/material";
 import { postData } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
 import { setIsUserAuthenticatedAction } from "../../Store/Authentication/actions/auth-actions";
+import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   background: {
@@ -111,6 +112,8 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const error: string[] = useSelector((state: any) => state.error);
+  const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
+
   const { addError, removeError, addContactNumber } = bindActionCreators(
     ActionCreators,
     dispatch
@@ -118,6 +121,10 @@ export const Login = () => {
 
   const [focus, setFocus] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("");
+
+  useEffect(() => {
+    addContactNumber("");
+  }, [])
 
   const handleMobile = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -136,11 +143,12 @@ export const Login = () => {
       return;
     }
 
+    dispatch(setDisableButtonAction(true));
     let objBody = {
       mobilenumber: number,
       type: "auth",
     };
-
+    setShouldButtonDisable(true);
     postData(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
@@ -149,13 +157,16 @@ export const Login = () => {
     )
       .then(res => res.json())
       .then((data) => {
+        dispatch(setDisableButtonAction(false));
         if (data?.error === true) {
           console.log("error true");
           return;
         }
 
+        setShouldButtonDisable(false);
         removeError("Login_Contact");
         addContactNumber(number);
+        localStorage.setItem(siteConfig.CONTACT_NUMBER, number)
         navigate("/termsandcondition");
       })
       .catch((err) => {
@@ -239,7 +250,9 @@ export const Login = () => {
             ? "Please enter a valid phone number"
             : ""}
         </Typography>
+
         <ContinueWithMobile
+          shouldButtonDisable={shouldButtonDisable}
           number={number}
           onClick={(val) => doAuthentication(val)}
         />

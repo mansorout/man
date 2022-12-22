@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { VerifyOtpLogo, SBICON, commonlogo, cross, SBIcon } from "../../Assets";
 import { OtpVerifyButton } from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { verifycxotp } from "../../Store/Reducers/action";
@@ -15,7 +15,8 @@ import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
 import { resendOtpThunk, verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import siteConfig from "../../Utils/siteConfig";
-
+import { ActionCreators } from "../../Store";
+import { bindActionCreators } from "redux";
 
 const style = {
   background: {
@@ -57,13 +58,15 @@ export const VerifyOtp = () => {
   const navigate = useNavigate();
 
   const error: string[] = useSelector((state: any) => state.error);
-  const number: string = useSelector((state: any) => state.contact);
+  // const number: string = useSelector((state: any) => state.contact);
   const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
+  const number: string | null = localStorage.getItem(siteConfig.CONTACT_NUMBER);
 
   const [OTP, setOTP] = useState<string>("");
   const [minutes, setMinutes] = useState<number>(1);
   const [seconds, setSeconds] = useState<number>(30);
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
+
 
   useEffect(() => {
     console.log(g_loginData);

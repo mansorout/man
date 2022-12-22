@@ -1,6 +1,11 @@
 import { postData } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
+import { addContactNumber } from "../../Action-Creators";
 import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
+// const { addError, removeError, addContactNumber } = bindActionCreators(
+//   ActionCreators,
+//   dispatch
+// );
 
 export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
@@ -20,6 +25,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
         }
         const response = data?.data;
         dispatch(setloginDataOnSuccessAction(response));
+        
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
