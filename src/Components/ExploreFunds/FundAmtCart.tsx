@@ -177,7 +177,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                             </TextField>
                             <Typography
                                 sx={{
-                                    width: "304px",
+                                   
                                     height: "14px",
                                     margin: "-8px 135px 0 1px",
 

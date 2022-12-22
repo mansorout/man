@@ -12,12 +12,6 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import styles from './styles.module.css'
 
-import ReactCrop, {
-    centerCrop,
-    makeAspectCrop,
-    Crop,
-    PixelCrop,
-} from "react-image-crop";
 
 import {
     Drawer as DrawerList,
@@ -34,7 +28,7 @@ import {
 
 import { AppBar, Button, Divider, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Logo, Profile } from "../../Assets/index";
+import { Logo, Profile, sipiclogo } from "../../Assets/index";
 
 import SaveAndAddButton from "../../Modules/Buttons/SaveAndAddButton";
 import { useDispatch } from "react-redux";
@@ -61,10 +55,10 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 
 function HolderSignature() {
-    
+
     const dispatch = useDispatch();
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
-    
+
     const [uploadChequeButton, setUploadChequeButtonDisable] =
         useState<boolean>(true);
 
@@ -77,7 +71,7 @@ function HolderSignature() {
     const [hidecontent, setHideContent] = useState<boolean>(true)
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
-    const [bcaktovp,setBacktoVp]= useState<boolean>(true)
+    const [bcaktovp, setBacktoVp] = useState<boolean>(true)
 
 
     const clear = () => {
@@ -370,9 +364,9 @@ function HolderSignature() {
                                                     padding: "19px",
                                                     ml: 1,
                                                     "&.MuiButtonBase-root:hover": {
-                                                      bgcolor: "rgba(0, 0, 0, 0.05)"
+                                                        bgcolor: "rgba(0, 0, 0, 0.05)"
                                                     }
-                                                    
+
                                                 }}
                                             >
 
@@ -385,6 +379,7 @@ function HolderSignature() {
 
                                         {tryagain ? "" : <Box textAlign="center" onClick={() => window.location.reload()}>
                                             <Button
+                                           
                                                 sx={{
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
@@ -435,11 +430,17 @@ function HolderSignature() {
 
                                         <SaveAndAddButton />
                                         <Grid container >
-                                            <Grid xs={8} md={8} sm={12} sx={{
+                                            <Grid item >
+                                                <Box>
+                                                    <img alt="logo" src={sipiclogo} style={{ height: "24px", width: "24px" }} />
+                                                </Box>
+                                            </Grid>
+                                            <Grid sx={{
                                                 paddingTop: "15px",
                                                 display: "flex"
-                                               
+
                                             }}>
+
                                                 <Typography component="span" className="bottomContentText ">
                                                     Signatures provided here will be used on official documents. <br />
                                                 </Typography>
@@ -449,23 +450,37 @@ function HolderSignature() {
                                 ) : (
                                     ""
                                 )}
-                                     
+
                                 {disable ? "" : <Box className="saveandaddButton"
                                     textAlign="center"
                                     width="80%" onClick={setSignature}>
 
                                     <SaveAndAddButton />
-                                    <Grid container  >
-                                        <Grid xs={12} md={8} sm={12} sx={{
+                                    {/* <Grid container  >
+
+                                        <Grid item >
+                                            <Box>
+                                                <img alt="logo" src={sipiclogo} style={{ height: "24px", width: "24px" }} />
+                                            </Box>
+                                        </Grid>
+                                        <Grid  sx={{
                                             paddingTop: "15px",
                                             display: "flex",
-                                            
+
                                         }}>
-                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
+
+                                            <Typography component="span" sx={{ paddingBottom: "15px" }} className="bottomContentText ">
                                                 Signatures provided here will be used on official documents.
                                             </Typography>
                                         </Grid>
-                                    </Grid>
+                                    </Grid> */}
+
+                                    <div style={{ textAlign: "center" }}>
+                                        <Box>
+                                            <img src={sipiclogo} alt="" />
+                                        </Box>
+                                        <span >Take a photo</span>
+                                    </div>
 
                                 </Box>
 

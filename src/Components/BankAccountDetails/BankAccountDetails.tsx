@@ -64,15 +64,20 @@ const BankAccountDetails = () => {
     }
 
     const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        
         const value = e.target.value;
         setIfscCode(value);
-        const pattern = /[A-Z]{4}0\d{6}/;
+        const pattern = /^([a-zA-Z]){4}([0-9]){7}?$/;
         if (!pattern.test(value)) {
             setIfscError(true);
         } else {
             setIfscError(false);
         }
+    
+        
     }
+
+  
 
     const bankAcNoPattern = /^[A-Z0-9]+$/;
 
@@ -147,12 +152,12 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={12} sm={11} md={10} sx={{ 
-                        height: "100vh", 
+                    <Grid container item xs={12} sm={11} md={10} sx={{
+                        height: "100vh",
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        marginLeft: { xs: '5vw', sm: '12vw', md: '28vw' }, 
+                        marginLeft: { xs: '5vw', sm: '12vw', md: '28vw' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
@@ -221,6 +226,10 @@ const BankAccountDetails = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={(e) =>
+                                        /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
                                     required
                                     id="outlined-ifsc-code"
                                     label="Enter IFSC code"
@@ -238,6 +247,10 @@ const BankAccountDetails = () => {
                                     id="outlined-bank-acc-no"
                                     required
                                     label="Bank Account Number"
+                                    onKeyPress={(e) =>
+                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
                                     value={bankAcNo}
                                     onChange={handleBankAcNoChange}
                                     error={bankAcNoError}
@@ -250,13 +263,18 @@ const BankAccountDetails = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={(e) =>
+                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
+
                                     required
                                     id="confirmed-bank-acc-no"
                                     label="Confirm Bank Account Number"
                                     value={confirmBankAcNo}
                                     onChange={handleConfirmBankAcNoChange}
                                     error={confirmBankAcNoError}
-                                    helperText={confirmBankAcNoError ? "Passwords do not match" : ""}
+                                    helperText={confirmBankAcNoError ? "Bank Account Number do not match" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                     }}
@@ -279,6 +297,10 @@ const BankAccountDetails = () => {
                                     variant="contained"
                                     onClick={handleSubmit}
                                     sx={{
+                                        ml: 1,
+                                        "&.MuiButtonBase-root:hover": {
+                                            bgcolor: '#23db7b'
+                                        },
                                         borderRadius: '0.5rem',
                                         boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
                                         backgroundColor: '#23db7b',

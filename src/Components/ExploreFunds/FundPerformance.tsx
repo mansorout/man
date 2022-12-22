@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
     [`&.${tableCellClasses.body}`]: {
         fontSize: 16,
-        color:"#7b7b9d"
+        color: "#7b7b9d"
     },
 }));
 
@@ -76,31 +76,31 @@ export default function FundPerformance() {
                     </Box>
 
                 </AccordionSummary>
-                <AccordionDetails sx={{padding:"8px 0px 22px"}}>
-                   
-                        
-                            <Table sx={{ minWidth: 340 }} aria-label="customized table">
-                                <TableHead style={{  }}>
-                                    <TableRow>
-                                        <StyledTableCell sx={{backgroundColor:"red"}}>PERIOD</StyledTableCell>
-                                        <StyledTableCell align="right">RETURN</StyledTableCell>
-                                        <StyledTableCell align="right">BENCHMARK</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <StyledTableRow key={row.name}>
-                                            <StyledTableCell component="th" scope="row">
-                                                {row.name}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                        </StyledTableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                    
-                
+                <AccordionDetails sx={{ padding: "8px 0px 22px" }}>
+
+
+                    <Table sx={{ minWidth: 340 }} aria-label="customized table">
+                        <TableHead style={{}}>
+                            <TableRow>
+                                <StyledTableCell >PERIOD</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "center" }}>RETURN</StyledTableCell>
+                                <StyledTableCell sx={{ textAlign: "end" }}>BENCHMARK</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <StyledTableRow key={row.name}>
+                                    <StyledTableCell  component="th" scope="row">
+                                        {row.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell sx={{textAlign:"center"}}>{row.calories}</StyledTableCell>
+                                    <StyledTableCell sx={{textAlign:"end"}}>{row.fat}</StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+
+
                 </AccordionDetails>
             </Accordion>
         </Box>
