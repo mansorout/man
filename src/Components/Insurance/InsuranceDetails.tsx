@@ -9,7 +9,7 @@ import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { ULIPList } from '../../Modal/ULIP'
 import ULIPCard from '../../Modules/CustomCard/ULIPCard'
-import { B } from 'chart.js/dist/chunks/helpers.core'
+// import { B } from 'chart.js/dist/chunks/helpers.core'
 import { hdfclogo } from '../../Assets'
 import InsuranceKeyFeatures from './InsuranceKeyFeatures'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'

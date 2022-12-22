@@ -68,66 +68,68 @@ const Consumerstaples2 = styled(LinearProgress)(({ theme }) => ({
 export default function ProgressBars() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-    
-      
 
 
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Consumer staples</Typography>
-            </Grid>
-            <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>18.88%</Typography>
-            </Grid>
-          </Grid>
+
+
+      <Grid container spacing={3}>
+        <Grid item xs={8}>
+          <Typography className='ProgressTitle'>Consumer staples</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography sx={{ alignItems: "right" }} className='percentageValue'>18.88%</Typography>
+        </Grid>
+      </Grid>
 
 
       <Consumerstaples variant="determinate" value={18.88} />
-      <br/>
+      <br />
       <Grid container spacing={3}>
-            <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Government Securities</Typography>
-            </Grid>
-            <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>22.8%</Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={8}>
+          <Typography className='ProgressTitle'>Government Securities</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography sx={{ alignItems: "right" }} className='percentageValue'>22.8%</Typography>
+        </Grid>
+      </Grid>
       <GovernmentSecurities variant="determinate" value={22.8} />
-      <br/>
+      <br />
       <Grid container spacing={3}>
-            <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Energy</Typography>
-            </Grid>
-            <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>7%</Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={8}>
+          <Typography className='ProgressTitle'>Energy</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography sx={{ alignItems: "right" }} className='percentageValue'>7%</Typography>
+        </Grid>
+      </Grid>
       <Energy variant="determinate" value={7} />
-      <br/>
+      <br />
       <Grid container spacing={3}>
-            <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Fixed Deposits</Typography>
-            </Grid>
-            <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>16.1%</Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={8}>
+          <Typography className='ProgressTitle'>Fixed Deposits</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography sx={{ alignItems: "right" }} className='percentageValue'>16.1%</Typography>
+        </Grid>
+      </Grid>
       <FixedDeposits variant="determinate" value={16.1} />
-      <br/>
+      <br />
       <Grid container spacing={3}>
-            <Grid item xs={8}>
-            <Typography className='ProgressTitle'>Consumer staples</Typography>
-            </Grid>
-            <Grid item xs={4}>
-            <Typography sx={{alignItems:"right"}} className='percentageValue'>5.8%</Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={8}>
+          <Typography className='ProgressTitle'>Consumer staples</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography sx={{ alignItems: "right" }} className='percentageValue'>5.8%</Typography>
+        </Grid>
+      </Grid>
       <Consumerstaples2 variant="determinate" value={5.8} />
-      
-      <Box sx={{padding:" 11px 78px"}}>
-         <Typography className='viewmoretext'>VIEW MORE</Typography>
-         </Box>
-       
+
+      <Grid container sx={{padding:" 11px 78px"}} >
+        <Grid xs={12}>
+          <Typography sx={{fontSize:"14px",fontWeight:"500",color:"#6c63ff",textAlign:"center",}}>VIEW MORE</Typography>
+        </Grid>
+      </Grid>
+
     </Box>
   );
 }

@@ -82,19 +82,20 @@ const style = {
 
   divider: {
     margin: "10px",
-    width: "90%",
+    width: "64%",
     maxWidth: "400px",
-    color: "#7b7b9d",
+    color: "",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
   },
 
   dividerBox: {
-    width: "45%",
+    width: "41%",
     height: ".5px",
     padding: ".5px",
-    backgroundColor: "#7b7b9d",
+    backgroundColor: "rgba(112, 112, 112, 0.26)"
+  
   },
 
   errorText: {
@@ -102,7 +103,6 @@ const style = {
     maxWidth: "400px",
     height: "15px",
     marginBottom: "10px",
-    marginLeft: "38px",
   } as React.CSSProperties,
 };
 
@@ -227,7 +227,7 @@ export const Login = () => {
               ""
             ),
             endAdornment: error?.includes("Login_Contact") ? (
-              <InputAdornment position="end">
+              <InputAdornment sx={{paddingRight: "8px ! important"}} position="end">
                 {" "}
                 <img src={ContactError} width="22px" alt="Cross" />{" "}
               </InputAdornment>
@@ -258,7 +258,7 @@ export const Login = () => {
         />
         <Box style={style.divider}>
           <Box style={style.dividerBox}></Box>
-          <Typography className="subTitle2">OR</Typography>
+          <Typography sx={{color:"#7b7b9d",fontSize:"16px"}}>OR</Typography>
           <Box style={style.dividerBox}></Box>
         </Box>
         <ConnectWithGoogle />
