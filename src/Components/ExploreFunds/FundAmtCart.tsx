@@ -133,9 +133,9 @@ export default function FundAmtCard(props: FundAmtCard) {
         }
     }
     let textColor = "#8787a2"
-    if(amount === "" || !amount || amount?.length == 0 ){
+    if (amount === "" || !amount || amount?.length == 0) {
         textColor = "#8787a2"
-    }else  if(amount < 5000 || amount > 20000000){
+    } else if (amount < 5000 || amount > 20000000) {
         textColor = 'red'
     }
     return (
@@ -165,7 +165,8 @@ export default function FundAmtCard(props: FundAmtCard) {
 
                         <List>
 
-                            <TextField label={amount > 20000000 ? "" :"Enter Investment Amount"}
+                            <TextField label={amount > 20000000 ? "" : "Enter Investment Amount"}
+                                type="number"
                                 name="middleName"
                                 fullWidth
                                 placeholder='₹1,00,000'
@@ -176,7 +177,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                             </TextField>
                             <Typography
                                 sx={{
-                                    width: "304px",
+                                   
                                     height: "14px",
                                     margin: "-8px 135px 0 1px",
 
@@ -199,19 +200,29 @@ export default function FundAmtCard(props: FundAmtCard) {
                     }}>
                         <Button variant='contained' style={style.buttons} sx={{
                             backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                            color: '#7b7b9d'
+                            color: '#7b7b9d', ml: 1,
+                            "&.MuiButtonBase-root:hover": {
+                                bgcolor: 'rgba(123, 123, 157, 0.05)'
+                            }
                         }}>
+
+
+
+
                             <img src={ReplaceButtonIcon} />
                             Replace
                         </Button>
                         <Button variant="contained" style={style.buttons} sx={{
                             backgroundColor: 'rgba(255, 83, 0, 0.05)',
-                            color: '#ff5300'
+                            color: '#ff5300', ml: 1,
+                            "&.MuiButtonBase-root:hover": {
+                                bgcolor: 'rgba(255, 83, 0, 0.05)'
+                            }
                         }}>
                             <img src={RemoveButtonIcon} />
                             Remove
                         </Button>
-                    
+
                     </Box>
                 </CardContent>
             </Card>

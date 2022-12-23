@@ -93,7 +93,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '&>span': {
             color: 'var(--typeIndigoColor)',
             fontSize: 'var(--fontSize14)',
-        }
+        },
+        "& input[type=number]": {
+            MozAppearance: "textfield",
+        },
     },
     inputWrap: {
         marginBottom: '15px',
@@ -278,7 +281,7 @@ const TaxCanSave = () => {
                                         InputProps={{
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                         }}
-                                        type='number'
+                                        type='tel'
                                         fullWidth
                                         value={formik.values.homeLoan}
                                         onChange={formik.handleChange}
@@ -309,7 +312,7 @@ const TaxCanSave = () => {
                                 </Box>
                                 <Box className={classes.inputWrap}>
                                     <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">NSC / Post Office</InputLabel>
+                                        <InputLabel htmlFor="outlined-adornment-password">Life Insurance Premium</InputLabel>
                                         <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
                                     </Box>
                                     <TextField
@@ -330,7 +333,7 @@ const TaxCanSave = () => {
                                 </Box>
                                 <Box className={classes.inputWrap}>
                                     <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">NSC / Post Office</InputLabel>
+                                        <InputLabel htmlFor="outlined-adornment-password">Tax Saving FD</InputLabel>
                                         <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
                                     </Box>
                                     <TextField

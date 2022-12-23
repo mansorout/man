@@ -1,14 +1,17 @@
-import { Button, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
 import { Navigate, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import { login } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store";
+import { Button, Typography } from "@mui/material";
 
 type IProps = {
   onClick: (val: string) => void;
   number: string;
+  shouldButtonDisable: boolean;
 };
 
 const style = {
@@ -26,12 +29,7 @@ const style = {
   },
 };
 const ContWithMobile = (props: IProps) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { addError, removeError, addContactNumber } = bindActionCreators(
-    ActionCreators,
-    dispatch
-  );
+  const disableButtonDuringApiFetching: boolean = useSelector((state: any) => state?.globalReducer?.disableButtonDuringApiFetching);
 
   const validateNumber = (number: string) => {
     props?.onClick(number);
@@ -43,6 +41,7 @@ const ContWithMobile = (props: IProps) => {
       style={style.button}
       fullWidth
       onClick={() => validateNumber(props?.number)}
+      disabled={props?.shouldButtonDisable}
     >
       <Typography style={style.text} className="largeButtonText">
         Continue with Mobile Number

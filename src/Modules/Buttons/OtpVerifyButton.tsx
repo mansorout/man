@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
@@ -10,7 +10,7 @@ import _ from "underscore";
 
 type IProps = {
   otp: string;
-  number: string;
+  number: string | null;
   disabled: boolean;
 }
 
@@ -33,7 +33,7 @@ export const OtpVerifyButton = ({ otp, number, disabled }: IProps) => {
 
   const dispatch = useDispatch();
 
-  const { addError, removeError } = bindActionCreators(ActionCreators, dispatch);
+  const { addError, removeError, addContactNumber } = bindActionCreators(ActionCreators, dispatch);
 
   const validateOTP = (otp: string) => {
 
@@ -41,7 +41,9 @@ export const OtpVerifyButton = ({ otp, number, disabled }: IProps) => {
       addError("Login_OTP")
       return;
     }
+
     removeError("Login_OTP");
+    addContactNumber("");
     store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
 
     // if (otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!") {

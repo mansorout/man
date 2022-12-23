@@ -14,6 +14,32 @@ const getEncodedData = (objdata: any) => {
   return formBody;
 }
 
+export async function postDataBeforeAuth(data: any, urlPath: string, strContentType: string, strApiId: string) {
+  let objBody: any;
+  if (strContentType === siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED) {
+    objBody = getEncodedData(data);
+  } else {
+    objBody = JSON.stringify(data);
+  }
+
+  let objHeaders: any = {
+    "Content-Type": strContentType,
+    "X-API-Key": strApiKey,
+    Origin: process.env.ORIGIN || "http://localhost:3000",
+  };
+
+  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: objHeaders,
+    body: objBody,
+  });
+
+  return await res;
+}
+
 export async function postData(data: any, urlPath: string, strContentType: string, strApiId: string) {
 
   let objBody: any;
@@ -23,18 +49,19 @@ export async function postData(data: any, urlPath: string, strContentType: strin
     objBody = JSON.stringify(data);
   }
 
+  let objHeaders: any = {
+    "Content-Type": strContentType,
+    "X-API-Key": strApiKey,
+    Origin: process.env.ORIGIN || "http://localhost:3000",
+    "Authentication": localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY)
+  };
+
   const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
-    headers: {
-      "Content-Type": strContentType,
-      "X-API-Key": strApiKey,
-      Origin: process.env.ORIGIN || "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
-    },
+    headers: objHeaders,
     body: objBody,
   });
 
@@ -48,12 +75,14 @@ export async function getData(urlPath: string, strContentType: string, strApiId:
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
+    // @ts-ignore
     headers: {
       "Content-Type": strContentType,
       "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      Authentication: localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      // authorization:
+      //   "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
   });
   return await res;
@@ -72,12 +101,14 @@ export async function patchData(data: any, urlPath: string, strContentType: stri
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
+    // @ts-ignore
     headers: {
       "Content-Type": strContentType,
       "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      Authentication: localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      // authorization:
+      //   "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: objBody,
   });
@@ -97,12 +128,14 @@ export async function putData(data: any, urlPath: string, strContentType: string
     mode: "cors",
     cache: "no-cache",
     credentials: "same-origin",
+    // @ts-ignore
     headers: {
       "Content-Type": strContentType,
       "x-api-key": siteConfig.X_API_KEY,
       Origin: "http://localhost:3000",
-      authorization:
-        "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      Authentication: localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
+      // authorization:
+      //   "Bearer " + localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY),
     },
     body: objBody,
   });

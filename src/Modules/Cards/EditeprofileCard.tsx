@@ -42,13 +42,14 @@ const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
 function EditprofileCard() {
-  const [locality, setLocality] = useState()
+  const [locality, setLocality] = useState<any>()
+  const [city,setCity] =useState<any>()
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
   };
 
-  const handleclickAddress = () => {
+  const handleClickAddress = () => {
       navigator.geolocation.getCurrentPosition(function (position) {
       const Latitude: any = position.coords.latitude
       const Longitude: any = position.coords.longitude
@@ -59,13 +60,18 @@ function EditprofileCard() {
     });
     getdata()
   }
+  
   async function getdata() {
     const res = await axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${getlocalstoragelattitude}&longitude=${getlocalstoragelangitude}&localityLanguage=en')
-    let {address} = res.data.locality
     console.log(res.data.locality)
-    setLocality(res.data.locality)
+    console.log(res.data.city)
+    console.log(res)
+    setLocality(res.data.locality.getcity)
+   
+    // setFormData({...formData, addressline1:res.data.city})
+    let getcity= res.data.city;
     // setFormData({...formData})
-    setFormData({...formData, addressline1:res.data.locality})
+    setFormData({...formData, addressline1:res.data.locality,getcity})
   }
   // this.setState({ someProperty: { ...this.state.someProperty, flag: false} })
   // fieldTwo: {
@@ -487,6 +493,9 @@ function EditprofileCard() {
                   onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
                   value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
+                  inputProps={{
+                    maxLength:10,
+                  }}
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -651,7 +660,7 @@ function EditprofileCard() {
                     startAdornment: (
                       <InputAdornment position="end">
                         <img src={Mylocationicon} width="22px"
-                          onClick={handleclickAddress}
+                          onClick={handleClickAddress}
                           alt="location" style={{ position: "absolute", left: "86%", cursor: "pointer" }} />
                       </InputAdornment>),
                   }}>
@@ -830,7 +839,8 @@ function EditprofileCard() {
 
                   </Grid>
                     </Grid>
-                  </div> </Box>
+                  </div>
+                   </Box>
                    <Button style={style.buttonbtn}
                   className="buttoncenterstyle"
                   disabled={!areAllFieldsFilled}
