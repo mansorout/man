@@ -96,7 +96,7 @@
         margin-left: -4px;
         margin-right: -5px;
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+    .paddingstyle_style {
         width: calc(100% + 140px) !important;
     }
 
@@ -150,7 +150,7 @@
             width: 39vw !important;
         }
         .paddingstyle_style{
-            margin-left: -1px !important;
+            margin-left: 55px !important;
             width: 42vw !important;
             border-radius: 11px !important;
         }
@@ -175,7 +175,7 @@
         width: 100% !important;
     }
 
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+    .paddingstyle_style {
         width: calc(100% + 24px) !important;
     }
     .paddingstyle{
