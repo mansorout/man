@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState,useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -18,9 +18,11 @@ import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import { Formik, useFormik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, useFormik, Form, Field, ErrorMessage,useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import {getDataSaveTaxCalculateApi} from '../../Store/Save Tax/thunk/save-tax-thunk'
+import { useDispatch } from 'react-redux';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -94,9 +96,16 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             color: 'var(--typeIndigoColor)',
             fontSize: 'var(--fontSize14)',
         },
-        "& input[type=number]": {
-            MozAppearance: "textfield",
+        '& input::-webkit-outer-spin-button': {
+            WebkitAppearance: 'none',
+            '-webkit-appearance': 'none !important',
+                margin: '0'
         },
+        '& input::-webkit-inner-spin-button':{
+            WebkitAppearance: 'none',
+            '-webkit-appearance': 'none !important',
+                margin: '0'
+        }
     },
     inputWrap: {
         marginBottom: '15px',
@@ -148,10 +157,41 @@ const inputDetailPopUp = () => {
     // )
 }
 
+
+// const FormObserver: React.FC = () => {
+//     const { values } = useFormikContext();
+//     useEffect(() => {
+//       console.log("FormObserver::values", values);
+//     }, [values]);
+//     return null;
+//   };
+
 const TaxCanSave = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const dispatch:any = useDispatch();
     const [popState, setPopState] = useState<boolean>(false)
+    const [alreadyInvesting, setAlreadyInvesting] = useState(0);
+
+    const [formValues, setFormValues] = useState<any>({
+        employeePF: 0,
+        PPF: 0,
+        homeLoan: 0,
+        nscPost: 0,
+        lifeInsurance: 0,
+        taxSavinig: 0,
+    })
+
+    useEffect(() => {
+        let amount = 0;
+        for (var key in formValues) {
+            if (formValues.hasOwnProperty(key)) {
+                amount += formValues[key]
+            }
+        }  
+        setAlreadyInvesting(amount)
+        console.log("formValues",formValues)
+    }, [formValues])
 
     const handleClose = () => {
         setPopState(false)
@@ -161,25 +201,29 @@ const TaxCanSave = () => {
         navigate('/saveTax/saveTaxAmount')
     }
 
-
-
     const initialValues = {
-        employeePF: '',
-        PPF: '',
-        homeLoan: '',
-        nscPost: '',
-        lifeInsurance: '',
-        taxSavinig: '',
+        employeePF: null,
+        PPF: null,
+        homeLoan: null,
+        nscPost: null,
+        lifeInsurance: null,
+        taxSavinig: null,
     }
 
 
     const validate = Yup.object().shape({
-        employeePF: Yup.string().trim().typeError('Required').required('Required'),
-        PPF: Yup.string().trim().typeError('Required').required('Required'),
-        homeLoan: Yup.string().trim().typeError('Required').required('Required'),
-        nscPost: Yup.string().trim().typeError('Required').required('Required'),
-        lifeInsurance: Yup.string().trim().typeError('Required').required('Required'),
-        taxSavinig: Yup.string().trim().typeError('Required').required('Required'),
+        employeePF: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
+        PPF: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
+        homeLoan: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
+        nscPost: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
+        lifeInsurance: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
+        taxSavinig: Yup.number().positive("Must be more than 0")
+   .integer("Must be more than 0").typeError('Required').required('Required'),
     })
 
 
@@ -190,10 +234,25 @@ const TaxCanSave = () => {
         // initialIsValid:initialIsValid ,
         onSubmit: (values: any) => {
             console.log('form values', values);
+            dispatch(getDataSaveTaxCalculateApi(values))
             handleContinue();
         },
 
     });
+
+    
+
+    const handleFormOnChange = (event: FormEvent) => {
+        console.log("form Event : ", parseInt((event.target as HTMLInputElement).value), alreadyInvesting, (event.target as HTMLInputElement).name)
+        const temp = {...formValues}
+        Object.keys(temp).forEach((key, index) => {
+            if(key === (event.target as HTMLInputElement).name){
+                temp[key] = parseInt((event.target as HTMLInputElement).value)
+            }
+          });
+          setFormValues(temp)
+    }
+
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -212,7 +271,7 @@ const TaxCanSave = () => {
                             <Box className={classes.blueBoxContent}>
                                 <Typography component='span'>You can invest upto</Typography>
                                 <Typography component='p'>₹1.5 Lacs under Section 80C.</Typography>
-                                <Typography component='span'>Already Investing: ₹0</Typography>
+                                <Typography component='span'>Already Investing: ₹{alreadyInvesting}</Typography>
                             </Box>
                             <Box className={classes.blueBoxCircle}>
                                 <Box sx={{ textAlign: 'center' }}>
@@ -222,142 +281,145 @@ const TaxCanSave = () => {
                             </Box>
                         </Box>
 
-
-                        <form onSubmit={formik.handleSubmit} className={classes.form}>
-                            <Box className={classes.inputFeildContainer} sx={{ width: { xs: '90%', sm: '50%' }, margin: {xs:'auto', sm: '0px'}, borderRadius: '8px', }}>
-                                <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 21-22</Typography>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">Employee PF</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                        {/* <Form>
+                                <FormObserver /> 
+                                
+                        </Form> */}
+                            <form onChange={handleFormOnChange} onSubmit={formik.handleSubmit} className={classes.form}>
+                                <Box className={classes.inputFeildContainer} sx={{ width: { xs: '90%', sm: '50%' }, margin: { xs: 'auto', sm: '0px' }, borderRadius: '8px', }}>
+                                    <Typography component='span'>Following are the steps to calculate your investment and show how much you can Save Tax.</Typography>
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">Employee PF</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="employeePF"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.employeePF}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.employeePF && Boolean(formik.errors.employeePF)}
+                                            helperText={formik.touched.employeePF && formik.errors.employeePF}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="employeePF"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='number'
-                                        fullWidth
-                                        value={formik.values.employeePF}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.employeePF && Boolean(formik.errors.employeePF)}
-                                        helperText={formik.touched.employeePF && formik.errors.employeePF}
-                                    />
-                                </Box>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">PPF</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">PPF</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="PPF"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.PPF}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.PPF && Boolean(formik.errors.PPF)}
+                                            helperText={formik.touched.PPF && formik.errors.PPF}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="PPF"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='number'
-                                        fullWidth
-                                        value={formik.values.PPF}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.PPF && Boolean(formik.errors.PPF)}
-                                        helperText={formik.touched.PPF && formik.errors.PPF}
-                                    />
-                                </Box>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">Home Loan Principal</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">Home Loan Principal</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="homeLoan"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.homeLoan}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.homeLoan && Boolean(formik.errors.homeLoan)}
+                                            helperText={formik.touched.homeLoan && formik.errors.homeLoan}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="homeLoan"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='tel'
-                                        fullWidth
-                                        value={formik.values.homeLoan}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.homeLoan && Boolean(formik.errors.homeLoan)}
-                                        helperText={formik.touched.homeLoan && formik.errors.homeLoan}
-                                    />
-                                </Box>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">NSC / Post Office</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">NSC / Post Office</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="nscPost"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.nscPost}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.nscPost && Boolean(formik.errors.nscPost)}
+                                            helperText={formik.touched.nscPost && formik.errors.nscPost}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="nscPost"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='number'
-                                        fullWidth
-                                        value={formik.values.nscPost}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.nscPost && Boolean(formik.errors.nscPost)}
-                                        helperText={formik.touched.nscPost && formik.errors.nscPost}
-                                    />
-                                </Box>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">Life Insurance Premium</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">Life Insurance Premium</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="lifeInsurance"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.lifeInsurance}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.lifeInsurance && Boolean(formik.errors.lifeInsurance)}
+                                            helperText={formik.touched.lifeInsurance && formik.errors.lifeInsurance}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="lifeInsurance"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='number'
-                                        fullWidth
-                                        value={formik.values.lifeInsurance}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.lifeInsurance && Boolean(formik.errors.lifeInsurance)}
-                                        helperText={formik.touched.lifeInsurance && formik.errors.lifeInsurance}
-                                    />
-                                </Box>
-                                <Box className={classes.inputWrap}>
-                                    <Box className={classes.lableAndIcon}>
-                                        <InputLabel htmlFor="outlined-adornment-password">Tax Saving FD</InputLabel>
-                                        <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                    <Box className={classes.inputWrap}>
+                                        <Box className={classes.lableAndIcon}>
+                                            <InputLabel htmlFor="outlined-adornment-password">Tax Saving FD</InputLabel>
+                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                        </Box>
+                                        <TextField
+                                            id="outlined-basic"
+                                            label="Enter Amount"
+                                            variant="outlined"
+                                            name="taxSavinig"
+                                            InputProps={{
+                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                            }}
+                                            type='number'
+                                            fullWidth
+                                            value={formik.values.taxSavinig}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.taxSavinig && Boolean(formik.errors.taxSavinig)}
+                                            helperText={formik.touched.taxSavinig && formik.errors.taxSavinig}
+                                        />
                                     </Box>
-                                    <TextField
-                                        id="outlined-basic"
-                                        label="Enter Amount"
-                                        variant="outlined"
-                                        name="taxSavinig"
-                                        InputProps={{
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                        }}
-                                        type='number'
-                                        fullWidth
-                                        value={formik.values.taxSavinig}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.taxSavinig && Boolean(formik.errors.taxSavinig)}
-                                        helperText={formik.touched.taxSavinig && formik.errors.taxSavinig}
-                                    />
                                 </Box>
-                            </Box>
                                 <FooterWithBtn
                                     btnText='Continue'
-                                    btnClick={formik.handleSubmit}   
-                                />  
-                        </form>
+                                    btnClick={formik.handleSubmit}
+                                />
+                            </form>
                     </Grid>
                 </Grid>
             </Box>
