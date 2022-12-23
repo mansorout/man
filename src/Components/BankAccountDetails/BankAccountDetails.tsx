@@ -63,21 +63,42 @@ const BankAccountDetails = () => {
         setAccountTypeError(false);
     }
 
-    const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
+    //     const value = e.target.value;
+    //     setIfscCode(value);
+    //     const pattern = /^([a-zA-Z]){4}([0-9]){7}?$/;
+    //     if (!pattern.test(value)) {
+    //         setIfscError(true);
+    //     } else {
+    //         setIfscError(false);
+    //     }
+          
+    //     console.log(value.length)
+
+    // }
+
+
+    const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
         const value = e.target.value;
         setIfscCode(value);
-        const pattern = /^([a-zA-Z]){4}([0-9]){7}?$/;
-        if (!pattern.test(value)) {
-            setIfscError(true);
-        } else {
+        if ( value.match(reg)) {
+            console.log("Correct IFSC Code")
+           
             setIfscError(false);
         }
-          
-        console.log(value.length)
-
+        else {
+            console.log("Wront Ifsc");
+            setIfscError(true);
+            
+           
+            
+        }
+        
     }
 
+   
 
 
     const bankAcNoPattern = /^[A-Z0-9]+$/;
@@ -241,9 +262,12 @@ const BankAccountDetails = () => {
                             <FormControl>
                                 <TextField
                                     onKeyPress={(e) =>
-                                        /^[A-Za-z]{4}[a-zA-Z0-9!@#\$%\^\&*\)]{7}$/.test(e.key) &&
+                                        /[*|\":<>[\]{}`\\()';@&$]/im.test(e.key) &&
                                         e.preventDefault()
                                     }
+
+                                    
+                                       
                                     required
                                     id="outlined-ifsc-code"
                                     label="Enter IFSC code"
@@ -252,6 +276,9 @@ const BankAccountDetails = () => {
                                     name="EnterIFSCcode"
                                     error={ifscError}
                                     helperText={ifscError ? "Please enter a valid IFSC Code" : ""}
+                                    inputProps={{
+                                        maxLength: 11,
+                                      }}
                                 />
                             </FormControl>
 
@@ -271,11 +298,15 @@ const BankAccountDetails = () => {
                                     helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                        
                                     }}
+                                    inputProps={{
+                                        maxLength: 16,
+                                      }}
                                 />
                             </FormControl>
 
-                            <FormControl sx={{ paddingTop: "10px" }}>
+                            <FormControl >
                                 <TextField
                                     onKeyPress={(e) =>
                                         /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
@@ -292,22 +323,28 @@ const BankAccountDetails = () => {
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                     }}
+                                    inputProps={{
+                                        maxLength: 16,
+                                      }}
                                 />
                             </FormControl>
 
-                            <FormControl sx={{ paddingTop: "10px" }}>
+                            <FormControl >
                                 <TextField
-                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
+                                    onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Account Holder's Name"
                                     value={accountHolder}
                                     onChange={handleAccountHolderChange}
                                     error={accountHolderError}
                                     helperText={accountHolderError ? "Please enter a valid Name" : ""}
+                                    inputProps={{
+                                        maxLength: 35,
+                                      }}
                                 />
                             </FormControl>
 
-                            <FormControl sx={{ paddingTop: "10px" }}>
+                            <FormControl>
                                 <Button
                                     variant="contained"
                                     onClick={handleSubmit}
