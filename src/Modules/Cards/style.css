@@ -1,4 +1,10 @@
-
+@media (max-width:3000px){
+    .pincodestayle{
+        margin: 8px !important;
+        width: 242px !important;
+        height: 16px !important;
+    }  
+}
 
 
 
@@ -48,8 +54,8 @@
      .css-1o59boh .MuiTextField-root {
         width: 100% !important;
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 140px) !important;
+    .paddingstyle_style {
+        width: calc(90% + 125px) !important;
     }
     .IpadStyle {
         overflow: inherit;
@@ -59,10 +65,12 @@
     }
     .paddingstyle{
       
-        margin-left: -19px !important;
+        margin-left: -16px !important;
+        width: 37.5vw !important;
     }
     .paddingstyle_style{
-        margin-left: 9px !important;
+        margin-left: 49px !important;
+        width: 42vw !important;
     }
   
     .graphUlipStyle{
@@ -88,7 +96,7 @@
         margin-left: -4px;
         margin-right: -5px;
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+    .paddingstyle_style {
         width: calc(100% + 140px) !important;
     }
 
@@ -136,6 +144,17 @@
         .investWholeStyle{
             margin-left: 7% !important;
         }
+        .paddingstyle{
+      
+            margin-left: -16px !important;
+            width: 39vw !important;
+        }
+        .paddingstyle_style{
+            margin-left: 55px !important;
+            width: 42vw !important;
+            border-radius: 11px !important;
+        }
+      
 }
 
 
@@ -156,7 +175,7 @@
         width: 100% !important;
     }
 
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
+    .paddingstyle_style {
         width: calc(100% + 24px) !important;
     }
     .paddingstyle{
@@ -173,14 +192,29 @@
         width: 40%!important;
          margin: 8px !important
      }
+     .paddingviewprofilestyle{
+        padding-left: 1% !important;
+        border-radius: 33px !important;
+        width: 93% !important;
+     }
+     .paddingstyle{
+      
+        margin-left: -24px !important;
+        width: 87vw !important;
+    }
+    .paddingstyle_style{
+        margin-left: -24px !important;
+        width: 87vw !important;
+        border-radius: 11px !important;
+    }
 
 }
 
  
 
 @media (max-width:560px) {
-    .MonthlyStyle{
-        /* color: red !important; */
+    .investWholeStyle{
+        margin-left: -3% !important;
     }
     .ToastterStyle{
         position: relative !important;
@@ -194,8 +228,7 @@
     }
    
     .NoLockinperiod{
-       
-        padding-left: 32px !important;
+         padding-left: 32px !important;
         transform: translate(10px, 10px) !important;
         width: 100% !important;
         margin: -40px !important;
@@ -207,17 +240,15 @@
     }
     .thirdboxstyle{
         
-        width: 95% !important;
+     
+        padding-left: 1% !important;
+        border-radius: 33px !important;
+        width: 96% !important;
     }
     .buttoncenterstyle{
         margin-left: 1% !important;
     }
-    .InvestmentMonthlyStyle{
-       
-        padding-left: 65% !important;
-        width: 100% !important;
-        padding-top: 2% !important;
-    }
+    
     .premiumpaymentStyle{
        
         position: relative;
@@ -225,7 +256,6 @@
         top: 50% !important;
     }
   .UlipFundCardStyle{
-    width: 81% !important;
     margin-left: -4% !important;
     gap: 5vw !important;
     margin-bottom: 6vw !important;
@@ -242,10 +272,6 @@
     
 }
 
-@media (max-width:375px){
-    .withdraliconstyle{
-        color:red !important
-    }
-}
+
 
 /* iconstyle */

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button,Typography } from '@mui/material'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import './styleButton.css'
 
 export const EditProfieButton = () => {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const EditProfieButton = () => {
     }
 
     return (
-        <Button  variant="contained" style={style.button} fullWidth onClick={() => navigate('/editprofile')} >
+        <Button  variant="contained" style={style.button} fullWidth onClick={() => navigate('/editprofile')} className="EditDetailsButtonStyle" >
             <Typography component="span" style={style.text} className="largeButtonText">Edit Details</Typography>
         </Button> 
     )

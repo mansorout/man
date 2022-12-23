@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Typography } from '@mui/material'
 import { Checkcirclelogo } from "../../Assets/index";
 import { arrowForwedlogo } from "../../Assets/index";
+import './styleButton.css'
 
 
 
@@ -13,7 +14,7 @@ export const VerificationpendingButton = () => {
             backgroundColor: "rgb(255, 195, 0, 0.3)",
             marginTop: "5%",
             width: " 100%",
-            maxWidth: "400px",
+            maxWidth: "420px",
 
 
         } as React.CSSProperties,
@@ -24,7 +25,7 @@ export const VerificationpendingButton = () => {
             lineHeight: '2',
             opacity: "0.74",
             textTransform: 'capitalize',
-            transform: "translate(-26%, 4%)"
+            transform: "translate(-24%, 8.1%)"
         } as React.CSSProperties,
     }
 
@@ -32,12 +33,14 @@ export const VerificationpendingButton = () => {
         <Button variant="contained" style={style.button_B} fullWidth sx={{
             display: 'flex',
             justifyContent: 'space-between',
-        }}>
+        }} 
+        className="KYCpendingStyleButton"
+        >
             <img src={Checkcirclelogo} width="24" height="24" alt="Google Logo" />
 
 
 
-            <Typography component="span" style={style.text_T}>KYC Verification is pending</Typography>
+            <Typography component="span" style={style.text_T} className="verificationStyle">KYC Verification is pending</Typography>
             <img src={arrowForwedlogo} alt="smallarrow Logo" style={{ width: "24px", height: "24px", backgroundColor: "#ffc300", borderRadius: "12px", marginLeft: "62px" }} />
         </Button>
     )

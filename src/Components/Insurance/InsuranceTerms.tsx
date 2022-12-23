@@ -39,6 +39,7 @@ import { useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
 import { useDispatch } from 'react-redux';
 import {postTermPurchase} from '../../Store/Insurance/thunk/insurance-thunk'
+import FormHelperText from '@mui/material/FormHelperText';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -152,6 +153,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         border: '1px solid var(--primaryColor) !important',
         backgroundColor: 'rgba(35, 219, 123, 0.12) !important',
         color: 'var(--primaryColor) !important'
+    },
+    selectError:{
+        color: 'red !important',
+        '& fieldset':{
+            borderColor: 'red',
+        },
     }
 }))
 
@@ -214,7 +221,7 @@ const InsuranceTerms = () => {
     const dispatch:any = useDispatch();
     const navigate = useNavigate();
     const [insuranceAmount, setInsuranceAmount] = useState<number | null>(null)
-    // const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
+    const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
     const [dob, setDob] = React.useState<Dayjs | null>(null);
     const [dobError, setDobError] = useState<boolean>(false)
     const [quickPickAmount, setQuickPickAmount] = useState<number[]>([2500000, 7500000, 5000000, 10000000, 50000000, 100000000])
@@ -236,7 +243,11 @@ const InsuranceTerms = () => {
         setDob(null)
         setGenderSelect('');
         setTobaccoSelect('')
-        setOpen(true);
+        if(insuranceAmount){
+            setOpen(true);
+        }else{
+            setInsuranceAmountError(true)
+        }
     };
     const handleClose = () => {
         setOpen(false);
@@ -244,11 +255,13 @@ const InsuranceTerms = () => {
 
     const handleChange = (event: SelectChangeEvent) => {
         setInsuranceAmount(parseInt(event.target.value) as number);
+        setInsuranceAmountError(false)
     };
 
     const selectFromQuickPick = (item: number) => {
         console.log("quickPickValue: ", item)
         setInsuranceAmount(item);
+        setInsuranceAmountError(false)
     }
     const handleGenderSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGenderSelectError(false)
@@ -293,13 +306,14 @@ const InsuranceTerms = () => {
                 <div className={classes.termInsuranceCard}>
                     <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}>Term Insurance</b>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">I want life cover of</InputLabel>
+                        <InputLabel id="demo-simple-select-label" className={insuranceAmountError && classes.selectError}>I want life cover of</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={`${insuranceAmount}`}
                             label="insuranceAmount"
                             onChange={handleChange}
+                            className={insuranceAmountError && classes.selectError}
                         >
                             <MenuItem value={1000000}>₹ 1,00,000</MenuItem>
                             <MenuItem value={2500000}>₹ 2500000</MenuItem>
@@ -309,6 +323,7 @@ const InsuranceTerms = () => {
                             <MenuItem value={50000000}>₹ 50000000</MenuItem>
                             <MenuItem value={100000000}>₹ 100000000</MenuItem>
                         </Select>
+                        {insuranceAmountError && <FormHelperText style={{color: 'red'}}>This is required!</FormHelperText>}
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }}>
                         <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>You can quickly choose from below cover option</span>
