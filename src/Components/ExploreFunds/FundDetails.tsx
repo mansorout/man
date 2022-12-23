@@ -16,6 +16,7 @@ import {
 import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import FundPerformance from './FundPerformance';
 import { useNavigate } from 'react-router-dom';
+import ExploreFundChart from './ExploreFundChart';
 
 function Details() {
     const refContainer = useRef();
@@ -138,8 +139,24 @@ function Details() {
         Legend
     )
 
+    // const data = {
+    //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    //     datasets: [
+    //         {
+    //             label: "First dataset",
+    //             data: [10,1,2,3,4,5,6,7,8,9, 12, 15, 12, 12, 34,12, 12, 34,12, 12, 34,12, 12, 34,12, 12, 34],
+    //             fill: true,
+    //             backgroundColor: "rgba(75,192,192,0.2)",
+    //             borderColor: "rgba(75,192,192,1)"
+    //         }
+    //     ]
+    // };
+
+
+
+
     const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        labels: ["18Jan", "28Feb", "5Mar", "13Apr", "May", "Jun"],
         datasets: [
             {
                 label: "First dataset",
@@ -149,7 +166,7 @@ function Details() {
                 borderColor: "rgba(75,192,192,1)"
             }
         ]
-    };
+    }
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -168,98 +185,81 @@ function Details() {
                     <Grid container xs={13} sm={11} md={10}>
                         <Grid sx={{ padding: 2 }} item xs={12}>
                             <Toolbar />
-                            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={13}>
-                                <Grid
-                                    sx={{
-                                        height: { xs: "auto", sm: "inherit" },
-                                        padding: 0, boxSizing: "border-box",
-                                        overflow: { sx: "auto", sm: "auto", md: "auto" }
-                                    }}
-                                    item xs={13}>
-                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
-                                        <Breadcrumbs aria-label="breadcrumb">
-                                            <Link color="#6495ED" underline="always" href="/home">
-                                                <Typography className='burgerText'>Home</Typography>
-                                            </Link>
-                                            <Link color="#6495ED" underline="always" href="/investNow">
-                                                <Typography className='burgerText'>Investment</Typography>
-                                            </Link>
-                                            <Link color="#6495ED" underline="always" href="/sipInvestment">
-                                                <Typography className='burgerText'>Monthly Investment</Typography>
-                                            </Link>
-                                            <Link color="#6495ED" underline="always" href="/mflist">
-                                                <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
-                                            </Link>
-                                            <Link color="#6495ED" underline="always" href="/customizemf">
-                                                <Typography className='burgerText'>Customize Plan </Typography>
-                                            </Link>
-                                            <Link color="#6495ED" underline="always" href="/replaceFunds">
-                                                <Typography className='burgerText'>Choose Fund to Replace </Typography>
-                                            </Link>
-                                            <Link underline='none' color="#8787a2" aria-current="page">
-                                                <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
-                                            </Link>
-                                        </Breadcrumbs>
-                                    </Box>
+                            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
+                                <Breadcrumbs aria-label="breadcrumb">
+                                    <Link color="#6495ED" underline="always" href="/home">
+                                        <Typography className='burgerText'>Home</Typography>
+                                    </Link>
+                                    <Link color="#6495ED" underline="always" href="/investNow">
+                                        <Typography className='burgerText'>Investment</Typography>
+                                    </Link>
+                                    <Link color="#6495ED" underline="always" href="/sipInvestment">
+                                        <Typography className='burgerText'>Monthly Investment</Typography>
+                                    </Link>
+                                    <Link color="#6495ED" underline="always" href="/mflist">
+                                        <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
+                                    </Link>
+                                    <Link color="#6495ED" underline="always" href="/customizemf">
+                                        <Typography className='burgerText'>Customize Plan </Typography>
+                                    </Link>
+                                    <Link color="#6495ED" underline="always" href="/replaceFunds">
+                                        <Typography className='burgerText'>Choose Fund to Replace </Typography>
+                                    </Link>
+                                    <Link underline='none' color="#8787a2" aria-current="page">
+                                        <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
+                                    </Link>
+                                </Breadcrumbs>
+                            </Box>
+                            {
+                                FundCardsData.map((item, index) => {
+                                    return (
+                                        <FundDetailCard
+                                            key={index}
+                                            logo={item.logo}
+                                            name={item.name}
+                                            cap={item.cap}
+                                            type={item.type}
+                                            year1={item.year1}
+                                            year3={item.year3}
+                                            year5={item.year5}
+                                            rating={item.rating}
+                                            morning_star_logo={item.morning_star_logo}
+                                        />
+                                    )
+                                })
+                            }
 
-                                    {
-                                        FundCardsData.map((item, index) => {
-                                            return (
-                                                <FundDetailCard
-                                                    key={index}
-                                                    logo={item.logo}
-                                                    name={item.name}
-                                                    cap={item.cap}
-                                                    type={item.type}
-                                                    year1={item.year1}
-                                                    year3={item.year3}
-                                                    year5={item.year5}
-                                                    rating={item.rating}
-                                                    morning_star_logo={item.morning_star_logo}
-                                                />
-                                            )
-                                        })
-                                    }
 
-                                    <Line data={data} />
 
+
+                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                <Grid item xs={12}>
+
+                                </Grid>
+                                <Grid item xs={12}>
                                     <FundPerformance />
+                                </Grid>
+                            </Grid>
 
-                                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                        <Grid item xs={12} sm={6}>
-                                            <MinInvest />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <SchemeDoc />
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                        <Grid item xs={12} sm={6}>
-                                            <RiskoMeter />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <LatestAssets />
-                                        </Grid>
-                                    </Grid>
-                                    {/* <Grid container direction="row" alignItems="center" justifyContent="center" sx={{ marginTop: '1rem' }} >
-                                        <Button
-                                            variant="contained"
-                                            sx={{
-                                                borderRadius: '0.5rem',
-                                                boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                                backgroundColor: '#23db7b',
-                                                padding: '1rem',
-                                                textTransform: 'capitalize',
-                                            }}>Add This Fund To Plan</Button>
-                                    </Grid> */}
-                                    <FooterWithBtn
-                                        btnText='Add This Fund to Plan'
-                                        btnClick={handleClick}
-                                    />
+                            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ paddingTop: "15px", paddingBottom: "56px" }}>
+                                <Grid item xs={12} sm={6} >
+                                    <MinInvest />
+                                </Grid>
+                                <Grid item xs={12} sm={6} >
+                                    <SchemeDoc />
+                                </Grid>
+                                <Grid item xs={12} sm={6} >
+                                    <RiskoMeter />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <LatestAssets />
                                 </Grid>
                             </Grid>
                         </Grid>
+                        <FooterWithBtn
+                            btnText='Add This Fund to Plan'
+                            btnClick={handleClick}
+                        />
                     </Grid>
                 </Grid>
             </Box>
@@ -268,3 +268,5 @@ function Details() {
 }
 
 export default Details
+
+

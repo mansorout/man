@@ -64,22 +64,28 @@ const BankAccountDetails = () => {
     }
 
     const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
         const value = e.target.value;
         setIfscCode(value);
-        const pattern = /[A-Z]{4}0\d{6}/;
+        const pattern = /^([a-zA-Z]){4}([0-9]){7}?$/;
         if (!pattern.test(value)) {
             setIfscError(true);
         } else {
             setIfscError(false);
         }
+          
+        console.log(value.length)
+
     }
+
+
 
     const bankAcNoPattern = /^[A-Z0-9]+$/;
 
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         setBankAcNo(value);
-        if (!bankAcNoPattern.test(value)) {
+        if (!bankAcNoPattern.test(value) && e.target.value.trim().length !=10 ) {
             setBankAcNoError(true)
         } else {
             setBankAcNoError(false);
@@ -147,12 +153,12 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={12} sm={11} md={10} sx={{ 
-                        height: "100vh", 
+                    <Grid container item xs={12} sm={11} md={10} sx={{
+                        height: "100vh",
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        marginLeft: { xs: '5vw', sm: '12vw', md: '28vw' }, 
+                        marginLeft: { xs: '5vw', sm: '12vw', md: '28vw' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
@@ -201,13 +207,26 @@ const BankAccountDetails = () => {
                                     onChange={handleAccountTypeChange}
                                 >
                                     <FormControlLabel
-                                        control={<Radio />}
+
+                                        control={<Radio defaultChecked
+                                            sx={{
+                                                color: "#3D70B2"[800],
+                                                "&.Mui-checked": {
+                                                    color: "#09b85d"
+                                                }
+                                            }} />}
                                         label="Savings"
                                         onChange={() => setAccountType('savings')}
                                         value="savings"
                                     />
                                     <FormControlLabel
-                                        control={<Radio />}
+                                        control={<Radio defaultChecked
+                                            sx={{
+                                                color: "#3D70B2"[800],
+                                                "&.Mui-checked": {
+                                                    color: "#09b85d"
+                                                }
+                                            }} />}
                                         label="Current"
                                         onChange={() => setAccountType('current')}
                                         value="current"
@@ -221,6 +240,10 @@ const BankAccountDetails = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={(e) =>
+                                        /^[A-Za-z]{4}[a-zA-Z0-9!@#\$%\^\&*\)]{7}$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
                                     required
                                     id="outlined-ifsc-code"
                                     label="Enter IFSC code"
@@ -232,39 +255,49 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
-                                    type="text"
-                                    id="outlined-bank-acc-no"
+                                    type="password"
+                                     id="outlined-bank-acc-no"
                                     required
                                     label="Bank Account Number"
+                                    onKeyPress={(e) =>
+                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
                                     value={bankAcNo}
                                     onChange={handleBankAcNoChange}
                                     error={bankAcNoError}
-                                    helperText={bankAcNoError ? "Please enter a valid Password" : ""}
+                                    helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                     }}
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
+                                    onKeyPress={(e) =>
+                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
+
                                     required
                                     id="confirmed-bank-acc-no"
                                     label="Confirm Bank Account Number"
                                     value={confirmBankAcNo}
                                     onChange={handleConfirmBankAcNoChange}
                                     error={confirmBankAcNoError}
-                                    helperText={confirmBankAcNoError ? "Passwords do not match" : ""}
+                                    helperText={confirmBankAcNoError ? "Bank Account Number do not match" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                     }}
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
+                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Account Holder's Name"
                                     value={accountHolder}
@@ -274,11 +307,15 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <Button
                                     variant="contained"
                                     onClick={handleSubmit}
                                     sx={{
+                                        ml: 1,
+                                        "&.MuiButtonBase-root:hover": {
+                                            bgcolor: '#23db7b'
+                                        },
                                         borderRadius: '0.5rem',
                                         boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
                                         backgroundColor: '#23db7b',

@@ -53,7 +53,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 interface FooterBtnWithBoxType {
     boxIcon: React.ReactElement<any>;
     boxText: string;
-    boxAmount: string;
+    boxAmount: number | string | null;
     btnText: string;
     btnClick: () => void;
     btnDisable ?: boolean;

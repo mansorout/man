@@ -3,3 +3,7 @@ body{
     overflow-x: auto;
 }
 
+/* input[type="password"] { -webkit-text-security: square !important; } */
+
+input::-ms-reveal { display: none; }
+

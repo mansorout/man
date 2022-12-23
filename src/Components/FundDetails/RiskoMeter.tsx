@@ -9,7 +9,6 @@ export const RiskoMeter = () => {
   Chart.register(ArcElement);
   const data = {
     type: 'doughnut',
-    labels: ['Low', 'Moderately Low', 'Moderate', 'Moderately High', 'High'],
     datasets: [
       {
         data: [20, 20, 20, 20, 20],
@@ -27,7 +26,7 @@ export const RiskoMeter = () => {
   };
   return (
     <>
-      <Box sx={{ margin: "1rem" }}>
+      <Box >
         <Accordion sx={{
           borderRadius: "8px",
           backgroundColor: "white",
@@ -62,11 +61,7 @@ export const RiskoMeter = () => {
               boxSizing: "border-box",
               backgroundColor: "white",
             }}>
-              {/* <img style={{
-        paddingTop: "20px",
-        paddingBottom: "100px",
-        maxWidth: "-webkit-fill-available"
-      }} src={Riskometer} /> */}
+
 
               <Doughnut
                 data={data}
@@ -82,8 +77,8 @@ export const RiskoMeter = () => {
                   },
                   layout: {
                     padding: {
-                      top: 30,
-                      bottom: 30,
+
+
                     }
                   },
                   rotation: -90,
@@ -93,11 +88,11 @@ export const RiskoMeter = () => {
                   responsive: true,
                 }}
               />
-
+              <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
+                This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
+              </Typography>
             </Box>
-            <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
-              This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
-            </Typography>
+
           </AccordionDetails>
         </Accordion>
 

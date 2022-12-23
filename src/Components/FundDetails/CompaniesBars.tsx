@@ -124,9 +124,13 @@ export default function Companies() {
           </Grid>
       <Consumerstaples2 variant="determinate" value={3.90} />
       
-      <Box sx={{padding:" 11px 78px"}}>
-         <Typography className='viewmoretext'>VIEW MORE</Typography>
-         </Box>
+      
+        
+         <Grid container sx={{padding:" 11px 78px"}}> 
+        <Grid xs={12}>
+          <Typography sx={{fontSize:"14px",fontWeight:"500",color:"#6c63ff",textAlign:"center",}}>VIEW MORE</Typography>
+        </Grid>
+      </Grid>
        
     </Box>
   );

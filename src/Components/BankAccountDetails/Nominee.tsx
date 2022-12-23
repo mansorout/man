@@ -78,12 +78,12 @@ const Nominee = () => {
 
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={13} sm={11} md={10} sx={{ 
-                        height: "100vh", 
+                    <Grid container item xs={13} sm={11} md={10} sx={{
+                        height: "100vh",
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' }, 
+                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
@@ -95,7 +95,7 @@ const Nominee = () => {
                             <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
-                                color: '#373e42'
+                                color: '#8787a2'
                             }}>Nominee & Declarations</Typography>
                         </Breadcrumbs>
                         <Box component="form" sx={{
@@ -121,6 +121,7 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Full Name"
                                     value={name}
@@ -132,6 +133,10 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={(e) =>
+                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                        e.preventDefault()
+                                    }
                                     required
                                     type="date"
                                     label="Date of Birth"
@@ -139,6 +144,10 @@ const Nominee = () => {
                                     onChange={handleDateOfBirthChange}
                                     error={dobError}
                                     helperText={dobError ? "Please choose a date" : ''}
+                                    inputProps={{
+                                        max: "2002-01-01",
+                                        min: "1950-01-01"
+                                    }}
                                 />
                             </FormControl>
 
@@ -169,6 +178,10 @@ const Nominee = () => {
 
                             <FormControl>
                                 <Button variant="contained" sx={{
+                                    ml: 1,
+                                    "&.MuiButtonBase-root:hover": {
+                                        bgcolor: '#23db7b'
+                                    },
                                     borderRadius: '0.5rem',
                                     boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
                                     backgroundColor: '#23db7b',
