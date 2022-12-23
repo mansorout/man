@@ -121,7 +121,7 @@ function ViewProfileCard() {
                             uploadInputRef.current && uploadInputRef.current.click()}>
 
                             <img alt="" src={imgSrc} style={style.cameraIcon} />
-                            <Typography sx={{ color: "#6c63ff", textAlign: "center", fontWeight: "500",marginTop:"-6%" }}>remove</Typography>
+                          
                             <input
                                 ref={uploadInputRef}
                                 type="file"
@@ -130,6 +130,7 @@ function ViewProfileCard() {
                                 onChange={onSelectFile}
                             />
                              </Box>
+                             <Typography sx={{ color: "#6c63ff", textAlign: "center", fontWeight: "500",marginTop:"-6%" }}>remove</Typography>
                         <ListItem
                             secondaryAction={
                                 <Typography sx={{ backgroundColor: "#ffc300", fontSize: "12px", fontWeight: 'bold', borderRadius: "20px",color:"#000", padding: "2px 21px 3px 23px" }}>Incomplete</Typography>

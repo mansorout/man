@@ -65,13 +65,15 @@ function EditprofileCard() {
     const res = await axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${getlocalstoragelattitude}&longitude=${getlocalstoragelangitude}&localityLanguage=en')
     console.log(res.data.locality)
     console.log(res.data.city)
-    console.log(res)
+    console.log(res.data.city)
+    console.log(res.data.countryName)
     setLocality(res.data.locality.getcity)
    
     // setFormData({...formData, addressline1:res.data.city})
-    let getcity= res.data.city;
+    let getcity = res.data.city;
+    let getcountryName = res.data.countryName
     // setFormData({...formData})
-    setFormData({...formData, addressline1:res.data.locality,getcity})
+    setFormData({...formData, addressline1:`${res.data.locality},${getcity} ${getcountryName}`})
   }
   // this.setState({ someProperty: { ...this.state.someProperty, flag: false} })
   // fieldTwo: {
