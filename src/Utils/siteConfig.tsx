@@ -22,10 +22,11 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   SAVETAX_COMPARISON: "/savetax/comparison",
-  TERM_PURCHASE: '/insurance/term/purchase/',
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
-  METADATA_INCOMESLAB_LIST:"/metadata/incomeslab/list/"
+  METADATA_INCOMESLAB_LIST:"/metadata/incomeslab/list/",
+  SAVETAX_CALCULATE: '/savetax/calculate',
+  TERM_PURCHASE: '/insurance/term/purchase/'
 });
 
 export default siteConfig;

@@ -12,6 +12,7 @@ type IProps = {
 };
 
 export const InvestButton = (props: IProps) => {
+  const [investamount, setInvestAmount]=useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showLogin, setShowLogin] = useState(false);
@@ -30,6 +31,7 @@ export const InvestButton = (props: IProps) => {
     },
   };
 
+
   const handleClick = () => {
     if (props?.cardType === globalConstant.SIP_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
@@ -38,17 +40,24 @@ export const InvestButton = (props: IProps) => {
     }
 
     setShowLogin(true);
-  };
+  
 
+  };
+const handleChangecontinue=(e:any)=>{
+  const getinvest= e.target.value
+  setInvestAmount(getinvest)
+}
   return (
     <>
       <Button
         variant="contained"
         style={style.button}
         fullWidth
+     
         onClick={() => {
           handleClick();
         }}
+        onChange={(e)=>handleChangecontinue(e)}
       >
         <Grid container spacing={2} textAlign="center">
           <Grid item xs={12} md={12}>
@@ -56,6 +65,7 @@ export const InvestButton = (props: IProps) => {
               component="span"
               style={style.text}
               className="largeButtonText"
+            
             >
               Continue
             </Typography>

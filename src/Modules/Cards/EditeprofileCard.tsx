@@ -31,12 +31,6 @@ import CustomSelectBox from '../../Components/Custom components/customSelectBox'
 import { getData, getDataWithoutToken, postDataWithoutToken } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
 
-const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
-const country = ["delhi", "kanpur"]
-const State = [{ name: "up", code: "de" }, { name: "mp" }]
-const pincode = [{ name: "208025" }]
-const Cityofresidence = [{ name: "117/N/112" }]
-
 type formDataProps = {
   customer_id?: number,
   firstname: string,
@@ -123,10 +117,11 @@ const style = {
     borderRadius: "8px",
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
-    marginTop: "-60px",
+    // marginTop: "-60px",
     marginLeft: "4%",
     width: "100%",
     maxWidth: "400px",
+    marginBottom: "3%"
 
   },
   ca: {
@@ -406,7 +401,7 @@ const EditprofileCard = () => {
                       id='First Name'
                       sx={{
                         color: "rgba(0, 0, 0, 0.6)",
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                         width: "100%", fontSize: "15px", fontWeight: "normal",
 
                       }}
@@ -424,7 +419,7 @@ const EditprofileCard = () => {
                   fullWidth
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
-                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px", fontWeight: "normal",
 
                   }}
@@ -439,7 +434,9 @@ const EditprofileCard = () => {
                   value={formData?.lastname}
                   onChange={handlechange}
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "100%", fontSize: "15px",
                     fontWeight: "normal",
                   }}
                   error={validateInputs?.lastname}
@@ -455,7 +452,8 @@ const EditprofileCard = () => {
                   onChange={handlechange}
                   fullWidth
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px", fontWeight: "normal"
                   }}
                   error={validateInputs?.mobilenumber}
@@ -472,7 +470,9 @@ const EditprofileCard = () => {
                   onBlur={handleBlur}
                   name="emailaddress"
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "100%",
                     fontSize: "15px", fontWeight: "normal"
                   }}
                   value={formData?.emailaddress}

@@ -9,11 +9,37 @@ import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/joy';
 import { chart } from '../../Assets';
 import { Button } from '@mui/material';
+import { Doughnut } from "react-chartjs-2";
 
 
 
 
 export default function MarketCap() {
+    const data = {
+        labels: ["Critical case", "Urgent case", "Errors", "Reviewed", "Success"],
+        datasets: [
+          {
+            data: [30, 30, 5, 15, 20],
+            backgroundColor: [
+              "rgb(242,165,152)",
+              "rgb(255,232,157)",
+              "rgb(236,107,109)",
+              "rgb(122,231,125)",
+              "rgb(195,233,151)"
+            ],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+          }
+        ],
+       
+        plugins: {
+          labels: {
+            render: "percentage",
+            fontColor: ["green", "white", "red"],
+            precision: 2
+          },
+        },
+         text: "23%",
+      };
     return (
         <>
 
@@ -27,7 +53,19 @@ export default function MarketCap() {
 
                     <Grid item xs={5} sx={{ paddingLeft: "25px" }} >
 
-                        <img src={chart} alt="chart" width="240px"></img>
+                        {/* <img src={chart} alt="chart" width="240px"></img> */}
+
+                        <Doughnut
+                            data={data}
+                            options={{
+
+                                elements: {
+
+                                   
+                                },
+
+                            }}
+                        />
 
 
 
@@ -68,7 +106,7 @@ export default function MarketCap() {
 
 
 
-              
+
 
             </Box>
 

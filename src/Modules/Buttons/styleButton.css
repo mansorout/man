@@ -1,5 +1,20 @@
 @media (max-width:560px){
-    .UlipBluebuttonStyle{
-        color: red !important;
+  
+    .EditDetailsButtonStyle{
+     
+        width: 98% !important;
+    
+    }
+    .KYCpendingStyleButton{
+        margin-left: -6% !important;
+        width: 104% !important;
+        font-size: 10px !important;
+       
+    }
+    .verificationStyle{
+    
+    padding-left: 8% !important;
+    transform: translate(-26%, 11.1%) !important;
+    font-size: 12px !important;
     }
 }

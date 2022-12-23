@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
@@ -14,6 +14,7 @@ import SelectUlipDateButton from "../../Modules/Buttons/ULIP/SelectUlipDateButto
 import Calendar from "react-calendar";
 import { tick } from "../../Assets";
 import { useNavigate } from "react-router-dom";
+import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 
 const enumActiveScreen = Object.freeze({
     CLOSE_MODAL: 0,
@@ -28,7 +29,7 @@ const ULIPRecommendations = () => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
+    const refContainer = useRef();
     const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
 
     const navigate = useNavigate();
@@ -97,97 +98,117 @@ const ULIPRecommendations = () => {
             marginTop: 21,
             marginLeft: -8
         },
+        buttons: {
+            width: "fit-content",
+            padding: '10px',
+            borderRadius: '20px',
+            border:"0px",
+            '&:hover' : {
+                color:"red !important",
+                backgoundColor:"red !important"
+            }
+          },
     };
 
     return (
-        <Box style={{ width: "100vw" }}>
-            <Navbar />
-            <Box sx={style.main}>
-                <Grid container spacing={0} >
-                    <Grid item xs={0} sm={1} md={2}>
-                        <Toolbar />
-                        <Sidebar />
-                    </Grid>
-                    <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-                        <Toolbar />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
+            <Box style={{ width: "100vw" }} ref={refContainer}>
+                <Navbar />
+                <Box sx={style.main}>
+                    <Toolbar />
+                    <Sidebar />
+                    <Grid container>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "0px", sm: '70px !important', md: '230px !important' } }} item xs={12}>
+                        
+                            <div>
+                                <Grid  container >
+                                    <Grid  container spacing={0} >
+                                        <Grid  container item sx={{  overflow: "scroll" }} xs={12}>
+                                            
+                                        <Box sx={{
+                                            backgroundColor: "#f9f9f9",
+                                            paddingBottom: "50px",
+                                            
+                                            width:"100%",
+                                            fontFamily: 'Roboto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'center'
+                                        }}>
+                                            <ULIPHeader />
+                                            <Box sx={{
+                                                padding: 0,
+                                                margin: '2.5vw',
+                                                fontFamily: 'Roboto',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                gap: '1vw',
+                                            }}>
+                                                <Breadcrumbs sx={{
+                                                    fontSize: '12px',
+                                                    color: '#6c63ff',
+                                                    marginBottom: '1vw',
+                                                }}>
+                                                    <Link href="/home">Home</Link>
+                                                    <Link href="/insurance">Get Insured</Link>
+                                                    <Link href="/ulip/investoptions">ULIP</Link>
+                                                    <Typography sx={{
+                                                        fontSize: '12px',
+                                                        color: '#373e42'
+                                                    }}>SprintMoney Recommendation</Typography>
+                                                </Breadcrumbs>
+                                                <Box>
+                                                    <Typography sx={{
+                                                        fontSize: '12px',
+                                                        color: '#8787a2',
+                                                    }}>This plan provide tax benefit of 80C</Typography>
+                                                    <Typography sx={{
+                                                        fontSize: '18px',
+                                                        fontWeight: 500,
+                                                        color: '#3c3e42',
+                                                    }}>2 ULIP Plan Found</Typography>
+                                                </Box>
+                                                <Box sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    gap: '1.5vw',
+                                                }}>
+                                                    {
+                                                        ulipData.map(data => <ULIPCoFundCard {...data} />)
+                                                    }
+                                                </Box>
+                                                <Box sx={{ display:"flex", justifyContent:"center", alignItems:"center"}}>
+                                                    <Button variant="outlined" onClick={()=>navigate("/ulip/options")}
+                                                     style={style.buttons} sx={{
+                                                        backgroundColor: '#00b4ff',
+                                                        }}>
+                                                            <Typography sx={{color:"white"}}>EXPLORE OTHER OPTIONS</Typography>
+                                                    </Button>
+                                                </Box>
+                                                {/*
+                                                <Button onClick={ handleOpen }>Open dialog</Button>
+                                                <ThirdPartyHdfc open={ open } handleClose={ handleClose } />
+                                            */}
+                                            </Box>
+                                            
+                                        </Box>
+                                        </Grid>
 
-                        <Box sx={{
-                            padding: 0,
-                            margin: 0,
-                            marginLeft: '4vw',
-                            fontFamily: 'Roboto',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            gap: '1.5vw',
-                        }}>
-                            <ULIPHeader />
-                            <Box sx={{
-                                padding: 0,
-                                margin: '2.5vw',
-                                fontFamily: 'Roboto',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                gap: '1vw',
-                            }}>
-                                <Breadcrumbs sx={{
-                                    fontSize: '12px',
-                                    color: '#6c63ff',
-                                    marginBottom: '3vw',
-                                }}>
-                                    <Link href="/home">Home</Link>
-                                    <Link href="/insurance">Get Insured</Link>
-                                    <Link href="/ulip/investoptions">ULIP</Link>
-                                    <Typography sx={{
-                                        fontSize: '12px',
-                                        color: '#373e42'
-                                    }}>SprintMoney Recommendation</Typography>
-                                </Breadcrumbs>
-                                <Box>
-                                    <Typography sx={{
-                                        fontSize: '12px',
-                                        color: '#8787a2',
-                                    }}>This plan provide tax benefit of 80C</Typography>
-                                    <Typography sx={{
-                                        fontSize: '18px',
-                                        fontWeight: 500,
-                                        color: '#3c3e42',
-                                    }}>2 ULIP Plan Found</Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '1.5vw',
-                                }}>
-                                    {
-                                        ulipData.map(data => <ULIPCoFundCard {...data} />)
-                                    }
-                                </Box>
-                                <ULIPBlueButton text="EXPLORE OTHER OPTIONS" navigateTo="/ulip/options" />
-                                {/*
-                                <Button onClick={ handleOpen }>Open dialog</Button>
-                                <ThirdPartyHdfc open={ open } handleClose={ handleClose } />
-                            */}
-                            </Box>
-                            <Box sx={{
-                                width: '83.75vw',
-                                height: '6.1vw',
-                                marginTop: '8vw',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                boxShadow: '0 0 6px 0 rgba(0, 0, 0, 0.16)',
-                                backgroundColor: '#fff'
-                            }}>
-                                <SelectUlipDateButton
-                                    openModal={() => setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)}
-                                />
-                            </Box>
-                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </div >
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
+                </Box>
+
+
+            </Box>
+            <FooterWithBtn
+                btnText='Select ULIP Date'
+                btnClick={() => setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)}
+            />
+            <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
                     <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '13%', md: '30%' } }}>
                         <Typography sx={style.modalText}>Select Monthly Instalment Date</Typography>
                         <Typography sx={ style.modalText2 }>{`${ value.getDate() }`} of every month</Typography>
@@ -227,8 +248,7 @@ const ULIPRecommendations = () => {
 
                     </>
                 </Modal>
-            </Box>
-        </Box>
+        </div >
     )
 };
 
