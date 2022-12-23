@@ -121,6 +121,7 @@ function ViewProfileCard() {
                             uploadInputRef.current && uploadInputRef.current.click()}>
 
                             <img alt="" src={imgSrc} style={style.cameraIcon} />
+                            <Typography sx={{ color: "#6c63ff", textAlign: "center", fontWeight: "500",marginTop:"-6%" }}>remove</Typography>
                             <input
                                 ref={uploadInputRef}
                                 type="file"

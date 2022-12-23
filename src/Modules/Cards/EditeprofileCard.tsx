@@ -1,10 +1,10 @@
 import { Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Paper from "@mui/material/Paper";
-import { ContactError, Mylocationicon } from "../../Assets/index";
+import { axislogoredeem, ContactError, Mylocationicon } from "../../Assets/index";
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
-
+import axios from 'axios'
 // import EEditprofileCard from '../Buttons/EEditprofileCard'
 // import { makeStyles,} from "@mui/styles";
 import { makeStyles, createStyles } from "@mui/styles";
@@ -37,15 +37,41 @@ import { getValue } from '@testing-library/user-event/dist/utils';
 import { setSyntheticLeadingComments } from 'typescript';
 const langs = [{ name: "English", code: "en" }, { name: "German", code: "de" }];
 const country = ["delhi", "kanpur"]
+const incomeslab = ["₹ 2,50,001 - ₹ 5,00,000", "₹ 5,00,001 - ₹ 10,00,000"]
 const State = [{ name: "up", code: "de" }, { name: "mp" }]
 const pincode = [{ name: "208025" }]
 const Cityofresidence = [{ name: "117/N/112" }]
 function EditprofileCard() {
+  const [locality, setLocality] = useState()
   const [selectedValue, setSelectedValue] = React.useState('a');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
   };
 
+  const handleclickAddress = () => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+      const Latitude: any = position.coords.latitude
+      const Longitude: any = position.coords.longitude
+      localStorage.setItem("Latitude", Latitude);
+      localStorage.setItem("Longitude", Longitude);
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+    getdata()
+  }
+  async function getdata() {
+    const res = await axios.get('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${getlocalstoragelattitude}&longitude=${getlocalstoragelangitude}&localityLanguage=en')
+    let {address} = res.data.locality
+    console.log(res.data.locality)
+    setLocality(res.data.locality)
+    // setFormData({...formData})
+    setFormData({...formData, addressline1:res.data.locality})
+  }
+  // this.setState({ someProperty: { ...this.state.someProperty, flag: false} })
+  // fieldTwo: {
+  //   fieldTwoOne: "b",
+  //   fieldTwoTwo: "c"
+  //   }
   const controlProps = (item: string) => ({
     checked: selectedValue === item,
     onChange: handleChange,
@@ -60,8 +86,6 @@ function EditprofileCard() {
       }, root: {
         flexGrow: 1,
       }
-  
-   
     }),
   ); const style = {
     containertwo: {
@@ -99,10 +123,10 @@ function EditprofileCard() {
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      marginTop: "-60px",
-      marginLeft: "4%",
+      marginTop: "-33px",
+      marginLeft: "1%",
       width: "100%",
-      maxWidth: "400px",
+      maxWidth: "422px",
 
     },
     ca: {
@@ -185,16 +209,12 @@ function EditprofileCard() {
   const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const handlechange = (e: any) => {
-    e.preventDefault();
-
+     e.preventDefault();
     const value = e.target.value;
     setFormData({
       ...formData,
       [e.target.name]: value
-
     })
-
-
   }
   useEffect(() => {
 
@@ -226,7 +246,7 @@ function EditprofileCard() {
   }, [formData])
 
 
-  const areAllFieldsFilled = (formData.firstName != "") && (NameRegex.test(formData.lastName)) && (mobileRegex.test(formData.mobilenumber)) &&
+  const areAllFieldsFilled = (NameRegex.test(formData.firstName)) && (NameRegex.test(formData.lastName)) && (NameRegex.test(formData.middleName)) && (mobileRegex.test(formData.mobilenumber)) &&
     (emailRegex.test(formData.emailaddress)) && (formData.StateOfBirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.CityofResidence !== "")
     && (formData.state !== "") && (formData.CountryFirst !== "") && (formData.IncomeSlab !== "") && (formData.LastName !== "")
   const dispatch = useDispatch()
@@ -234,6 +254,7 @@ function EditprofileCard() {
 
   const navigate = useNavigate();
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+
     event.stopPropagation();
     console.log(formData)
     store.dispatch(submituserdetails({ 'formData': formData }))
@@ -247,11 +268,11 @@ function EditprofileCard() {
       setError(true)
 
 
-      setErrorMessageFN("Please Enter Name")
+      setErrorMessageFN("Please Enter Correct Name")
       setShowSubmitDetails(true)
     } else {
       setShowSubmitDetails(false)
-      console.log("kkkk")
+
     }
 
   }
@@ -278,8 +299,8 @@ function EditprofileCard() {
 
   }
   const handleOnBlurlastName = () => {
-    if (formData.lastName.length == "" || !NameRegex.test(formData.lastName)) {
-      setErrorMessagelastname("Please Enter LastName")
+    if (formData.lastName == "") {
+      setErrorMessagelastname("Please Enter Correct LastName")
       setLastNameError(true)
     }
 
@@ -314,7 +335,9 @@ function EditprofileCard() {
 
   }
   const handleOnBluraddressline1 = () => {
-    if (formData.addressline1 <= 3) {
+    
+    if( formData.addressline1 <= 3  ) {
+
       setErrorMessageAddresss("Adresss is required")
       setAddressErrorOne(true)
     }
@@ -350,6 +373,7 @@ function EditprofileCard() {
   }
   const handleOnBlurIncomeSlab = () => {
     if (formData.IncomeSlab == '') {
+      
       setErrorincomeslabs(true)
       setErrorMessageIncomeSlab("Required")
     }
@@ -382,10 +406,10 @@ function EditprofileCard() {
 
 
       }}
-      
-      > 
-      <Grid container spacing={3}>
-         <Grid item xs={12} sm={6} lg={6} >
+
+      >
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6} lg={6} >
             <Paper className='paddingstyle'
               sx={{
                 p: 2,
@@ -393,7 +417,7 @@ function EditprofileCard() {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
               }}
-              
+
 
             >
               <Stack m={2} spacing={2}>
@@ -405,6 +429,8 @@ function EditprofileCard() {
                     <TextField
                       onBlur={handleBlur}
                       label="First Name"
+                      //onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
+                      onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                       name="firstName"
                       value={formData.firstName}
                       onChange={handlechange}
@@ -414,7 +440,7 @@ function EditprofileCard() {
                       id='First Name'
                       sx={{
                         color: "rgba(0, 0, 0, 0.6)",
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                        // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                         width: "100%", fontSize: "15px", fontWeight: "normal",
 
                       }}
@@ -422,25 +448,31 @@ function EditprofileCard() {
                     />
                   </Grid>
 
-                </Grid><TextField label="Middle Name"
+                </Grid>
+                <TextField label="Middle Name"
                   name="middleName"
+                  onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                   onBlur={handleOnBlurmiddleName}
                   value={formData.middleName} onChange={handlechange} fullWidth
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
-                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px", fontWeight: "normal",
 
                   }}
                   error={MidNameError}
                   helperText={MidNameError ? errorMesagemiddleName : ""}
-                /><TextField label="Last Name"
+                />
+                <TextField label="Last Name"
+                  onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                   name="lastName"
                   value={formData.lastName}
                   onBlur={handleOnBlurlastName}
                   onChange={handlechange}
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%", fontSize: "15px",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "100%", fontSize: "15px",
                     fontWeight: "normal",
 
 
@@ -450,12 +482,14 @@ function EditprofileCard() {
                 />
                 <TextField label="Mobile Number"
                   onBlur={handleOnBlurmobilenumber}
-                  type="number"
+                  type="text"
                   name="mobilenumber"
+                  onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
                   value={formData.mobilenumber}
                   onChange={handlechange} fullWidth
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px", fontWeight: "normal"
                   }}
                   error={errormobilenumberone}
@@ -470,7 +504,9 @@ function EditprofileCard() {
                   onBlur={handleOnBluremailaddress}
                   name="emailaddress"
                   sx={{
-                    color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100%",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                    width: "100%",
                     fontSize: "15px", fontWeight: "normal"
                   }}
                   value={formData.emailaddress} onChange={handlechange} fullWidth
@@ -490,13 +526,13 @@ function EditprofileCard() {
                           fontWeight: "normal",
                           top: "-1px",
                           background: "#fff"
-                          
+
                         }}>Country of Birth</InputLabel>
 
                         <Select
                           onBlur={handleBlurCountry}
                           fullWidth={true}
-                          sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          // sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           name="CountrySecond"
                           value={formData.CountrySecond}
                           onChange={handlechange}
@@ -529,7 +565,7 @@ function EditprofileCard() {
                           value={formData.StateOfBirth}
                           onChange={handlechange}
                           name="StateOfBirth"
-                          sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                          // sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                           error={dropValuestateerror}
                         ><MenuItem value="Madhya Pradesh">Mumbai</MenuItem>
                           <MenuItem value="Uttarpradesh">Delhi </MenuItem>{/* {State.map((l: any) => (
@@ -553,16 +589,16 @@ function EditprofileCard() {
           <Grid item xs={12} sm={6} lg={6} sx={{
             maxHeight: "100%",
           }}
-          className="paperstyle"
-         >
+            className="paperstyle"
+          >
             <Paper className='paddingstyle_style'
-          
+
               sx={{
                 p: 1,
                 width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "12px"
-              }} > <Typography sx={{ color: "#6c63ff",}}>Gender</Typography>
+              }} > <Typography sx={{ color: "#6c63ff", }}>Gender</Typography>
               <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }} className='wholedivbuttons'>
                 <Button
                   id={"male"}
@@ -574,7 +610,7 @@ function EditprofileCard() {
                   sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ", height: " 42px", padding: " 6px 10px 1px 6px" }}
                   style={{ cursor: "pointer", border: `1px solid ${selected ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                 ><img src={manicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "-3px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px"  }}>Male</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>Male</Typography>
                 </Button>
                 <Button
                   name="gender"
@@ -584,7 +620,7 @@ function EditprofileCard() {
                   style={{ cursor: "pointer", border: `1px solid ${selectedFemale ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedFemale ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="medium" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px"  }}>  Female</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>  Female</Typography>
                 </Button>
                 <Button
                   id={"transgender"}
@@ -593,24 +629,30 @@ function EditprofileCard() {
                   style={{ cursor: "pointer", border: `1px solid ${selectedTrans ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selectedTrans ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}
                   variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                   <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d",fontSize:"16px" }}>Transgender</Typography>
+                  <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>Transgender</Typography>
                 </Button>
               </Box>
 
               <Stack m={2} spacing={6}>
+
                 <TextField label="Address"
                   onBlur={handleOnBluraddressline1}
                   name="addressline1"
                   value={formData.addressline1}
                   onChange={handlechange}
-                  sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                  sx={{
+                    fontSize: "16px", color: "rgba(0, 0, 0, 0.6)",
+                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                  }}
                   placeholder="Enter your street address"
                   error={addresserrorone}
                   helperText={addresserrorone ? errormessageaddress : ""}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="end">
-                        <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%" }} />
+                        <img src={Mylocationicon} width="22px"
+                          onClick={handleclickAddress}
+                          alt="location" style={{ position: "absolute", left: "86%", cursor: "pointer" }} />
                       </InputAdornment>),
                   }}>
                 </TextField>
@@ -642,7 +684,7 @@ function EditprofileCard() {
                             value={formData.CityofResidence}
                             onChange={handlechange}
                             name="CityofResidence"
-                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            // sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={drapdownresidenseerror}
                           >
                             <MenuItem value="Kanpur">Kanpur</MenuItem>
@@ -672,7 +714,6 @@ function EditprofileCard() {
                             value={formData.state}
                             onChange={handlechange}
                             name="state"
-                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={errorrsstate}
                           >
                             <MenuItem value="Uttarpradesh">Uttarpradesh</MenuItem>
@@ -688,7 +729,7 @@ function EditprofileCard() {
                   &nbsp;
                   <div style={{ position: "relative", top: "-51px" }}>
                     <Grid container spacing={2}  >
-                      <Grid item xs={12} md={6} sm={12} >
+                      <Grid item xs={12} md={6} sm={12} sx={{ width: "100%" }} >
                         <FormControl
                           className="pincodeClass">
                           <TextField
@@ -696,6 +737,7 @@ function EditprofileCard() {
                             label="Pincode"
                             name="pincode"
                             value={formData.pincode}
+                            onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
                             onChange={handlechange}
                             fullWidth
                             error={errorPincode}
@@ -703,9 +745,7 @@ function EditprofileCard() {
                             id='Pincode'
                             sx={{
                               color: "rgba(0, 0, 0, 0.6)",
-                              // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                              width: "100%", fontSize: "15px", fontWeight: "normal",
-                              boxShadow: "none"
+                              // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", boxShadow: "none",
                             }} />
                         </FormControl>
                         <FormHelperText sx={{ color: "red" }} className="labelStyle">
@@ -733,11 +773,11 @@ function EditprofileCard() {
                             label="Age"
                             onChange={handlechange}
                             name="CountryFirst"
-                            sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            // sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
                             error={errorcountryFirst}
                           >
                             <MenuItem value="Delhi">Delhi</MenuItem>
-                            <MenuItem value="kanpur">kanpur</MenuItem>
+
                             <MenuItem value="Noida">Noida</MenuItem>
                             {country.map((l: any) => (
                               <MenuItem value={l}>
@@ -750,24 +790,52 @@ function EditprofileCard() {
                           </FormHelperText>
                         </FormControl>
                       </Grid>
-                    </Grid>
-                  </div>
-                </Box>
-                <TextField label="Income Slab" name="IncomeSlab"
-                  value={formData.IncomeSlab}
-                  type="number"
-                  onBlur={handleOnBlurIncomeSlab}
-                  onChange={handlechange}
-                  sx={{ position: "relative", width: "100%", top: "-78px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
-                  error={errorincomeslabs}
-                  helperText={errorincomeslabs ? errormessageincomeslab : ""}
-                />
 
-                <Button variant="contained" style={style.buttonbtn}
-                className="buttoncenterstyle"
+                      <Grid item xs={12} md={12} >
+                    <FormControl fullWidth={true}>
+                      <InputLabel
+                        id="demo-simple-select-label"
+                        sx={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                          top: "3px",
+                          background: "#fff"
+                        }}>Income Slab</InputLabel>
+                         <Select
+                           onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
+                            fullWidth
+                            onBlur={handleOnBlurIncomeSlab}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={formData.IncomeSlab}
+                            onChange={handlechange}
+                            name="IncomeSlab"
+                            // sx={{ boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                            error={errorincomeslabs}
+                  
+                          >
+                        
+                            <MenuItem value="₹ 2,50,001 - ₹ 5,00,000">₹ 2,50,001 - ₹ 5,00,000</MenuItem>
+                             <MenuItem value="₹ 5,00,001 - ₹ 10,00,000">₹ 5,00,001 - ₹ 10,00,000</MenuItem>
+            
+                          </Select>
+                               
+                          <FormHelperText sx={{ color: "red" }}>
+                        {formData.IncomeSlab == ""? errormessageincomeslab : ""}
+                      
+                      </FormHelperText>
+                    </FormControl>
+                
+
+                  </Grid>
+                    </Grid>
+                  </div> </Box>
+                   <Button style={style.buttonbtn}
+                  className="buttoncenterstyle"
                   disabled={!areAllFieldsFilled}
                   onClick={handleClick} fullWidth >
-                  <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                  <Typography component="span" style={style.text} className="largeButtonText">Submit Details</Typography>
                 </Button>
 
               </Stack>
