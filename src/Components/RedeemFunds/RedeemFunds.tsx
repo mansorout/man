@@ -423,13 +423,17 @@ function RedeemFunds() {
 
 
                                                                         <FormControlLabel
-                                                                            control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                                            label="Amount: ₹1,46,625 " />
+                                                                            control={<Checkbox onChange={() => handleOptChange(0)} checked={optSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                                            label={<Box><span style={{ fontSize: "14px", color: `${optSelected[0] ? '#3c3e42' : "#7b7b9d"}` }}>Amount:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${optSelected[1] ? '#7b7b9d' : "#3c3e42"}` }}>₹1,46,625</span>  </Box>} />
+
 
 
                                                                         <FormControlLabel
-                                                                            control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                                            label="Units: 750.762" />
+                                                                            control={<Checkbox onChange={() => handleOptChange(1)} checked={optSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                                            label={<Box><span style={{ fontSize: "14px", color: `${optSelected[1] ? '#3c3e42' : "#7b7b9d"}` }}>Units:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${optSelected[1] ? '#3c3e42' : "#7b7b9d"}` }}>750.762</span>  </Box>} />
+
+
+
 
                                                                     </Box>
 
@@ -439,6 +443,10 @@ function RedeemFunds() {
                                                                     <Box>
                                                                         <TextField label="No. of Units"
                                                                             name="Amount"
+                                                                            onKeyPress={(e) =>
+                                                                                /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                                                                e.preventDefault()
+                                                                            }
 
                                                                             sx={{
                                                                                 width: " 100%",
@@ -450,6 +458,9 @@ function RedeemFunds() {
                                                                                 backgroundColor: "#fff",
 
                                                                                 marginTop: "5%"
+                                                                            }}
+                                                                            inputProps={{
+                                                                                maxLength: 11,
                                                                             }}
 
                                                                         >

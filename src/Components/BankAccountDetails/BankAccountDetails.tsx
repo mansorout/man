@@ -331,7 +331,7 @@ const BankAccountDetails = () => {
 
                             <FormControl >
                                 <TextField
-                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
+                                    onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Account Holder's Name"
                                     value={accountHolder}
@@ -339,7 +339,7 @@ const BankAccountDetails = () => {
                                     error={accountHolderError}
                                     helperText={accountHolderError ? "Please enter a valid Name" : ""}
                                     inputProps={{
-                                        maxLength: 24,
+                                        maxLength: 35,
                                       }}
                                 />
                             </FormControl>
