@@ -268,7 +268,7 @@ function HolderSignature() {
                                 </Grid>
 
                                 <Box style={style.dividerBox}></Box>
-                                <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}>
+                                {/* <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}> */}
 
                                     <Box className="renderBoxsign">
 
@@ -348,7 +348,7 @@ function HolderSignature() {
 
 
 
-                                </Box>
+                                {/* </Box> */}
 
                                 <Box>
                                     <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
