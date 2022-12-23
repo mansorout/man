@@ -17,7 +17,6 @@ const ULIPBlueButton = (prop: ULIPBlueButtonProp) => {
          sx={{
             display: 'flex',
             justifyContent: 'center',
-            marginTop: '3vw',
         }}>
             <Button
           

@@ -19,22 +19,23 @@ const ULIPHeader = () => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const regex = /^\d+$/;
         
         setDisabled(false);
         
 
-        if (!regex.test(amount)) {
-            setError(true);
-        } else {
-            setError(false);
-        }
+        
 
         setAmount(e.target.value);
     }
 
     const updatePlans = () => {
-        setVisibility('hidden');
+        if (parseInt(amount) < 499) {
+            setError(true);
+        } else {
+            setError(false);
+            setVisibility('hidden');
+        }
+        
 
     }
 
@@ -50,24 +51,21 @@ const ULIPHeader = () => {
 
 
     return (
-        <Grid container spacing={1} 
-        className="WholeBodyStyleUlip"
+        <Grid container spacing={1}
         sx={{
-            width: '83.75vw',
+            paddingTop:{xs:"20px", sm:"0px"},
+            position:"relative",
             backgroundColor: '#6c63ff',
             color: '#fff',
-            display: 'flex',
         }}>
             <Grid item xs={12} sm={6} style={style.grid}  sx={{
-                borderRight: '1px solid blue',
-                display: 'flex',
-                justifyContent: 'right',
-                alignItems: 'baseline'
+                borderRight: '1px solid #5a53d5',
+                display:"flex",
+                justifyContent: { xs:"center", sm:"end"},
             }}
-            className="premiumpaymentStyle" 
             >
                 <FormControl variant="outlined" sx={{ width: '162px' }}>
-                    <InputLabel id="ppt" style={{ color: '#fff', fontSize: '10px', marginTop: '1vw' }}>Premium Payment Term</InputLabel>
+                    <InputLabel id="ppt" style={{ color: '#fff', fontSize: '10px', marginTop: '4px' }}>Premium Payment Term</InputLabel>
                     <Select
                         labelId="ppt"
                         value={payment}
@@ -86,8 +84,9 @@ const ULIPHeader = () => {
             </Grid>
             <Grid item xs={12} sm={6} style={style.grid} sx={{
                 display: 'flex',
-                padding: '5px',
-                gap: '24px',
+                gap:"25px",
+                justifyContent: { xs:"center", sm:"start"},
+                alignItems:"center"
             }}>
                 <Box className="InvestmentMonthlyStyle">
                     <Typography sx={{
@@ -109,9 +108,10 @@ const ULIPHeader = () => {
                 <Box
                  className="ToastterStyle"
                  sx={{
-                    position: 'relative',
-                    top: '8vw',
-                    left: '-30vw',
+                    position: 'absolute',
+                    top:"8vw",
+                    left:"50%",
+                    transform:"translate(-50%,-0%)",
                     padding: '0',
                     borderRadius: '4px',
                     boxShadow: '0 4px 16px 0 rgba(0, 0, 0, 0.12)',
@@ -121,12 +121,13 @@ const ULIPHeader = () => {
 
                     <TextField
                         fullWidth
-                        variant="outlined"
+                        onKeyPress={e => !/^\d+$/.test(e.key) && e.preventDefault()}
+
                         label="Amount I want to invest monthly"
                         value={amount}
                        
                         error={ error }
-                        helperText={ error ? "Amount can only be numeric" : '' }
+                        helperText={ error ? "Amount should be morethan Rs.499" : '' }
                         InputProps={{
                             startAdornment: <InputAdornment position="start">₹</InputAdornment>,
                             endAdornment: <InputAdornment position="end">
