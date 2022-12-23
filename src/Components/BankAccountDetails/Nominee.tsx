@@ -95,7 +95,7 @@ const Nominee = () => {
                             <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
-                                color: '#373e42'
+                                color: '#8787a2'
                             }}>Nominee & Declarations</Typography>
                         </Breadcrumbs>
                         <Box component="form" sx={{
@@ -121,6 +121,7 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
+                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Full Name"
                                     value={name}
@@ -143,6 +144,10 @@ const Nominee = () => {
                                     onChange={handleDateOfBirthChange}
                                     error={dobError}
                                     helperText={dobError ? "Please choose a date" : ''}
+                                    inputProps={{
+                                        max: "2002-01-01",
+                                        min: "1950-01-01"
+                                    }}
                                 />
                             </FormControl>
 

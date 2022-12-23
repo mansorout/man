@@ -100,10 +100,9 @@ function UploadCheck() {
   const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
   const [enableShowText, setenableShowText] = useState<boolean>(true);
+  const [dataURL, setDataURL] = useState<any>()
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-
-
     setenableShowText(false);
     setUploadChequeButtonDisable(false);
     saveAndAddButtonDisable(false);
@@ -141,10 +140,10 @@ function UploadCheck() {
     [completedCrop]
   );
 
-  const dataURL = previewCanvasRef.current?.toDataURL();
+  
 
         useEffect(()=>{
-
+          console.log(previewCanvasRef.current?.toDataURL(), 'loading COMPONENT')
         },[])
 
 
@@ -170,8 +169,12 @@ function UploadCheck() {
   };
 
   const handleConfirm = () => {
-
+    if (aspect) {
+      setAspect(undefined);
+    }
+    setDataURL(previewCanvasRef.current?.toDataURL())
     setImagePreviewToLast(dataURL)
+    console.log(dataURL, "url")
     setCanvasDisable(false);
     setPreview(false);
   };
