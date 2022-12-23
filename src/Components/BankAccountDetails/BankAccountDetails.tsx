@@ -64,7 +64,7 @@ const BankAccountDetails = () => {
     }
 
     const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
+
         const value = e.target.value;
         setIfscCode(value);
         const pattern = /^([a-zA-Z]){4}([0-9]){7}?$/;
@@ -73,18 +73,19 @@ const BankAccountDetails = () => {
         } else {
             setIfscError(false);
         }
-    
-        
+          
+        console.log(value.length)
+
     }
 
-  
+
 
     const bankAcNoPattern = /^[A-Z0-9]+$/;
 
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         setBankAcNo(value);
-        if (!bankAcNoPattern.test(value)) {
+        if (!bankAcNoPattern.test(value) && e.target.value.trim().length !=10 ) {
             setBankAcNoError(true)
         } else {
             setBankAcNoError(false);
@@ -206,13 +207,26 @@ const BankAccountDetails = () => {
                                     onChange={handleAccountTypeChange}
                                 >
                                     <FormControlLabel
-                                        control={<Radio />}
+
+                                        control={<Radio defaultChecked
+                                            sx={{
+                                                color: "#3D70B2"[800],
+                                                "&.Mui-checked": {
+                                                    color: "#09b85d"
+                                                }
+                                            }} />}
                                         label="Savings"
                                         onChange={() => setAccountType('savings')}
                                         value="savings"
                                     />
                                     <FormControlLabel
-                                        control={<Radio />}
+                                        control={<Radio defaultChecked
+                                            sx={{
+                                                color: "#3D70B2"[800],
+                                                "&.Mui-checked": {
+                                                    color: "#09b85d"
+                                                }
+                                            }} />}
                                         label="Current"
                                         onChange={() => setAccountType('current')}
                                         value="current"
@@ -227,7 +241,7 @@ const BankAccountDetails = () => {
                             <FormControl>
                                 <TextField
                                     onKeyPress={(e) =>
-                                        /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/.test(e.key) &&
+                                        /^[A-Za-z]{4}[a-zA-Z0-9!@#\$%\^\&*\)]{7}$/.test(e.key) &&
                                         e.preventDefault()
                                     }
                                     required
@@ -241,10 +255,10 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
-                                    type="text"
-                                    id="outlined-bank-acc-no"
+                                    type="password"
+                                     id="outlined-bank-acc-no"
                                     required
                                     label="Bank Account Number"
                                     onKeyPress={(e) =>
@@ -254,14 +268,14 @@ const BankAccountDetails = () => {
                                     value={bankAcNo}
                                     onChange={handleBankAcNoChange}
                                     error={bankAcNoError}
-                                    helperText={bankAcNoError ? "Please enter a valid Password" : ""}
+                                    helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                     }}
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
                                     onKeyPress={(e) =>
                                         /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
@@ -281,8 +295,9 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <TextField
+                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Account Holder's Name"
                                     value={accountHolder}
@@ -292,7 +307,7 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl>
+                            <FormControl sx={{ paddingTop: "10px" }}>
                                 <Button
                                     variant="contained"
                                     onClick={handleSubmit}
