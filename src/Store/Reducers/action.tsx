@@ -1,5 +1,5 @@
 import * as t from './actionTypes'
-import { mobileOtpLoginApi } from '../../APIs/apis'
+import { mobileOtpLoginApi, usersaddressDetailsApi } from '../../APIs/apis'
 import { mobileOtpVerifyApi } from '../../APIs/apis'
 import { uploadSignatureApi } from '../../APIs/apis'
 import { panVerificationApi } from '../../APIs/apis'
@@ -462,6 +462,8 @@ export const uploadcheque = (chequeInput: any) => {
 
 
 }
+
+
 export const resendotp = (refreshtokendata: any) => {
     const { refreshtoken } = refreshtokendata;
     console.log(refreshtoken)
@@ -486,6 +488,52 @@ export const resendotp = (refreshtokendata: any) => {
         }
         catch (err) {
 
+            console.log(err)
+        }
+
+        return result
+    };
+
+
+}
+
+
+
+
+
+
+
+// NOTHNG CHANGES ABOVE
+export const AddressDetails = (userdetails: any) => {
+    const { addressuserdata } = userdetails;
+    console.log(addressuserdata);
+
+    let token: any = localStorage.getItem('accesstoken')
+    return async (dispatch: any) => {
+
+        const result = {}
+        try {
+            const result = await fetch(usersaddressDetailsApi, {
+                method: "GET",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+
+
+            }).then((response) => response.json())
+                .then((data) => {
+                    console.log(data.error)
+                    dispatch({
+                        type: 'ADETAILS_SUCCESS',
+                        payload: data
+                    })
+
+                })
+        }
+        catch (err) {
+          
             console.log(err)
         }
 

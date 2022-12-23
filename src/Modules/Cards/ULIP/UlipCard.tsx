@@ -33,9 +33,9 @@ const UlipCard = () => {
                 <Divider sx={{
                     width: '23.63vw',
                     fontSize: '16px',
-                    color: '#7b7b9d',
+                    color: '#23db7b',
                 }}>OR</Divider>
-                <TextRadio {...{ textFieldLabel: 'I want to invest', radioText: 'Monthly' }} />
+                <TextRadio {...{ textFieldLabel: 'I want to invest', radioText: 'Monthly',color: '#23db7b', }} />
                 <FormControl sx={{
                     width: '95%',
                     marginTop: '1vw',

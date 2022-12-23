@@ -217,8 +217,9 @@ function Editprofilescreen() {
                 </Typography>
                 <Typography
                   component="span"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer",   textDecoration: 'underline',color:'#6c63ff',fontSize:"12px" }}
                   className="textLink"
+                  
                 >
                   Terms and conditions
                 </Typography>

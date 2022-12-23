@@ -163,13 +163,14 @@ import ClearIcon from '@mui/icons-material/Clear';
                          <Grid item xs={8}>
                            <CardHeader
                                  avatar={
-                                     <Box sx={{paddingTop:"0%"}}    className="siplogoStyle" >
+                                     <Box sx={{paddingTop:"0%"}}    >
                                          <img src={sipiclogo} alt="sprint-money" style={{
                                              width: "38px",
                                              height: "38px",
-                                             paddingLeft: "165px",
+                                             paddingLeft: "195px",
                                           
                                              }} 
+                                             className="siplogoStyle" 
                                           
                                              />
                                      </Box> }
@@ -187,16 +188,13 @@ import ClearIcon from '@mui/icons-material/Clear';
                                  <ClearIcon  />
                              </Box>
                          </Grid>
-                         <b style={{ textAlign: "center" ,paddingLeft: "27%",paddingBottom:"1%"}} className="HelpUsStyle">Help us know you better.</b>
-                         <Typography textAlign="center"  sx={{ fontSize: "14px",paddingLeft: "14%", color:"#7b7b9d" }} className="KnowMoreStyle">  
+                         <b style={{ textAlign: "center" ,paddingLeft: "32%",paddingBottom:"1%"}} className="HelpUsStyle">Help us know you better.</b>
+                         <Typography textAlign="center"  sx={{ fontSize: "14px",paddingLeft: "20%", color:"#7b7b9d" }} className="KnowMoreStyle">  
                              Share details below to view recommendations
                                </Typography>
- 
- 
- 
-                     </Grid>
+                               </Grid>
                      <Grid container spacing={2}>
-              <Grid item xs={12} md={6} sm={12} >
+                 <Grid item xs={12} md={6} sm={12} >
                  <TextField
                    fullWidth
                    label="FirstName"

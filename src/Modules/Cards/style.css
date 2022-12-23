@@ -1,4 +1,10 @@
-
+@media (max-width:3000px){
+    .pincodestayle{
+        margin: 8px !important;
+        width: 242px !important;
+        height: 16px !important;
+    }  
+}
 
 
 
@@ -136,6 +142,7 @@
         .investWholeStyle{
             margin-left: 7% !important;
         }
+      
 }
 
 
@@ -173,20 +180,33 @@
         width: 40%!important;
          margin: 8px !important
      }
+     .paddingviewprofilestyle{
+        padding-left: 1% !important;
+        border-radius: 33px !important;
+        width: 93% !important;
+     }
 
 }
 
  
 
 @media (max-width:560px) {
-    .MonthlyStyle{
-        /* color: red !important; */
+    .investWholeStyle{
+        margin-left: -3% !important;
     }
-    
+    .ToastterStyle{
+        position: relative !important;
+    top: 32vw !important;
+    left: -75vw !important;
+    }
+    .WholeBodyStyleUlip{
+        width: 95.75vw !important;
+        border-radius: 8px !important;
+        margin-top: -35% !important;
+    }
    
     .NoLockinperiod{
-       
-        padding-left: 32px !important;
+         padding-left: 32px !important;
         transform: translate(10px, 10px) !important;
         width: 100% !important;
         margin: -40px !important;
@@ -198,7 +218,10 @@
     }
     .thirdboxstyle{
         
-        width: 95% !important;
+     
+        padding-left: 1% !important;
+        border-radius: 33px !important;
+        width: 96% !important;
     }
     .buttoncenterstyle{
         margin-left: 1% !important;
@@ -227,10 +250,6 @@
     
 }
 
-@media (max-width:375px){
-    .withdraliconstyle{
-        color:red !important
-    }
-}
+
 
 /* iconstyle */
