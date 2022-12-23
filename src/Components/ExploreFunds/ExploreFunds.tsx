@@ -178,14 +178,16 @@ function ExploreFunds() {
                             <Typography style={{fontSize:"12px", color:"#8787a2"}}>Choose Funds to Invest</Typography>
                             <Typography style={{fontSize:"18px", color:"#3c3e42", fontWeight:"500"}}>Explore Funds</Typography>
                             <Typography style={{fontSize:"12px", color:"#8787a2", marginTop:"20px"}}>3 funds found</Typography>
+    
                         </Box>
                     </Box>
                     <Box padding={2}>
                         <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"10px", padding:"5px 14px"}}>
                             <Box style={{display:"flex", gap:"10px", alignItems:"center"}}>
                             <SearchOutlined style={{color:"#7b7b9d"}}/>
-                            <InputBase onChange={(e)=>setFundList(ExploreFundsList.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search Transactions' style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
+                            <InputBase onChange={(e)=>setFundList(ExploreFundsList.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search funds...' style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
                             </Box>
+                          
                             <IconButton >
                                 <FilterAltOutlined style={{color:"#09b85d"}}/>
                             </IconButton>
@@ -203,18 +205,22 @@ function ExploreFunds() {
                           <Box onClick={()=>{ setSelected(4); setFundList(ExploreFundsList.filter((item) => item.type == 'Balanced'))}} style={{cursor:"pointer", border:`1px solid ${ selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
                             <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Balanced ({ExploreFundsList.filter((item) => item.type == 'Balanced').length})</Typography>
                           </Box>
+                         
                         </Box>
                         
                     </Box>
                 </Box>
                 
                 {
-                  fundList.map((item,key) => {
+                  fundList.length &&   fundList.map((item:any,key:number) => {
                     return(
-                      <AllExploreFundCard {...item} key={key} />
+                      <>
+                        <AllExploreFundCard {...item} key={key} />
+                      </>
                     )
                   })
                 }
+                
             </Grid>
           </Grid>
           </Grid>

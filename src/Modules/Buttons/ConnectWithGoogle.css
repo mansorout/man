@@ -1,5 +1,6 @@
 .google-button {
-    width: 384px !important;
+    width: 90% !important;
+    max-width: 400px !important;
     height: 48px !important;
     justify-content: center !important ;
     align-items: center !important;

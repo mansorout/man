@@ -4,6 +4,7 @@ export const MonoLogo = require("./monoLogo.png")
 export const AMFI = require("./amfi.png")
 export const IRDA = require("./irda.png")
 export const ContactError = require('./contactError.png')
+export const ContactTick = require('./contactTick.png')
 export const SuccessLogo = require('./success.png')
 export const SBIcon = require('./SB_icon.png');
 export const Profile = require('./profile.jpeg')
@@ -30,14 +31,13 @@ export const MonoLogosetpin = require("./monoLogo.png")
  export const Ad1_1 = require("./Ad1_1.png")
  export const Ad1_2 = require("./Ad2_1.png")
 
- export const emaillogo = require("./Profile/email-24px.png")
- export const cakelogo = require("./Profile/cakelogo.png")
+export const emaillogo = require("./Profile/email-24px.png")
+export const cakelogo = require("./Profile/cakelogo.png")
 export const icbirthplacelogo = require("./Profile/icbirthplacelogo.png")
 export const locationlogo= require("./Profile/locationlogo.png")
 export const ic_income= require("./Profile/ic_income.png")
 export const wclogo= require("./Profile/wclogo.png")
 export const cameraIcon = require("./Profile/cameraIcon.png")
-export const mobileIcon = require("./Profile/mobile-icon.png");
 export const warning = require('./warning.svg')
 
 export const chart = require("./Portfolio/chart.png")
@@ -51,15 +51,13 @@ export const ulipPlanPerformanceImage = require('./ULIP/ULIPPlanPerformance3x.pn
 export const questionMarkIcon = require('./ULIP/question_mark.png');
 export const fileDownloadIcon = require('./ULIP/file_download_black_24dp.png');
 export const BajajAllianzLogo = require('./ULIP/BajajAllianzLogo.png');
+export const BajajAllianzLogo1x = require('./ULIP/BajajAllianzLogo@1x.png');
+export const BajajAllianzLogo2x = require('./ULIP/BajajAllianzLogo@2x.png');
+export const HdfcBanklogo = require('./ULIP/HDFCLogo.png');
 // ULIP end
 
-
-
-
-
-
-  export const AccountBalancelogo = require("./Profile/AccountBalancelogo.png")
-  export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
+export const AccountBalancelogo = require("./Profile/AccountBalancelogo.png")
+export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
 //  export const locklogo= require("./Profile/locklogo.png")
   export const paymentslogo= require("./Profile/paymentslogo.png")
   export const paymentslogo2= require("./payments-24px@3x.png")
@@ -100,6 +98,10 @@ export const formatter = new Intl.NumberFormat('en-IN', {
 });
 
 export const graphimage=require("./Profile/GraphImage.png")
+export const mask=require("./Profile/Mask.png")
+export const quart=require("./Profile/Quart.png")
+export const maskLogo=require("./Profile/masklogo.png")
+export const GrouMobilecicon=require("./Profile/GrouMobileIcon.png")
 export const withdrawiclogo =require("./Profile/WithdrawIcLogo.png")
 export const lockinlogo =require("./Profile/Lockinlogo.png")
 export const ellipslogo =require("./Profile/Ellipselogo.png")
@@ -125,7 +127,9 @@ export const ic_tax_saving =require("./ic_tax_saving.png")
 export const ic_no_medical =require("./ic_no_medical.png")
 export const ic_low_cost =require("./ic_low_cost.png")
 export const tick = require("./Tick.png")
+export const hdfcErgo = require("./HDFC-Ergo.png")
 export const cross = require("./ic_cross@3x.png")
+export const commonlogo = require("./MainLogo.svg")
 
 
 

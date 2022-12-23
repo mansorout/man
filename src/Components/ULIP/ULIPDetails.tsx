@@ -25,7 +25,14 @@ const ULIPDetails = (props: ULIPProp) => {
 
     return (
         <>
-            <Dialog open={open} onClose={handleClose} maxWidth="sm">
+            <Dialog open={open} onClose={handleClose} sx={{
+                width: '384px',
+                height: '651px',
+                padding: '0 0 12px',
+                borderRadius: '8px',
+                boxShadow: '0 -24px 24px 0 rgba(0, 0, 0, 0.16)',
+                backgroundColor: '#f9f9f9',
+            }}>
                 <AppBar>
                     <Toolbar sx={{
                         backgroundColor: '#fff',

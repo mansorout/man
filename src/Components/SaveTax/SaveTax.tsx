@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -113,8 +113,14 @@ const SaveTax = () => {
     const navigate = useNavigate();
 
     const handleYesBtn = () => {
-        navigate('./saveTaxAmount');
+        navigate('/saveTax/saveTaxAmount');
     }
+
+    const handleAssitance = () => {
+        navigate('/saveTax/taxCanSave');
+    }
+
+    
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -124,7 +130,16 @@ const SaveTax = () => {
                 <Sidebar />
                 <Grid container>
                     <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-                        <Banner />
+                        <Banner
+                            smText='SprintMoney offers'
+                            planText='tax saving Plans'
+                            saveUptoText='SAVE Upto ₹1.5 Lacs'
+                            bgGradient='linear-gradient(100deg, #5450a1, #23db7b)'
+                            bannerImageUrl={`${process.env.PUBLIC_URL}/assets/images/save-tax-banner.svg`}
+                            bgLayoutImgUrl={`${process.env.PUBLIC_URL}/assets/images/save-tax-banner-bg-layout.svg`}
+                            btnText='Invest Now'
+                            btnAction={() => navigate('/saveTax/saveTaxAmount')} 
+                        />
 
                         <Box className={classes.iconBoxGroupWrapper}>
                             <IconBox
@@ -148,7 +163,7 @@ const SaveTax = () => {
                             <Typography component='p'>Do you know how much you wish to invest to save tax?</Typography>
                             <Box className={classes.btnGroupBox}>
                                 <Button variant="contained" onClick={handleYesBtn}>Yes</Button>
-                                <Button variant="contained">No, I Need Assistance</Button>
+                                <Button variant="contained" onClick={handleAssitance}>No, I Need Assistance</Button>
                             </Box>
                         </Box>
 

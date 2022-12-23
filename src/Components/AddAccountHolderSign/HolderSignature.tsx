@@ -59,13 +59,12 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `
 );
 
+
 function HolderSignature() {
+    
     const dispatch = useDispatch();
-
-
-
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
-
+    
     const [uploadChequeButton, setUploadChequeButtonDisable] =
         useState<boolean>(true);
 
@@ -78,6 +77,7 @@ function HolderSignature() {
     const [hidecontent, setHideContent] = useState<boolean>(true)
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
+    const [bcaktovp,setBacktoVp]= useState<boolean>(true)
 
 
     const clear = () => {
@@ -91,12 +91,14 @@ function HolderSignature() {
     }
 
     const setSignature = () => {
+        setBacktoVp(false)
         setHideContent(true)
         setTryagain(false)
         setShowSignBox(false)
 
         setAddsign(false)
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+        // navigate('/vp')
     };
 
 
@@ -167,7 +169,7 @@ function HolderSignature() {
             height: "633",
         },
 
-      
+
 
 
 
@@ -201,7 +203,7 @@ function HolderSignature() {
     const refContainer = useRef();
     const navigate = useNavigate();
 
-  
+
 
     return (
         <Box style={{ width: "100%" }} ref={refContainer}>
@@ -257,7 +259,7 @@ function HolderSignature() {
                                     aria-current="page"
                                 >
 
-                                    <Typography className='burgerText'>  Add Account Holder Signature</Typography>
+                                    <Typography className='burgerText'>Account Holder Signature</Typography>
                                 </Link>
                             </Breadcrumbs>
 
@@ -278,7 +280,7 @@ function HolderSignature() {
 
                                         {
                                             enableShowText ? <Grid container spacing={3}>
-                                                <Grid sx={{ textAlign: "center" }} item xs={12}>
+                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
                                                     <Typography className="checkWillAppearHere">
                                                         Draw Here...
                                                     </Typography>
@@ -288,7 +290,7 @@ function HolderSignature() {
                                         }
                                         {
                                             enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
-                                                <Grid sx={{ textAlign: "center" }} item xs={12}>
+                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
                                                     <Typography className="checkWillAppearHere">
                                                         Draw Here...
                                                     </Typography>
@@ -301,16 +303,16 @@ function HolderSignature() {
 
 
                                                 <SignaturePad
-                                                      
+
                                                     ref={sigCanvas}
                                                     backgroundColor="white"
                                                     penColor="black"
                                                     onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
                                                     canvasProps={{
                                                         // width: 600,
-                                                        height:450,
+                                                        height: 450,
                                                         className: styles.sigPad
-                                                         
+
                                                     }}
 
                                                 />
@@ -325,7 +327,7 @@ function HolderSignature() {
                                                 <Grid container sx={{
                                                     display: "flex",
                                                     justifyContent: "center",
-
+                                                    backgroundColor: "white",
                                                     top: "50%",
                                                     left: "50%",
 
@@ -338,7 +340,7 @@ function HolderSignature() {
                                                             style={{
 
                                                                 maxWidth: "-webkit-fill-available",
-                                                                 height: "250px"
+                                                                height: "250px"
                                                             }}
                                                         />
                                                     </Grid>
@@ -364,10 +366,15 @@ function HolderSignature() {
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
                                                     marginBottom: "32px",
-                                                    height: "45px"
+                                                    height: "45px",
+                                                    padding: "19px"
                                                 }}
                                             >
-                                                CLEAR & TRY AGAIN
+
+                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                    CLEAR & TRY AGAIN
+                                                </Typography>
+
                                             </Button>
                                         </Box>}
 
@@ -377,10 +384,15 @@ function HolderSignature() {
                                                     backgroundColor: "rgba(0, 0, 0, 0.05)",
                                                     borderRadius: " 23px",
                                                     marginBottom: "32px",
-                                                    height: "45px"
+                                                    height: "45px",
+                                                    padding: "19px"
                                                 }}
                                             >
-                                                CLEAR & TRY AGAIN
+
+                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                    CLEAR & TRY AGAIN
+                                                </Typography>
+
                                             </Button>
                                         </Box>}
 
@@ -417,36 +429,67 @@ function HolderSignature() {
                                     >
 
                                         <SaveAndAddButton />
+                                        <Grid container >
+                                            <Grid xs={8} md={8} sm={12} sx={{
+                                                paddingTop: "15px",
+                                                display: "flex"
+                                               
+                                            }}>
+                                                <Typography component="span" className="bottomContentText ">
+                                                    Signatures provided here will be used on official documents. <br />
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
                                     </Box>
                                 ) : (
                                     ""
                                 )}
-
+                                     
                                 {disable ? "" : <Box className="saveandaddButton"
                                     textAlign="center"
                                     width="80%" onClick={setSignature}>
 
                                     <SaveAndAddButton />
+                                    <Grid container  >
+                                        <Grid xs={12} md={8} sm={12} sx={{
+                                            paddingTop: "15px",
+                                            display: "flex",
+                                            
+                                        }}>
+                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
+                                                Signatures provided here will be used on official documents.
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
                                 </Box>
 
                                 }
 
+                                {/* {bcaktovp ?  "" : <Box className="saveandaddButton"
+                                    textAlign="center"
+                                    width="80%" onClick={()=>navigate('/vp')}>
+
+                                    <SaveAndAddButton />
+                                    <Grid container  >
+                                        <Grid xs={12} md={8} sm={12} sx={{
+                                            paddingTop: "15px",
+                                            display: "flex",
+                                            
+                                        }}>
+                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
+                                                Signatures provided here will be used on official documents.
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                </Box> 
+
+                                } */}
+
 
                             </Box>
-                            <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                                <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
-                                    By submitting these details, you are agree to share your details
-                                    to BSE for further transactions <br />
-                                </Typography>
-                                <Typography mb={2}
-                                    textAlign="center"
-                                    component="span"
-                                    style={{ cursor: "pointer" }}
-                                    className="textLink"
-                                >
-                                    Terms and conditions
-                                </Typography>
-                            </Box>
+
                         </Grid>
                     </Grid>
                 </Grid>

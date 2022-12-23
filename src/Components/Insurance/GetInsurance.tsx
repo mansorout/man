@@ -15,11 +15,11 @@ import { useNavigate } from 'react-router-dom';
 
 const GetInsurance = () => {
     const dispatch: any = useDispatch();
+    const navigate = useNavigate();
 
     const handleInsuranceTermCondition = () => {
         dispatch(InsuranceTermConditionAction(true))
     }
-    const navigate = useNavigate();
     return (
         <div>
             <Grid container sx={{ paddingTop: '30px' }}>
@@ -33,7 +33,7 @@ const GetInsurance = () => {
                                 detailText='Unit linked insurance plans Invest and insure!'
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/ulip.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
-                                btnClick={()=>{}}
+                                btnClick={()=>{navigate('/ulip/investoptions')}}
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
@@ -56,7 +56,6 @@ const GetInsurance = () => {
                                 bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/vehicle-insurance.svg`}
                                 bottomNavigationIcon={<ArrowForwardIcon />}
                                 btnClick={()=>{}}
-                                
                             />
                         </Grid>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
@@ -97,12 +96,11 @@ const GetInsurance = () => {
                 </Grid>
             </Grid>
 
-
             <Grid container>
                 <Grid item xs={12} sx={{ padding: '20px 14px' }} >
                     <HorizontalImgIconLongcard
-                        heading='ULIP'
-                        subHeading='Unit linked insurance plans Invest and insure!'
+                        heading='Term Insurance'
+                        subHeading='Get 1 Cr life cover for as low as ₹490 per month!'
                         imgUrl={`${process.env.PUBLIC_URL}/assets/images/term-insurance.svg`}
                         headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
                         navigatIcon={<ArrowForwardIcon />}

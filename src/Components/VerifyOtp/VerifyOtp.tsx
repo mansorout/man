@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useEffect, useState } from "react";
-import { VerifyOtpLogo, SBICON } from "../../Assets";
+import { VerifyOtpLogo, SBICON, commonlogo, cross, SBIcon } from "../../Assets";
 import { OtpVerifyButton } from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
 import { useSelector } from "react-redux";
@@ -12,22 +12,70 @@ import { useNavigate } from "react-router-dom";
 import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
+import commonLogo from '../../Assets/MainLogo.svg'
+import { resendOtpThunk, verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import siteConfig from "../../Utils/siteConfig";
 
+
+const style = {
+  background: {
+    backgroundColor: "#f9f9f9",
+    height: "100vh",
+    width: "100vw",
+    display: "flex",
+    flexDirection: "column",
+    boxSizing: "border-box",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  } as React.CSSProperties,
+
+  container: {
+    backgroundColor: "white",
+    width: "96%",
+    maxWidth: "500px",
+    padding: "10px 0px",
+    borderRadius: "20px 20px 0px 0px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
+    transform: "translate(-50%, 0%)",
+    left: "50%",
+    bottom: "0px",
+    position: "absolute"
+  } as React.CSSProperties,
+
+  logo: {
+    width: "72px",
+    margin: "20px 0px"
+  } as React.CSSProperties,
+}
 
 export const VerifyOtp = () => {
 
-  const [OTP, setOTP] = useState<string>("")
-  let refreshtokendata: any = localStorage.getItem('refreshtoken')
-  console.log(refreshtokendata);
+  const navigate = useNavigate();
 
-  const ResendOtp = () => {
-    store.dispatch(resendotp({ 'refreshtoken': refreshtokendata }))
+  const error: string[] = useSelector((state: any) => state.error);
+  const number: string = useSelector((state: any) => state.contact);
+  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
 
-  }
-
-  const [otp, setOtp] = useState<string>("");
+  const [OTP, setOTP] = useState<string>("");
   const [minutes, setMinutes] = useState<number>(1);
   const [seconds, setSeconds] = useState<number>(30);
+  const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
+
+  useEffect(() => {
+    console.log(g_loginData);
+    if (g_loginData?.accesstoken) {
+      localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
+      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
+      // navigate("/home");
+      navigate("/otpverified");
+    } else {
+
+    }
+  }, [g_loginData]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,57 +101,16 @@ export const VerifyOtp = () => {
   const resendOTP = () => {
     setMinutes(1);
     setSeconds(30);
+    store.dispatch(resendOtpThunk({ mobilenumber: number, type: "auth" }))
   };
 
-  const handleOtpChange = (otp: any) => {
-    setOTP(otp)
+  const handleOtpChange = async (otp: any) => {
+    setOTP(otp);
+    setIsShowEnableVerifyBtn(true);
     if (otp.length === 4) {
-      store.dispatch(verifycxotp({ 'otp': otp, 'number': number }))
-      localStorage.setItem("loggedin", "true")
+      setIsShowEnableVerifyBtn(false);
     }
-
   }
-
-  const error: string[] = useSelector((state: any) => state.error)
-
-  const style = {
-    background: {
-      backgroundColor: "#f9f9f9",
-      height: "100vh",
-      width: "100vw",
-      display: "flex",
-      flexDirection: "column",
-      boxSizing: "border-box",
-      justifyContent: "flex-end",
-      alignItems: "center",
-    } as React.CSSProperties,
-
-    container: {
-      backgroundColor: "white",
-      width: "96%",
-      maxWidth: "500px",
-      padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-      transform: "translate(-50%, 0%)",
-      left: "50%",
-      bottom: "0px",
-      position: "absolute"
-    } as React.CSSProperties,
-
-    logo: {
-      width: "72px",
-      margin: "20px 0px"
-    } as React.CSSProperties,
-  }
-
-  const navigate = useNavigate()
-
-  const number: string = useSelector((state: any) => state.contact)
 
   return (
     <>
@@ -122,6 +129,7 @@ export const VerifyOtp = () => {
             value={OTP}
             onChange={handleOtpChange}
             numInputs={4}
+            isInputNum={true}
             shouldAutoFocus={true}
             hasErrored={error?.includes("Login_OTP")}
             containerStyle={{
@@ -145,8 +153,7 @@ export const VerifyOtp = () => {
               border: "1px solid red",
             }}
           />
-          <OtpVerifyButton otp={OTP} number={number} />
-
+          <OtpVerifyButton disabled={isShowEnableVerifyBtn} otp={OTP} number={number} />
           {seconds > 0 || minutes > 0 ? (
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
               Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
@@ -156,17 +163,16 @@ export const VerifyOtp = () => {
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
               <span
                 // disabled={seconds > 0 || minutes > 0}
-                style={{cursor:"pointer",
+                style={{
+                  cursor: "pointer", textDecoration: "underline",
                   color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#FF5630",
                 }}
-                onClick={resendOTP}  className="textLink" > Resend</span> </Typography>
+                onClick={resendOTP} className="textLink" > Resend</span> </Typography>
           )}
-
-
           <Footer />
         </Box>
       </Box>
-      <img alt="logo" src={SBICON} width="275" height="275" style={{
+      <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
         position: "absolute",
         right: "0px",
         top: "65px"
@@ -175,3 +181,5 @@ export const VerifyOtp = () => {
     </>
   );
 };
+
+

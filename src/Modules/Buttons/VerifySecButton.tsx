@@ -35,7 +35,8 @@ import { ActionCreators } from "../../Store";
             addError("Login_OTP")
         }else {
             removeError("Login_OTP")
-            navigate("/Otptwosuccess")
+            // navigate("/Otptwosuccess")
+            navigate("/setnewpin")
         }
         
     }

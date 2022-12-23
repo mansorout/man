@@ -124,7 +124,9 @@ export default function ProgressBars() {
           </Grid>
       <Consumerstaples2 variant="determinate" value={5.8} />
       
-        <Typography className='viewmoretext'>VIEW MORE</Typography>
+      <Box sx={{padding:" 11px 78px"}}>
+         <Typography className='viewmoretext'>VIEW MORE</Typography>
+         </Box>
        
     </Box>
   );

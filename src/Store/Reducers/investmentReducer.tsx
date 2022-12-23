@@ -2,7 +2,7 @@ const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
 }
 
-export default function investmentReducer(objState = objInitialState, action: any) {
+export default function investmentReducerold(objState = objInitialState, action: any) {
   switch (action.type) {
     case 'SET_INVESTMENT_TYPE': {
       objState.investment = {

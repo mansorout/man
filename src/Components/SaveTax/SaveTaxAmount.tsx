@@ -18,6 +18,8 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import Divider from '@mui/material/Divider';
+import { useDispatch, useSelector } from 'react-redux';
+import { SaveTaxInvestmentLumpsumAction, SaveTaxInvestmentMonthlyAction,SaveTaxInvestmentAmount } from '../../Store/Duck/SaveTaxInvestmentType'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -39,10 +41,15 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         backgroundColor: 'var(--bgColor)',
         margin: '0px 15px',
+        '@media(max-width: 500px)':{
+            width: '45px',
+            height: '45px',
+        }
     },
     BlueBoxCustom: {
         display: 'flex',
         alignItems: 'center',
+        flexWrap: 'wrap',
         '& p': {
             color: 'var(--uiWhite)',
             fontSize: 'var(--subHeadingFontSize)',
@@ -53,7 +60,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         // backgroundColor: '#000',
         boxShadow: 'var(--themeShadow)',
         padding: '15px',
-        margin: '15px',
         borderRadius: '8px',
     },
     investmentField: {
@@ -61,7 +67,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontSize: 'var(--titleFontSize)',
         marginBottom: '15px',
         '& p': {
-            fontweight: 500,
+            fontWeight: 500,
         },
         '& span': {
             color: 'var(--typeIndigoColor)',
@@ -71,19 +77,44 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
     textField: {
         margin: '10px 0px !important',
-        display: 'block'
+        display: 'block',
+        position: 'relative',
+        '& .MuiOutlinedInput-root.MuiInputBase-fullWidth': {
+            '& label': {
+                backgroundColor: 'rgb(135 135 162 / 20%)',
+                position: 'absolute',
+                right: '0px',
+                padding: '7px',
+                margin: '0px !important',
+                '@media(min-width: 600px)':{
+                    width: '140px !important',
+                },
+                '& span':{
+                    color: '#8787a299 !important',
+                }
+            }
+        },
+        '& svg':{
+            color: '#8787a266',
+        }
+    },
+    radioStyle:{
+        '& svg':{
+            color: 'var(--primaryColor)',
+        }
     },
     rupeesIcon: {
-        '& svg': {
-            fontSize: 'var(--fontSize14)',
-            color: 'var(--typeLightBlackColor)',
-        }
+        fontSize: '16px !important',
+        color: 'var(--typeLightBlackColor)',
     }
 }))
 
 const SaveTaxAmount = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const dispatch: any = useDispatch()
+    // const {SaveTaxInvestmentLumpsumAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
+    // const {SaveTaxInvestmentMonthlyAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentType, setInvestmentType] = useState<string>('lumpsum')
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
@@ -93,14 +124,25 @@ const SaveTaxAmount = () => {
     };
 
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
         setMonthlyAmount(event.target.value);
     };
 
     const handleNavigationFlow = () => {
+        if(investmentType === 'lumpsum'){
+            dispatch(SaveTaxInvestmentLumpsumAction('lumpsum'));
+            dispatch(SaveTaxInvestmentAmount(lumpsumAmount)) 
+        }else{
+            dispatch(SaveTaxInvestmentMonthlyAction('monthly'));
+            dispatch(SaveTaxInvestmentAmount(monthlyAmount))
+        }
+
+        
         navigate('/saveTax/saveTaxInvestmentType')
     }
 
@@ -120,7 +162,7 @@ const SaveTaxAmount = () => {
                             <Typography component='p'>Amount I want to invest in current F.Y 21-22</Typography>
                         </Box>
 
-                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', }}>
+                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: {xs: '15px 0px', sm: '15px'} }}>
 
                             <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -140,7 +182,7 @@ const SaveTaxAmount = () => {
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value="lumpsum" control={<Radio />} label="Lumpsum" />
+                                                <FormControlLabel value="lumpsum" control={<Radio className={investmentType === 'lumpsum' ? classes.radioStyle : ''} />} label="Lumpsum" />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === 'lumpsum' ? false : true,
@@ -151,7 +193,11 @@ const SaveTaxAmount = () => {
                                     <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 21-22</Typography>
                                 </Box>
 
-                                <Divider />
+                                        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                <Divider sx={{width: '30%'}} /> 
+                                    <Typography component='span'  sx={{padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)',fontWeight: 500}}>OR</Typography>
+                                <Divider sx={{width: '30%'}} /> 
+                                </Box>
 
                                 <Box className={classes.investmentField}>
                                     <Typography component='p'>Monthly investment</Typography>
@@ -164,7 +210,7 @@ const SaveTaxAmount = () => {
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
+                                                <FormControlLabel value="monthly" control={<Radio className={investmentType === 'monthly' ? classes.radioStyle : ''} />} label="Monthly" />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === 'monthly' ? false : true,
@@ -181,9 +227,10 @@ const SaveTaxAmount = () => {
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! Your total investment is'
-                            boxAmount='₹15,000'
+                            boxAmount={investmentType === 'lumpsum' ? `₹${lumpsumAmount === '' ? '0' :lumpsumAmount }` :  `₹${monthlyAmount === '' ? '0' : monthlyAmount}`}
                             btnText='Continue'
                             btnClick={handleNavigationFlow}
+                            btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
                         />
                     </Grid>
                 </Grid>

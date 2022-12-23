@@ -1,21 +1,12 @@
-
-
-
-
-
-
-
-
 import { Box, Grid, Toolbar, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
 import React, { useRef, useState } from "react";
 import { VerifyOtpLogo, SBICON, SuccessFullOtp } from "../../Assets";
 // import "..//VerifyOtpOnCheckout/VerifyonCheckout.css";
-import "../RedeemFunds/RedemptionDone.css"
+import "./RedemptionDone.css"
 import { useSelector } from "react-redux";
 import Footer from "../../Modules/Footer/Footer";
-import VerifySecButton from "../../Modules/Buttons/VerifySecButton";
 import Navbar from "../../Components/CommonComponents/Navbar";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -24,10 +15,7 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import Sidebar from "../../Components/CommonComponents/Sidebar";
 import IInvestNowScreenCard from "../../Modules/Cards/IIvestNowScreenCard";
-import SipSuccessButton from "../../Modules/Buttons/SipSuccesssButton";
 
-import TrackTransButton from "../../Modules/Buttons/TrackTransButton";
-import '../../Components/RedeemFunds/RedemptionDone.css'
 
 
 
@@ -41,17 +29,8 @@ export const RedemptionDone = () => {
   const navigate = useNavigate()
 
   const refContainer = useRef();
-
-
-
-
-
-
-  const error: string[] = useSelector((state: any) => state.error)
-
-  
-
-  const style = {
+const error: string[] = useSelector((state: any) => state.error)
+const style = {
     buttons: {
       height: "48px",
       borderRadius: "8px",
@@ -64,8 +43,7 @@ export const RedemptionDone = () => {
     } as React.CSSProperties,
     main: {
       boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh"
+    
     } as React.CSSProperties,
     background: {
       backgroundColor: "#f9f9f9",
@@ -99,7 +77,7 @@ export const RedemptionDone = () => {
       width: "100%",
       maxWidth: "500px",
       padding: "10px 0px",
-      borderRadius: "20px 20px 0px 0px",
+      borderRadius: "8px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -177,7 +155,7 @@ export const RedemptionDone = () => {
 
 
                   </Box>
-                  <Box style={style.container}>
+                  <Box  style={style.container} className="redemptiondonecard">
                     <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
                     <Typography mb={1}  align="center" className="redemptionDone">
                       Success! Your account is verified & redemption has been submitted
@@ -203,7 +181,7 @@ export const RedemptionDone = () => {
             </Grid>
           </Grid>
         </Box>
-        <img alt="logo" src={ SBICON } width="275" height="275" style={{
+        <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
             position: "absolute",
             right: "0px",
             top: "65px" }}

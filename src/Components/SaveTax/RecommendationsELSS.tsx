@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -10,6 +10,11 @@ import RecommendationsELSSHeader from './RecommendationsELSSHeader'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import Button from '@mui/material/Button';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import Dialog from '@mui/material/Dialog';
+import { tick } from '../../Assets';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -54,6 +59,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
+        '@media(max-width: 500px)':{
+            marginLeft: '0px !important',
+        }
     },
     cardImgWrapper: {
         width: '70px',
@@ -116,12 +124,25 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const RecommendationsELSS = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [calenderValue, setCalenderValue] = useState(new Date())
 
 
     const handleULIPDate = () => {
-
+        setOpen(true)
     }
 
+    const handleBuyNow = () => {
+        // loading Com and after that payment screen
+        navigate('/payusingnetbanking');
+    }
+
+    const handleCalender = (value: any) => {
+        setCalenderValue(value)
+        console.log("calender value", value)
+    }
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -145,7 +166,7 @@ const RecommendationsELSS = () => {
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: '0px 8px' }}>
+                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
                                             <Typography component='p'>Mirae Asset Dynamic Bond
                                                 Fund Direct Growth</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
@@ -198,12 +219,44 @@ const RecommendationsELSS = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText='Select ULIP Date'
-                            btnClick={handleULIPDate}
+                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ULIP Date'}
+                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
                         />
                     </Grid>
                 </Grid>
             </Box>
+
+
+            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>Set backup account</Typography>
+                <Calendar onChange={handleCalender} value={calenderValue} />
+                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Confirm SIP Date
+                </Button>
+            </Dialog>
+
+            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+
+                <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
+                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
+                </Box>
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Continue to Payment
+                </Button>
+            </Dialog>
 
         </Box >
     )

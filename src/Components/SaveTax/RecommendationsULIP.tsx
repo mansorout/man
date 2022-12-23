@@ -11,6 +11,13 @@ import Button from '@mui/material/Button';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { useDispatch, useSelector } from 'react-redux';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import { tick } from '../../Assets';
+import DialogContent from '@mui/material/DialogContent';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -55,6 +62,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
+        '@media(max-width: 500px)': {
+            marginLeft: '0px !important',
+        }
     },
     cardImgWrapper: {
         width: '70px',
@@ -108,16 +118,55 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             backgroundColor: '#00b4ff !important',
             borderRadius: '20px',
         }
+    },
+    modalText: {
+        backgroundColor: 'var(--uiWhite)',
+        // width: 338,
+        textAlign: 'center',
+        padding: '10px 0px',
+        borderTopRightRadius: 4,
+        borderTopLeftRadius: 4,
+        fontWeight: 500,
+        borderColor: 'var(--uiWhite)',
+        fontsize: 'var(--titleFontSize),'
+    },
+    modalTextButton: {
+        // height: "48px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+        // width: 350,
+    },
+    dateModal: {
+        '&>.MuiBox-root': {
+            display: 'inline-block !important   '
+        }
+
     }
 }))
 
 const RecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
+    const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const [calenderValue, setCalenderValue] = useState(new Date())
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     const handleULIPDate = () => {
+        setOpen(true)
+    }
 
+    const handleBuyNow = () => {
+        // loading Com and after that payment screen
+        navigate('/payusingnetbanking');
+    }
+
+    const handleCalender = (value: any) => {
+        setCalenderValue(value)
+        console.log("calender value", value)
     }
 
     return (
@@ -136,24 +185,24 @@ const RecommendationsULIP = () => {
 
                         <Box className={classes.cardStyle}>
                             <Grid container>
-                                <Grid item sm={5}>
+                                <Grid item sm={5} xs={12}>
                                     <Box className={classes.cardStyleCmpName}>
                                         <Box className={classes.cardImgWrapper}>
                                             <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
                                         </Box>
-                                        <Box sx={{ margin: '0px 8px' }}>
+                                        <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
                                             <Typography component='p'>Bajaj Allianz Future Gain</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
                                             <Typography component='div' className={classes.cardBadge}>Equity</Typography>
                                         </Box>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={2}>
+                                <Grid item sm={2} xs={12}>
                                     <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
                                         <Typography component='div'>₹6.5 lacs</Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={3}>
+                                <Grid item sm={3} xs={12}>
                                     <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
                                         <Box className={classes.cardContent}>
                                             <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
@@ -165,7 +214,7 @@ const RecommendationsULIP = () => {
                                         </Box>
                                     </Box>
                                 </Grid>
-                                <Grid item sm={2}>
+                                <Grid item sm={2} xs={12}>
                                     <Box>
                                         <Box className={classes.cardContent}>
                                             <Typography component='span'>Life Cover</Typography>
@@ -180,7 +229,7 @@ const RecommendationsULIP = () => {
                             </Grid>
                             <Box>
                                 <Box className={classes.btnGroup}>
-                                    <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                    <Button variant="contained" onClick={() => setKnowMoreDialog(true)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
                                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
                                     </Button>
                                     <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
@@ -197,12 +246,71 @@ const RecommendationsULIP = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText='Select ULIP Date'
-                            btnClick={handleULIPDate}
+                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ULIP Date'}
+                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
                         />
                     </Grid>
                 </Grid >
             </Box >
+
+
+
+            {/* <Modal className={classes.dateModal} sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
+                <Box alignItems='center' justifyContent='center'>
+                    <Typography className={classes.modalText}>Monthly SIP Date</Typography>
+                    <Calendar />
+                    <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                        backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                        color: '#7b7b9d'
+                    }}>
+                        Confirm SIP Date
+                    </Button>
+                </Box>
+            </Modal> */}
+
+
+            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>Set backup account</Typography>
+                <Calendar onChange={handleCalender} value={calenderValue} />
+                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Confirm SIP Date
+                </Button>
+            </Dialog>
+
+            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+
+                <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
+                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
+                </Box>
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Continue to Payment
+                </Button>
+            </Dialog>
+
+
+            <Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog}>
+                <DialogTitle sx={{boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)'}}>
+                    Set backup account
+                    
+                    </DialogTitle>
+                <DialogContent>
+
+                </DialogContent>
+            </Dialog>
+
         </Box >
     )
 }

@@ -38,7 +38,7 @@ import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
 import Divider from '@mui/material/Divider';
-import { SuccessLogo } from '../../Assets';
+import { maskgroup, SuccessLogo } from '../../Assets';
 
 const style = {
     button3: {
@@ -309,7 +309,7 @@ const AddMoreFundsModal = (props: any) => {
                 sx={{ width: { xs: '100%', sm: '400px', margin: 'auto' } }}
                 disableEscapeKeyDown
                 className={`${showPlanDetailSubmit && classes.noClickBackdrop}`}
-            // disableBackdropClick
+           
             >
 
                 {
@@ -326,10 +326,30 @@ const AddMoreFundsModal = (props: any) => {
                     {
                         !showPlanDetailSubmit ?
                             <div className={classes.showPlanDialogWrapper}>
-                                <div className={classes.popHeading}>
-                                    <b style={{ fontSize: 'var(--fontSize5)', marginBottom: '0px', color: '#6c63ff', textAlign: "left" }}>Add More funds to </b><br />
-                                    <b style={{ color: '#3c3e42', fontWeight: 500, fontSize: 'var(--fontSize14)', marginTop: '5px', height: "34px" }}>Axis Small Cap Fund Regular Growth Fund</b>
-                                </div>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={4}>
+                                        <Box sx={{
+                                            height: "45px", border: "solid 1px #d1d6dd",
+                                            width: "46px",
+                                            borderRadius: "50%"
+                                        }}>
+                                            <img style={{ height: "40px", width: "43px" }} src={maskgroup} />
+                                        </Box>
+
+
+
+
+                                    </Grid>
+
+                                    <Grid item xs={8}>
+                                        <div className={classes.popHeading}>
+                                            <b style={{ fontSize: "9px", marginBottom: '0px', color: '#6c63ff', textAlign: "left" }}>Add More funds to </b><br />
+                                            <b style={{ color: '#3c3e42', fontWeight: 500, fontSize: '14px', marginTop: '5px', height: "34px" }}>Axis Small Cap Fund Regular Growth Fund</b>
+                                        </div>
+                                    </Grid>
+
+                                </Grid>
+
                                 <Divider sx={{ marginTop: "10px" }} />
                                 <FormControl sx={{ marginTop: "10px" }} className={classes.radioGroup} fullWidth>
 
@@ -407,10 +427,10 @@ const AddMoreFundsModal = (props: any) => {
                                 <Box sx={{ display: 'flex' }}>
                                     <CircularProgress />
                                     <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>SprintMoney is processing your
-                                    investment account...</p>
+                                        investment account...</p>
                                 </Box>
-                              
-                               
+
+
 
 
                             </div>

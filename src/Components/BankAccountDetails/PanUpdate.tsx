@@ -12,8 +12,8 @@ import Sidebar from "../CommonComponents/Sidebar";
 const PanUpdate = () => {
 
     const [value, setValue] = useState("");
-    const [ error, setError ] = useState(false);
-    
+    const [error, setError] = useState(false);
+
     //const error: string[] = useSelector((state: any) => state.error)
 
     const dispatch = useDispatch();
@@ -21,10 +21,9 @@ const PanUpdate = () => {
     const navigate = useNavigate();
 
     const validate = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const res = event.target.value;
+        const res = event.target.value?.trim();
         setValue(res);
-        const regex = /[A-Za-z]{5}\d{4}[A-Za-z]/;
-    
+        const regex = /[A-Z]{5}\d{4}[A-Z]/;
 
         if (!regex.test(res)) {
             setError(true);
@@ -32,6 +31,14 @@ const PanUpdate = () => {
             setError(false);
         }
     };
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (value === '' || error) {
+            setError(true);
+        } else {
+            navigate('/viewprofile');
+        }
+    }
 
     const style = {
         button: {
@@ -51,6 +58,12 @@ const PanUpdate = () => {
             backgroundColor: "#f9f9f9",
             height: "100vh"
         } as React.CSSProperties,
+        footer: {
+            fontSize: '12px',
+            color: '#7b7b9d',
+            textAlign: 'center',
+            width: '23.28vw',
+        } as React.CSSProperties,
     };
 
     return (
@@ -60,37 +73,43 @@ const PanUpdate = () => {
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
-
                         <Sidebar />
                     </Grid>
-                    <Grid container item sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+                    <Grid container item xs={12} sm={11} md={10} sx={{
+                        height: "100vh",
+                        overflow: "scroll",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' },
+                    }}>
                         <Toolbar />
+                        <Breadcrumbs sx={{
+                            fontSize: '12px',
+                            color: '#6c63ff',
+                            marginBottom: '3vw',
+                        }}>
+                            <Link href="/home">Home</Link>
+                            <Link href="/viewprofile">View Profile</Link>
+                            <Typography sx={{
+                                fontSize: '12px',
+                                color: '#373e42'
+                            }}>PAN Update</Typography>
+                        </Breadcrumbs>
                         <Box component="form" sx={{
-                            width: '30.5rem',
-                            gap: '2rem',
+                            gap: { xs: '1vw', sm: '1vw', md: '1.5vw', lg: '2vw' },
+                            width: '90%',
+                            maxWidth: '488px',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5rem',
-                            borderRadius: '0.5rem',
+                            padding: '1.5vw',
+                            borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
                             fontFamily: 'Roboto',
                             fontSize: '14px',
-                            margin: '6vw',
                         }}>
-                            <Breadcrumbs sx={{
-                                fontSize: '12px',
-                                color: '#6c63ff',
-                                marginBottom: '3vw',
-                            }}>
-                                <Link href="/home">Home</Link>
-                                <Link href="/vp">View Profile</Link>
-                                <Typography sx={{
-                                    fontSize: '12px',
-                                    color: '#373e42'
-                                }}>PAN Update</Typography>
-                            </Breadcrumbs>
+
                             <Typography sx={{
                                 fontSize: '14px',
                                 fontWeight: 500,
@@ -101,11 +120,11 @@ const PanUpdate = () => {
                             <FormControl>
                                 <TextField
                                     required
-                                    label="Enter your PAN number"
-                                    helperText={ error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
+                                    label="Enter your PAN number (AAAAA9999A format) "
+                                    helperText={error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
-                                    error={ error }
-                                    onChange={ validate }
+                                    error={error}
+                                    onChange={validate}
                                     InputProps={{
                                         endAdornment: error ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross" /> </InputAdornment> : "",
                                     }}
@@ -113,31 +132,38 @@ const PanUpdate = () => {
                             </FormControl>
 
                             <FormControl>
-                                <Button variant="contained" style={style.button} fullWidth onClick={() => navigate("/completedview")} >
+                                <Button variant="contained" style={style.button} fullWidth onClick={ handleClick } >
                                     <Typography style={style.text} className="largeButtonText">
                                         Continue
                                     </Typography>
                                 </Button>
                             </FormControl>
                         </Box>
+
                     </Grid>
+                    <Box sx={{
+                        width: '83.75vw',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        marginLeft: '20vw',
+                        backgroundColor: '#f9f9f9',
+                    }}>
+                        <Typography style={ style.footer }>
+                            By submitting these details, you agree to share your details to BSE for
+                            further transactions
+                        </Typography>
+                        <Typography style={ style.footer } sx={{
+                            fontWeight: 500,
+                            color: '#6c63ff',
+                        }}>
+                            <Link href="/termsandcondition">Terms and conditions</Link>
+                        </Typography>
+                    </Box>
                 </Grid>
             </Box>
         </Box>
     )
 };
 
-export default PanUpdate;   
-/*
-sx={{
-                                        "& .MuiInputLabel-root": { color: '#acb4bf' },
-                                        "& .MuiOutlinedInput-root": {
-                                            "& > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
-                                            "&:hover > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#dddfe2" },
-                                            "&.Mui-focused > fieldset": { borderColor: error?.includes("PAN") ? "#ff5300" : "#4b7bec", borderWidth: "1px", boxShadow: "0 4px 8px 0 rgba(75, 123, 236, 0.2)" },
-                                        },
-                                    }}
-                                    InputProps={{
-                                        endAdornment: error?.includes("PAN") ? <InputAdornment position="end"> <img src={ContactError} width="22px" alt="Cross" /> </InputAdornment> : "",
-                                    }}
-*/
+export default PanUpdate;

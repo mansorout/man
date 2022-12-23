@@ -49,6 +49,7 @@ const ULIPCoFundCard = (props: ULIPProp) => {
       height: '36px',
       padding: '10px 26px',
       borderRadius: '8px',
+      border:"0px"
     },
     buttonText: {
       fontSize: '11px',
@@ -59,50 +60,61 @@ const ULIPCoFundCard = (props: ULIPProp) => {
 
   return (
 
-    <Box sx={{
-      width: '76vw',
+    <Box 
+     sx={{
       display: 'flex',
       flexDirection: 'column',
-      padding: '0.625vw 0.625vw 1.5vw 1.5vw',
+      padding: '10px',
       borderRadius: '0.625vw',
       boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
       backgroundColor: '#fff',
       fontFamily: 'Roboto',
-      gap: '1.5vw',
+      gap: '20px',
+      marginBottom: '10px',
     }}>
       <Box sx={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: {xs:"center", sm:'space-between'},
+        flexWrap:"wrap",
+        gap:"20px"
       }}>
-
         <Box sx={{
           display: 'flex',
           justifyContent: 'flex-start',
-          gap: '1vw',
+          gap: '20px',
+          alignItems:"center",
         }}>
-          <img src={props.logo} alt="Company Logo" style={{
-            width: '2.4vw',
-            height: '2.4vw',
-            objectFit: 'contain',
-            fontSize: '10px'
-          }} />
-          <Typography sx={{
-            fontSize: '20px',
-            fontWeight: 500,
-            color: '#3c3e42',
-          }}>
-            {props.title}
-          </Typography>
+          <Box
+          sx={{border:"1px solid #d1d6dd", borderRadius:"50%", width: '50px',
+          height: '50px', display:"flex", alignItems:"center", justifyContent:"center"}}
+          >
+            <img src={props.logo} alt="Company Logo" style={{
+              width:"50px",
+              height:"50px",
+
+              objectFit: 'contain',
+            }} />
+          </Box>
+          <Box>
+            <Typography sx={{
+              fontSize: '20px',
+              fontWeight: 500,
+              color: '#3c3e42',
+            }}>
+              {props.title}
+            </Typography>
+          </Box>
         </Box>
         <Box sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'flex-start',
-          gap: '1vw',
+          justifyContent: {xs:"center", sm:'flex-end'},
+          gap: '10px',
         }}>
           <Box sx={{
             display: 'flex',
-            flexDirection: 'column',
+            alignItems:'center',
+            gap:"10px",
+            flexDirection: {xs:'row', sm:"column"},
           }}>
             <Chip label={formatter2.format(props.projectedAmount) + ' Lacs'} sx={{
               borderRadius: '2px',
@@ -128,6 +140,7 @@ const ULIPCoFundCard = (props: ULIPProp) => {
       <Grid container sx={{
         display: 'flex',
         justifyContent: 'center',
+        gap:{xs:"20px", sm:"0px"}
       }}>
         <Grid item xs={12} md={6} sx={{ 
           display: 'flex',
@@ -139,7 +152,7 @@ const ULIPCoFundCard = (props: ULIPProp) => {
           </Box>
           <Box>
             <Typography style={style.returns}>Life Cover</Typography>
-            <Typography style={style.amount}>{props.lifeCoverAmount}% Lac</Typography>
+            <Typography style={style.amount}>₹{props.lifeCoverAmount} Lac</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} md={6} sx={{ 
@@ -161,17 +174,17 @@ const ULIPCoFundCard = (props: ULIPProp) => {
       <Box sx={{
         display: 'flex',
         justifyContent: 'flex-end',
-        gap: '2vw',
+        gap: '20px',
       }}>
-        <Button variant='contained' style={style.buttons} sx={{
-          backgroundColor: 'rgba(35, 219, 123, 0.05)',
+        <Button variant='outlined' style={style.buttons} sx={{
+          backgroundColor: '#f3fdf8',
           color: '#23db7b',
           gap: '5px',
         }}>
           <img src={questionMarkIcon} />
           <Typography style={ style.buttonText }>KNOW MORE</Typography>
         </Button>
-        <Button variant="contained" style={style.buttons} sx={{
+        <Button variant="outlined" style={style.buttons} sx={{
           backgroundColor: 'rgba(123, 123, 157, 0.05)',
           color: '#7b7b9d',
           gap: '5px',

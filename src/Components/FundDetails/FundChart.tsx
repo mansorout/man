@@ -1,25 +1,63 @@
-import { Box } from '@mui/material'
-import React from 'react'
+import React from "react";
+import { Box } from "@mui/material";
+import { fundChart } from "../../Assets/index";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-import { fundChart } from '../../Assets/index'
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "First dataset",
+      data: [33, 53, 85, 41, 44, 65],
+      fill: true,
+      backgroundColor: "rgba(75,192,192,0.2)",
+      borderColor: "rgba(75,192,192,1)",
+    },
+  ],
+};
 
 export const FundChart = () => {
-    return (
-        <>
-            <Box sx={{
-                margin: "1rem", borderRadius: "8px",
-                backgroundColor: "white",
-                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-            }}>
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
-              
-                
-                <img src={fundChart} alt="box Chart" style={{
-                    width: "100%",
-                    height: "297px", maxWidth: "-webkit-fill-available"
-                }} />
-                
-            </Box>
-        </>
-    )
-}
+  return (
+    <>
+      <Box
+        sx={{
+          margin: "1rem",
+          borderRadius: "8px",
+          backgroundColor: "white",
+          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+        }}
+      >
+        <Line data={data} />
+        {/* <img
+          src={fundChart}
+          alt="box Chart"
+          style={{
+            width: "100%",
+            height: "297px",
+            maxWidth: "-webkit-fill-available",
+          }}
+        /> */}
+      </Box>
+    </>
+  );
+};

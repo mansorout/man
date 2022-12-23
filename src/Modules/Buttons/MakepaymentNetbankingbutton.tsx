@@ -8,14 +8,10 @@ import { useNavigate } from "react-router-dom";
 
     const style = {
         buttonnetbank : {
-            
-            
-            boxShadow: "0 0 16px 0 rgba(0, 0, 0, 0.16)",
+             boxShadow: "0 0 16px 0 rgba(0, 0, 0, 0.16)",
             backgroundColor: "#3c3e42",
             width:"90%",
-            maxWidth:"400px",
-    
-            height:" 56px",
+            maxWidth:"400px",height:" 56px",
             padding: "10.5px 14px 10.5px 16px"
         } as React.CSSProperties,
         text : {
@@ -25,8 +21,7 @@ import { useNavigate } from "react-router-dom";
             color:"#ffffff",
             fontSize:"11px",
             // width:"100px",
-            // height:"16px"
-          
+            // height:"16px
             
         
         }
@@ -44,17 +39,11 @@ import { useNavigate } from "react-router-dom";
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
                     &nbsp;  &nbsp;  &nbsp;  &nbsp;
                     <Typography sx={{
-                 width: "114px",
-                 height: "35px",
-              
-                 marginLeft:"25%",
-             
-               
-                //  padding:" 10px 8px 9px 8px",
-                 borderRadius: "4px",
+                 width: "169px",
+                 marginLeft:"25%",borderRadius: "4px",
                  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
                  backgroundColor: "#23db7b"
-            }}  style={style.texttwo}>Make Payments</Typography>
+            }}  style={style.texttwo}> <p>Make Payments</p></Typography>
                 </Box>
             {/* <Grid container spacing={7}>
                 <Grid item xs={4}>
@@ -90,5 +79,3 @@ export default MakepaymentNetbankingbutton;
 
 
 
-
-// MakepaymentNetbankingbutton

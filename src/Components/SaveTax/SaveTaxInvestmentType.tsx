@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -22,6 +22,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useDispatch, useSelector } from 'react-redux';
+import {getDataSaveTaxInvestmentType} from '../../Store/Save Tax/thunk/save-tax-thunk'
+import siteConfig from '../../Utils/siteConfig'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -87,6 +90,18 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '&>span': {
             right: '50% !important',
         }
+    },
+    tableStyle:{
+        '& td':{
+            '@media(max-width: 600px)':{
+                padding: '10px',
+            }
+        },
+        '& th':{
+            '@media(max-width: 600px)':{
+                padding: '10px',
+            }
+        }
     }
 
 }))
@@ -95,8 +110,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const SaveTaxInvestmentType = () => {
     const classes = useStyles();
     const navigate = useNavigate();
-
+    const dispatch:any =useDispatch()
+    const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
+
+    
 
     function createData(
         heading: string,
@@ -112,6 +130,13 @@ const SaveTaxInvestmentType = () => {
         createData('Life Insurance Cover', '₹ 5,00,000', '(NIL)'),
         createData('Minimum investment period & Lock-in period', '5 Years', '3 Years'),
     ];
+
+    
+    useEffect(() => {
+        dispatch(getDataSaveTaxInvestmentType(investmentAmount))
+    }, [])
+
+
 
     const handleInvestmentRecommendation = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentRecommendation((event.target as HTMLInputElement).value);
@@ -167,7 +192,7 @@ const SaveTaxInvestmentType = () => {
 
 
                         <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: { sm: 650 } }} aria-label="a dense table">
+                            <Table aria-label="a dense table" className={classes.tableStyle}>
                                 {/* <TableHead>
                                     <TableRow>
                                         <TableCell>Dessert (100g serving)</TableCell>
@@ -207,9 +232,10 @@ const SaveTaxInvestmentType = () => {
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! Your total investment is'
-                            boxAmount='₹15,000 Every Year'
+                            boxAmount={`₹${investmentAmount}  Every Year`}
                             btnText='Show Me Recommendations'
                             btnClick={handleShowRecommendation}
+                            btnDisable={false}
                         />
                     </Grid>
                 </Grid>

@@ -21,9 +21,8 @@ export const UpiInput: React.FC<TodoFormProps> = ({ addUpi }) => {
   return (
     <form className="todo-form">
       <input type="text" value={newUpi} className="upi-input" placeholder="Enter UPI ID" onChange={handleChange} />
-        <button type="submit" onClick={handleSubmit}>
-          Add Upi
-        </button>
+      <button style={{visibility:"hidden"}} onClick={handleSubmit}>Add Upi</button>
+        
     </form>
   )
 };

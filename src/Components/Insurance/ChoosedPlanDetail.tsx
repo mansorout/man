@@ -12,7 +12,7 @@ import { clockClasses } from '@mui/x-date-pickers';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Button from '@mui/material/Button';
-import BackToHomeDiloag from '../CommonComponents/BackToHomeDiloag'
+import BackToHomeDiloag from '../CommonComponents/BackToHomeDiloag';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,7 +32,13 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItem: 'flex-start',
+        flexWrap: 'wrap',
         margin: '20px 0px',
+        '@media(max-width: 600px)':{
+            '&>div':{
+                width: '100%',
+            }
+        }
         // paddingBottom: '50px',
     },
     whyBuyTermInsuranceContentWrapper: {

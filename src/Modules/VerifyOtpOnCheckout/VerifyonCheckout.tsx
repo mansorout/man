@@ -37,8 +37,8 @@ export const VerifyonCheckout = () => {
             height: "100vh"
         } as React.CSSProperties,
         background: {
-            backgroundColor: "#f9f9f9",
-            height: "100vh",
+            // backgroundColor: "#f9f9f9",
+
             width: "100vw",
             display: "flex",
             flexDirection: "column",
@@ -74,8 +74,8 @@ export const VerifyonCheckout = () => {
             alignItems: "center",
             justifyContent: "center",
             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
-            transform: "translate(-50%, 0%)",
-            left: "57%",
+            // transform: "translate(-50%, 0%)",
+            // left: "57%",
             bottom: "8%",
             position: "absolute"
         } as React.CSSProperties,
@@ -112,10 +112,10 @@ export const VerifyonCheckout = () => {
             <Box style={{ width: "100vw" }} ref={refContainer}>
                 <Navbar />
                 <Box sx={style.main}>
-                    <Grid
+                    <Grid className="verifyoncheckoutbox"
                         container
                         spacing={0}
-                        sx={{ height: "100vh" }}
+
                     >
 
                         <Grid
@@ -130,80 +130,19 @@ export const VerifyonCheckout = () => {
 
                         <Grid sx={{ padding: 2 }} item xs={12}>
                             <Toolbar />
-                            {/* <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
-                                <Breadcrumbs aria-label="breadcrumb">
-                                    <Link color="#6495ED" underline="always" href="/home">
-                                        <Typography className='burgerText'> Home</Typography>
-                                    </Link>
-                                    <Link
-                                        underline="always"
-                                        color="#6495ED"
-                                    // href="/home"
-                                    >
-                                        <Typography className='burgerText'> Investment</Typography>
-
-                                    </Link>
-                                    <Link
-                                        underline="always"
-                                        color="#6495ED"
-                                        // href="/"
-                                        href="/investnow"
-
-                                    >
-                                        <Typography className='burgerText'> Monthly Investment</Typography>
-
-                                    </Link>
-                                    <Link
-                                        underline="always"
-                                        color="#6495ED"
-
-                                        aria-current="page"
-                                    >
-                                        <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
-
-                                    </Link>
-                                    <Link
-                                        underline="always"
-                                        color="#6495ED"
-                                        // href="/material-ui/react-breadcrumbs/"
-                                        aria-current="page"
-                                    >
-                                        <Typography className='burgerText'>  Customize Plan</Typography>
-
-                                    </Link>
-                                    <Link
-                                        underline="always"
-                                        color="#6495ED"
-                                        // href="/"
-                                        aria-current="page"
-                                    >
-                                        <Typography className='burgerText'>   Choose Fund to Replace</Typography>
-
-                                    </Link>
-                                    <Link
-                                        underline='none'
-                                        color="#8787a2"
-                                        // href="/"
-                                        aria-current="page"
-
-                                    >
-                                        <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
-
-                                    </Link>
-                                </Breadcrumbs>
-                            </Box> */}
-
                             <Box style={style.background}>
                                 <NavigationBar />
-                                <Box style={style.container}>
+                                <Box style={style.container} className="verifyoncheckoutcard">
                                     <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
                                     <Typography mb={1} variant="h1" align="center">
                                         Verify OTP
                                     </Typography>
-                                    <Typography mb={2} style={{ maxWidth: "70%" }} className="VerificationOtp" align="center">
-                                        Enter the 4 digit verification code we sent you on your mobile number (xxxxxx9087) and email address (xxxxxxtra@gmail.com)
+                                    <Typography mb={2} style={{ maxWidth: "75%",fontSize:"18px" }} className="VerificationOtp" align="center">
+                                        Enter the 4 digit verification code we sent you on your mobile number <span style={{color:"#3c3e42",fontSize:"20px"}}>(xxxxxx9087)</span>
+                                        and email address<span style={{color:"#3c3e42",fontSize:"20px"}}>(xxxxxxtra@gmail.com)</span>
                                     </Typography>
                                     <OtpInput
+                                        isInputNum={true}
                                         value={OTP}
                                         onChange={handleOtpChange}
                                         numInputs={4}
@@ -234,7 +173,7 @@ export const VerifyonCheckout = () => {
                                         <Typography component="span" style={style.text} className="largeButtonText">Verify</Typography>
                                     </Button>
                                     <Typography mt={2} sx={{ fontSize: "14px", color: " #7b7b9d" }}>Not received the code yet?
-                                        <span className="textLink" style={{ cursor: "pointer" }} > Resend</span></Typography>
+                                        <span className="textLink" style={{ cursor: "pointer",textDecoration:"underline" }} > Resend</span></Typography>
 
                                 </Box>
                             </Box>
@@ -243,7 +182,7 @@ export const VerifyonCheckout = () => {
 
                     </Grid>
                 </Box>
-                <img alt="logo" src={SBICON} width="275" height="275" style={{
+                <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
                     position: "absolute",
                     right: "0px",
                     top: "65px"

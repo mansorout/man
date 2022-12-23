@@ -1,34 +1,63 @@
-.mainDiv{
-    width : calc( 100vw - 200px)
+.mainDiv {
+  width: calc(100vw - 200px)
+}
+
+.css-a5rdam-MuiGrid-root {
+  margin-top: 0 !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+.MuiGrid-root MuiGrid-item MuiGrid-grid-xs-13 MuiGrid-grid-sm-11 MuiGrid-grid-md-10 css-1lk37nv-MuiGrid-root {
+  background-color: red;
+}
+
+
+
+
+
+
+
+
+
+/* Timer Loader */
+
+
+.Headline {
+  width: 187px;
+  height: 19px;
+  margin: 0 59px 33px 74px;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3c3e42;
+}
+
+@media (max-width:560px) {
+  .payloader {
+    width: 96% !important;
+
   }
-  .css-a5rdam-MuiGrid-root{
-    margin-top: 0 !important;
-    width: 100% !important;
-    margin-left: 0 !important;
+
+  .paysuccessfull {
+    width: 96% !important;
+
   }
 
 
+}
 
 
+@media (max-width:560px) {
 
-
-
-
-
-  /* Timer Loader */
-
-
-  .Headline {
-    width: 187px;
-    height: 19px;
-    margin: 0 59px 33px 74px;
-    font-family: Roboto;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
-    text-align: left;
-    color: #3c3e42;
+  .netbankingcard {
+    padding-left: 7px !important;
+    padding-right: 7px;
   }
+
+}

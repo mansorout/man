@@ -76,6 +76,7 @@ export const Setpin = () => {
             Enter 4 Digit New PIN
           </Typography>
           <OtpInput
+          isInputNum={true}
             value={OTP}
             isInputSecure
             onChange={handleOtpChange}
