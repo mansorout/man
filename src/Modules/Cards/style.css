@@ -54,8 +54,8 @@
      .css-1o59boh .MuiTextField-root {
         width: 100% !important;
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 140px) !important;
+    .paddingstyle_style {
+        width: calc(90% + 125px) !important;
     }
     .IpadStyle {
         overflow: inherit;
@@ -65,10 +65,12 @@
     }
     .paddingstyle{
       
-        margin-left: -19px !important;
+        margin-left: -16px !important;
+        width: 37.5vw !important;
     }
     .paddingstyle_style{
-        margin-left: 9px !important;
+        margin-left: 49px !important;
+        width: 42vw !important;
     }
   
     .graphUlipStyle{
@@ -142,6 +144,16 @@
         .investWholeStyle{
             margin-left: 7% !important;
         }
+        .paddingstyle{
+      
+            margin-left: -16px !important;
+            width: 39vw !important;
+        }
+        .paddingstyle_style{
+            margin-left: -1px !important;
+            width: 42vw !important;
+            border-radius: 11px !important;
+        }
       
 }
 
@@ -185,6 +197,16 @@
         border-radius: 33px !important;
         width: 93% !important;
      }
+     .paddingstyle{
+      
+        margin-left: -24px !important;
+        width: 87vw !important;
+    }
+    .paddingstyle_style{
+        margin-left: -24px !important;
+        width: 87vw !important;
+        border-radius: 11px !important;
+    }
 
 }
 
