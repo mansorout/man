@@ -380,4 +380,8 @@ export const privateRoutesConstants: prConstant[] = [
     path: "/ddfilters",
     component: <DropDownFilter />
   },
+  {
+    path: "/panUpdate",
+    component: <PanUpdate />
+  },
 ]

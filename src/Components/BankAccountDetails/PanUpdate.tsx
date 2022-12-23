@@ -9,6 +9,34 @@ import { ActionCreators } from "../../Store";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 
+
+const style = {
+    button: {
+        height: "48px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "#23db7b",
+        marginBottm: "10px",
+        width: "100%",
+        maxWidth: "30.5rem",
+    } as React.CSSProperties,
+    text: {
+        color: "white"
+    },
+    main: {
+        boxSizing: "border-box",
+        backgroundColor: "#f9f9f9",
+        height: "100vh"
+    } as React.CSSProperties,
+    footer: {
+        fontSize: '12px',
+        color: '#7b7b9d',
+        textAlign: 'center',
+        width: '23.28vw',
+    } as React.CSSProperties,
+};
+
+
 const PanUpdate = () => {
 
     const [value, setValue] = useState("");
@@ -39,32 +67,6 @@ const PanUpdate = () => {
             navigate('/viewprofile');
         }
     }
-
-    const style = {
-        button: {
-            height: "48px",
-            borderRadius: "8px",
-            boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-            backgroundColor: "#23db7b",
-            marginBottm: "10px",
-            width: "100%",
-            maxWidth: "30.5rem",
-        } as React.CSSProperties,
-        text: {
-            color: "white"
-        },
-        main: {
-            boxSizing: "border-box",
-            backgroundColor: "#f9f9f9",
-            height: "100vh"
-        } as React.CSSProperties,
-        footer: {
-            fontSize: '12px',
-            color: '#7b7b9d',
-            textAlign: 'center',
-            width: '23.28vw',
-        } as React.CSSProperties,
-    };
 
     return (
         <Box style={{ width: "100vw" }}>

@@ -14,6 +14,7 @@ const siteConfig = Object.freeze({
   CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED: "application/x-www-form-urlencoded",
   ACCESS_TOKEN_KEY: "access_token",
   USER_INFO: "user_info",
+  CONTACT_NUMBER:"contact_number",
 
 
   //API

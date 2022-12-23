@@ -17,9 +17,11 @@ import { store } from "../../Store/Store";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Grid, Modal, Theme } from "@mui/material";
-import { postData } from "../../Utils/api";
+import { postData, postDataBeforeAuth } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
 import { setIsUserAuthenticatedAction } from "../../Store/Authentication/actions/auth-actions";
+import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
+import { globalConstant } from "../../Utils/globalConstant";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   background: {
@@ -94,7 +96,7 @@ const style = {
     height: ".5px",
     padding: ".5px",
     backgroundColor: "rgba(112, 112, 112, 0.26)"
-  
+
   },
 
   errorText: {
@@ -111,6 +113,8 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const error: string[] = useSelector((state: any) => state.error);
+  const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
+
   const { addError, removeError, addContactNumber } = bindActionCreators(
     ActionCreators,
     dispatch
@@ -118,6 +122,10 @@ export const Login = () => {
 
   const [focus, setFocus] = useState<boolean>(false);
   const [number, setNumber] = useState<string>("");
+
+  useEffect(() => {
+    addContactNumber("");
+  }, [])
 
   const handleMobile = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -136,12 +144,13 @@ export const Login = () => {
       return;
     }
 
+    dispatch(setDisableButtonAction(true));
     let objBody = {
       mobilenumber: number,
       type: "auth",
     };
-
-    postData(
+    setShouldButtonDisable(true);
+    postDataBeforeAuth(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
@@ -149,16 +158,22 @@ export const Login = () => {
     )
       .then(res => res.json())
       .then((data) => {
+        dispatch(setDisableButtonAction(false));
         if (data?.error === true) {
           console.log("error true");
           return;
         }
 
+        localStorage.setItem(siteConfig.CONTACT_NUMBER, number)
+
         removeError("Login_Contact");
+        setShouldButtonDisable(false);
         addContactNumber(number);
         navigate("/termsandcondition");
       })
       .catch((err) => {
+        setShouldButtonDisable(false);
+        addError(globalConstant.ERROR_OCCURRED)
         console.log(err);
       });
   };
@@ -216,7 +231,7 @@ export const Login = () => {
               ""
             ),
             endAdornment: error?.includes("Login_Contact") ? (
-              <InputAdornment sx={{paddingRight: "8px ! important"}} position="end">
+              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
                 {" "}
                 <img src={ContactError} width="22px" alt="Cross" />{" "}
               </InputAdornment>
@@ -239,13 +254,23 @@ export const Login = () => {
             ? "Please enter a valid phone number"
             : ""}
         </Typography>
+
+        <Typography style={style.errorText} className="error">
+          {
+            error?.includes(globalConstant.ERROR_OCCURRED)
+              ? globalConstant.ERROR_OCCURRED
+              : ""
+          }
+        </Typography>
+
         <ContinueWithMobile
+          shouldButtonDisable={shouldButtonDisable}
           number={number}
           onClick={(val) => doAuthentication(val)}
         />
         <Box style={style.divider}>
           <Box style={style.dividerBox}></Box>
-          <Typography sx={{color:"#7b7b9d",fontSize:"16px"}}>OR</Typography>
+          <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }}>OR</Typography>
           <Box style={style.dividerBox}></Box>
         </Box>
         <ConnectWithGoogle />
