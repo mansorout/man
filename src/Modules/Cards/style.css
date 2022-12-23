@@ -194,7 +194,6 @@
     .investWholeStyle{
         margin-left: -3% !important;
     }
-
     .ToastterStyle{
         position: relative !important;
     top: 32vw !important;
@@ -227,12 +226,7 @@
     .buttoncenterstyle{
         margin-left: 1% !important;
     }
-    .InvestmentMonthlyStyle{
-       
-        padding-left: 65% !important;
-        width: 100% !important;
-        padding-top: 2% !important;
-    }
+    
     .premiumpaymentStyle{
        
         position: relative;
@@ -240,7 +234,6 @@
         top: 50% !important;
     }
   .UlipFundCardStyle{
-    width: 81% !important;
     margin-left: -4% !important;
     gap: 5vw !important;
     margin-bottom: 6vw !important;
