@@ -65,7 +65,7 @@ const FundDetailCard = (props: Prop) => {
         borderRadius: "0.5rem",
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         backgroundColor: "#6c63ff",
-        margin: "1rem",
+        // margin: "1rem",
       }}
     >
 
@@ -167,7 +167,7 @@ const FundDetailCard = (props: Prop) => {
                 <TableHead >
                   <TableRow sx={{ color: "red" }}>
                     <TableCell sx={{ borderRight: "2px solid #f9f9f9", size: "14px", color: "#FFFFFF !important" }}  >
-                      NAV - 16/09/2020 <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9" }}><span style={{}}>%</span>{props.year1}%</p>
+                      NAV - 16/09/2020 <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9" }}><span style={{}}>₹</span>{props.year1}</p>
                     </TableCell>
                     <TableCell sx={{ borderRight: "2px solid #f9f9f9" }} className="table_head">
                       Returns (5 Yrs)  <p style={{ fontSize: "20px", fontWeight: "500", color: "#f9f9f9 ! important" }}>{props.year3}%</p>

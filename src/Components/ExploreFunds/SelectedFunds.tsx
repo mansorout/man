@@ -137,82 +137,116 @@ const SelectedFunds = () => {
         <Box style={{ width: "100vw" }} ref={refContainer}>
             <Navbar />
             <Box sx={style.main}>
-                <Toolbar />
-                <Sidebar />
-                <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-                        <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
-                            <Breadcrumbs aria-label="breadcrumb">
-                                <Link color="#6495ED" underline="always" href="/explorefunds">
-                                    <Typography className='burgerText'>Explore Funds</Typography>
-                                </Link>
-                                <Link underline='none' color="#8787a2" aria-current="page">
-                                    <Typography className='burgerText'>Selected Funds</Typography>
-                                </Link>
-                            </Breadcrumbs>
-                        </Box>
-                        <Box sx={{ margin: "27px 0px 21px 25px" }}>
-                            <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>3 Funds Selected</Typography>
-                        </Box>
+                <Grid container spacing={0} sx={{ height: "100vh" }}>
+                    <Grid item xs={0} sm={1} md={2}>
+                        <Toolbar />
+                        <Sidebar />
+                    </Grid>
+                    <Grid container xs={13} sm={11} md={10}>
+                        <Grid sx={{ padding: 2 }} item xs={12}>
+                            <Toolbar />
+                            <Grid container>
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" } }} item xs={12}>
+                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
+                                        <Breadcrumbs aria-label="breadcrumb">
+                                            <Link color="#6495ED" underline="always" href="/explorefunds">
+                                                <Typography className='burgerText'>Explore Funds</Typography>
+                                            </Link>
+                                            <Link underline='none' color="#8787a2" aria-current="page">
+                                                <Typography className='burgerText'>Selected Funds</Typography>
+                                            </Link>
+                                        </Breadcrumbs>
+                                    </Box>
+                                    <Box sx={{ margin: "27px 0px 21px 25px" }}>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>3 Funds Selected</Typography>
+                                    </Box>
 
-                        <Grid container >
-                            <Grid item >
-                                <Box>
-                                    <FundAmtCard heading={'Axis Small Cap Fund Regular Fund'} />
-                                    <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
-                                    <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
-                                </Box>
-                                <Grid item xs={8}>
-                                    <Button
-                                        onClick={() =>
-                                            alert("hiii")
-                                        }
-                                        sx={{
-                                            backgroundColor: "#00b4ff",
+                                    <Grid container sx={{ display: "flex" }} >
 
-                                            height: "45px",
-                                            borderRadius: "32px",
-                                            padding: "22px"
-                                        }}
-                                    >
-                                        <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
-                                            ADD MORE FUNDS
-                                        </Typography>
-                                    </Button>
+                                        <Grid item xs={12} md={6} >
+                                            <Box>
+                                                <FundAmtCard heading={'Axis Small Cap Fund Regular Fund'} />
+                                                <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
+                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
+                                            </Box>
+
+                                            <Button
+                                                onClick={() =>
+                                                    alert("hiii")
+                                                }
+                                                sx={{
+                                                    backgroundColor: "#00b4ff",
+
+                                                    height: "45px",
+                                                    borderRadius: "32px",
+                                                    padding: "22px",
+                                                    ml: 1,
+                                                    "&.MuiButtonBase-root:hover": {
+                                                        bgcolor: "#00b4ff"
+                                                    }
+                                                }}
+                                            >
+                                                <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
+                                                    ADD MORE FUNDS
+                                                </Typography>
+                                            </Button>
+
+
+
+                                        </Grid>
+
+                                        <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
+
+                                            <Grid item >
+                                                <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '400px' }}>
+                                                    <Typography style={{ color: 'rgb(79, 70, 222)', marginBottom: 8, fontWeight: '500' }} >How would you like to invest ?</Typography>
+                                                    <Box style={{ display: "flex", gap: "15px", alignItems: "center" }}>
+                                                        <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                            <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>
+                                                        </Box>
+                                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                            <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                            </Grid>
+
+
+
+                                        </Grid>
+
+
+
+                                    </Grid>
+
+
+                                    {
+                                        onetimeLumpsum ? <FooterWithBtn
+                                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                            btnClick={handleClick2}
+                                        /> : <FooterWithBtn
+                                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                            btnClick={handleClick}
+                                        />
+                                    }
+
+
+
+
                                 </Grid>
                             </Grid>
-                            <Grid item >
-                                <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '400px' }}>
-                                    <Typography style={{ color: 'rgb(79, 70, 222)', marginBottom: 8, fontWeight: '500' }} >How would you like to invest ?</Typography>
-                                    <Box style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-                                        <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                            <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>
-                                        </Box>
-                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                            <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            </Grid>
+
+
+
+
+
                         </Grid>
 
-
-                        {
-                            onetimeLumpsum ? <FooterWithBtn
-                                btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                btnClick={handleClick2}
-                            /> : <FooterWithBtn
-                                btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                btnClick={handleClick}
-                            />
-                        }
-
-
-
-
                     </Grid>
+
                 </Grid>
             </Box>
+
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
                 <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
                     <Typography sx={style.modalText}>Monthly SIP Date</Typography>
@@ -249,3 +283,88 @@ const SelectedFunds = () => {
 }
 
 export default SelectedFunds
+
+
+
+
+
+
+// <Grid container xs={13} sm={11} md={10}>
+// <Grid sx={{ padding: 2 }} item xs={12}>
+//     <Toolbar />
+//     <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
+//         <Breadcrumbs aria-label="breadcrumb">
+//             <Link color="#6495ED" underline="always" href="/home">
+//                 <Typography className='burgerText'>Home</Typography>
+//             </Link>
+//             <Link color="#6495ED" underline="always" href="/investNow">
+//                 <Typography className='burgerText'>Investment</Typography>
+//             </Link>
+//             <Link color="#6495ED" underline="always" href="/sipInvestment">
+//                 <Typography className='burgerText'>Monthly Investment</Typography>
+//             </Link>
+//             <Link color="#6495ED" underline="always" href="/mflist">
+//                 <Typography className='burgerText'> Mutual Fund Recommendation</Typography>
+//             </Link>
+//             <Link color="#6495ED" underline="always" href="/customizemf">
+//                 <Typography className='burgerText'>Customize Plan </Typography>
+//             </Link>
+//             <Link color="#6495ED" underline="always" href="/replaceFunds">
+//                 <Typography className='burgerText'>Choose Fund to Replace </Typography>
+//             </Link>
+//             <Link underline='none' color="#8787a2" aria-current="page">
+//                 <Typography className='burgerText'>   Axis Small Cap Fund Regular Growth</Typography>
+//             </Link>
+//         </Breadcrumbs>
+//     </Box>
+//     {
+//         FundCardsData.map((item, index) => {
+//             return (
+//                 <FundDetailCard
+//                     key={index}
+//                     logo={item.logo}
+//                     name={item.name}
+//                     cap={item.cap}
+//                     type={item.type}
+//                     year1={item.year1}
+//                     year3={item.year3}
+//                     year5={item.year5}
+//                     rating={item.rating}
+//                     morning_star_logo={item.morning_star_logo}
+//                 />
+//             )
+//         })
+//     }
+
+
+
+
+//     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+//         <Grid item xs={12}>
+
+//         </Grid>
+//         <Grid item xs={12}>
+//             <FundPerformance />
+//         </Grid>
+//     </Grid>
+
+//     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ paddingTop: "15px", paddingBottom: "56px" }}>
+//         <Grid item xs={12} sm={6} >
+//             <MinInvest />
+//         </Grid>
+//         <Grid item xs={12} sm={6} >
+//             <SchemeDoc />
+//         </Grid>
+//         <Grid item xs={12} sm={6} >
+//             <RiskoMeter />
+//         </Grid>
+//         <Grid item xs={12} sm={6}>
+//             <LatestAssets />
+//         </Grid>
+//     </Grid>
+// </Grid>
+// <FooterWithBtn
+//     btnText='Add This Fund to Plan'
+//     btnClick={handleClick}
+// />
+// </Grid>

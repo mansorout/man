@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Box, Breadcrumbs, Divider, FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, TextField, Theme, Toolbar, Typography } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
@@ -10,6 +10,8 @@ import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './UlipBox.css';
+import FooterWithBtn from "../CommonComponents/FooterWithBtn";
+import BannerSlider from "../CommonComponents/BannerSlider";
 
 
 
@@ -49,10 +51,22 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     investmentType: {
         backgroundColor: 'var(--uiWhite)',
         // backgroundColor: '#000',
-        boxShadow: 'var(--themeShadow)',
         padding: '15px',
         borderRadius: '8px',
     },
+    investmentFieldSelected: {
+        color: 'var(--ui1Color)',
+        fontSize: 'var(--titleFontSize)',
+        marginBottom: '15px',
+        '& p': {
+            fontweight: 500,
+        },
+        '& span': {
+            color: 'var(--primaryColor)',
+            fontSize: 'var(--fontSize14)',
+        },
+    },
+
     investmentField: {
         color: 'var(--ui1Color)',
         fontSize: 'var(--titleFontSize)',
@@ -65,7 +79,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             fontSize: 'var(--fontSize14)',
         },
     },
-
     textField: {
         margin: '10px 0px !important',
         display: 'block',
@@ -95,6 +108,7 @@ const UlipBox = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch()
+    const refContainer = useRef();
 
     const [ years, setYears ] = useState('5');
 
@@ -130,148 +144,153 @@ const UlipBox = () => {
     };
 
     return (
-        <Box className="ulip-box" style={{ width: "100vw" }}>
-            <Navbar />
-            <Box sx={style.main}>
-                <Grid container spacing={0} >
-                    <Grid item xs={0} sm={1} md={2}>
-                        <Toolbar />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
+            <Box style={{ width: "100vw" }} ref={refContainer}>
+                <Navbar />
+                <Box sx={style.main}>
+                    <Toolbar />
+                    <Sidebar />
+                    <Grid container>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
+                        
+                            <div>
+                                <Grid  item rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                    <Grid  container spacing={0} >
+                                        <Grid  container item sx={{  overflow: "scroll" }} xs={12}>
+                                            
+                                            <Box
+                                            sx={{
+                                                padding: 0,
+                                                width:"100%",
+                                                margin: '2vw',
+                                                fontFamily: 'Roboto',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center'           
+                                            }}>
+                                                <Breadcrumbs sx={{
+                                                    fontSize: '12px',
+                                                    color: '#6c63ff',
+                                                    marginBottom: '3vw',
+                                                }}>
+                                                    <Link href="/">Home</Link>
+                                                    <Link href="/ulip/home">Get Insured</Link>
+                                                    <Typography sx={{
+                                                        fontSize: '12px',
+                                                        color: '#373e42'
+                                                    }}>ULIP</Typography>
+                                                </Breadcrumbs>
 
-                        <Sidebar />
-                    </Grid>
-                    <Grid container item sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-                        <Toolbar />
-                        <Box sx={{
-                            padding: 0,
-                            margin: '4vw',
-                            marginLeft: '7vw',
-                            fontFamily: 'Roboto',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',                     
-                        }}>
-                            <Breadcrumbs sx={{
-                                fontSize: '12px',
-                                color: '#6c63ff',
-                                marginBottom: '3vw',
-                            }}>
-                                <Link href="/">Home</Link>
-                                <Link href="/ulip/home">Get Insured</Link>
-                                <Typography sx={{
-                                    fontSize: '12px',
-                                    color: '#373e42'
-                                }}>ULIP</Typography>
-                            </Breadcrumbs>
+                                                <Grid container item className="header" spacing={2} xs={12} sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'flex-start',
+                                                }}>
+                                                    <Grid item xs={12} md={6}>
+                                                        <Box className={classes.investmentType} sx={{ 
+                                                            display:"flex",
+                                                            flexDirection:"column",
+                                                            gap:"20px",
+                                                            boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+                                                            backgroundColor: '#fff', 
+                                                        }}>                                                                    
 
-                            <Grid container item className="header" spacing={2} xs={12} sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'flex-start',
-                            }}>
-                                <Grid item xs={12} md={6} sx={{
-                                    width: '38vw',                        
-                                }}>
-                                    <Box className={classes.investmentType} sx={{ 
-                                        width: { sm: '90%' }, 
-                                        marginTop: '30px', 
-                                        margin: { xs: '15px 0px', sm: '15px' },
-                                        borderRadius: '8px',
-                                        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-                                        backgroundColor: '#fff', 
-                                    }}>                                                                    
+                                                            <Typography sx={{
+                                                                fontSize: '18px',
+                                                                fontWeight: 500,
+                                                                color: '#3c3e42',
+                                                            }}>ULIP</Typography>
 
-                                        <Typography sx={{
-                                            fontSize: '18px',
-                                            fontWeight: 500,
-                                            color: '#3c3e42',
-                                        }}>ULIP</Typography>
+                                                            <RadioGroup
+                                                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                                                name="controlled-radio-buttons-group"
+                                                                value={investmentType}
+                                                                onChange={handleRadioChange}
+                                                            >
+                                                                <Box className={investmentType === 'monthly' ? classes.investmentField : classes.investmentFieldSelected}>
+                                                                    <TextField
+                                                                        label="I want to invest"
+                                                                        id="outlined-start-adornment"
+                                                                        value={lumpsumAmount}
+                                                                        onChange={handleLumpsum}
+                                                                        onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
+                                                                        InputProps={{
+                                                                            endAdornment: <InputAdornment position="start">
+                                                                                <FormControlLabel value="lumpsum" control={<Radio />} label="Lumpsum" />
+                                                                            </InputAdornment>,
+                                                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                                            readOnly: investmentType === 'lumpsum' ? false : true,
+                                                                        }}
+                                                                        className={classes.textField}
+                                                                        fullWidth
+                                                                    />
 
-                                        <RadioGroup
-                                            aria-labelledby="demo-controlled-radio-buttons-group"
-                                            name="controlled-radio-buttons-group"
-                                            value={investmentType}
-                                            onChange={handleRadioChange}
-                                        >
-                                            <Box className={classes.investmentField}>
-                                                <TextField
-                                                    label="I want to invest"
-                                                    id="outlined-start-adornment"
-                                                    value={lumpsumAmount}
-                                                    onChange={handleLumpsum}
-                                                    type='number'
-                                                    InputProps={{
-                                                        endAdornment: <InputAdornment position="start">
-                                                            <FormControlLabel value="lumpsum" control={<Radio />} label="Lumpsum" />
-                                                        </InputAdornment>,
-                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                                        readOnly: investmentType === 'lumpsum' ? false : true,
-                                                    }}
-                                                    className={classes.textField}
-                                                    fullWidth
-                                                />
+                                                                </Box>
 
+                                                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                                    <Divider sx={{ width: '30%' }} />
+                                                                    <Typography component='span' sx={{ padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)' }}>OR</Typography>
+                                                                    <Divider sx={{ width: '30%' }} />
+                                                                </Box>
+
+                                                                <Box className={investmentType === 'lumpsum' ? classes.investmentField : classes.investmentFieldSelected}>
+
+                                                                    <TextField
+                                                                        label="I want to invest"
+                                                                        id="outlined-start-adornment"
+                                                                        value={monthlyAmount}
+                                                                        onChange={handleMonthly}
+                                                                        InputProps={{
+                                                                            endAdornment: <InputAdornment position="start">
+                                                                                <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
+                                                                            </InputAdornment>,
+                                                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                                            readOnly: investmentType === 'monthly' ? false : true,
+                                                                        }}
+                                                                        className={classes.textField}
+                                                                        fullWidth
+                                                                    />
+
+                                                                </Box>
+                                                            </RadioGroup>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                                                <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    value={ years }
+                                                                    label="For next"
+                                                                    onChange={ (e) => setYears(e.target.value) }
+                                                                >
+                                                                    <MenuItem value={5}>5 Years</MenuItem>
+                                                                    <MenuItem value={10}>10 Years</MenuItem>
+                                                                    <MenuItem value={15}>15 Years</MenuItem>
+                                                                    <MenuItem value={20}>20 Years</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <UlipPlanPerformanceCard />
+                                                    </Grid>
+                                                </Grid>
                                             </Box>
+                                        </Grid>
 
-                                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Divider sx={{ width: '30%' }} />
-                                                <Typography component='span' sx={{ padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)' }}>OR</Typography>
-                                                <Divider sx={{ width: '30%' }} />
-                                            </Box>
-
-                                            <Box className={classes.investmentField}>
-
-                                                <TextField
-                                                    label="I want to invest"
-                                                    id="outlined-start-adornment"
-                                                    value={monthlyAmount}
-                                                    onChange={handleMonthly}
-                                                    type='number'
-                                                    InputProps={{
-                                                        endAdornment: <InputAdornment position="start">
-                                                            <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
-                                                        </InputAdornment>,
-                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                                        readOnly: investmentType === 'monthly' ? false : true,
-                                                    }}
-                                                    className={classes.textField}
-                                                    fullWidth
-                                                />
-
-                                            </Box>
-                                        </RadioGroup>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={ years }
-                                                label="For next"
-                                                onChange={ (e) => setYears(e.target.value) }
-                                            >
-                                                <MenuItem value={5}>5 Years</MenuItem>
-                                                <MenuItem value={10}>10 Years</MenuItem>
-                                                <MenuItem value={15}>15 Years</MenuItem>
-                                                <MenuItem value={20}>20 Years</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <UlipPlanPerformanceCard />
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <ULIPFooter
-                            text="Show Me Recommendations"
-                            navigateTo="/ulip/recommendations"
-                            width="384px"
-                            bgColor="#23db7b"
-                        />
+                            </div >
+                        </Grid>
                     </Grid>
+                </Box>
 
-                </Grid>
+
             </Box>
-        </Box>
+            <FooterWithBtn
+                btnText='Show Me Recommendations'
+                btnClick={() => { navigate('/ulip/recommendations')}}
+            />
+        </div >
     )
 };
 

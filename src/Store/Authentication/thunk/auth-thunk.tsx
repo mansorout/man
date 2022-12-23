@@ -1,12 +1,17 @@
-import { postData } from "../../../Utils/api";
+import { postData, postDataBeforeAuth } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
+import { addContactNumber } from "../../Action-Creators";
 import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
+// const { addError, removeError, addContactNumber } = bindActionCreators(
+//   ActionCreators,
+//   dispatch
+// );
 
 export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
 
   return (dispatch: any) => {
-    postData(
+    postDataBeforeAuth(
       { mobilenumber: number, otp: otp, type: type },
       siteConfig.AUTHENTICATION_OTP_VERIFY,
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
@@ -20,6 +25,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
         }
         const response = data?.data;
         dispatch(setloginDataOnSuccessAction(response));
+
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
@@ -30,7 +36,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
 
 export const resendOtpThunk = ({ mobilenumber, type }: any) => {
   return (dispatch: any) => {
-    postData(
+    postDataBeforeAuth(
       { mobilenumber: mobilenumber, type: type },
       siteConfig.AUTHENTICATION_OTP_SEND,
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,

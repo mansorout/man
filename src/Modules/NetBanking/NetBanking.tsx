@@ -235,10 +235,12 @@ function NetBanking() {
           <Grid container xs={13} sm={11} md={10}>
             <Grid
               sx={{
+                maxWidth:"99%",
+
                 height: "100vh",
                 boxSizing: "border-box",
                 overflow: "scroll",
-                paddingLeft: "4%",
+                paddingLeft: "1%",
                 paddingTop: "7px",
               }}
               item
