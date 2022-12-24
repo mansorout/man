@@ -158,7 +158,7 @@ function Editprofilescreen() {
   return (
 
 
-    <Box style={{ width: "100vw" }} ref={refContainer}>
+    <Box style={{ width: "100vw" }} ref={refContainer} >
       <Navbar />
       <Box sx={style.main}>
         <Grid
@@ -181,8 +181,9 @@ function Editprofilescreen() {
             xs={13}
             sm={11}
             md={10}
+          
           >
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10} className="ScrollBarStyle">
               <Toolbar />
 
 
