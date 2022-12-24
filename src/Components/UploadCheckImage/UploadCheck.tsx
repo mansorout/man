@@ -77,7 +77,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 
 function UploadCheck() {
- 
+
 
 
   const dispatch = useDispatch();
@@ -100,9 +100,12 @@ function UploadCheck() {
   const [saveAndAddButton, saveAndAddButtonDisable] = useState<boolean>(true);
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
   const [enableShowText, setenableShowText] = useState<boolean>(true);
-  const [dataURL, setDataURL] = useState<any>()
+  const [doneButton, setDoneButton] = useState<boolean>(false);
+  const [rotateButton,setRotateButton] = useState<boolean>(true);
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
+
+
     setenableShowText(false);
     setUploadChequeButtonDisable(false);
     saveAndAddButtonDisable(false);
@@ -140,18 +143,20 @@ function UploadCheck() {
     [completedCrop]
   );
 
-  
+  const dataURL = previewCanvasRef.current?.toDataURL();
 
-        useEffect(()=>{
-          console.log(previewCanvasRef.current?.toDataURL(), 'loading COMPONENT')
-        },[])
+  useEffect(() => {
+
+  }, [])
 
 
-        
+
 
   //  All Button in components goes here
 
   function handleToggleAspectClick() {
+    setRotateButton(false)
+    setDoneButton(true)
     if (aspect) {
       setAspect(undefined);
     }
@@ -169,12 +174,8 @@ function UploadCheck() {
   };
 
   const handleConfirm = () => {
-    if (aspect) {
-      setAspect(undefined);
-    }
-    setDataURL(previewCanvasRef.current?.toDataURL())
+
     setImagePreviewToLast(dataURL)
-    console.log(dataURL, "url")
     setCanvasDisable(false);
     setPreview(false);
   };
@@ -442,31 +443,37 @@ function UploadCheck() {
                   ) : (
 
                     <Box sx={{ "& > :not(style)": { m: .5 }, display: "flex", gap: "10px", flexWrap: 'wrap', padding: "10px", flexDirection: { sm: "row", md: "column" } }}>
-
-                      <Box>
-                        <Fab onClick={handleRotate} >
-                          <RotateRightIcon />
-                        </Fab>
-                        <Typography className="textStyling"> Rotate </Typography>
-                      </Box>
+                         {
+                          rotateButton === true ?  <Box>
+                          <Fab onClick={handleRotate} >
+                            <RotateRightIcon />
+                          </Fab>
+                          <Typography className="textStyling" sx={{padding: "7px 0px 0px 11px"}}> Rotate </Typography>
+                        </Box> :""
+                         }
+                     
                       <Box>
                         <Fab onClick={handleToggleAspectClick}>
                           <CropIcon />
                         </Fab>
-                        <Typography> Crop </Typography>
+                        <Typography sx={{padding: "7px 0px 0px 11px"}}> Crop </Typography>
                       </Box>
 
-                      <Box>
-                        <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
-                          <DoneIcon />
-                        </Fab>
-                        <Typography> Done </Typography>
-                      </Box>
+                      {
+                        doneButton === true ? <Box >
+                          <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
+                            <DoneIcon />
+                          </Fab>
+                          <Typography sx={{padding: "7px 0px 0px 11px"}}> Done </Typography>
+                        </Box> : ""
+                     }
+
+
                       <Box>
                         <Fab onClick={handleCancel} >
                           <ClearIcon />
                         </Fab>
-                        <Typography> Cancel </Typography>
+                        <Typography sx={{padding: "7px 0px 0px 11px"}}> Cancel </Typography>
                       </Box>
                     </Box>
 
