@@ -28,7 +28,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 import '../../Components/EditProfile/Editprofilescreen.css'
 import './style.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
-import { getData, getDataWithoutToken, postDataWithoutToken } from '../../Utils/api';
+import { getData, getDataWithoutToken, postData, postDataWithoutToken } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
 
 type formDataProps = {
@@ -51,6 +51,7 @@ type formDataProps = {
   state_id: number,
   state: string,
   country_id: number,
+  country: string,
   uniqueid?: string, //extra
   countryofbirth_id: number,
   countryofbirth: string,
@@ -69,17 +70,105 @@ type validateInputsProps = {
   lastname: boolean,
   emailaddress: boolean,
   mobilenumber: boolean,
-  dateofbirth: boolean,
+  // dateofbirth: boolean,
   addressline1: boolean,
-  addressline2: boolean,
+  // addressline2: boolean,
   pincode: boolean,
-  city: boolean,
-  state: boolean,
-  placeofbirth: boolean,
-  countryofbirth: boolean,
-  incomeslab: boolean,
-  country: boolean
+  city_id: boolean,
+  state_id: boolean,
+  placeofbirth_id: boolean,
+  countryofbirth_id: boolean,
+  incomeslab_id: boolean,
+  country_id: boolean,
+  gender: boolean
 }
+
+const initialFormData: formDataProps = {
+  // customer_id: null,
+  firstname: "",
+  middlename: "",
+  lastname: "",
+  emailaddress: "",
+  isemailverified: 0,//extra
+  mobilenumber: "",
+  ismobileverified: 0,//extra
+  dateofbirth: "",
+  image: "",
+  gender: "",
+  addressline1: "",
+  addressline2: "",
+  pincode: "",
+  city_id: 0,
+  city: "",
+  state_id: 0,
+  state: "",
+  country_id: 0,
+  country: "",
+  uniqueid: "", //extra
+  placeofbirth_id: 0,
+  placeofbirth: "",
+  incomeslab: "",
+  incomecode: 0,
+  incomeslab_id: 0,
+  isnetbankingavailable: false,//extra
+  isbseregistered: false,
+  bankname: "",//extra
+  countryofbirth_id: 0,
+  countryofbirth: "",
+}
+
+const initialValidateinputsData: validateInputsProps = Object.freeze({
+  firstname: false,
+  lastname: false,
+  emailaddress: false,
+  mobilenumber: false,
+  // dateofbirth: false,
+  addressline1: false,
+  // addressline2: false,
+  pincode: false,
+  city_id: false,
+  state_id: false,
+  placeofbirth_id: false,
+  countryofbirth_id: false,
+  incomeslab_id: false,
+  country_id: false,
+  gender: false
+})
+
+const enumErrorMsg = {
+  PLEASE_ENTER_NAME: "Please Enter Name",
+  PLEASE_ENTER_MIDDLE_NAME: "Please Enter Middle Name",
+  PLEASE_ENTER_LAST_NAME: "Please Enter Last Name",
+  MOBILE_NUMBER_IS_INVALID: "Mobile number is invalid",
+  EMAIL_ADDRESS_IS_INVALID: "Email Address is Invalid",
+  ADDRESS_IS_REQUIRED: "Adresss is required",
+  PINCODE_IS_INVALID: "Pincode is invalid",
+  PLEASE_ENTER_COUNTRY: "Please Enter Country",
+  PLEASE_ENTER_STATE: "Please enter state",
+  PLEASE_ENTER_ADDRESS: "Please Enter address",
+  PLEASE_ENTER_CITY: "Please enter city",
+  PLEASE_ENTER_INCOME_SLAB: "Please enter income slab",
+  PLEASE_ENTER_GENDER: "Please enter gender"
+}
+
+const enumActiveGender = {
+  NOTHING: 0,
+  MALE: 1,
+  FEMALE: 2,
+  TRANS: 3
+}
+
+const initialCountryList = [
+  {
+    country_id: 1,
+    country: "India"
+  }
+]
+
+const NameRegex = /^[a-zA-Z ]{4,30}$/;
+const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const handleRegex = (regex: any, value: string) => regex.test(value);
 
 const style = {
   containertwo: {
@@ -121,7 +210,7 @@ const style = {
     marginLeft: "4%",
     width: "100%",
     maxWidth: "400px",
-    marginBottom: "3%"
+    marginBottom: "-4%"
 
   },
   ca: {
@@ -158,92 +247,6 @@ const useStyles = makeStyles((theme: any) =>
     }
   }),
 );
-
-const NameRegex = /^[a-zA-Z ]{4,30}$/;
-const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-const enumErrorMsg = {
-  PLEASE_ENTER_NAME: "Please Enter Name",
-  PLEASE_ENTER_MIDDLE_NAME: "Please Enter Middle Name",
-  PLEASE_ENTER_LAST_NAME: "Please Enter Last Name",
-  MOBILE_NUMBER_IS_INVALID: "Mobile number is invalid",
-  EMAIL_ADDRESS_IS_INVALID: "Email Address is Invalid",
-  ADDRESS_IS_REQUIRED: "Adresss is required",
-  PINCODE_IS_INVALID: "Pincode is invalid",
-  PLEASE_ENTER_COUNTRY: "Please Enter Country",
-  PLEASE_ENTER_STATE: "Please enter state",
-  PLEASE_ENTER_ADDRESS: "Please Enter address",
-  PLEASE_ENTER_CITY: "Please enter city",
-  PLEASE_ENTER_INCOME_SLAB: "Please enter income slab"
-}
-
-const enumActiveGender = {
-  NOTHING: 0,
-  MALE: 1,
-  FEMALE: 2,
-  TRANS: 3
-}
-
-const initialFormData: formDataProps = {
-  // customer_id: null,
-  firstname: "",
-  middlename: "",
-  lastname: "",
-  emailaddress: "",
-  isemailverified: 0,//extra
-  mobilenumber: "",
-  ismobileverified: 0,//extra
-  dateofbirth: "",
-  image: "",
-  gender: "",
-  addressline1: "",
-  addressline2: "",
-  pincode: "",
-  city_id: 0,
-  city: "",
-  state_id: 0,
-  state: "",
-  country_id: 0,
-  uniqueid: "", //extra
-  placeofbirth_id: 0,
-  placeofbirth: "",
-  incomeslab: "",
-  incomecode: 0,
-  incomeslab_id: 0,
-  isnetbankingavailable: false,//extra
-  isbseregistered: false,
-  bankname: "",//extra
-  countryofbirth_id: 1,
-  countryofbirth: "India",
-}
-
-const initialValidateinputsData: validateInputsProps = {
-  firstname: false,
-  lastname: false,
-  emailaddress: false,
-  mobilenumber: false,
-  dateofbirth: false,
-  addressline1: false,
-  addressline2: false,
-  pincode: false,
-  city: false,
-  state: false,
-  placeofbirth: false,
-  countryofbirth: false,
-  incomeslab: false,
-  country: false
-}
-
-const initialCountryList = [
-  {
-    country_id: 1,
-    country: "India"
-  }
-]
-
-
-const handleRegex = (regex: any, mail: string) => regex.test(mail);
 
 const EditprofileCard = () => {
   const classes = useStyles();
@@ -343,7 +346,7 @@ const EditprofileCard = () => {
 
   const handleBlur = (e: any) => {
     const { name, value } = e.target;
-    console.log(name, value, "handle blur")
+   
     setValidateInputs((prev: validateInputsProps) => ({
       ...prev,
       [name]: !value ? true : false
@@ -351,18 +354,94 @@ const EditprofileCard = () => {
   }
 
   const customSelectBoxOnChange = (strType: string, val: any) => {
-    console.log(val, "customSelectBoxOnChange()")
     let objFormData: any = { ...formData };
     objFormData[strType] = val;
     setFormData(objFormData);
   }
 
+  const isAllFieldValidated = () => {
+    let isValidated: boolean = true;
+    let arrFormDataKeys: any[] = Object.keys(validateInputs);
+    arrFormDataKeys.forEach((key: string, index: number) => {
+      if (key !== "middlename") {
+        // @ts-ignore
+        console.log(key, formData[key], 'test')
+        // @ts-ignore
+        if (!formData[key]) {
+          setValidateInputs(prev => ({
+            ...prev,
+            [key]: true
+          }))
+
+          isValidated = true;
+        } else {
+          setValidateInputs(prev => ({
+            ...prev,
+            [key]: false
+          }))
+
+          isValidated = false
+        }
+      }
+    })
+
+    return isValidated;
+  }
+
   const handleSubmitForm = (e: any) => {
-    console.log(formData, "handleSubmitForm()");
     e.preventDefault();
     e.stopPropagation();
-    // store.dispatch(submituserdetails({ 'formData': formData }));
-    // navigate('/viewprofile');
+
+    if (isAllFieldValidated()) {
+      return;
+    }
+
+    if (!handleRegex(emailRegex, formData?.emailaddress)) {
+      setValidateInputs(prev => ({ ...prev, ["emailaddress"]: true }));
+      return
+    } else if (!handleRegex(mobileRegex, formData?.mobilenumber)) {
+      setValidateInputs(prev => ({ ...prev, ["mobilenumber"]: true }));
+      return;
+    }
+
+    setValidateInputs({ ...initialValidateinputsData });
+
+    // let objFormData = {
+    //   firstname: formData?.firstname,
+    //   middlename: formData?.middlename,
+    //   lastname: formData?.lastname,
+    //   emailaddress: formData?.emailaddress,
+    //   mobilenumber: formData?.mobilenumber,
+    //   dateofbirth: formData?.dateofbirth,
+    //   image: formData?.image,
+    //   gender: formData?.gender,
+    //   addressline1: formData?.addressline1,
+    //   addressline2: formData?.addressline2,
+    //   pincode: formData?.pincode,
+    //   city_id: formData?.city_id,
+    //   state_id: formData?.state_id,
+    //   country_id: formData?.country_id,
+    //   placeofbirth_id: formData?.placeofbirth_id,
+    //   incomeslab_id: formData?.incomeslab_id
+    // }
+
+    postData(
+      formData,
+      siteConfig.AUTHENTICATION_PROFILE_EDIT,
+      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then((data) => {
+        if (data?.error) {
+          return;
+        }
+        console.log(data, "profile saved");
+        navigate('/viewprofile');
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -373,7 +452,7 @@ const EditprofileCard = () => {
         marginBottom: "-15px",
       }}
       >
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={6} lg={6} >
             <Paper className='paddingstyle'
               sx={{
@@ -484,11 +563,12 @@ const EditprofileCard = () => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" }
+                    // '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" } 
                   }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                       <CustomSelectBox
+                        name={"countryofbirth_id"}
                         labelKey={'country'}
                         valueKey={'country_id'}
                         options={countryList}
@@ -508,12 +588,13 @@ const EditprofileCard = () => {
                           customSelectBoxOnChange("countryofbirth_id", val)
                         }}
                         onBlur={handleBlur}
-                        error={validateInputs?.countryofbirth}
-                        formHelperText={validateInputs?.countryofbirth ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
+                        error={validateInputs?.countryofbirth_id}
+                        formHelperText={validateInputs?.countryofbirth_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <CustomSelectBox
+                        name={"placeofbirth_id"}
                         labelKey={'state'}
                         valueKey={'state_id'}
                         options={stateList}
@@ -534,8 +615,8 @@ const EditprofileCard = () => {
                           customSelectBoxOnChange("placeofbirth_id", val)
                         }}
                         onBlur={handleBlur}
-                        error={validateInputs?.state}
-                        formHelperText={validateInputs?.state ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
+                        error={validateInputs?.placeofbirth_id}
+                        formHelperText={validateInputs?.placeofbirth_id ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
                       />
                     </Grid>
                   </Grid>
@@ -543,28 +624,43 @@ const EditprofileCard = () => {
               </Stack>
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={6} lg={6} sx={{
-            maxHeight: "100%",
-          }}
+          <Grid
+            item
+            spacing={3}
+            sx={{
+              maxHeight: "100%",
+              marginTop: "0%",
+              paddingLeft: { xs: "32px !important", sm: "19% !important", md: "32px !important" }
+            }}
             className="paperstyle"
+            xs={12} sm={6} lg={6}
           >
-            <Paper className='paddingstyle_style'
+            <Paper className='paddingstyle'
               sx={{
-                p: 1,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-22px", borderRadius: "-22px",
+                p: 2,
+                width: '1',
+                maxWidth: 460,
+                bgcolor: 'background.paper',
+                marginTop: "-23px",
+                borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "12px"
-              }} > <Typography sx={{ color: "#6c63ff", }}>Gender</Typography>
-              <Box
-                component="form"
-                sx={{
-                  '& .MuiTextField-root': { m: 1, width: '194px', height: "16px", },
-                  // marginTop: "-69%",
-                }}
-              >
-                <Grid container spacing={3}>
-                  <Grid item sm={6} md={12}>
-                    <Box sx={{ '& button': { m: 1 }, marginLeft: "4px", textAlign: "left" }} className='wholedivbuttons'>
+                marginLeft: "-1px"
+              }}
+            >
+              <Typography sx={{ color: "#6c63ff", }}>Gender</Typography>
+              <Stack m={2} spacing={2}>
+                <Grid container spacing={2} sx={{
+                  maxHeight: "100%",
+                }}>
+                  <Grid item xs={12} >
+                    <Box
+                      sx={{
+                        '& button': { m: 1 },
+                        marginLeft: "4px",
+                        textAlign: "left"
+                      }}
+                      className='wholedivbuttons'
+                    >
                       <Button
                         id={"male"}
                         className="malestyle"
@@ -572,6 +668,7 @@ const EditprofileCard = () => {
                         onClick={() => {
                           setActiveGender(enumActiveGender.MALE);
                           setFormData(prev => ({ ...prev, gender: "male" }))
+                          setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         variant="outlined"
                         size="small"
@@ -605,6 +702,7 @@ const EditprofileCard = () => {
                         onClick={() => {
                           setActiveGender(enumActiveGender.FEMALE);
                           setFormData({ ...formData, gender: "female" })
+                          setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
                           cursor: "pointer",
@@ -627,6 +725,7 @@ const EditprofileCard = () => {
                         name="gender" onClick={() => {
                           setActiveGender(enumActiveGender.TRANS);
                           setFormData({ ...formData, gender: "transgender" })
+                          setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
                           cursor: "pointer",
@@ -638,6 +737,11 @@ const EditprofileCard = () => {
                         <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
                         <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>Transgender</Typography>
                       </Button>
+                      {validateInputs?.gender ?
+                        <Typography component='span' sx={{ color: "red" }}>
+                          {enumErrorMsg.PLEASE_ENTER_GENDER}
+                        </Typography>
+                        : null}
                     </Box>
                   </Grid>
                   <Grid item xs={12}>
@@ -647,7 +751,7 @@ const EditprofileCard = () => {
                       name="addressline1"
                       value={formData?.addressline1}
                       onChange={handlechange}
-                      sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)" }}
+                      sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100% !important" }}
                       placeholder="Enter your street address"
                       error={validateInputs?.addressline1}
                       helperText={validateInputs?.addressline1 ? enumErrorMsg.PLEASE_ENTER_ADDRESS : ""}
@@ -659,8 +763,9 @@ const EditprofileCard = () => {
                       }}>
                     </TextField>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <CustomSelectBox
+                      name={"state_id"}
                       labelKey={'state'}
                       valueKey={'state_id'}
                       options={stateList}
@@ -681,12 +786,13 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("state_id", val);
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.state}
-                      formHelperText={validateInputs?.state ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
+                      error={validateInputs?.state_id}
+                      formHelperText={validateInputs?.state_id ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <CustomSelectBox
+                      name={"city_id"}
                       labelKey={'city'}
                       valueKey={'city_id'}
                       options={cityList}
@@ -706,11 +812,11 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("city_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.city}
-                      formHelperText={validateInputs?.city ? enumErrorMsg.PLEASE_ENTER_CITY : ""}
+                      error={validateInputs?.city_id}
+                      formHelperText={validateInputs?.city_id ? enumErrorMsg.PLEASE_ENTER_CITY : ""}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6} >
+                  <Grid item xs={12} sm={6} >
                     <FormControl
                       className="pincodeClass">
                       <TextField
@@ -736,8 +842,9 @@ const EditprofileCard = () => {
                       {validateInputs?.pincode ? enumErrorMsg.PINCODE_IS_INVALID : ""}
                     </FormHelperText>
                   </Grid>
-                  <Grid item xs={12} md={6}  >
+                  <Grid item xs={12} sm={6}  >
                     <CustomSelectBox
+                      name={"country_id"}
                       labelKey={'country'}
                       valueKey={'country_id'}
                       options={countryList}
@@ -757,12 +864,13 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("country_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.country}
-                      formHelperText={validateInputs?.country ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
+                      error={validateInputs?.country_id}
+                      formHelperText={validateInputs?.country_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
                     />
                   </Grid>
-                  <Grid item xs={12} >
+                  <Grid item xs={12}  >
                     <CustomSelectBox
+                      name={"incomeslab_id"}
                       labelKey={'incomeslab'}
                       valueKey={'incomeslab_id'}
                       options={incomeSlabList}
@@ -783,8 +891,8 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("incomeslab_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.incomeslab}
-                      formHelperText={validateInputs?.incomeslab ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : ""}
+                      error={validateInputs?.incomeslab_id}
+                      formHelperText={validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : ""}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -800,145 +908,9 @@ const EditprofileCard = () => {
                     </Button>
                   </Grid>
                 </Grid>
-
-                {/* </div> */}
-                {/* &nbsp; */}
-                {/* <div style={{ position: "relative", top: "-51px" }}> */}
-                {/* <Grid container spacing={2}  >
-                    <Grid item xs={12} md={6}>
-                      <CustomSelectBox
-                        labelKey={'state'}
-                        valueKey={'state_id'}
-                        options={stateList}
-                        inpurLabelValue={"State"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "-1px",
-                          background: "#fff"
-                        }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
-                        value={formData?.state_id}
-                        onChange={(val: any) => {
-                          getCityList(val);
-                          customSelectBoxOnChange("state_id", val);
-                        }}
-                        onBlur={handleBlur}
-                        error={validateInputs?.state}
-                        formHelperText={validateInputs?.state ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <CustomSelectBox
-                        labelKey={'city'}
-                        valueKey={'city_id'}
-                        options={cityList}
-                        className={"Drapdownstyle"}
-                        inpurLabelValue={"City of Residence"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "-1px",
-                          background: "#fff"
-                        }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
-                        value={formData?.city_id}
-                        onChange={(val: any) => {
-                          customSelectBoxOnChange("city_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={validateInputs?.city}
-                        formHelperText={validateInputs?.city ? enumErrorMsg.PLEASE_ENTER_CITY : ""}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
-                      <FormControl
-                        className="pincodeClass">
-                        <TextField
-                          onBlur={handleBlur}
-                          label="Pincode"
-                          name="pincode"
-                          value={formData.pincode}
-                          onChange={handlechange}
-                          fullWidth
-                          error={validateInputs?.pincode}
-                          className="pincodestayle"
-                          id='Pincode'
-                          sx={{
-                            color: "rgba(0, 0, 0, 0.6)",
-                            // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                            width: "100%", fontSize: "15px", fontWeight: "normal",
-                            boxShadow: "none"
-                          }} />
-                      </FormControl>
-                      <FormHelperText sx={{ color: "red" }} className="labelStyle">
-                        {validateInputs?.pincode ? enumErrorMsg.PINCODE_IS_INVALID : ""}
-                      </FormHelperText>
-                    </Grid>
-                    <Grid item xs={12} md={6}  >
-                      <CustomSelectBox
-                        labelKey={'country'}
-                        valueKey={'country_id'}
-                        options={countryList}
-                        inpurLabelValue={"Country"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "-1px",
-                          background: "#fff"
-                        }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
-                        value={formData?.country_id}
-                        onChange={(val: any) => {
-                          customSelectBoxOnChange("country_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={validateInputs?.country}
-                        formHelperText={validateInputs?.country ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
-                      />
-                    </Grid>
-                    <Grid item xs={12} >
-                      <CustomSelectBox
-                        labelKey={'incomeslab'}
-                        valueKey={'incomeslab_id'}
-                        options={incomeSlabList}
-                        inpurLabelValue={"Income Slab"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "-1px",
-                          background: "#fff",
-                          // width: "100%"
-                        }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
-                        value={formData?.incomeslab_id}
-                        onChange={(val: any) => {
-                          customSelectBoxOnChange("incomeslab_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={validateInputs?.incomeslab}
-                        formHelperText={validateInputs?.incomeslab ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : ""}
-                      />
-                    </Grid>
-                  </Grid> */}
-                {/* </div> */}
-
-              </Box>
-              {/* </Stack> */}
+              </Stack>
             </Paper>
           </Grid>
-          {/* </form> */}
         </Grid>
       </div>
     </>
