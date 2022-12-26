@@ -1,6 +1,7 @@
 import { postData, postDataWithoutToken } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
 import { addContactNumber } from "../../Action-Creators";
+import { setLoadingAction } from "../../Global/actions/global-actions";
 import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
 // const { addError, removeError, addContactNumber } = bindActionCreators(
 //   ActionCreators,
@@ -11,6 +12,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
 
   return (dispatch: any) => {
+    dispatch(setLoadingAction(true));
     postDataWithoutToken(
       { mobilenumber: number, otp: otp, type: type },
       siteConfig.AUTHENTICATION_OTP_VERIFY,
@@ -19,6 +21,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
     )
       .then(res => res.json())
       .then((data) => {
+        dispatch(setLoadingAction(false));
         if (data?.error === true) {
           dispatch(setloginDataOnFailAction({}));
           return;

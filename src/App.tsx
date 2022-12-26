@@ -16,6 +16,7 @@ import { Setpin } from './Components/SetNewPin/Setpin';
 import { VerifySec } from './Components/VerifySecOTP/VerifySec';
 import PortfolioCompanyCard, { PortfolioProp } from './Modules/CustomCard/PortfolioCompanyCard';
 import './app.css';
+import SprintMoneyLoader from './Components/CommonComponents/sprintMoneyLoader';
 
 // import Home from './Components/Home/Home';
 // import { AccountCreatedWithGoogle } from './Components/loginwithgoogle/AccountCreatedWithGoogle';
@@ -189,6 +190,7 @@ function App() {
         <Route path='/tr' element={<TextRadio {...{ textFieldLabel: 'I want to invest', radioText: 'Lumpsum' }} />} />
         <Route path="/ulipcofund" element={<ULIPCoFundCard {...ulipData} />} />
         <Route path="/ulip/details" element={<ULIPDetails {...ulipData} />} />
+        {/* <Route path="/SprintMoneyLoader" element={<SprintMoneyLoader loadingStatus={true} />} /> */}
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
         {/* .... */}
