@@ -92,7 +92,7 @@ function VviewprofileCard() {
                 sx={{
                     p: 1,
                   
-                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px",
                 }}
                 className="thirdboxstyle"
             >
@@ -294,7 +294,7 @@ function VviewprofileCard() {
                 sx={{
                     p: 1,
                 
-                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px",
                 }}
                 className="thirdboxstyle"
             >
@@ -340,7 +340,7 @@ function VviewprofileCard() {
                 sx={{
                     p: 1,
                 
-                    width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
+                    width: '1', bgcolor: 'background.paper', marginTop: "30px",
                 }}
                 className="thirdboxstyle"
             
