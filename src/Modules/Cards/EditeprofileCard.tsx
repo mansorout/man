@@ -30,6 +30,7 @@ import './style.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import { getData, getDataWithoutToken, postData, postDataWithoutToken } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
+import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
 
 type formDataProps = {
   customer_id?: number,
@@ -260,6 +261,7 @@ const EditprofileCard = () => {
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
   const [activeGender, setActiveGender] = useState<number>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getCountryList();
@@ -346,7 +348,7 @@ const EditprofileCard = () => {
 
   const handleBlur = (e: any) => {
     const { name, value } = e.target;
-   
+
     setValidateInputs((prev: validateInputsProps) => ({
       ...prev,
       [name]: !value ? true : false
@@ -364,8 +366,6 @@ const EditprofileCard = () => {
     let arrFormDataKeys: any[] = Object.keys(validateInputs);
     arrFormDataKeys.forEach((key: string, index: number) => {
       if (key !== "middlename") {
-        // @ts-ignore
-        console.log(key, formData[key], 'test')
         // @ts-ignore
         if (!formData[key]) {
           setValidateInputs(prev => ({
@@ -406,25 +406,7 @@ const EditprofileCard = () => {
 
     setValidateInputs({ ...initialValidateinputsData });
 
-    // let objFormData = {
-    //   firstname: formData?.firstname,
-    //   middlename: formData?.middlename,
-    //   lastname: formData?.lastname,
-    //   emailaddress: formData?.emailaddress,
-    //   mobilenumber: formData?.mobilenumber,
-    //   dateofbirth: formData?.dateofbirth,
-    //   image: formData?.image,
-    //   gender: formData?.gender,
-    //   addressline1: formData?.addressline1,
-    //   addressline2: formData?.addressline2,
-    //   pincode: formData?.pincode,
-    //   city_id: formData?.city_id,
-    //   state_id: formData?.state_id,
-    //   country_id: formData?.country_id,
-    //   placeofbirth_id: formData?.placeofbirth_id,
-    //   incomeslab_id: formData?.incomeslab_id
-    // }
-
+    setLoading(true);
     postData(
       formData,
       siteConfig.AUTHENTICATION_PROFILE_EDIT,
@@ -433,6 +415,7 @@ const EditprofileCard = () => {
     )
       .then(res => res.json())
       .then((data) => {
+        setLoading(false);
         if (data?.error) {
           return;
         }
@@ -452,6 +435,7 @@ const EditprofileCard = () => {
         marginBottom: "-15px",
       }}
       >
+        <SprintMoneyLoader loadingStatus={loading} />
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} lg={6} >
             <Paper className='paddingstyle'
@@ -751,7 +735,7 @@ const EditprofileCard = () => {
                       name="addressline1"
                       value={formData?.addressline1}
                       onChange={handlechange}
-                      sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", width: "100% !important" }}
+                      sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", width: "100% !important" }}
                       placeholder="Enter your street address"
                       error={validateInputs?.addressline1}
                       helperText={validateInputs?.addressline1 ? enumErrorMsg.PLEASE_ENTER_ADDRESS : ""}
