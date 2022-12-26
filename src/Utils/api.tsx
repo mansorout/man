@@ -14,7 +14,7 @@ const getEncodedData = (objdata: any) => {
   return formBody;
 }
 
-export async function postDataBeforeAuth(data: any, urlPath: string, strContentType: string, strApiId: string) {
+export async function postDataWithoutToken(data: any, urlPath: string, strContentType: string, strApiId: string) {
   let objBody: any;
   if (strContentType === siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED) {
     objBody = getEncodedData(data);
@@ -65,6 +65,23 @@ export async function postData(data: any, urlPath: string, strContentType: strin
     body: objBody,
   });
 
+  return await res;
+}
+
+export async function getDataWithoutToken(urlPath: string, strContentType: string, strApiId: string) {
+
+  const res = await fetch(getModuleWiseBaseUrl(strApiId) + urlPath, {
+    method: "GET",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    // @ts-ignore
+    headers: {
+      "Content-Type": strContentType,
+      "x-api-key": siteConfig.X_API_KEY,
+      Origin: "http://localhost:3000",
+    },
+  });
   return await res;
 }
 
