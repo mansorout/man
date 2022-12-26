@@ -38,9 +38,7 @@ function UpiMainCom() {
 
 
       <UpiList todos={todos} toggleComplete={toggleComplete} onRemoveUpi={removeTodo} EditUpi={EditUpi} />
-      <Typography sx={{ color: "#7b7b9d", fontSize: "12px", marginLeft: "4px" }}>
-        Enter UPI ID
-      </Typography>
+      
       <UpiInput addUpi={addUpi} />
     </div>
   );

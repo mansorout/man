@@ -309,7 +309,7 @@ const AddMoreFundsModal = (props: any) => {
                 sx={{ width: { xs: '100%', sm: '400px', margin: 'auto' } }}
                 disableEscapeKeyDown
                 className={`${showPlanDetailSubmit && classes.noClickBackdrop}`}
-           
+
             >
 
                 {
@@ -384,6 +384,13 @@ const AddMoreFundsModal = (props: any) => {
 
                                 <FormControl className={classes.radioGroup} fullWidth>
                                     <TextField
+                                        onKeyPress={(e) =>
+                                            /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                            e.preventDefault()
+                                        }
+                                        inputProps={{
+                                            maxLength: 11,
+                                        }}
                                         //  onChange={(newValue) => setTFValue(newValue.target.value)} 
                                         onChange={handleAmount}
                                         fullWidth sx={{ color: "#919eb1", fontSize: "17px" }} label="Enter Lumpsum Investment Amount" id="fullWidth" />
@@ -400,6 +407,8 @@ const AddMoreFundsModal = (props: any) => {
 
                                 {showDatepicker ? "" : <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
+                                   
+                                    
                                         label="SIP Installment Date"
                                         value={sid}
                                         onChange={(newValue) => {
