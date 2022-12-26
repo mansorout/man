@@ -1,5 +1,3 @@
-import { postData } from "./api";
-
 const siteConfig = Object.freeze({
   // constant key
   BASE_URL: ".execute-api.ap-south-1.amazonaws.com/staging", //staging Development Server
@@ -14,7 +12,7 @@ const siteConfig = Object.freeze({
   CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED: "application/x-www-form-urlencoded",
   ACCESS_TOKEN_KEY: "access_token",
   USER_INFO: "user_info",
-  CONTACT_NUMBER:"contact_number",
+  CONTACT_NUMBER: "contact_number",
 
 
   //API
@@ -22,8 +20,12 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   SAVETAX_COMPARISON: "/savetax/comparison",
+  METADATA_STATE_LIST: "/metadata/state/list/",
+  METADATA_CITY_LIST: "/metadata/city/list",
+  METADATA_INCOMESLAB_LIST: "/metadata/incomeslab/list/",
   SAVETAX_CALCULATE: '/savetax/calculate',
-  TERM_PURCHASE: '/insurance/term/purchase/'
+  TERM_PURCHASE: '/insurance/term/purchase/',
+  AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/"
 });
 
 export default siteConfig;
