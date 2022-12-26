@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 // import { number } from 'yargs';
 
-const LUMPSUM = 'LUMPSUM';
-const MONTHLY = 'MONTHLY';
-const INVESTMENT_AMOUNT = 'INVESTMENT_AMOUNT';
+export const LUMPSUM = 'LUMPSUM';
+export const MONTHLY = 'MONTHLY';
+export const INVESTMENT_AMOUNT = 'INVESTMENT_AMOUNT';
 
 const initialState: any = {
     investmentType: '',

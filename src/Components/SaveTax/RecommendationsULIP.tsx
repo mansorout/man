@@ -20,6 +20,7 @@ import { tick } from '../../Assets';
 import DialogContent from '@mui/material/DialogContent';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import LineChart from '../CommonComponents/Charts/LineChart'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -31,6 +32,10 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import {
+    LUMPSUM,
+    MONTHLY
+} from '../../Store/Duck/SaveTaxInvestmentType'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -233,8 +238,14 @@ const RecommendationsULIP = () => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
-    const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const { investmentType,investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
     const [calenderValue, setCalenderValue] = useState(new Date())
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
+    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
+    const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
+    const [recommendationHeaderInvestmentAmount, setRecommendationHeaderInvestmentAmount] = useState<string>('')
+
+    // const investmentType = useSelector((state: any) => state.SaveTaxInvestmentType)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     const handleULIPDate = () => {
@@ -249,6 +260,18 @@ const RecommendationsULIP = () => {
     const handleCalender = (value: any) => {
         setCalenderValue(value)
         console.log("calender value", value)
+    }
+
+    const handleChangeSelectEvent = () => {
+
+    }
+
+    const handleChangeInvestmentTypeEvent = () => {
+
+    }
+
+    const handleBoxInputHandleChange = () => {
+
     }
 
 
@@ -298,7 +321,21 @@ const RecommendationsULIP = () => {
                 <Sidebar />
                 <Grid container>
                     <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important', marginTop: '-15px', }, }} item xs={12}>
-                        <RecommendationsHeader />
+                        <RecommendationsHeader
+                            selectTextLabel='Premium Payment Term'
+                            selectArray={recommendationHeaderSelectArr}
+                            selectChoosedValue={recommendationHeaderSelectChoosed}
+                            changeSelectEvent={(event: SelectChangeEvent) => {
+                                setRecommendationHeaderSelectChoosed(event.target.value);
+                            }}
+                            investmentTypeLabel='Investment Type'
+                            // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
+                            boxInputLabelText='Amount I want to invest monthly'
+                            boxInputButtonText='Update Plans'
+                            boxInputShow={recommendationHeaderInputFeildShow}
+                            boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
+                            boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
+                        />
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>1 ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
@@ -367,8 +404,8 @@ const RecommendationsULIP = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ULIP Date'}
-                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
+                            btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
+                            btnClick={investmentType === LUMPSUM ? handleBuyNow : handleULIPDate}
                         />
                     </Grid>
                 </Grid >

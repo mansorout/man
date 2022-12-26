@@ -171,7 +171,7 @@ const UlipBox = () => {
                                                 <Breadcrumbs sx={{
                                                     fontSize: '12px',
                                                     color: '#6c63ff',
-                                                    marginBottom: '3vw',
+                                                    marginBottom: '20px',
                                                 }}>
                                                     <Link href="/">Home</Link>
                                                     <Link href="/ulip/home">Get Insured</Link>
@@ -254,7 +254,7 @@ const UlipBox = () => {
                                                                 </Box>
                                                             </RadioGroup>
                                                             <FormControl fullWidth>
-                                                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                                                <InputLabel id="demo-simple-select-label">For next</InputLabel>
                                                                 <Select
                                                                     labelId="demo-simple-select-label"
                                                                     id="demo-simple-select"
