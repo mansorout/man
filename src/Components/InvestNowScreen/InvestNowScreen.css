@@ -7,6 +7,14 @@
     margin-left: 0 !important;
 }
 
+/* @media (max-width:2000px){
+  .saveButtonstyle{
+     width: 90vw !important;
+  height: 11vh !important
+  }
+  /* width: 90vw !important;
+  height: 11vh !important */
+
 
 
 
@@ -217,7 +225,12 @@
   padding-left: 1% !important;
   padding-top: 14% !important;
 }
-  }
+.saveButtonstyle{
+  width: 96vw !important;
+  height: 8vh !important;
+  color:red !important
+}
+  } 
   
   @media screen and (max-width: 375px) {
     .siplogoStyle{
@@ -225,6 +238,10 @@
       margin-left: -29px !important;
       padding-left: 1% !important;
     }
+
+
+ 
+   
  
   }
   @media screen and (max-width: 375px) {

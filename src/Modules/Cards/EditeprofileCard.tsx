@@ -437,7 +437,7 @@ const EditprofileCard = () => {
                     color: "rgba(0, 0, 0, 0.6)",
                     //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px",
-                    fontWeight: "normal",
+                    fontWeight: "normal" ,
                   }}
                   error={validateInputs?.lastname}
                   helperText={validateInputs?.lastname ? enumErrorMsg.PLEASE_ENTER_LAST_NAME : ""}
@@ -654,7 +654,7 @@ const EditprofileCard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="end">
-                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%" }} />
+                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%",cursor:"pointer" }} />
                           </InputAdornment>),
                       }}>
                     </TextField>
