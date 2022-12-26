@@ -1,16 +1,16 @@
-@media (max-width:3000px){
-    .pincodestayle{
+@media (max-width:3000px) {
+    .pincodestayle {
         margin: 8px !important;
         width: 242px !important;
         height: 16px !important;
-    }  
+    }
 }
 
 
 
 
 .MuiGrid-root .pincodeClass {
-     display: flex;
+    display: flex;
     margin-top: -8px;
     margin-bottom: 34px;
     padding: 0px;
@@ -18,21 +18,23 @@
     margin-right: -9px;
     flex-direction: inherit;
 }
+
 @media (max-width:780px) {
     .MuiGrid-root .pincodeClass {
         display: flex;
-       margin-top: -8px;
-       margin-bottom: 34px;
-       padding: 0px;
-       margin-left: -8px;
-       margin-right: -9px;
-       flex-direction: inherit;
-   }
+        margin-top: -8px;
+        margin-bottom: 34px;
+        padding: 0px;
+        margin-left: -8px;
+        margin-right: -9px;
+        flex-direction: inherit;
+    }
 }
+
 /* mediaqueary 900px */
 
-@media (max-width:820px){
-    .pincodestayle{
+@media (max-width:820px) {
+    .pincodestayle {
         margin: 8px !important;
         width: 242px !important;
         height: 16px !important;
@@ -41,45 +43,56 @@
         width: 36% !important;
          /* margin: 10px !important; */
          padding-left: 17px !important;
+         min-width: 43% !important;
      }
      .malestyle{
         width: 20px !important;
-    
-     }
-     .femalestyle{
-
-         margin: -4px!important;
+        min-width: 43% !important;
         
-     }
-     .css-1o59boh .MuiTextField-root {
+    }
+    .femalestyle{
+        
+        margin: -4px!important;
+        min-width: 43% !important;
+        
+    }
+    .css-1o59boh .MuiTextField-root {
         width: 100% !important;
+        /* min-width: 43% !important; */
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 140px) !important;
-    }
+
     .IpadStyle {
         overflow: inherit;
     }
-    .css-1fkyat8-MuiGrid-root {
-        overflow: inherit !important;
+
+
+
+    .paddingstyle {
+
+        margin-left: -16px !important;
+        width: 37.5vw !important;
     }
-    .paddingstyle{
-      
-        margin-left: -19px !important;
+
+    .paddingstyle_style {
+        margin-left: 49px !important;
+        width: 42vw !important;
     }
-    .paddingstyle_style{
-        margin-left: 9px !important;
+
+    .graphUlipStyle {
+
+        width: 96% !important;
     }
-  
-    .graphUlipStyle{
-        
-    width: 96% !important;
-    }
-    .investWholeStyle{
+
+    .investWholeStyle {
         margin-left: 7% !important;
     }
-   
-   
+    .paddingviewprofilestyle {
+        margin-left: 0% !important;
+        margin-right: -2% !important;
+        padding-left: 8% !important;
+    }
+
+
 }
 
 /* mediaqueary 860px */
@@ -89,167 +102,188 @@
     .css-1o59boh .MuiTextField-root {
         width: 100% !important;
     }
+
     .MuiGrid-root .pincodeClass {
         margin-bottom: 34px;
         margin-left: -4px;
         margin-right: -5px;
     }
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 140px) !important;
-    }
+
 
     .IpadStyle {
         overflow: inherit;
     }
 
-    .css-1fkyat8-MuiGrid-root {
-        overflow: inherit !important;
-    }
 
-    .css-q98jr-MuiTypography-root {
+
+    .css-q98jr-MuiTypography-root {  
         font-size: 0.7rem !important;
     }
 
     .css-skdto5 button {
         margin: 1px !important;
         padding: 0px 0px !important;
-    
+
     }
-    .buttontransgender{
-       width: 40%!important;
+
+    .buttontransgender {
+        width: 40% !important;
         margin: 8px !important
     }
-    .femalestyle{
+
+    .femalestyle {
         width: 30% !important;
-        margin: -4px!important;
-    }.css-skdto5 {
+        margin: -4px !important;
+    }
+
+    .css-skdto5 {
         margin-right: 68px !important;
         justify-content: space-between;
         display: flex;
         margin-left: 15px !important;
 
     }
-    .pincodestayle{
+
+    .pincodestayle {
         margin: 8px;
         width: 239px;
         height: 16px;
 
-    }   
-    .graphUlipStyle{
-        
+    }
+
+    .graphUlipStyle {
+
         width: 96% !important;
-        }
-        .investWholeStyle{
-            margin-left: 7% !important;
-        }
-      
+    }
+
+    .investWholeStyle {
+        margin-left: 7% !important;
+    }
+
+    .paddingstyle {
+
+        margin-left: -16px !important;
+        width: 39vw !important;
+    }
+
+    .paddingstyle_style {
+        margin-left: 55px !important;
+        width: 42vw !important;
+        border-radius: 11px !important;
+    }
+    .paddingviewprofilestyle {
+        margin-left: 0% !important;
+        margin-right: -2% !important;
+        padding-left: 2% !important;
+    }
+
 }
 
 
- @media (max-width:560px) {
+@media (max-width:560px) {
     .MuiGrid-root .pincodeClass {
         margin-top: -8px;
         margin-bottom: 34px;
         margin-left: -9px;
         margin-right: -5px;
     }
-     .css-skdto5 {
+
+    .css-skdto5 {
         margin-right: 46px !important;
         justify-content: space-between;
         display: flex;
         margin-left: 15px !important;
     }
-        .css-1o59boh .MuiTextField-root {
+
+    .css-1o59boh .MuiTextField-root {
         width: 100% !important;
     }
 
-    .css-zow5z4-MuiGrid-root.MuiGrid-container {
-        width: calc(100% + 24px) !important;
+
+    .buttontransgender {
+        width: 40% !important;
+        margin: 8px !important
     }
-    .paddingstyle{
-        padding: 20px !important;
-        margin-top: 2px !important;
-        margin-left: -20px !important;
-    }
-    .paddingstyle_style{
-        padding: 20px !important;
-        margin-top: 2px !important;
-        margin-left: -20px !important;
-    }
-    .buttontransgender{
-        width: 40%!important;
-         margin: 8px !important
-     }
-     .paddingviewprofilestyle{
+
+    .paddingviewprofilestyle {
         padding-left: 1% !important;
         border-radius: 33px !important;
         width: 93% !important;
-     }
+    }
 
-}
+    .paddingstyle {
 
- 
+        margin-left: -26px !important;
+        width: 90vw !important;
+        border-radius: 11px !important;
+    }
 
-@media (max-width:560px) {
-    .investWholeStyle{
+    .paddingstyle_style {
+        margin-left: -23px!important;
+        width: 93vw!important;
+        border-radius: 11px !important;
+        margin-top: 3% !important;
+    }
+
+    .investWholeStyle {
         margin-left: -3% !important;
     }
-    .ToastterStyle{
+
+    .ToastterStyle {
         position: relative !important;
-    top: 32vw !important;
-    left: -75vw !important;
+        top: 32vw !important;
+        left: -75vw !important;
     }
-    .WholeBodyStyleUlip{
+
+    .WholeBodyStyleUlip {
         width: 95.75vw !important;
         border-radius: 8px !important;
         margin-top: -35% !important;
     }
-   
-    .NoLockinperiod{
-         padding-left: 32px !important;
+
+    .NoLockinperiod {
+        padding-left: 32px !important;
         transform: translate(10px, 10px) !important;
         width: 100% !important;
         margin: -40px !important;
         padding-top: 43px !important;
     }
-  
-    .boxviewstyle{
-      color: black !important;
+
+    .boxviewstyle {
+        color: black !important;
     }
-    .thirdboxstyle{
-        
-     
+
+    .thirdboxstyle {
+
+
         padding-left: 1% !important;
         border-radius: 33px !important;
         width: 96% !important;
     }
-    .buttoncenterstyle{
+
+    .buttoncenterstyle {
         margin-left: 1% !important;
     }
-    
-    .premiumpaymentStyle{
-       
+
+    .premiumpaymentStyle {
+
         position: relative;
         left: -45%;
         top: 50% !important;
     }
-  .UlipFundCardStyle{
-    margin-left: -4% !important;
-    gap: 5vw !important;
-    margin-bottom: 6vw !important;
-    border-radius: 8px !important;
-  }
-}
-@media (max-width:560px) {
-   
-    .iconstyle{
+
+    .UlipFundCardStyle {
+        margin-left: -4% !important;
+        gap: 5vw !important;
+        margin-bottom: 6vw !important;
+        border-radius: 8px !important;
+    }
+
+    .iconstyle {
         padding-left: 43px !important;
         padding-top: 5px !important;
     }
 
-    
 }
 
-
-
-/* iconstyle */
+/* this line changes here */

@@ -17,7 +17,7 @@ import { store } from "../../Store/Store";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Grid, Modal, Theme } from "@mui/material";
-import { postData, postDataBeforeAuth } from "../../Utils/api";
+import { postData, postDataWithoutToken } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
 import { setIsUserAuthenticatedAction } from "../../Store/Authentication/actions/auth-actions";
 import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
@@ -150,7 +150,7 @@ export const Login = () => {
       type: "auth",
     };
     setShouldButtonDisable(true);
-    postDataBeforeAuth(
+    postDataWithoutToken(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,

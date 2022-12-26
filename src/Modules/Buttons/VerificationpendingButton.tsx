@@ -20,12 +20,12 @@ export const VerificationpendingButton = () => {
         } as React.CSSProperties,
         text_T: {
             color: "black",
-            fontSize: '10px',
+            fontSize: '12px',
             fontWeight: "500",
             lineHeight: '2',
             opacity: "0.74",
             textTransform: 'capitalize',
-            transform: "translate(-50%, 8.1%)"
+            transform: "translate(-24%, 8.1%)"
         } as React.CSSProperties,
     }
 
