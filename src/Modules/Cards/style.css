@@ -41,18 +41,22 @@
         width: 36% !important;
          /* margin: 10px !important; */
          padding-left: 17px !important;
+         min-width: 43% !important;
      }
      .malestyle{
         width: 20px !important;
-    
-     }
-     .femalestyle{
-
-         margin: -4px!important;
+        min-width: 43% !important;
         
-     }
-     .css-1o59boh .MuiTextField-root {
+    }
+    .femalestyle{
+        
+        margin: -4px!important;
+        min-width: 43% !important;
+        
+    }
+    .css-1o59boh .MuiTextField-root {
         width: 100% !important;
+        /* min-width: 43% !important; */
     }
     .paddingstyle_style {
         width: calc(90% + 125px) !important;

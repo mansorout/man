@@ -64,7 +64,7 @@ function VviewprofileCard() {
 
     const navigate = useNavigate();
     function handleSubmit() {
-        navigate('/pan_update');
+        navigate('/panUpdate');
         // navigate('/nominee')
     }
 
@@ -91,7 +91,7 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                  
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
                 className="thirdboxstyle"
@@ -112,7 +112,7 @@ function VviewprofileCard() {
 
                     <ListItem
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/pan_update')}>
+                            <IconButton edge="end" aria-label="delete" onClick={() => navigate('/panUpdate')}>
 
                                 <Typography
                                     sx={{ color: "#6c63ff", fontSize: "14px" }}
@@ -142,7 +142,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
 
                                 >PAN Number
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
@@ -190,7 +190,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Nominee & Declarations
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Nominee & Declarations
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -230,7 +230,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Account Holder Signature
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Account Holder Signature
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -272,7 +272,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Bank Account
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Bank Account
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -293,7 +293,7 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
                 className="thirdboxstyle"
@@ -325,7 +325,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Cancelled Cheque
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Cancelled Cheque
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
@@ -339,11 +339,11 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px", borderRadius: "8px"
                 }}
                 className="thirdboxstyle"
-            
+
             >
                 <List>
                     {/* 
@@ -372,7 +372,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px" ,color:"#7b7b9d"}}>Quick Access Options</Typography>
+                                <Typography sx={{ fontSize: "14px", color: "#7b7b9d" }}>Quick Access Options</Typography>
                             }
                             secondary="PIN"
 
