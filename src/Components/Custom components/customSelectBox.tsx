@@ -37,8 +37,9 @@ const CustomSelectBox = (props: any) => {
         id="demo-simple-select"
         labelId="demo-simple-select-label"
         defaultValue=''
+        name={props?.name}
         value={inputValue}
-        onBlur={props?.handleBlur}
+        onBlur={props?.onBlur}
         sx={props?.selectSX ? props?.selectSX : {}}
         error={props?.error}
         MenuProps={MenuProps}

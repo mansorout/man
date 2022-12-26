@@ -38,27 +38,27 @@
         margin: 8px !important;
         width: 242px !important;
         height: 16px !important;
-    }
-
-    .buttontransgender {
+    }  
+    .buttontransgender{
         width: 36% !important;
-        /* margin: 10px !important; */
-        padding-left: 17px !important;
-    }
-
-    .malestyle {
+         /* margin: 10px !important; */
+         padding-left: 17px !important;
+         min-width: 43% !important;
+     }
+     .malestyle{
         width: 20px !important;
-
+        min-width: 43% !important;
+        
     }
-
-    .femalestyle {
-
-        margin: -4px !important;
-
+    .femalestyle{
+        
+        margin: -4px!important;
+        min-width: 43% !important;
+        
     }
-
     .css-1o59boh .MuiTextField-root {
         width: 100% !important;
+        /* min-width: 43% !important; */
     }
 
     .IpadStyle {
