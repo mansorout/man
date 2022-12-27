@@ -103,7 +103,7 @@ const style = {
   errorText: {
     width: "100%",
     maxWidth: "400px",
-    height: "15px",
+    paddingBottom:"5px"
   } as React.CSSProperties,
 };
 
