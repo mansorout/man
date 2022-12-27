@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import RecommendationsHeader from './RecommendationsHeader';
+import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
 import Button from '@mui/material/Button';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
@@ -313,6 +313,18 @@ const RecommendationsULIP = () => {
         ]
     };
 
+    const handleCloseContinuePayment = (
+        event: {},
+        reason: "backdropClick" | "escapeKeyDown"
+    ) => {
+        if (reason === "backdropClick") {
+            console.log(reason);
+        } else {
+            //   setOpen(false);
+            setOpenConfirmation(!openConfirmation)
+        }
+    };
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -427,7 +439,7 @@ const RecommendationsULIP = () => {
             </Modal> */}
 
 
-            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+            <Dialog open={open} onClose={() => setOpenConfirmation(!open)}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>Set backup account</Typography>
                 <Calendar onChange={handleCalender} value={calenderValue} />
@@ -439,13 +451,13 @@ const RecommendationsULIP = () => {
                 </Button>
             </Dialog>
 
-            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+            <Dialog  open={openConfirmation} onClose={handleCloseContinuePayment}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
 
                 <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
                     <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
-                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >{`Your Monthly SIP Date is ${calenderValue} of every month`}</Typography>
                 </Box>
                 <Button onClick={() => {
                     setOpenConfirmation(!openConfirmation);
