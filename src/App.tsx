@@ -17,6 +17,7 @@ import { VerifySec } from './Components/VerifySecOTP/VerifySec';
 import PortfolioCompanyCard, { PortfolioProp } from './Modules/CustomCard/PortfolioCompanyCard';
 import './app.css';
 import SprintMoneyLoader from './Components/CommonComponents/sprintMoneyLoader';
+import ExpireTokenDialog from './Components/CommonComponents/ExpireTokenDialog';
 
 // import Home from './Components/Home/Home';
 // import { AccountCreatedWithGoogle } from './Components/loginwithgoogle/AccountCreatedWithGoogle';
@@ -183,6 +184,7 @@ function App() {
         <Route path="/loginsecond" element={<LoginSecond />} />
         <Route path="/verifysec" element={<VerifySec />} />
         <Route path="/setnewpin" element={<Setpin />} />
+        <Route path="/ExpireTokenDialog" element={<ExpireTokenDialog />} />
 
         {/* set to be private */}
         <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />

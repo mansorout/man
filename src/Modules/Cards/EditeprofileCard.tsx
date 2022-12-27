@@ -167,7 +167,7 @@ const initialCountryList = [
 ]
 
 const NameRegex = /^[a-zA-Z ]{4,30}$/;
-const mobileRegex = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/
+const mobileRegex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const handleRegex = (regex: any, value: string) => regex.test(value);
 
@@ -256,18 +256,36 @@ const EditprofileCard = () => {
 
   const [cityList, setCityList] = useState<any[]>([]);
   const [stateList, setStateList] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [incomeSlabList, setIncomeSlabList] = useState<any[]>([]);
   const [countryList, setCountryList] = useState<any[]>([...initialCountryList]);
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
   const [activeGender, setActiveGender] = useState<number>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
-  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     getCountryList();
     getStateList();
     getIncomeSlabList();
   }, [])
+
+  useEffect(() => {
+    if (formData.emailaddress.length) {
+      regexValidate(emailRegex, 'emailaddress', formData.emailaddress);
+    }
+  }, [formData.emailaddress])
+
+  useEffect(() => {
+    if (formData.mobilenumber.length) {
+      regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber);
+    }
+  }, [formData.mobilenumber])
+
+  useEffect(() => {
+    if (formData?.pincode.length) {
+      handlePincodeLengthValidation();
+    }
+  }, [formData?.pincode]);
 
   const getCountryList = () => {
     // setCountryList([...countryList]);
@@ -287,26 +305,6 @@ const EditprofileCard = () => {
         }
 
         setStateList(data?.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-
-  const getIncomeSlabList = () => {
-    getDataWithoutToken(
-      siteConfig.METADATA_INCOMESLAB_LIST,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.METADATA_API_ID,
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-
-        setIncomeSlabList(data?.data);
       })
       .catch(err => {
         console.log(err);
@@ -334,25 +332,71 @@ const EditprofileCard = () => {
     setCityList([]);
   }
 
-  const areAllFieldsFilled = (formData.firstname != "") && (NameRegex.test(formData.lastname)) && (mobileRegex.test(formData.mobilenumber)) &&
-    (emailRegex.test(formData.emailaddress)) && (formData.placeofbirth !== "") && (formData.addressline1 !== "") && (formData.pincode !== "") && (formData.city !== "")
+  const getIncomeSlabList = () => {
+    getDataWithoutToken(
+      siteConfig.METADATA_INCOMESLAB_LIST,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.METADATA_API_ID,
+    )
+      .then(res => res.json())
+      .then((data: any) => {
+        if (data?.error) {
+          console.log("error ocuured")
+          return;
+        }
+
+        setIncomeSlabList(data?.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   const handlechange = (e: any) => {
     e.preventDefault();
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (name === "firstname" || name === "lastname" || name === "middlename") {
+      value = value.replace(/[^a-z]/gi, '');
+    }
     setFormData({
       ...formData,
       [name]: value
     })
   }
 
-  const handleBlur = (e: any) => {
-    const { name, value } = e.target;
+  const handlePincodeLengthValidation = () => {
+    let bFlag: boolean = false;
+
+    if (formData.pincode.length < 7 && formData.pincode.length > 0) {
+      console.log("formData.pincode < 6")
+      bFlag = false;
+    } else {
+      console.log("formData.pincode > 6")
+      bFlag = true;
+    }
 
     setValidateInputs((prev: validateInputsProps) => ({
       ...prev,
-      [name]: !value ? true : false
+      "pincode": bFlag
     }))
+  }
+
+  const handleBlur = (e: any) => {
+    const { name, value } = e.target;
+    if (Object.keys(validateInputs).includes(name)) {
+      if (name === "pincode") {
+        handlePincodeLengthValidation();
+      } else if (name === "emailaddress") {
+        regexValidate(emailRegex, name, value);
+      } else if (name === "mobilenumber") {
+        regexValidate(mobileRegex, name, value);
+      } else {
+        setValidateInputs((prev: validateInputsProps) => ({
+          ...prev,
+          [name]: !value ? true : false
+        }))
+      }
+    }
   }
 
   const customSelectBoxOnChange = (strType: string, val: any) => {
@@ -361,46 +405,64 @@ const EditprofileCard = () => {
     setFormData(objFormData);
   }
 
-  const isAllFieldValidated = () => {
-    let isValidated: boolean = true;
+  const throwErrorOnWrongField = () => {
+    let throwError: boolean = true;
     let arrFormDataKeys: any[] = Object.keys(validateInputs);
     arrFormDataKeys.forEach((key: string, index: number) => {
       if (key !== "middlename") {
         // @ts-ignore
         if (!formData[key]) {
-          setValidateInputs(prev => ({
-            ...prev,
-            [key]: true
-          }))
-
-          isValidated = true;
+          throwError = true;
         } else {
-          setValidateInputs(prev => ({
-            ...prev,
-            [key]: false
-          }))
-
-          isValidated = false
+          throwError = false
         }
       }
+
+      setValidateInputs(prev => ({
+        ...prev,
+        [key]: throwError
+      }))
     })
 
-    return isValidated;
+    return throwError;
+  }
+
+  const regexValidate = (regexType: any, name: string, value: string) => {
+    let bFlag: boolean = false;
+
+    if (!handleRegex(regexType, value)) {
+      bFlag = true;
+    } else {
+      bFlag = false;
+    }
+
+    setValidateInputs(prev => ({ ...prev, [name]: bFlag }));
+    return bFlag;
+  }
+
+  const isAllFieldsValidated = () => {
+    let n: number = Object.values(validateInputs).filter((item: any, index: number) => item === true).length;
+    return n;
   }
 
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (isAllFieldValidated()) {
+    if (isAllFieldsValidated()) {
+      console.log("please validate all firlds")
+      return;
+    }
+    if (throwErrorOnWrongField()) {
       return;
     }
 
-    if (!handleRegex(emailRegex, formData?.emailaddress)) {
-      setValidateInputs(prev => ({ ...prev, ["emailaddress"]: true }));
-      return
-    } else if (!handleRegex(mobileRegex, formData?.mobilenumber)) {
-      setValidateInputs(prev => ({ ...prev, ["mobilenumber"]: true }));
+
+    if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
+      return;
+    }
+
+    if (regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber)) {
       return;
     }
 
@@ -452,8 +514,8 @@ const EditprofileCard = () => {
 
                 }}>
                   <Grid item xs={12} md={12}>
-
                     <TextField
+                      type='text'
                       onBlur={handleBlur}
                       label="First Name"
                       name="firstname"
@@ -474,6 +536,7 @@ const EditprofileCard = () => {
                   </Grid>
                 </Grid>
                 <TextField
+                  type='text'
                   name="middlename"
                   label="Middle Name"
                   onBlur={handleBlur}
@@ -491,6 +554,7 @@ const EditprofileCard = () => {
                   required
                 />
                 <TextField
+                  type='text'
                   label="Last Name"
                   name="lastname"
                   onBlur={handleBlur}
@@ -572,8 +636,8 @@ const EditprofileCard = () => {
                           customSelectBoxOnChange("countryofbirth_id", val)
                         }}
                         onBlur={handleBlur}
-                        error={validateInputs?.countryofbirth_id}
-                        formHelperText={validateInputs?.countryofbirth_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
+                        error={!formData?.countryofbirth_id ? validateInputs?.countryofbirth_id : false}
+                        formHelperText={!formData?.countryofbirth_id ? (validateInputs?.countryofbirth_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -599,8 +663,8 @@ const EditprofileCard = () => {
                           customSelectBoxOnChange("placeofbirth_id", val)
                         }}
                         onBlur={handleBlur}
-                        error={validateInputs?.placeofbirth_id}
-                        formHelperText={validateInputs?.placeofbirth_id ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
+                        error={!formData.placeofbirth_id ? validateInputs?.placeofbirth_id : false}
+                        formHelperText={!formData.placeofbirth_id ? (validateInputs?.placeofbirth_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
                       />
                     </Grid>
                   </Grid>
@@ -770,8 +834,8 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("state_id", val);
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.state_id}
-                      formHelperText={validateInputs?.state_id ? enumErrorMsg.PLEASE_ENTER_STATE : ""}
+                      error={!formData.state_id ? validateInputs?.state_id : false}
+                      formHelperText={!formData.state_id ? (validateInputs?.state_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -796,23 +860,27 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("city_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.city_id}
-                      formHelperText={validateInputs?.city_id ? enumErrorMsg.PLEASE_ENTER_CITY : ""}
+                      error={!formData.city_id ? validateInputs?.city_id : false}
+                      formHelperText={!formData.city_id ? (validateInputs?.city_id ? enumErrorMsg.PLEASE_ENTER_CITY : "") : ""}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6} >
                     <FormControl
                       className="pincodeClass">
                       <TextField
-                        onBlur={handleBlur}
+                        id='Pincode'
                         label="Pincode"
                         name="pincode"
+                        type="number"
+                        onBlur={handleBlur}
                         value={formData.pincode}
-                        onChange={handlechange}
+                        onChange={(e) => {
+                          handlechange(e);
+                          // handlePincodeLengthValidation();
+                        }}
                         fullWidth
                         error={validateInputs?.pincode}
                         className="pincodestayle"
-                        id='Pincode'
                         sx={{
                           color: "rgba(0, 0, 0, 0.6)",
                           // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -848,8 +916,8 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("country_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.country_id}
-                      formHelperText={validateInputs?.country_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : ""}
+                      error={!formData?.country_id ? validateInputs?.country_id : false}
+                      formHelperText={!formData.country_id ? (validateInputs?.country_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
                     />
                   </Grid>
                   <Grid item xs={12}  >
@@ -875,8 +943,8 @@ const EditprofileCard = () => {
                         customSelectBoxOnChange("incomeslab_id", val)
                       }}
                       onBlur={handleBlur}
-                      error={validateInputs?.incomeslab_id}
-                      formHelperText={validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : ""}
+                      error={!formData?.incomeslab_id ? validateInputs?.incomeslab_id : false}
+                      formHelperText={!formData?.incomeslab_id ? (validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : "") : ""}
                     />
                   </Grid>
                   <Grid item xs={12}>
