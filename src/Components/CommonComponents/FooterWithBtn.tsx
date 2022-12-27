@@ -51,6 +51,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         position: 'absolute',
         top: '-18px',
     },
+    bgGreenColor:{
+        backgroundColor: 'var(--primaryColor) !important',
+    }
 }))
 
 interface FooterBtnWithBoxType {
@@ -59,6 +62,7 @@ interface FooterBtnWithBoxType {
     // boxAmount: string;
     btnText: string;
     btnClick: () => void;
+    btnDisable ?: boolean;
 }
 const FooterWithBtn = (props: FooterBtnWithBoxType) => {
     const classes = useStyles()
@@ -70,7 +74,7 @@ const FooterWithBtn = (props: FooterBtnWithBoxType) => {
             marginTop: '150px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
-                <Button type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}>{props.btnText}</Button>
+                <Button className={`${props.btnDisable === true ? '': classes.bgGreenColor}`} type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick} disabled={props.btnDisable}>{props.btnText}</Button>
                 {/* <Box className={classes.premiumAmountBox} sx={{ width: { xs: '80%', sm: '35%' } }}>
                 <div className={classes.insuranceCardIcon}>
                     {props.boxIcon}
