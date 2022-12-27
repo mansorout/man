@@ -22,6 +22,7 @@ import siteConfig from "../../Utils/siteConfig";
 import { setIsUserAuthenticatedAction } from "../../Store/Authentication/actions/auth-actions";
 import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
 import { globalConstant } from "../../Utils/globalConstant";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   background: {
@@ -102,8 +103,7 @@ const style = {
   errorText: {
     width: "100%",
     maxWidth: "400px",
-    height: "15px",
-    marginBottom: "10px",
+    paddingBottom:"5px"
   } as React.CSSProperties,
 };
 
@@ -184,6 +184,7 @@ export const Login = () => {
       style={style.background}
     >
       <NavigationBar />
+      <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
       <Box
         style={style.container}
         className={`${classes.containerRes} LoginContainer`}
@@ -197,6 +198,9 @@ export const Login = () => {
         </Typography>
 
         <TextField
+       inputProps={{
+        maxLength: 10,
+      }}
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
             "&.Mui-focused >.MuiInputLabel-root": { color: "red" },

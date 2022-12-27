@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import "./Upi.css"
 
@@ -20,9 +21,19 @@ export const UpiInput: React.FC<TodoFormProps> = ({ addUpi }) => {
 
   return (
     <form className="todo-form">
-      <input type="text" value={newUpi} className="upi-input" placeholder="Enter UPI ID" onChange={handleChange} />
-      <button style={{visibility:"hidden"}} onClick={handleSubmit}>Add Upi</button>
-        
+      <TextField
+      inputProps={{
+        maxLength: 15,
+      }}
+        onKeyPress={(e) =>
+          /^[\w.-]+@[\w.-]+$/im.test(e.key) &&
+          e.preventDefault()
+        }
+
+        id="outlined-basic" label="Enter UPI ID" variant="outlined" sx={{ width: "96%" }} type="text" value={newUpi} className="upi-input" onChange={handleChange}>
+      </TextField>
+      <button style={{ visibility: "hidden" }} onClick={handleSubmit}>Add Upi</button>
+
     </form>
   )
 };
