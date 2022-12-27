@@ -462,6 +462,7 @@ const EditprofileCard = () => {
                       fullWidth
                       error={validateInputs?.firstname}
                       id='First Name'
+                  
                       sx={{
                         color: "rgba(0, 0, 0, 0.6)",
                         // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -564,9 +565,9 @@ const EditprofileCard = () => {
                           top: "-1px",
                           background: "#fff"
                         }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
                         value={formData?.countryofbirth_id}
                         onChange={(val: any) => {
                           customSelectBoxOnChange("countryofbirth_id", val)
@@ -591,9 +592,9 @@ const EditprofileCard = () => {
                           top: "-1px",
                           background: "#fff"
                         }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
                         value={formData?.placeofbirth_id}
                         onChange={(val: any) => {
                           customSelectBoxOnChange("placeofbirth_id", val)
@@ -761,9 +762,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.state_id}
                       onChange={(val: any) => {
                         getCityList(val);
@@ -788,9 +789,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.city_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("city_id", val)
@@ -840,9 +841,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.country_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("country_id", val)
@@ -867,9 +868,9 @@ const EditprofileCard = () => {
                         background: "#fff",
                         // width: "100%"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.incomeslab_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("incomeslab_id", val)

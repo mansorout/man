@@ -136,15 +136,10 @@ import ClearIcon from '@mui/icons-material/Clear';
  
  
          <div>
-           
- 
- 
-             <Modal open={props.open} >
+           <Modal open={props.open} >
                  <Box style={{
-                   
                      maxWidth: "30%",
                      minWidth:"20%",
-                     
                      borderRadius: " 8px 8px 0px 0px",
                      boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
                      backgroundColor: "white",
@@ -163,11 +158,11 @@ import ClearIcon from '@mui/icons-material/Clear';
                          <Grid item xs={8}>
                            <CardHeader
                                  avatar={
-                                     <Box sx={{paddingTop:"0%"}}    >
+                                     <Box sx={{paddingTop:"0%"}}   textAlign="center"  >
                                          <img src={sipiclogo} alt="sprint-money" style={{
                                              width: "38px",
                                              height: "38px",
-                                             paddingLeft: "195px",
+                                             paddingLeft: "200px",
                                           
                                              }} 
                                              className="siplogoStyle" 
@@ -193,7 +188,8 @@ import ClearIcon from '@mui/icons-material/Clear';
                              Share details below to view recommendations
                                </Typography>
                                </Grid>
-                     <Grid container spacing={2}>
+                              
+                     <Grid container spacing={2} sx={{paddingTop:"1.6%"}}>
                  <Grid item xs={12} md={6} sm={12} >
                  <TextField
                    fullWidth
@@ -291,40 +287,22 @@ import ClearIcon from '@mui/icons-material/Clear';
                  />
                </Grid>
              </Grid>
-                  
-              
-                     <Box style={{
-                         display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px",
-                         padding: "8px 13px"
-                     }}>
-                         {/* <InfoRounded></InfoRounded> */}
-                       
-                     </Box>
+               
  
-                     <Box        className="saveButtonstyle"  >
-                         <Button 
-                    
-                             disabled={showSubmit}
-                           
-                             fullWidth
-                             onClick={handleClick}
-                           
-                        
-                         sx={{ padding: " 16px 155px 19px", backgroundColor: "#23db7b"}}>
+             <Button 
+                      disabled={showSubmit}
+                         fullWidth
+                         onClick={handleClick}
+                          sx={{ padding: " 16px 155px 19px", backgroundColor: "#23db7b"}}>
                              <Typography sx={{ fonSize: "18px", color: "white" }}>
                              Save Details
                              </Typography>
- 
-                         </Button>
-                     </Box>
+                             </Button>
  
                  </Box>
- 
- 
- 
- 
- 
-             </Modal></div>
+              
+                             </Modal>
+                        </div>
      )
  }
  
