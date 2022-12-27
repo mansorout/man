@@ -13,7 +13,7 @@ const MenuProps = {
   },
 };
 
-const CustomSelectBox = (props: any) => {
+const CustomSelectBox = React.memo((props: any) => {
   console.log('custom select box ()');
 
   const [inputValue, setInputValue] = useState<string>('');
@@ -70,6 +70,6 @@ const CustomSelectBox = (props: any) => {
       }
     </FormControl >
   );
-};
+});
 
 export default CustomSelectBox;

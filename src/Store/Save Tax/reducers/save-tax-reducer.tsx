@@ -7,7 +7,7 @@ import {
 
 
 const initialState: any = {
-  saveTaxINvestmentTypeData: {},
+  saveTaxInvestmentTypeData: {},
   saveTaxCalculateApiData: {},
 }
 
@@ -18,12 +18,12 @@ const saveTaxReducer = (state = initialState, action: any) => {
     case SET_SAVE_TAX_INVESTMENT_TYPE_SUCCESS: 
       return {
         ...state,
-        saveTaxINvestmentTypeData: action.payload
+        saveTaxInvestmentTypeData: action.payload
     }
     case SET_SAVE_TAX_INVESTMENT_TYPE_FAILED: 
       return {
         ...state,
-        saveTaxINvestmentTypeData: action.payload
+        saveTaxInvestmentTypeData: action.payload
     }
     
     case SET_SAVE_TAX_CALCULATE_SUCCESS: 

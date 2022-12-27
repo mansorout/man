@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
@@ -11,6 +11,15 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Button from '@mui/material/Button';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    SaveTaxInvestmentLumpsumAction,
+    SaveTaxInvestmentMonthlyAction,
+    SaveTaxInvestmentAmount,
+    LUMPSUM,
+    MONTHLY
+} from '../../Store/Duck/SaveTaxInvestmentType'
+import {isMultipleofNumber} from '../../Utils/globalFunctions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -75,33 +84,59 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }))
 
-// interface RecommendationsHeaderPropsType {
-//     selectTextLabel: string;
-//     selectArray: string[];
-//     changeSelectEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
-//     investmentTypeLabel: string;
-//     investmentTypeStartIcon: React.ReactElement<any>;
-//     investmentTypeEndIcon: React.ReactElement<any>;
-//     changeInvestmentTypeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
-//     boxInputLabelText: string;
-//     boxInputStartIcon: React.ReactElement<any>;
-//     boxInputButtonText: string;
-// }
+interface RecommendationsHeaderPropsType {
+    selectTextLabel: string;
+    selectArray: string[];
+    selectChoosedValue: string;
+    changeSelectEvent: (event: SelectChangeEvent) => void;
+    investmentTypeLabel: string;
+    // investmentTypeStartIcon: React.ReactElement<any>;
+    // investmentTypeEndIcon: React.ReactElement<any>;
+    // changeInvestmentTypeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    boxInputLabelText: string;
+    boxInputShow:boolean;
+    boxInputShowHandleChange: () => void;
+    boxInputHideHandleChange: () => void;
+    // boxInputStartIcon: React.ReactElement<any>;
+    boxInputButtonText: string;
+    // boxInputInvestmentAmount: string;
+    // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const RecommendationsHeader = () => {
+const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     const classes = useStyles();
+    const dispatch: any = useDispatch();
+    const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
 
-    const [premiumPaymentTerm, setPremiumPaymentTerm] = useState<string>('5')
-    const [investmentAmount, setInvestmentAmount] = useState<string>('')
-    const [inputFeildShow, setInputFeildShow] = useState<boolean>(false)
+    // const [premiumPaymentTerm, setPremiumPaymentTerm] = useState<string>('5')
+    // const [investmentAmount, setInvestmentAmount] = useState<string>('')
+    const [amount, setAmount] = useState<string>('')
+    // const [inputFeildShow, setInputFeildShow] = useState<boolean>(false)
 
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setPremiumPaymentTerm(event.target.value);
-    };
+    // const handleChange = (event: SelectChangeEvent) => {
+    //     setPremiumPaymentTerm(event.target.value);
+    // };
 
-    const handleInvestmentAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInvestmentAmount(event.target.value);
+    // const handleInvestmentAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setInvestmentAmount(event.target.value);
+    // }
+
+    // useEffect(() => {
+    //     handleInvestmentAmount()
+    // }, [amount])
+    
+    const handleInvestmentAmount = () => {
+        if (investmentType === LUMPSUM) {
+            if (isMultipleofNumber(parseInt(amount), 100)) {
+                dispatch(SaveTaxInvestmentAmount(amount))
+                props.boxInputHideHandleChange()
+            }else {
+                alert('Enter amount multiple of 100!')
+            }
+        } else {
+            dispatch(SaveTaxInvestmentAmount(amount))
+        }
     }
 
     return (
@@ -109,30 +144,33 @@ const RecommendationsHeader = () => {
             <Grid container>
                 <Grid xs={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
                     <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect} fullWidth>
-                        <InputLabel id="demo-simple-select-standard-label">Premium Payment Term</InputLabel>
+                        <InputLabel id="demo-simple-select-standard-label">{props.selectTextLabel}</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={premiumPaymentTerm}
-                            onChange={handleChange}
+                            value={props.selectChoosedValue}
+                            onChange={props.changeSelectEvent}
                             label="Age"
                         >
-                            <MenuItem value={5}>5 Years</MenuItem>
+                            {props.selectArray.map((item,index) => (
+                                <MenuItem value={item} key={index}>{item} Years</MenuItem>
+                            ))}
+                            {/* <MenuItem value={5}>5 Years</MenuItem>
                             <MenuItem value={7}>7 Years</MenuItem>
-                            <MenuItem value={10}>10 Years</MenuItem>
+                            <MenuItem value={10}>10 Years</MenuItem> */}
                         </Select>
                     </FormControl>
                 </Grid>
                 <Grid xs={6} item sx={{ padding: '15px' }}>
                     <Box>
                         <TextField
-                            label="Investment Type"
+                            label={props.investmentTypeLabel}
                             id="outlined-start-adornment"
                             value={investmentAmount}
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <CreateOutlinedIcon sx={{ cursor: 'pointer' }} onClick={() => setInputFeildShow(true)} />,
+                                endAdornment: <CreateOutlinedIcon sx={{ cursor: 'pointer' }} onClick={props.boxInputShowHandleChange} />,
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
                             className={classes.headerInvestmentTypeInput}
@@ -140,15 +178,15 @@ const RecommendationsHeader = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <Box className={`${classes.inputWrapper} ${inputFeildShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
+            <Box className={`${classes.inputWrapper} ${props.boxInputShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
                 <TextField
                     label="Amount I want to invest monthly"
                     id="outlined-start-adornment"
-                    value={investmentAmount}
-                    onChange={handleInvestmentAmount}
+                    value={amount}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
                     type='number'
                     InputProps={{
-                        endAdornment: <Button onClick={() => setInputFeildShow(false)} disabled={investmentAmount === '' && true} variant="contained">Update Plans</Button>,
+                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={investmentAmount === '' && true} variant="contained">{props.boxInputButtonText}</Button>,
                         startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                         // readOnly: investmentType === 'monthly' ? false : true,
                     }}
