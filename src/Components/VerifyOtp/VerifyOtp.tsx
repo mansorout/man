@@ -17,6 +17,8 @@ import { resendOtpThunk, verifyOtpThunk } from "../../Store/Authentication/thunk
 import siteConfig from "../../Utils/siteConfig";
 import { ActionCreators } from "../../Store";
 import { bindActionCreators } from "redux";
+import { setLoadingAction } from "../../Store/Global/actions/global-actions";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 const style = {
   background: {
@@ -60,6 +62,7 @@ export const VerifyOtp = () => {
   const error: string[] = useSelector((state: any) => state.error);
   // const number: string = useSelector((state: any) => state.contact);
   const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
+  const g_loading: boolean = useSelector((state: any) => state?.globalReducer?.loading);
   const number: string | null = localStorage.getItem(siteConfig.CONTACT_NUMBER);
 
   const [OTP, setOTP] = useState<string>("");
@@ -119,6 +122,7 @@ export const VerifyOtp = () => {
     <>
       <Box style={style.background}>
         <NavigationBar />
+        <SprintMoneyLoader loadingStatus={g_loading} />
         <Box style={style.container}>
           <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
           <Typography mb={1} variant="h1" align="center">
