@@ -2,7 +2,10 @@ import siteConfig from '../../../Utils/siteConfig'
 import { getData } from '../../../Utils/api'
 import {
     setSaveTaxInvestmentTypeOnFailAction,
-    setSaveTaxInvestmentTypeOnSuccessAction
+    setSaveTaxInvestmentTypeOnSuccessAction,
+
+    setSaveTaxCalculateOnSuccessAction,
+    setSaveTaxCalculateOnFailAction
 } from '../actions/save-tax-actions'
 
 export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
@@ -12,10 +15,10 @@ export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.SAVE_TAX_API_ID,
             // `/?amount=${investmentAmount}`,
-        ).then((res) => {
-            debugger
+        ).then((response) => response.json()).then((res:any) => {
+            dispatch(setSaveTaxInvestmentTypeOnSuccessAction(res?.data))
         }).catch((error) => {
-            debugger
+            setSaveTaxInvestmentTypeOnFailAction(error.error)
         })
 
 
@@ -47,10 +50,10 @@ export const getDataSaveTaxCalculateApi = (data: any) => {
             siteConfig.SAVETAX_CALCULATE + `/?employeepf=${data.employeePF}&ppf=${data.PPF}&homeloanprincipal=${data.homeLoan}&postoffice=${data.nscPost}&insurancepremium=${data.lifeInsurance}&taxsavingfd=${data.taxSavinig}`,
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.SAVE_TAX_API_ID,
-        ).then((res) => {
-            debugger
+        ).then((response) => response.json()).then((res) => {
+            dispatch(setSaveTaxCalculateOnSuccessAction(res?.data))
         }).catch((error) => {
-            debugger
+            setSaveTaxCalculateOnFailAction(error.error)
         })
     }
 }
