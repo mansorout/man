@@ -99,6 +99,9 @@ export const LoginSecond = () => {
           Enter your mobile number to continue
         </Typography>
         <TextField
+          inputProps={{
+            maxLength: 10,
+          }}
           sx={{
             "& .MuiInputLabel-root": { color: '#acb4bf' },
             "& .MuiOutlinedInput-root": {
