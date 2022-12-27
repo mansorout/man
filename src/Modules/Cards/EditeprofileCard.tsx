@@ -525,7 +525,7 @@ const EditprofileCard = () => {
                 <TextField
                   label="Mobile Number"
                   onBlur={handleBlur}
-                  type="number"
+                  type="text"
                   name="mobilenumber"
                   value={formData?.mobilenumber}
                   onChange={handlechange}
