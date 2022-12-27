@@ -14,12 +14,18 @@ const MenuProps = {
 };
 
 const CustomSelectBox = React.memo((props: any) => {
-  console.log('custom select box ()');
+  // console.log('custom select box ()');
 
   const [inputValue, setInputValue] = useState<string>('');
 
+  useEffect(() => {
+    if (props?.value) {
+      setInputValue(props?.value)
+    }
+  }, [props?.value])
+
   const optionSelected = (key: string, value: string) => {
-    setInputValue(key);
+    // setInputValue(key);
     props.onChange(key);
   };
 
