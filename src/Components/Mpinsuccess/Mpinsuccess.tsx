@@ -16,6 +16,8 @@ export const Mpinsuccess = () => {
 
   const style = {
     background: {
+      backgroundColor: '#f9f9f9',
+      paddingBottom: "22px",
       height: "100vh",
       width: "100vw",
       display: "flex",
@@ -38,7 +40,7 @@ export const Mpinsuccess = () => {
       boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.2)',
       transform: "translate(-50%, 0%)",
       left: "50%",
-      bottom: "23%",
+      bottom: "36%",
       position: "absolute"
     } as React.CSSProperties,
 
@@ -67,7 +69,9 @@ export const Mpinsuccess = () => {
           </Grid>
 
         </Box>
-        <Footer />
+        <Box sx={{display:" contents"}}>
+          <Footer />
+        </Box>
       </Box>
       <img alt="logo" src={require("../../Assets/MainLogo.svg").default} width="275" height="275" style={{
         position: "absolute",
