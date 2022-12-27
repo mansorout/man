@@ -448,12 +448,12 @@ const EditprofileCard = () => {
   const handleSubmitForm = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
+    if (throwErrorOnWrongField()) {
+      return;
+    }
 
     if (isAllFieldsValidated()) {
       console.log("please validate all firlds")
-      return;
-    }
-    if (throwErrorOnWrongField()) {
       return;
     }
 
@@ -466,7 +466,8 @@ const EditprofileCard = () => {
       return;
     }
 
-    setValidateInputs({ ...initialValidateinputsData });
+    if (validateInputs)
+      setValidateInputs({ ...initialValidateinputsData });
 
     setLoading(true);
     postData(
@@ -678,7 +679,7 @@ const EditprofileCard = () => {
             sx={{
               maxHeight: "100%",
               marginTop: "0%",
-              paddingLeft: { xs: "32px !important", sm: "19% !important", md: "32px !important" }
+              // paddingLeft: { xs: "32px !important", sm: "19% !important", md: "32px !important" }
             }}
             className="paperstyle"
             xs={12} sm={6} lg={6}
