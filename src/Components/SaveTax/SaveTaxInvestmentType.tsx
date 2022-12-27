@@ -112,9 +112,14 @@ const SaveTaxInvestmentType = () => {
     const navigate = useNavigate();
     const dispatch:any =useDispatch()
     const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
+    const {saveTaxInvestmentTypeData} = useSelector((state:any) => state.saveTaxReducer)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
+    const [rows, setRows] = useState<{
+        heading: string;
+        ulip: string | number;
+        elss: string | number;
+    }[]>([])
 
-    
 
     function createData(
         heading: string,
@@ -124,18 +129,23 @@ const SaveTaxInvestmentType = () => {
         return { heading, ulip, elss, };
     }
 
-    const rows = [
-        createData('Post Tax Return in 10 Years', '₹ 10,00,000', '₹ 9,70,000'),
-        createData('Investment (%) Return *', '18.6 %', '13.5%'),
-        createData('Life Insurance Cover', '₹ 5,00,000', '(NIL)'),
-        createData('Minimum investment period & Lock-in period', '5 Years', '3 Years'),
-    ];
 
     
     useEffect(() => {
         dispatch(getDataSaveTaxInvestmentType(investmentAmount))
     }, [])
 
+    useEffect(() => {
+        const tempArr = [];
+        let index = 0;
+        for (let k in saveTaxInvestmentTypeData) {
+            tempArr.push(createData(Object.keys(saveTaxInvestmentTypeData)[index], saveTaxInvestmentTypeData[k].ULIP, saveTaxInvestmentTypeData[k].ELSS,))
+            index++
+        }
+        setRows(tempArr);
+        console.log("checsddsfdsfdfsk :", tempArr, rows)
+    }, [saveTaxInvestmentTypeData])
+    
 
 
     const handleInvestmentRecommendation = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -203,24 +213,24 @@ const SaveTaxInvestmentType = () => {
                                 <TableBody>
                                     {rows.map((row) => (
                                         <TableRow
-                                            key={row.heading}
+                                            key={row?.heading}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         >
                                             <TableCell component="th" scope="row">
-                                                {row.heading}
+                                                {row?.heading}
                                             </TableCell>
                                             <TableCell
                                                 className={`${investmentRecommendation === 'ulip' ? classes.bgTableHighlightState : ''}`}
                                                 align="right"
                                                 sx={{ width: '130px', boxSizing: 'border-box' }}>
-                                                {row.ulip}
+                                                {row?.ulip}
                                             </TableCell>
 
                                             <TableCell
                                                 className={`${investmentRecommendation === 'elss' ? classes.bgTableHighlightState : ''}`}
                                                 align="right"
                                                 sx={{ width: '130px', boxSizing: 'border-box' }}>
-                                                {row.elss}
+                                                {row?.elss}
                                             </TableCell>
                                         </TableRow>
                                     ))}

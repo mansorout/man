@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import RecommendationsHeader from './RecommendationsHeader';
+import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
 import Button from '@mui/material/Button';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';

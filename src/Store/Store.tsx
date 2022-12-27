@@ -28,6 +28,7 @@ import insuranceReducer from './Insurance/reducers/insurance-reducer'
 import investmentReducer from './Investment/reducers/investment-reducer'
 import globalReducer from './Global/reducer/global-reducer'
 // import investmentReducer from './Reducers/investmentReducer'
+import saveTaxReducer from './Save Tax/reducers/save-tax-reducer'
 
 
 
@@ -56,7 +57,8 @@ const rootReducer = combineReducers({
     exploreFundReducer: exploreFundReducer,
     insuranceReducer: insuranceReducer,
     investmentReducer: investmentReducer,
-    portfolioReducer: portfolioReducer
+    portfolioReducer: portfolioReducer,
+    saveTaxReducer:saveTaxReducer
 
 
 })

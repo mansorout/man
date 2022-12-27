@@ -103,8 +103,7 @@ const style = {
   errorText: {
     width: "100%",
     maxWidth: "400px",
-    height: "15px",
-    marginBottom: "10px",
+    paddingBottom:"5px"
   } as React.CSSProperties,
 };
 
@@ -199,6 +198,9 @@ export const Login = () => {
         </Typography>
 
         <TextField
+       inputProps={{
+        maxLength: 10,
+      }}
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
             "&.Mui-focused >.MuiInputLabel-root": { color: "red" },

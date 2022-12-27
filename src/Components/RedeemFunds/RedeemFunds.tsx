@@ -45,6 +45,8 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 function RedeemFunds() {
 
+    const [amount, setAmount] = useState<boolean>(true)
+
     const [bankModal, setBankModal] = useState<boolean>(false)
 
 
@@ -471,32 +473,61 @@ function RedeemFunds() {
 
                                                                 <Grid item xs={12} sx={{ paddingTop: "5px" }}>
 
-                                                                    <Box >
-                                                                        <Typography
-                                                                            sx={{
-                                                                                width: "304px",
-                                                                                height: "30px",
-                                                                                // margin: "8px 135px 0 8%",
-                                                                                fontSize: " 12px",
-                                                                                textAlign: "left",
-                                                                                color: "#8787a2"
+                                                                    {
+                                                                        amount === true ? <Box >
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    width: "304px",
+                                                                                    height: "30px",
+                                                                                    // margin: "8px 135px 0 8%",
+                                                                                    fontSize: " 12px",
+                                                                                    textAlign: "left",
+                                                                                    color: "#8787a2"
 
 
 
-                                                                            }}
-                                                                        >Minimum redemption amount ₹500 </Typography>
+                                                                                }}
+                                                                            >Minimum redemption amount ₹500 </Typography>
 
-                                                                        <Typography
-                                                                            sx={{
-                                                                                width: "304px",
-                                                                                height: "30px",
-                                                                                marginTop: "-8px",
-                                                                                fontSize: " 12px",
-                                                                                textAlign: "left",
-                                                                                color: "#8787a2"
-                                                                            }}
-                                                                        >Maximum  redemption amount ₹25,000</Typography>
-                                                                    </Box>
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    width: "304px",
+                                                                                    height: "30px",
+                                                                                    marginTop: "-8px",
+                                                                                    fontSize: " 12px",
+                                                                                    textAlign: "left",
+                                                                                    color: "#8787a2"
+                                                                                }}
+                                                                            >Maximum  redemption amount ₹25,000</Typography>
+                                                                        </Box> : <Box >
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    width: "304px",
+                                                                                    height: "30px",
+                                                                                    // margin: "8px 135px 0 8%",
+                                                                                    fontSize: " 12px",
+                                                                                    textAlign: "left",
+                                                                                    color: "#8787a2"
+
+
+
+                                                                                }}
+                                                                            >Minimum redemption Unit 750.762 </Typography>
+
+
+
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    width: "304px",
+                                                                                    height: "30px",
+                                                                                    marginTop: "-8px",
+                                                                                    fontSize: " 12px",
+                                                                                    textAlign: "left",
+                                                                                    color: "#8787a2"
+                                                                                }}
+                                                                            >Maximum  redemption Units 750.762</Typography>
+                                                                        </Box>
+                                                                    }
 
                                                                 </Grid>
 
