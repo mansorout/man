@@ -8,8 +8,9 @@ import { makeStyles } from '@mui/styles';
 // import { RootStore } from '../../Redux/Store';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
-import { setIsUserAuthenticatedAction } from '../../Store/Authentication/actions/auth-actions'
+import { setIsUserAuthenticatedAction, setUserViewProfileDataAction, setloginDataOnSuccessAction } from '../../Store/Authentication/actions/auth-actions'
 import siteConfig from '../../Utils/siteConfig'
+import { store } from '../../Store/Store'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -39,6 +40,8 @@ const Sidebar = () => {
     const handleUserLogout = () => {
         dispatch(NavToggleAction(!toggleState))
         dispatch(setIsUserAuthenticatedAction(false));
+        dispatch(setUserViewProfileDataAction({}));
+        store.dispatch(setloginDataOnSuccessAction({}));
         localStorage.clear();
         // localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, "");
     }

@@ -260,9 +260,9 @@ const EditprofileCard = () => {
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
 
   const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
-  const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
-  const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
-  const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
+  // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
+  // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
+  // const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
 
   useEffect(() => {
     getCountryList();
@@ -392,14 +392,14 @@ const EditprofileCard = () => {
 
     setFormData((prev: formDataProps) => ({
       ...prev,
-      firstname: objUserDetails?.firstname,
-      middlename: objUserDetails?.middlename,
-      lastname: objUserDetails?.lastname,
-      emailaddress: objUserDetails?.emailaddress,
-      mobilenumber: objUserDetails?.mobilenumber,
-      gender: objUserDetails?.gender,
-      addressline1: objUserDetails?.addressline1,
-      pincode: objUserDetails?.pincode,
+      firstname: objUserDetails?.firstname || "",
+      middlename: objUserDetails?.middlename || "",
+      lastname: objUserDetails?.lastname || "",
+      emailaddress: objUserDetails?.emailaddress || "",
+      mobilenumber: objUserDetails?.mobilenumber || "",
+      gender: objUserDetails?.gender || "",
+      addressline1: objUserDetails?.addressline1 || "",
+      pincode: objUserDetails?.pincode || "",
       city_id: objUserDetails?.city_id,
       state_id: objUserDetails?.state_id,
       country_id: objUserDetails?.country_id,
@@ -547,7 +547,8 @@ const EditprofileCard = () => {
         if (data?.error) {
           return;
         }
-        console.log(data, "profile saved");
+
+        console.log("profile saved");
         navigate('/viewprofile');
       })
       .catch(err => {

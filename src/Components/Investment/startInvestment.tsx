@@ -43,7 +43,7 @@ const enumType = {
 }
 
 const objLumSomeInvestmentData = Object.freeze({
-  title: "One-time Lumsome ",
+  title: "One-time lumpsum",
   cardDetails: {
     heading: "Looking for convenient investment options?",
     subHeading: "",
