@@ -1,8 +1,9 @@
-import { postData, postDataWithoutToken } from "../../../Utils/api";
+import { getData, postData, postDataWithoutToken } from "../../../Utils/api";
+import { checkExpirationOfToken } from "../../../Utils/globalFunctions";
 import siteConfig from "../../../Utils/siteConfig";
 import { addContactNumber } from "../../Action-Creators";
 import { setLoadingAction } from "../../Global/actions/global-actions";
-import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction } from "../actions/auth-actions";
+import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnSuccessAction, setTokenExpiredStatusAction, setUserViewProfileDataAction } from "../actions/auth-actions";
 // const { addError, removeError, addContactNumber } = bindActionCreators(
 //   ActionCreators,
 //   dispatch
@@ -28,6 +29,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
         }
         const response = data?.data;
         dispatch(setloginDataOnSuccessAction(response));
+        dispatch(setTokenExpiredStatusAction(false));
 
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
@@ -55,6 +57,32 @@ export const resendOtpThunk = ({ mobilenumber, type }: any) => {
       .catch((err) => {
         console.log(err);
       });
+  }
+}
+
+export const getUserProfileDataThunk = () => {
+  return (dispatch: any) => {
+    getData(
+      siteConfig.AUTHENTICATION_PROFILE_VIEW,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
+
+        if (data?.error === true) {
+          return;
+        }
+
+        dispatch(setUserViewProfileDataAction(data?.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
 
