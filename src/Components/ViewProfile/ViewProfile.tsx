@@ -179,7 +179,7 @@ function ViewProfile() {
             sm={11}
             md={10}
           >
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={13} sm={11} md={10}>
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={13} sm={11} md={10} >
               <Toolbar />
               <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
@@ -213,7 +213,7 @@ function ViewProfile() {
   
 </Grid> */}
 
-              <Grid container>
+              <Grid container >
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
 
                   <ViewProfileCard />
