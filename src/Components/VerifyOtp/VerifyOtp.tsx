@@ -72,11 +72,23 @@ export const VerifyOtp = () => {
 
 
   useEffect(() => {
-    console.log(g_loginData);
     if (g_loginData?.accesstoken) {
       localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
       localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
-      // navigate("/home");
+
+      let objUserDetail: any = g_loginData?.userInfo?.userdetails;
+
+      //for setting username
+      if (objUserDetail?.firstname && objUserDetail?.lastname) {
+        let userName: string = `${objUserDetail?.firstname} ${objUserDetail?.middlename ? objUserDetail?.middlename : ""} ${objUserDetail?.lastname}`
+        console.log(userName, "username");
+        localStorage.setItem(siteConfig.USER_NAME, userName);
+      }
+
+      if (objUserDetail?.emailaddress) {
+        localStorage.setItem(siteConfig.USER_EMAIL, objUserDetail?.emailaddress);
+      }
+
       navigate("/otpverified");
     } else {
 

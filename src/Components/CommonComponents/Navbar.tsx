@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Assets/index'
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
+import siteConfig from '../../Utils/siteConfig';
 // import { any } from '../../Redux/Store';
 
 
@@ -146,13 +147,19 @@ const style = {
 
 }
 
+const objUserDetail: any = Object.freeze({
+    userName: localStorage.getItem(siteConfig.USER_NAME),
+    userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
+})
+
 const Navbar = () => {
+
     const dispatch: any = useDispatch()
     const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)
     const [OTP, setOTP] = useState<string>("")
     const [open, setOpen] = useState<boolean>(false)
     const menuActions = React.useRef<MenuUnstyledActions>(null);
-    const [mpin, setMpin] = useState<string | null>()
+    const [mpin, setMpin] = useState<string | null>();
 
     const handleOtpChange = (otp: any) => {
         setOTP(otp)
@@ -166,13 +173,6 @@ const Navbar = () => {
             setAnchorEl(null) :
             setAnchorEl(event.currentTarget)
     };
-
-
-    // useEffect(() => {
-    //     dispatch(NavToggleAction(true))
-    //     console.log("toggleState", toggleState)
-    //     // debugger
-    // }, [toggleState])
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
@@ -189,7 +189,7 @@ const Navbar = () => {
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
                         <img src={Profile} alt="image" style={style.profile} />
-                        <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi, Rahul M.</Typography>
+                        <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi{objUserDetail?.userName ? `, ${objUserDetail?.userName}` : ``}</Typography>
                         {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
                     </Box>
                     <MenuUnstyled
@@ -202,8 +202,8 @@ const Navbar = () => {
                         <StyledMenuItem>
                             <Box style={style.menuContainer}>
                                 <img src={Profile} alt="image" style={style.profileInter} />
-                                <Typography className='mediumButtonText'>Rahul Malhotra</Typography>
-                                <Typography className="caption">rahul.malhotra@gamil.com</Typography>
+                                <Typography className='mediumButtonText'>{objUserDetail?.userName ? objUserDetail?.userName : ""}</Typography>
+                                <Typography className="caption">{objUserDetail?.userEmail ? objUserDetail?.userEmail : ""}</Typography>
                                 <Box style={style.menuButton}>
                                     <Typography style={style.menuText}>KYC PENDING</Typography>
                                     <Typography style={style.menuText2} onClick={() => navigate('/viewprofile')}>View Profile</Typography>
