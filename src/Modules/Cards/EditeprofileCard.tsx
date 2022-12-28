@@ -1,36 +1,32 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDataWithoutToken, postData, } from '../../Utils/api';
 import { Mylocationicon } from "../../Assets/index";
 import { useNavigate } from 'react-router-dom';
 import { store } from '../../Store/Store';
-import { isConstructorDeclaration, setSyntheticLeadingComments } from 'typescript';
-import { submituserdetails } from '../../Store/Reducers/action';
 import { girlicon } from '../../Assets/index'
 import { girliconicon } from '../../Assets/index'
 import { manicon } from '../../Assets/index'
-import { getValue } from '@testing-library/user-event/dist/utils';
-import clsx from "clsx";
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { height, padding } from '@mui/system'
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import { FormHelperText } from '@mui/material';
 import '../../Components/EditProfile/Editprofilescreen.css'
 import { Box, Grid, InputAdornment, Typography } from '@mui/material'
 import Paper from "@mui/material/Paper";
 import { makeStyles, createStyles } from "@mui/styles";
 import '../../Components/EditProfile/Editprofilescreen.css'
-import './style.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
-import { getData, getDataWithoutToken, postData, postDataWithoutToken } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
+import { checkExpirationOfToken } from '../../Utils/globalFunctions';
+import { array } from 'yup/lib/locale';
+import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
+import './style.css'
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
+import { getCityListThunk, getIncomeSlabListThunk, getStateListThunk } from '../../Store/Global/thunk/global-thunk';
 
 type formDataProps = {
   customer_id?: number,
@@ -153,10 +149,10 @@ const enumErrorMsg = {
 }
 
 const enumActiveGender = {
-  NOTHING: 0,
-  MALE: 1,
-  FEMALE: 2,
-  TRANS: 3
+  NOTHING: 'nothing',
+  MALE: 'male',
+  FEMALE: 'female',
+  TRANS: 'transgender'
 }
 
 const initialCountryList = [
@@ -251,7 +247,7 @@ const useStyles = makeStyles((theme: any) =>
 
 const EditprofileCard = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const dispatchLocal = useDispatch();
   const navigate = useNavigate();
 
   const [cityList, setCityList] = useState<any[]>([]);
@@ -260,29 +256,60 @@ const EditprofileCard = () => {
   const [incomeSlabList, setIncomeSlabList] = useState<any[]>([]);
   const [countryList, setCountryList] = useState<any[]>([...initialCountryList]);
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
-  const [activeGender, setActiveGender] = useState<number>(enumActiveGender.NOTHING);
+  const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
+
+  const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+  const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
+  const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
+  const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
 
   useEffect(() => {
     getCountryList();
     getStateList();
     getIncomeSlabList();
-  }, [])
+    if (g_profileData && !Object.keys(g_profileData).length) {
+      navigate("/viewProfile");
+      // store.dispatch(getUserProfileDataThunk());
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   if (g_stateList && g_stateList.length) {
+  //     setStateList(g_stateList);
+  //   }
+  // }, [g_stateList]);
+
+  // useEffect(() => {
+  //   if (g_cityList && g_cityList.length) {
+  //     setCityList(g_cityList);
+  //   }
+  // }, [g_cityList]);
+
+  // useEffect(() => {
+  //   if (g_incomeSlabList && g_incomeSlabList.length) {
+  //     setIncomeSlabList(g_incomeSlabList);
+  //   }
+  // }, [g_incomeSlabList]);
 
   useEffect(() => {
-    if (formData.emailaddress.length) {
+    if (g_profileData?.userdetails) getUserProfileData();
+  }, [g_profileData?.userdetails]);
+
+  useEffect(() => {
+    if (formData.emailaddress && formData.emailaddress.length) {
       regexValidate(emailRegex, 'emailaddress', formData.emailaddress);
     }
   }, [formData.emailaddress])
 
   useEffect(() => {
-    if (formData.mobilenumber.length) {
+    if (formData.mobilenumber && formData.mobilenumber.length) {
       regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber);
     }
   }, [formData.mobilenumber])
 
   useEffect(() => {
-    if (formData?.pincode.length) {
+    if (formData?.pincode && formData?.pincode.length) {
       handlePincodeLengthValidation();
     }
   }, [formData?.pincode]);
@@ -292,6 +319,7 @@ const EditprofileCard = () => {
   }
 
   const getStateList = () => {
+    // store.dispatch(getStateListThunk());
     getDataWithoutToken(
       siteConfig.METADATA_STATE_LIST,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
@@ -312,6 +340,7 @@ const EditprofileCard = () => {
   }
 
   const getCityList = (stateId: number) => {
+    // store.dispatch(getCityListThunk(stateId));
     getDataWithoutToken(
       siteConfig.METADATA_CITY_LIST + `?state_id=${stateId}`,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
@@ -329,10 +358,10 @@ const EditprofileCard = () => {
       .catch(err => {
         console.log(err);
       })
-    setCityList([]);
   }
 
   const getIncomeSlabList = () => {
+    // store.dispatch(getIncomeSlabListThunk());
     getDataWithoutToken(
       siteConfig.METADATA_INCOMESLAB_LIST,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
@@ -352,6 +381,36 @@ const EditprofileCard = () => {
       })
   }
 
+  const getUserProfileData = () => {
+
+    let objUserDetails = g_profileData?.userdetails;
+    if (!g_profileData?.userdetails) {
+      return;
+    }
+
+    getCityList(objUserDetails?.state_id);
+
+    setFormData((prev: formDataProps) => ({
+      ...prev,
+      firstname: objUserDetails?.firstname,
+      middlename: objUserDetails?.middlename,
+      lastname: objUserDetails?.lastname,
+      emailaddress: objUserDetails?.emailaddress,
+      mobilenumber: objUserDetails?.mobilenumber,
+      gender: objUserDetails?.gender,
+      addressline1: objUserDetails?.addressline1,
+      pincode: objUserDetails?.pincode,
+      city_id: objUserDetails?.city_id,
+      state_id: objUserDetails?.state_id,
+      country_id: objUserDetails?.country_id,
+      placeofbirth_id: objUserDetails?.placeofbirth_id,
+      incomeslab_id: objUserDetails?.incomeslab_id,
+      countryofbirth_id: 1,
+    }))
+
+    setActiveGender(objUserDetails?.gender);
+  }
+
   const handlechange = (e: any) => {
     e.preventDefault();
     let { name, value } = e.target;
@@ -367,7 +426,7 @@ const EditprofileCard = () => {
   const handlePincodeLengthValidation = () => {
     let bFlag: boolean = false;
 
-    if (formData.pincode.length < 7 && formData.pincode.length > 0) {
+    if (formData.pincode && formData.pincode.length < 7 && formData.pincode.length > 0) {
       console.log("formData.pincode < 6")
       bFlag = false;
     } else {
@@ -441,8 +500,8 @@ const EditprofileCard = () => {
   }
 
   const isAllFieldsValidated = () => {
-    let n: number = Object.values(validateInputs).filter((item: any, index: number) => item === true).length;
-    return n;
+    let arr: boolean[] = Object.values(validateInputs).filter((item: boolean) => item === true);
+    return arr ? arr.length : 0;
   }
 
   const handleSubmitForm = (e: any) => {
@@ -479,6 +538,12 @@ const EditprofileCard = () => {
       .then(res => res.json())
       .then((data) => {
         setLoading(false);
+
+        if (checkExpirationOfToken(data?.code)) {
+          dispatchLocal(setTokenExpiredStatusAction(true));
+          return;
+        }
+
         if (data?.error) {
           return;
         }

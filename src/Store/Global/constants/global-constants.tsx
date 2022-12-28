@@ -1,2 +1,6 @@
 export const SET__DISABLE_BUTTON = 'SET__DISABLE_BUTTON'
-export const SET__LOADING = 'SET__LOADING'
+export const SET__LOADING = 'SET__LOADING';
+
+export const SET_STATE_LIST = "SET_STATE_LIST"
+export const SET_CITY_LIST = "SET_CITY_LIST"
+export const SET_INCOMESLAB_LIST = "SET_INCOMESLAB_LIST"

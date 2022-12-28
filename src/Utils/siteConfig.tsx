@@ -25,7 +25,8 @@ const siteConfig = Object.freeze({
   METADATA_INCOMESLAB_LIST: "/metadata/incomeslab/list/",
   SAVETAX_CALCULATE: '/savetax/calculate',
   TERM_PURCHASE: '/insurance/term/purchase/',
-  AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/"
+  AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
+  AUTHENTICATION_PROFILE_VIEW:"/authentication/profile/view/"
 });
 
 export default siteConfig;
