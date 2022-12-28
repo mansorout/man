@@ -30,7 +30,6 @@ export const verifyOtpThunk = (verifyInput: any) => {
         const response = data?.data;
         dispatch(setloginDataOnSuccessAction(response));
         dispatch(setTokenExpiredStatusAction(false));
-
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
