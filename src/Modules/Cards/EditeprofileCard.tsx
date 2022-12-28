@@ -547,7 +547,8 @@ const EditprofileCard = () => {
         if (data?.error) {
           return;
         }
-        console.log(data, "profile saved");
+        
+        console.log("profile saved");
         navigate('/viewprofile');
       })
       .catch(err => {
