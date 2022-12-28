@@ -1,8 +1,8 @@
 
+import React, { useEffect, useRef, useState } from 'react'
 import './Home.css'
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { makeStyles } from '@mui/styles';
@@ -144,60 +144,42 @@ const style = {
 
 }
 
-function Home() {
+const useStyles: any = makeStyles((theme: Theme) => ({
+  appbar: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "64px",
+    position: "fixed",
+    zIndex: "3000",
+  },
+}));
 
-  const useStyles: any = makeStyles((theme: Theme) => ({
-    appbar: {
-      backgroundColor: "white",
-      width: "100%",
-      height: "64px",
-      position: "fixed",
-      zIndex: "3000",
-    },
-  }));
-
-
-
-
-  const [open, setOpen] = useState<boolean>(false)
-
-  const menuActions = React.useRef<MenuUnstyledActions>(null);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
-
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ?
-      setAnchorEl(null) :
-      setAnchorEl(event.currentTarget)
-  };
-
-  const classes = useStyles()
-
+const Home = () => {
+  const classes = useStyles();
   const refContainer = useRef();
+  const dispatch: any = useDispatch();
+  const navigate: any = useNavigate();
 
-
-
-  const [mpin, setMpin] = useState<string | null>()
-  const [openModal, setOpenModal] = useState<boolean>(true)
-
-  const handleLoad = () => {
-    setMpin(localStorage.getItem("mpin"));
-    setOpen(true)
-  }
+  const error: string[] = useSelector((state: any) => state.error);
+  const { openPin }: any = useSelector((state: any) => state.PinModalHome);
 
   const [OTP, setOTP] = useState<string>("")
+  const [open, setOpen] = useState<boolean>(false);
+  const [mpin, setMpin] = useState<string | null>();
+  const [openModal, setOpenModal] = useState<boolean>(true);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
 
-  const handleOtpChange = (otp: any) => {
-    setOTP(otp)
+  useEffect(() => {
+    getBannerListData();
+  }, [])
+
+  const getBannerListData = () => {
+    
   }
 
-
-  const error: string[] = useSelector((state: any) => state.error)
-  const navigate = useNavigate()
-  const dispatch: any = useDispatch()
-  const { openPin }: any = useSelector((state: any) => state.PinModalHome)
-  console.log(openPin)
-  console.log(typeof (openPin))
+  const handleOtpChange = (otp: any) => {
+    setOTP(otp);
+  }
 
   const handleModalClose = () => {
     dispatch(PinModalHomeCloseAction())
@@ -223,7 +205,6 @@ function Home() {
         }
         break;
       }
-
       default:
         break;
     }
@@ -232,7 +213,7 @@ function Home() {
   }
 
   const handleNavigationLargeCards = (navigation: string) => {
-    navigate(navigation)
+    navigate(navigation);
   }
 
   return (
@@ -243,8 +224,6 @@ function Home() {
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
-
-
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={8}>

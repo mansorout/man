@@ -29,5 +29,4 @@ export const investingCards = [
         Text: "With nil foreclosure charges you can close you loan as per your convenience",
         Img: GetLoan
     },
-   
 ]
