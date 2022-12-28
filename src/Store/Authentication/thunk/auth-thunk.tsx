@@ -77,8 +77,9 @@ export const getUserProfileDataThunk = () => {
         if (data?.error === true) {
           return;
         }
-
-        dispatch(setUserViewProfileDataAction(data?.data));
+     console.log(data?.data)
+     const response = data?.data;
+        dispatch(setUserViewProfileDataAction(response));
       })
       .catch(err => {
         console.log(err);
