@@ -21,8 +21,11 @@ import { AllHolding } from '../../Modal/AllHoldingCards'
 import { InvestButton } from '../../Modules/Buttons/InvestButton'
 import { useDispatch } from 'react-redux'
 // import { setInvestmentCardTypeAction } from '../../Store/Action-Creators'
-import { globalConstant } from '../../Utils/globalConstant'
+import { bannerSectionValues, globalConstant, investmentTypeValues, lookUpMasterKeys } from '../../Utils/globalConstant'
 import { setInvestmentCardTypeAction } from '../../Store/Investment/actions/investment-action'
+import { getLookUpIdWRTModule } from '../../Utils/globalFunctions'
+import { getData, getDataWithoutToken } from '../../Utils/api'
+import siteConfig from '../../Utils/siteConfig'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -354,9 +357,13 @@ const StartInvestment = () => {
   const dispatch = useDispatch();
 
   const cardType = location?.state?.cardType;
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
-  const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
-  const [holding, setHolding] = useState<any>([])
+
+  // @ts-ignore
+  const arrInvestmentTypeData: any[] = localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE) ? JSON.parse(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE)) : [];
+
+  const [holding, setHolding] = useState<any>([]);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
+  const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>();
   const [activeButton, setActiveButton] = useState<number>(enumType.ONE_TIME_LUMSOM);
 
   useEffect(() => {
@@ -365,16 +372,42 @@ const StartInvestment = () => {
       if (cardType === globalConstant.SIP_INVESTMENT) {
         setActiveButton(enumType.MONTHLY_INCOME);
         dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+        getinvestmentTypeListDataWrtLookupId(investmentTypeValues.SIP);
       } else if (cardType === globalConstant.LUMPSUM_INVESTMENT) {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
         dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+        getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
       }
     } else {
       setActiveButton(enumType.ONE_TIME_LUMSOM);
       dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+      getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
     }
+
   }, []);
 
+
+  const getinvestmentTypeListDataWrtLookupId = async (value: string) => {
+
+    let nLookUpId: number = await getLookUpIdWRTModule(arrInvestmentTypeData, value);
+
+    getDataWithoutToken(
+      siteConfig.METADATA_BANNER_LIST + `?bannersection_id=${nLookUpId}`,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.METADATA_API_ID
+    )
+      .then(res => res.json())
+      .then((data: any) => {
+        if (data?.error === true) {
+          return;
+        }
+
+        console.log(data?.data);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     anchorEl ?
@@ -386,7 +419,7 @@ const StartInvestment = () => {
     moreAnchorEl ?
       setMoreAnchorEl(null) :
       setMoreAnchorEl(event.currentTarget)
-  }
+  };
 
   const handleOnClick = (activeButtonType: number) => {
     setActiveButton(activeButtonType);
@@ -407,7 +440,7 @@ const StartInvestment = () => {
 
       dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
     }
-  }
+  };
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -457,7 +490,6 @@ const StartInvestment = () => {
                     </Box>
                   </Box>
                 </Grid>
-
                 <Grid container>
                   <Grid item xs={12}>
                     <Box>
@@ -494,6 +526,7 @@ type IProps = {
   type: number;
   data: any
 }
+
 const useStyles = makeStyles((theme: any) => (
   {
     button: {
@@ -552,7 +585,7 @@ const useStyles = makeStyles((theme: any) => (
     },
     lsAdvantageCardOne: {
       backgroundColor: "blue"
-      
+
     },
     lsAdvantageCardTwo: {
       backgroundColor: "blue"
@@ -591,6 +624,9 @@ const useStyles = makeStyles((theme: any) => (
 ))
 
 const MultipleInvestmentHandling = (props: IProps) => {
+  const classes = useStyles();
+  const navigate = useNavigate();
+
   const style = {
     container: {
       backgroundImage: "linear-gradient(109deg, #6c63ff 7%, #23db7b 107%)",
@@ -603,9 +639,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
     }
   }
 
-  const classes = useStyles();
 
-  const navigate = useNavigate();
+
   const handleButtonOnClick = (type: number) => {
     if (type === enumType.MONTHLY_INCOME) {
       navigate("/startAnSip");
@@ -617,20 +652,15 @@ const MultipleInvestmentHandling = (props: IProps) => {
   return (
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
-
-        <Box className={classes.firstContainer} sx={{ flexWrap: {xs: "wrap",sm:"no-wrap"}, alignItems: "center", justifyContent: { xs: "center !important", sm: "space-between !important" } }} textAlign="center" >
+        <Box className={classes.firstContainer} sx={{ flexWrap: { xs: "wrap", sm: "no-wrap" }, alignItems: "center", justifyContent: { xs: "center !important", sm: "space-between !important" } }} textAlign="center" >
           <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ color: "#3c3e42" }}>{props?.data?.title}</Typography>
           <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)} sx={{ marginTop: { xs: "2%", sm: "unset" } }}>
             <Typography component="span" className={classes.text} >Get Started Now</Typography>
           </Button>
         </Box>
-
         <Box style={{
           position: "relative", display: "flex", flexDirection: "column", alignItems: "center", height: "100vh"
-        }}
-
-        >
-
+        }} >
           {/* handle box */}
           < Box
             className={classes.borderRadius + " " + classes.boxShadow}
@@ -660,11 +690,9 @@ const MultipleInvestmentHandling = (props: IProps) => {
                 alt={"not loaded"}
                 loading="lazy"
                 className={classes.manImg}
-
               />
             </ImageListItem>
           </Box>
-
           {/* advantage */}
           <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.advantages?.heading}</Typography>
@@ -685,7 +713,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     </div>
                     <div>
                       <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{featureItem?.heading}</Typography>
-                      <Typography component="span" className={classes.typography} style={{ color: "grey",}} >{featureItem?.description}</Typography>
+                      <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{featureItem?.description}</Typography>
                     </div>
                   </Box>
                 )
@@ -695,8 +723,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
                   <Box sx={style.container} key={cardIndex} >
-                 
-                    <Box style={{ padding: "60px 30px",}}>
+
+                    <Box style={{ padding: "60px 30px", }}>
                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
@@ -723,17 +751,15 @@ const MultipleInvestmentHandling = (props: IProps) => {
               })
             }
           </Box>
-
           {/* disadvantage */}
           <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
-            
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
                 return (
                   <Box key={featureIndex} style={{ display: "flex", alignItems: "center", padding: "10px", margin: "10px" }}>
                     <div className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start" }}>
-                    
+
                       <ImageListItem>
                         <img
                           src={featureItem?.img}
@@ -802,7 +828,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
                     <Typography component="h4" className={classes.typography} style={{ color: "black", }} >{factorItem?.heading}</Typography>
                     <Typography component="span" className={classes.typography} style={{ color: "grey", }} >{factorItem?.description}</Typography>
                     <div style={{ marginTop: "10px" }}>
-                  
+
                       <Typography component="span" className={classes.typography} style={{ color: "grey", }} > {factorItem?.subDescription}</Typography>
                     </div>
                   </Box>
