@@ -74,6 +74,12 @@ function ViewProfileCard() {
 
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const [imgSrc, setImgSrc] = useState<any>("");
+    const [email,setEmail] = useState("")
+    const [mobile,setMobile] = useState("")
+     const [gender,setGender] = useState("")
+     const [placeofbirth,setPlaceofbirth] = useState("")
+ const [addressline1,setAddressline1] = useState("")
+ const [incomeslab,setIncomeslab] = useState("")
 
     function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -91,10 +97,24 @@ function ViewProfileCard() {
     console.log(imgSrc)
     const userData: any = useSelector((state: any) => state.userProfileDetails)
     const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile?.data);
-    console.log(g_viewProfileState?.userdetails?.emailaddress)
+    // console.log(g_viewProfileState?.userdetails?.emailaddress)
 
     useEffect(() => {
-        store.dispatch(getUserProfileDataThunk());
+        store.dispatch(getUserProfileDataThunk()); 
+        let email:any = localStorage.getItem("userDetails")
+         let mobile:any = localStorage.getItem("userMobile")
+        let gender:any = localStorage.getItem("userGender")
+         let placeofbirth:any = localStorage.getItem("userPlaceofbirth")
+      let addressline1:any = localStorage.getItem("userAddress")
+      let incomeslab:any = localStorage.getItem("userIncomeslab")
+        setEmail(email)
+        setMobile(mobile)
+         setGender(gender)
+        setPlaceofbirth(placeofbirth)
+      setAddressline1(addressline1)
+      setIncomeslab(incomeslab)
+        console.log(mobile)
+        console.log(email)
       },[])
     
     //   const getUserProfileData = () => {
@@ -148,7 +168,7 @@ function ViewProfileCard() {
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Mobile Number 
                             {
                                 //   ViewProfileState?.userdetails?.emailaddress
-                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.mobilenumber}</Typography> 
+                                        <Typography sx={{ fontSize: "14px" }}>{mobile}</Typography> 
                                 }
                             </Typography>
                         </ListItem>
@@ -164,7 +184,7 @@ function ViewProfileCard() {
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Email Address
                                 {
                                     // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.emailaddress}</Typography>
+                                        <Typography sx={{ fontSize: "14px" }}>{email}</Typography>
                                 }
                             </Typography>
                         </ListItem>
@@ -193,8 +213,7 @@ function ViewProfileCard() {
   {/* ViewProfileState?.userdetails */}
                             <ListItemText
                                 primary="Gender"
-                                secondary={g_viewProfileState?.userdetails?.gender !== "" ?
-                                g_viewProfileState?.userdetails?.gender : ""}
+                                secondary={gender}
                                 sx={{ marginLeft: '20px',color:"#3c3e42" }} />
                         </ListItem>
 
@@ -210,8 +229,8 @@ function ViewProfileCard() {
 
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Place of Birth
                                 {
-                                    g_viewProfileState?.userdetails?.placeofbirth !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
+                                   
+                                        <Typography sx={{ fontSize: "14px" }}>{placeofbirth}</Typography> 
                                 }
                             </Typography>
                              </ListItem>
@@ -225,8 +244,8 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Communication Address
                                         {
-                                            g_viewProfileState?.userdetails?.addressline1 !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.addressline1}</Typography> : ""
+                                          
+                                                <Typography sx={{ fontSize: "14px" }}>{addressline1}</Typography> 
                                         }
                                     </Typography>
                                 }
@@ -250,8 +269,8 @@ function ViewProfileCard() {
                                     <Typography sx={{ fontSize: "14px" }}>Income slab
                                        {
                                         // {ViewProfileState?.userdetails?.emailaddress}
-                                        g_viewProfileState?.userdetails?.incomeslab !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.incomeslab}</Typography> : ""
+                        
+                                                <Typography sx={{ fontSize: "14px" }}>{incomeslab}</Typography>
                                         }
                                     </Typography>
                                 }
