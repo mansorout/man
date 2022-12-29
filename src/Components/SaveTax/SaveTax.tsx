@@ -9,6 +9,8 @@ import Banner from './Banner'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { getDataModuleDefaultListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -111,6 +113,7 @@ const IconBox = (props: iconBoxPropsType) => {
 const SaveTax = () => {
     const classes = useStyles()
     const navigate = useNavigate();
+    const dispatch:any = useDispatch();
 
     const handleYesBtn = () => {
         navigate('/saveTax/saveTaxAmount');
@@ -120,6 +123,10 @@ const SaveTax = () => {
         navigate('/saveTax/taxCanSave');
     }
 
+    useEffect(() => {
+        dispatch(getDataModuleDefaultListApi(2))
+    }, [])
+    
     
 
     return (

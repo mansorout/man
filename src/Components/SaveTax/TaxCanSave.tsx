@@ -22,7 +22,8 @@ import { Formik, useFormik, Form, Field, ErrorMessage,useFormikContext } from 'f
 import * as Yup from 'yup';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import {getDataSaveTaxCalculateApi} from '../../Store/Save Tax/thunk/save-tax-thunk'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { type } from 'os';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -166,13 +167,18 @@ const inputDetailPopUp = () => {
 //     return null;
 //   };
 
+type moduleDefaultListObjectType = {
+    key: string;
+    value: string;
+}
+
 const TaxCanSave = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch:any = useDispatch();
     const [popState, setPopState] = useState<boolean>(false)
     const [alreadyInvesting, setAlreadyInvesting] = useState(0);
-
+    const { moduleDefaultList } = useSelector((state: any) => state.saveTaxReducer)
     const [formValues, setFormValues] = useState<any>({
         employeePF: 0,
         PPF: 0,
@@ -180,6 +186,29 @@ const TaxCanSave = () => {
         nscPost: 0,
         lifeInsurance: 0,
         taxSavinig: 0,
+    })
+
+    const [inputFeildInfo, setInputFeildInfo] = useState<moduleDefaultListObjectType>({
+        key: '',
+        value: '',
+    })
+    
+    const initialValues = {
+        employeePF: null,
+        PPF: null,
+        homeLoan: null,
+        nscPost: null,
+        lifeInsurance: null,
+        taxSavinig: null,
+    }
+
+    const moduleDefaultListkeys = Object.freeze({
+        employee_pf_info: 'employee_pf_info',
+        ppf_info: 'ppf_info',
+        homeloan_info: 'homeloan_info',
+        postoffice_info: 'postoffice_info',
+        insurance_info: 'insurance_info',
+        taxsaving_fd_info: 'taxsaving_fd_info'
     })
 
     useEffect(() => {
@@ -193,21 +222,8 @@ const TaxCanSave = () => {
         console.log("formValues",formValues)
     }, [formValues])
 
-    const handleClose = () => {
-        setPopState(false)
-    };
-
     const handleContinue = () => {
         navigate('/saveTax/saveTaxAmount')
-    }
-
-    const initialValues = {
-        employeePF: null,
-        PPF: null,
-        homeLoan: null,
-        nscPost: null,
-        lifeInsurance: null,
-        taxSavinig: null,
     }
 
 
@@ -253,6 +269,15 @@ const TaxCanSave = () => {
           setFormValues(temp)
     }
 
+    const updateFeildInfo = (inputFeildClick: string) => {
+        // for(const key in moduleDefaultList){
+
+        // }
+        moduleDefaultList.map((item:moduleDefaultListObjectType) => {
+            if(item.key === inputFeildClick) setInputFeildInfo({...item})
+        })
+        setPopState(true)
+    }
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -291,7 +316,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">Employee PF</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.employee_pf_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -312,7 +337,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">PPF</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.ppf_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -333,7 +358,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">Home Loan Principal</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.homeloan_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -354,7 +379,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">NSC / Post Office</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.postoffice_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -375,7 +400,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">Life Insurance Premium</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.insurance_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -396,7 +421,7 @@ const TaxCanSave = () => {
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
                                             <InputLabel htmlFor="outlined-adornment-password">Tax Saving FD</InputLabel>
-                                            <ErrorOutlineOutlinedIcon onClick={() => setPopState(true)} />
+                                            <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.taxsaving_fd_info)} />
                                         </Box>
                                         <TextField
                                             id="outlined-basic"
@@ -425,17 +450,19 @@ const TaxCanSave = () => {
             </Box>
 
 
-            <Dialog onClose={handleClose} open={popState} sx={{ maxWidth: { xs: '100%', sm: '350px' }, margin: 'auto' }}>
+            <Dialog onClose={() => setPopState(false)} open={popState} sx={{ maxWidth: { xs: '100%', sm: '350px' }, margin: 'auto' }}>
                 {/* <DialogTitle>Set backup account</DialogTitle> */}
                 <Box className={classes.popUpContent}>
                     <Box sx={{ display: 'flex', }}>
                         <ErrorOutlineOutlinedIcon />
-                        <Typography component='p'>Employee PF</Typography>
+                        <Typography component='p'>{inputFeildInfo.key}</Typography>
+                        {/* <Typography component='p'>Employee PF</Typography> */}
                     </Box>
-                    <Typography component='span'>Employee Provident Fund (EPF) is a retirement benefit scheme maintained by the Employees’ Provident Fund Organization (EPFO). The employee and the employer contribute to the EPF scheme on monthly basis in equal proportions of 12% of the basic salary and dearness allowance. Out of the employer’s contribution, 8.33% is directed towards the Employee Pension Scheme.</Typography>
+                    <Typography component='span'>{inputFeildInfo.value}</Typography>
+                    {/* <Typography component='span'>Employee Provident Fund (EPF) is a retirement benefit scheme maintained by the Employees’ Provident Fund Organization (EPFO). The employee and the employer contribute to the EPF scheme on monthly basis in equal proportions of 12% of the basic salary and dearness allowance. Out of the employer’s contribution, 8.33% is directed towards the Employee Pension Scheme.</Typography> */}
                 </Box>
                 <DialogActions sx={{ padding: '0px' }}>
-                    <Button onClick={handleClose} className={classes.popUpBtn}>Ok, Got It</Button>
+                    <Button onClick={() => setPopState(false)} className={classes.popUpBtn}>Ok, Got It</Button>
                 </DialogActions>
             </Dialog>
         </Box>

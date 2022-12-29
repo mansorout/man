@@ -25,6 +25,7 @@ const siteConfig = Object.freeze({
   SAVETAX_COMPARISON: "/savetax/comparison",
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
+  METADATA_MODULE_DEFAULTS_LIST :'/metadata/module/defaults/list',
   METADATA_INCOMESLAB_LIST: "/metadata/incomeslab/list/",
   SAVETAX_CALCULATE: '/savetax/calculate',
   TERM_PURCHASE: '/insurance/term/purchase/',
