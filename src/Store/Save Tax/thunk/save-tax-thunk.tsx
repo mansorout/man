@@ -1,5 +1,5 @@
 import siteConfig from '../../../Utils/siteConfig'
-import { getData, getDataWithoutToken } from '../../../Utils/api'
+import { getData, getDataWithoutToken, postData } from '../../../Utils/api'
 import { useDispatch, useSelector } from 'react-redux';
 import {
     setSaveTaxInvestmentTypeOnFailAction,
@@ -8,7 +8,9 @@ import {
     setSaveTaxCalculateOnSuccessAction,
     setSaveTaxCalculateOnFailAction,
     setModuleDefaultListSuccessAction,
-    setModuleDefaultListFailAction
+    setModuleDefaultListFailAction,
+    setSaveTaxGenrateSuccessAction,
+    setSaveTaxGenrateFailAction
 } from '../actions/save-tax-actions'
 import { checkExpirationOfToken } from '../../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../../Store/Authentication/actions/auth-actions';
@@ -87,6 +89,25 @@ export const getDataModuleDefaultListApi = (module_id: number) => {
             dispatch(setModuleDefaultListSuccessAction(data?.data))
         }).catch((error) => {
             dispatch(setModuleDefaultListFailAction(error.error))
+        })
+    }
+}
+
+export const postSaveTaxGenrateApi = (bodyData: number) => {
+    return (dispatch: any) => {
+        postData(
+            bodyData,
+            siteConfig.RECOMMENDATION_SAVETAX_GENERATE,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.SAVE_TAX_API_ID,
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setSaveTaxGenrateSuccessAction(data?.message))
+        }).catch((error) => {
+            dispatch(setSaveTaxGenrateFailAction(error.error))
         })
     }
 }

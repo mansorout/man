@@ -22,6 +22,7 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
+  RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   SAVETAX_COMPARISON: "/savetax/comparison",
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",

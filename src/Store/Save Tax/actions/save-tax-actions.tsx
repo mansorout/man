@@ -4,7 +4,9 @@ import {
    SET_SAVE_TAX_CALCULATE_SUCCESS,
    SET_SAVE_TAX_CALCULATE_FAILED,
    SET_MODULE_DEFAULT_LIST_SUCCESS,
-   SET_MODULE_DEFAULT_LIST_FAILED
+   SET_MODULE_DEFAULT_LIST_FAILED,
+   SET_SAVETAX_GENRATE_SUCCESS,
+   SET_SAVETAX_GENRATE_FAILED
    } from "../constants/save-tax-constants"
 
 export const setSaveTaxInvestmentTypeOnSuccessAction = (data: any) => {
@@ -61,4 +63,24 @@ export const setModuleDefaultListFailAction = (data: any) => {
     })
   }
 }
+
+
+export const setSaveTaxGenrateSuccessAction = (data: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_SAVETAX_GENRATE_SUCCESS,
+      payload: data
+    })
+  }
+}
+
+export const setSaveTaxGenrateFailAction = (data: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_SAVETAX_GENRATE_FAILED,
+      payload: data
+    })
+  }
+}
+
 
