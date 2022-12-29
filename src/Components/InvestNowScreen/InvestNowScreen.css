@@ -7,6 +7,14 @@
     margin-left: 0 !important;
 }
 
+/* @media (max-width:2000px){
+  .saveButtonstyle{
+     width: 90vw !important;
+  height: 11vh !important
+  }
+  /* width: 90vw !important;
+  height: 11vh !important */
+
 
 
 
@@ -124,13 +132,58 @@
      }
     
    } */
+   
+   
+
+   
+   @media  screen and (max-width:1280px){
+
+   .siplogoStyle{
+ 
+      padding-left: 170px !important;
+     
+     
+    } 
+
+   
+   }
+   
+
+   @media  screen and (max-width:1024px){
+    .closeIconStyle{
+      padding-left: 1% !important;
+    }
+    .siplogoStyle{
+ 
+      padding-left: 185px !important;
+     
+     
+    }
+    .smallmodal{
+      max-width: 42% !important;  
+     } 
+   
+   }
+   @media  screen and (max-width:920px){
+ 
+    .siplogoStyle{
+ 
+      padding-left: 162px !important;
+     
+     
+    }
+
+   
+   }
+
+
 @media screen and (max-width:820px) {
  .smallmodal{
   max-width: 51% !important;  
  } 
  .NoLockinperiod{
   color: red !important;
-  padding-left: 1% !important;
+  padding-left: 2% !important;
  }
  .iconstyle{
   padding-left: 17% !important;
@@ -141,6 +194,7 @@
  
  
 }
+
 .HelpUsStyle{
    
   padding-left: 28% !important; 
@@ -148,11 +202,14 @@
 .KnowMoreStyle{
   padding-left: 16% !important;
 }
+.ScrollBarStyle22{
+  overflow: inherit !important;
+}
 
 }
 @media screen and (max-width: 768px) {
   .smallmodal {
-    max-width: 49% !important;
+    max-width: 64% !important;
   }
   .closeIconStyle{
     
@@ -160,7 +217,7 @@
   }
   .siplogoStyle{
  
-    padding-left: 148px !important;
+    padding-left: 149px !important;
    
    
   }
@@ -171,9 +228,18 @@
    
      padding-left: 27% !important; 
     }
+    .ScrollBarStyle22{
+        overflow: inherit !important;
+    }
+    /* overflow: inherit !important; */
 
 }
 
+@media screen and (max-width:540px){
+  .siplogoStyle {
+    padding-left: 140px !important;
+}
+}
 
   @media screen and (max-width: 480px) {
     .smallmodal {
@@ -196,7 +262,7 @@
     }
     .KnowMoreStyle{
      
-      padding-left: 13% !important;
+      padding-left: 8% !important;
     }
  .withdraliconstyle{
   padding-left: 7% !important;
@@ -211,36 +277,87 @@
   color: blue !important;
   padding-top: 11px !important;
     padding-left: 20px !important;
+  
+    /* padding-left: 4% !important; */
  }
  .NoLockinperiod {
  
   padding-left: 1% !important;
   padding-top: 14% !important;
 }
-  }
+.saveButtonstyle{
+  width: 96vw !important;
+  height: 7vh !important;
+
+}
+  } 
   
+  @media screen and (max-width:540px){
+    .iconstyle {
+      padding-left: 5% !important;
+  }
+  .NoLockinperiod {
+    padding-left: 1% !important;
+}
+  }
   @media screen and (max-width: 375px) {
     .siplogoStyle{
    
-      margin-left: -29px !important;
-      padding-left: 1% !important;
+      margin-left: 0ch !important;
     }
+    .closeIconStyle{
+    
+      padding-left: 0% !important;
+    }
+    .saveButtonstyle{
+      width: 96vw !important;
+      height: 10vh !important;
+    
+    }
+    .withdraliconstyle {
+      padding-left: 11% !important;
+      padding-top: 3.5% !important;
+  }
+  .iconstyle {
+    color: blue !important;
+    padding-top: 11px !important;
+    padding-left: 3px !important;
+}
+
+/* @media screen and (max-width: 390px) {
+  .withdraliconstyle {
+    padding-left: 13% !important;
+    padding-top: 3.5% !important;
+}
+} */
+ 
+ 
+   
  
   }
-  @media screen and (max-width: 375px) {
-    
-   
-      .closeIconStyle{
-    
-        padding-left: 0% !important;
-      }
-      .siplogoStyle{
-   
-      
-        margin-left: 337% !important;
-      
-      }
+  @media screen and (max-width:280px) {
+
+    .HelpUsStyle {
+      padding-left: 16% !important;
+  }
+  .KnowMoreStyle {
+    padding-left: 1% !important;
+}
+/* .siplogoStyle {
+  margin-left: -6.167897ch !important;
+} */
+.closeIconStyle {
+  padding-left: 55% !important;
  
+  position: absolute;
+  top: 0% !important;
+}
+.saveButtonstyle {
+  /* width: 109vw !important;
+  height: 10vh !important; */
+}
+ 
+   
  
   }
   /* @media only screen and (min-width: 360px) and (max-width: 768px) {

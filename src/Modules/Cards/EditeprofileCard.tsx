@@ -591,6 +591,7 @@ const EditprofileCard = () => {
                       fullWidth
                       error={validateInputs?.firstname}
                       id='First Name'
+                  
                       sx={{
                         color: "rgba(0, 0, 0, 0.6)",
                         // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -631,7 +632,7 @@ const EditprofileCard = () => {
                     color: "rgba(0, 0, 0, 0.6)",
                     //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px",
-                    fontWeight: "normal",
+                    fontWeight: "normal" ,
                   }}
                   error={validateInputs?.lastname}
                   helperText={validateInputs?.lastname ? enumErrorMsg.PLEASE_ENTER_LAST_NAME : ""}
@@ -640,7 +641,7 @@ const EditprofileCard = () => {
                 <TextField
                   label="Mobile Number"
                   onBlur={handleBlur}
-                  type="number"
+                  type="text"
                   name="mobilenumber"
                   value={formData?.mobilenumber}
                   onChange={handlechange}
@@ -695,9 +696,9 @@ const EditprofileCard = () => {
                           top: "-1px",
                           background: "#fff"
                         }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
                         value={formData?.countryofbirth_id}
                         onChange={(val: any) => {
                           customSelectBoxOnChange("countryofbirth_id", val)
@@ -722,9 +723,9 @@ const EditprofileCard = () => {
                           top: "-1px",
                           background: "#fff"
                         }}
-                        selectSX={{
-                          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
                         value={formData?.placeofbirth_id}
                         onChange={(val: any) => {
                           customSelectBoxOnChange("placeofbirth_id", val)
@@ -873,7 +874,7 @@ const EditprofileCard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="end">
-                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%" }} />
+                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%",cursor:"pointer" }} />
                           </InputAdornment>),
                       }}>
                     </TextField>
@@ -892,9 +893,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.state_id}
                       onChange={(val: any) => {
                         getCityList(val);
@@ -919,9 +920,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.city_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("city_id", val)
@@ -975,9 +976,9 @@ const EditprofileCard = () => {
                         top: "-1px",
                         background: "#fff"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.country_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("country_id", val)
@@ -1002,9 +1003,9 @@ const EditprofileCard = () => {
                         background: "#fff",
                         // width: "100%"
                       }}
-                      selectSX={{
-                        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      }}
+                      // selectSX={{
+                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                      // }}
                       value={formData?.incomeslab_id}
                       onChange={(val: any) => {
                         customSelectBoxOnChange("incomeslab_id", val)
