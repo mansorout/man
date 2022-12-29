@@ -329,6 +329,7 @@ const FindInsurance2 = () => {
     const refContainer = useRef();
     const [insuranceTermCondition, setInsuranceTermCondition] = useState<boolean>(false)
     const { insuranceTermConditionState } = useSelector((state: any) => state.InsuranceTermConditionReducer);
+   
 
 
     useEffect(() => {

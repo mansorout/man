@@ -21,7 +21,10 @@ import './style.css'
 import React, { useEffect, useRef, useState } from 'react'
 import { height, padding } from '@mui/system'
 import { Console } from 'console'
-import { useSelector } from 'react-redux'
+
+import { useSelector, useDispatch } from 'react-redux';
+import { store } from '../../Store/Store'
+import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk'
 
 function ViewProfileCard() {
 
@@ -66,19 +69,17 @@ function ViewProfileCard() {
             backgroundColor: "rgba(100, 219, 255, 0.3)",
             width: "20px",
             height: "20px",
-
             padding: "10px",
-
-            // width: '80px',
-            // height: '80px',
-            // margin: '0 54px 22px 34px',
-            // padding: '20px',
-            // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
-            // border: 'solid 1px rgba(0, 0, 0, 0.08)',
         } as React.CSSProperties,}
 
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const [imgSrc, setImgSrc] = useState<any>("");
+    const [email,setEmail] = useState("")
+    const [mobile,setMobile] = useState("")
+     const [gender,setGender] = useState("")
+     const [placeofbirth,setPlaceofbirth] = useState("")
+ const [addressline1,setAddressline1] = useState("")
+ const [incomeslab,setIncomeslab] = useState("")
 
     function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -95,11 +96,31 @@ function ViewProfileCard() {
     const [useFormData, setUserFormData] = useState({})
     console.log(imgSrc)
     const userData: any = useSelector((state: any) => state.userProfileDetails)
-    console.log(userData?.formData?.mobilenumber)
+    const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+    // console.log(g_viewProfileState?.userdetails?.emailaddress)
 
-    // useEffect(()=>{
-    //     setUserFormData(userData)
-    // },[useFormData])
+    useEffect(() => {
+        store.dispatch(getUserProfileDataThunk()); 
+        let email:any = localStorage.getItem("userDetails")
+         let mobile:any = localStorage.getItem("userMobile")
+        let gender:any = localStorage.getItem("userGender")
+         let placeofbirth:any = localStorage.getItem("userPlaceofbirth")
+      let addressline1:any = localStorage.getItem("userAddress")
+      let incomeslab:any = localStorage.getItem("userIncomeslab")
+        setEmail(email)
+        setMobile(mobile)
+         setGender(gender)
+        setPlaceofbirth(placeofbirth)
+      setAddressline1(addressline1)
+      setIncomeslab(incomeslab)
+        console.log(mobile)
+        console.log(email)
+      },[])
+    
+    //   const getUserProfileData = () => {
+    //     store.dispatch(getUserProfileDataThunk());
+        
+    //   }
 
 
 
@@ -146,8 +167,8 @@ function ViewProfileCard() {
                             </ListItemAvatar>
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Mobile Number 
                             {
-                                    userData?.formData?.mobilenumber !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.mobilenumber}</Typography> : ""
+                                //   ViewProfileState?.userdetails?.emailaddress
+                                        <Typography sx={{ fontSize: "14px" }}>{mobile}</Typography> 
                                 }
                             </Typography>
                         </ListItem>
@@ -162,8 +183,8 @@ function ViewProfileCard() {
                                 />  </ListItemAvatar>
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Email Address
                                 {
-                                    userData?.formData?.emailaddress !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.emailaddress}</Typography> : ""
+                                    // ViewProfileState?.userdetails?.emailaddress !== "" ?
+                                        <Typography sx={{ fontSize: "14px" }}>{email}</Typography>
                                 }
                             </Typography>
                         </ListItem>
@@ -189,11 +210,10 @@ function ViewProfileCard() {
                                 src={wclogo}
                                 style={style.ca}
                                 sx={{ marginLeft: '25px' }} />
-
+  {/* ViewProfileState?.userdetails */}
                             <ListItemText
                                 primary="Gender"
-                                secondary={userData?.formData?.gender !== "" ?
-                                    userData?.formData?.gender : ""}
+                                secondary={gender}
                                 sx={{ marginLeft: '20px',color:"#3c3e42" }} />
                         </ListItem>
 
@@ -209,8 +229,8 @@ function ViewProfileCard() {
 
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Place of Birth
                                 {
-                                    userData?.formData?.CountrySecond !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.CountrySecond}</Typography> : ""
+                                   
+                                        <Typography sx={{ fontSize: "14px" }}>{placeofbirth}</Typography> 
                                 }
                             </Typography>
                              </ListItem>
@@ -224,8 +244,8 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Communication Address
                                         {
-                                            userData?.formData?.addressline1 !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.addressline1}</Typography> : ""
+                                          
+                                                <Typography sx={{ fontSize: "14px" }}>{addressline1}</Typography> 
                                         }
                                     </Typography>
                                 }
@@ -248,8 +268,9 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px" }}>Income slab
                                        {
-                                            userData?.formData?.IncomeSlab !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.IncomeSlab}</Typography> : ""
+                                        // {ViewProfileState?.userdetails?.emailaddress}
+                        
+                                                <Typography sx={{ fontSize: "14px" }}>{incomeslab}</Typography>
                                         }
                                     </Typography>
                                 }

@@ -30,7 +30,6 @@ export const verifyOtpThunk = (verifyInput: any) => {
         const response = data?.data;
         dispatch(setloginDataOnSuccessAction(response));
         dispatch(setTokenExpiredStatusAction(false));
-
       }).catch(err => {
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
@@ -77,8 +76,17 @@ export const getUserProfileDataThunk = () => {
         if (data?.error === true) {
           return;
         }
-
-        dispatch(setUserViewProfileDataAction(data?.data));
+     console.log(data?.data)
+     const response = data?.data;
+     console.log(response?.userdetails)
+    //  localStorage.setItem("accesstoken", response?.accesstoken)
+     localStorage.setItem("userDetails",response?.userdetails?.emailaddress)
+     localStorage.setItem("userMobile",response?.userdetails?.mobilenumber)
+     localStorage.setItem("userGender",response.userdetails?.gender)
+    localStorage.setItem("userPlaceofbirth",response?.userdetails?.placeofbirth)
+     localStorage.setItem("userAddress",response?.userdetails?.addressline1)
+     localStorage.setItem("userIncomeslab",response?.userdetails?.incomeslab)
+        dispatch(setUserViewProfileDataAction(response));
       })
       .catch(err => {
         console.log(err);
