@@ -150,6 +150,7 @@ export const Login = () => {
       type: "auth",
     };
     setShouldButtonDisable(true);
+    
     postDataWithoutToken(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
