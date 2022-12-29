@@ -35,6 +35,7 @@ const siteConfig = Object.freeze({
   //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
+  METADATA_MODULE_DEFAULTS_LIST :'/metadata/module/defaults/list',
   METADATA_INCOMESLAB_LIST: "/metadata/incomeslab/list/",
   METADATA_LOOKUP_LIST: "/metadata/lookup/list/",
   METADATA_BANNER_LIST: "/metadata/banner/list/",

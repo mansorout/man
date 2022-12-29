@@ -1,12 +1,17 @@
 import siteConfig from '../../../Utils/siteConfig'
-import { getData } from '../../../Utils/api'
+import { getData, getDataWithoutToken } from '../../../Utils/api'
+import { useDispatch, useSelector } from 'react-redux';
 import {
     setSaveTaxInvestmentTypeOnFailAction,
     setSaveTaxInvestmentTypeOnSuccessAction,
 
     setSaveTaxCalculateOnSuccessAction,
-    setSaveTaxCalculateOnFailAction
+    setSaveTaxCalculateOnFailAction,
+    setModuleDefaultListSuccessAction,
+    setModuleDefaultListFailAction
 } from '../actions/save-tax-actions'
+import { checkExpirationOfToken } from '../../../Utils/globalFunctions'
+import { setTokenExpiredStatusAction } from '../../../Store/Authentication/actions/auth-actions';
 
 export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
     return (dispatch: any) => {
@@ -15,10 +20,15 @@ export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.SAVE_TAX_API_ID,
             // `/?amount=${investmentAmount}`,
-        ).then((response) => response.json()).then((res:any) => {
-            dispatch(setSaveTaxInvestmentTypeOnSuccessAction(res?.data))
+        ).then((res) => res.json()).then((data:any) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+
+            dispatch(setSaveTaxInvestmentTypeOnSuccessAction(data?.data))
         }).catch((error) => {
-            setSaveTaxInvestmentTypeOnFailAction(error.error)
+            dispatch(setSaveTaxInvestmentTypeOnFailAction(error.error))
         })
 
 
@@ -28,10 +38,10 @@ export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
         //         dispatch(setSaveTaxInvestmentTypeOnFailAction({}));
         //         return;
         //     }
-        //     let response = data?.data;
+        //     let res = data?.data;
 
 
-        //     localStorage.setItem("accesstoken", response?.accesstoken);
+        //     localStorage.setItem("accesstoken", res?.accesstoken);
 
         //     dispatch(setSaveTaxInvestmentTypeOnSuccessAction(data));
         // }).catch(err => {
@@ -50,10 +60,33 @@ export const getDataSaveTaxCalculateApi = (data: any) => {
             siteConfig.SAVETAX_CALCULATE + `/?employeepf=${data.employeePF}&ppf=${data.PPF}&homeloanprincipal=${data.homeLoan}&postoffice=${data.nscPost}&insurancepremium=${data.lifeInsurance}&taxsavingfd=${data.taxSavinig}`,
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.SAVE_TAX_API_ID,
-        ).then((response) => response.json()).then((res) => {
-            dispatch(setSaveTaxCalculateOnSuccessAction(res?.data))
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setSaveTaxCalculateOnSuccessAction(data?.data))
         }).catch((error) => {
-            setSaveTaxCalculateOnFailAction(error.error)
+            dispatch(setSaveTaxCalculateOnFailAction(error.error))
+        })
+    }
+}
+
+
+export const getDataModuleDefaultListApi = (module_id: number) => {
+    return (dispatch: any) => {
+        getDataWithoutToken(
+            siteConfig.METADATA_MODULE_DEFAULTS_LIST + `/?module_id=${module_id}`,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.METADATA_API_ID,
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setModuleDefaultListSuccessAction(data?.data))
+        }).catch((error) => {
+            dispatch(setModuleDefaultListFailAction(error.error))
         })
     }
 }

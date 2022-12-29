@@ -409,11 +409,11 @@ const RecommendationsULIP = () => {
                             </Box>
                         </Box>
 
-                        <Box className={classes.exploreOtherOptionsBtn}>
+                        {/* <Box className={classes.exploreOtherOptionsBtn}>
                             <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
                                 Explore other options
                             </Button>
-                        </Box>
+                        </Box> */}
 
                         <FooterWithBtn
                             btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}

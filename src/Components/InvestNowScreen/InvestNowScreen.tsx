@@ -1,8 +1,8 @@
 import './InvestNowScreen.css'
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link'
-
-import { Box, styled } from '@mui/system'
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { Box, fontSize, styled } from '@mui/system'
 import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -181,7 +181,10 @@ function InvestNowScreen(props: IProps) {
 
     appBar: {
       backgroundColor: "white",
-    }
+    },
+    rupeesIcon:{
+      fontSize: '16px !important',
+  }
   }
 
   const [open, setOpen] = useState<boolean>(false)
@@ -252,7 +255,7 @@ function InvestNowScreen(props: IProps) {
           >
 
 
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10} className="ScrollBarStyle22">
               <Toolbar />
 
               <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
@@ -304,7 +307,11 @@ function InvestNowScreen(props: IProps) {
                               label="I want to invest"
                               name="middleName"
                               fullWidth
-                              placeholder="₹1,00,000"
+                              InputProps={{
+                              
+                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon}   sx={{fontSize:"16px"}} />,
+                            }}
+                              placeholder="1,00,000"
                               sx={{
                                 margin: " -55px 0 20px",
                                 boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",

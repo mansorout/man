@@ -20,7 +20,7 @@ import Navbar from '../CommonComponents/Navbar';
 import { checkExpirationOfToken } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { getData } from '../../Utils/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTokenExpiredStatusAction, setUserViewProfileDataAction } from '../../Store/Authentication/actions/auth-actions';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
@@ -151,8 +151,12 @@ const ViewProfile = () => {
   }, [])
 
   const getUserProfileData = () => {
-    store.dispatch(getUserProfileDataThunk());
+    // store.dispatch(getUserProfileDataThunk());
+    
   }
+
+  // const  {insuranceTermConditionState}:any = useSelector((state: any) => state.setUserViewProfileDataAction);
+  // console.log(insuranceTermConditionState)
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
