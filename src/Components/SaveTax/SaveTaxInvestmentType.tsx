@@ -23,8 +23,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import {getDataSaveTaxInvestmentType} from '../../Store/Save Tax/thunk/save-tax-thunk'
+import {
+    getDataSaveTaxInvestmentType,
+    postSaveTaxGenrateApi
+} from '../../Store/Save Tax/thunk/save-tax-thunk'
 import siteConfig from '../../Utils/siteConfig'
+import { bannerSectionValues, lookUpMasterKeys } from '../../Utils/globalConstant';
+import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -132,7 +137,17 @@ const SaveTaxInvestmentType = () => {
 
     
     useEffect(() => {
+        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
+        // const lookUpSaveTaxObj = bannersectionArr.filter((item:any) => item.value === bannerSectionValues.SAVE_TAX && item)
+        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+
+        const saveTavGenrateBody = {
+            investmenttype_id: lookUPId,
+            amount: parseInt(investmentAmount),
+        }
         dispatch(getDataSaveTaxInvestmentType(investmentAmount))
+
+        dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
     }, [])
 
     useEffect(() => {
@@ -143,7 +158,6 @@ const SaveTaxInvestmentType = () => {
             index++
         }
         setRows(tempArr);
-        console.log("checsddsfdsfdfsk :", tempArr, rows)
     }, [saveTaxInvestmentTypeData])
     
 
@@ -152,7 +166,8 @@ const SaveTaxInvestmentType = () => {
         setInvestmentRecommendation((event.target as HTMLInputElement).value);
     };
     const handleShowRecommendation = () => {
-        investmentRecommendation === 'ulip' ? navigate('/saveTax/RecommendationsULIP') : navigate('/saveTax/RecommendationsELSS')
+        investmentRecommendation === 'ulip' && navigate('/saveTax/RecommendationsULIP') 
+        investmentRecommendation === 'elss' && navigate('/saveTax/RecommendationsELSS')
     }
 
     return (

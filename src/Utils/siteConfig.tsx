@@ -44,8 +44,6 @@ const siteConfig = Object.freeze({
   SAVETAX_COMPARISON: "/savetax/comparison",
   SAVETAX_CALCULATE: '/savetax/calculate',
   TERM_PURCHASE: '/insurance/term/purchase/',
-  // AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
-  // AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
 
   // Kyc update 
   AUTHENTICATION_PAN_VERIFICATION: "/authentication/pan/verification/",
@@ -55,7 +53,9 @@ const siteConfig = Object.freeze({
 
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
-  RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/"
+  RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
+  RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
+  RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
 });
 
 export default siteConfig;

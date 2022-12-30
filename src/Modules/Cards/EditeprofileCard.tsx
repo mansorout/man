@@ -158,7 +158,7 @@ const enumActiveGender = {
 const initialCountryList = [
   {
     country_id: 1,
-    country: "India"
+    country: "INDIA"
   }
 ]
 
@@ -505,6 +505,7 @@ const EditprofileCard = () => {
   }
 
   const handleSubmitForm = (e: any) => {
+ 
     e.preventDefault();
     e.stopPropagation();
     if (throwErrorOnWrongField()) {
@@ -809,7 +810,7 @@ const EditprofileCard = () => {
                           alt="smallarrow Logo"
                           style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "-3px" }}
                         />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>Male</Typography>
+                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Male</Typography>
                       </Button>
                       <Button
                         name="gender"
@@ -833,7 +834,7 @@ const EditprofileCard = () => {
                         sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}
                       >
                         <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>  Female</Typography>
+                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
                       </Button>
                       <Button
                         id={"transgender"}
@@ -851,7 +852,7 @@ const EditprofileCard = () => {
                         }}
                         variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
                         <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }}>Transgender</Typography>
+                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Transgender</Typography>
                       </Button>
                       {validateInputs?.gender ?
                         <Typography component='span' sx={{ color: "red" }}>
@@ -939,7 +940,6 @@ const EditprofileCard = () => {
                         id='Pincode'
                         label="Pincode"
                         name="pincode"
-                        type="number"
                         onBlur={handleBlur}
                         value={formData.pincode}
                         onChange={(e) => {
@@ -1038,4 +1038,8 @@ const EditprofileCard = () => {
 }
 
 export default EditprofileCard
+
+function g_viewProfilecommon() {
+  throw new Error('Function not implemented.');
+}
 
