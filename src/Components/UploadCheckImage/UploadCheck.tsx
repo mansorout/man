@@ -60,6 +60,11 @@ import { boolean } from "yup";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import siteConfig from "../../Utils/siteConfig";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { postData } from "../../Utils/api";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -81,6 +86,8 @@ function UploadCheck() {
 
 
   const dispatch = useDispatch();
+  const dispatchLocal = useDispatch();
+  const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
   const [imagePreviewToLast, setImagePreviewToLast] = useState<any>();
   const [base64Image, setCanvasImageToBase64] = useState<any>("");
   const [imgSrc, setImgSrc] = useState<any>("");
@@ -187,7 +194,39 @@ function UploadCheck() {
   const sendToApi = () => {
 
     setCanvasImageToBase64(dataURL)
-    store.dispatch(uploadcheque({ chequedata: base64Image }));
+    // store.dispatch(uploadcheque({ chequedata: base64Image }));
+    const objBody ={
+      cheque:base64Image,
+    }
+
+    setShouldButtonDisable(true)
+        postData(
+            objBody,
+            siteConfig.AUTHENTICATION_CHEQUE_ADD,
+            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then((data) => {
+                setShouldButtonDisable(false)
+
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatchLocal(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error) {
+                    return;
+                }
+
+                console.log("profile saved");
+                navigate('/viewprofile');
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
   };
 
 
@@ -312,6 +351,7 @@ function UploadCheck() {
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
+      <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
       <Box sx={style.main}>
         <Grid
           container
