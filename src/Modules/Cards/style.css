@@ -19,6 +19,7 @@
     margin-right: -9px;
     flex-direction: inherit;
 }
+
 /* @media (max-width:912px) {
     .thirdboxstyle{
         
@@ -56,59 +57,69 @@
         margin: 8px !important;
         width: 242px !important;
         height: 16px !important;
-    }  
-    .buttontransgender{
-        width: 36% !important;
-         /* margin: 10px !important; */
-         padding-left: 17px !important;
-         min-width: 43% !important;
-     }
-     .malestyle{
-        width: 20px !important;
-        min-width: 43% !important;
-        
-    }
-    .femalestyle{
-        
-        margin: -4px!important;
-        min-width: 43% !important;
-        
-    }
-    .css-1o59boh .MuiTextField-root {
-        width: 100% !important;
-        /* min-width: 43% !important; */
-    }
-
-    .IpadStyle {
-        overflow: inherit;
     }
 
 
 
-    .paddingstyle {
+.malestyle {
+    min-width: 28% !important;
+    padding-left: 0px !important;
+    margin-left: -10px !important;
 
-        margin-left: -16px !important;
-        width: 37.5vw !important;
-    }
+}
 
-    .paddingstyle_style {
-        margin-left: 49px !important;
-        width: 42vw !important;
-    }
+.buttontransgender {
+    width: 33% !important;
+    margin: 12px !important;
+}
 
-    .graphUlipStyle {
+.femalestyle {
+    width: 29% !important;
+    margin: 0px !important;
+    min-width: 22% !important;
+    font-size: 5px !important;
+}
 
-        width: 96% !important;
-    }
+.fontstyle {
+    font-size: 10px !important;
+}
 
-    .investWholeStyle {
-        margin-left: 7% !important;
-    }
-    .paddingviewprofilestyle {
-        margin-left: 0% !important;
-        margin-right: -2% !important;
-        padding-left: 0% !important;
-    }
+.css-1o59boh .MuiTextField-root {
+    width: 100% !important;
+    /* min-width: 43% !important; */
+}
+
+.IpadStyle {
+    overflow: inherit;
+}
+
+
+
+.paddingstyle {
+
+    margin-left: -16px !important;
+    width: 37.5vw !important;
+}
+
+.paddingstyle_style {
+    margin-left: 49px !important;
+    width: 42vw !important;
+}
+
+.graphUlipStyle {
+
+    width: 96% !important;
+}
+
+.investWholeStyle {
+    margin-left: 7% !important;
+}
+
+.paddingviewprofilestyle {
+    margin-left: 0% !important;
+    margin-right: -2% !important;
+    padding-left: 0% !important;
+}
 
 
 }
@@ -134,7 +145,7 @@
 
 
 
-    .css-q98jr-MuiTypography-root {  
+    .css-q98jr-MuiTypography-root {
         font-size: 0.7rem !important;
     }
 
@@ -144,14 +155,27 @@
 
     }
 
+    .malestyle {
+        min-width: 28% !important;
+        padding-left: 0px !important;
+        margin-left: -10px !important;
+
+    }
+
     .buttontransgender {
-        width: 40% !important;
-        margin: 8px !important
+        width: 33% !important;
+        margin: 7px !important;
     }
 
     .femalestyle {
-        width: 30% !important;
-        margin: -4px !important;
+        width: 29% !important;
+        margin: -6px !important;
+        min-width: 22% !important;
+        font-size: 5px !important;
+    }
+
+    .fontstyle {
+        font-size: 10px !important;
     }
 
     .css-skdto5 {
@@ -189,11 +213,13 @@
         width: 42vw !important;
         border-radius: 11px !important;
     }
+
     .paddingviewprofilestyle {
         margin-left: 0% !important;
         margin-right: -2% !important;
         padding-left: 2% !important;
     }
+
 
 }
 
@@ -220,13 +246,14 @@
 
     .buttontransgender {
         width: 40% !important;
-        margin: 8px !important
+        margin: 5px !important;
     }
 
     .paddingviewprofilestyle {
         padding-left: 1% !important;
-        border-radius: 33px !important;
-        width: 93% !important;
+        border-radius: 30px !important;
+        width: 90% !important;
+        margin-left: 6px !important;
     }
 
     .paddingstyle {
@@ -237,8 +264,8 @@
     }
 
     .paddingstyle_style {
-        margin-left: -23px!important;
-        width: 93vw!important;
+        margin-left: -23px !important;
+        width: 93vw !important;
         border-radius: 11px !important;
         margin-top: 3% !important;
     }
@@ -275,8 +302,9 @@
 
 
         padding-left: 1% !important;
-        border-radius: 33px !important;
-        width: 96% !important;
+        border-radius: 30px !important;
+        width: 94% !important;
+        margin-left: 6px !important;
     }
 
     .buttoncenterstyle {
@@ -300,6 +328,21 @@
     .iconstyle {
         padding-left: 43px !important;
         padding-top: 5px !important;
+    }
+
+    .femalestyle {
+        /* margin: -4px!important; */
+        min-width: 30% !important;
+    }
+
+}
+
+@media (max-width:280px) {
+    .paddingviewprofilestyle {
+        /* padding-left: 1% !important;
+        border-radius: 30spx !important; */
+        width: 86% !important;
+        /* margin-left: 6px !important; */
     }
 
 }
