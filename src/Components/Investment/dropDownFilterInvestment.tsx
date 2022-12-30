@@ -612,6 +612,10 @@ const DropDownFilterInvestment = () => {
                         backgroundColor: "#23db7b",
                         borderRadius: "0",
                         padding: "15px 46px 14px",
+                        ml: 1,
+                        "&.MuiButtonBase-root:hover": {
+                            bgcolor: '#23db7b'
+                        },
                       }}
                       autoFocus
                     >

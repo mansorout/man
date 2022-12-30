@@ -204,9 +204,9 @@ const style = {
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
     // marginTop: "-60px",
-    marginLeft: "4%",
+    marginLeft: "0%",
     width: "100%",
-    maxWidth: "400px",
+    // maxWidth: "400px",
     marginBottom: "-4%"
 
   },
@@ -1015,7 +1015,7 @@ const EditprofileCard = () => {
                       formHelperText={!formData?.incomeslab_id ? (validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : "") : ""}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} md={12}>
                     <Button
                       variant="contained"
                       style={style.buttonbtn}

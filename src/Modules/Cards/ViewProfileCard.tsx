@@ -187,8 +187,8 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Date of Birth</Typography>
                                 }
-                                secondary={userData?.formData?.dateofbirth !== "" ?
-                                    <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.dateofbirth}</Typography> : ""}
+                                secondary={
+                                    <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.dateofbirth}</Typography> }
 
                             />
                             <Avatar
@@ -199,8 +199,8 @@ function ViewProfileCard() {
   {/* ViewProfileState?.userdetails */}
                             <ListItemText
                                 primary="Gender"
-                                secondary={g_viewProfileState?.userdetails?.gender !== "" ?
-                                g_viewProfileState?.userdetails?.gender : ""}
+                                secondary={
+                                g_viewProfileState?.userdetails?.gender }
                                 sx={{ marginLeft: '20px',color:"#3c3e42" }} />
                         </ListItem>
 
@@ -216,8 +216,8 @@ function ViewProfileCard() {
 
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Place of Birth
                                 {
-                                    g_viewProfileState?.userdetails?.placeofbirth !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
+                                    
+                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> 
                                 }
                             </Typography>
                              </ListItem>
@@ -231,8 +231,8 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Communication Address
                                         {
-                                            g_viewProfileState?.userdetails?.addressline1 !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.addressline1}</Typography> : ""
+                                        
+                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.addressline1}</Typography>
                                         }
                                     </Typography>
                                 }
@@ -240,7 +240,7 @@ function ViewProfileCard() {
                             />
                         </ListItem>
 
-
+                        {/* 7065246078 */}
 
                         <ListItem>
                             <ListItemAvatar>
@@ -256,8 +256,8 @@ function ViewProfileCard() {
                                     <Typography sx={{ fontSize: "14px" }}>Income slab
                                        {
                                         // {ViewProfileState?.userdetails?.emailaddress}
-                                        g_viewProfileState?.userdetails?.incomeslab !== "" ?
-                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.incomeslab}</Typography> : ""
+                                
+                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.incomeslab}</Typography> 
                                         }
                                     </Typography>
                                 }
