@@ -50,6 +50,7 @@ const siteConfig = Object.freeze({
   // Kyc update 
   AUTHENTICATION_PAN_VERIFICATION: "/authentication/pan/verification/",
   AUTHENTICATION_NOMINEE_ADD: "/authentication/nominee/add/",
+  AUTHENTICATION_BANK_ADD: "/authentication/bank/add/",
 
 
   //Recommendations
