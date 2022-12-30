@@ -15,6 +15,7 @@ const globalReducer = (state = initialState, action: any) => {
       break;
     }
     case SET__LOADING: {
+      console.log(action?.payload, "SET__LOADING")
       state.loading = action?.payload;
       break;
     }

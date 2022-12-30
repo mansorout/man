@@ -44,4 +44,19 @@ export const customParseJSON = (value: string | null) => {
   } catch (error) {
     return value;
   }
-} 
+}
+
+export const modifyName = (strName: string, cutNameUpto: number) => {
+  try {
+    let strNewName: string | null = strName.split("")?.splice(0, cutNameUpto)?.join("") + "...";
+    if (strNewName) {
+      return ", " + strNewName;
+    }
+
+    return "";
+  } catch (err) {
+    console.log(err)
+    return "";
+  }
+
+}

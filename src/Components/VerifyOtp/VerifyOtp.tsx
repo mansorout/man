@@ -2,7 +2,7 @@
 import { Box, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import OtpInput from "react-otp-input";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { VerifyOtpLogo, SBICON, commonlogo, cross, SBIcon } from "../../Assets";
 import { OtpVerifyButton } from "../../Modules/Buttons/OtpVerifyButton";
 import "../VerifyOtp/VerifyOtp.css";
@@ -61,22 +61,41 @@ export const VerifyOtp = () => {
 
   const error: string[] = useSelector((state: any) => state.error);
   // const number: string = useSelector((state: any) => state.contact);
-  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login?.data);
+  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login);
   const g_loading: boolean = useSelector((state: any) => state?.globalReducer?.loading);
   const number: string | null = localStorage.getItem(siteConfig.CONTACT_NUMBER);
 
   const [OTP, setOTP] = useState<string>("");
   const [minutes, setMinutes] = useState<number>(1);
   const [seconds, setSeconds] = useState<number>(30);
+
+  const loadingRef = useRef(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  loadingRef.current = loading
+  const [errorLocal, setErrorLocal] = useState<string>("");
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
+  let intervalRef: any = useRef<number>(0);
 
   useEffect(() => {
-    if (g_loginData?.accesstoken) {
-      localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, g_loginData?.accesstoken);
-      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(g_loginData?.userInfo));
+    if (g_loading) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+  }, [g_loading])
 
-      let objUserDetail: any = g_loginData?.userInfo?.userdetails;
+  useEffect(() => {
+    console.log(loadingRef.current, "loading")
+  }, [loadingRef.current])
+
+  useEffect(() => {
+    let { data, error }: { data: any, error: string } = g_loginData;
+    if (data?.accesstoken) {
+      localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, data?.accesstoken);
+      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(data?.userInfo));
+
+      let objUserDetail: any = data?.userInfo?.userdetails;
 
       //for setting username
       if (objUserDetail?.firstname && objUserDetail?.lastname) {
@@ -91,19 +110,25 @@ export const VerifyOtp = () => {
 
       navigate("/otpverified");
     } else {
-
+      if (error) {
+        setSeconds(0);
+        setMinutes(0);
+        setErrorLocal(error);
+        clearInterval(intervalRef.current)
+      }
     }
   }, [g_loginData]);
 
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
       }
 
       if (seconds === 0) {
         if (minutes === 0) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
         } else {
           setSeconds(59);
           setMinutes(minutes - 1);
@@ -112,7 +137,7 @@ export const VerifyOtp = () => {
     }, 1000);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
     };
   }, [seconds]);
 
@@ -134,7 +159,15 @@ export const VerifyOtp = () => {
     <>
       <Box style={style.background}>
         <NavigationBar />
-        <SprintMoneyLoader loadingStatus={g_loading} />
+        <SprintMoneyLoader loadingStatus={loadingRef.current} />
+        {/* {
+          loadingRef.current ?
+            <>
+            </>
+            : <>
+              <SprintMoneyLoader loadingStatus={false} />
+            </>
+        } */}
         <Box style={style.container}>
           <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
           <Typography mb={1} variant="h1" align="center">
@@ -173,6 +206,12 @@ export const VerifyOtp = () => {
             }}
           />
           <OtpVerifyButton disabled={isShowEnableVerifyBtn} otp={OTP} number={number} />
+          {errorLocal ?
+            <>
+              <Typography component="span" sx={{ color: "red", fontSize: "14px" }}>
+                {errorLocal}
+              </Typography>
+            </> : null}
           {seconds > 0 || minutes > 0 ? (
             <Typography sx={{ fontSize: "14px", color: " #7b7b9d" }}>
               Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:

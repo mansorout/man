@@ -12,6 +12,7 @@ import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Asse
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import siteConfig from '../../Utils/siteConfig';
+import { modifyName } from '../../Utils/globalFunctions';
 // import { any } from '../../Redux/Store';
 
 
@@ -147,12 +148,12 @@ const style = {
 
 }
 
-const objUserDetail: any = Object.freeze({
-    userName: localStorage.getItem(siteConfig.USER_NAME),
-    userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
-})
-
 const Navbar = () => {
+
+    const objUserDetail: any = Object.freeze({
+        userName: localStorage.getItem(siteConfig.USER_NAME),
+        userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
+    })
 
     const dispatch: any = useDispatch()
     const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)
@@ -189,7 +190,7 @@ const Navbar = () => {
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
                         <img src={Profile} alt="image" style={style.profile} />
-                        <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi{objUserDetail?.userName ? `, ${objUserDetail?.userName}` : ``}</Typography>
+                        <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi{objUserDetail?.userName ? (objUserDetail?.userName.length > 8 ? modifyName(objUserDetail?.userName, 8) : `, ${objUserDetail?.userName}`) : ``}</Typography>
                         {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
                     </Box>
                     <MenuUnstyled

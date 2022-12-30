@@ -13,7 +13,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
 
   return (dispatch: any) => {
-    dispatch(setLoadingAction(true));
+    
     postDataWithoutToken(
       { mobilenumber: number, otp: otp, type: type },
       siteConfig.AUTHENTICATION_OTP_VERIFY,
@@ -23,14 +23,16 @@ export const verifyOtpThunk = (verifyInput: any) => {
       .then(res => res.json())
       .then((data) => {
         dispatch(setLoadingAction(false));
-        if (data?.error === true) {
-          dispatch(setloginDataOnFailAction({}));
+        if (data?.error) {
+          dispatch(setloginDataOnFailAction(data?.error));
           return;
         }
         const response = data?.data;
+
         dispatch(setloginDataOnSuccessAction(response));
         dispatch(setTokenExpiredStatusAction(false));
       }).catch(err => {
+        dispatch(setLoadingAction(false));
         dispatch(setloginDataOnFailAction({}));
         console.log(err);
       })

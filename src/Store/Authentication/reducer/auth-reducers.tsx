@@ -1,10 +1,16 @@
-import { SET_IS_USER_AUTENTICATED, SET_LOGIN_DATA, SET_LOGIN_FAILED, SET_LOGIN_SUCCESS, SET_TOKEN_EXPIRED_STATUS, SET_USER_VIEW_PROFILE_DATA } from "../constants/auth-constants";
+import {
+  SET_IS_USER_AUTENTICATED,
+  SET_LOGIN_DATA_ON_FAILED,
+  SET_LOGIN_DATA_ON_SUCCESS,
+  SET_TOKEN_EXPIRED_STATUS,
+  SET_USER_VIEW_PROFILE_DATA
+} from "../constants/auth-constants";
 
 const initialState: any = {
+  isTokenExpired: false,
   authUser: { isUserAuthenticated: false },
-  login: { data: {}, loading: false, error: "" },
-  profile: { data: {} },
-  isTokenExpired: false
+  login: { data: {}, error: "" },
+  profile: { data: {}, error: "" },
 }
 
 const authReducer = (state = initialState, action: any) => {
@@ -16,21 +22,19 @@ const authReducer = (state = initialState, action: any) => {
       }
       break;
     }
-    case SET_LOGIN_DATA: {
+    case SET_LOGIN_DATA_ON_SUCCESS: {
       state.login = {
         ...state.login,
-        data: action.payload
+        data: action.payload,
+        error: ""
       }
       break;
     }
-    case SET_LOGIN_SUCCESS: {
-      // return action.payload
-
-      break;
-    }
-    case SET_LOGIN_FAILED: {
-      // return action.payload
-      // toast.warn(globalConstant.ERROR_OCCURRED);
+    case SET_LOGIN_DATA_ON_FAILED: {
+      state.login = {
+        ...state.login,
+        error: action.payload
+      }
       break
     }
     case SET_USER_VIEW_PROFILE_DATA: {

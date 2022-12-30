@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, styled } from "@mui/system";
+import moment from 'moment';
 import {
   Breadcrumbs,
   Button,
@@ -76,8 +77,11 @@ const ModalInvestNow = (props: any) => {
     firstName: objUserDetails?.userdetails?.firstname || "",
     lastName: objUserDetails?.userdetails?.lastname || "",
     email: objUserDetails?.userdetails?.emailaddress || "",
-    DOB: objUserDetails?.userdetails?.dateofbirth || "",
+    // DOB: moment(objUserDetails?.userdetails?.dateofbirth, 'DD/MM/YYYY').format('DD-MM-YYYY'),
+    DOB: objUserDetails?.userdetails?.dateofbirth,
   });
+  console.log(objUserDetails?.userdetails?.emailaddress)
+  console.log(formData)
 
   const [error, setError] = useState(false);
   const [showSubmit, setShowSubmit] = useState(true);
@@ -138,10 +142,15 @@ const ModalInvestNow = (props: any) => {
   }
 
   const handleChange = (e: any) => {
-    const value = e.target.value;
+    let { name, value }: any = e.target;
+    // if (name === "DOB") {
+    //   const date = moment(value, 'DD/MM/YYYY').format('DD-MM-YYYY');
+    //   value = date;
+    // }
+
     setFormData({
       ...formData,
-      [e.target.name]: value,
+      [name]: value,
     });
   }
 
@@ -366,7 +375,7 @@ const ModalInvestNow = (props: any) => {
             <Grid item xs={12} md={12}>
               <TextField
                 type="date"
-                placeholder="DD/MM/YY"
+                placeholder="DD-MM-YY"
                 sx={{
                   color: "#919eb1",
                   fontSize: "17px",
@@ -378,7 +387,7 @@ const ModalInvestNow = (props: any) => {
                 onBlur={handleOnBlurDOB}
                 onChange={handleChange}
                 name="DOB"
-                value={formData.DOB || "dd/mm/yyyy"}
+                value={formData.DOB || "DD-MM-YY"}
                 helperText={
                   !regexDOB.test(formData.DOB) ? (
                     <label style={{ color: "red" }}>{errorMessageDOB}</label>
