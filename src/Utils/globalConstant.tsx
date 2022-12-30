@@ -28,7 +28,7 @@ export const lookUpMasterKeys: any = Object.freeze({
     ULIP_FREQUENCY: 'ulip-frequency',
     ULIP_PORT: 'ulip-ppt',
     ULIP_TERM: 'ulip-term',
-})
+});
 
 export const bannerSectionValues = Object.freeze({
     HOME_PAGE: "homepage",

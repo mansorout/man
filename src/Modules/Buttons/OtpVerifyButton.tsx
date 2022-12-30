@@ -7,6 +7,7 @@ import { ActionCreators } from "../../Store";
 import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import { Button, Typography } from "@mui/material";
 import _ from "underscore";
+import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 
 type IProps = {
   otp: string;
@@ -44,6 +45,7 @@ export const OtpVerifyButton = ({ otp, number, disabled }: IProps) => {
 
     removeError("Login_OTP");
     addContactNumber("");
+    dispatch(setLoadingAction(true));
     store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
 
     // if (otpResponse !== "OTP has been Expired!" && otpResponse !== "Invalid OTP!" && otpResponse !== "Invalid Request Object!") {

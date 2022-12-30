@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, styled } from "@mui/system";
+import moment from 'moment';
 import {
   Breadcrumbs,
   Button,
@@ -76,8 +77,11 @@ const ModalInvestNow = (props: any) => {
     firstName: objUserDetails?.userdetails?.firstname || "",
     lastName: objUserDetails?.userdetails?.lastname || "",
     email: objUserDetails?.userdetails?.emailaddress || "",
-    DOB: objUserDetails?.userdetails?.dateofbirth || "",
+    // DOB: moment(objUserDetails?.userdetails?.dateofbirth, 'DD/MM/YYYY').format('DD-MM-YYYY'),
+    DOB: objUserDetails?.userdetails?.dateofbirth,
   });
+  // console.log(objUserDetails?.userdetails?.emailaddress)
+  // console.log(formData)
 
   // const [error, setError] = useState(false);
   // const [showSubmit, setShowSubmit] = useState(true);
