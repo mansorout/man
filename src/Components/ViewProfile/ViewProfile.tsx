@@ -145,51 +145,37 @@ const ViewProfile = () => {
   const dispatch = useDispatch();
 
   const refContainer = useRef();
-  const g_viewProfileState: any = useSelector((state: any) => {
-
-    // console.log(state, )
-    console.log(state?.authReducer, "state?.authReducer parent")
-    console.log(state?.authReducer?.profile, "state?.authReducer?.profile")
-
-    return state?.authReducer?.profile
-  });
-  console.log(g_viewProfileState, "g_viewProfileState viewprofile() parent")
+  const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
+  const [userDetails, setUserDetails] = useState<any>({});
 
   useEffect(() => {
     getUserProfileData();
   }, [])
 
   const getUserProfileData = () => {
-    // getData(
-    //   siteConfig.AUTHENTICATION_PROFILE_VIEW,
-    //   siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-    //   siteConfig.AUTHENTICATION_API_ID
-    // )
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (checkExpirationOfToken(data?.code)) {
-    //       dispatch(setTokenExpiredStatusAction(true));
-    //       return;
-    //     }
+    getData(
+      siteConfig.AUTHENTICATION_PROFILE_VIEW,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
 
-    //     if (data?.error === true) {
-    //       return;
-    //     }
-    //     const response = data?.data;
-    //     console.log(response?.userdetails)
-    //     dispatch(setUserViewProfileDataAction(response));
-    //     //  localStorage.setItem("accesstoken", response?.accesstoken)
-    //     // localStorage.setItem("userDetails", response?.userdetails?.emailaddress)
-    //     // localStorage.setItem("userMobile", response?.userdetails?.mobilenumber)
-    //     // localStorage.setItem("userGender", response.userdetails?.gender)
-    //     // localStorage.setItem("userPlaceofbirth", response?.userdetails?.placeofbirth)
-    //     // localStorage.setItem("userAddress", response?.userdetails?.addressline1)
-    //     // localStorage.setItem("userIncomeslab", response?.userdetails?.incomeslab)
+        if (data?.error === true) {
+          return;
+        }
+        const response = data?.data;
 
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
+        setUserDetails(response?.userdetails);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
     store.dispatch(getUserProfileDataThunk());
 
   }
@@ -221,7 +207,9 @@ const ViewProfile = () => {
               </Box>
               <Grid container>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-                  <ViewProfileCard />
+                  <ViewProfileCard
+                    userDetails={userDetails}
+                  />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                   <VviewprofileCard />
