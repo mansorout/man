@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -36,6 +36,9 @@ import {
     LUMPSUM,
     MONTHLY
 } from '../../Store/Duck/SaveTaxInvestmentType'
+import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
+import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
+import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -235,6 +238,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const RecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const dispatch: any = useDispatch();
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
@@ -243,10 +247,20 @@ const RecommendationsULIP = () => {
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
-    const [recommendationHeaderInvestmentAmount, setRecommendationHeaderInvestmentAmount] = useState<string>('')
 
     // const investmentType = useSelector((state: any) => state.SaveTaxInvestmentType)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
+
+    useEffect(() => {
+        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
+        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        const temp = {
+            investmenttype_id: lookUPId,
+            amount: parseInt(investmentAmount),
+        }
+        dispatch(getDataSaveTaxListApi(temp))
+    }, [])
+    
 
     const handleULIPDate = () => {
         setOpen(true)
