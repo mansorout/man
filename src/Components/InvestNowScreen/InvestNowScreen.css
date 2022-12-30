@@ -205,9 +205,19 @@
 .ScrollBarStyle22{
   overflow: inherit !important;
 }
+.NoLockinperiod {
+ 
+  padding-left: 3% !important;
+ 
+}
 
 }
 @media screen and (max-width: 768px) {
+  .NoLockinperiod {
+ 
+    padding-left: 3.5% !important;
+   
+  }
   .smallmodal {
     max-width: 64% !important;
   }
@@ -290,6 +300,9 @@
   height: 7vh !important;
 
 }
+.ButtonStyleInvest{
+  margin-left: 4px !important;
+ }
   } 
   
   @media screen and (max-width:540px){
@@ -356,7 +369,10 @@
   /* width: 109vw !important;
   height: 10vh !important; */
 }
- 
+.InvestStylepadview{
+  min-width: 262px !important;
+}
+
    
  
   }

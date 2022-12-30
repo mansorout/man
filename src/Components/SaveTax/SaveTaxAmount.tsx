@@ -27,6 +27,7 @@ import {
     MONTHLY
 } from '../../Store/Duck/SaveTaxInvestmentType';
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
+import Dialog from '@mui/material/Dialog';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -113,6 +114,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     rupeesIcon: {
         fontSize: '16px !important',
         color: 'var(--typeLightBlackColor)',
+    },
+    modalTextButton:{
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+    },
+    modalText:{
+        padding: '20px'
     }
 }))
 
@@ -125,6 +134,10 @@ const SaveTaxAmount = () => {
     const [investmentType, setInvestmentType] = useState<string>('LUMPSUM')
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
+    const [validationAlertDialog, setValidationAlertDialog] = useState({
+        msg: '',
+        bool: false,
+    })
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
@@ -143,7 +156,10 @@ const SaveTaxAmount = () => {
     const handleNavigationFlow = () => {
         if(investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0){
             if(parseInt(lumpsumAmount) > 1500000){
-                alert('alert')
+                setValidationAlertDialog({
+                    msg: 'Amount should be less than 15,00,000',
+                    bool: true,
+                })
                 return 
             }
             if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
@@ -151,11 +167,19 @@ const SaveTaxAmount = () => {
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
                 navigate('/saveTax/saveTaxInvestmentType')
             } else {
-                alert('Enter amount multiple of 100!')
+                // alert('Enter amount multiple of 100!')
+                setValidationAlertDialog({
+                    msg: 'Enter amount multiple of 100!',
+                    bool: true,
+                })
             }
         }else if(investmentType === MONTHLY && parseInt(monthlyAmount) > 0){
             if(parseInt(monthlyAmount) < 15000){
-                alert('alert')
+                // alert('alert')
+                setValidationAlertDialog({
+                    msg: 'Amount should be more than 15,000',
+                    bool: true,
+                })
                 return 
             }
                 dispatch(SaveTaxInvestmentMonthlyAction(MONTHLY));
@@ -253,6 +277,19 @@ const SaveTaxAmount = () => {
                     </Grid>
                 </Grid>
             </Box>
+
+            
+            <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({...validationAlertDialog, bool: false})}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
+                <Button onClick={() => setValidationAlertDialog({...validationAlertDialog, bool: false})} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'var(--primaryColor)',
+                    color: '#7b7b9d'
+                }}>
+                    OK
+                </Button>
+            </Dialog>
+
         </Box >
     )
 }

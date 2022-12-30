@@ -38,6 +38,7 @@ const authReducer = (state = initialState, action: any) => {
       break
     }
     case SET_USER_VIEW_PROFILE_DATA: {
+    
       state.profile = {
         ...state.profile,
         data: action.payload
