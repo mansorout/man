@@ -10,10 +10,16 @@ import {
     setModuleDefaultListSuccessAction,
     setModuleDefaultListFailAction,
     setSaveTaxGenrateSuccessAction,
-    setSaveTaxGenrateFailAction
+    setSaveTaxGenrateFailAction,
+    setSaveTaxListSuccessAction,
+    setSaveTaxListFailAction
 } from '../actions/save-tax-actions'
 import { checkExpirationOfToken } from '../../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../../Store/Authentication/actions/auth-actions';
+import {
+    postSaveTaxGenrateApiTypes,
+    getDataSaveTaxListApiTypes
+} from '../constants/types'
 
 export const getDataSaveTaxInvestmentType = (investmentAmount: any) => {
     return (dispatch: any) => {
@@ -93,7 +99,7 @@ export const getDataModuleDefaultListApi = (module_id: number) => {
     }
 }
 
-export const postSaveTaxGenrateApi = (bodyData: number) => {
+export const postSaveTaxGenrateApi = (bodyData: postSaveTaxGenrateApiTypes) => {
     return (dispatch: any) => {
         postData(
             bodyData,
@@ -108,6 +114,26 @@ export const postSaveTaxGenrateApi = (bodyData: number) => {
             dispatch(setSaveTaxGenrateSuccessAction(data?.message))
         }).catch((error) => {
             dispatch(setSaveTaxGenrateFailAction(error.error))
+        })
+    }
+}
+
+
+
+export const getDataSaveTaxListApi = (data:getDataSaveTaxListApiTypes ) => {
+    return (dispatch: any) => {
+        getData(
+            siteConfig.RECOMMENDATION_SAVETAX_LIST + `/?investmenttype_id=${data.investmenttype_id}&amount=${data.amount}`,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.RECOMENDATION_API_ID,
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setSaveTaxListSuccessAction(data?.data))
+        }).catch((error) => {
+            dispatch(setSaveTaxListFailAction(error.error))
         })
     }
 }

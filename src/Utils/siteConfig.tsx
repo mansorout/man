@@ -49,6 +49,7 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
+  RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
 });
 
 export default siteConfig;

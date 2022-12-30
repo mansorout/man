@@ -7,6 +7,8 @@ import {
   SET_MODULE_DEFAULT_LIST_FAILED,
   SET_SAVETAX_GENRATE_SUCCESS,
   SET_SAVETAX_GENRATE_FAILED,
+  SET_SAVETAX_LIST_SUCCESS,
+  SET_SAVETAX_LIST_FAILED,
 } from '../constants/save-tax-constants'
 
 
@@ -15,6 +17,7 @@ const initialState: any = {
   saveTaxCalculateApiData: {},
   moduleDefaultList:{},
   saveTaxGenrate: '',
+  saveTaxListData: {},
 }
 
 const saveTaxReducer = (state = initialState, action: any) => {
@@ -63,6 +66,17 @@ const saveTaxReducer = (state = initialState, action: any) => {
       return {
         ...state,
         saveTaxGenrate: action.payload
+    }
+    
+    case SET_SAVETAX_LIST_SUCCESS: 
+      return {
+        ...state,
+        saveTaxListData: action.payload
+    }
+    case SET_SAVETAX_LIST_FAILED: 
+      return {
+        ...state,
+        saveTaxListData: action.payload
     }
     
   }
