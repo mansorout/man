@@ -69,17 +69,19 @@ function ViewProfileCard() {
             backgroundColor: "rgba(100, 219, 255, 0.3)",
             width: "20px",
             height: "20px",
+
             padding: "10px",
+
+            // width: '80px',
+            // height: '80px',
+            // margin: '0 54px 22px 34px',
+            // padding: '20px',
+            // boxShadow: '0 0 10px 0 rgb(0 0 0 / 8%)',
+            // border: 'solid 1px rgba(0, 0, 0, 0.08)',
         } as React.CSSProperties,}
 
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const [imgSrc, setImgSrc] = useState<any>("");
-    const [email,setEmail] = useState("")
-    const [mobile,setMobile] = useState("")
-     const [gender,setGender] = useState("")
-     const [placeofbirth,setPlaceofbirth] = useState("")
- const [addressline1,setAddressline1] = useState("")
- const [incomeslab,setIncomeslab] = useState("")
 
     function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -97,24 +99,10 @@ function ViewProfileCard() {
     console.log(imgSrc)
     const userData: any = useSelector((state: any) => state.userProfileDetails)
     const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile?.data);
-    // console.log(g_viewProfileState?.userdetails?.emailaddress)
+    console.log(g_viewProfileState?.userdetails?.emailaddress)
 
     useEffect(() => {
-        store.dispatch(getUserProfileDataThunk()); 
-        let email:any = localStorage.getItem("userDetails")
-         let mobile:any = localStorage.getItem("userMobile")
-        let gender:any = localStorage.getItem("userGender")
-         let placeofbirth:any = localStorage.getItem("userPlaceofbirth")
-      let addressline1:any = localStorage.getItem("userAddress")
-      let incomeslab:any = localStorage.getItem("userIncomeslab")
-        setEmail(email)
-        setMobile(mobile)
-         setGender(gender)
-        setPlaceofbirth(placeofbirth)
-      setAddressline1(addressline1)
-      setIncomeslab(incomeslab)
-        console.log(mobile)
-        console.log(email)
+    store.dispatch(getUserProfileDataThunk());
       },[])
     
     //   const getUserProfileData = () => {
@@ -132,8 +120,6 @@ function ViewProfileCard() {
                     p: 3,
                     marginTop: "30px",
                     height: " fit-content",
-                   
-                 
                 }}
                 className="paddingviewprofilestyle"
                 > <Box>
@@ -168,7 +154,7 @@ function ViewProfileCard() {
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Mobile Number 
                             {
                                 //   ViewProfileState?.userdetails?.emailaddress
-                                        <Typography sx={{ fontSize: "14px" }}>{mobile}</Typography> 
+                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.mobilenumber}</Typography> 
                                 }
                             </Typography>
                         </ListItem>
@@ -184,7 +170,7 @@ function ViewProfileCard() {
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Email Address
                                 {
                                     // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                                        <Typography sx={{ fontSize: "14px" }}>{email}</Typography>
+                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.emailaddress}</Typography>
                                 }
                             </Typography>
                         </ListItem>
@@ -213,7 +199,8 @@ function ViewProfileCard() {
   {/* ViewProfileState?.userdetails */}
                             <ListItemText
                                 primary="Gender"
-                                secondary={gender}
+                                secondary={g_viewProfileState?.userdetails?.gender !== "" ?
+                                g_viewProfileState?.userdetails?.gender : ""}
                                 sx={{ marginLeft: '20px',color:"#3c3e42" }} />
                         </ListItem>
 
@@ -229,8 +216,8 @@ function ViewProfileCard() {
 
                             <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Place of Birth
                                 {
-                                   
-                                        <Typography sx={{ fontSize: "14px" }}>{placeofbirth}</Typography> 
+                                    g_viewProfileState?.userdetails?.placeofbirth !== "" ?
+                                        <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
                                 }
                             </Typography>
                              </ListItem>
@@ -244,8 +231,8 @@ function ViewProfileCard() {
                                 primary={
                                     <Typography sx={{ fontSize: "14px",color:"#3c3e42" }}>Communication Address
                                         {
-                                          
-                                                <Typography sx={{ fontSize: "14px" }}>{addressline1}</Typography> 
+                                            g_viewProfileState?.userdetails?.addressline1 !== "" ?
+                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.addressline1}</Typography> : ""
                                         }
                                     </Typography>
                                 }
@@ -269,8 +256,8 @@ function ViewProfileCard() {
                                     <Typography sx={{ fontSize: "14px" }}>Income slab
                                        {
                                         // {ViewProfileState?.userdetails?.emailaddress}
-                        
-                                                <Typography sx={{ fontSize: "14px" }}>{incomeslab}</Typography>
+                                        g_viewProfileState?.userdetails?.incomeslab !== "" ?
+                                                <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.incomeslab}</Typography> : ""
                                         }
                                     </Typography>
                                 }

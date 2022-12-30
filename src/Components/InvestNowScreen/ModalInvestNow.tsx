@@ -189,7 +189,7 @@ import ClearIcon from '@mui/icons-material/Clear';
                                </Typography>
                                </Grid>
                               
-                     <Grid container spacing={2} sx={{paddingTop:"1.6%"}}>
+                     <Grid container spacing={2} sx={{paddingTop:"5%"}}>
                  <Grid item xs={12} md={6} sm={12} >
                  <TextField
                    fullWidth
@@ -231,7 +231,7 @@ import ClearIcon from '@mui/icons-material/Clear';
                </Grid>
              </Grid>
              
-               <Grid container spacing={2}>
+               <Grid container spacing={2} sx={{marginTop: "-5px"}}>
               <Grid item xs={12} md={12}>           
                <TextField
                    fullWidth
@@ -287,21 +287,20 @@ import ClearIcon from '@mui/icons-material/Clear';
                  />
                </Grid>
              </Grid>
-               
- 
              <Button 
-                      disabled={showSubmit}
-                         fullWidth
-                         onClick={handleClick}
-                          sx={{ padding: " 16px 155px 19px", backgroundColor: "#23db7b"}}>
-                             <Typography sx={{ fonSize: "18px", color: "white" }}>
-                             Save Details
-                             </Typography>
+
+             disabled={showSubmit}
+              fullWidth
+              onClick={handleClick} sx={{ padding: " 18px 155px 19px", backgroundColor: "#23db7b",marginTop:" 15px",
+              ml: 1,
+              "&.MuiButtonBase-root:hover": {
+                  bgcolor: '#23db7b'
+              },
+              }}>
+                             <Typography sx={{ fonSize: "18px", color: "white" }}>  Save Details </Typography>
                              </Button>
- 
-                 </Box>
-              
-                             </Modal>
+                              </Box>
+                               </Modal>
                         </div>
      )
  }

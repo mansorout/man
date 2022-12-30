@@ -79,6 +79,7 @@ export const getUserProfileDataThunk = () => {
      console.log(data?.data)
      const response = data?.data;
      console.log(response?.userdetails)
+     dispatch(setUserViewProfileDataAction(response));
     //  localStorage.setItem("accesstoken", response?.accesstoken)
      localStorage.setItem("userDetails",response?.userdetails?.emailaddress)
      localStorage.setItem("userMobile",response?.userdetails?.mobilenumber)
@@ -86,7 +87,7 @@ export const getUserProfileDataThunk = () => {
     localStorage.setItem("userPlaceofbirth",response?.userdetails?.placeofbirth)
      localStorage.setItem("userAddress",response?.userdetails?.addressline1)
      localStorage.setItem("userIncomeslab",response?.userdetails?.incomeslab)
-        dispatch(setUserViewProfileDataAction(response));
+      
       })
       .catch(err => {
         console.log(err);

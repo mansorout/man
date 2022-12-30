@@ -142,7 +142,7 @@ function VviewprofileCard() {
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+                                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }} className="CommonStyle"
 
                                 >PAN Number
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
