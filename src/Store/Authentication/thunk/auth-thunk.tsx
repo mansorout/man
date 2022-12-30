@@ -13,7 +13,7 @@ export const verifyOtpThunk = (verifyInput: any) => {
   const { otp, number, type } = verifyInput;
 
   return (dispatch: any) => {
-    
+
     postDataWithoutToken(
       { mobilenumber: number, otp: otp, type: type },
       siteConfig.AUTHENTICATION_OTP_VERIFY,
@@ -78,18 +78,17 @@ export const getUserProfileDataThunk = () => {
         if (data?.error === true) {
           return;
         }
-     console.log(data?.data)
-     const response = data?.data;
-     console.log(response?.userdetails)
-     dispatch(setUserViewProfileDataAction(response));
-    //  localStorage.setItem("accesstoken", response?.accesstoken)
-     localStorage.setItem("userDetails",response?.userdetails?.emailaddress)
-     localStorage.setItem("userMobile",response?.userdetails?.mobilenumber)
-     localStorage.setItem("userGender",response.userdetails?.gender)
-    localStorage.setItem("userPlaceofbirth",response?.userdetails?.placeofbirth)
-     localStorage.setItem("userAddress",response?.userdetails?.addressline1)
-     localStorage.setItem("userIncomeslab",response?.userdetails?.incomeslab)
-      
+        console.log(data?.data)
+        const response = data?.data;
+        dispatch(setUserViewProfileDataAction(response));
+        //  localStorage.setItem("accesstoken", response?.accesstoken)
+        // localStorage.setItem("userDetails", response?.userdetails?.emailaddress)
+        // localStorage.setItem("userMobile", response?.userdetails?.mobilenumber)
+        // localStorage.setItem("userGender", response.userdetails?.gender)
+        // localStorage.setItem("userPlaceofbirth", response?.userdetails?.placeofbirth)
+        // localStorage.setItem("userAddress", response?.userdetails?.addressline1)
+        // localStorage.setItem("userIncomeslab", response?.userdetails?.incomeslab)
+
       })
       .catch(err => {
         console.log(err);
