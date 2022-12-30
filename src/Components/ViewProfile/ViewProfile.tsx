@@ -170,12 +170,13 @@ const ViewProfile = () => {
         }
         const response = data?.data;
 
-        // setUserDetails(response?.userDetails);
+        setUserDetails(response?.userdetails);
       })
       .catch(err => {
         console.log(err);
       })
-    // store.dispatch(getUserProfileDataThunk());
+
+    store.dispatch(getUserProfileDataThunk());
 
   }
 
@@ -206,7 +207,9 @@ const ViewProfile = () => {
               </Box>
               <Grid container>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-                  <ViewProfileCard />
+                  <ViewProfileCard
+                    userDetails={userDetails}
+                  />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                   <VviewprofileCard />

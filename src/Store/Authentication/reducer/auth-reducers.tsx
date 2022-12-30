@@ -41,8 +41,8 @@ const authReducer = (state = initialState, action: any) => {
 
       state.profile = {
         ...state.profile,
-        data: { hhello: "" }
-        // data: action.data
+        // data: { hhello: "" }
+        data: action.data
       }
 
       console.log(state.profile, "state.profile");
