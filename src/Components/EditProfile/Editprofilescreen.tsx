@@ -200,7 +200,7 @@ function Editprofilescreen() {
                 component="span"
                 style={{ cursor: "pointer", textDecoration: 'underline', color: '#6c63ff', fontSize: "12px" }}
                 className="textLink"
-
+                onClick={()=> navigate("/TermsAndCondition")}
               >
                 Terms and conditions
               </Typography>

@@ -38,12 +38,14 @@ const authReducer = (state = initialState, action: any) => {
       break
     }
     case SET_USER_VIEW_PROFILE_DATA: {
-    
+
       state.profile = {
         ...state.profile,
-        data: action.payload
+        data: { hhello: "" }
+        // data: action.data
       }
 
+      console.log(state.profile, "state.profile");
       break;
     }
     case SET_TOKEN_EXPIRED_STATUS: {

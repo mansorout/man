@@ -19,7 +19,7 @@ export const setIsUserAuthenticatedAction = (payload: any) => {
 }
 
 export const setUserViewProfileDataAction = (payload: any) => {
-  return { type: SET_USER_VIEW_PROFILE_DATA, payload: payload }
+  return { type: SET_USER_VIEW_PROFILE_DATA, data: payload }
 }
 
 export const setTokenExpiredStatusAction = (payload: any) => {
