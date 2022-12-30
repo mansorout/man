@@ -342,7 +342,7 @@ const InsuranceTerms = () => {
                 boxIcon={<ThumbUpOffAltIcon />}
                 boxText='Monthly Premium'
                 boxAmount={insuranceAmount}
-                btnText='Show Me Exact Quote'
+                btnText='Show Me Exact Quotddddddddde'
                 btnClick={handleClickOpen}
             />
 
