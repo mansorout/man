@@ -45,6 +45,12 @@ const siteConfig = Object.freeze({
   SAVETAX_CALCULATE: '/savetax/calculate',
   TERM_PURCHASE: '/insurance/term/purchase/',
 
+  // Kyc update 
+  AUTHENTICATION_PAN_VERIFICATION: "/authentication/pan/verification/",
+  AUTHENTICATION_NOMINEE_ADD: "/authentication/nominee/add/",
+  AUTHENTICATION_BANK_ADD: "/authentication/bank/add/",
+
+
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
