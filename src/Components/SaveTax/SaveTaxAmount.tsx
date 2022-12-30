@@ -142,6 +142,10 @@ const SaveTaxAmount = () => {
 
     const handleNavigationFlow = () => {
         if(investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0){
+            if(parseInt(lumpsumAmount) > 1500000){
+                alert('alert')
+                return 
+            }
             if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
                 dispatch(SaveTaxInvestmentLumpsumAction(LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
@@ -150,6 +154,10 @@ const SaveTaxAmount = () => {
                 alert('Enter amount multiple of 100!')
             }
         }else if(investmentType === MONTHLY && parseInt(monthlyAmount) > 0){
+            if(parseInt(monthlyAmount) < 15000){
+                alert('alert')
+                return 
+            }
                 dispatch(SaveTaxInvestmentMonthlyAction(MONTHLY));
                 dispatch(SaveTaxInvestmentAmount(monthlyAmount))
                 navigate('/saveTax/saveTaxInvestmentType')

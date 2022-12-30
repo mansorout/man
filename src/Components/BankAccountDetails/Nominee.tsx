@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
@@ -121,6 +121,16 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
+                                    InputLabelProps={{
+                                        sx: {
+                                            color: "#3c3e42",
+                                            [`&.${inputLabelClasses.shrink}`]: {
+                                                color: "#000000",
+                                                opacity: "0.6"
+
+                                            }
+                                        }
+                                    }}
                                     onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
                                     required
                                     label="Full Name"
@@ -133,6 +143,16 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
+                                    InputLabelProps={{
+                                        sx: {
+                                            color: "#3c3e42",
+                                            [`&.${inputLabelClasses.shrink}`]: {
+                                                color: "#000000",
+                                                opacity: "0.6"
+
+                                            }
+                                        }
+                                    }}
                                     onKeyPress={(e) =>
                                         /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                         e.preventDefault()
@@ -152,7 +172,7 @@ const Nominee = () => {
                             </FormControl>
 
                             <FormControl>
-                                <InputLabel>Relation</InputLabel>
+                               <InputLabel>Relation</InputLabel>
                                 <Select
                                     label={relationError ? "Please choose a relation" : "Relation"}
                                     value={relation}

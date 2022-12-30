@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { Box, Breadcrumbs, Button, FormControl, Grid, InputAdornment, Link, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, FormControl, Grid, InputAdornment, inputLabelClasses, Link, TextField, Toolbar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ContactError } from "../../Assets";
 import { useNavigate } from 'react-router-dom'
@@ -100,7 +100,7 @@ const PanUpdate = () => {
         dispatch(setDisableButtonAction(true));
         let objBody = {
             pannumber: value,
-           
+
         };
         console.log(objBody)
 
@@ -186,6 +186,16 @@ const PanUpdate = () => {
 
                             <FormControl sx={{ padding: "16px 0px 0px 0px" }}>
                                 <TextField
+                                    InputLabelProps={{
+                                        sx: {
+                                            color: "#3c3e42",
+                                            [`&.${inputLabelClasses.shrink}`]: {
+                                                color: "#000000",
+                                                opacity: "0.6"
+                                                
+                                            }
+                                        }
+                                    }}
                                     inputProps={{
                                         maxLength: 10,
                                         style: { textTransform: "uppercase" }
@@ -209,7 +219,7 @@ const PanUpdate = () => {
                             </FormControl>
 
                             <FormControl sx={{ padding: "18px 0px 17px 0px" }}>
-                                <Button  variant="contained" style={style.button} fullWidth onClick={handleClick} >
+                                <Button variant="contained" style={style.button} fullWidth onClick={handleClick} >
                                     <Typography style={style.text} className="largeButtonText">
                                         Continue
                                     </Typography>

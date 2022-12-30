@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { InputAdornment, FormControl } from "@mui/material";
+import { InputAdornment, FormControl, inputLabelClasses } from "@mui/material";
 import { Box, TextField, Typography } from "@mui/material";
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
 import "./Login.css";
@@ -103,7 +103,7 @@ const style = {
   errorText: {
     width: "100%",
     maxWidth: "400px",
-    paddingBottom:"5px"
+    paddingBottom: "5px"
   } as React.CSSProperties,
 };
 
@@ -150,7 +150,7 @@ export const Login = () => {
       type: "auth",
     };
     setShouldButtonDisable(true);
-    
+
     postDataWithoutToken(
       objBody,
       siteConfig.AUTHENTICATION_OTP_SEND,
@@ -199,9 +199,18 @@ export const Login = () => {
         </Typography>
 
         <TextField
-       inputProps={{
-        maxLength: 10,
-      }}
+          InputLabelProps={{
+            sx: {
+              color: "orange",
+              [`&.${inputLabelClasses.shrink}`]: {
+                color: "#000000",
+                opacity: "0.6"
+              }
+            }
+          }}
+          inputProps={{
+            maxLength: 10,
+          }}
           sx={{
             "& .MuiInputLabel-root": { color: "#acb4bf" },
             "&.Mui-focused >.MuiInputLabel-root": { color: "red" },
