@@ -12,7 +12,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useRef, useState } from 'react';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme,createStyles } from '@mui/material';
+import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme, createStyles } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Typography } from '@mui/material'
@@ -26,37 +26,37 @@ import { AnchorCloseAction, AnchorOpenAction } from '../../Store/Duck/FilterBox'
 
 //  custom theme for tab panel 
 
-const useStyles:any = makeStyles((theme: Theme) => createStyles({
-   
-      tabTwo: {
+const useStyles: any = makeStyles((theme: Theme) => createStyles({
+
+    tabTwo: {
         "&.MuiButtonBase-root.MuiTab-root": {
-        //   backgroundColor: "green"
+            //   backgroundColor: "green"
         }
-      },
-      tabThree: {
+    },
+    tabThree: {
         "&.MuiButtonBase-root.MuiTab-root": {
-        //   backgroundColor: "yellow"
+            //   backgroundColor: "yellow"
         }
-      },
-      tabs: {
+    },
+    tabs: {
 
         "& .MuiTabs-indicator": {
             display: "none"
             //backgroundColor: "orange"
-          },
+        },
 
         "& .MuiButtonBase-root.MuiTab-root": {
-          fontSize: 20
+            fontSize: 20
         },
-      
-        "& .Mui-selected": {
-        //   textDecoration: "underline",
-          backgroundColor:"#fff",
-          color:"red",
 
-          
+        "& .Mui-selected": {
+            //   textDecoration: "underline",
+            backgroundColor: "#fff",
+            color: "red",
+
+
         }
-      }
+    }
 }));
 
 
@@ -104,7 +104,7 @@ function a11yProps(index: number) {
 
 
 const style = {
-    
+
 
     main: {
         boxSizing: "border-box",
@@ -369,24 +369,24 @@ function DropDownFilter() {
                                     backgroundColor: "#F8F8F8", width: "100%"
                                 }}>
                                     <Tabs
-                                           className={classes.tabs}
+                                        className={classes.tabs}
                                         orientation="vertical"
                                         variant="scrollable"
                                         value={value}
                                         onChange={handleChangemodal}
-                                        // aria-label="Vertical tabs example"
+                                    // aria-label="Vertical tabs example"
                                     // sx={{ borderRight: 1, borderColor: 'red' }}
                                     >
-                                        <Tab  label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Sort</Box>} {...a11yProps(0)} />
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Sort</Box>} {...a11yProps(0)} />
 
-                                        
-                                        <Tab  label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Date Range</Box>} {...a11yProps(1)} />
-                                      
+
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Date Range</Box>} {...a11yProps(1)} />
+
                                         <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Amount Range</Box>} {...a11yProps(2)} />
-                                       
-                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left",width: "max-content" }}>Transaction Type</Box>} {...a11yProps(3)} />
-                                       
-                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left",width: "max-content" }}>Transaction Status</Box>} {...a11yProps(4)} />
+
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left", width: "max-content" }}>Transaction Type</Box>} {...a11yProps(3)} />
+
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left", width: "max-content" }}>Transaction Status</Box>} {...a11yProps(4)} />
                                     </Tabs>
                                 </Box>
 
@@ -515,7 +515,12 @@ function DropDownFilter() {
                                 </Box>
                                 <Grid container spacing={2} >
                                     <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 0px" }} item xs={12}>
-                                        <Button  sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }}  autoFocus >
+                                        <Button sx={{
+                                            backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px", ml: 1,
+                                            "&.MuiButtonBase-root:hover": {
+                                                bgcolor: "#23db7b"
+                                            }
+                                        }} autoFocus >
                                             <Typography sx={{ color: "white", fontSize: " 13px" }}>
                                                 Apply Filters
                                             </Typography>

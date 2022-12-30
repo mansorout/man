@@ -39,6 +39,11 @@ import Sidebar from "../CommonComponents/Sidebar";
 import SignaturePad from "react-signature-canvas";
 import { uploadsignature } from "../../Store/Reducers/action";
 import SaveAndAddButton1 from "../../Modules/Buttons/SaveAndAddButton1";
+import { postData } from "../../Utils/api";
+import siteConfig from "../../Utils/siteConfig";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -58,6 +63,8 @@ function HolderSignature() {
 
     const dispatch = useDispatch();
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
+    const dispatchLocal = useDispatch();
+    const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
 
     const [uploadChequeButton, setUploadChequeButtonDisable] =
         useState<boolean>(true);
@@ -79,9 +86,46 @@ function HolderSignature() {
         setImageURL("")
     }
     const convertSignInBase64 = () => {
-        setimageToApi(imageURL)
-        addSignature(imageToApi)
-        store.dispatch(uploadsignature({ 'signdata': imageURL }))
+        // setimageToApi(imageURL)
+        // addSignature(imageToApi)
+        // store.dispatch(uploadsignature({ 'signdata': imageURL }))
+        // navigate('/vp')
+
+        const objBody ={
+            signature:imageURL,
+          }
+      
+          setShouldButtonDisable(true)
+              postData(
+                  objBody,
+                  siteConfig.AUTHENTICATION_SIGNATURE_ADD,
+                  siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+                  siteConfig.AUTHENTICATION_API_ID
+              )
+                  .then(res => res.json())
+                  .then((data) => {
+                      setShouldButtonDisable(false)
+      
+                      if (checkExpirationOfToken(data?.code)) {
+                          dispatchLocal(setTokenExpiredStatusAction(true));
+                          return;
+                      }
+      
+                      if (data?.error) {
+                          return;
+                      }
+      
+                    //   console.log("profile saved");
+                    //   navigate('/viewprofile');
+                  })
+                  .catch(err => {
+                      console.log(err)
+                  })
+
+
+                  console.log(objBody)
+
+      
     }
 
     const setSignature = () => {
@@ -92,8 +136,13 @@ function HolderSignature() {
 
         setAddsign(false)
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-        // navigate('/vp')
+        
+        
+
+
     };
+
+    
 
 
 
@@ -202,6 +251,7 @@ function HolderSignature() {
     return (
         <Box style={{ width: "100%" }} ref={refContainer}>
             <Navbar />
+            <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
             <Box sx={style.main}>
                 <Grid
                     container
@@ -472,11 +522,15 @@ function HolderSignature() {
 
                                 } */}
 
+                               
+                               
+                                <Button sx={{visibility:"hidden"}} >Send To Api</Button>
+
 
                                 <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
                                     <Grid item >
                                         <div style={{ display: "flex" }}>
-                                            <Box>
+                                            <Box onClick={convertSignInBase64}>
                                                 <img style={{ height: "24px", width: "24px" }} src={sipiclogo} alt="signature" />
                                             </Box>
                                             <span style={{ padding: "5px 0px 0px 7px", fontSize: "14px", color: "#919eb1" }}> Signatures provided here will be used on official documents.</span>

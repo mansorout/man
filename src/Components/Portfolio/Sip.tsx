@@ -184,12 +184,10 @@ function Sip() {
                     <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Stoped ({SIP.filter((item) => item.status == "Stoped").length})</Typography>
                   </Box>
                 </Box>
-                <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px"}}>
+                <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px",backgroundColor: "white"}}>
                   <SearchOutlined style={{color:"#7b7b9d"}}/>
                   <InputBase placeholder='Search SIP' onChange={(e) => setSIPData(SIP.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
-                  <IconButton >
-                    <FilterAltOutlined style={{color:"#09b85d"}}/>
-                  </IconButton>
+                  
                 </Box>
               </Box>
               
