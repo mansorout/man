@@ -21,7 +21,10 @@ import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { PinModalHomeCloseAction } from '../../Store/Duck/PINModalHome'
-import { globalConstant } from '../../Utils/globalConstant'
+import { globalConstant, lookUpMasterKeys } from '../../Utils/globalConstant'
+import { getDataWithoutToken } from '../../Utils/api'
+import siteConfig from '../../Utils/siteConfig'
+import { setBannerSectionListAction } from '../../Store/Global/actions/global-actions'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -169,21 +172,89 @@ const Home = () => {
   const [openModal, setOpenModal] = useState<boolean>(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
 
-  useEffect(() => {
-    getBannerListData();
-  }, [])
+  const [largeCardsLocal, setLargeCardLocal] = useState<any[]>([...largeCards]);
+  const [companyCardsLocal, setCompanyCardLocal] = useState<any[]>([...companyCards]);
+  const [investingCardsLocal, setInvestingCardLocal] = useState<any[]>([...investingCards]);
 
-  const getBannerListData = () => {
-    
+  useEffect(() => {
+    initiate();
+  }, []);
+
+  // FINANCIAL_YEAR: 'financialyear',
+  // HEALTH_RECOMMENDATION_TYPE: 'healthrecommendationtype',
+  // INVESTMENT_TERM: 'investmentterm',
+  // INVESTMENT_TYPE: 'investmenttype',
+  // MANDATE_STATUS: 'mandatestatus',
+  // OCCUPATION: 'occupation',
+  // ORDER_STATUS: 'orderstatus',
+  // ORDER_TYPE: 'ordertype',
+  // RECOMMENDATION_TYPE: 'recommendationtype',
+  // RELATION_NAME: 'relationname',
+  // SIP_STOP_REASON: 'sipstopreason',
+  // STARTING_YEAR: 'startingyear',
+  // SUM_INSURED: 'suminsured',
+  // SUPPORT_TOPIC: 'supporttopic',
+  // TERM_LIFE_COVER: 'termlifecover',
+  // ULIP_FREQUENCY: 'ulip-frequency',
+  // ULIP_PORT: 'ulip-ppt',
+  // ULIP_TERM: 'ulip-term',
+
+  const initiate = async () => {
+    Object.keys(lookUpMasterKeys).forEach((lookupKey: string) => {
+      getMasterKeyData(lookUpMasterKeys[lookupKey]);
+    });
+
+    getExploreFundList()
   }
+
+  const getExploreFundList = () => {
+    getDataWithoutToken(
+      siteConfig.RECOMMENDATION_FUND_LIST,
+      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+      siteConfig.RECOMENDATION_API_ID
+    )
+      .then(res => res.json())
+      .then((data: any) => {
+        if (data?.error === true) {
+          return;
+        }
+
+        // let arrCompanyCardsLocal = [...companyCardsLocal];
+        console.log(data?.data);
+        // setCompanyCardLocal(data?.data);
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  const getMasterKeyData = (key: string) => {
+    getDataWithoutToken(
+      siteConfig.METADATA_LOOKUP_LIST + `?key=${key}`,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.METADATA_API_ID
+    )
+      .then(res => res.json())
+      .then((data: any) => {
+        if (data?.error === true) {
+          return;
+        }
+
+        localStorage.setItem(key, JSON.stringify(data?.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
 
   const handleOtpChange = (otp: any) => {
     setOTP(otp);
-  }
+  };
 
   const handleModalClose = () => {
     dispatch(PinModalHomeCloseAction())
-  }
+  };
 
   const handleNavigation = (strNavigationScreenName: string | undefined) => {
 
@@ -209,12 +280,14 @@ const Home = () => {
         break;
     }
 
+
+
     navigate("../" + strNavigationScreenName, { state: objLocationData, replace: true });
-  }
+  };
 
   const handleNavigationLargeCards = (navigation: string) => {
     navigate(navigation);
-  }
+  };
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -233,9 +306,9 @@ const Home = () => {
                   <FinancialFreedom />
                 </Grid>
                 {
-                  investingCards.map((item, key) => {
+                  investingCardsLocal.map((item, index) => {
                     return (
-                      <Grid key={key} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
+                      <Grid key={index} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
                         <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                       </Grid>
                     )
@@ -243,9 +316,9 @@ const Home = () => {
                 }
               </Grid>
               {
-                largeCards.map((item, key) => {
+                largeCardsLocal.map((item, index) => {
                   return (
-                    <Grid item xs={12} sx={{ padding: 2 }}>
+                    <Grid key={index} item xs={12} sx={{ padding: 2 }}>
                       <LargeCards
                         Heading={item.Heading}
                         Text={item.Text}
@@ -265,20 +338,21 @@ const Home = () => {
                 <Typography onClick={() => navigate('/explorefunds')} style={{ cursor: "pointer" }} className='textLink'>View All</Typography>
               </Box>
               {
-                companyCards.map((item, index) => {
+                companyCardsLocal.map((item, index) => {
                   return (
                     <CompanyFundCard
                       key={index}
-                      logo={item.logo}
-                      name={item.name}
-                      cap={item.cap}
-                      type={item.type}
-                      price={item.price}
-                      year1={item.year1}
-                      year3={item.year3}
-                      year5={item.year5}
-                      rating={item.rating}
-                      morning_star_logo={item.morning_star_logo}
+                      {...item}
+                    // logo={item?.logo}
+                    // name={item?.name}
+                    // cap={item?.cap}
+                    // type={item?.type}
+                    // price={item?.price}
+                    // year1={item?.year1}
+                    // year3={item?.year3}
+                    // year5={item?.year5}
+                    // rating={item?.rating}
+                    // morning_star_logo={item?.morning_star_logo}
                     />
                   )
                 })

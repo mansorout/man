@@ -5,14 +5,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 
-import { Checkbox, FormControlLabel, InputAdornment, Paper, Stack, TextField } from '@mui/material';
+import { Checkbox, createMuiTheme, FormControlLabel, InputAdornment, Paper, Stack, TextField } from '@mui/material';
 import { RadioButtonChecked, RadioButtonUncheckedOutlined } from '@mui/icons-material';
 import { DatePicker, DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useRef, useState } from 'react';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
+import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme,createStyles } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Typography } from '@mui/material'
@@ -22,6 +22,44 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import ClearIcon from '@mui/icons-material/Clear';
 import { AnchorCloseAction, AnchorOpenAction } from '../../Store/Duck/FilterBox';
+
+
+//  custom theme for tab panel 
+
+const useStyles:any = makeStyles((theme: Theme) => createStyles({
+   
+      tabTwo: {
+        "&.MuiButtonBase-root.MuiTab-root": {
+        //   backgroundColor: "green"
+        }
+      },
+      tabThree: {
+        "&.MuiButtonBase-root.MuiTab-root": {
+        //   backgroundColor: "yellow"
+        }
+      },
+      tabs: {
+
+        "& .MuiTabs-indicator": {
+            display: "none"
+            //backgroundColor: "orange"
+          },
+
+        "& .MuiButtonBase-root.MuiTab-root": {
+          fontSize: 20
+        },
+      
+        "& .Mui-selected": {
+        //   textDecoration: "underline",
+          backgroundColor:"#fff",
+          color:"red",
+
+          
+        }
+      }
+}));
+
+
 
 
 
@@ -66,6 +104,8 @@ function a11yProps(index: number) {
 
 
 const style = {
+    
+
     main: {
         boxSizing: "border-box",
         backgroundColor: "#f9f9f9",
@@ -211,6 +251,7 @@ export interface DialogTitleProps {
 function DropDownFilter() {
 
     const navigate = useNavigate()
+    const classes = useStyles();
 
 
     const handleTimePeriodChange = (index: number) => {
@@ -242,7 +283,7 @@ function DropDownFilter() {
     const handleClickOpen = () => {
         setOpen(true);
     };
-   
+
 
     const [value, setValue] = React.useState(0);
 
@@ -270,11 +311,11 @@ function DropDownFilter() {
     // };
 
 
-    
-  const handleClose=(event: React.MouseEvent<SVGSVGElement, MouseEvent>)=>{
 
-    dispatch(AnchorCloseAction())
-  }
+    const handleClose = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+
+        dispatch(AnchorCloseAction())
+    }
 
     const { Anchor }: any = useSelector((state: any) => state.filterbox)
 
@@ -294,7 +335,7 @@ function DropDownFilter() {
                 // style={{ zIndex: 5000 }}
                 actions={menuActions}
                 open={Boolean(Anchor)}
-                onClose={()=>dispatch(AnchorCloseAction())}
+                // onClose={()=>dispatch(AnchorCloseAction())}
                 anchorEl={Anchor}
             >
                 <StyledMenuItem>
@@ -318,28 +359,34 @@ function DropDownFilter() {
 
                             </Grid>
                             <Grid item xs={4} sx={{ textAlign: "end" }}>
-                                <ClearIcon onClick={(e)=>handleClose(e)} sx={{marginRight:"13px", opacity: 0.54 }} />
+                                <ClearIcon onClick={(e) => handleClose(e)} sx={{ marginRight: "13px", opacity: 0.54 }} />
                             </Grid>
 
 
                             <Grid item xs={4}>
                                 <Box sx={{
-
+                                    //  textAlign:"left",
                                     backgroundColor: "#F8F8F8", width: "100%"
                                 }}>
                                     <Tabs
+                                           className={classes.tabs}
                                         orientation="vertical"
                                         variant="scrollable"
                                         value={value}
                                         onChange={handleChangemodal}
-                                        aria-label="Vertical tabs example"
-                                        sx={{ borderRight: 1, borderColor: 'divider' }}
+                                        // aria-label="Vertical tabs example"
+                                    // sx={{ borderRight: 1, borderColor: 'red' }}
                                     >
-                                        <Tab label="Sort" {...a11yProps(0)} />
-                                        <Tab label="Date Range" {...a11yProps(1)} />
-                                        <Tab label="Amount Range" {...a11yProps(2)} />
-                                        <Tab label="Transaction Type" {...a11yProps(3)} />
-                                        <Tab label="Transaction Status" {...a11yProps(4)} />
+                                        <Tab  label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Sort</Box>} {...a11yProps(0)} />
+
+                                        
+                                        <Tab  label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Date Range</Box>} {...a11yProps(1)} />
+                                      
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Amount Range</Box>} {...a11yProps(2)} />
+                                       
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left",width: "max-content" }}>Transaction Type</Box>} {...a11yProps(3)} />
+                                       
+                                        <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left",width: "max-content" }}>Transaction Status</Box>} {...a11yProps(4)} />
                                     </Tabs>
                                 </Box>
 
@@ -355,18 +402,21 @@ function DropDownFilter() {
 
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Date - Latest to Older" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[0] ? '#3c3e42' : "#7b7b9d"}` }}>Date - Latest to Older  </Box>} />
 
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Date - Older to Latest" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[1] ? '#3c3e42' : "#7b7b9d"}` }}>Date - Older to Latest </Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Amount - High to Low" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[2] ? '#3c3e42' : "#7b7b9d"}` }}>Amount - High to Low</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Amount - Low to High" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[3] ? '#3c3e42' : "#7b7b9d"}` }}>Amount - Low to High</Box>} />
+
                                         </Box>
                                     </TabPanel>
                                     <TabPanel value={value} index={1}>
@@ -409,10 +459,10 @@ function DropDownFilter() {
                                                     />
                                                 </Grid>
                                             </Grid>
-                                          
+
                                             <Grid container spacing={2}>
                                                 <Grid item xs={4}>
-                                                <TextField
+                                                    <TextField
                                                         label="Max. Transaction Amount"
                                                         id="outlined-start-adornment"
                                                         sx={{ m: 1, width: "22ch" }}
@@ -428,31 +478,36 @@ function DropDownFilter() {
                                     <TabPanel value={value} index={3}>
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="All" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[0] ? '#3c3e42' : "#7b7b9d"}` }}>All</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Buy" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[1] ? '#3c3e42' : "#7b7b9d"}` }}>Buy</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Redeem" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[2] ? '#3c3e42' : "#7b7b9d"}` }}>Redeem</Box>} />
 
                                         </Box>
                                     </TabPanel>
                                     <TabPanel value={value} index={4}>
                                         <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="All" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(0)} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[0] ? '#3c3e42' : "#7b7b9d"}` }}>All</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Successfull" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(1)} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[1] ? '#3c3e42' : "#7b7b9d"}` }}>Successfull</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Pending Confirmation" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(2)} checked={timePeriodSelected[2]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[2] ? '#3c3e42' : "#7b7b9d"}` }}>Pending Confirmation</Box>} />
+
                                             <FormControlLabel
-                                                control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#23db7b" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                                label="Rejected" />
+                                                control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                                label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[3] ? '#3c3e42' : "#7b7b9d"}` }}>Rejected</Box>} />
 
                                         </Box>
                                     </TabPanel>
@@ -460,7 +515,7 @@ function DropDownFilter() {
                                 </Box>
                                 <Grid container spacing={2} >
                                     <Grid sx={{ textAlign: "end", margin: "3px 12px 12px 0px" }} item xs={12}>
-                                        <Button sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }} autoFocus >
+                                        <Button  sx={{ backgroundColor: "#23db7b", borderRadius: "0", padding: "15px 46px 14px" }}  autoFocus >
                                             <Typography sx={{ color: "white", fontSize: " 13px" }}>
                                                 Apply Filters
                                             </Typography>

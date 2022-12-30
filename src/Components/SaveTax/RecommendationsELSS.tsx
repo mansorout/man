@@ -144,6 +144,19 @@ const RecommendationsELSS = () => {
         console.log("calender value", value)
     }
 
+    
+    const handleCloseContinuePayment = (
+        event: {},
+        reason: "backdropClick" | "escapeKeyDown"
+    ) => {
+        if (reason === "backdropClick") {
+            console.log(reason);
+        } else {
+            //   setOpen(false);
+            setOpenConfirmation(!openConfirmation)
+        }
+    };
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -227,7 +240,7 @@ const RecommendationsELSS = () => {
             </Box>
 
 
-            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+            <Dialog open={open} onClose={() =>  (!open)}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>Set backup account</Typography>
                 <Calendar onChange={handleCalender} value={calenderValue} />
@@ -239,8 +252,37 @@ const RecommendationsELSS = () => {
                 </Button>
             </Dialog>
 
-            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
+            <Dialog  open={openConfirmation} onClose={handleCloseContinuePayment}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+
+                <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
+                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >{`Your Monthly SIP Date is ${calenderValue} of every month`}</Typography>
+                </Box>
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Continue to Payment
+                </Button>
+            </Dialog>
+
+            {/* <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
+                <Typography className={classes.modalText}>Set backup account</Typography>
+                <Calendar onChange={handleCalender} value={calenderValue} />
+                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Confirm SIP Date
+                </Button>
+            </Dialog>
+
+            <Dialog open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
 
                 <Box sx={{ backgroundColor: '#fff', width: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
                     <Box><img style={{ height: 120, width: 120 }} src={tick} /></Box>
@@ -256,7 +298,7 @@ const RecommendationsELSS = () => {
                 }}>
                     Continue to Payment
                 </Button>
-            </Dialog>
+            </Dialog> */}
 
         </Box >
     )

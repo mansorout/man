@@ -1,77 +1,96 @@
-  
- 
- import React, { useEffect, useState } from "react";
- import { Box, styled } from "@mui/system";
- import {
-   Breadcrumbs,
-   Button,
-   Grid,
-   Modal,
-   Popover,
-   TextField,
-   Typography,
- } from "@mui/material";
- import {
-   closelogo,
-   GroupSaf,
-   Logo,
-   MonoLogo,
-   Profile,
-   SIP,
-   sipiclogo,
- } from "../../Assets/index";
- import Stack from '@mui/material/Stack';
+import React, { useEffect, useState } from "react";
+import { Box, styled } from "@mui/system";
+import {
+  Breadcrumbs,
+  Button,
+  Grid,
+  Modal,
+  Popover,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  closelogo,
+  GroupSaf,
+  Logo,
+  MonoLogo,
+  Profile,
+  SIP,
+  sipiclogo,
+} from "../../Assets/index";
+import Stack from "@mui/material/Stack";
 
- import { useDispatch, useSelector } from "react-redux";
- import SaveSipDetailsButton from "../../Modules/Buttons/SaveSipDetailsButton";
- 
- import set from "date-fns/fp/set/index.js";
- import { Navigate, useNavigate } from "react-router-dom";
- import { globalConstant } from "../../Utils/globalConstant";
- import './InvestNowScreen.css'
- import {  CardContent, CardHeader, Checkbox, Drawer as DrawerList, FormControlLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, } from '@mui/material'
-import ClearIcon from '@mui/icons-material/Clear';
- 
+import { useDispatch, useSelector } from "react-redux";
+import SaveSipDetailsButton from "../../Modules/Buttons/SaveSipDetailsButton";
 
+import set from "date-fns/fp/set/index.js";
+import { Navigate, useNavigate } from "react-router-dom";
+import { globalConstant } from "../../Utils/globalConstant";
+import "./InvestNowScreen.css";
+import {
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Drawer as DrawerList,
+  FormControlLabel,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import { postData } from "../../Utils/api";
+import siteConfig from "../../Utils/siteConfig";
+import { checkExpirationOfToken, customParseJSON } from "../../Utils/globalFunctions";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 
+//  const emailRegex =
+//    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
+//  const [formData, setFormData] = useState<any>({
+//        firstName: "",
+//        lastName: "",
+//        email: "",
+//        DOB: "",
+//      });
+//      const g_investment: any = useSelector(
+//            (state: any) => state?.investment?.investment
+//          );
+//  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
 
+const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
- function ModalInvestNow(props:any) {
- 
-   
-  //  const emailRegex =
-  //    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
-  //  const [formData, setFormData] = useState<any>({
-  //        firstName: "",
-  //        lastName: "",
-  //        email: "",
-  //        DOB: "",
-  //      });
-  //      const g_investment: any = useSelector(
-  //            (state: any) => state?.investment?.investment
-  //          );
-  //  const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
-  
-  const emailRegex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const regexDOB = /[0-9]{4,}(-[0-9]{2,}){2,}/;
+const ModalInvestNow = (props: any) => {
+  const navigate = useNavigate();
+  const dispatchLocal = useDispatch();
+
+  const g_investment: any = useSelector(
+    (state: any) => state?.investmentReducer?.investment
+  );
+  const objUserDetails: any = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+
   const [formData, setFormData] = useState<any>({
-        firstName: "",
-        lastName: "",
-        email: "",
-        DOB: "",
-      });
-      const g_investment: any = useSelector(
-            (state: any) => state?.investmentReducer?.investment
-          );
+    firstName: objUserDetails?.userdetails?.firstname || "",
+    lastName: objUserDetails?.userdetails?.lastname || "",
+    email: objUserDetails?.userdetails?.emailaddress || "",
+    DOB: objUserDetails?.userdetails?.dateofbirth || "",
+  });
+
+  // const [error, setError] = useState(false);
+  // const [showSubmit, setShowSubmit] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+
   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
      const [errorMessageLN, setErrorMessageLN] = React.useState<any>("");
      const [errorMessageEM, setErrorMessageEM] = React.useState<any>("");
      const [errorMessageDOB, setErrorMessageDOB] = React.useState<any>("");
      const [showSubmit, setShowSubmit] = useState(true);
      const [error, setError] = useState(false);
-     const navigate = useNavigate()
+  
      function handleOnBlurFirstname(e: any) {
            if (formData.firstName.length < 3) {
              setError(true);

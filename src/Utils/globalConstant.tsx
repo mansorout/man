@@ -8,7 +8,7 @@ export const globalConstant = Object.freeze({
     ERROR_OCCURRED: "Some error occurred!"
 })
 
-export const lookUpMasterKeys = Object.freeze({
+export const lookUpMasterKeys: any = Object.freeze({
     BANNER_SECTION: 'bannersection',
     FINANCIAL_YEAR: 'financialyear',
     HELATH_RECOMMENDATION_TYPE: 'healthrecommendationtype',
@@ -28,4 +28,19 @@ export const lookUpMasterKeys = Object.freeze({
     ULIP_FREQUENCY: 'ulip-frequency',
     ULIP_PORT: 'ulip-ppt',
     ULIP_TERM: 'ulip-term',
+})
+
+export const bannerSectionValues = Object.freeze({
+    HOME_PAGE: "homepage",
+    INVEST_NOW: "investnow",
+    BUILD_WEALTH: "buildWealth",
+    SAVE_TAX: "savetax",
+    INSURANCE_HOME_PAGE: "insurancehomepage",
+    HEALTH_INSURANCE: "healthinsurance",
+    TERM_INSURANCE: "terminsurance"
+})
+
+export const investmentTypeValues = Object.freeze({
+    LUMPSUM: "Lumpsum",
+    SIP: "SIP"
 })
