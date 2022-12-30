@@ -1,21 +1,17 @@
-import { SET_IS_USER_AUTENTICATED, SET_LOGIN_DATA, SET_TOKEN_EXPIRED_STATUS, SET_USER_VIEW_PROFILE_DATA } from "../constants/auth-constants"
+import {
+  SET_IS_USER_AUTENTICATED,
+  SET_LOGIN_DATA_ON_FAILED,
+  SET_LOGIN_DATA_ON_SUCCESS,
+  SET_TOKEN_EXPIRED_STATUS,
+  SET_USER_VIEW_PROFILE_DATA
+} from "../constants/auth-constants"
 
 export const setloginDataOnSuccessAction = (data: any) => {
-  return (dispatch: any) => {
-    dispatch({
-      type: SET_LOGIN_DATA,
-      payload: data
-    })
-  }
+  return { type: SET_LOGIN_DATA_ON_SUCCESS, payload: data }
 }
 
 export const setloginDataOnFailAction = (data: any) => {
-  return (dispatch: any) => {
-    dispatch({
-      type: SET_LOGIN_DATA,
-      payload: data
-    })
-  }
+  return { type: SET_LOGIN_DATA_ON_FAILED, payload: data }
 }
 
 export const setIsUserAuthenticatedAction = (payload: any) => {
