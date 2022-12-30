@@ -103,7 +103,7 @@ const PanUpdate = () => {
 
         };
         console.log(objBody)
-
+        setShouldButtonDisable(true)
         postData(
             objBody,
             siteConfig.AUTHENTICATION_PAN_VERIFICATION,
@@ -112,7 +112,7 @@ const PanUpdate = () => {
         )
             .then(res => res.json())
             .then((data) => {
-                setLoading(false);
+                setShouldButtonDisable(false)
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));

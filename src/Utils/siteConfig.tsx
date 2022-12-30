@@ -46,7 +46,10 @@ const siteConfig = Object.freeze({
   TERM_PURCHASE: '/insurance/term/purchase/',
   // AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
   // AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
+
+  // Kyc update 
   AUTHENTICATION_PAN_VERIFICATION: "/authentication/pan/verification/",
+  AUTHENTICATION_NOMINEE_ADD: "/authentication/nominee/add/",
 
 
   //Recommendations
