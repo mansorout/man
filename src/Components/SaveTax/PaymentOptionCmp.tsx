@@ -21,7 +21,7 @@ const PaymentOptionCmp = () => {
                 <Toolbar />
                 <Sidebar />
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important', marginTop: '-15px', }, }} item xs={12}>
+                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important', marginTop: '-15px', }, }} item xs={12}>
                         PaymentOptionCmp
                     </Grid>
                 </Grid >

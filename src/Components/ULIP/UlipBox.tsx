@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Box, Breadcrumbs, Divider, FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, TextField, Theme, Toolbar, Typography } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
@@ -7,7 +7,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { makeStyles } from "@mui/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './UlipBox.css';
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
@@ -20,6 +20,20 @@ import {
     MONTHLY
 } from '../../Store/Duck/SaveTaxInvestmentType';
 import {isMultipleofNumber} from '../../Utils/globalFunctions'
+import LineChart from "../CommonComponents/Charts/LineChart";
+import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
+import { getUlipReturnApiTypes, ulipReturnApiParamsTypes } from "../../Store/Insurance/constants/types";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+} from 'chart.js';
 
 
 
@@ -104,10 +118,15 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             }
         }
     },
-
     rupeesIcon: {
         fontSize: '16px !important',
         color: 'var(--typeLightBlackColor)',
+    },
+    performanceGraphCard:{
+        backgroundColor: 'var(--uiWhite)',
+        borderRadius: '8px',
+        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+        padding: '15px',
     }
 }))
 
@@ -119,10 +138,13 @@ const UlipBox = () => {
     const refContainer = useRef();
 
     const [ years, setYears ] = useState('5');
-
-    const [investmentType, setInvestmentType] = useState<string>('LUMPSUM')
+    const [investmentType, setInvestmentType] = useState<string>(LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
+    const [chartLabels, setChartLabels] = useState<string[] | null>(null)
+    const [chartInvestedAmount, setChartInvestedAmount] = useState<number[] | null>(null)
+    const [chartProjectedAmount, setChartProjectedAmount] = useState<number[] | null>(null)
+    const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
@@ -138,6 +160,37 @@ const UlipBox = () => {
         setMonthlyAmount(event.target.value);
     };
 
+    ChartJS.register(
+        Filler,
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+    );
+    useEffect(() => {
+        const urlTemp: ulipReturnApiParamsTypes = {
+            frequencytype: investmentType === MONTHLY ? '0' : '1', 
+            amount: '10000'
+        }
+     dispatch(getUlipReturnApi(urlTemp))
+    }, [])
+
+    useEffect(() => {
+       const labels = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.years + 'Y')
+       const investedamount = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.investedamount)
+       const projectedamount = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.projectedamount)
+
+       console.log("labels : ", labels)
+       setChartLabels(labels)
+       setChartInvestedAmount(investedamount)
+       setChartProjectedAmount(projectedamount)
+    }, [ulipReturnApiData])
+    
+    
+
     const style = {
         main: {
             boxSizing: "border-box",
@@ -145,6 +198,40 @@ const UlipBox = () => {
             height: "100vh"
         } as React.CSSProperties,
     };
+    
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom' as const,
+                display: true,
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart',
+            },
+        },
+    };
+
+    const chartData = {
+        labels: chartLabels,
+        datasets: [
+            {
+                label: "Invested Value",
+                data: chartInvestedAmount,
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)"
+            },
+            {
+              label: "Projected Value",
+              data: chartProjectedAmount,
+              fill: true,
+              borderColor: "#742774"
+            }
+        ]
+    };
+
 
     const handleNavigationFlow = () => {
         // navigate('/ulip/recommendations')
@@ -292,7 +379,11 @@ const UlipBox = () => {
                                                         </Box>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>
-                                                        <UlipPlanPerformanceCard />
+                                                        {/* <UlipPlanPerformanceCard /> */}
+                                                        <Box className={classes.performanceGraphCard}>
+                                                            <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>ULIP Plan Performance</Typography>
+                                                            <LineChart optionsValues={chartOptions} dataValues={chartData} />
+                                                        </Box>
                                                     </Grid>
                                                 </Grid>
                                             </Box>
