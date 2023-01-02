@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { accountboxlogo } from '../../Assets/index'
+import { accountboxlogo, Checkcirclelogo, circlechecklogo, doneincircle } from '../../Assets/index'
 import { familyrestroomlogo } from '../../Assets/index'
 import { paymentslogo } from '../../Assets/index'
 import { AccountBalancelogo } from '../../Assets/index'
@@ -15,7 +15,8 @@ import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import { VerificationpendingButton } from '../Buttons/VerificationpendingButton'
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, ListItemIcon, Typography } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import React from 'react'
 import './style.css'
 
@@ -91,7 +92,7 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                  
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px"
                 }}
                 className="thirdboxstyle"
@@ -148,9 +149,22 @@ function VviewprofileCard() {
                                     <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
 
                                 </Typography>
+
                             }
+                            secondary={
+                                <Typography sx={{size:"14px"}}><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />DUDPS1755G</Typography>
+
+                            }
+                        // secondary="DUDPS1755G"
+
+
 
                         />
+
+
+
+
+                        <ListItemText sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }} />
                     </ListItem>
 
 
@@ -195,6 +209,10 @@ function VviewprofileCard() {
 
                                 </Typography>
                             }
+                            secondary={
+                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />Added Successfully</Typography>
+
+                            }
 
                         />
                     </ListItem>
@@ -216,6 +234,7 @@ function VviewprofileCard() {
 
                             </IconButton>
                         }
+
                     >
                         <ListItemAvatar>
 
@@ -235,6 +254,11 @@ function VviewprofileCard() {
 
                                 </Typography>
                             }
+                            secondary={
+                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />Verified Successfully</Typography>
+
+                            }
+
 
                         />
                     </ListItem>
@@ -278,6 +302,11 @@ function VviewprofileCard() {
                                 </Typography>
                             }
 
+                            secondary={
+                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px",paddingRight:"2px" }} />Added Successfully</Typography>
+                                
+                               }
+
                         />
                     </ListItem>
                     <Grid container spacing={1} textAlign="center" sx={{ paddingLeft: "32px" }}>
@@ -293,7 +322,7 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px",
                 }}
                 className="thirdboxstyle"
@@ -339,7 +368,7 @@ function VviewprofileCard() {
             <Box
                 sx={{
                     p: 1,
-                
+
                     width: '1', bgcolor: 'background.paper', marginTop: "30px",
                 }}
                 className="thirdboxstyle"

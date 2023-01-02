@@ -1,6 +1,5 @@
 import { Grid, Modal } from '@mui/material';
-import { TailSpin } from 'react-loader-spinner'
-  ;
+import { TailSpin } from 'react-loader-spinner';
 type IProps = {
   loadingStatus: boolean
 }
