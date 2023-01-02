@@ -116,10 +116,13 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
 
   const checkDOB = (strDOB: string) => {
-    let num: number = parseInt(strDOB);
+    if (!strDOB) {
+      return "";
+    }
 
+    let num: number = parseInt(strDOB);
     // @ts-ignore
-    if (strDOB === NaN) {
+    if (!num) {
       return "";
     }
 
