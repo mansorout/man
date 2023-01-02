@@ -97,34 +97,42 @@ const initialFormData: formDataProps = {
   incomeslab: ''
 }
 
-const ViewProfileCard = () => {
+type IProps = {
+  userDetails: any
+}
+
+const ViewProfileCard = (props: IProps) => {
   /**refernce variables */
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
   /**reducer state */
   const userData: any = useSelector((state: any) => state.userProfileDetails)
-  const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
-  console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
-  
+  // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
+  // console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
+
+  // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   /**local states */
   const [imgSrc, setImgSrc] = useState<any>("");
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
 
   useEffect(() => {
-    let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
+    // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
+    // if (userdetails) {
+    let userdetails: any = { ...props?.userDetails };
     if (userdetails) {
       setFormData(prev => ({
         ...prev,
         mobilenumber: userdetails?.mobilenumber,
         emailaddress: userdetails?.emailaddress,
-        dateofbirth: userdetails?.dateofbirth,
+        dateofbirth: !userdetails?.dateofbirth ? "" : userdetails?.dateofbirth,
         gender: userdetails?.gender,
         placeofbirth: userdetails?.placeofbirth,
         addressline1: userdetails?.addressline1,
         incomeslab: userdetails?.incomeslab
       }))
     }
-  }, [g_viewProfileState])
+  }, [props?.userDetails])
+  // }, [g_viewProfileState])
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -190,7 +198,7 @@ const ViewProfileCard = () => {
               <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Email Address
                 {
                   // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                  <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.emailaddress}</Typography>
+                  <Typography sx={{ fontSize: "14px" }}>{formData?.emailaddress || ""}</Typography>
                 }
               </Typography>
             </ListItem>
@@ -208,7 +216,7 @@ const ViewProfileCard = () => {
                   <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Date of Birth</Typography>
                 }
                 secondary={userData?.formData?.dateofbirth !== "" ?
-                  <Typography sx={{ fontSize: "14px" }}>{userData?.formData?.dateofbirth}</Typography> : ""}
+                  <Typography sx={{ fontSize: "14px" }}> {formData?.dateofbirth || ""}</Typography> : ""}
 
               />
               <Avatar
@@ -219,8 +227,8 @@ const ViewProfileCard = () => {
               {/* ViewProfileState?.userdetails */}
               <ListItemText
                 primary="Gender"
-                secondary={g_viewProfileState?.userdetails?.gender !== "" ?
-                  g_viewProfileState?.userdetails?.gender : ""}
+                // secondary={g_viewProfileState?.userdetails?.gender !== "" ? g_viewProfileState?.userdetails?.gender : ""}
+                secondary={formData?.gender || ""}
                 sx={{ marginLeft: '20px', color: "#3c3e42" }} />
             </ListItem>
 
@@ -235,10 +243,11 @@ const ViewProfileCard = () => {
               </ListItemAvatar>
 
               <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Place of Birth
-                {
+                {/* {
                   g_viewProfileState?.userdetails?.placeofbirth !== "" ?
                     <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
-                }
+                  } */}
+                <Typography sx={{ fontSize: "14px" }}>{formData?.placeofbirth}</Typography>
               </Typography>
             </ListItem>
             <ListItem>
@@ -250,10 +259,11 @@ const ViewProfileCard = () => {
               <ListItemText
                 primary={
                   <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Communication Address
-                    {
+                    <Typography sx={{ fontSize: "14px" }}>{formData?.addressline1}</Typography>
+                    {/* {
                       g_viewProfileState?.userdetails?.addressline1 !== "" ?
                         <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.addressline1}</Typography> : ""
-                    }
+                    } */}
                   </Typography>
                 }
 
@@ -274,11 +284,12 @@ const ViewProfileCard = () => {
               <ListItemText
                 primary={
                   <Typography sx={{ fontSize: "14px" }}>Income slab
-                    {
+                    <Typography sx={{ fontSize: "14px" }}>{formData?.incomeslab}</Typography>
+                    {/* {
                       // {ViewProfileState?.userdetails?.emailaddress}
                       g_viewProfileState?.userdetails?.incomeslab !== "" ?
                         <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.incomeslab}</Typography> : ""
-                    }
+                    } */}
                   </Typography>
                 }
 
