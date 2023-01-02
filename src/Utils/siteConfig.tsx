@@ -50,6 +50,9 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
+
+  // Insurance
+  INSURANCE_ULIP_RETURN: '/insurance/ulip/returns',
 });
 
 export default siteConfig;
