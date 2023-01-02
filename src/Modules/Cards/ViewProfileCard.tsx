@@ -115,6 +115,17 @@ const ViewProfileCard = (props: IProps) => {
   const [imgSrc, setImgSrc] = useState<any>("");
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
 
+  const checkDOB = (strDOB: string) => {
+    let num: number = parseInt(strDOB);
+
+    // @ts-ignore
+    if (strDOB === NaN) {
+      return "";
+    }
+
+    return strDOB;
+  }
+
   useEffect(() => {
     // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
     // if (userdetails) {
@@ -124,7 +135,7 @@ const ViewProfileCard = (props: IProps) => {
         ...prev,
         mobilenumber: userdetails?.mobilenumber,
         emailaddress: userdetails?.emailaddress,
-        dateofbirth: !userdetails?.dateofbirth ? "" : userdetails?.dateofbirth,
+        dateofbirth: checkDOB(userdetails?.dateofbirth),
         gender: userdetails?.gender,
         placeofbirth: userdetails?.placeofbirth,
         addressline1: userdetails?.addressline1,
