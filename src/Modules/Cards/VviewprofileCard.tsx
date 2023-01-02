@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { accountboxlogo, Checkcirclelogo, circlechecklogo, doneincircle } from '../../Assets/index'
 import { familyrestroomlogo } from '../../Assets/index'
@@ -19,13 +19,25 @@ import { Box, Grid, IconButton, ListItemIcon, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import React from 'react'
 import './style.css'
+import { useSelector } from 'react-redux';
 
 
-function VviewprofileCard() {
 
-    const [panCardNo, setPanCardNo] = useState('');
-    const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
+type formDataProps = {
+    pannumber: string;
+    
+  }
+  
+  const initialFormData: formDataProps = {
+    pannumber: '',
+    
+  }
 
+  type IProps = {
+    kycDetails: any
+  }
+
+function VviewprofileCard(props: IProps) {
     const style = {
         containertwo: {
             backgroundColor: "#fff",
@@ -61,6 +73,36 @@ function VviewprofileCard() {
         // } as React.CSSProperties,
 
     }
+
+
+
+    const [panCardNo, setPanCardNo] = useState('');
+    const [formData, setFormData] = useState<formDataProps>(initialFormData);
+    const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
+    const userData: any = useSelector((state: any) => state?.authReducer?.profile)
+    console.log(userData.data?.kycdetails?.pannumber)
+
+
+    useEffect(() => {
+        // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
+        // if (userdetails) {
+        let userdetails: any = { ...props?.kycDetails };
+        if (userdetails) {
+          setFormData(prev => ({
+            ...prev,
+            pannumber: userdetails?.pannumber,
+           
+          }))
+        }
+      }, [props?.kycDetails])
+
+      console.log(formData?.pannumber )
+      
+
+
+    
+
+    
 
 
     const navigate = useNavigate();
@@ -151,8 +193,10 @@ function VviewprofileCard() {
                                 </Typography>
 
                             }
+
+                            
                             secondary={
-                                <Typography sx={{size:"14px"}}><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />DUDPS1755G</Typography>
+                                <Typography sx={{size:"14px"}}> <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />{formData?.pannumber || ""}</Typography>
 
                             }
                         // secondary="DUDPS1755G"

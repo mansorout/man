@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { ContactError, SuccessLogo } from '../../Assets';
 import { useSelector } from 'react-redux';
 
@@ -58,9 +58,9 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Slide in alert dialog
-            </Button>
+            </Button> */}
             <Dialog
                 open={props.open}
                 TransitionComponent={Transition}
@@ -72,12 +72,8 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
                 <DialogContent sx={{ minWidth: "201px" }}>
                     {
-                        !props.errorText  ? <Grid container>
-                            <Grid item xs={6}>
-                                <DialogContentText sx={{ color: "green" }} id="alert-dialog-slide-description">
-                                    {props.succesText}
-                                </DialogContentText>
-                            </Grid>
+                        !props.errorText ? <Grid container>
+
                             <Grid item xs={6}>
 
                                 <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
@@ -85,33 +81,68 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
                                 </Box>
                             </Grid>
 
-                        </Grid> : <Grid container>
                             <Grid item xs={6}>
-                                <DialogContentText sx={{ color: "red" }} id="alert-dialog-slide-description">
-                                    {props.errorText}
+                                <DialogContentText sx={{ color: "green" }} id="alert-dialog-slide-description">
+                                    {props.succesText}
                                 </DialogContentText>
                             </Grid>
-                            <Grid item xs={6}>
+
+
+                        </Grid> : <Grid container sx={{
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <Grid item xs={2}>
 
                                 <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
                                     <img style={{ height: "25px", width: "25px", }} src={ContactError} alt="error" />
                                 </Box>
                             </Grid>
+                            <Grid item xs={10}>
+                                <DialogContentText sx={{ color: "red", textAlign: "center" }} id="alert-dialog-slide-description">
+                                    {props.errorText}
+                                </DialogContentText>
+                            </Grid>
+
 
                         </Grid>
                     }
 
 
+                    {/* <Grid container sx={{
+                        display: "flex",
+                        flexDirection: "column"
+                    }} >
+                        <Grid item md={4}>
 
+                            <img style={{ paddingLeft: " 85px", height: "25px", width: "25px", }} src={SuccessLogo} alt="error" />
+
+                        </Grid>
+                        <Grid item md={4}>
+                            <Typography sx={{ textAlign: "center",minWidth: "100% !important"}}>Succes Message</Typography>
+                        </Grid>
+                        <Grid item md={4}>
+                            <Typography sx={{ textAlign: "center"}}>
+                                Error Message
+                            </Typography>
+                        </Grid>
+                        <Grid item md={12}>
+
+                            <Button sx={{ width: { xs: '85%', sm: '40%', md: '100%', maxHeight: "50px" } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)' }} ><Typography sx={{
+                                textAlign: "center", minWidth: " 100%"
+                            }}>Continue</Typography></Button>
+
+                        </Grid>
+                    </Grid> */}
 
 
 
 
 
                 </DialogContent>
-                <DialogActions>
-                    {/* <Button onClick={handleClose}>Agree</Button> */}
-                    <Button sx={{ width: { xs: '85%', sm: '40%',maxHeight: "50px"} }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}>{props.btnText}</Button>
+                <DialogActions sx={{ paddingRight: "10px" }}>
+
+                    <Button sx={{ width: "100%" }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}><Typography sx={{ size: "12px" }}>{props.btnText}</Typography></Button>
                 </DialogActions>
             </Dialog>
         </div>

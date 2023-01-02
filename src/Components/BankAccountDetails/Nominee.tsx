@@ -10,6 +10,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import { useDispatch } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
 
 const Nominee = () => {
 
@@ -27,6 +28,7 @@ const Nominee = () => {
     const [dobError, setDobError] = useState(false);
     const [relationError, setRelationError] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [dialog, setShowDialog] = useState<boolean>(false);
     // const formData = "Vineet"
 
 
@@ -140,6 +142,7 @@ const Nominee = () => {
         <Box style={{ width: "100vw" }}>
             <Navbar />
             <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
+            
             <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
@@ -285,6 +288,7 @@ const Nominee = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={"hhhh"} succesText={"bhhhhh"} />
         </Box>
     )
 };
