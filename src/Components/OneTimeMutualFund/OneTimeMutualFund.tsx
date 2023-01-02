@@ -237,7 +237,7 @@ const OneTimeMutualFund = () => {
 
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
-  }
+  };
   return (
     <Box style={{ width: "100vw" }}>
       <Navbar />
@@ -296,7 +296,6 @@ const OneTimeMutualFund = () => {
                     </Typography>
                   </Breadcrumbs> */}
 
-
                   <Breadcrumbs
                     sx={{
                       fontSize: "12px",
@@ -305,15 +304,28 @@ const OneTimeMutualFund = () => {
                   >
                     <Link href="/home">Home</Link>
                     <Link
-                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                      onClick={() =>
+                        handleNavigation(
+                          g_investment?.type === globalConstant.SIP_INVESTMENT
+                            ? "/sipInvestment"
+                            : "/oneTimeInvestment"
+                        )
+                      }
                     >
                       Investment
                     </Link>
                     <Link
-                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
-
+                      onClick={() =>
+                        handleNavigation(
+                          g_investment?.type === globalConstant.SIP_INVESTMENT
+                            ? "/startAnSip"
+                            : "/investNow"
+                        )
+                      }
                     >
-                      {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                      {g_investment?.type === globalConstant.SIP_INVESTMENT
+                        ? "monthly investment"
+                        : "one time lumpsum"}
                     </Link>
                     <Typography
                       sx={{
@@ -437,7 +449,6 @@ const OneTimeMutualFund = () => {
                 backgroundColor: "#fff",
               }}
             >
-            
               <FooterWithButton2
                 btnText="BUY NOW"
                 btnClick={() =>

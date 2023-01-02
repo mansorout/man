@@ -49,7 +49,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     zIndex: "3000",
   },
 }));
-
+// "#ab707003",
 const style = {
   main: {
     boxSizing: "border-box",
@@ -201,13 +201,13 @@ const ViewProfile = () => {
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{ height: "100vh" }}>
+        <Grid container spacing={0} sx={{ height: "auto" }}>
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10}>
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={13} sm={11} md={10}>
+            <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={11} md={10}  className="ScrollBarStyle" >
               <Toolbar />
               <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">

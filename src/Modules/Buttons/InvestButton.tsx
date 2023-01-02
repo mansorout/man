@@ -34,7 +34,6 @@ export const InvestButton = (props: IProps) => {
   const g_investment: any = useSelector(
     (state: any) => state?.investmentReducer?.investment
   );
-  const [amount, setAmount]= useState('')
   const [error, setError] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [investamount, setInvestAmount] = useState("");
@@ -75,12 +74,7 @@ export const InvestButton = (props: IProps) => {
   const handleChangecontinue = (e: any) => {
     const getinvest = e.target.value
     setInvestAmount(getinvest);
-    console.log(getinvest)
-
-
-
   }
- 
 
   return (
     <>
@@ -99,16 +93,13 @@ export const InvestButton = (props: IProps) => {
             <Typography
               component="span"
               style={style.text}
-              className="largeButtonText"
-             
-
-            >
+              className="largeButtonText">
               Continue
             </Typography>
           </Grid>
         </Grid>
       </Button>
-      {/* <ModalInvestNow open={showLogin} close={() => setShowLogin(false)} /> */}
+      <ModalInvestNow open={showLogin} close={() => setShowLogin(false)} />
     </>
   );
 };

@@ -11,7 +11,7 @@
 
     .verificationStyle {
         padding-left: 18% !important;
-        transform: translate(-62%, 12.1%) !important;
+        transform: translate(-66%, -7.9%) !important;
         font-size: 12px !important;
     }
 
@@ -21,8 +21,8 @@
 
 @media (max-width: 768px) {
     .verificationStyle {
-        padding-left: 15% !important;
-        transform: translate(-62%, 12.1%) !important;
+        padding-Left: 15% !important;
+        transform: translate(-68%, -4.9%) !important;
         font-size: 12px !important;
     }
 }
@@ -30,7 +30,7 @@
 
 
 
-@media (max-width:560px) {
+@media (max-width:540px) {
 
     .EditDetailsButtonStyle {
 
@@ -49,23 +49,39 @@
     .verificationStyle {
 
         padding-left: 15% !important;
-        transform: translate(-20%, 12.1%) !important;
+        transform: translate(-62%, -7.9%) !important;
         font-size: 12px !important;
+    }
+}
+
+@media (max-width:414px) {
+    .verificationStyle {
+        padding-left: 7% !important;
+    transform: translate(-40%, -8.9%) !important;
+    font-size: 10px !important;
+    }
+}
+
+@media (max-width:390px) {
+    .verificationStyle {
+        padding-left: 7% !important;
+    transform: translate(-30%, -8.9%) !important;
+    font-size: 10px !important;
+    }
+}
+@media (max-width:375px) {
+    .verificationStyle {
+        padding-left: 7% !important;
+        transform: translate(-25%, -4.9%) !important;
+        font-size: 10px !important;
     }
 }
 
 @media (max-width:280px) {
     .verificationStyle {
         padding-left: 7% !important;
-        transform: translate(-12%, 12.1%) !important;
+        transform: translate(-17%, -25.9%) !important;
         font-size: 6px !important;
     }
 }
 
-@media (max-width:375px) {
-    .verificationStyle {
-        padding-left: 7% !important;
-        transform: translate(-20%, 12.1%) !important;
-        font-size: 10px !important;
-    }
-}
