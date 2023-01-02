@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -15,6 +15,9 @@ import Dialog from '@mui/material/Dialog';
 import { tick } from '../../Assets';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
+import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
+import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -40,6 +43,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
         borderRadius: '8px',
         padding: '15px',
+        marginBottom: '15px',
     },
     cardStyleCmpName: {
         display: 'flex',
@@ -118,16 +122,55 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     ratingBoxImgWrapper: {
         backgroundColor: 'transparent !important',
-    }
+    },
+    
+    modalText: {
+        backgroundColor: 'var(--uiWhite)',
+        // width: 338,
+        textAlign: 'center',
+        padding: '10px 0px',
+        borderTopRightRadius: 4,
+        borderTopLeftRadius: 4,
+        fontWeight: 500,
+        borderColor: 'var(--uiWhite)',
+        fontsize: 'var(--titleFontSize),'
+    },
+    modalTextButton: {
+        // height: "48px",
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+        // width: 350,
+    },
+    dateModal: {
+        '&>.MuiBox-root': {
+            display: 'inline-block !important   '
+        }
+
+    },
 }))
 
 const RecommendationsELSS = () => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const { investmentType } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const dispatch: any = useDispatch();
+    const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const { saveTaxListData } = useSelector((state: any) => state.saveTaxReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
+
+    
+    useEffect(() => {
+        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
+        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        const temp = {
+            investmenttype_id: lookUPId,
+            amount: parseInt(investmentAmount),
+        }
+        dispatch(getDataSaveTaxListApi(temp))
+    }, [])
+    
 
 
     const handleULIPDate = () => {
@@ -164,66 +207,70 @@ const RecommendationsELSS = () => {
                 <Toolbar />
                 <Sidebar />
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' }, marginTop: '-15px', }} item xs={12}>
+                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' }, marginTop: '-15px', }} item xs={12}>
                         <RecommendationsELSSHeader />
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>1 ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
                         </Box>
 
-
-                        <Box className={classes.cardStyle}>
-                            <Grid container>
-                                <Grid item xs={12} sm={5}>
-                                    <Box className={classes.cardStyleCmpName}>
-                                        <Box className={classes.cardImgWrapper}>
-                                            <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
-                                        </Box>
-                                        <Box sx={{ margin: {sx: '0px', sm:'0px 8px'} }}>
-                                            <Typography component='p'>Mirae Asset Dynamic Bond
-                                                Fund Direct Growth</Typography>
-                                            <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
-                                            <Typography component='div' className={classes.cardBadge}>Equity</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={2}>
-                                    <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
-                                        <Typography component='div'>₹2400 PM</Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={3}>
-                                    <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>1 yr return</Typography>
-                                            <Typography component='p'>12.3%</Typography>
-                                        </Box>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>5 yr return</Typography>
-                                            <Typography component='p'>24.33%</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} sm={2}>
-                                    <Box>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>3 yr return</Typography>
-                                            <Typography component='p'>18.76%</Typography>
-                                        </Box>
-                                        <Box className={classes.ratingBox}>
-                                            <Typography component='div'>
-                                                <StarOutlinedIcon />
-                                                <Typography component='span'>5.0
-                                                </Typography>
-                                            </Typography>
-                                            <Box className={classes.ratingBoxImgWrapper}>
-                                                <img src={process.env.PUBLIC_URL + '/assets/images/rating-logo.webp'} alt="" />
+                        {
+                           saveTaxListData?.recommendations && saveTaxListData.recommendations.map((cardData?: any) => {
+                              return( <Box className={classes.cardStyle}>
+                                    <Grid container>
+                                        <Grid item xs={12} sm={5}>
+                                            <Box className={classes.cardStyleCmpName}>
+                                                <Box className={classes.cardImgWrapper}>
+                                                    <img style={{ width: '100%', height: 'auto' }} src={cardData?.fundimage} alt="" />
+                                                </Box>
+                                                <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
+                                                    <Typography component='p'>{cardData?.fundname}</Typography>
+                                                    <Typography component='div' className={classes.cardBadge}>{cardData?.category}</Typography>
+                                                    <Typography component='div' className={classes.cardBadge}>{cardData?.categorygroup}</Typography>
+                                                </Box>
                                             </Box>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </Box>
+                                        </Grid>
+                                        <Grid item xs={12} sm={2}>
+                                            <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
+                                                <Typography component='div'>₹{cardData?.recommendedamount}</Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item xs={12} sm={3}>
+                                            <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
+                                                <Box className={classes.cardContent}>
+                                                    <Typography component='span'>1 yr return</Typography>
+                                                    <Typography component='p'>{cardData?.return1yr}</Typography>
+                                                </Box>
+                                                <Box className={classes.cardContent}>
+                                                    <Typography component='span'>5 yr return</Typography>
+                                                    <Typography component='p'>{cardData?.return5yr}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item xs={12} sm={2}>
+                                            <Box>
+                                                <Box className={classes.cardContent}>
+                                                    <Typography component='span'>3 yr return</Typography>
+                                                    <Typography component='p'>{cardData?.return3yr}</Typography>
+                                                </Box>
+                                                <Box className={classes.ratingBox}>
+                                                    <Typography component='div'>
+                                                        <StarOutlinedIcon />
+                                                        <Typography component='span'>{cardData?.ratingoverall}
+                                                        </Typography>
+                                                    </Typography>
+                                                    <Box className={classes.ratingBoxImgWrapper}>
+                                                        <img src={process.env.PUBLIC_URL + '/assets/images/rating-logo.webp'} alt="" />
+                                                    </Box>
+                                                </Box>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                              )
+                            })
+
+                        }
 
                         <Box className={classes.exploreOtherOptionsBtn}>
                             <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>

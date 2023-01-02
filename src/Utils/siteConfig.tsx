@@ -2,7 +2,7 @@ const siteConfig = Object.freeze({
   /**KEYS*/
   X_API_KEY: "ffuLdSFQZ53751vd0Rrvi3H2im5Tq0oR4CYkNifo",
   GOOGLE_OAUTH_CLIENT_ID: "823267183036-k02hrr39426mgjc3ud146iov09e80dgf.apps.googleusercontent.com",
-  
+
   /**Base URL */
   BASE_URL: ".execute-api.ap-south-1.amazonaws.com/staging", //staging Development Server
 
@@ -35,10 +35,11 @@ const siteConfig = Object.freeze({
   //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
-  METADATA_MODULE_DEFAULTS_LIST :'/metadata/module/defaults/list',
+  METADATA_MODULE_DEFAULTS_LIST: '/metadata/module/defaults/list',
   METADATA_INCOMESLAB_LIST: "/metadata/incomeslab/list/",
   METADATA_LOOKUP_LIST: "/metadata/lookup/list/",
   METADATA_BANNER_LIST: "/metadata/banner/list/",
+  METADATA_PINCODE_LIST: "/metadata/pincode/list/",
 
   //Savtax
   SAVETAX_COMPARISON: "/savetax/comparison",
@@ -58,6 +59,9 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
+
+  // Insurance
+  INSURANCE_ULIP_RETURN: '/insurance/ulip/returns',
 });
 
 export default siteConfig;

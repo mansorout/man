@@ -20,6 +20,13 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             pointerEvents: 'initial !important'
         }
     },
+    menuList:{
+        '& .MuiListItemText-root':{
+            '& span':{
+                fontSize: '14px!important'
+            }
+        }
+    }
 }));
 
 
@@ -50,8 +57,8 @@ const Sidebar = () => {
         <div>
 
             {/* <Box sx={{ display: 'block', opacity: { xs: '0', sm: "1" }, pointerEvents: { xs: 'none', sm: "initial" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", padding: 0, boxSizing: "border-box", height: "100vh", transition: 'all 0.3s ease-in-out', position: 'fixed', width: { sm: '70px', md: '230px' }, zIndex: '11' }} className={`${toggleState ? classes.mobileMenu : ''}`}> */}
-            <Box sx={{ display: 'block', opacity: { xs: '0', sm: "1" }, pointerEvents: { xs: 'none', sm: "initial" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", padding: 0, boxSizing: "border-box", height: "100vh", transition: 'all 0.3s ease-in-out', position: 'fixed', width: { sm: '10vw', md: '17vw' }, zIndex: '11' }} className={`${toggleState ? classes.mobileMenu : ''}`}>
-                <List sx={{ py: "30px", height: "inherit" }}>
+            <Box sx={{ display: 'block', opacity: { xs: '0', sm: "1" }, pointerEvents: { xs: 'none', sm: "initial" }, backgroundColor: "white", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)", padding: 0, boxSizing: "border-box", height: "100vh", transition: 'all 0.3s ease-in-out', position: 'fixed', width: { sm: '90px', md: '230px' }, zIndex: '11' }} className={`${toggleState ? classes.mobileMenu : ''}`}>
+                <List sx={{ py: "30px", height: "inherit" }} className={classes.menuList}>
                     <ListItem disablePadding>
                         <ListItemButton
                             onClick={() => { navigate('/home'); handleMenuOpen() }}

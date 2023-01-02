@@ -177,7 +177,7 @@ const SaveTaxInvestmentType = () => {
                 <Toolbar />
                 <Sidebar />
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' }, }} item xs={12}>
+                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' }, }} item xs={12}>
                         <h4>SprintMoney Recommendation</h4>
                         <RadioGroup
                             aria-labelledby="demo-controlled-radio-buttons-group"
