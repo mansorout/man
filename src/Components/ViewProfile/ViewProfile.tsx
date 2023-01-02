@@ -1,10 +1,15 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getData } from '../../Utils/api';
+import { setTokenExpiredStatusAction, setUserViewProfileDataAction } from '../../Store/Authentication/actions/auth-actions';
+import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
+import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 
 import './ViewProfile.css'
 import Avatar from '@mui/material/Avatar';
 
 import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
@@ -12,16 +17,11 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from
 import { AppBar, Button, Divider, Link, Menu, MenuItem, Theme, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile, SIP } from '../../Assets/index'
-import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
-import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../CommonComponents/Sidebar';
 import Navbar from '../CommonComponents/Navbar';
 import { checkExpirationOfToken } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
-import { getData } from '../../Utils/api';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTokenExpiredStatusAction, setUserViewProfileDataAction } from '../../Store/Authentication/actions/auth-actions';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 
@@ -145,14 +145,39 @@ const ViewProfile = () => {
   const dispatch = useDispatch();
 
   const refContainer = useRef();
+  const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
+  const [userDetails, setUserDetails] = useState<any>({});
 
   useEffect(() => {
     getUserProfileData();
   }, [])
 
   const getUserProfileData = () => {
-    // store.dispatch(getUserProfileDataThunk());
-    
+    getData(
+      siteConfig.AUTHENTICATION_PROFILE_VIEW,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
+
+        if (data?.error === true) {
+          return;
+        }
+        const response = data?.data;
+
+        setUserDetails(response?.userdetails);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    store.dispatch(getUserProfileDataThunk());
+
   }
 
   // const  {insuranceTermConditionState}:any = useSelector((state: any) => state.setUserViewProfileDataAction);
@@ -182,7 +207,9 @@ const ViewProfile = () => {
               </Box>
               <Grid container>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-                  <ViewProfileCard />
+                  <ViewProfileCard
+                    userDetails={userDetails}
+                  />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
                   <VviewprofileCard />

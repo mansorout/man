@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
+import { postData } from "../../Utils/api";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { useDispatch } from "react-redux";
+import siteConfig from "../../Utils/siteConfig";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 const Nominee = () => {
 
     const navigate = useNavigate();
+    const dispatchLocal = useDispatch();
+    const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
 
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('dd-mm-yyyy');
@@ -18,6 +26,11 @@ const Nominee = () => {
     const [nameError, setNameError] = useState(false);
     const [dobError, setDobError] = useState(false);
     const [relationError, setRelationError] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    // const formData = "Vineet"
+
+
+
     /*
         const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             const value = e.target.value.trim();
@@ -32,8 +45,18 @@ const Nominee = () => {
         }
     */
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
+
         setNameError(false);
+        const value = e.target.value;
+        setName(value);
+
+        const pattern = /[A-Za-z]+/;
+        if (!pattern.test(value)) {
+            setNameError(true);
+        } else {
+            setNameError(false);
+
+        }
     }
 
     const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +69,21 @@ const Nominee = () => {
         setRelationError(false);
     }
 
+    // console.log(name)
+    // console.log(dateOfBirth)
+    // console.log(relation)
+
+    const formData = {
+        fullname: name,
+        dateofbirth: dateOfBirth,
+        relation_id: relation
+
+    }
+
+    console.log(formData)
+
+
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (name === '') {
             setNameError(true);
@@ -55,9 +93,39 @@ const Nominee = () => {
             setRelationError(true);
             setSelectErrorMsg('Please select a relation');
         } else {
-            navigate('/viewprofile');
+            // navigate('/viewprofile');
         }
+        // setLoading(true);
+        setShouldButtonDisable(true)
+        postData(
+            formData,
+            siteConfig.AUTHENTICATION_NOMINEE_ADD,
+            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then((data) => {
+                setShouldButtonDisable(false);
+
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatchLocal(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error) {
+                    return;
+                }
+
+                console.log("profile saved");
+                navigate('/viewprofile');
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
     }
+
 
     const style = {
         main: {
@@ -71,6 +139,7 @@ const Nominee = () => {
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
+            <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
             <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
@@ -121,18 +190,41 @@ const Nominee = () => {
 
                             <FormControl>
                                 <TextField
-                                    onKeyPress={e => !/^[A-Za-z]+$/.test(e.key) && e.preventDefault()}
-                                    required
+                                    inputProps={{
+                                        maxLength: 30,
+                                    }}
+                                    InputLabelProps={{
+                                        sx: {
+                                            color: "#3c3e42",
+                                            [`&.${inputLabelClasses.shrink}`]: {
+                                                color: "#000000",
+                                                opacity: "0.6"
+
+                                            }
+                                        }
+                                    }}
+                                    onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
+                                    // required
                                     label="Full Name"
                                     value={name}
                                     onChange={handleNameChange}
                                     error={nameError}
-                                    helperText={nameError ? "Please enter correct name" : ''}
+                                    helperText={nameError ? "Please enter Full Name" : ''}
                                 />
                             </FormControl>
 
                             <FormControl>
                                 <TextField
+                                    InputLabelProps={{
+                                        sx: {
+                                            color: "#3c3e42",
+                                            [`&.${inputLabelClasses.shrink}`]: {
+                                                color: "#000000",
+                                                opacity: "0.6"
+
+                                            }
+                                        }
+                                    }}
                                     onKeyPress={(e) =>
                                         /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                         e.preventDefault()

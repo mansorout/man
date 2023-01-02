@@ -50,6 +50,13 @@ export const InvestButton = (props: IProps) => {
     await ['firstname', 'lastname', 'emailaddress', 'dateofbirth'].forEach((key: string) => {
       if (!objUserInfo?.userdetails[key]) {
         status = true;
+        if (key === "dateofbirth") {
+          if (!parseInt(objUserInfo?.userdetails[key])) {
+            status = true;
+          } else {
+            status = false
+          }
+        }
       }
     })
 
