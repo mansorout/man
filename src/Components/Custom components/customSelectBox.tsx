@@ -1,5 +1,6 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 import './customComponentCss.css';
 
 const ITEM_HEIGHT = 48;
@@ -17,12 +18,24 @@ const CustomSelectBox = React.memo((props: any) => {
   // console.log('custom select box ()');
 
   const [inputValue, setInputValue] = useState<string>('');
+  // const [options, setOptions] = useState<any[]>([]);
 
   useEffect(() => {
     if (props?.value) {
-      setInputValue(props?.value)
+      setInputValue(props?.value);
     }
-  }, [props?.value])
+  }, [props?.value]);
+
+  // useEffect(() => {
+  //   if (props?.pagination) {
+  //     let arrOptions: any[] = [...props?.options];
+  //     if(arrOptions && arrOptions.length){
+  //       arrOptions
+  //     }
+      
+  //   } else {
+  //   }
+  // }, [props?.pagination])
 
   const optionSelected = (key: string, value: string) => {
     // setInputValue(key);
