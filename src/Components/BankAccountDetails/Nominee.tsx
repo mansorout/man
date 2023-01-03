@@ -29,6 +29,8 @@ const Nominee = () => {
     const [relationError, setRelationError] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [dialog, setShowDialog] = useState<boolean>(false);
+    const [succesmsg,setSuccesMsg]= useState<string>("");
+    const [errorMsg, setErrorMsg] = useState("");
     // const formData = "Vineet"
 
 
@@ -108,6 +110,16 @@ const Nominee = () => {
             .then(res => res.json())
             .then((data) => {
                 setShouldButtonDisable(false);
+                setSuccesMsg(data?.status?.message)
+                if(data.status === true){
+                    setSuccesMsg("Nominee Added Successfully")
+                 }
+                 else{
+                    setErrorMsg("Something Went Wrong")
+                 }
+                
+            
+               
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -116,14 +128,18 @@ const Nominee = () => {
 
                 if (data?.error) {
                     return;
+                    setErrorMsg(data?.error)
+                  
                 }
 
                 console.log("profile saved");
-                navigate('/viewprofile');
+                setShowDialog(true)
+                // navigate('/viewprofile');
             })
             .catch(err => {
                 console.log(err)
             })
+            setShowDialog(true)
 
 
     }
@@ -254,15 +270,15 @@ const Nominee = () => {
                                     onChange={handleRelationChange}
                                     error={relationError}
                                 >
-                                    <MenuItem value="father">Father</MenuItem>
-                                    <MenuItem value="mother">Mother</MenuItem>
-                                    <MenuItem value="wife">Wife</MenuItem>
-                                    <MenuItem value="husband">Husband</MenuItem>
-                                    <MenuItem value="sister">Sister</MenuItem>
-                                    <MenuItem value="brother">Brother</MenuItem>
-                                    <MenuItem value="son">Son</MenuItem>
-                                    <MenuItem value="daughter">Daughter</MenuItem>
-                                    <MenuItem value="nephew">Nephew</MenuItem>
+                                    <MenuItem value="1">Father</MenuItem>
+                                    <MenuItem value="1">Mother</MenuItem>
+                                    <MenuItem value="1">Wife</MenuItem>
+                                    <MenuItem value="1">Husband</MenuItem>
+                                    <MenuItem value="1">Sister</MenuItem>
+                                    <MenuItem value="1">Brother</MenuItem>
+                                    <MenuItem value="1">Son</MenuItem>
+                                    <MenuItem value="1">Daughter</MenuItem>
+                                    <MenuItem value="1">Nephew</MenuItem>
                                 </Select>
                                 <Box component="span" className="select-box" sx={{
                                     color: 'red',
@@ -288,7 +304,7 @@ const Nominee = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={"hhhh"} succesText={"bhhhhh"} />
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
         </Box>
     )
 };
