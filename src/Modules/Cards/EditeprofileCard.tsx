@@ -155,9 +155,9 @@ const enumErrorMsg = {
 
 const enumActiveGender = {
   NOTHING: 'nothing',
-  MALE: 'male',
-  FEMALE: 'female',
-  TRANS: 'transgender'
+  MALE: 'Male',
+  FEMALE: 'Female',
+  TRANS: 'Transgender'
 }
 
 const initialCountryList = [
@@ -874,7 +874,7 @@ const EditprofileCard = () => {
                         name="gender"
                         onClick={() => {
                           setActiveGender(enumActiveGender.MALE);
-                          setFormData(prev => ({ ...prev, gender: "male" }))
+                          setFormData(prev => ({ ...prev, gender: enumActiveGender.MALE }))
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         variant="outlined"
@@ -908,7 +908,7 @@ const EditprofileCard = () => {
                         className="femalestyle"
                         onClick={() => {
                           setActiveGender(enumActiveGender.FEMALE);
-                          setFormData({ ...formData, gender: "female" })
+                          setFormData({ ...formData, gender: enumActiveGender.FEMALE })
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
@@ -931,7 +931,7 @@ const EditprofileCard = () => {
                         className="buttontransgender"
                         name="gender" onClick={() => {
                           setActiveGender(enumActiveGender.TRANS);
-                          setFormData({ ...formData, gender: "transgender" })
+                          setFormData({ ...formData, gender: enumActiveGender.TRANS })
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
