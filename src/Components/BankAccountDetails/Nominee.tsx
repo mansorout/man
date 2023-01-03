@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
-import { postData } from "../../Utils/api";
+import { getData, postData } from "../../Utils/api";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { useDispatch } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
+import { getUserProfileDataThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { store } from "../../Store/Store";
+
 
 const Nominee = () => {
 
@@ -31,7 +34,11 @@ const Nominee = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg,setSuccesMsg]= useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
-    // const formData = "Vineet"
+    const [userDetails, setUserDetails] = useState<any>({});
+    // const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
+   
+    
+ 
 
 
 
@@ -153,6 +160,45 @@ const Nominee = () => {
         } as React.CSSProperties,
     };
 
+
+    useEffect(() => {
+        getUserProfileData();
+      }, [])
+    
+      const getUserProfileData = () => {
+        getData(
+          siteConfig.AUTHENTICATION_PROFILE_VIEW,
+          siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+          siteConfig.AUTHENTICATION_API_ID
+        )
+          .then(res => res.json())
+          .then(data => {
+            if (checkExpirationOfToken(data?.code)) {
+              dispatch(setTokenExpiredStatusAction(true));
+              return;
+            }
+    
+            if (data?.error === true) {
+              return;
+            }
+            const response = data?.data
+            console.log(data.kycDetails?.ischequeavailable)
+            console.log(response)
+    
+            setUserDetails(response);
+          
+            
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    
+        store.dispatch(getUserProfileDataThunk());
+    
+      }
+    
+      console.log(userDetails?.userdetails)
+      console.log(userDetails?.kycdetails?.pannumber)
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -310,3 +356,7 @@ const Nominee = () => {
 };
 
 export default Nominee;
+function dispatch(arg0: { type: string; payload: any; }) {
+    throw new Error("Function not implemented.");
+}
+

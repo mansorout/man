@@ -266,7 +266,9 @@ function VviewprofileCard(props: IProps) {
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Nominee & Declarations
-                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
+                                     {
+                                        props?.kycDetails?.isnomineedetailsavailable === false ? <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} /> : ""
+                                    }
 
                                 </Typography>
                             }
@@ -318,7 +320,9 @@ function VviewprofileCard(props: IProps) {
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Account Holder Signature
-                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
+                                     {
+                                        props?.kycDetails?.issignatureavailable === false ? <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} /> : ""
+                                    }
 
                                 </Typography>
                             }
@@ -371,7 +375,9 @@ function VviewprofileCard(props: IProps) {
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Bank Account
-                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
+                                    {
+                                        props?.kycDetails?.bankdetails?.accountnumber === null ? <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} /> : ""
+                                    }
 
                                 </Typography>
                             }
@@ -437,7 +443,9 @@ function VviewprofileCard(props: IProps) {
                         <ListItemText
                             primary={
                                 <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>Cancelled Cheque
-                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
+                                     {
+                                        props?.kycDetails?.ischequeavailable === false ? <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} /> : ""
+                                    }
 
                                 </Typography>
                             }

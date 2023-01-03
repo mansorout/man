@@ -488,40 +488,45 @@ function HolderSignature() {
                                 </Box>
                                 <Box style={style.dividerBox}></Box>
 
-                                
 
-                                {disable ? 
-                                    <Box className="saveandaddButton"
-                                        textAlign="center"
-                                        width="80%"
-                                        mb={2}
-                                        sx={{ pointerEvents: "none", opacity: "0.7" }}
 
-                                    >
+                                {
+                                    showApiButton ? <> {disable ?
+                                        <Box className="saveandaddButton"
+                                            textAlign="center"
+                                            width="80%"
+                                            mb={2}
+                                            sx={{ pointerEvents: "none", opacity: "0.7" }}
 
+                                        >
+
+                                            <SaveAndAddButton />
+
+                                        </Box>
+                                        :
+                                        <Box className="saveandaddButton"
+                                            textAlign="center"
+                                            width="80%" onClick={setSignature}>
+
+                                            <SaveAndAddButton />
+
+
+
+
+                                        </Box>
+                                    }</> : <Box onClick={convertSignInBase64}  width="80%">
                                         <SaveAndAddButton />
-
-                                    </Box>
-                                 : 
-                                    <Box className="saveandaddButton"
-                                        textAlign="center"
-                                        width="80%" onClick={setSignature}>
-
-                                        <SaveAndAddButton />
-
-
-
-
                                     </Box>
                                 }
 
-                                <Button  >Send To Api</Button>
+
+
 
 
                                 <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
                                     <Grid item >
                                         <div style={{ display: "flex" }}>
-                                            <Box onClick={convertSignInBase64}>
+                                            <Box >
                                                 <img style={{ height: "24px", width: "24px" }} src={sipiclogo} alt="signature" />
                                             </Box>
                                             <span style={{ padding: "5px 0px 0px 7px", fontSize: "14px", color: "#919eb1" }}> Signatures provided here will be used on official documents.</span>
