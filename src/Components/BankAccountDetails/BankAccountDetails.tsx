@@ -13,6 +13,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import { postData } from "../../Utils/api";
 import { useDispatch } from "react-redux";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
 
 
 const BankAccountDetails = () => {
@@ -35,6 +36,9 @@ const BankAccountDetails = () => {
     const [accountTypeHelperText, setAccountTypeHelperText] = useState('');
     const [passwordsMatch, setPasswordsMatch] = useState(false);
     const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
+    const [dialog, setShowDialog] = useState<boolean>(false);
+    const [succesmsg, setSuccesMsg] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState("");
 
 
     function handleSubmit(event: any) {
@@ -52,7 +56,7 @@ const BankAccountDetails = () => {
         } else if (accountHolder === '') {
             setAccountHolderError(true);
         }
-        
+
         // else {
         //     navigate('/viewprofile');
         // }
@@ -61,9 +65,9 @@ const BankAccountDetails = () => {
             ifsc: ifscCode,
             accountnumber: confirmBankAcNo,
             accounttype: accountType
-    
+
         }
-    
+
         console.log(formData)
 
         setShouldButtonDisable(true)
@@ -76,6 +80,8 @@ const BankAccountDetails = () => {
             .then(res => res.json())
             .then((data) => {
                 setShouldButtonDisable(false);
+                setShowDialog(true)
+                setSuccesMsg("hiii")
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -83,11 +89,14 @@ const BankAccountDetails = () => {
                 }
 
                 if (data?.error) {
-                    return;
+
+
                 }
 
-                console.log("profile saved");
-                navigate('/viewprofile');
+
+                setErrorMsg(data?.error)
+
+
             })
             .catch(err => {
                 console.log(err)
@@ -174,9 +183,9 @@ const BankAccountDetails = () => {
 
         }
     }
-    
 
-    
+
+
 
 
     /*
@@ -335,7 +344,7 @@ const BankAccountDetails = () => {
                                     value={bankAcNo}
                                     onChange={handleBankAcNoChange}
                                     error={bankAcNoError}
-                                    helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""}
+                                    helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
                                     InputProps={{
                                         endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                         // helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""},
@@ -407,6 +416,7 @@ const BankAccountDetails = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
         </Box>
     )
 };

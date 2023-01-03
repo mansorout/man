@@ -44,6 +44,7 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
     ({ theme: Theme }) => `
@@ -60,6 +61,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 
 function HolderSignature() {
+
 
     const dispatch = useDispatch();
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
@@ -79,6 +81,12 @@ function HolderSignature() {
     const [disable, setDisable] = useState<boolean>(true)
     const [tryagain, setTryagain] = useState<boolean>(true)
     const [bcaktovp, setBacktoVp] = useState<boolean>(true)
+    const [succesmsg, setSuccesMsg] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [dialog, setShowDialog] = useState<boolean>(false);
+    const [showApiButton, setShowApiButton] = useState<boolean>(true);
+
+
 
 
     const clear = () => {
@@ -91,41 +99,47 @@ function HolderSignature() {
         // store.dispatch(uploadsignature({ 'signdata': imageURL }))
         // navigate('/vp')
 
-        const objBody ={
-            signature:imageURL,
-          }
-      
-          setShouldButtonDisable(true)
-              postData(
-                  objBody,
-                  siteConfig.AUTHENTICATION_SIGNATURE_ADD,
-                  siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-                  siteConfig.AUTHENTICATION_API_ID
-              )
-                  .then(res => res.json())
-                  .then((data) => {
-                      setShouldButtonDisable(false)
-      
-                      if (checkExpirationOfToken(data?.code)) {
-                          dispatchLocal(setTokenExpiredStatusAction(true));
-                          return;
-                      }
-      
-                      if (data?.error) {
-                          return;
-                      }
-      
-                    //   console.log("profile saved");
-                    //   navigate('/viewprofile');
-                  })
-                  .catch(err => {
-                      console.log(err)
-                  })
+        const objBody = {
+            signature: imageURL,
+        }
+
+        setShouldButtonDisable(true)
+        postData(
+            objBody,
+            siteConfig.AUTHENTICATION_SIGNATURE_ADD,
+            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then((data) => {
+                setShouldButtonDisable(false)
+                setShowDialog(true)
+                // setSuccesMsg("Success")
+
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatchLocal(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error) {
+                    // return;
+
+                }
+                console.log(data?.error)
+                // setShowDialog(true)
+                setErrorMsg(data?.error)
+
+                //   console.log("profile saved");
+                //   navigate('/viewprofile');
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
 
-                  console.log(objBody)
+        console.log(objBody)
 
-      
+
     }
 
     const setSignature = () => {
@@ -136,13 +150,14 @@ function HolderSignature() {
 
         setAddsign(false)
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
-        
-        
+        setShowApiButton(false)
+
+
 
 
     };
 
-    
+
 
 
 
@@ -292,7 +307,7 @@ function HolderSignature() {
                                 <Link
                                     underline="always"
                                     color="#6495ED"
-                                    href="/vp"
+                                    href='/viewprofile'
                                 >
                                     <Typography className='burgerText'>  View Profile</Typography>
 
@@ -320,81 +335,81 @@ function HolderSignature() {
                                 <Box style={style.dividerBox}></Box>
                                 {/* <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}> */}
 
-                                    <Box className="renderBoxsign">
+                                <Box className="renderBoxsign">
 
-                                        {
-                                            enableShowText ? <Grid container spacing={3}>
-                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
-                                                    <Typography className="checkWillAppearHere">
-                                                        Draw Here...
-                                                    </Typography>
+                                    {
+                                        enableShowText ? <Grid container spacing={3}>
+                                            <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
+                                                <Typography className="checkWillAppearHere">
+                                                    Draw Here...
+                                                </Typography>
 
-                                                </Grid>
-                                            </Grid> : ""
-                                        }
-                                        {
-                                            enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
-                                                <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
-                                                    <Typography className="checkWillAppearHere">
-                                                        Draw Here...
-                                                    </Typography>
+                                            </Grid>
+                                        </Grid> : ""
+                                    }
+                                    {
+                                        enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
+                                            <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
+                                                <Typography className="checkWillAppearHere">
+                                                    Draw Here...
+                                                </Typography>
 
+                                            </Grid>
+                                        </Grid>
+                                    }
+                                    {showSignBox ?
+                                        <Box sx={{ backgroundColor: "white", width: "100%", height: "100%", margin: " 0 auto" }}>
+
+
+                                            <SignaturePad
+
+                                                ref={sigCanvas}
+                                                backgroundColor="white"
+                                                penColor="black"
+                                                onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
+                                                canvasProps={{
+                                                    // width: 600,
+                                                    height: 450,
+                                                    className: styles.sigPad
+
+                                                }}
+
+                                            />
+
+                                        </Box> : ""
+
+                                    }
+
+                                    {
+                                        showSignBox ? "" :
+
+                                            <Grid container sx={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                backgroundColor: "white",
+                                                top: "50%",
+                                                left: "50%",
+
+
+                                            }} spacing={1}>
+                                                <Grid item xs={12} sm={10} md={4}>
+                                                    <img
+                                                        src={imageURL}
+                                                        alt="my signature"
+                                                        style={{
+
+                                                            maxWidth: "-webkit-fill-available",
+                                                            height: "250px"
+                                                        }}
+                                                    />
                                                 </Grid>
                                             </Grid>
-                                        }
-                                        {showSignBox ?
-                                            <Box sx={{ backgroundColor: "white", width: "100%", height: "100%", margin: " 0 auto" }}>
-
-
-                                                <SignaturePad
-
-                                                    ref={sigCanvas}
-                                                    backgroundColor="white"
-                                                    penColor="black"
-                                                    onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
-                                                    canvasProps={{
-                                                        // width: 600,
-                                                        height: 450,
-                                                        className: styles.sigPad
-
-                                                    }}
-
-                                                />
-
-                                            </Box> : ""
-
-                                        }
-
-                                        {
-                                            showSignBox ? "" :
-
-                                                <Grid container sx={{
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    backgroundColor: "white",
-                                                    top: "50%",
-                                                    left: "50%",
-
-
-                                                }} spacing={1}>
-                                                    <Grid item xs={12} sm={10} md={4}>
-                                                        <img
-                                                            src={imageURL}
-                                                            alt="my signature"
-                                                            style={{
-
-                                                                maxWidth: "-webkit-fill-available",
-                                                                height: "250px"
-                                                            }}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
 
 
 
-                                        }
+                                    }
 
-                                    </Box>
+                                </Box>
 
 
 
@@ -472,7 +487,10 @@ function HolderSignature() {
 
                                 </Box>
                                 <Box style={style.dividerBox}></Box>
-                                {disable ? (
+
+                                
+
+                                {disable ? 
                                     <Box className="saveandaddButton"
                                         textAlign="center"
                                         width="80%"
@@ -484,47 +502,20 @@ function HolderSignature() {
                                         <SaveAndAddButton />
 
                                     </Box>
-                                ) : (
-                                    ""
-                                )}
+                                 : 
+                                    <Box className="saveandaddButton"
+                                        textAlign="center"
+                                        width="80%" onClick={setSignature}>
 
-                                {disable ? "" : <Box className="saveandaddButton"
-                                    textAlign="center"
-                                    width="80%" onClick={setSignature}>
-
-                                    <SaveAndAddButton />
+                                        <SaveAndAddButton />
 
 
 
 
-                                </Box>
-
+                                    </Box>
                                 }
 
-                                {/* {bcaktovp ?  "" : <Box className="saveandaddButton"
-                                    textAlign="center"
-                                    width="80%" onClick={()=>navigate('/vp')}>
-
-                                    <SaveAndAddButton />
-                                    <Grid container  >
-                                        <Grid xs={12} md={8} sm={12} sx={{
-                                            paddingTop: "15px",
-                                            display: "flex",
-                                            
-                                        }}>
-                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
-                                                Signatures provided here will be used on official documents.
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-
-                                </Box> 
-
-                                } */}
-
-                               
-                               
-                                <Button sx={{visibility:"hidden"}} >Send To Api</Button>
+                                <Button  >Send To Api</Button>
 
 
                                 <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
@@ -546,6 +537,7 @@ function HolderSignature() {
                     </Grid>
                 </Grid>
             </Box>
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
         </Box >
     );
 }

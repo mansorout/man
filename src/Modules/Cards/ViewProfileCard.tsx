@@ -107,6 +107,7 @@ const ViewProfileCard = (props: IProps) => {
 
   /**reducer state */
   const userData: any = useSelector((state: any) => state.userProfileDetails)
+  console.log(userData)
   // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   // console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
 

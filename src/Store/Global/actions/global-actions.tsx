@@ -1,4 +1,4 @@
-import { SET_BANNER_LIST_DATA, SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING } from "../constants/global-constants"
+import { SET_BANNER_LIST_DATA, SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING ,SET_COMMON_MSG } from "../constants/global-constants"
 
 export const setDisableButtonAction = (data: any) => {
     return { type: SET__DISABLE_BUTTON, payload: data }
@@ -22,5 +22,9 @@ export const getIncomeSlabListAction = (data: any) => {
 
 export const setBannerSectionListAction = (data: any) => {
     return { type: SET_BANNER_LIST_DATA, payload: data }
+}
+
+export const getCommonApiMsg =(data: any)=>{
+    return { type: SET_COMMON_MSG, payload: data }
 }
 
