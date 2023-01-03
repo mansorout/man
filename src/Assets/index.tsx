@@ -130,6 +130,7 @@ export const tick = require("./Tick.png")
 export const hdfcErgo = require("./HDFC-Ergo.png")
 export const cross = require("./ic_cross@3x.png")
 export const commonlogo = require("./MainLogo.svg")
+export const doneincircle = require("./check_circle-24px@3x.png")
 
 
 
