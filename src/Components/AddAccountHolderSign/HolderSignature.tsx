@@ -62,6 +62,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
 
 function HolderSignature() {
 
+
     const dispatch = useDispatch();
     const { addSignature } = bindActionCreators(ActionCreators, dispatch);
     const dispatchLocal = useDispatch();
@@ -83,6 +84,9 @@ function HolderSignature() {
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
     const [dialog, setShowDialog] = useState<boolean>(false);
+    const [showApiButton, setShowApiButton] = useState<boolean>(true);
+
+
 
 
     const clear = () => {
@@ -146,6 +150,7 @@ function HolderSignature() {
 
         setAddsign(false)
         setImageURL(sigCanvas.current.getTrimmedCanvas().toDataURL("image/png"));
+        setShowApiButton(false)
 
 
 
@@ -302,7 +307,7 @@ function HolderSignature() {
                                 <Link
                                     underline="always"
                                     color="#6495ED"
-                                    href="/vp"
+                                    href='/viewprofile'
                                 >
                                     <Typography className='burgerText'>  View Profile</Typography>
 
@@ -482,7 +487,10 @@ function HolderSignature() {
 
                                 </Box>
                                 <Box style={style.dividerBox}></Box>
-                                {disable ? (
+
+                                
+
+                                {disable ? 
                                     <Box className="saveandaddButton"
                                         textAlign="center"
                                         width="80%"
@@ -494,45 +502,18 @@ function HolderSignature() {
                                         <SaveAndAddButton />
 
                                     </Box>
-                                ) : (
-                                    ""
-                                )}
+                                 : 
+                                    <Box className="saveandaddButton"
+                                        textAlign="center"
+                                        width="80%" onClick={setSignature}>
 
-                                {disable ? "" : <Box className="saveandaddButton"
-                                    textAlign="center"
-                                    width="80%" onClick={setSignature}>
-
-                                    <SaveAndAddButton />
+                                        <SaveAndAddButton />
 
 
 
 
-                                </Box>
-
+                                    </Box>
                                 }
-
-                                {/* {bcaktovp ?  "" : <Box className="saveandaddButton"
-                                    textAlign="center"
-                                    width="80%" onClick={()=>navigate('/vp')}>
-
-                                    <SaveAndAddButton />
-                                    <Grid container  >
-                                        <Grid xs={12} md={8} sm={12} sx={{
-                                            paddingTop: "15px",
-                                            display: "flex",
-                                            
-                                        }}>
-                                            <Typography component="span"sx={{paddingBottom:"15px"}} className="bottomContentText ">
-                                                Signatures provided here will be used on official documents.
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-
-                                </Box> 
-
-                                } */}
-
-
 
                                 <Button  >Send To Api</Button>
 

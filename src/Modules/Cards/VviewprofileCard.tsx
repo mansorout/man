@@ -25,17 +25,17 @@ import { useSelector } from 'react-redux';
 
 type formDataProps = {
     pannumber: string;
-    
-  }
-  
-  const initialFormData: formDataProps = {
-    pannumber: '',
-    
-  }
 
-  type IProps = {
+}
+
+const initialFormData: formDataProps = {
+    pannumber: '',
+
+}
+
+type IProps = {
     kycDetails: any
-  }
+}
 
 function VviewprofileCard(props: IProps) {
     const style = {
@@ -88,21 +88,22 @@ function VviewprofileCard(props: IProps) {
         // if (userdetails) {
         let userdetails: any = { ...props?.kycDetails };
         if (userdetails) {
-          setFormData(prev => ({
-            ...prev,
-            pannumber: userdetails?.pannumber,
-           
-          }))
+            setFormData(prev => ({
+                ...prev,
+                pannumber: userdetails?.pannumber,
+
+            }))
         }
-      }, [props?.kycDetails])
+    }, [props?.kycDetails])
 
-      console.log(formData?.pannumber )
-      
+    console.log(props?.kycDetails)
+    console.log(props?.kycDetails?.ispannumberverified)
 
 
-    
 
-    
+
+
+
 
 
     const navigate = useNavigate();
@@ -156,17 +157,22 @@ function VviewprofileCard(props: IProps) {
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/panUpdate')}>
+                                {
+                                    props?.kycDetails?.ispannumberverified === false ? <Typography
+                                        sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                        onClick={handleSubmit}
+                                    >ADD </Typography> : ""
+                                }
 
-                                <Typography
-                                    sx={{ color: "#6c63ff", fontSize: "14px" }}
-                                    onClick={handleSubmit}
-                                >ADD </Typography>
 
-                                <Avatar
-                                    alt=""
-                                    src={arrowlogo}
-                                    sx={{ width: "24px", height: "24px" }}
-                                />
+                              {   props?.kycDetails?.ispannumberverified === true ? ""  : <Avatar
+                                  alt=""
+                                  src={arrowlogo}
+                                  sx={{ width: "24px", height: "24px" }}
+                              /> 
+
+                                 
+                              }
 
 
 
@@ -188,15 +194,24 @@ function VviewprofileCard(props: IProps) {
                                 <Typography sx={{ fontSize: "14px", color: "#3c3e42" }} className="CommonStyle"
 
                                 >PAN Number
-                                    <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} />
+
+                                    {
+                                        props?.kycDetails?.ispannumberverified === false ? <img src={Logoici} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "7px" }} /> : ""
+                                    }
 
                                 </Typography>
 
                             }
 
-                            
+
                             secondary={
-                                <Typography sx={{size:"14px"}}> <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />{formData?.pannumber || ""}</Typography>
+                                <Typography sx={{ size: "14px" }}>
+
+                                    {
+                                        props?.kycDetails?.ispannumberverified === true ? <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} /> : ""
+                                    }
+
+                                    {formData?.pannumber || ""}</Typography>
 
                             }
                         // secondary="DUDPS1755G"
@@ -220,10 +235,12 @@ function VviewprofileCard(props: IProps) {
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/nominee')}>
-
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
+                                {
+                                    props?.kycDetails?.isnomineedetailsavailable === false ?  <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}
                                     onClick={handleSubmits}
-                                >ADD </Typography>
+                                >ADD </Typography> : ""
+                                }
+                               
 
                                 <Avatar
                                     alt=""
@@ -253,8 +270,13 @@ function VviewprofileCard(props: IProps) {
 
                                 </Typography>
                             }
-                            secondary={
-                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />Added Successfully</Typography>
+                            secondary={props?.kycDetails?.isnomineedetailsavailable === false ? "" : <Typography>
+                                {
+                                    props?.kycDetails?.isnomineedetailsavailable === true ? <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} /> : ""
+                                }
+
+                                Added Successfully</Typography>
+
 
                             }
 
@@ -268,7 +290,9 @@ function VviewprofileCard(props: IProps) {
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete" onClick={() => navigate('/uploadsignature')}>
-                                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+                                {
+                                   props?.kycDetails?.issignatureavailable === true ? "" : <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>ADD </Typography>
+                                }
 
                                 <Avatar
                                     alt=""
@@ -298,8 +322,14 @@ function VviewprofileCard(props: IProps) {
 
                                 </Typography>
                             }
-                            secondary={
-                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} />Verified Successfully</Typography>
+                            secondary={props?.kycDetails?.issignatureavailable === false ? "" : <Typography>
+                                {
+                                    props?.kycDetails?.issignatureavailable === true ? <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} /> : ""
+                                }
+
+
+                                Verified Successfully</Typography>
+
 
                             }
 
@@ -347,9 +377,17 @@ function VviewprofileCard(props: IProps) {
                             }
 
                             secondary={
-                                <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px",paddingRight:"2px" }} />Added Successfully</Typography>
-                                
-                               }
+
+                                props?.kycDetails?.bankdetails?.accountnumber === null ? "" : <Typography>
+
+                                    <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} /> : ""
+
+                                    Added Successfully</Typography>
+
+
+
+                            }
+
 
                         />
                     </ListItem>
@@ -403,6 +441,19 @@ function VviewprofileCard(props: IProps) {
 
                                 </Typography>
                             }
+                            // secondary={
+                            //     <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px",paddingRight:"2px" }} />Added Successfully</Typography>
+
+                            //    }
+                            secondary={props?.kycDetails?.ischequeavailable === false ? "" : <Typography>
+                                {
+                                    props?.kycDetails?.ischequeavailable === true ? <img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px", paddingRight: "2px" }} /> : ""
+                                }
+                                Verification Pending</Typography>
+
+
+                            }
+
 
                         />
                     </ListItem>
