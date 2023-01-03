@@ -151,7 +151,7 @@ const enumErrorMsg = {
   PLEASE_ENTER_INCOME_SLAB: "Please enter income slab",
   PLEASE_ENTER_GENDER: "Please enter gender",
   PLEASE_ENTER_AGE: "Please enter age",
-  PLEASE_ENTER_VALID_DATE: "Please enter valid adte"
+  PLEASE_ENTER_VALID_DATE: "Please enter valid date"
 }
 
 const enumActiveGender = {
@@ -426,8 +426,8 @@ const EditprofileCard = () => {
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.stateofbirth_id, true);
 
-    // let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
-    let date = objUserDetails?.dateofbirth;
+    let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
+    // let date = objUserDetails?.dateofbirth;
     console.log(date, "getuserprofile()");
 
     setFormData((prev: formDataProps) => ({
