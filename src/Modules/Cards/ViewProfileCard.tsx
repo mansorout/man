@@ -133,16 +133,20 @@ const ViewProfileCard = (props: IProps) => {
     // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
     // if (userdetails) {
     let userdetails: any = { ...props?.userDetails };
+    if (userdetails?.addressline1) {
+
+    }
+    let strAddress: string = (userdetails?.addressline1 ? `${userdetails?.addressline1} -` : "") + (userdetails?.city ? ` ${userdetails?.city}` : "") + (userdetails?.state ? ` ${userdetails?.state}` : "") + (userdetails?.pincode ? ` ${userdetails?.pincode}` : "")
     if (userdetails) {
       setFormData(prev => ({
         ...prev,
-        mobilenumber: userdetails?.mobilenumber,
-        emailaddress: userdetails?.emailaddress,
+        mobilenumber: userdetails?.mobilenumber || "",
+        emailaddress: userdetails?.emailaddress || "",
         dateofbirth: checkDOB(userdetails?.dateofbirth),
-        gender: userdetails?.gender,
-        placeofbirth: userdetails?.placeofbirth,
-        addressline1: userdetails?.addressline1,
-        incomeslab: userdetails?.incomeslab
+        gender: userdetails?.gender || "",
+        placeofbirth: userdetails?.placeofbirth || "",
+        addressline1: strAddress || "",
+        incomeslab: userdetails?.incomeslab || ""
       }))
     }
   }, [props?.userDetails])
