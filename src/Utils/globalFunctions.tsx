@@ -60,3 +60,19 @@ export const modifyName = (strName: string, cutNameUpto: number) => {
   }
 
 }
+
+export const setUserNameAndEmailInLocalStorage = (objUserDetail: any) => {
+  try {
+    if (objUserDetail?.firstname && objUserDetail?.lastname) {
+      let userName: string = `${objUserDetail?.firstname} ${objUserDetail?.middlename ? objUserDetail?.middlename : ""} ${objUserDetail?.lastname}`
+      localStorage.setItem(siteConfig.USER_NAME, userName);
+    }
+
+    if (objUserDetail?.emailaddress) {
+      localStorage.setItem(siteConfig.USER_EMAIL, objUserDetail?.emailaddress);
+    }
+
+  } catch (err) {
+    console.log(err)
+  }
+}

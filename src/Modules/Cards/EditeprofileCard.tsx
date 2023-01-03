@@ -21,7 +21,7 @@ import '../../Components/EditProfile/Editprofilescreen.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
-import { checkExpirationOfToken } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage } from '../../Utils/globalFunctions';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
@@ -612,6 +612,8 @@ const EditprofileCard = () => {
         }
 
         console.log("profile saved");
+        let objUserDetail: any = data?.data?.userdetails;
+        setUserNameAndEmailInLocalStorage(objUserDetail);
         navigate('/viewprofile');
       })
       .catch(err => {
