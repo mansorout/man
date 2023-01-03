@@ -66,8 +66,8 @@ export const VerifyOtp = () => {
   const number: string | null = localStorage.getItem(siteConfig.CONTACT_NUMBER);
 
   const [OTP, setOTP] = useState<string>("");
-  const [minutes, setMinutes] = useState<number>(1);
-  const [seconds, setSeconds] = useState<number>(30);
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(45);
 
   const loadingRef = useRef(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,20 +76,25 @@ export const VerifyOtp = () => {
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
   let intervalRef: any = useRef<number>(0);
-
+  
   useEffect(() => {
-    if (g_loading) {
-      setLoading(true)
-    } else {
-      setLoading(false)
-    }
-  }, [g_loading])
+    setErrorLocal("");
+  }, [])
+
+  // useEffect(() => {
+  //   if (g_loading) {
+  //     setLoading(true);
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, [g_loading])
 
   useEffect(() => {
     console.log(loadingRef.current, "loading")
   }, [loadingRef.current])
 
   useEffect(() => {
+    setOTP("");
     let { data, error }: { data: any, error: string } = g_loginData;
     if (data?.accesstoken) {
       localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, data?.accesstoken);
@@ -114,7 +119,7 @@ export const VerifyOtp = () => {
         setSeconds(0);
         setMinutes(0);
         setErrorLocal(error);
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
     }
   }, [g_loginData]);
@@ -142,8 +147,9 @@ export const VerifyOtp = () => {
   }, [seconds]);
 
   const resendOTP = () => {
-    setMinutes(1);
-    setSeconds(30);
+    setErrorLocal("");
+    setMinutes(0);
+    setSeconds(45);
     store.dispatch(resendOtpThunk({ mobilenumber: number, type: "auth" }))
   };
 
@@ -205,7 +211,12 @@ export const VerifyOtp = () => {
               border: "1px solid red",
             }}
           />
-          <OtpVerifyButton disabled={isShowEnableVerifyBtn} otp={OTP} number={number} />
+          <OtpVerifyButton
+            disabled={isShowEnableVerifyBtn}
+            otp={OTP}
+            number={number}
+            loading={(status: boolean) => setLoading(status)}
+          />
           {errorLocal ?
             <>
               <Typography component="span" sx={{ color: "red", fontSize: "14px" }}>
