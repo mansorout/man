@@ -21,7 +21,7 @@ import '../../Components/EditProfile/Editprofilescreen.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
-import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
@@ -150,7 +150,8 @@ const enumErrorMsg = {
   PLEASE_ENTER_CITY: "Please enter city",
   PLEASE_ENTER_INCOME_SLAB: "Please enter income slab",
   PLEASE_ENTER_GENDER: "Please enter gender",
-  PLEASE_ENTER_AGE: "Please enter age"
+  PLEASE_ENTER_AGE: "Please enter age",
+  PLEASE_ENTER_VALID_DATE: "Please enter valid date"
 }
 
 const enumActiveGender = {
@@ -256,17 +257,19 @@ const EditprofileCard = () => {
   const dispatchLocal = useDispatch();
   const navigate = useNavigate();
 
+  const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+
   const [cityList, setCityList] = useState<any[]>([]);
-  const [allCityList, setAllCityList] = useState<any[]>([]);
   const [stateList, setStateList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [allCityList, setAllCityList] = useState<any[]>([]);
   const [incomeSlabList, setIncomeSlabList] = useState<any[]>([]);
   const [countryList, setCountryList] = useState<any[]>([...initialCountryList]);
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
   const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
+  const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
 
-  const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
   // const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
@@ -321,6 +324,17 @@ const EditprofileCard = () => {
       handlePincodeLengthValidation(true);
     }
   }, [formData?.pincode]);
+
+  useEffect(() => {
+    setValidateInputs((prev: validateInputsProps) => ({
+      ...prev,
+      "dateofbirth": invalidDOB
+    }))
+  }, [invalidDOB]);
+
+  useEffect(() => {
+    console.log(formData?.dateofbirth);
+  }, [formData?.dateofbirth])
 
   const getCountryList = () => {
     // setCountryList([...countryList]);
@@ -412,6 +426,10 @@ const EditprofileCard = () => {
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.stateofbirth_id, true);
 
+    let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
+    // let date = objUserDetails?.dateofbirth;
+    console.log(date, "getuserprofile()");
+
     setFormData((prev: formDataProps) => ({
       ...prev,
       firstname: objUserDetails?.firstname || "",
@@ -428,6 +446,7 @@ const EditprofileCard = () => {
       placeofbirth_id: objUserDetails?.placeofbirth_id,
       incomeslab_id: objUserDetails?.incomeslab_id,
       countryofbirth_id: 1,
+      dateofbirth: date
     }))
 
     setActiveGender(objUserDetails?.gender);
@@ -439,13 +458,7 @@ const EditprofileCard = () => {
     if (name === "firstname" || name === "lastname" || name === "middlename") {
       value = value.replace(/[^a-z]/gi, '');
     }
-    if (name === "dateofbirth") {
-      console.log(value, "dateofbirth");
 
-      //@ts-ignore
-      var date = moment().format('MMMM Do YYYY, h:mm:ss a');
-      console.log(date, "date");
-    }
     setFormData({
       ...formData,
       [name]: value
@@ -459,19 +472,14 @@ const EditprofileCard = () => {
       if (formData.pincode.length < 7 && formData.pincode.length > 0) {
         console.log("formData.pincode < 6")
         bFlag = false;
-        // if (formData?.pincode?.length === 6) {
         await validatePincodeThroughAPI(formData.pincode);
-        // return;
-        // }
       } else {
         console.log("formData.pincode > 6")
         bFlag = true;
       }
     }
 
-    // let objValidateInputs: validateInputsProps = {...validateInputs};
     if (b) {
-      // objValidateInputs["pincode"] = bFlag;
       setValidateInputs((prev: validateInputsProps) => ({
         ...prev,
         "pincode": bFlag
@@ -533,10 +541,6 @@ const EditprofileCard = () => {
     objFormData[strType] = val;
     setFormData(objFormData);
   }
-
-  useEffect(() => {
-    console.log(validateInputs, "validateInputs useeefect")
-  }, [validateInputs])
 
   const throwErrorOnWrongField = async () => {
     let throwError: boolean = true;
@@ -613,6 +617,7 @@ const EditprofileCard = () => {
     await isAllFieldsValidated(throwErrorOnWrongField)
       .then(res => {
         if (res) return;
+        let objBody: formDataProps = { ...formData };
         if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
           return;
         }
@@ -621,11 +626,12 @@ const EditprofileCard = () => {
           return;
         }
 
-        // if (validateInputs) { setValidateInputs({ ...initialValidateinputsData }); }
+        let date = moment(formData?.dateofbirth).format('DD-MM-YYYY,');
+        objBody["dateofbirth"] = date;
 
         setLoading(true);
         postData(
-          formData,
+          objBody,
           siteConfig.AUTHENTICATION_PROFILE_EDIT,
           siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
           siteConfig.AUTHENTICATION_API_ID
@@ -654,13 +660,6 @@ const EditprofileCard = () => {
       }).catch(err => {
         console.log(err);
       })
-
-    // if (!await isAllFieldsValidated(throwErrorOnWrongField)) {
-    //   console.log("please validate all fields")
-    //   return;
-    // }
-
-
 
   }
 
@@ -1009,11 +1008,18 @@ const EditprofileCard = () => {
                       fullWidth
                       label="Date of Birth"
                       onBlur={handleBlur}
-                      onChange={handlechange}
+                      onChange={(e: any) => {
+                        if (underAgeValidate(e.target.value)) {
+                          setInvalidDOB(false);
+                          handlechange(e);
+                        } else {
+                          setInvalidDOB(true);
+                        }
+                      }}
                       name="dateofbirth"
                       value={formData?.dateofbirth || "DD-MM-YYYY"}
                       error={validateInputs?.dateofbirth}
-                      helperText={validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : ""}
+                      helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
                     />
                   </Grid>
                   <Grid item xs={12}>
