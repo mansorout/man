@@ -150,10 +150,40 @@ const style = {
 
 const Navbar = () => {
 
-    const objUserDetail: any = Object.freeze({
+    // const userName: string | null = localStorage.getItem(siteConfig.USER_NAME);
+    // const userEmail: string | null = localStorage.getItem(siteConfig.USER_EMAIL);
+
+    const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+
+    const [objUserDetail, setObjUserDetail]: any = useState<any>({
         userName: localStorage.getItem(siteConfig.USER_NAME),
         userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
     })
+
+
+    useEffect(() => {
+        if (g_profileData?.userdetails) {
+            setObjUserDetail({
+                userName: localStorage.getItem(siteConfig.USER_NAME),
+                userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
+            })
+        };
+    }, [g_profileData?.userdetails]);
+
+
+    // useEffect(() => {
+    //     setObjUserDetail((prev: any) => ({
+    //         ...prev,
+    //         userEmail: userEmail
+    //     }))
+    // }, [userEmail])
+
+    // useEffect(() => {
+    //     setObjUserDetail((prev: any) => ({
+    //         ...prev,
+    //         userName: userName
+    //     }))
+    // }, [userName])
 
     const dispatch: any = useDispatch()
     const { toggleState }: any = useSelector((state: any) => state.NavToggleReducer)

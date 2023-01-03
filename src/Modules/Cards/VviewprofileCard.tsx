@@ -39,33 +39,31 @@ type IProps = {
 };
 
 function VviewprofileCard(props: IProps) {
-  
-  
-    const style = {
-      containertwo: {
-        backgroundColor: "#fff",
-        boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-        borderRadius: "8px",
-        padding: "21px 40px",
-      },
-      emailIcon: {
-        borderRadius: "170px 175px 175px 163px",
-        backgroundColor: "#64dbff",
-        width: "80px",
-        height: "80px",
-        margin: "0 54px 22px 34px",
-        padding: "20px",
-        boxShadow: "0 0 10px 0 rgb(0 0 0 / 8%)",
-        border: "solid 1px rgba(0, 0, 0, 0.08)",
-      },
-      ca: {
-        // borderRadius: "170px 175px 175px 163px",
-        backgroundColor: "rgba(100, 219, 255, 0.3)",
-        width: "20px",
-        height: "20px",
-        padding: "10px",
-      } as React.CSSProperties,
-  
+  const style = {
+    containertwo: {
+      backgroundColor: "#fff",
+      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+      borderRadius: "8px",
+      padding: "21px 40px",
+    },
+    emailIcon: {
+      borderRadius: "170px 175px 175px 163px",
+      backgroundColor: "#64dbff",
+      width: "80px",
+      height: "80px",
+      margin: "0 54px 22px 34px",
+      padding: "20px",
+      boxShadow: "0 0 10px 0 rgb(0 0 0 / 8%)",
+      border: "solid 1px rgba(0, 0, 0, 0.08)",
+    },
+    ca: {
+      // borderRadius: "170px 175px 175px 163px",
+      backgroundColor: "rgba(100, 219, 255, 0.3)",
+      width: "20px",
+      height: "20px",
+      padding: "10px",
+    } as React.CSSProperties,
+
     // ellipse:{
     //     width:" 40px",
     //     height:" 40px",
@@ -117,10 +115,50 @@ function VviewprofileCard(props: IProps) {
 
   console.log(formData?.pannumber);
 
+  // const [panCardNo, setPanCardNo] = useState('');
+  // const [formData, setFormData] = useState<formDataProps>(initialFormData);
+  // const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
+  // const userData: any = useSelector((state: any) => state?.authReducer?.profile)
+  // console.log(userData.data?.kycdetails?.pannumber)
+
+  useEffect(() => {
+    // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
+    // if (userdetails) {
+    let userdetails: any = { ...props?.kycDetails };
+    if (userdetails) {
+      setFormData((prev) => ({
+        ...prev,
+        pannumber: userdetails?.pannumber,
+      }));
+    }
+  }, [props?.kycDetails]);
+
+  console.log(props?.kycDetails);
+  console.log(props?.kycDetails?.ispannumberverified);
+
+  // const navigate = useNavigate();
+  // function handleSubmit() {
+  //     navigate('/panUpdate');
+  //     // navigate('/nominee')
+  // }
+
+  // function handleSubmits() {
+  //     // navigate('/pan_update');
+  //     navigate('/nominee')
+  // }
+  // function handleSubmitss() {
+  //     navigate('/uploadsignature')
+  // }
+  // function handleSubmitsss() {
+  //     navigate('/bad')
+  // }
+
+  // const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
   return (
     <>
       <Box
-        sx={{
+          sx={{
             p: 1,
   
             width: "1",
@@ -131,7 +169,7 @@ function VviewprofileCard(props: IProps) {
               "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
           }}
           className="thirdboxstyle"
-  
+
       >
         <List>
           <ListItem
@@ -151,7 +189,7 @@ function VviewprofileCard(props: IProps) {
               </Typography>
             }
           ></ListItem>
-          <Box sx={{ marginTop: "-3%",marginLeft:"2%" }} className="HeadingStyleKycWhole">
+         <Box sx={{ marginTop: "-3%",marginLeft:"2%" }} className="HeadingStyleKycWhole">
             <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>
               KYC Details
             </Typography>
@@ -167,18 +205,26 @@ function VviewprofileCard(props: IProps) {
                 aria-label="delete"
                 onClick={() => navigate("/panUpdate")}
               >
-                <Typography
-                  sx={{ color: "#6c63ff", fontSize: "14px" }}
-                  onClick={handleSubmit}
-                >
-                  ADD{" "}
-                </Typography>
+                {props?.kycDetails?.ispannumberverified === false ? (
+                  <Typography
+                    sx={{ color: "#6c63ff", fontSize: "14px" }}
+                    onClick={handleSubmit}
+                  >
+                    ADD{" "}
+                  </Typography>
+                ) : (
+                  ""
+                )}
 
-                <Avatar
-                  alt=""
-                  src={arrowlogo}
-                  sx={{ width: "24px", height: "24px" }}
-                />
+                {props?.kycDetails?.ispannumberverified === true ? (
+                  ""
+                ) : (
+                  <Avatar
+                    alt=""
+                    src={arrowlogo}
+                    sx={{ width: "24px", height: "24px" }}
+                  />
+                )}
               </IconButton>
             }
           >
@@ -192,32 +238,40 @@ function VviewprofileCard(props: IProps) {
                   className="CommonStyle"
                 >
                   PAN Number
-                  <img
-                    src={Logoici}
-                    alt="smallarrow Logo"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                      position: "relative",
-                      top: "7px",
-                    }}
-                  />
+                  {props?.kycDetails?.ispannumberverified === false ? (
+                    <img
+                      src={Logoici}
+                      alt="smallarrow Logo"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                        position: "relative",
+                        top: "7px",
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </Typography>
               }
               secondary={
                 <Typography sx={{ size: "14px" }}>
-                  {" "}
-                  <img
-                    src={doneincircle}
-                    alt="smallarrow Logo"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                      position: "relative",
-                      top: "5px",
-                      paddingRight: "2px",
-                    }}
-                  />
+                  {props?.kycDetails?.ispannumberverified === true ? (
+                    <img
+                      src={doneincircle}
+                      alt="smallarrow Logo"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                        position: "relative",
+                        top: "5px",
+                        paddingRight: "2px",
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+
                   {formData?.pannumber || ""}
                 </Typography>
               }
@@ -236,12 +290,16 @@ function VviewprofileCard(props: IProps) {
                 aria-label="delete"
                 onClick={() => navigate("/nominee")}
               >
-                <Typography
-                  sx={{ color: "#6c63ff", fontSize: "14px" }}
-                  onClick={handleSubmits}
-                >
-                  ADD{" "}
-                </Typography>
+                {props?.kycDetails?.isnomineedetailsavailable === false ? (
+                  <Typography
+                    sx={{ color: "#6c63ff", fontSize: "14px" }}
+                    onClick={handleSubmits}
+                  >
+                    ADD{" "}
+                  </Typography>
+                ) : (
+                  ""
+                )}
 
                 <Avatar
                   alt=""
@@ -271,20 +329,28 @@ function VviewprofileCard(props: IProps) {
                 </Typography>
               }
               secondary={
-                <Typography>
-                  <img
-                    src={doneincircle}
-                    alt="smallarrow Logo"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                      position: "relative",
-                      top: "5px",
-                      paddingRight: "2px",
-                    }}
-                  />
-                  Added Successfully
-                </Typography>
+                props?.kycDetails?.isnomineedetailsavailable === false ? (
+                  ""
+                ) : (
+                  <Typography>
+                    {props?.kycDetails?.isnomineedetailsavailable === true ? (
+                      <img
+                        src={doneincircle}
+                        alt="smallarrow Logo"
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          position: "relative",
+                          top: "5px",
+                          paddingRight: "2px",
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    Added Successfully
+                  </Typography>
+                )
               }
             />
           </ListItem>
@@ -296,9 +362,13 @@ function VviewprofileCard(props: IProps) {
                 aria-label="delete"
                 onClick={() => navigate("/uploadsignature")}
               >
-                <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>
-                  ADD{" "}
-                </Typography>
+                {props?.kycDetails?.issignatureavailable === true ? (
+                  ""
+                ) : (
+                  <Typography sx={{ color: "#6c63ff", fontSize: "14px" }}>
+                    ADD{" "}
+                  </Typography>
+                )}
 
                 <Avatar
                   alt=""
@@ -328,20 +398,28 @@ function VviewprofileCard(props: IProps) {
                 </Typography>
               }
               secondary={
-                <Typography>
-                  <img
-                    src={doneincircle}
-                    alt="smallarrow Logo"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                      position: "relative",
-                      top: "5px",
-                      paddingRight: "2px",
-                    }}
-                  />
-                  Verified Successfully
-                </Typography>
+                props?.kycDetails?.issignatureavailable === false ? (
+                  ""
+                ) : (
+                  <Typography>
+                    {props?.kycDetails?.issignatureavailable === true ? (
+                      <img
+                        src={doneincircle}
+                        alt="smallarrow Logo"
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          position: "relative",
+                          top: "5px",
+                          paddingRight: "2px",
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    Verified Successfully
+                  </Typography>
+                )
               }
             />
           </ListItem>
@@ -388,20 +466,24 @@ function VviewprofileCard(props: IProps) {
                 </Typography>
               }
               secondary={
-                <Typography>
-                  <img
-                    src={doneincircle}
-                    alt="smallarrow Logo"
-                    style={{
-                      width: "22px",
-                      height: "22px",
-                      position: "relative",
-                      top: "5px",
-                      paddingRight: "2px",
-                    }}
-                  />
-                  Added Successfully
-                </Typography>
+                props?.kycDetails?.bankdetails?.accountnumber === null ? (
+                  ""
+                ) : (
+                  <Typography>
+                    <img
+                      src={doneincircle}
+                      alt="smallarrow Logo"
+                      style={{
+                        width: "22px",
+                        height: "22px",
+                        position: "relative",
+                        top: "5px",
+                        paddingRight: "2px",
+                      }}
+                    />{" "}
+                    : "" Added Successfully
+                  </Typography>
+                )
               }
             />
           </ListItem>
@@ -419,7 +501,7 @@ function VviewprofileCard(props: IProps) {
       </Box>
 
       <Box
-          sx={{
+         sx={{
             p: 1,
             borderRadius: "4px",
             width: "1",
@@ -429,7 +511,7 @@ function VviewprofileCard(props: IProps) {
               "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
           }}
           className="thirdboxstyle"
-  
+
       >
         <List>
           <ListItem
@@ -470,24 +552,53 @@ function VviewprofileCard(props: IProps) {
                   />
                 </Typography>
               }
+              // secondary={
+              //     <Typography><img src={doneincircle} alt="smallarrow Logo" style={{ width: "22px", height: "22px", position: "relative", top: "5px",paddingRight:"2px" }} />Added Successfully</Typography>
+
+              //    }
+              secondary={
+                props?.kycDetails?.ischequeavailable === false ? (
+                  ""
+                ) : (
+                  <Typography>
+                    {props?.kycDetails?.ischequeavailable === true ? (
+                      <img
+                        src={doneincircle}
+                        alt="smallarrow Logo"
+                        style={{
+                          width: "22px",
+                          height: "22px",
+                          position: "relative",
+                          top: "5px",
+                          paddingRight: "2px",
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    Verification Pending
+                  </Typography>
+                )
+              }
             />
           </ListItem>
         </List>
       </Box>
 
       <Box
-        sx={{
-            p: 1,
-  
-            width: "1",
-            borderRadius: "4px",
-            bgcolor: "background.paper",
-            marginTop: "30px",
-            boxShadow:
-              "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
-          }}
-          className="thirdboxstyle"
-  
+       sx={{
+        p: 1,
+
+        width: "1",
+        borderRadius: "4px",
+        bgcolor: "background.paper",
+        marginTop: "30px",
+        boxShadow:
+          "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
+      }}
+      className="thirdboxstyle"
+
+
       >
         <List>
           {/* 

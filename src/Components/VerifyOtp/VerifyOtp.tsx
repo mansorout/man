@@ -19,6 +19,7 @@ import { ActionCreators } from "../../Store";
 import { bindActionCreators } from "redux";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { setUserNameAndEmailInLocalStorage } from "../../Utils/globalFunctions";
 
 const style = {
   background: {
@@ -76,7 +77,7 @@ export const VerifyOtp = () => {
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
   let intervalRef: any = useRef<number>(0);
-  
+
   useEffect(() => {
     setErrorLocal("");
   }, [])
@@ -102,16 +103,7 @@ export const VerifyOtp = () => {
 
       let objUserDetail: any = data?.userInfo?.userdetails;
 
-      //for setting username
-      if (objUserDetail?.firstname && objUserDetail?.lastname) {
-        let userName: string = `${objUserDetail?.firstname} ${objUserDetail?.middlename ? objUserDetail?.middlename : ""} ${objUserDetail?.lastname}`
-        console.log(userName, "username");
-        localStorage.setItem(siteConfig.USER_NAME, userName);
-      }
-
-      if (objUserDetail?.emailaddress) {
-        localStorage.setItem(siteConfig.USER_EMAIL, objUserDetail?.emailaddress);
-      }
+      setUserNameAndEmailInLocalStorage(objUserDetail);
 
       navigate("/otpverified");
     } else {
