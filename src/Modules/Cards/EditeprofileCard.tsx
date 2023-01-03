@@ -318,7 +318,7 @@ const EditprofileCard = () => {
 
   useEffect(() => {
     if (formData?.pincode && formData?.pincode.length) {
-      handlePincodeLengthValidation();
+      handlePincodeLengthValidation(true);
     }
   }, [formData?.pincode]);
 
@@ -452,25 +452,33 @@ const EditprofileCard = () => {
     })
   }
 
-  const handlePincodeLengthValidation = async () => {
+  const handlePincodeLengthValidation = async (b: boolean) => {
     let bFlag: boolean = false;
 
-    if (formData.pincode && formData.pincode.length < 7 && formData.pincode.length > 0) {
-      console.log("formData.pincode < 6")
-      bFlag = false;
-      if (formData?.pincode?.length === 6) {
+    if (formData.pincode) {
+      if (formData.pincode.length < 7 && formData.pincode.length > 0) {
+        console.log("formData.pincode < 6")
+        bFlag = false;
+        // if (formData?.pincode?.length === 6) {
         await validatePincodeThroughAPI(formData.pincode);
-        return;
+        // return;
+        // }
+      } else {
+        console.log("formData.pincode > 6")
+        bFlag = true;
       }
-    } else {
-      console.log("formData.pincode > 6")
-      bFlag = true;
     }
 
-    setValidateInputs((prev: validateInputsProps) => ({
-      ...prev,
-      "pincode": bFlag
-    }))
+    // let objValidateInputs: validateInputsProps = {...validateInputs};
+    if (b) {
+      // objValidateInputs["pincode"] = bFlag;
+      setValidateInputs((prev: validateInputsProps) => ({
+        ...prev,
+        "pincode": bFlag
+      }))
+    }
+
+    return bFlag;
   }
 
   const validatePincodeThroughAPI = async (strPincode: string) => {
@@ -506,7 +514,7 @@ const EditprofileCard = () => {
     const { name, value } = e.target;
     if (Object.keys(validateInputs).includes(name)) {
       if (name === "pincode") {
-        handlePincodeLengthValidation();
+        handlePincodeLengthValidation(true);
       } else if (name === "emailaddress") {
         regexValidate(emailRegex, name, value);
       } else if (name === "mobilenumber") {
@@ -526,10 +534,17 @@ const EditprofileCard = () => {
     setFormData(objFormData);
   }
 
-  const throwErrorOnWrongField = () => {
+  useEffect(() => {
+    console.log(validateInputs, "validateInputs useeefect")
+  }, [validateInputs])
+
+  const throwErrorOnWrongField = async () => {
     let throwError: boolean = true;
-    let arrFormDataKeys: any[] = Object.keys(validateInputs);
-    arrFormDataKeys.forEach((key: string, index: number) => {
+    let arrFormDataKeys: any[] = [...Object.keys(validateInputs)];
+
+    let objValidateInputs: validateInputsProps = { ...validateInputs };
+    for (let i = 0; i < arrFormDataKeys.length; i++) {
+      let key = arrFormDataKeys[i];
       if (key !== "middlename") {
         // @ts-ignore
         if (!formData[key]) {
@@ -539,13 +554,35 @@ const EditprofileCard = () => {
         }
       }
 
-      setValidateInputs(prev => ({
-        ...prev,
-        [key]: throwError
-      }))
-    })
+      if (key === "pincode") {
+        throwError = await handlePincodeLengthValidation(false);
+      }
 
-    return throwError;
+      //@ts-ignore
+      objValidateInputs[key] = throwError;
+    }
+
+    await setValidateInputs((prev: validateInputsProps) => ({
+      ...prev,
+      ...objValidateInputs
+    }))
+    // arrFormDataKeys.forEach((key: string, index: number) => {
+    //   if (key !== "middlename") {
+    //     // @ts-ignore
+    //     if (!formData[key]) {
+    //       throwError = true;
+    //     } else {
+    //       throwError = false
+    //     }
+    //   }
+
+    //   setValidateInputs(prev => ({
+    //     ...prev,
+    //     [key]: throwError
+    //   }))
+    // })
+    // isAllFieldsValidated(validateInputs);
+    return objValidateInputs;
   }
 
   const regexValidate = (regexType: any, name: string, value: string) => {
@@ -561,64 +598,70 @@ const EditprofileCard = () => {
     return bFlag;
   }
 
-  const isAllFieldsValidated = () => {
-    let arr: boolean[] = Object.values(validateInputs).filter((item: boolean) => item === true);
+  const isAllFieldsValidated = async (func: () => void) => {
+    // @ts-ignore
+    let obj: validateInputsProps = await func();
+    let arr: boolean[] = Object.values(obj).filter((item: boolean) => item === true);
     return arr ? arr.length : 0;
   }
 
-  const handleSubmitForm = (e: any) => {
+  const handleSubmitForm = async (e: any) => {
 
     e.preventDefault();
     e.stopPropagation();
-    if (throwErrorOnWrongField()) {
-      return;
-    }
 
-    if (isAllFieldsValidated()) {
-      console.log("please validate all firlds")
-      return;
-    }
-
-
-    if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
-      return;
-    }
-
-    if (regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber)) {
-      return;
-    }
-
-    if (validateInputs)
-      setValidateInputs({ ...initialValidateinputsData });
-
-    setLoading(true);
-    postData(
-      formData,
-      siteConfig.AUTHENTICATION_PROFILE_EDIT,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then((data) => {
-        setLoading(false);
-
-        if (checkExpirationOfToken(data?.code)) {
-          dispatchLocal(setTokenExpiredStatusAction(true));
+    await isAllFieldsValidated(throwErrorOnWrongField)
+      .then(res => {
+        if (res) return;
+        if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
           return;
         }
 
-        if (data?.error) {
+        if (regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber)) {
           return;
         }
 
-        console.log("profile saved");
-        let objUserDetail: any = data?.data?.userdetails;
-        setUserNameAndEmailInLocalStorage(objUserDetail);
-        navigate('/viewprofile');
+        // if (validateInputs) { setValidateInputs({ ...initialValidateinputsData }); }
+
+        setLoading(true);
+        postData(
+          formData,
+          siteConfig.AUTHENTICATION_PROFILE_EDIT,
+          siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+          siteConfig.AUTHENTICATION_API_ID
+        )
+          .then(res => res.json())
+          .then((data) => {
+            setLoading(false);
+
+            if (checkExpirationOfToken(data?.code)) {
+              dispatchLocal(setTokenExpiredStatusAction(true));
+              return;
+            }
+
+            if (data?.error) {
+              return;
+            }
+
+            console.log("profile saved");
+            let objUserDetail: any = data?.data?.userdetails;
+            setUserNameAndEmailInLocalStorage(objUserDetail);
+            navigate('/viewprofile');
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }).catch(err => {
+        console.log(err);
       })
-      .catch(err => {
-        console.log(err)
-      })
+
+    // if (!await isAllFieldsValidated(throwErrorOnWrongField)) {
+    //   console.log("please validate all fields")
+    //   return;
+    // }
+
+
+
   }
 
   return (
