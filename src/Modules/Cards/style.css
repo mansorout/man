@@ -155,7 +155,7 @@
       margin-left: 12px !important;
   }
   .RemoveStyle_Style{
-      margin-top: -21px !important;
+      margin-top: -26px !important;
   }
   }
   
@@ -363,7 +363,7 @@
   }
   @media (max-width: 414px) {
     .paddingviewprofilestyle {
-      padding-left: 4% !important;
+      padding-left: 2% !important;
       width: 86% !important;
       margin-left: 10px !important;
     }
@@ -381,7 +381,7 @@
   }
   @media (max-width: 375px) {
     .paddingviewprofilestyle {
-      padding-left: 4.6% !important;
+      padding-left: 2.6% !important;
       width: 84% !important;
       margin-left: 10px !important;
     }

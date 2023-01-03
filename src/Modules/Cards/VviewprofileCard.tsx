@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accountboxlogo } from "../../Assets/index";
+import {
+  accountboxlogo,
+  Checkcirclelogo,
+  circlechecklogo,
+  doneincircle,
+} from "../../Assets/index";
 import { familyrestroomlogo } from "../../Assets/index";
 import { paymentslogo } from "../../Assets/index";
 import { AccountBalancelogo } from "../../Assets/index";
@@ -15,17 +20,29 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { VerificationpendingButton } from "../Buttons/VerificationpendingButton";
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton, ListItemIcon, Typography } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import React from "react";
 import "./style.css";
+import { useSelector } from "react-redux";
 
-function VviewprofileCard() {
-  const [panCardNo, setPanCardNo] = useState("");
-  const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPanCardNo(e.target.value);
+type formDataProps = {
+  pannumber: string;
+};
 
-  const style = {
-    containertwo: {
+const initialFormData: formDataProps = {
+  pannumber: "",
+};
+
+type IProps = {
+  kycDetails: any;
+};
+
+function VviewprofileCard(props: IProps) {
+  
+  
+    const style = {
+      containertwo: {
         backgroundColor: "#fff",
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
         borderRadius: "8px",
@@ -56,8 +73,6 @@ function VviewprofileCard() {
     //     padding: "10px",
     //     opacity: "0.3",
     //     background-color:" #64dbff",
-
-    // } as React.CSSProperties,
   };
 
   const navigate = useNavigate();
@@ -78,6 +93,29 @@ function VviewprofileCard() {
   }
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
+
+  const [panCardNo, setPanCardNo] = useState("");
+  const [formData, setFormData] = useState<formDataProps>(initialFormData);
+  const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPanCardNo(e.target.value);
+  const userData: any = useSelector(
+    (state: any) => state?.authReducer?.profile
+  );
+  console.log(userData.data?.kycdetails?.pannumber);
+
+  useEffect(() => {
+    // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
+    // if (userdetails) {
+    let userdetails: any = { ...props?.kycDetails };
+    if (userdetails) {
+      setFormData((prev) => ({
+        ...prev,
+        pannumber: userdetails?.pannumber,
+      }));
+    }
+  }, [props?.kycDetails]);
+
+  console.log(formData?.pannumber);
 
   return (
     <>
@@ -107,12 +145,13 @@ function VviewprofileCard() {
                   borderRadius: " 20px",
                   padding: "2px 21px 2px 23px",
                 }}
+                className="IncompleteStyle_View"
               >
                 Incomplete
               </Typography>
             }
           ></ListItem>
-          <Box  sx={{ marginTop: "-3%",marginLeft:"2%" }}  className="HeadingStyleKycWhole">
+          <Box sx={{ marginTop: "-3%",marginLeft:"2%" }} className="HeadingStyleKycWhole">
             <Typography sx={{ fontWeight: "500", fontSize: "14px" }}>
               KYC Details
             </Typography>
@@ -165,6 +204,28 @@ function VviewprofileCard() {
                   />
                 </Typography>
               }
+              secondary={
+                <Typography sx={{ size: "14px" }}>
+                  {" "}
+                  <img
+                    src={doneincircle}
+                    alt="smallarrow Logo"
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      position: "relative",
+                      top: "5px",
+                      paddingRight: "2px",
+                    }}
+                  />
+                  {formData?.pannumber || ""}
+                </Typography>
+              }
+              // secondary="DUDPS1755G"
+            />
+
+            <ListItemText
+              sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
             />
           </ListItem>
 
@@ -209,6 +270,22 @@ function VviewprofileCard() {
                   />
                 </Typography>
               }
+              secondary={
+                <Typography>
+                  <img
+                    src={doneincircle}
+                    alt="smallarrow Logo"
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      position: "relative",
+                      top: "5px",
+                      paddingRight: "2px",
+                    }}
+                  />
+                  Added Successfully
+                </Typography>
+              }
             />
           </ListItem>
 
@@ -248,6 +325,22 @@ function VviewprofileCard() {
                       top: "7px",
                     }}
                   />
+                </Typography>
+              }
+              secondary={
+                <Typography>
+                  <img
+                    src={doneincircle}
+                    alt="smallarrow Logo"
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      position: "relative",
+                      top: "5px",
+                      paddingRight: "2px",
+                    }}
+                  />
+                  Verified Successfully
                 </Typography>
               }
             />
@@ -294,6 +387,22 @@ function VviewprofileCard() {
                   />
                 </Typography>
               }
+              secondary={
+                <Typography>
+                  <img
+                    src={doneincircle}
+                    alt="smallarrow Logo"
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      position: "relative",
+                      top: "5px",
+                      paddingRight: "2px",
+                    }}
+                  />
+                  Added Successfully
+                </Typography>
+              }
             />
           </ListItem>
           <Grid
@@ -310,11 +419,10 @@ function VviewprofileCard() {
       </Box>
 
       <Box
-         sx={{
+          sx={{
             p: 1,
-  
-            width: "1",
             borderRadius: "4px",
+            width: "1",
             bgcolor: "background.paper",
             marginTop: "30px",
             boxShadow:
@@ -369,15 +477,17 @@ function VviewprofileCard() {
 
       <Box
         sx={{
-          p: 1,
-          borderRadius: "4px",
-          width: "1",
-          bgcolor: "background.paper",
-          marginTop: "30px",
-          boxShadow:
-            "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
-        }}
-        className="thirdboxstyle"
+            p: 1,
+  
+            width: "1",
+            borderRadius: "4px",
+            bgcolor: "background.paper",
+            marginTop: "30px",
+            boxShadow:
+              "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
+          }}
+          className="thirdboxstyle"
+  
       >
         <List>
           {/* 
@@ -413,3 +523,6 @@ function VviewprofileCard() {
 }
 
 export default VviewprofileCard;
+// function useEffect(arg0: () => void, arg1: any[]) {
+//   throw new Error("Function not implemented.");
+// }

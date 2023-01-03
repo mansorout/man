@@ -112,7 +112,8 @@ const ViewProfileCard = (props: IProps) => {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
   /**reducer state */
-  const userData: any = useSelector((state: any) => state.userProfileDetails);
+  const userData: any = useSelector((state: any) => state.userProfileDetails)
+  console.log(userData)
   // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   // console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
 
@@ -175,7 +176,7 @@ const ViewProfileCard = (props: IProps) => {
     <>
       <Card
         sx={{
-          p: 3,
+          p: 4,
           marginTop: "30px",
           height: " fit-content",
         }}

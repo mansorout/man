@@ -1,11 +1,12 @@
-import { SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING } from "../constants/global-constants";
+import { SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING,SET_COMMON_MSG } from "../constants/global-constants";
 
 const initialState: any = {
   disableButtonDuringApiFetching: false,
   loading: false,
   stateList: [],
   cityList: [],
-  incomeSlabList: []
+  incomeSlabList: [],
+  commonmsg: ""
 }
 
 const globalReducer = (state = initialState, action: any) => {
@@ -30,6 +31,10 @@ const globalReducer = (state = initialState, action: any) => {
     case SET_INCOMESLAB_LIST: {
       state.incomeslabList = action.payload;
       break;
+    }
+    case SET_COMMON_MSG :{
+     state.commonmsg=action.payload
+     break;
     }
     default:
       break;

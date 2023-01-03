@@ -25,7 +25,9 @@ import siteConfig from '../../Utils/siteConfig';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 
-
+type IProps = {
+  userDetails: any;
+};
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -139,6 +141,9 @@ const style = {
   }
 
 }
+// type IProps = {
+//   userDetails: any;
+// };
 
 const ViewProfile = () => {
   const classes = useStyles()
@@ -148,6 +153,7 @@ const ViewProfile = () => {
   const refContainer = useRef();
   const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   const [userDetails, setUserDetails] = useState<any>({});
+  const [kycDetails, setKycDetails] = useState<any>("");
 
   useEffect(() => {
     getUserProfileData();
@@ -171,7 +177,9 @@ const ViewProfile = () => {
         }
         const response = data?.data;
 
-        setUserDetails(response?.userdetails);
+        setUserDetails(response);
+      
+        
       })
       .catch(err => {
         console.log(err);
@@ -180,6 +188,9 @@ const ViewProfile = () => {
     store.dispatch(getUserProfileDataThunk());
 
   }
+
+  console.log(userDetails?.userdetails)
+  console.log(userDetails?.kycdetails?.pannumber)
 
   // const  {insuranceTermConditionState}:any = useSelector((state: any) => state.setUserViewProfileDataAction);
   // console.log(insuranceTermConditionState)
@@ -204,16 +215,16 @@ const ViewProfile = () => {
                   <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                     <Typography className='burgerText'>View Profile</Typography>
                   </Link>
-                </Breadcrumbs>
+                </Breadcrumbs>   
               </Box>
               <Grid container>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
                   <ViewProfileCard
-                    userDetails={userDetails}
+                    userDetails={userDetails?.userdetails}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
-                  <VviewprofileCard />
+                  <VviewprofileCard kycDetails={userDetails?.kycdetails} />
                 </Grid>
               </Grid>
             </Grid>
