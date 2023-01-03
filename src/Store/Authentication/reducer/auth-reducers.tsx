@@ -45,7 +45,7 @@ const authReducer = (state = initialState, action: any) => {
         data: action.data
       }
 
-      console.log(state.profile, "state.profile");
+      // console.log(state.profile, "state.profile");
       break;
     }
     case SET_TOKEN_EXPIRED_STATUS: {

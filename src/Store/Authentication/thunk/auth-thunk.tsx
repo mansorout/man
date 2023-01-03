@@ -78,7 +78,7 @@ export const getUserProfileDataThunk = () => {
         if (data?.error === true) {
           return;
         }
-        console.log(data?.data)
+        // console.log(data?.data)
         const response = data?.data;
         dispatch(setUserViewProfileDataAction(response));
         //  localStorage.setItem("accesstoken", response?.accesstoken)
