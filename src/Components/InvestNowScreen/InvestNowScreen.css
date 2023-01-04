@@ -149,7 +149,7 @@
    }
    
 
-   @media  screen and (max-width:1024px){
+   @media  screen and (width:1024px){
     .closeIconStyle{
       padding-left: 1% !important;
     }
@@ -162,9 +162,25 @@
     .smallmodal{
       max-width: 42% !important;  
      } 
+     .iconstyle{
+      color: red !important;
+      margin-left: -20% !important;
+     }
+     .NoLockinperiod{
+     
+      margin-left: 67% !important;
+  
+      margin-top: -11% !important;
+     }
+     .withdraliconstyle{
+      
+      margin-left: 4px !important;
+      margin-top: -2px !important;
+  
+     }
    
    }
-   @media  screen and (max-width:920px){
+   @media  screen and (width:912px){
  
     .siplogoStyle{
  
@@ -172,6 +188,21 @@
      
      
     }
+    .iconstyle{
+      color: red !important;
+      margin-left: -30% !important;
+     }
+     .NoLockinperiod{
+     
+      margin-left: 61% !important;
+      margin-top: -13% !important;
+     }
+     .withdraliconstyle{
+      
+      margin-left: 4px !important;
+      margin-top: -2px !important;
+  
+     }
 
    
    }
@@ -348,7 +379,7 @@
    
  
   }
-  @media screen and (max-width:280px) {
+  @media screen and (width:280px) {
 
     .HelpUsStyle {
       padding-left: 16% !important;
@@ -372,6 +403,20 @@
 .InvestStylepadview{
   min-width: 262px !important;
 }
+.iconstyle{
+  color: red !important;
+  margin-left: -6% !important;
+ }
+ .NoLockinperiod{
+  margin-left: 61% !important;
+  margin-top: -40% !important;
+ }
+ .withdraliconstyle{
+  
+  margin-left: 4px !important;
+  margin-top: -2px !important;
+
+ }
 
    
  
