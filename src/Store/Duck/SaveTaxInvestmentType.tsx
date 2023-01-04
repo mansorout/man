@@ -4,10 +4,12 @@ import { Dispatch } from 'redux';
 export const LUMPSUM = 'LUMPSUM';
 export const MONTHLY = 'MONTHLY';
 export const INVESTMENT_AMOUNT = 'INVESTMENT_AMOUNT';
+export const SAVETAX_PERCENTAGE_AMOUNT = 'SAVETAX_PERCENTAGE_AMOUNT';
 
 const initialState: any = {
     investmentType: '',
-    investmentAmount: '0'
+    investmentAmount: '0',
+    savetaxPercentageAmount: 0,
 }
 
 export const SaveTaxInvestmentTypeReducers = (state: any = initialState, action: any): any => {
@@ -27,6 +29,11 @@ export const SaveTaxInvestmentTypeReducers = (state: any = initialState, action:
             return {
                 ...state,
                 investmentAmount: action.payload,
+            }
+        case SAVETAX_PERCENTAGE_AMOUNT:
+            return {
+                ...state,
+                savetaxPercentageAmount: action.payload,
             }
         default:
             return state
@@ -52,6 +59,14 @@ export const SaveTaxInvestmentMonthlyAction = (props: string) => async (dispatch
 export const SaveTaxInvestmentAmount = (props: string) => async (dispatch: Dispatch<any>) => {
     dispatch({
         type: INVESTMENT_AMOUNT,
+        payload: props
+    });
+} 
+
+
+export const saveTaxPercentageAmountAction = (props: number) => async (dispatch: Dispatch<any>) => {
+    dispatch({
+        type: SAVETAX_PERCENTAGE_AMOUNT,
         payload: props
     });
 } 

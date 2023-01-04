@@ -116,7 +116,7 @@ const SaveTaxInvestmentType = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch:any =useDispatch()
-    const {investmentAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
+    const {investmentAmount, savetaxPercentageAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
     const {saveTaxInvestmentTypeData} = useSelector((state:any) => state.saveTaxReducer)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
     const [rows, setRows] = useState<{
@@ -137,17 +137,19 @@ const SaveTaxInvestmentType = () => {
 
     
     useEffect(() => {
-        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
-        // const lookUpSaveTaxObj = bannersectionArr.filter((item:any) => item.value === bannerSectionValues.SAVE_TAX && item)
-        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        // const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
+        // // const lookUpSaveTaxObj = bannersectionArr.filter((item:any) => item.value === bannerSectionValues.SAVE_TAX && item)
+        // const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
 
-        const saveTavGenrateBody = {
-            investmenttype_id: lookUPId,
-            amount: parseInt(investmentAmount),
-        }
+        // const saveTavGenrateBody = {
+        //     investmenttype_id: lookUPId,
+        //     amount: parseInt(investmentAmount),
+        // }
+        if(parseInt(investmentAmount) === 0) navigate('/saveTax')
         dispatch(getDataSaveTaxInvestmentType(investmentAmount))
+        console.log("investmentAmount :", investmentAmount)
 
-        dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
+        // dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
     }, [])
 
     useEffect(() => {
@@ -256,8 +258,8 @@ const SaveTaxInvestmentType = () => {
 
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
-                            boxText='Great! Your total investment is'
-                            boxAmount={`₹${investmentAmount}  Every Year`}
+                            boxText='Great! You`ll save taxes upto'
+                            boxAmount={`₹${savetaxPercentageAmount}`}
                             btnText='Show Me Recommendations'
                             btnClick={handleShowRecommendation}
                             btnDisable={false}

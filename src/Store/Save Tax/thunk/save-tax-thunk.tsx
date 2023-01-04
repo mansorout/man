@@ -104,8 +104,8 @@ export const postSaveTaxGenrateApi = (bodyData: postSaveTaxGenrateApiTypes) => {
         postData(
             bodyData,
             siteConfig.RECOMMENDATION_SAVETAX_GENERATE,
-            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-            siteConfig.SAVE_TAX_API_ID,
+            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+            siteConfig.RECOMENDATION_API_ID,
         ).then((res) => res.json()).then((data) => {
             if (checkExpirationOfToken(data?.code)) {
                 dispatch(setTokenExpiredStatusAction(true));

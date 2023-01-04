@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -24,7 +24,8 @@ import {
     SaveTaxInvestmentMonthlyAction,
     SaveTaxInvestmentAmount,
     LUMPSUM,
-    MONTHLY
+    MONTHLY,
+    saveTaxPercentageAmountAction
 } from '../../Store/Duck/SaveTaxInvestmentType';
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
 import Dialog from '@mui/material/Dialog';
@@ -125,19 +126,59 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }))
 
+type moduleDefaultListObjectType = {
+    key: string;
+    value: string;
+}
+
 const SaveTaxAmount = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch()
     // const {SaveTaxInvestmentLumpsumAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
     // const {SaveTaxInvestmentMonthlyAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
-    const [investmentType, setInvestmentType] = useState<string>('LUMPSUM')
+    const { moduleDefaultList } = useSelector((state: any) => state.saveTaxReducer)
+    const [investmentType, setInvestmentType] = useState<string>(LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
+    const [saveTaxPercentageAmount, setSaveTaxPercentageAmount] = useState<string>('');
     const [validationAlertDialog, setValidationAlertDialog] = useState({
         msg: '',
         bool: false,
     })
+    const [saveTaxUPTO, setSaveTaxUPTO] = useState<number>(0);
+
+    
+    const moduleDefaultListkeys = Object.freeze({
+        financial_year_start: 'financial_year_start',
+        employee_pf_info: 'employee_pf_info',
+        ppf_info: 'ppf_info',
+        homeloan_info: 'homeloan_info',
+        postoffice_info: 'postoffice_info',
+        insurance_info: 'insurance_info',
+        taxsaving_fd_info: 'taxsaving_fd_info',
+        taxsaving_percentage: 'taxsaving_percentage',
+        financial_year_end: 'financial_year_end',
+    })
+
+
+    useEffect(() => {
+      
+      moduleDefaultList.length > 0 && moduleDefaultList.map((item:moduleDefaultListObjectType) => {
+        if(item?.key === moduleDefaultListkeys?.taxsaving_percentage) setSaveTaxPercentageAmount(item?.value)
+    })
+
+    if(moduleDefaultList.length === 0 || moduleDefaultList.length === undefined){
+        navigate('/saveTax')   
+    }
+    
+    }, [moduleDefaultList])
+
+    useEffect(() => {
+      console.log("saveTaxPercentageAmount :", saveTaxPercentageAmount)
+    }, [setSaveTaxPercentageAmount])
+    
+    
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
@@ -146,18 +187,26 @@ const SaveTaxAmount = () => {
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
+
+        const temp = parseInt(event.target.value) * parseInt(saveTaxPercentageAmount) / 100;
+        setSaveTaxUPTO(temp)
+        setMonthlyAmount('')
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
         setMonthlyAmount(event.target.value);
+        
+        const temp = (parseInt(event.target.value) * parseInt(saveTaxPercentageAmount) / 100) / 12;
+        setSaveTaxUPTO(temp)
+        setLumpsumAmount('')
     };
 
     const handleNavigationFlow = () => {
         if(investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0){
-            if(parseInt(lumpsumAmount) > 1500000){
+            if(parseInt(lumpsumAmount) > 150000){
                 setValidationAlertDialog({
-                    msg: 'Amount should be less than 15,00,000',
+                    msg: 'Amount should be less than 150000',
                     bool: true,
                 })
                 return 
@@ -165,6 +214,7 @@ const SaveTaxAmount = () => {
             if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
                 dispatch(SaveTaxInvestmentLumpsumAction(LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
+                dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
                 navigate('/saveTax/saveTaxInvestmentType')
             } else {
                 // alert('Enter amount multiple of 100!')
@@ -184,6 +234,7 @@ const SaveTaxAmount = () => {
             }
                 dispatch(SaveTaxInvestmentMonthlyAction(MONTHLY));
                 dispatch(SaveTaxInvestmentAmount(monthlyAmount))
+                dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
                 navigate('/saveTax/saveTaxInvestmentType')
         }
     }
@@ -201,7 +252,15 @@ const SaveTaxAmount = () => {
                             <Box className={classes.blueBoxIconBox}>
                                 <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
                             </Box>
-                            <Typography component='p'>Amount I want to invest in current F.Y 21-22</Typography>
+                            <Typography component='p'>
+                                Amount I want to invest in current F.Y 
+                                {
+                                    moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                        item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                    )
+                                    )
+                                }
+                            </Typography>
                         </Box>
 
                         <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: {xs: '15px 0px', sm: '15px'} }}>
@@ -232,7 +291,14 @@ const SaveTaxAmount = () => {
                                         className={classes.textField}
                                         fullWidth
                                     />
-                                    <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 21-22</Typography>
+                                    <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y 
+                                        {
+                                            moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                                item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                            )
+                                            )
+                                        }
+                                    </Typography>
                                 </Box>
 
                                         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -261,15 +327,23 @@ const SaveTaxAmount = () => {
                                         fullWidth
                                     />
                                     <Typography component='span'>This will be a monthly investment for remaining months in
-                                        Current F.Y 21-22</Typography>
+                                        Current F.Y 
+                                        {
+                                            moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                                item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                            )
+                                            )
+                                        }
+                                    </Typography>
                                 </Box>
                             </RadioGroup>
                         </Box>
 
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
-                            boxText='Great! Your total investment is'
-                            boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' :lumpsumAmount }` :  `₹${monthlyAmount === '' ? '0' : monthlyAmount}`}
+                            boxText='Great! You`ll save taxes upto'
+                            // boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' :lumpsumAmount }` :  `₹${monthlyAmount === '' ? '0' : monthlyAmount}`}
+                            boxAmount={`₹ ${saveTaxUPTO}`}
                             btnText='Continue'
                             btnClick={handleNavigationFlow}
                             btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}

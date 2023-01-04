@@ -318,21 +318,28 @@ const TaxCanSave = () => {
                                             <InputLabel htmlFor="outlined-adornment-password">Employee PF</InputLabel>
                                             <ErrorOutlineOutlinedIcon onClick={() => updateFeildInfo(moduleDefaultListkeys.employee_pf_info)} />
                                         </Box>
-                                        <TextField
-                                            id="outlined-basic"
-                                            label="Enter Amount"
-                                            variant="outlined"
-                                            name="employeePF"
-                                            InputProps={{
-                                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                            }}
-                                            type='number'
-                                            fullWidth
-                                            value={formik.values.employeePF}
-                                            onChange={formik.handleChange}
-                                            error={formik.touched.employeePF && Boolean(formik.errors.employeePF)}
-                                            helperText={formik.touched.employeePF && formik.errors.employeePF}
-                                        />
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Enter Amount"
+                                        variant="outlined"
+                                        name="employeePF"
+                                        InputProps={{
+                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                        }}
+                                        type='number'
+                                        // onKeyUp={(event) => {
+                                        //     debugger
+                                        //     if (event.ctrlKey && event.key == 'Enter')
+                                        //         debugger
+                                        //     }
+                                        // }
+                                        onWheel={event => { event.preventDefault(); }}
+                                        fullWidth
+                                        value={formik.values.employeePF}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.employeePF && Boolean(formik.errors.employeePF)}
+                                        helperText={formik.touched.employeePF && formik.errors.employeePF}
+                                    />
                                     </Box>
                                     <Box className={classes.inputWrap}>
                                         <Box className={classes.lableAndIcon}>
