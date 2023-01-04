@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
-import { postData } from "../../Utils/api";
+import { getData, postData } from "../../Utils/api";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { useDispatch } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
-import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
+import { getUserProfileDataThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { store } from "../../Store/Store";
+
 
 const Nominee = () => {
 
@@ -29,9 +32,13 @@ const Nominee = () => {
     const [relationError, setRelationError] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [dialog, setShowDialog] = useState<boolean>(false);
-    const [succesmsg,setSuccesMsg]= useState<string>("");
+    const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
-    // const formData = "Vineet"
+    const [userDetails, setUserDetails] = useState<any>({});
+    // const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
+
+
+
 
 
 
@@ -84,11 +91,18 @@ const Nominee = () => {
 
     }
 
-    console.log(formData)
+    // console.log(formData)
 
 
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        //    if(userDetails.userdetails?.customer_id != 0){
+
+        //    }
+        //    else{
+
+        //    }
+
         if (name === '') {
             setNameError(true);
         } else if (dateOfBirth === '') {
@@ -99,7 +113,7 @@ const Nominee = () => {
         } else {
             // navigate('/viewprofile');
         }
-        // setLoading(true);
+        setLoading(true);
         setShouldButtonDisable(true)
         postData(
             formData,
@@ -111,15 +125,16 @@ const Nominee = () => {
             .then((data) => {
                 setShouldButtonDisable(false);
                 setSuccesMsg(data?.status?.message)
-                if(data.status === true){
+                setLoading(false);
+                if (data.status === true) {
                     setSuccesMsg("Nominee Added Successfully")
-                 }
-                 else{
+                }
+                else {
                     setErrorMsg("Something Went Wrong")
-                 }
-                
-            
-               
+                }
+
+
+
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -129,17 +144,17 @@ const Nominee = () => {
                 if (data?.error) {
                     return;
                     setErrorMsg(data?.error)
-                  
+
                 }
 
-                console.log("profile saved");
+                // console.log("profile saved");
                 setShowDialog(true)
                 // navigate('/viewprofile');
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
-            setShowDialog(true)
+        setShowDialog(true)
 
 
     }
@@ -154,11 +169,58 @@ const Nominee = () => {
     };
 
 
+    useEffect(() => {
+        getUserProfileData();
+    }, [])
+
+    const getUserProfileData = () => {
+        getData(
+            siteConfig.AUTHENTICATION_PROFILE_VIEW,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then(data => {
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatch(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error === true) {
+                    return;
+                }
+                const response = data?.data
+                // console.log(data.kycDetails?.ischequeavailable)
+                // console.log(response)
+                // console.log(response.userdetails.customer_id)
+
+                if (response.userdetails?.customer_id != 0) {
+                    setUserDetails(response);
+                    setName(response.kycdetails?.nomineedetails?.nominee_name)
+                    setRelation(response.kycdetails?.nomineedetails?.nominee_name)
+                    // console.log(response.kycdetails?.nomineedetails?.relation)
+                }
+
+
+
+
+            })
+            .catch(err => {
+                // console.log(err);
+            })
+
+        store.dispatch(getUserProfileDataThunk());
+
+    }
+
+    // console.log(userDetails?.userdetails?.customer_id)
+    // console.log(userDetails?.kycdetails?.pannumber)
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
             <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
-            
+
             <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
@@ -270,15 +332,13 @@ const Nominee = () => {
                                     onChange={handleRelationChange}
                                     error={relationError}
                                 >
-                                    <MenuItem value="1">Father</MenuItem>
-                                    <MenuItem value="1">Mother</MenuItem>
-                                    <MenuItem value="1">Wife</MenuItem>
-                                    <MenuItem value="1">Husband</MenuItem>
-                                    <MenuItem value="1">Sister</MenuItem>
-                                    <MenuItem value="1">Brother</MenuItem>
-                                    <MenuItem value="1">Son</MenuItem>
-                                    <MenuItem value="1">Daughter</MenuItem>
-                                    <MenuItem value="1">Nephew</MenuItem>
+                                    <MenuItem value="9">Doughter</MenuItem>
+                                    <MenuItem value="8">Son</MenuItem>
+                                    <MenuItem value="7">Wife</MenuItem>
+                                    <MenuItem value="6">Husband</MenuItem>
+                                    <MenuItem value="5">Mother</MenuItem>
+                                    <MenuItem value="4">Father</MenuItem>
+                                   
                                 </Select>
                                 <Box component="span" className="select-box" sx={{
                                     color: 'red',
@@ -310,3 +370,7 @@ const Nominee = () => {
 };
 
 export default Nominee;
+function dispatch(arg0: { type: string; payload: any; }) {
+    throw new Error("Function not implemented.");
+}
+

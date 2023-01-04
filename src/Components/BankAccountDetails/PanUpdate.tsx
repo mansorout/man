@@ -39,7 +39,13 @@ const style = {
         fontSize: '12px',
         color: '#7b7b9d',
         textAlign: 'center',
-        width: '23.28vw',
+        width: '36.28vw',
+    } as React.CSSProperties,
+    footer2: {
+        fontSize: '12px',
+        color: '#7b7b9d',
+        textAlign: 'center',
+        width: '34.28vw',
     } as React.CSSProperties,
 
     pan: {
@@ -120,8 +126,8 @@ const PanUpdate = () => {
                 console.log(data.status.error)
                 setShowDialog(true)
                 dispatch(getCommonApiMsg(data));
-                if(data.status === true){
-                   setSuccessMsg("Pan Added Successfully")
+                if (data.status === true) {
+                    setSuccessMsg("Pan Added Successfully")
                 }
 
                 if (checkExpirationOfToken(data?.code)) {
@@ -173,13 +179,13 @@ const PanUpdate = () => {
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' },
+                        paddingLeft: { xs: '8vw', md: '' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
                             fontSize: '12px',
                             color: '#6c63ff',
-                            marginBottom: '3vw',
+                            padding: "31px 0px 23px 0px"
                         }}>
                             <Link href="/home">Home</Link>
                             <Link href="/viewprofile">View Profile</Link>
@@ -256,24 +262,27 @@ const PanUpdate = () => {
                             </FormControl>
                         </Box>
 
-                    </Grid>
-                    <Box sx={{
-
-                        alignItems: 'center',
-                        marginLeft: '20vw',
-                        backgroundColor: '#f9f9f9',
-                    }}>
-                        <Typography style={style.footer}>
-                            By submitting these details, you agree to share your details to BSE for
-                            further transactions
-                        </Typography>
-                        <Typography style={style.footer} sx={{
-                            fontWeight: 500,
-                            color: '#6c63ff',
+                        <Box sx={{
+                            marginTop:"120px",
+                            alignItems: 'center',
+                            marginLeft: '20vw',
+                            backgroundColor: '#f9f9f9',
                         }}>
-                            <Link href="/termsandcondition">Terms and conditions</Link>
-                        </Typography>
-                    </Box>
+                            <Typography style={style.footer}>
+                                By submitting these details, you agree to share your details to BSE for
+                                further transactions
+                            </Typography>
+                            <Typography style={style.footer} sx={{
+                                fontWeight: 500,
+                                color: '#6c63ff',
+                            }}>
+                                <Link href="/termsandcondition">Terms and conditions</Link>
+                            </Typography>
+                        </Box>
+                    </Grid>
+
+
+
                 </Grid>
             </Box>
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={successMsg} />
