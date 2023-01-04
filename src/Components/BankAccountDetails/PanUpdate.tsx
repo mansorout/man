@@ -8,12 +8,13 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
-import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
+import { getCommonApiMsg, setDisableButtonAction } from "../../Store/Global/actions/global-actions";
 import { postData } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
 
 
 const style = {
@@ -54,6 +55,9 @@ const PanUpdate = () => {
     const dispatchLocal = useDispatch();
     const [loading, setLoading] = useState<boolean>(false);
     const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
+    const [dialog, setShowDialog] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState("");
 
     //const error: string[] = useSelector((state: any) => state.error)
 
@@ -113,6 +117,12 @@ const PanUpdate = () => {
             .then(res => res.json())
             .then((data) => {
                 setShouldButtonDisable(false)
+                console.log(data.status.error)
+                setShowDialog(true)
+                dispatch(getCommonApiMsg(data));
+                if(data.status === true){
+                   setSuccessMsg("Pan Added Successfully")
+                }
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -120,11 +130,24 @@ const PanUpdate = () => {
                 }
 
                 if (data?.error) {
-                    return;
-                }
+                    console.log(data?.error);
+                    setShowDialog(true)
+                    setErrorMsg(data?.error)
 
-                console.log("profile saved");
-                navigate('/viewprofile');
+
+
+
+
+
+                    // SprintMoneyMessanger(data?.error)
+                }
+                // if (data?.error) {
+                //     console.log(data?.error);
+                //     SprintMoneyMessanger(data?.error)
+                // }
+
+                console.log(dialog);
+                // navigate('/viewprofile');
             })
             .catch(err => {
                 console.log(err)
@@ -136,6 +159,9 @@ const PanUpdate = () => {
         <Box style={{ width: "100vw" }}>
             <Navbar />
             <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
+            {/* <SprintMoneyMessanger  /> */}
+
+
             <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
@@ -192,7 +218,7 @@ const PanUpdate = () => {
                                             [`&.${inputLabelClasses.shrink}`]: {
                                                 color: "#000000",
                                                 opacity: "0.6"
-                                                
+
                                             }
                                         }
                                     }}
@@ -224,6 +250,9 @@ const PanUpdate = () => {
                                         Continue
                                     </Typography>
                                 </Button>
+                                {/* <Button onClick={()=>setShowDialog(true)}>
+                                    hiiiii
+                                </Button> */}
                             </FormControl>
                         </Box>
 
@@ -247,6 +276,7 @@ const PanUpdate = () => {
                     </Box>
                 </Grid>
             </Box>
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={successMsg} />
         </Box>
     )
 };

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisableButtonAction } from "../../Store/Global/actions/global-actions";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -30,6 +30,13 @@ const style = {
 };
 const ContWithMobile = (props: IProps) => {
   const disableButtonDuringApiFetching: boolean = useSelector((state: any) => state?.globalReducer?.disableButtonDuringApiFetching);
+  const btnRef: any = useRef();
+
+  useEffect(() => {
+    if (!props?.shouldButtonDisable && props?.number && props?.number.length === 10) {
+      btnRef.current.focus();
+    }
+  }, [props?.shouldButtonDisable, props?.number])
 
   const validateNumber = (number: string) => {
     props?.onClick(number);
@@ -37,6 +44,7 @@ const ContWithMobile = (props: IProps) => {
 
   return (
     <Button
+      ref={btnRef}
       variant="contained"
       style={style.button}
       fullWidth

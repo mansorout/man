@@ -60,3 +60,46 @@ export const modifyName = (strName: string, cutNameUpto: number) => {
   }
 
 }
+
+export const setUserNameAndEmailInLocalStorage = (objUserDetail: any) => {
+  try {
+    if (objUserDetail?.firstname && objUserDetail?.lastname) {
+      let userName: string = `${objUserDetail?.firstname} ${objUserDetail?.middlename ? objUserDetail?.middlename : ""} ${objUserDetail?.lastname}`
+      localStorage.setItem(siteConfig.USER_NAME, userName);
+    }
+
+    if (objUserDetail?.emailaddress) {
+      localStorage.setItem(siteConfig.USER_EMAIL, objUserDetail?.emailaddress);
+    }
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+export const underAgeValidate = (birthday: string) => {
+  try {
+    // it will accept two types of format yyyy-mm-dd and yyyy/mm/dd
+    var optimizedBirthday = birthday.replace(/-/g, "/");
+
+    //set date based on birthday at 01:00:00 hours GMT+0100 (CET)
+    var myBirthday: any = new Date(optimizedBirthday);
+
+    // set current day on 01:00:00 hours GMT+0100 (CET)
+    var currentDate: any = new Date().toJSON().slice(0, 10) + ' 01:00:00';
+
+    // calculate age comparing current date and borthday
+    // @ts-ignore
+    var myAge: any = ~~((Date.now(currentDate) - myBirthday) / (31557600000));
+
+    if (myAge < 18) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}

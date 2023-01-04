@@ -65,6 +65,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { postData } from "../../Utils/api";
+import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -109,6 +110,9 @@ function UploadCheck() {
   const [enableShowText, setenableShowText] = useState<boolean>(true);
   const [doneButton, setDoneButton] = useState<boolean>(false);
   const [rotateButton,setRotateButton] = useState<boolean>(true);
+  const [succesmsg, setSuccesMsg] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [dialog, setShowDialog] = useState<boolean>(false);
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -209,6 +213,8 @@ function UploadCheck() {
             .then(res => res.json())
             .then((data) => {
                 setShouldButtonDisable(false)
+                setShowDialog(true)
+                setSuccesMsg("Success")
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -224,6 +230,8 @@ function UploadCheck() {
             })
             .catch(err => {
                 console.log(err)
+                setShowDialog(true)
+                setErrorMsg("error")
             })
 
 
@@ -636,6 +644,7 @@ function UploadCheck() {
           </Grid>
         </Grid>
       </Box>
+      <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
     </Box>
   );
 }

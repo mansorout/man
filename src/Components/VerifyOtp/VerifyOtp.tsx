@@ -19,6 +19,7 @@ import { ActionCreators } from "../../Store";
 import { bindActionCreators } from "redux";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
+import { setUserNameAndEmailInLocalStorage } from "../../Utils/globalFunctions";
 
 const style = {
   background: {
@@ -66,8 +67,8 @@ export const VerifyOtp = () => {
   const number: string | null = localStorage.getItem(siteConfig.CONTACT_NUMBER);
 
   const [OTP, setOTP] = useState<string>("");
-  const [minutes, setMinutes] = useState<number>(1);
-  const [seconds, setSeconds] = useState<number>(30);
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(45);
 
   const loadingRef = useRef(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -78,18 +79,23 @@ export const VerifyOtp = () => {
   let intervalRef: any = useRef<number>(0);
 
   useEffect(() => {
-    if (g_loading) {
-      setLoading(true)
-    } else {
-      setLoading(false)
-    }
-  }, [g_loading])
+    setErrorLocal("");
+  }, [])
+
+  // useEffect(() => {
+  //   if (g_loading) {
+  //     setLoading(true);
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, [g_loading])
 
   useEffect(() => {
     console.log(loadingRef.current, "loading")
   }, [loadingRef.current])
 
   useEffect(() => {
+    setOTP("");
     let { data, error }: { data: any, error: string } = g_loginData;
     if (data?.accesstoken) {
       localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, data?.accesstoken);
@@ -97,16 +103,7 @@ export const VerifyOtp = () => {
 
       let objUserDetail: any = data?.userInfo?.userdetails;
 
-      //for setting username
-      if (objUserDetail?.firstname && objUserDetail?.lastname) {
-        let userName: string = `${objUserDetail?.firstname} ${objUserDetail?.middlename ? objUserDetail?.middlename : ""} ${objUserDetail?.lastname}`
-        console.log(userName, "username");
-        localStorage.setItem(siteConfig.USER_NAME, userName);
-      }
-
-      if (objUserDetail?.emailaddress) {
-        localStorage.setItem(siteConfig.USER_EMAIL, objUserDetail?.emailaddress);
-      }
+      setUserNameAndEmailInLocalStorage(objUserDetail);
 
       navigate("/otpverified");
     } else {
@@ -114,7 +111,7 @@ export const VerifyOtp = () => {
         setSeconds(0);
         setMinutes(0);
         setErrorLocal(error);
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
     }
   }, [g_loginData]);
@@ -142,8 +139,9 @@ export const VerifyOtp = () => {
   }, [seconds]);
 
   const resendOTP = () => {
-    setMinutes(1);
-    setSeconds(30);
+    setErrorLocal("");
+    setMinutes(0);
+    setSeconds(45);
     store.dispatch(resendOtpThunk({ mobilenumber: number, type: "auth" }))
   };
 
@@ -205,7 +203,12 @@ export const VerifyOtp = () => {
               border: "1px solid red",
             }}
           />
-          <OtpVerifyButton disabled={isShowEnableVerifyBtn} otp={OTP} number={number} />
+          <OtpVerifyButton
+            disabled={isShowEnableVerifyBtn}
+            otp={OTP}
+            number={number}
+            loading={(status: boolean) => setLoading(status)}
+          />
           {errorLocal ?
             <>
               <Typography component="span" sx={{ color: "red", fontSize: "14px" }}>
