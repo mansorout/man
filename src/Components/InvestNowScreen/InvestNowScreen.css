@@ -1,429 +1,368 @@
 .mainDiv{
-    width : calc( 100vw - 200px)
+  width : calc( 100vw - 200px)
 }
 .css-a5rdam-MuiGrid-root{
-    margin-top: 0 !important;
-    width: 100% !important;
-    margin-left: 0 !important;
+  margin-top: 0 !important;
+  width: 100% !important;
+  margin-left: 0 !important;
 }
 
 /* @media (max-width:2000px){
-  .saveButtonstyle{
-     width: 90vw !important;
-  height: 11vh !important
-  }
-  /* width: 90vw !important;
-  height: 11vh !important */
+.saveButtonstyle{
+   width: 90vw !important;
+height: 11vh !important
+}
+/* width: 90vw !important;
+height: 11vh !important */
 
 
 
 
 
 /* <DrawerList sx={{
-    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
-    "& .MuiBackdrop-root" : {
-      display: "none",
-      flexGrow : 0,
-    }
-  }}
-  PaperProps={{elevation: 0, sx:{width: { sm : "65px", md : "200px"}, display: { xs: "none", sm : "block"}, boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",}}}
-  style={style.drawer} onClose={()=>setOpen(false)} variant="temporary" open={open}>
-    <Toolbar/>
-    <List sx={{py:"30px", height:"100vh"}}>
-      <ListItem disablePadding sx={{ display: 'block', background:"rgba(0, 0, 0, 0.05)" }}>
-        <ListItemButton
+  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+  "& .MuiBackdrop-root" : {
+    display: "none",
+    flexGrow : 0,
+  }
+}}
+PaperProps={{elevation: 0, sx:{width: { sm : "65px", md : "200px"}, display: { xs: "none", sm : "block"}, boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",}}}
+style={style.drawer} onClose={()=>setOpen(false)} variant="temporary" open={open}>
+  <Toolbar/>
+  <List sx={{py:"30px", height:"100vh"}}>
+    <ListItem disablePadding sx={{ display: 'block', background:"rgba(0, 0, 0, 0.05)" }}>
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          px: 2.5,
+        }}
+      >
+        <ListItemIcon
           sx={{
-            minHeight: 48,
-            px: 2.5,
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
           }}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <HomeIcon sx={{color:"#23db7b"}}/>
-          </ListItemIcon>
-          <ListItemText primary="Home" sx={{ color:"#23db7b" }} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding sx={{ display: 'block' }}>
-        <ListItemButton
+          <HomeIcon sx={{color:"#23db7b"}}/>
+        </ListItemIcon>
+        <ListItemText primary="Home" sx={{ color:"#23db7b" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
           sx={{
-            minHeight: 56,
-            px: 2.5,
-            my:2
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
           }}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <Assessment sx={{color:'black'}}/>
-          </ListItemIcon>
-          <ListItemText primary="Portfolio" sx={{ color:"black" }} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding sx={{ display: 'block' }}>
-        <ListItemButton
+          <Assessment sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Portfolio" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block' }}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
           sx={{
-            minHeight: 56,
-            px: 2.5,
-            my:2
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
           }}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <Search sx={{color:'black'}}/>
-          </ListItemIcon>
-          <ListItemText primary="Explore Funds" sx={{ color:"black" }} />
-        </ListItemButton>
-      </ListItem>
-      <ListItem disablePadding sx={{ display: 'block',  position:"absolute", bottom:"0"}}>
-        <ListItemButton
+          <Search sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Explore Funds" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+    <ListItem disablePadding sx={{ display: 'block',  position:"absolute", bottom:"0"}}>
+      <ListItemButton
+        sx={{
+          minHeight: 56,
+          px: 2.5,
+          my:2
+        }}
+      >
+        <ListItemIcon
           sx={{
-            minHeight: 56,
-            px: 2.5,
-            my:2
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
           }}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: 0,
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            <PowerSettingsNew sx={{color:'black'}}/>
-          </ListItemIcon>
-          <ListItemText primary="Logout" sx={{ color:"black" }} />
-        </ListItemButton>
-      </ListItem>
-    </List>
-  </DrawerList> */
-  /* @media screen and (max-width:1024px) {
-    .closeIconStyle{
+          <PowerSettingsNew sx={{color:'black'}}/>
+        </ListItemIcon>
+        <ListItemText primary="Logout" sx={{ color:"black" }} />
+      </ListItemButton>
+    </ListItem>
+  </List>
+</DrawerList> */
+/* @media screen and (max-width:1024px) {
+  .closeIconStyle{
+  
+    padding-left: 0% !important;
+    margin-left: 18% !important;
+  }
+  .siplogoStyle{
+ 
+    margin-left: -21% !important;
+    padding-left: 1% !important;
+  }
+  .HelpUsStyle{
+ 
+    padding-left: 23% !important; 
+   }
+   .KnowMoreStyle{
     
-      padding-left: 0% !important;
-      margin-left: 18% !important;
-    }
-    .siplogoStyle{
-   
-      margin-left: -21% !important;
-      padding-left: 1% !important;
-    }
-    .HelpUsStyle{
-   
-      padding-left: 23% !important; 
-     }
-     .KnowMoreStyle{
-      
-       padding-left: 2% !important;
-     }
-    
-   } */
-   
-   
-
-   
-   @media  screen and (max-width:1280px){
-
-   .siplogoStyle{
- 
-      padding-left: 170px !important;
-     
-     
-    } 
-
-   
+     padding-left: 2% !important;
    }
-   
+  
+ } */
+ 
+ 
 
-   @media  screen and (width:1024px){
-    .closeIconStyle{
-      padding-left: 1% !important;
-    }
-    .siplogoStyle{
  
-      padding-left: 185px !important;
-     
-     
-    }
-    .smallmodal{
-      max-width: 42% !important;  
-     } 
-     .iconstyle{
-      color: red !important;
-      margin-left: -20% !important;
-     }
-     .NoLockinperiod{
-     
-      margin-left: 67% !important;
-  
-      margin-top: -11% !important;
-     }
-     .withdraliconstyle{
-      
-      margin-left: 4px !important;
-      margin-top: -2px !important;
-  
-     }
-   
-   }
-   @media  screen and (width:912px){
- 
-    .siplogoStyle{
- 
-      padding-left: 162px !important;
-     
-     
-    }
-    .iconstyle{
-      color: red !important;
-      margin-left: -30% !important;
-     }
-     .NoLockinperiod{
-     
-      margin-left: 61% !important;
-      margin-top: -13% !important;
-     }
-     .withdraliconstyle{
-      
-      margin-left: 4px !important;
-      margin-top: -2px !important;
-  
-     }
+ @media  screen and (max-width:1280px){
 
+ .siplogoStyle{
+
+    padding-left: 170px !important;
    
-   }
+   
+  } 
+
+ 
+ }
+ 
+
+ @media  screen and (max-width:1024px){
+  .closeIconStyle{
+    padding-left: 1% !important;
+  }
+  .siplogoStyle{
+
+    padding-left: 185px !important;
+   
+   
+  }
+  .smallmodal{
+    max-width: 42% !important;  
+   } 
+ 
+ }
+ @media  screen and (max-width:920px){
+
+  .siplogoStyle{
+
+    padding-left: 162px !important;
+   
+   
+  }
+
+ 
+ }
 
 
 @media screen and (max-width:820px) {
- .smallmodal{
-  max-width: 51% !important;  
- } 
- .NoLockinperiod{
-  color: red !important;
-  padding-left: 2% !important;
- }
- .iconstyle{
-  padding-left: 17% !important;
- }
- .siplogoStyle{
- 
-  padding-left: 164px !important;
- 
- 
+.smallmodal{
+max-width: 51% !important;  
+} 
+.NoLockinperiod{
+color: red !important;
+padding-left: 2% !important;
+}
+.iconstyle{
+padding-left: 17% !important;
+}
+.siplogoStyle{
+
+padding-left: 164px !important;
+
+
 }
 
 .HelpUsStyle{
-   
-  padding-left: 28% !important; 
- }
+ 
+padding-left: 28% !important; 
+}
 .KnowMoreStyle{
-  padding-left: 16% !important;
+padding-left: 16% !important;
 }
 .ScrollBarStyle22{
-  overflow: inherit !important;
-}
-.NoLockinperiod {
- 
-  padding-left: 3% !important;
- 
+overflow: inherit !important;
 }
 
 }
 @media screen and (max-width: 768px) {
-  .NoLockinperiod {
+.smallmodal {
+  max-width: 64% !important;
+}
+.closeIconStyle{
+  
+  padding-left: 1% !important;
+}
+.siplogoStyle{
+
+  padding-left: 149px !important;
  
-    padding-left: 3.5% !important;
-   
-  }
-  .smallmodal {
-    max-width: 64% !important;
-  }
-  .closeIconStyle{
-    
-    padding-left: 1% !important;
-  }
-  .siplogoStyle{
  
-    padding-left: 149px !important;
-   
-   
+}
+.KnowMoreStyle{
+  padding-left: 11% !important;
+}
+  .HelpUsStyle{
+ 
+   padding-left: 27% !important; 
   }
-  .KnowMoreStyle{
-    padding-left: 11% !important;
+  .ScrollBarStyle22{
+      overflow: inherit !important;
   }
-    .HelpUsStyle{
-   
-     padding-left: 27% !important; 
-    }
-    .ScrollBarStyle22{
-        overflow: inherit !important;
-    }
-    /* overflow: inherit !important; */
+  /* overflow: inherit !important; */
 
 }
 
 @media screen and (max-width:540px){
-  .siplogoStyle {
-    padding-left: 140px !important;
+.siplogoStyle {
+  padding-left: 140px !important;
 }
 }
 
-  @media screen and (max-width: 480px) {
-    .smallmodal {
-      min-width: 90% !important;
-    }
-    .ImageIconStyle{
-      color: aliceblue;
-    }
-    .closeIconStyle{
-    
-      padding-left: 1% !important;
-    }
-    .siplogoStyle{
-   
-      margin-left: 2px !important;
-    }
-    .HelpUsStyle{
-   
-     padding-left: 27% !important; 
-    }
-    .KnowMoreStyle{
-     
-      padding-left: 8% !important;
-    }
- .withdraliconstyle{
-  padding-left: 7% !important;
-  padding-top: 5.5% !important;
+@media screen and (max-width: 480px) {
+  .smallmodal {
+    min-width: 90% !important;
+  }
+  .ImageIconStyle{
+    color: aliceblue;
+  }
+  .closeIconStyle{
   
- }
- .withlogoiconstyle_style{
-  color: black !important;
-  padding: 10px 5px 23px 22px !important;
- }
- .iconstyle{
-  color: blue !important;
-  padding-top: 11px !important;
-    padding-left: 20px !important;
-  
-    /* padding-left: 4% !important; */
- }
- .NoLockinperiod {
+    padding-left: 1% !important;
+  }
+  .siplogoStyle{
  
-  padding-left: 1% !important;
-  padding-top: 14% !important;
+    margin-left: 2px !important;
+  }
+  .HelpUsStyle{
+ 
+   padding-left: 27% !important; 
+  }
+  .KnowMoreStyle{
+   
+    padding-left: 8% !important;
+  }
+.withdraliconstyle{
+padding-left: 7% !important;
+padding-top: 5.5% !important;
+
+}
+.withlogoiconstyle_style{
+color: black !important;
+padding: 10px 5px 23px 22px !important;
+}
+.iconstyle{
+color: blue !important;
+padding-top: 11px !important;
+  padding-left: 20px !important;
+
+  /* padding-left: 4% !important; */
+}
+.NoLockinperiod {
+
+padding-left: 1% !important;
+padding-top: 14% !important;
 }
 .saveButtonstyle{
-  width: 96vw !important;
-  height: 7vh !important;
+width: 96vw !important;
+height: 7vh !important;
 
 }
-.ButtonStyleInvest{
-  margin-left: 4px !important;
- }
-  } 
-  
-  @media screen and (max-width:540px){
-    .iconstyle {
-      padding-left: 5% !important;
-  }
-  .NoLockinperiod {
-    padding-left: 1% !important;
-}
-  }
-  @media screen and (max-width: 375px) {
-    .siplogoStyle{
-   
-      margin-left: 0ch !important;
-    }
-    .closeIconStyle{
-    
-      padding-left: 0% !important;
-    }
-    .saveButtonstyle{
-      width: 96vw !important;
-      height: 10vh !important;
-    
-    }
-    .withdraliconstyle {
-      padding-left: 11% !important;
-      padding-top: 3.5% !important;
-  }
+} 
+
+@media screen and (max-width:540px){
   .iconstyle {
-    color: blue !important;
-    padding-top: 11px !important;
-    padding-left: 3px !important;
+    padding-left: 5% !important;
+}
+.NoLockinperiod {
+  padding-left: 1% !important;
+}
+}
+@media screen and (max-width: 375px) {
+  .siplogoStyle{
+ 
+    margin-left: 0ch !important;
+  }
+  .closeIconStyle{
+  
+    padding-left: 0% !important;
+  }
+  .saveButtonstyle{
+    width: 96vw !important;
+    height: 10vh !important;
+  
+  }
+  .withdraliconstyle {
+    padding-left: 11% !important;
+    padding-top: 3.5% !important;
+}
+.iconstyle {
+  color: blue !important;
+  padding-top: 11px !important;
+  padding-left: 3px !important;
 }
 
 /* @media screen and (max-width: 390px) {
-  .withdraliconstyle {
-    padding-left: 13% !important;
-    padding-top: 3.5% !important;
+.withdraliconstyle {
+  padding-left: 13% !important;
+  padding-top: 3.5% !important;
 }
 } */
- 
- 
-   
- 
-  }
-  @media screen and (width:280px) {
 
-    .HelpUsStyle {
-      padding-left: 16% !important;
-  }
-  .KnowMoreStyle {
-    padding-left: 1% !important;
+
+ 
+
+}
+@media screen and (max-width:280px) {
+
+  .HelpUsStyle {
+    padding-left: 16% !important;
+}
+.KnowMoreStyle {
+  padding-left: 1% !important;
 }
 /* .siplogoStyle {
-  margin-left: -6.167897ch !important;
+margin-left: -6.167897ch !important;
 } */
 .closeIconStyle {
-  padding-left: 55% !important;
- 
-  position: absolute;
-  top: 0% !important;
+padding-left: 55% !important;
+
+position: absolute;
+top: 0% !important;
 }
 .saveButtonstyle {
-  /* width: 109vw !important;
-  height: 10vh !important; */
+/* width: 109vw !important;
+height: 10vh !important; */
 }
-.InvestStylepadview{
-  min-width: 262px !important;
-}
-.iconstyle{
-  color: red !important;
-  margin-left: -6% !important;
- }
- .NoLockinperiod{
-  margin-left: 61% !important;
-  margin-top: -40% !important;
- }
- .withdraliconstyle{
-  
-  margin-left: 4px !important;
-  margin-top: -2px !important;
 
- }
-
-   
  
-  }
-  /* @media only screen and (min-width: 360px) and (max-width: 768px) {
-    // do something in this width range.
-  } */
-  
+
+}
+/* @media only screen and (min-width: 360px) and (max-width: 768px) {
+  // do something in this width range.
+} */
+
 
 
