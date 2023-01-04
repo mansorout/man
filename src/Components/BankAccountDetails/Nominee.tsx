@@ -91,17 +91,17 @@ const Nominee = () => {
 
     }
 
-    console.log(formData)
+    // console.log(formData)
 
 
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //    if(userDetails.userdetails?.customer_id != 0){
+        //    if(userDetails.userdetails?.customer_id != 0){
 
-    //    }
-    //    else{
-        
-    //    }
+        //    }
+        //    else{
+
+        //    }
 
         if (name === '') {
             setNameError(true);
@@ -147,12 +147,12 @@ const Nominee = () => {
 
                 }
 
-                console.log("profile saved");
+                // console.log("profile saved");
                 setShowDialog(true)
                 // navigate('/viewprofile');
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
         setShowDialog(true)
 
@@ -190,15 +190,15 @@ const Nominee = () => {
                     return;
                 }
                 const response = data?.data
-                console.log(data.kycDetails?.ischequeavailable)
-                console.log(response)
-                console.log(response.userdetails.customer_id)
+                // console.log(data.kycDetails?.ischequeavailable)
+                // console.log(response)
+                // console.log(response.userdetails.customer_id)
 
                 if (response.userdetails?.customer_id != 0) {
                     setUserDetails(response);
-                    setName(response.kycdetails?.nomineedetails?.nominee_name
-                    )
-                    console.log(response.kycdetails?.nomineedetails?.nominee_name)
+                    setName(response.kycdetails?.nomineedetails?.nominee_name)
+                    setRelation(response.kycdetails?.nomineedetails?.nominee_name)
+                    // console.log(response.kycdetails?.nomineedetails?.relation)
                 }
 
 
@@ -206,15 +206,15 @@ const Nominee = () => {
 
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             })
 
         store.dispatch(getUserProfileDataThunk());
 
     }
 
-    console.log(userDetails?.userdetails?.customer_id)
-    console.log(userDetails?.kycdetails?.pannumber)
+    // console.log(userDetails?.userdetails?.customer_id)
+    // console.log(userDetails?.kycdetails?.pannumber)
 
     return (
         <Box style={{ width: "100vw" }}>

@@ -39,7 +39,13 @@ const style = {
         fontSize: '12px',
         color: '#7b7b9d',
         textAlign: 'center',
-        width: '23.28vw',
+        width: '36.28vw',
+    } as React.CSSProperties,
+    footer2: {
+        fontSize: '12px',
+        color: '#7b7b9d',
+        textAlign: 'center',
+        width: '34.28vw',
     } as React.CSSProperties,
 
     pan: {
@@ -256,25 +262,26 @@ const PanUpdate = () => {
                             </FormControl>
                         </Box>
 
+                        <Box sx={{
+                            marginTop:"120px",
+                            alignItems: 'center',
+                            marginLeft: '20vw',
+                            backgroundColor: '#f9f9f9',
+                        }}>
+                            <Typography style={style.footer}>
+                                By submitting these details, you agree to share your details to BSE for
+                                further transactions
+                            </Typography>
+                            <Typography style={style.footer} sx={{
+                                fontWeight: 500,
+                                color: '#6c63ff',
+                            }}>
+                                <Link href="/termsandcondition">Terms and conditions</Link>
+                            </Typography>
+                        </Box>
                     </Grid>
 
-                    <Box sx={{
 
-                        alignItems: 'center',
-                        marginLeft: '20vw',
-                        backgroundColor: '#f9f9f9',
-                    }}>
-                        <Typography style={style.footer}>
-                            By submitting these details, you agree to share your details to BSE for
-                            further transactions
-                        </Typography>
-                        <Typography style={style.footer} sx={{
-                            fontWeight: 500,
-                            color: '#6c63ff',
-                        }}>
-                            <Link href="/termsandcondition">Terms and conditions</Link>
-                        </Typography>
-                    </Box>
 
                 </Grid>
             </Box>
