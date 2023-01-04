@@ -80,8 +80,18 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& fieldset': {
             border: 'none',
+        },
+        '& input::-webkit-outer-spin-button': {
+            WebkitAppearance: 'none',
+            '-webkit-appearance': 'none !important',
+                margin: '0'
+        },
+        '& input::-webkit-inner-spin-button':{
+            WebkitAppearance: 'none',
+            '-webkit-appearance': 'none !important',
+                margin: '0'
         }
-    }
+    },
 }))
 
 interface RecommendationsHeaderPropsType {
