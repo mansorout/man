@@ -332,15 +332,13 @@ const Nominee = () => {
                                     onChange={handleRelationChange}
                                     error={relationError}
                                 >
-                                    <MenuItem value="1">Father</MenuItem>
-                                    <MenuItem value="1">Mother</MenuItem>
-                                    <MenuItem value="1">Wife</MenuItem>
-                                    <MenuItem value="1">Husband</MenuItem>
-                                    <MenuItem value="1">Sister</MenuItem>
-                                    <MenuItem value="1">Brother</MenuItem>
-                                    <MenuItem value="1">Son</MenuItem>
-                                    <MenuItem value="1">Daughter</MenuItem>
-                                    <MenuItem value="1">Nephew</MenuItem>
+                                    <MenuItem value="9">Doughter</MenuItem>
+                                    <MenuItem value="8">Son</MenuItem>
+                                    <MenuItem value="7">Wife</MenuItem>
+                                    <MenuItem value="6">Husband</MenuItem>
+                                    <MenuItem value="5">Mother</MenuItem>
+                                    <MenuItem value="4">Father</MenuItem>
+                                   
                                 </Select>
                                 <Box component="span" className="select-box" sx={{
                                     color: 'red',

@@ -1,9 +1,9 @@
 
 
 export type postTermPurchaseProps = {
-    lifecover : number | null,
+    lifecover: number | null,
     frequencytype: number,
-    issmoker : number,
+    issmoker: number,
 }
 
 export type ulipReturnApiParamsTypes = {
@@ -15,4 +15,62 @@ export type getUlipReturnApiTypes = {
     years: number;
     investedamount: number;
     projectedamount: number;
+}
+
+export type sendUlipGenrateApiTypes = {
+    amount: number,
+    frequencytype: number,
+    term_id: number
+}
+
+export type getUlipGenrateApiTypes = {
+    recommendation_id: number
+}
+
+export type getUlipListApiTypes = {
+    providerlogo: string,
+    ulipname: string,
+    ulip_id: number,
+    lifecover: number,
+    topreturn: string,
+    investedvalue: number,
+    projectedvalue: number,
+    premiumpayingterm: number
+    recommendation_id: number,
+    taxsavingoninvestment: number,
+    term: string,
+}
+
+export type getUlipSchemeDetailApiTypes = {
+    ulip_id: number,
+    name: string,
+    logoimage: string,
+    features: [
+        {
+            ulipfeature_id: string,
+            title: string,
+            image: string,
+            description: string
+        }
+    ],
+    fundPerformance: [
+        {
+            ulipfund_id: string,
+            fundname: string,
+            return5years: string,
+            return7years: string,
+            return10years: string
+        }
+    ],
+    investmentCriteria: {
+        minage: number,
+        maxage: number,
+        minmaturityyears: number,
+        maxmaturityyears: number,
+        minmonthlyamount: number,
+        minquarterlyamount: number,
+        minhalfyearlyamount: number,
+        minyearlyamount: number,
+        mintopup: number
+    }
 }

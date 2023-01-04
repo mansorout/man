@@ -39,6 +39,8 @@ import {
 import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
 import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
+import { getUlipListApi, getUlipSchemeDetailApi, postUlipGenrateApi } from '../../Store/Insurance/thunk/insurance-thunk';
+import { getUlipListApiTypes } from '../../Store/Insurance/constants/types';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -239,10 +241,11 @@ const RecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
+    const { investmentType,investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const { ulipGenrateApiData, ulipListApiData } = useSelector((state: any) => state.insuranceReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
-    const { investmentType,investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
     const [calenderValue, setCalenderValue] = useState(new Date())
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
@@ -252,14 +255,21 @@ const RecommendationsULIP = () => {
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     useEffect(() => {
+        if(parseInt(investmentAmount) === 0) navigate('/saveTax')
         const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
         const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
-        const temp = {
-            investmenttype_id: lookUPId,
+        const ulipGenrateBody = {
             amount: parseInt(investmentAmount),
+            frequencytype: investmentType === MONTHLY ? 0 : 1,
+            term_id: lookUPId //85
         }
-        dispatch(getDataSaveTaxListApi(temp))
-    }, [])
+        dispatch(postUlipGenrateApi(ulipGenrateBody))
+    }, [investmentAmount])
+    
+    useEffect(() => {
+        ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
+    }, [ulipGenrateApiData])
+    
     
 
     const handleULIPDate = () => {
@@ -339,6 +349,11 @@ const RecommendationsULIP = () => {
         }
     };
 
+    const handleKnowMoreDialog = (ulip_id: number) => {
+        dispatch(getUlipSchemeDetailApi(ulip_id))
+        setKnowMoreDialog(true)
+    }
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -367,61 +382,65 @@ const RecommendationsULIP = () => {
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
                         </Box>
 
-                        <Box className={classes.cardStyle}>
-                            <Grid container>
-                                <Grid item sm={5} xs={12}>
-                                    <Box className={classes.cardStyleCmpName}>
-                                        <Box className={classes.cardImgWrapper}>
-                                            <img style={{ width: '100%', height: 'auto' }} src={process.env.PUBLIC_URL + '/assets/images/build_wealth.svg'} alt="" />
-                                        </Box>
-                                        <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
-                                            <Typography component='p'>Bajaj Allianz Future Gain</Typography>
-                                            <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
-                                            <Typography component='div' className={classes.cardBadge}>Equity</Typography>
+                            {
+                                ulipListApiData.length > 0 && ulipListApiData?.map((cardItem:getUlipListApiTypes) => (
+                                    <Box className={classes.cardStyle} key={cardItem?.ulip_id}>
+                                        <Grid container>
+                                            <Grid item sm={5} xs={12}>
+                                                <Box className={classes.cardStyleCmpName}>
+                                                    <Box className={classes.cardImgWrapper}>
+                                                        <img style={{ width: '100%', height: 'auto' }} src={cardItem?.providerlogo} alt="" />
+                                                    </Box>
+                                                    <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
+                                                        <Typography component='p'>{cardItem?.ulipname}</Typography>
+                                                        <Typography component='div' className={classes.cardBadge}>Large Cap</Typography>
+                                                        <Typography component='div' className={classes.cardBadge}>Equity</Typography>
+                                                    </Box>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item sm={2} xs={12}>
+                                                <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
+                                                    <Typography component='div'>₹{cardItem?.investedvalue}</Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item sm={3} xs={12}>
+                                                <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
+                                                    <Box className={classes.cardContent}>
+                                                        <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
+                                                        <Typography component='p'>{cardItem?.topreturn}% Return</Typography>
+                                                    </Box>
+                                                    <Box className={classes.cardContent}>
+                                                        <Typography component='span'>Tax Saving on Investment</Typography>
+                                                        <Typography component='p'>₹{cardItem?.taxsavingoninvestment} {investmentType === LUMPSUM ?'Every Year' : 'Every Month' } </Typography>
+                                                    </Box>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item sm={2} xs={12}>
+                                                <Box>
+                                                    <Box className={classes.cardContent}>
+                                                        <Typography component='span'>Life Cover</Typography>
+                                                        <Typography component='p'>₹{cardItem?.lifecover}</Typography>
+                                                    </Box>
+                                                    <Box className={classes.cardContent}>
+                                                        <Typography component='span'>Tax Saving on Maturity</Typography>
+                                                        <Typography component='p'>₹{cardItem?.projectedvalue}</Typography>
+                                                    </Box>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
+                                        <Box>
+                                            <Box className={classes.btnGroup}>
+                                                <Button variant="contained" onClick={() => handleKnowMoreDialog(cardItem?.ulip_id)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                                    <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
+                                                </Button>
+                                                <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                                    <LoopOutlinedIcon sx={{ margin: '0px 2px' }} />DOWNLOAD BROCHURE
+                                                </Button>
+                                            </Box>
                                         </Box>
                                     </Box>
-                                </Grid>
-                                <Grid item sm={2} xs={12}>
-                                    <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
-                                        <Typography component='div'>₹6.5 lacs</Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item sm={3} xs={12}>
-                                    <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
-                                            <Typography component='p'>14.38% Return</Typography>
-                                        </Box>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>Tax Saving on Investment</Typography>
-                                            <Typography component='p'>₹15,000 Every Year</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item sm={2} xs={12}>
-                                    <Box>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>Life Cover</Typography>
-                                            <Typography component='p'>₹5 Lac</Typography>
-                                        </Box>
-                                        <Box className={classes.cardContent}>
-                                            <Typography component='span'>Tax Saving on Maturity</Typography>
-                                            <Typography component='p'>₹1.5 Lac</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                            <Box>
-                                <Box className={classes.btnGroup}>
-                                    <Button variant="contained" onClick={() => setKnowMoreDialog(true)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
-                                        <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
-                                    </Button>
-                                    <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
-                                        <LoopOutlinedIcon sx={{ margin: '0px 2px' }} />DOWNLOAD BROCHURE
-                                    </Button>
-                                </Box>
-                            </Box>
-                        </Box>
+                                ))
+                            }
 
                         {/* <Box className={classes.exploreOtherOptionsBtn}>
                             <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>

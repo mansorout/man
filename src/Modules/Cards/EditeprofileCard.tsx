@@ -21,7 +21,7 @@ import '../../Components/EditProfile/Editprofilescreen.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
-import { checkExpirationOfToken } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
@@ -150,14 +150,15 @@ const enumErrorMsg = {
   PLEASE_ENTER_CITY: "Please enter city",
   PLEASE_ENTER_INCOME_SLAB: "Please enter income slab",
   PLEASE_ENTER_GENDER: "Please enter gender",
-  PLEASE_ENTER_AGE: "Please enter age"
+  PLEASE_ENTER_AGE: "Please enter age",
+  PLEASE_ENTER_VALID_DATE: "Please enter valid date"
 }
 
 const enumActiveGender = {
   NOTHING: 'nothing',
-  MALE: 'male',
-  FEMALE: 'female',
-  TRANS: 'transgender'
+  MALE: 'Male',
+  FEMALE: 'Female',
+  TRANS: 'Transgender'
 }
 
 const initialCountryList = [
@@ -256,17 +257,19 @@ const EditprofileCard = () => {
   const dispatchLocal = useDispatch();
   const navigate = useNavigate();
 
+  const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+
   const [cityList, setCityList] = useState<any[]>([]);
-  const [allCityList, setAllCityList] = useState<any[]>([]);
   const [stateList, setStateList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [allCityList, setAllCityList] = useState<any[]>([]);
   const [incomeSlabList, setIncomeSlabList] = useState<any[]>([]);
   const [countryList, setCountryList] = useState<any[]>([...initialCountryList]);
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
   const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
+  const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
 
-  const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
   // const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
@@ -318,9 +321,20 @@ const EditprofileCard = () => {
 
   useEffect(() => {
     if (formData?.pincode && formData?.pincode.length) {
-      handlePincodeLengthValidation();
+      handlePincodeLengthValidation(true);
     }
   }, [formData?.pincode]);
+
+  useEffect(() => {
+    setValidateInputs((prev: validateInputsProps) => ({
+      ...prev,
+      "dateofbirth": invalidDOB
+    }))
+  }, [invalidDOB]);
+
+  useEffect(() => {
+    console.log(formData?.dateofbirth);
+  }, [formData?.dateofbirth])
 
   const getCountryList = () => {
     // setCountryList([...countryList]);
@@ -412,6 +426,10 @@ const EditprofileCard = () => {
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.stateofbirth_id, true);
 
+    let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
+    // let date = objUserDetails?.dateofbirth;
+    console.log(date, "getuserprofile()");
+
     setFormData((prev: formDataProps) => ({
       ...prev,
       firstname: objUserDetails?.firstname || "",
@@ -428,6 +446,7 @@ const EditprofileCard = () => {
       placeofbirth_id: objUserDetails?.placeofbirth_id,
       incomeslab_id: objUserDetails?.incomeslab_id,
       countryofbirth_id: 1,
+      dateofbirth: date
     }))
 
     setActiveGender(objUserDetails?.gender);
@@ -439,38 +458,35 @@ const EditprofileCard = () => {
     if (name === "firstname" || name === "lastname" || name === "middlename") {
       value = value.replace(/[^a-z]/gi, '');
     }
-    if (name === "dateofbirth") {
-      console.log(value, "dateofbirth");
 
-      //@ts-ignore
-      var date = moment().format('MMMM Do YYYY, h:mm:ss a');
-      console.log(date, "date");
-    }
     setFormData({
       ...formData,
       [name]: value
     })
   }
 
-  const handlePincodeLengthValidation = async () => {
+  const handlePincodeLengthValidation = async (b: boolean) => {
     let bFlag: boolean = false;
 
-    if (formData.pincode && formData.pincode.length < 7 && formData.pincode.length > 0) {
-      console.log("formData.pincode < 6")
-      bFlag = false;
-      if (formData?.pincode?.length === 6) {
+    if (formData.pincode) {
+      if (formData.pincode.length < 7 && formData.pincode.length > 0) {
+        console.log("formData.pincode < 6")
+        bFlag = false;
         await validatePincodeThroughAPI(formData.pincode);
-        return;
+      } else {
+        console.log("formData.pincode > 6")
+        bFlag = true;
       }
-    } else {
-      console.log("formData.pincode > 6")
-      bFlag = true;
     }
 
-    setValidateInputs((prev: validateInputsProps) => ({
-      ...prev,
-      "pincode": bFlag
-    }))
+    if (b) {
+      setValidateInputs((prev: validateInputsProps) => ({
+        ...prev,
+        "pincode": bFlag
+      }))
+    }
+
+    return bFlag;
   }
 
   const validatePincodeThroughAPI = async (strPincode: string) => {
@@ -506,7 +522,7 @@ const EditprofileCard = () => {
     const { name, value } = e.target;
     if (Object.keys(validateInputs).includes(name)) {
       if (name === "pincode") {
-        handlePincodeLengthValidation();
+        handlePincodeLengthValidation(true);
       } else if (name === "emailaddress") {
         regexValidate(emailRegex, name, value);
       } else if (name === "mobilenumber") {
@@ -526,10 +542,13 @@ const EditprofileCard = () => {
     setFormData(objFormData);
   }
 
-  const throwErrorOnWrongField = () => {
+  const throwErrorOnWrongField = async () => {
     let throwError: boolean = true;
-    let arrFormDataKeys: any[] = Object.keys(validateInputs);
-    arrFormDataKeys.forEach((key: string, index: number) => {
+    let arrFormDataKeys: any[] = [...Object.keys(validateInputs)];
+
+    let objValidateInputs: validateInputsProps = { ...validateInputs };
+    for (let i = 0; i < arrFormDataKeys.length; i++) {
+      let key = arrFormDataKeys[i];
       if (key !== "middlename") {
         // @ts-ignore
         if (!formData[key]) {
@@ -539,13 +558,35 @@ const EditprofileCard = () => {
         }
       }
 
-      setValidateInputs(prev => ({
-        ...prev,
-        [key]: throwError
-      }))
-    })
+      if (key === "pincode") {
+        throwError = await handlePincodeLengthValidation(false);
+      }
 
-    return throwError;
+      //@ts-ignore
+      objValidateInputs[key] = throwError;
+    }
+
+    await setValidateInputs((prev: validateInputsProps) => ({
+      ...prev,
+      ...objValidateInputs
+    }))
+    // arrFormDataKeys.forEach((key: string, index: number) => {
+    //   if (key !== "middlename") {
+    //     // @ts-ignore
+    //     if (!formData[key]) {
+    //       throwError = true;
+    //     } else {
+    //       throwError = false
+    //     }
+    //   }
+
+    //   setValidateInputs(prev => ({
+    //     ...prev,
+    //     [key]: throwError
+    //   }))
+    // })
+    // isAllFieldsValidated(validateInputs);
+    return objValidateInputs;
   }
 
   const regexValidate = (regexType: any, name: string, value: string) => {
@@ -561,62 +602,65 @@ const EditprofileCard = () => {
     return bFlag;
   }
 
-  const isAllFieldsValidated = () => {
-    let arr: boolean[] = Object.values(validateInputs).filter((item: boolean) => item === true);
+  const isAllFieldsValidated = async (func: () => void) => {
+    // @ts-ignore
+    let obj: validateInputsProps = await func();
+    let arr: boolean[] = Object.values(obj).filter((item: boolean) => item === true);
     return arr ? arr.length : 0;
   }
 
-  const handleSubmitForm = (e: any) => {
+  const handleSubmitForm = async (e: any) => {
 
     e.preventDefault();
     e.stopPropagation();
-    if (throwErrorOnWrongField()) {
-      return;
-    }
 
-    if (isAllFieldsValidated()) {
-      console.log("please validate all firlds")
-      return;
-    }
-
-
-    if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
-      return;
-    }
-
-    if (regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber)) {
-      return;
-    }
-
-    if (validateInputs)
-      setValidateInputs({ ...initialValidateinputsData });
-
-    setLoading(true);
-    postData(
-      formData,
-      siteConfig.AUTHENTICATION_PROFILE_EDIT,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then((data) => {
-        setLoading(false);
-
-        if (checkExpirationOfToken(data?.code)) {
-          dispatchLocal(setTokenExpiredStatusAction(true));
+    await isAllFieldsValidated(throwErrorOnWrongField)
+      .then(res => {
+        if (res) return;
+        let objBody: formDataProps = { ...formData };
+        if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
           return;
         }
 
-        if (data?.error) {
+        if (regexValidate(mobileRegex, 'mobilenumber', formData.mobilenumber)) {
           return;
         }
 
-        console.log("profile saved");
-        navigate('/viewprofile');
+        let date = moment(formData?.dateofbirth).format('DD-MM-YYYY,');
+        objBody["dateofbirth"] = date;
+
+        setLoading(true);
+        postData(
+          objBody,
+          siteConfig.AUTHENTICATION_PROFILE_EDIT,
+          siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+          siteConfig.AUTHENTICATION_API_ID
+        )
+          .then(res => res.json())
+          .then((data) => {
+            setLoading(false);
+
+            if (checkExpirationOfToken(data?.code)) {
+              dispatchLocal(setTokenExpiredStatusAction(true));
+              return;
+            }
+
+            if (data?.error) {
+              return;
+            }
+
+            console.log("profile saved");
+            let objUserDetail: any = data?.data?.userdetails;
+            setUserNameAndEmailInLocalStorage(objUserDetail);
+            navigate('/viewprofile');
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }).catch(err => {
+        console.log(err);
       })
-      .catch(err => {
-        console.log(err)
-      })
+
   }
 
   return (
@@ -874,7 +918,7 @@ const EditprofileCard = () => {
                         name="gender"
                         onClick={() => {
                           setActiveGender(enumActiveGender.MALE);
-                          setFormData(prev => ({ ...prev, gender: "male" }))
+                          setFormData(prev => ({ ...prev, gender: enumActiveGender.MALE }))
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         variant="outlined"
@@ -908,7 +952,7 @@ const EditprofileCard = () => {
                         className="femalestyle"
                         onClick={() => {
                           setActiveGender(enumActiveGender.FEMALE);
-                          setFormData({ ...formData, gender: "female" })
+                          setFormData({ ...formData, gender: enumActiveGender.FEMALE })
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
@@ -931,7 +975,7 @@ const EditprofileCard = () => {
                         className="buttontransgender"
                         name="gender" onClick={() => {
                           setActiveGender(enumActiveGender.TRANS);
-                          setFormData({ ...formData, gender: "transgender" })
+                          setFormData({ ...formData, gender: enumActiveGender.TRANS })
                           setValidateInputs(prev => ({ ...prev, gender: false }))
                         }}
                         style={{
@@ -964,11 +1008,18 @@ const EditprofileCard = () => {
                       fullWidth
                       label="Date of Birth"
                       onBlur={handleBlur}
-                      onChange={handlechange}
+                      onChange={(e: any) => {
+                        if (underAgeValidate(e.target.value)) {
+                          setInvalidDOB(false);
+                          handlechange(e);
+                        } else {
+                          setInvalidDOB(true);
+                        }
+                      }}
                       name="dateofbirth"
                       value={formData?.dateofbirth || "DD-MM-YYYY"}
                       error={validateInputs?.dateofbirth}
-                      helperText={validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : ""}
+                      helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
                     />
                   </Grid>
                   <Grid item xs={12}>

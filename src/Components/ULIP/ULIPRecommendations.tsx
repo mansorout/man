@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography,Theme } from "@mui/material";
+import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography,Theme, FormControl, FormControlLabel,RadioGroup } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
@@ -171,7 +171,7 @@ const ULIPRecommendations = () => {
                     <Toolbar />
                     <Sidebar />
                     <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "0px", sm: '70px !important', md: '230px !important' } }} item xs={12}>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important' } }} item xs={12}>
                         
                             <div>
                                 <Grid  container >
@@ -243,9 +243,18 @@ const ULIPRecommendations = () => {
                                                     flexDirection: 'column',
                                                     gap: '1.5vw',
                                                 }}>
+                                                    <FormControl>
+  <RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+    defaultValue="female"
+    name="radio-buttons-group"
+  >
                                                     {
+                                                        
                                                         ulipData.map(data => <ULIPCoFundCard {...data} />)
                                                     }
+                                                    </RadioGroup>
+                                                    </FormControl>
                                                 </Box>
                                                 <Box sx={{ display:"flex", justifyContent:"center", alignItems:"center"}}>
                                                     <Button variant="outlined" onClick={()=>navigate("/ulip/options")}

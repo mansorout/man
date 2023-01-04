@@ -61,9 +61,12 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
+  RECOMMENDATION_ULIP_GENERATE: '/recommendation/ulip/generate/',
+  RECOMMENDATION_ULIP_LIST: '/recommendation/ulip/list',
 
   // Insurance
   INSURANCE_ULIP_RETURN: '/insurance/ulip/returns',
+  INSURANCE_ULIP_SCHEME_DETAIL: '/insurance/ulip/scheme/detail',
 });
 
 export default siteConfig;
