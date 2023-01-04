@@ -459,7 +459,7 @@ function InvestNowScreen(props: IProps) {
                             <Avatar alt="" src={lockinlogo} style={style.ca} />
 
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
+                          <Grid item xs={6} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
                             <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
                           </Grid>
 
