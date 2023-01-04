@@ -120,8 +120,8 @@ const PanUpdate = () => {
                 console.log(data.status.error)
                 setShowDialog(true)
                 dispatch(getCommonApiMsg(data));
-                if(data.status === true){
-                   setSuccessMsg("Pan Added Successfully")
+                if (data.status === true) {
+                    setSuccessMsg("Pan Added Successfully")
                 }
 
                 if (checkExpirationOfToken(data?.code)) {
@@ -173,7 +173,7 @@ const PanUpdate = () => {
                         overflow: "scroll",
                         display: 'flex',
                         flexDirection: 'column',
-                        paddingLeft: { xs: '8vw',  md: '' },
+                        paddingLeft: { xs: '8vw', md: '' },
                     }}>
                         <Toolbar />
                         <Breadcrumbs sx={{
@@ -257,7 +257,25 @@ const PanUpdate = () => {
                         </Box>
 
                     </Grid>
-                   
+
+                    <Box sx={{
+
+                        alignItems: 'center',
+                        marginLeft: '20vw',
+                        backgroundColor: '#f9f9f9',
+                    }}>
+                        <Typography style={style.footer}>
+                            By submitting these details, you agree to share your details to BSE for
+                            further transactions
+                        </Typography>
+                        <Typography style={style.footer} sx={{
+                            fontWeight: 500,
+                            color: '#6c63ff',
+                        }}>
+                            <Link href="/termsandcondition">Terms and conditions</Link>
+                        </Typography>
+                    </Box>
+
                 </Grid>
             </Box>
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={successMsg} />

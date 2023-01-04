@@ -52,6 +52,8 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_BANK_ADD: "/authentication/bank/add/",
   AUTHENTICATION_SIGNATURE_ADD: "/authentication/signature/add/",
   AUTHENTICATION_CHEQUE_ADD: "/authentication/cheque/add/",
+  AUTHENTICATION_SIGNATURE_VIEW:"/authentication/signature/view/",
+  
 
 
   //Recommendations

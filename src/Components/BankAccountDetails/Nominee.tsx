@@ -10,7 +10,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import { useDispatch } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
-import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
 import { getUserProfileDataThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import { store } from "../../Store/Store";
 
@@ -32,13 +32,13 @@ const Nominee = () => {
     const [relationError, setRelationError] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [dialog, setShowDialog] = useState<boolean>(false);
-    const [succesmsg,setSuccesMsg]= useState<string>("");
+    const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
     const [userDetails, setUserDetails] = useState<any>({});
     // const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
-   
-    
- 
+
+
+
 
 
 
@@ -96,6 +96,13 @@ const Nominee = () => {
 
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //    if(userDetails.userdetails?.customer_id != 0){
+
+    //    }
+    //    else{
+        
+    //    }
+
         if (name === '') {
             setNameError(true);
         } else if (dateOfBirth === '') {
@@ -106,7 +113,7 @@ const Nominee = () => {
         } else {
             // navigate('/viewprofile');
         }
-        // setLoading(true);
+        setLoading(true);
         setShouldButtonDisable(true)
         postData(
             formData,
@@ -118,15 +125,16 @@ const Nominee = () => {
             .then((data) => {
                 setShouldButtonDisable(false);
                 setSuccesMsg(data?.status?.message)
-                if(data.status === true){
+                setLoading(false);
+                if (data.status === true) {
                     setSuccesMsg("Nominee Added Successfully")
-                 }
-                 else{
+                }
+                else {
                     setErrorMsg("Something Went Wrong")
-                 }
-                
-            
-               
+                }
+
+
+
 
                 if (checkExpirationOfToken(data?.code)) {
                     dispatchLocal(setTokenExpiredStatusAction(true));
@@ -136,7 +144,7 @@ const Nominee = () => {
                 if (data?.error) {
                     return;
                     setErrorMsg(data?.error)
-                  
+
                 }
 
                 console.log("profile saved");
@@ -146,7 +154,7 @@ const Nominee = () => {
             .catch(err => {
                 console.log(err)
             })
-            setShowDialog(true)
+        setShowDialog(true)
 
 
     }
@@ -163,48 +171,56 @@ const Nominee = () => {
 
     useEffect(() => {
         getUserProfileData();
-      }, [])
-    
-      const getUserProfileData = () => {
+    }, [])
+
+    const getUserProfileData = () => {
         getData(
-          siteConfig.AUTHENTICATION_PROFILE_VIEW,
-          siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-          siteConfig.AUTHENTICATION_API_ID
+            siteConfig.AUTHENTICATION_PROFILE_VIEW,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.AUTHENTICATION_API_ID
         )
-          .then(res => res.json())
-          .then(data => {
-            if (checkExpirationOfToken(data?.code)) {
-              dispatch(setTokenExpiredStatusAction(true));
-              return;
-            }
-    
-            if (data?.error === true) {
-              return;
-            }
-            const response = data?.data
-            console.log(data.kycDetails?.ischequeavailable)
-            console.log(response)
-    
-            setUserDetails(response);
-          
-            
-          })
-          .catch(err => {
-            console.log(err);
-          })
-    
+            .then(res => res.json())
+            .then(data => {
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatch(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error === true) {
+                    return;
+                }
+                const response = data?.data
+                console.log(data.kycDetails?.ischequeavailable)
+                console.log(response)
+                console.log(response.userdetails.customer_id)
+
+                if (response.userdetails?.customer_id != 0) {
+                    setUserDetails(response);
+                    setName(response.kycdetails?.nomineedetails?.nominee_name
+                    )
+                    console.log(response.kycdetails?.nomineedetails?.nominee_name)
+                }
+
+
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
         store.dispatch(getUserProfileDataThunk());
-    
-      }
-    
-      console.log(userDetails?.userdetails)
-      console.log(userDetails?.kycdetails?.pannumber)
+
+    }
+
+    console.log(userDetails?.userdetails?.customer_id)
+    console.log(userDetails?.kycdetails?.pannumber)
 
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
             <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
-            
+
             <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
