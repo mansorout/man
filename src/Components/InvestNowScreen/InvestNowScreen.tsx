@@ -335,7 +335,7 @@ function InvestNowScreen(props: IProps) {
                             >
                               You can start small, starting from ₹5,000
                             </Typography>
-                            <Stack direction="row" spacing={1} sx={{ marginTop: "14px",marginLeft:"2px" }} className="ButtonStyleInvest">
+                            <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
                               <Button
                                 variant="contained"
                                 disabled
@@ -459,7 +459,7 @@ function InvestNowScreen(props: IProps) {
                             <Avatar alt="" src={lockinlogo} style={style.ca} />
 
                           </Grid>
-                          <Grid item xs={6} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
+                          <Grid item xs={3} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
                             <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
                           </Grid>
 
