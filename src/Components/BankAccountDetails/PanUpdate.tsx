@@ -64,7 +64,8 @@ const PanUpdate = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
-
+    const [panButton,setPanButton] =useState(true);
+    
     //const error: string[] = useSelector((state: any) => state.error)
 
     const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const PanUpdate = () => {
 
         if (res.match(reg)) {
             console.log("correct pan")
+            setPanButton(false)
             setError(false);
             setLoading(true);
         }
@@ -86,6 +88,7 @@ const PanUpdate = () => {
             setError(true);
 
         }
+        
 
 
     };
@@ -103,7 +106,13 @@ const PanUpdate = () => {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (value === '' || error) {
             setError(true);
-        } else {
+            setPanButton(false)
+        }
+        // else if () {
+            
+        //   }
+        
+        else {
             // navigate('/viewprofile');
         }
         // alert(value)
@@ -139,21 +148,11 @@ const PanUpdate = () => {
                     console.log(data?.error);
                     setShowDialog(true)
                     setErrorMsg(data?.error)
-
-
-
-
-
-
-                    // SprintMoneyMessanger(data?.error)
+    
                 }
-                // if (data?.error) {
-                //     console.log(data?.error);
-                //     SprintMoneyMessanger(data?.error)
-                // }
+               
 
-                console.log(dialog);
-                // navigate('/viewprofile');
+                
             })
             .catch(err => {
                 console.log(err)
@@ -165,10 +164,7 @@ const PanUpdate = () => {
         <Box style={{ width: "100vw" }}>
             <Navbar />
             <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
-            {/* <SprintMoneyMessanger  /> */}
-
-
-            <Box sx={style.main}>
+           <Box sx={style.main}>
                 <Grid container spacing={0} >
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
@@ -240,8 +236,9 @@ const PanUpdate = () => {
                                     required
                                     label="Enter your PAN number"
                                     placeholder="AAAAA9999A"
-                                    helperText={error ? "Please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
+                                    helperText={error ? "enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
+                                    
                                     // error={validateInputs?.mobilenumber}
                                     error={error}
                                     onChange={validate}
@@ -252,14 +249,12 @@ const PanUpdate = () => {
                             </FormControl>
 
                             <FormControl sx={{ padding: "18px 0px 17px 0px" }}>
-                                <Button variant="contained" style={style.button} fullWidth onClick={handleClick} >
+                                <Button disabled={panButton} variant="contained" style={style.button} fullWidth onClick={handleClick} >
                                     <Typography style={style.text} className="largeButtonText">
                                         Continue
                                     </Typography>
                                 </Button>
-                                {/* <Button onClick={()=>setShowDialog(true)}>
-                                    hiiiii
-                                </Button> */}
+                                
                             </FormControl>
                         </Box>
 

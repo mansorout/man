@@ -17,8 +17,8 @@ import { store } from "../../Store/Store";
 
 const enumErrorMsg = {
     PLEASE_ENTER_PAN: "Pan Number Required",
-    
-  }
+
+}
 
 
 const Nominee = () => {
@@ -27,9 +27,9 @@ const Nominee = () => {
     const dispatchLocal = useDispatch();
     const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
 
-    const [name, setName] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('dd-mm-yyyy');
-    const [relation, setRelation] = useState('');
+    const [nomineename, setNomineeName] = useState('');
+    const [nomineeRelation, setNomineeRelation] = useState('');
+    
 
     const [selectErrorMsg, setSelectErrorMsg] = useState('');
 
@@ -41,6 +41,13 @@ const Nominee = () => {
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
     const [userDetails, setUserDetails] = useState<any>({});
+    const [disablenomineeButton, setDisablenomineeButton] = useState<boolean>(true);
+    const [formdata, setFormdata] = useState<any>({
+        name: "",
+        dateOfBirth: "",
+        relation: ""
+
+    });
     // const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
 
 
@@ -61,43 +68,66 @@ const Nominee = () => {
             }
         }
     */
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        setNameError(false);
-        const value = e.target.value;
-        setName(value);
+    //     setNameError(false);
+    //     const value = e.target.value;
+    //     setName(value);
 
-        const pattern = /[A-Za-z]+/;
-        if (!pattern.test(value)) {
-            setNameError(true);
-        } else {
-            setNameError(false);
+    //     const pattern = /[A-Za-z]+/;
+    //     if (!pattern.test(value)) {
+    //         setNameError(true);
+    //     } else {
+    //         setNameError(false);
 
+    //     }
+    // }
+
+   
+
+
+    const handlechange = (e: any) => {
+        e.preventDefault();
+        let { name, value } = e.target;
+
+
+        setFormdata({
+            ...formdata,
+            [name]: value
+        })
+    }
+
+
+    useEffect(() => {
+        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation!== ''  ) {
+
+            setDisablenomineeButton(false)
         }
+        console.log(formdata.name)
+        console.log(formdata.dateOfBirth)
+        console.log(formdata.relation)
+    }, [formdata])
+
+    const formData = {
+        fullname: formdata.name,
+        dateofbirth: formdata.dateOfBirth,
+        relation_id: formdata.relation
+
     }
 
-    const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setDateOfBirth(e.target.value);
-        setDobError(false);
-    }
+    // useEffect(()=>{
 
-    const handleRelationChange = (e: any) => {
-        setRelation(e.target.value);
-        setRelationError(false);
-    }
+    //    console.log(name)
+    //    console.log(dateOfBirth)
+    //    console.log(relation)
+    // },[])
 
+   
     // console.log(name)
     // console.log(dateOfBirth)
     // console.log(relation)
 
-    const formData = {
-        fullname: name,
-        dateofbirth: dateOfBirth,
-        relation_id: relation
 
-    }
-
-    // console.log(formData)
 
 
 
@@ -109,16 +139,18 @@ const Nominee = () => {
 
         //    }
 
-        if (name === '') {
-            setNameError(true);
-        } else if (dateOfBirth === '') {
-            setDobError(true);
-        } else if (relation === '') {
-            setRelationError(true);
-            setSelectErrorMsg('Please select a relation');
-        } else {
-            // navigate('/viewprofile');
-        }
+        // if (name === '') {
+        //     setNameError(true);
+        // } else if (dateOfBirth === '') {
+        //     setDobError(true);
+        // } else if (relation === '') {
+        //     setRelationError(true);
+        //     setSelectErrorMsg('Please select a relation');
+        // }
+
+        // else {
+        //     // navigate('/viewprofile');
+        // }
         setLoading(true);
         setShouldButtonDisable(true)
         postData(
@@ -167,6 +199,23 @@ const Nominee = () => {
 
 
     const style = {
+        button: {
+            ml: 1,
+            "&.MuiButtonBase-root:hover": {
+                bgcolor: '#23db7b'
+            },
+            borderRadius: '0.5rem',
+            boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
+            backgroundColor: '#23db7b',
+            padding: '1rem',
+            textTransform: 'capitalize'
+
+
+
+
+
+
+        } as React.CSSProperties,
         main: {
             boxSizing: "border-box",
             backgroundColor: "#f9f9f9",
@@ -202,8 +251,8 @@ const Nominee = () => {
 
                 if (response.userdetails?.customer_id != 0) {
                     setUserDetails(response);
-                    setName(response.kycdetails?.nomineedetails?.nominee_name)
-                    setRelation(response.kycdetails?.nomineedetails?.nominee_name)
+                    setNomineeName(response.kycdetails?.nomineedetails?.nominee_name)
+                    setNomineeRelation(response.kycdetails?.nomineedetails?.relation)
                     // console.log(response.kycdetails?.nomineedetails?.relation)
                 }
 
@@ -255,7 +304,7 @@ const Nominee = () => {
                             }}>Nominee & Declarations</Typography>
                         </Breadcrumbs>
                         <Box component="form" sx={{
-                            gap: { xs: '1vw', sm: '1vw', md: '1.5vw', lg: '2vw' },
+                            gap: { xs: '15px', sm: '26px', md: '17px', lg: '2vw' },
                             width: '90%',
                             maxWidth: '488px',
                             display: 'flex',
@@ -293,8 +342,9 @@ const Nominee = () => {
                                     onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
                                     // required
                                     label="Full Name"
-                                    value={name}
-                                    onChange={handleNameChange}
+                                    value={formdata.name}
+                                    name="name"
+                                    onChange={handlechange}
                                     error={nameError}
                                     helperText={nameError ? "Please enter Full Name" : ''}
                                 />
@@ -318,13 +368,14 @@ const Nominee = () => {
                                     }
                                     required
                                     type="date"
-                                    label="Date of Birth"
-                                    value={dateOfBirth}
-                                    onChange={handleDateOfBirthChange}
+                                    // label="Date of Birth"
+                                    value={formdata.dateOfBirth}
+                                    name="dateOfBirth"
+                                    onChange={handlechange}
                                     error={dobError}
                                     helperText={dobError ? "Please choose a date" : ''}
                                     inputProps={{
-                                        max: "2002-01-01",
+                                        max: "2023-01-01",
                                         min: "1950-01-01"
                                     }}
                                 />
@@ -334,9 +385,10 @@ const Nominee = () => {
                                 <InputLabel>Relation</InputLabel>
                                 <Select
                                     label={relationError ? "Please choose a relation" : "Relation"}
-                                    value={relation}
-                                    onChange={handleRelationChange}
+                                    value={formdata.relation}
+                                    onChange={handlechange}
                                     error={relationError}
+                                    name="relation"
                                 >
                                     <MenuItem value="9">Doughter</MenuItem>
                                     <MenuItem value="8">Son</MenuItem>
@@ -344,7 +396,7 @@ const Nominee = () => {
                                     <MenuItem value="6">Husband</MenuItem>
                                     <MenuItem value="5">Mother</MenuItem>
                                     <MenuItem value="4">Father</MenuItem>
-                                   
+
                                 </Select>
                                 <Box component="span" className="select-box" sx={{
                                     color: 'red',
@@ -354,17 +406,16 @@ const Nominee = () => {
                             </FormControl>
 
                             <FormControl>
-                                <Button variant="contained" sx={{
-                                    ml: 1,
-                                    "&.MuiButtonBase-root:hover": {
-                                        bgcolor: '#23db7b'
-                                    },
-                                    borderRadius: '0.5rem',
-                                    boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                    backgroundColor: '#23db7b',
-                                    padding: '1rem',
-                                    textTransform: 'capitalize'
-                                }} onClick={handleClick}>Submit Details</Button>
+                                <Button disabled={disablenomineeButton} variant="contained"
+                                    //  sx={{
+
+                                    // }}
+
+                                    style={style.button}
+                                    onClick={handleClick}><Typography sx={{
+                                        color: "white", fontSize: "16px",
+                                        fontweight: "500"
+                                    }}>Submit Details</Typography></Button>
                             </FormControl>
                         </Box>
                     </Grid>
