@@ -257,6 +257,7 @@ const SelectedFunds = () => {
                     }}>
                         Confirm SIP Date
                     </Button>
+                    
                 </Box>
             </Modal>
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
