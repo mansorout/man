@@ -240,8 +240,9 @@ const PanUpdate = () => {
                                     required
                                     label="Enter your PAN number"
                                     placeholder="AAAAA9999A"
-                                    helperText={error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
+                                    helperText={error ? "Please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
+                                    // error={validateInputs?.mobilenumber}
                                     error={error}
                                     onChange={validate}
                                     InputProps={{

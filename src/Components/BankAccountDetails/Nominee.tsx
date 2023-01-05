@@ -15,6 +15,12 @@ import { getUserProfileDataThunk } from "../../Store/Authentication/thunk/auth-t
 import { store } from "../../Store/Store";
 
 
+const enumErrorMsg = {
+    PLEASE_ENTER_PAN: "Pan Number Required",
+    
+  }
+
+
 const Nominee = () => {
 
     const navigate = useNavigate();
