@@ -35,7 +35,7 @@ import {
 import {
     LUMPSUM,
     MONTHLY
-} from '../../Store/Duck/SaveTaxInvestmentType'
+} from '../../Store/Duck/InvestmentType'
 import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
 import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
@@ -241,7 +241,7 @@ const RecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
-    const { investmentType,investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const { investmentType,investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
     const { ulipGenrateApiData, ulipListApiData } = useSelector((state: any) => state.insuranceReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
@@ -251,7 +251,7 @@ const RecommendationsULIP = () => {
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
 
-    // const investmentType = useSelector((state: any) => state.SaveTaxInvestmentType)
+    // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     useEffect(() => {
@@ -370,6 +370,8 @@ const RecommendationsULIP = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
+                            investmentType={investmentType}
+                            investmentAmount={investmentAmount}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
                             boxInputButtonText='Update Plans'
