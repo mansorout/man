@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
 import { Box, styled } from '@mui/system'
 import { makeStyles } from '@mui/styles';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -52,7 +52,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 interface FooterBtnWithBoxType {
     boxIcon: React.ReactElement<any>;
-    boxText: string;
+    boxText: string | ReactNode;
     boxAmount: number | string | null;
     btnText: string;
     btnClick: () => void;
@@ -69,13 +69,13 @@ const FooterBtnWithBox = (props: FooterBtnWithBoxType) => {
             marginTop: '150px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
-                <Button className={`${props.btnDisable === true ? '': classes.bgGreenColor}`} sx={{ width: { xs: '85%', sm: '40%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick} disabled={props.btnDisable}>{props.btnText}</Button>
+                <Button className={`${props?.btnDisable === true ? '': classes.bgGreenColor}`} sx={{ width: { xs: '85%', sm: '40%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props?.btnClick} disabled={props?.btnDisable}>{props?.btnText}</Button>
                 <Box className={classes.premiumAmountBox} sx={{ width: { xs: '80%', sm: '35%' } }}>
                     <div className={classes.insuranceCardIcon}>
-                        {props.boxIcon}
+                        {props?.boxIcon}
                     </div>
-                    <b style={{ fontSize: 'var(--titleFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>{props.boxText}</b>
-                    <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', }}>{props.boxAmount}</b>
+                    <b style={{ fontSize: 'var(--titleFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>{props?.boxText}</b>
+                    <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', }}>{props?.boxAmount}</b>
                 </Box>
             </div>
         </Box>

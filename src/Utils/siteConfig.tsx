@@ -52,6 +52,8 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_BANK_ADD: "/authentication/bank/add/",
   AUTHENTICATION_SIGNATURE_ADD: "/authentication/signature/add/",
   AUTHENTICATION_CHEQUE_ADD: "/authentication/cheque/add/",
+  AUTHENTICATION_SIGNATURE_VIEW:"/authentication/signature/view/",
+  
 
 
   //Recommendations
@@ -59,9 +61,12 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
+  RECOMMENDATION_ULIP_GENERATE: '/recommendation/ulip/generate/',
+  RECOMMENDATION_ULIP_LIST: '/recommendation/ulip/list',
 
   // Insurance
   INSURANCE_ULIP_RETURN: '/insurance/ulip/returns',
+  INSURANCE_ULIP_SCHEME_DETAIL: '/insurance/ulip/scheme/detail',
 });
 
 export default siteConfig;

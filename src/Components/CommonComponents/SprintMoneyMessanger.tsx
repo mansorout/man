@@ -40,12 +40,12 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
     const panmsg: any = useSelector((state: any) => state?.globalReducer.commonmsg)
 
-    console.log(panmsg?.error)
+    // console.log(panmsg?.error)
     // useEffect(() => {
     //     setErrorMsg(panmsg)
     // }, [errorMsg])
 
-    console.log(errorMsg)
+    // console.log(errorMsg)
 
 
     const handleClickOpen = () => {

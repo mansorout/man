@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { Divider,} from '@mui/material';
 import { Close, ErrorOutline, InfoRounded, TaskAltOutlined, Warning } from '@mui/icons-material';
 import {warning} from '../../Assets/index'
+import { useNavigate } from 'react-router-dom';
 
   interface Prop {
     logo: string,
@@ -142,8 +143,8 @@ function AllTrancationCard({name,price,SIPDate, SIPAmount, year3, result, margin
             maxWidth:"400px",
         } as React.CSSProperties,
         }
-
-
+   const navigate=useNavigate()
+     
   const [openMandateModal, setOpenMandateModal] = useState<boolean>(false)
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
 
@@ -311,8 +312,8 @@ function AllTrancationCard({name,price,SIPDate, SIPAmount, year3, result, margin
           <InfoRounded style={{color:"#6c63ff", width:"20px"}}></InfoRounded>
           <Typography style={{ fontSize:"10px",color:'#919eb1'}}>The transaction will be processed once BSE Star MF gets money from your bank. Your transaction will be cancelled if the money isn’t received within 5 working days.</Typography>
         </Box>
-        <Button variant="contained" style={style.button3} fullWidth onClick={()=>{setOpenPaymentModal(false); setOpenMandateModal(false)}} >
-            <Typography style={style.text} className="largeButtonText">Continue</Typography>
+        <Button variant="contained" style={style.button3} fullWidth onClick={()=>{setOpenPaymentModal(false); setOpenMandateModal(false); navigate("/netbanking")}}>
+            <Typography style={style.text} className="largeButtonText" >Continue</Typography>
         </Button>
       </Box>
     </Modal>

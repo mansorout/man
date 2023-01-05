@@ -15,9 +15,11 @@ import Dialog from '@mui/material/Dialog';
 import { tick } from '../../Assets';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
+import { getDataSaveTaxListApi, postSaveTaxGenrateApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
 import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
+import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -146,7 +148,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '&>.MuiBox-root': {
             display: 'inline-block !important   '
         }
-
     },
 }))
 
@@ -159,17 +160,32 @@ const RecommendationsELSS = () => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
+    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
+    const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
 
     
     useEffect(() => {
+        if(parseInt(investmentAmount) === 0) navigate('/saveTax')
         const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
         const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+
+        const saveTavGenrateBody = {
+            investmenttype_id: lookUPId,
+            amount: parseInt(investmentAmount),
+        }
+
+        dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
+
         const temp = {
             investmenttype_id: lookUPId,
             amount: parseInt(investmentAmount),
         }
         dispatch(getDataSaveTaxListApi(temp))
-    }, [])
+
+        console.log("investmentAmount :", investmentAmount)
+    }, [investmentAmount])
+    
     
 
 
@@ -208,7 +224,22 @@ const RecommendationsELSS = () => {
                 <Sidebar />
                 <Grid container>
                     <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' }, marginTop: '-15px', }} item xs={12}>
-                        <RecommendationsELSSHeader />
+                        {/* <RecommendationsELSSHeader /> */}
+                        <RecommendationsHeader
+                            selectTextLabel='Premium Payment Term'
+                            selectArray={recommendationHeaderSelectArr}
+                            selectChoosedValue={recommendationHeaderSelectChoosed}
+                            changeSelectEvent={(event: SelectChangeEvent) => {
+                                setRecommendationHeaderSelectChoosed(event.target.value);
+                            }}
+                            investmentTypeLabel='Investment Type'
+                            // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
+                            boxInputLabelText='Amount I want to invest monthly'
+                            boxInputButtonText='Update Plans'
+                            boxInputShow={recommendationHeaderInputFeildShow}
+                            boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
+                            boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
+                        />
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>1 ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
@@ -279,7 +310,7 @@ const RecommendationsELSS = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ULIP Date'}
+                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ELSS Date'}
                             btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
                         />
                     </Grid>

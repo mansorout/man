@@ -1,16 +1,12 @@
-@media (max-width:3000px) {
+@media (max-width: 3000px) {
     .pincodestayle {
-        margin: 8px !important;
-        width: 242px !important;
-        height: 16px !important;
+      margin: 8px !important;
+      width: 242px !important;
+      height: 16px !important;
     }
-}
-
-
-
-
-
-.MuiGrid-root .pincodeClass {
+  }
+  
+  .MuiGrid-root .pincodeClass {
     display: flex;
     margin-top: -8px;
     margin-bottom: 34px;
@@ -18,333 +14,455 @@
     margin-left: -8px;
     margin-right: -9px;
     flex-direction: inherit;
-}
-
-/* @media (max-width:912px) {
-    .thirdboxstyle{
-        
-      
-   
-    width: 37vw !important;
-    margin-left: 20% !important;
+  }
+  @media (width: 1280px) {
+    .verificationStyle {
+      transform: translate(-24%, -7.9%) !important;
+      font-size: 12px !important;
     }
-
-
-    .paddingviewprofilestyle {
-        margin-left: -5% !important;
-       
-        padding-left: 2% !important;
-        width: 37vw !important;
-    }
-} */
-
-@media (max-width:780px) {
-    .MuiGrid-root .pincodeClass {
-        display: flex;
-        margin-top: -8px;
-        margin-bottom: 34px;
-        padding: 0px;
-        margin-left: -8px;
-        margin-right: -9px;
-        flex-direction: inherit;
-    }
-}
-
-/* mediaqueary 900px */
-
-@media (max-width:820px) {
-    .pincodestayle {
-        margin: 8px !important;
-        width: 242px !important;
-        height: 16px !important;
-    }
-
-
-
-.malestyle {
-    min-width: 28% !important;
-    padding-left: 0px !important;
-    margin-left: -10px !important;
-
-}
-
-.buttontransgender {
-    width: 33% !important;
-    margin: 12px !important;
-}
-
-.femalestyle {
-    width: 29% !important;
-    margin: 0px !important;
-    min-width: 22% !important;
-    font-size: 5px !important;
-}
-
-.fontstyle {
-    font-size: 10px !important;
-}
-
-.css-1o59boh .MuiTextField-root {
-    width: 100% !important;
-    /* min-width: 43% !important; */
-}
-
-.IpadStyle {
-    overflow: inherit;
-}
-
-
-
-.paddingstyle {
-
-    margin-left: -16px !important;
-    width: 37.5vw !important;
-}
-
-.paddingstyle_style {
-    margin-left: 49px !important;
-    width: 42vw !important;
-}
-
-.graphUlipStyle {
-
-    width: 96% !important;
-}
-
-.investWholeStyle {
-    margin-left: 7% !important;
-}
-
-.paddingviewprofilestyle {
-    margin-left: 0% !important;
-    margin-right: -2% !important;
-    padding-left: 0% !important;
-}
-
-
-}
-
-/* mediaqueary 860px */
-/* meidaqueary 768px */
-
-@media (max-width:768px) {
-    .css-1o59boh .MuiTextField-root {
-        width: 100% !important;
-    }
-
-    .MuiGrid-root .pincodeClass {
-        margin-bottom: 34px;
-        margin-left: -4px;
-        margin-right: -5px;
-    }
-
-
-    .IpadStyle {
-        overflow: inherit;
-    }
-
-
-
-    .css-q98jr-MuiTypography-root {
-        font-size: 0.7rem !important;
-    }
-
-    .css-skdto5 button {
-        margin: 1px !important;
-        padding: 0px 0px !important;
-
-    }
-
-    .malestyle {
-        min-width: 28% !important;
-        padding-left: 0px !important;
-        margin-left: -10px !important;
-
-    }
-
-    .buttontransgender {
-        width: 33% !important;
-        margin: 7px !important;
-    }
-
-    .femalestyle {
-        width: 29% !important;
-        margin: -6px !important;
-        min-width: 22% !important;
-        font-size: 5px !important;
-    }
-
-    .fontstyle {
-        font-size: 10px !important;
-    }
-
-    .css-skdto5 {
-        margin-right: 68px !important;
-        justify-content: space-between;
-        display: flex;
-        margin-left: 15px !important;
-
-    }
-
-    .pincodestayle {
-        margin: 8px;
-        width: 239px;
-        height: 16px;
-
-    }
-
-    .graphUlipStyle {
-
-        width: 96% !important;
-    }
-
-    .investWholeStyle {
-        margin-left: 7% !important;
-    }
-
-    .paddingstyle {
-
-        margin-left: -16px !important;
-        width: 39vw !important;
-    }
-
-    .paddingstyle_style {
-        margin-left: 55px !important;
-        width: 42vw !important;
-        border-radius: 11px !important;
-    }
-
-    .paddingviewprofilestyle {
-        margin-left: 0% !important;
-        margin-right: -2% !important;
-        padding-left: 2% !important;
-    }
-
-
-}
-
-
-@media (max-width:560px) {
-    .MuiGrid-root .pincodeClass {
-        margin-top: -8px;
-        margin-bottom: 34px;
-        margin-left: -9px;
-        margin-right: -5px;
-    }
-
-    .css-skdto5 {
-        margin-right: 46px !important;
-        justify-content: space-between;
-        display: flex;
-        margin-left: 15px !important;
-    }
-
-    .css-1o59boh .MuiTextField-root {
-        width: 100% !important;
-    }
-
-
-    .buttontransgender {
-        width: 40% !important;
-        margin: 5px !important;
-    }
-
-    .paddingviewprofilestyle {
-        padding-left: 1% !important;
-        border-radius: 30px !important;
-        width: 90% !important;
-        margin-left: 6px !important;
-    }
-
-    .paddingstyle {
-
-        margin-left: -26px !important;
-        width: 90vw !important;
-        border-radius: 11px !important;
-    }
-
-    .paddingstyle_style {
-        margin-left: -23px !important;
-        width: 93vw !important;
-        border-radius: 11px !important;
-        margin-top: 3% !important;
-    }
-
-    .investWholeStyle {
-        margin-left: -3% !important;
-    }
-
-    .ToastterStyle {
-        position: relative !important;
-        top: 32vw !important;
-        left: -75vw !important;
-    }
-
-    .WholeBodyStyleUlip {
-        width: 95.75vw !important;
-        border-radius: 8px !important;
-        margin-top: -35% !important;
-    }
-
-    .NoLockinperiod {
-        padding-left: 32px !important;
-        transform: translate(10px, 10px) !important;
-        width: 100% !important;
-        margin: -40px !important;
-        padding-top: 43px !important;
-    }
-
-    .boxviewstyle {
-        color: black !important;
-    }
-
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  }
+  
+  @media (width: 1024px) {
     .thirdboxstyle {
-
-
-        padding-left: 1% !important;
-        border-radius: 30px !important;
-        width: 94% !important;
-        margin-left: 6px !important;
+      width: 37vw !important;
+      margin-left: 20% !important;
     }
-
-    .buttoncenterstyle {
-        margin-left: 1% !important;
-    }
-
-    .premiumpaymentStyle {
-
-        position: relative;
-        left: -45%;
-        top: 50% !important;
-    }
-
-    .UlipFundCardStyle {
-        margin-left: -4% !important;
-        gap: 5vw !important;
-        margin-bottom: 6vw !important;
-        border-radius: 8px !important;
-    }
-
-    .iconstyle {
-        padding-left: 43px !important;
-        padding-top: 5px !important;
-    }
-
-    .femalestyle {
-        /* margin: -4px!important; */
-        min-width: 30% !important;
-    }
-
-}
-
-@media (max-width:280px) {
+  
     .paddingviewprofilestyle {
-        /* padding-left: 1% !important;
-        border-radius: 30spx !important; */
-        width: 86% !important;
-        /* margin-left: 6px !important; */
+      margin-left: -5% !important;
+  
+      padding-left: 2% !important;
+      width: 37vw !important;
     }
+    .ScrollBarStyle {
+      overflow: inherit !important;
+    }
+    .verificationStyle {
+      transform: translate(-19%, -7.9%) !important;
+      font-size: 12px !important;
+    }
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  }
+  @media (width: 912px) {
+    .thirdboxstyle {
+      width: 37vw !important;
+      margin-left: 20% !important;
+    }
+  
+    .paddingviewprofilestyle {
+      margin-left: -5% !important;
+  
+      padding-left: 2% !important;
+      width: 37vw !important;
+    }
+    .ScrollBarStyle {
+      overflow: inherit !important;
+    }
+    .verificationStyle {
+      transform: translate(-6%, -0.9%) !important;
+      font-size: 12px !important;
+    }
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  }
+  
+  @media (max-width: 780px) {
+    .MuiGrid-root .pincodeClass {
+      display: flex;
+      margin-top: -8px;
+      margin-bottom: 34px;
+      padding: 0px;
+      margin-left: -8px;
+      margin-right: -9px;
+      flex-direction: inherit;
+    }
+  }
+  
+  /* mediaqueary 900px */
+  
+  @media (max-width: 820px) {
+    .pincodestayle {
+      margin: 8px !important;
+      width: 242px !important;
+      height: 16px !important;
+    }
+  
+    .malestyle {
+      min-width: 28% !important;
+      padding-left: 0px !important;
+      margin-left: -10px !important;
+    }
+  
+    .buttontransgender {
+      width: 33% !important;
+      margin: 12px !important;
+    }
+  
+    .femalestyle {
+      width: 29% !important;
+      margin: 0px !important;
+      min-width: 22% !important;
+      font-size: 5px !important;
+    }
+  
+    .fontstyle {
+      font-size: 10px !important;
+    }
+  
+    .css-1o59boh .MuiTextField-root {
+      width: 100% !important;
+      /* min-width: 43% !important; */
+    } 
+  
+    .IpadStyle {
+      overflow: inherit;
+    }
+  
+    .paddingstyle {
+      margin-left: -16px !important;
+      width: 37.5vw !important;
+    }
+  
+    .paddingstyle_style {
+      margin-left: 49px !important;
+      width: 42vw !important;
+    }
+  
+    .graphUlipStyle {
+      width: 96% !important;
+    }
+  
+    .investWholeStyle {
+      margin-left: 7% !important;
+    }
+  
+    .paddingviewprofilestyle {
+      margin-left: 0% !important;
+      margin-right: -2% !important;
+      padding-left: 0% !important;
+    }
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  .RemoveStyle_Style{
+      margin-top: -26px !important;
+  }
+  }
+  
+  /* mediaqueary 860px */
+  /* meidaqueary 768px */
+  
+  @media (max-width: 768px) {
+    .css-1o59boh .MuiTextField-root {
+      width: 100% !important;
+    }
+  
+    .MuiGrid-root .pincodeClass {
+      margin-bottom: 34px;
+      margin-left: -4px;
+      margin-right: -5px;
+    }
+  
+    .IpadStyle {
+      overflow: inherit;
+    }
+  
+    .css-q98jr-MuiTypography-root {
+      font-size: 0.7rem !important;
+    }
+  
+    .css-skdto5 button {
+      margin: 1px !important;
+      padding: 0px 0px !important;
+    }
+  
+    .malestyle {
+      min-width: 28% !important;
+      padding-left: 0px !important;
+      margin-left: -10px !important;
+    }
+  
+    .buttontransgender {
+      width: 33% !important;
+      margin: 7px !important;
+    }
+  
+    .femalestyle {
+      width: 29% !important;
+      margin: -6px !important;
+      min-width: 22% !important;
+      font-size: 5px !important;
+    }
+  
+    .fontstyle {
+      font-size: 10px !important;
+    }
+  
+    .css-skdto5 {
+      margin-right: 68px !important;
+      justify-content: space-between;
+      display: flex;
+      margin-left: 15px !important;
+    }
+  
+    .pincodestayle {
+      margin: 8px;
+      width: 239px;
+      height: 16px;
+    }
+  
+    .graphUlipStyle {
+      width: 96% !important;
+    }
+  
+    .investWholeStyle {
+      margin-left: 7% !important;
+    }
+  
+    .paddingstyle {
+      margin-left: -16px !important;
+      width: 39vw !important;
+    }
+  
+    .paddingstyle_style {
+      margin-left: 55px !important;
+      width: 42vw !important;
+      border-radius: 11px !important;
+    }
+  
+    .paddingviewprofilestyle {
+      margin-left: 0% !important;
+      margin-right: -2% !important;
+      padding-left: 2% !important;
+    }
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  }
+  
+  @media (max-width: 560px) {
+    .MuiGrid-root .pincodeClass {
+      margin-top: -8px;
+      margin-bottom: 34px;
+      margin-left: -9px;
+      margin-right: -5px;
+    }
+  
+    .css-skdto5 {
+      margin-right: 46px !important;
+      justify-content: space-between;
+      display: flex;
+      margin-left: 15px !important;
+    }
+  
+    .css-1o59boh .MuiTextField-root {
+      width: 100% !important;
+    }
+  
+    .buttontransgender {
+      width: 40% !important;
+      margin: 5px !important;
+    }
+  
+    .paddingviewprofilestyle {
+      padding-left: 3% !important;
+      width: 88% !important;
+      margin-left: 10px !important;
+    }
+  
+    .paddingstyle {
+      margin-left: -26px !important;
+      width: 90vw !important;
+      border-radius: 11px !important;
+    }
+  
+    .paddingstyle_style {
+      margin-left: -23px !important;
+      width: 93vw !important;
+      border-radius: 11px !important;
+      margin-top: 3% !important;
+    }
+  
+    .investWholeStyle {
+      margin-left: -3% !important;
+    }
+  
+    .ToastterStyle {
+      position: relative !important;
+      top: 32vw !important;
+      left: -75vw !important;
+    }
+  
+    .WholeBodyStyleUlip {
+      width: 95.75vw !important;
+      border-radius: 8px !important;
+      margin-top: -35% !important;
+    }
+  
+    .NoLockinperiod {
+      padding-left: 32px !important;
+      transform: translate(10px, 10px) !important;
+      width: 100% !important;
+      margin: -40px !important;
+      padding-top: 43px !important;
+    }
+  
+    .boxviewstyle {
+      color: black !important;
+    }
+  
+    .thirdboxstyle {
+      padding-left: 1% !important;
+      width: 94% !important;
+      margin-left: 10px !important;
+      transform: translate(0px, -16px);
+    
+    }
+    .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  
+    .buttoncenterstyle {
+      margin-left: 1% !important;
+    }
+  
+    .premiumpaymentStyle {
+      position: relative;
+      left: -45%;
+      top: 50% !important;
+    }
+  
+    .UlipFundCardStyle {
+      margin-left: -4% !important;
+      gap: 5vw !important;
+      margin-bottom: 6vw !important;
+      border-radius: 8px !important;
+    }
+  
+    .iconstyle {
+      padding-left: 43px !important;
+      padding-top: 5px !important;
+    }
+  
+    .femalestyle {
+      /* margin: -4px!important; */
+      min-width: 30% !important;
+    }
+  }
+  @media (max-width: 414px) {
+    .paddingviewprofilestyle {
+      padding-left: 2% !important;
+      width: 86% !important;
+      margin-left: 10px !important;
+    }
+    .thirdboxstyle {
+      width: 92.9% !important;
+      margin-left: -12px !important;
+      /* transform: translate(19px, 9px); */
+      transform: translate(21px, -14px);
+  }
+  .HeadingStyleKycWhole{
+    
+      margin-left: 14px !important;
+  }
+  
+  }
+  @media (max-width: 375px) {
+    .paddingviewprofilestyle {
+      padding-left: 2.6% !important;
+      width: 84% !important;
+      margin-left: 10px !important;
+    }
+    .thirdboxstyle {
+      width: 92% !important;
+      margin-left: -12px !important;
+      /* transform: translate(19px, 9px); */
+      transform: translate(21px, -14px);
+  }
+  .HeadingStyleKycWhole{
+    
+      margin-left: 12px !important;
+  }
+  .RemoveStyle_Style{
+      margin-top: -26px !important;
+  }
+  
+  }
+  
+  @media (width: 280px) {
+    .paddingviewprofilestyle {
+      width: 82% !important;
+      margin-left: -10px !important;
+  
+      transform: translate(16px, 10px);
+    }
+    .thirdboxstyle {
+      width: 90% !important;
+      margin-left: -12px !important;
+      transform: translate(19px, 9px);
+    }
+   .IncompleteStyle{
+      font-Size: 6px !important;
+      transform: translate(32px, -7px) !important;
+    }
+    .IncompleteStyle_View{
+      font-Size: 6px !important;
+      transform: translate(11px, -7px) !important;
+    }
+    /* .CommonStyle__Class{
+      font-size: 8px !important;
+    } */
+    .twoeightpixel{
 
-}
-
-/* this line changes here */
+    
+      display: flex !important;
+      flex-direction: column !important;
+     
+      transform: translate(-31%, 12%) !important;
+    }
+    .CommonStyle__Class_Gender{
+      transform: translate(83%, -160%) !important;
+    }
+    .CommonStyle__Classofb_Date{
+      transform: translate(83%, -180%) !important;
+    }
+    .IconWCstyle__style{
+      margin-left: -7% !important;
+    }
+    .EmailAddressStyle{
+      transform: translate(0px, 10px) !important
+    }
+    .Gender_Logo_Style{
+      margin-left: -7% !important;
+      margin-top: -7px !important;
+    }
+    .PlaceofBirth__Style{
+      color: red !important;
+      margin-top: -5px !important;
+  }
+  .thirdboxstyle {
+      width: 90% !important;
+      margin-left: -12px !important;
+      /* transform: translate(19px, 9px); */
+      transform: translate(21px, -14px);
+  }
+  .RemoveStyle_Style{
+      margin-top: -23px !important;
+  }
+   
+  }
+  
+  /* this line changes here */
+  
