@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Breadcrumbs,
@@ -23,7 +23,12 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
 import { globalConstant } from "../../Utils/globalConstant";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import siteConfig from "../../Utils/siteConfig";
+import { getData } from "../../Utils/api";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setInvestmentCardTypeAction } from "../../Store/Investment/actions/investment-action";
 
 // const data = [
 //   {
@@ -161,6 +166,12 @@ const data = [
   },
 ];
 
+const initialMFData = {
+  checkbox: false,
+  buttons: false,
+  isMutualFundScreen: true,
+}
+
 const enumActiveScreen = Object.freeze({
   CLOSE_MODAL: 0,
   OPEN_DATE_PICKER_MODAL: 1,
@@ -214,21 +225,67 @@ const style = {
 };
 
 const OneTimeMutualFund = () => {
-  const navigate: any = useNavigate();
   const classes = useStyles();
-
-  const [mfCards, setMfCards] = useState<any[]>([]);
-  const [activeScreen, setActiveScreen] = useState<number>(
-    enumActiveScreen.CLOSE_MODAL
-  );
+  const dispatch: any = useDispatch();
+  const navigate: any = useNavigate();
+  const location: any = useLocation();
 
   const g_investment: any = useSelector(
     (state: any) => state?.investmentReducer?.investment
   );
 
+  const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
+  const userAmount: number = useMemo(() => { return location?.state?.amount }, []);
+
   useEffect(() => {
-    setMfCards(data);
+    let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
+
+    if (!g_investment?.type) {
+      dispatch(setInvestmentCardTypeAction(strCardType));
+    }
+
+    if (!userAmount) {
+      navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
+    } else {
+      getMutualFundListWrtUserAmount(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12);
+    }
   }, []);
+
+  const getMutualFundListWrtUserAmount = (amount: number, id: number) => {
+    let strUrl = siteConfig.RECOMMENDATION_MUTUALFUND_LIST + `?investmenttype_id=${id}&amount=${amount}`;
+    getData(
+      strUrl,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.RECOMENDATION_API_ID
+    ).then(res => res.json())
+      .then((data: any) => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
+
+        if (data?.error === true) {
+          return;
+        }
+        let res = data?.data;
+        if (res && res.length) {
+          let objMF: any = res.filter((item: any) => item?.recommendationtype === "Mutual Fund")[0];
+          let arrRecomm: any[] = objMF ? objMF["recommendations"] : {};
+          console.log(arrRecomm, "arrRecomm prev");
+          for (let i = 0; i < arrRecomm.length; i++) {
+            arrRecomm[i] = {
+              ...arrRecomm[i],
+              ...initialMFData
+            }
+          }
+          console.log(arrRecomm, "arrRecomm, new");
+          setMfCards(arrRecomm)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+
   const handlePrice = (value: any) => {
     if (value === 12.3) {
       navigate("/funddetails");
@@ -238,6 +295,7 @@ const OneTimeMutualFund = () => {
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
   }
+
   return (
     <Box style={{ width: "100vw" }}>
       <Navbar />
@@ -272,31 +330,6 @@ const OneTimeMutualFund = () => {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
-                  {/* <Breadcrumbs
-                    // sx={{
-                    //   fontSize: "12px",
-                    //   color: "#6c63ff",
-                    // }}
-                    sx={{
-                      fontSize: "12px",
-                      color: "#6c63ff",
-                      marginBottom: "1vw",
-                    }}
-                  >
-                    <Link href="/home">Home</Link>
-                    <Link href="/startInvestment">Investment</Link>
-                    <Link href="/startAnSip">One-time Investment </Link>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "#373e42",
-                      }}
-                    >
-                      Mutual Fund Recommendation
-                    </Typography>
-                  </Breadcrumbs> */}
-
-
                   <Breadcrumbs
                     sx={{
                       fontSize: "12px",
@@ -359,7 +392,7 @@ const OneTimeMutualFund = () => {
                       color: "#7b7b9d",
                     }}
                   >
-                    Monthly investment of ₹5,000
+                    One-Time Lumpsum investment of {userAmount ? userAmount : 0}
                   </Typography>
                 </Box>
                 <Box
@@ -437,7 +470,7 @@ const OneTimeMutualFund = () => {
                 backgroundColor: "#fff",
               }}
             >
-            
+
               <FooterWithButton2
                 btnText="BUY NOW"
                 btnClick={() =>

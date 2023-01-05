@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent, ReactElement, useRef } from 'react'
 // import {
 //     Chart as ChartJS,
 //     CategoryScale,
@@ -10,7 +10,8 @@ import React from 'react'
 //     Legend,
 //     Filler
 // } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { getDatasetAtEvent, getElementsAtEvent, Line, getElementAtEvent } from 'react-chartjs-2';
+import { Chart as ChartJS, InteractionItem } from 'chart.js';
 import { Box } from '@mui/system'
 // import faker from 'faker';
 //   import { faker } from '@faker-js/faker';
@@ -26,7 +27,7 @@ import { Box } from '@mui/system'
 //     Tooltip,
 //     Legend
 //   );
-  
+
 //   export const options = {
 //     responsive: true,
 //     plugins: {
@@ -40,10 +41,10 @@ import { Box } from '@mui/system'
 //       },
 //     },
 //   };
-  
+
 //   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  
-  
+
+
 // const data = {
 //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 'july', "Aug"],
 //     datasets: [
@@ -57,16 +58,38 @@ import { Box } from '@mui/system'
 //     ]
 //   };
 
-  interface LineChartProps{
-    optionsValues : any;
-    dataValues:any;
+interface LineChartProps {
+  optionsValues: any;
+  dataValues: any;
+  onClick?: (val: any) => void
+}
 
+const LineChart = (props: LineChartProps) => {
+  const chartRef: any = useRef(null);
+
+  const printElementAtEvent = (element: InteractionItem[]) => {
+    if (!element.length) return;
+
+    const { datasetIndex, index } = element[0];
+
+    console.log(props.dataValues.labels[index], props.dataValues.datasets[datasetIndex].data[index]);
+
+    if (props?.onClick) props?.onClick({ label: props?.dataValues?.labels[index], value: props?.dataValues?.datasets[datasetIndex]?.data[index] })
+  };
+
+  const handleOnClick = (event: MouseEvent<HTMLCanvasElement>) => {
+    if (!chartRef.current) return;
+    printElementAtEvent(getElementAtEvent(chartRef.current, event));
   }
 
-const LineChart = (props:LineChartProps) => {
   return (
     <Box>
-    <Line  options={props.optionsValues} data={props.dataValues} />
+      <Line
+        ref={chartRef}
+        options={props.optionsValues}
+        data={props.dataValues}
+        onClick={handleOnClick}
+      />
     </Box>
   )
 }
