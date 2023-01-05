@@ -10,6 +10,7 @@ import { customParseJSON } from "../../Utils/globalFunctions";
 
 type IProps = {
   cardType: string;
+  saveMutualFundGenerate?: (id: number, path: string) => void | undefined
 };
 
 const style = {
@@ -64,9 +65,11 @@ export const InvestButton = (props: IProps) => {
       setShowLogin(status);
     } else {
       if (g_investment.type === globalConstant.SIP_INVESTMENT) {
+        // props?.saveMutualFundGenerate(12, "/mflist");
         navigate("/mflist", {});
       } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
-        navigate("/onetimemutualfundrecommendation", {});
+        if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(11, "/onetimemutualfundrecommendation");
+        // navigate("/onetimemutualfundrecommendation", {});
       }
     }
   };
