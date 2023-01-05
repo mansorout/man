@@ -82,7 +82,7 @@ export const InvestButton = (props: IProps) => {
         variant="contained"
         style={style.button}
         fullWidth
-
+   
         onClick={() => {
           handleClick();
         }}

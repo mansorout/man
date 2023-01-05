@@ -347,6 +347,7 @@ function InvestNowScreen(props: IProps) {
                                   height: "33px",
                                   margin: " 2.2 12px 0 0",
                                   padding: "10px 12px 9px",
+                                  
                                 }}
                               >
                                 <b style={{ color: "#6c63ff" }}>+1000</b>
