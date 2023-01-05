@@ -116,7 +116,7 @@ const SaveTaxInvestmentType = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch:any =useDispatch()
-    const {investmentAmount, savetaxPercentageAmount} = useSelector((state:any) => state.SaveTaxInvestmentType)
+    const {investmentAmount, savetaxPercentageAmount} = useSelector((state:any) => state.InvestmentTypeReducers)
     const {saveTaxInvestmentTypeData} = useSelector((state:any) => state.saveTaxReducer)
     const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
     const [rows, setRows] = useState<{
@@ -127,7 +127,7 @@ const SaveTaxInvestmentType = () => {
 
 
     function createData(
-        heading: string,
+        heading: string,    
         ulip: number | string,
         elss: number | string,
     ) {
@@ -147,7 +147,7 @@ const SaveTaxInvestmentType = () => {
         // }
         if(parseInt(investmentAmount) === 0) navigate('/saveTax')
         dispatch(getDataSaveTaxInvestmentType(investmentAmount))
-        console.log("investmentAmount :", investmentAmount)
+        console.log("investmentAmount :", investmentAmount, savetaxPercentageAmount)
 
         // dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
     }, [])
