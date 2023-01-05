@@ -235,7 +235,7 @@ function NetBanking() {
           <Grid container xs={13} sm={11} md={10}>
             <Grid
               sx={{
-                maxWidth:"99%",
+                maxWidth: "99%",
 
                 height: "100vh",
                 boxSizing: "border-box",
@@ -506,6 +506,7 @@ function NetBanking() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%,-50%)",
+            
           }}
         >
           <Grid
@@ -754,12 +755,24 @@ function NetBanking() {
                 }
                 sx={{
                   backgroundColor: " #23db7b",
-
+                  ml: 1,
+                  "&.MuiButtonBase-root:hover": {
+                    bgcolor: "#23db7b",
+                  },
                   padding: "10px 32px 9px",
                   borderRadius: " 4px",
+                  marginLeft:"0px"
+
                 }}
               >
-                <Typography sx={{ color: "white" }}>Proceed</Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                   
+                  }}
+                >
+                  Proceed
+                </Typography>
               </Button>
             </Grid>
           </Grid>

@@ -335,7 +335,7 @@ function InvestNowScreen(props: IProps) {
                             >
                               You can start small, starting from ₹5,000
                             </Typography>
-                            <Stack direction="row" spacing={1} sx={{ marginTop: "14px",marginLeft:"2px" }} className="ButtonStyleInvest">
+                            <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
                               <Button
                                 variant="contained"
                                 disabled

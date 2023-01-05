@@ -44,7 +44,7 @@ const style = {
     main: {
         boxSizing: "border-box",
         backgroundColor: "#f9f9f9",
-        height: "100vh"
+        height: "100%"
     } as React.CSSProperties,
     drawer: {
         zIndex: "500",

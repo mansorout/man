@@ -25,7 +25,9 @@ import siteConfig from '../../Utils/siteConfig';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 
-
+type IProps = {
+  userDetails: any;
+};
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -137,7 +139,11 @@ const style = {
   appBar: {
     backgroundColor: "white",
   }
+
 }
+// type IProps = {
+//   userDetails: any;
+// };
 
 const ViewProfile = () => {
   const classes = useStyles()
@@ -193,13 +199,13 @@ const ViewProfile = () => {
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{ height: "100vh" }}>
+        <Grid container spacing={0} sx={{ height: "auto" }}>
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10}>
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={13} sm={11} md={10}>
+            <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={11} md={10} className="ScrollBarStyle">
               <Toolbar />
               <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
@@ -209,7 +215,7 @@ const ViewProfile = () => {
                   <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                     <Typography className='burgerText'>View Profile</Typography>
                   </Link>
-                </Breadcrumbs>
+                </Breadcrumbs>   
               </Box>
               <Grid container>
                 <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
@@ -230,3 +236,4 @@ const ViewProfile = () => {
 }
 
 export default ViewProfile
+// userDetails={userDetails}

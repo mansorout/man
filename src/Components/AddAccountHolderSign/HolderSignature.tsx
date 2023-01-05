@@ -39,7 +39,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import SignaturePad from "react-signature-canvas";
 import { uploadsignature } from "../../Store/Reducers/action";
 import SaveAndAddButton1 from "../../Modules/Buttons/SaveAndAddButton1";
-import { postData } from "../../Utils/api";
+import { getData, postData } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
@@ -85,9 +85,47 @@ function HolderSignature() {
     const [errorMsg, setErrorMsg] = useState("");
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [showApiButton, setShowApiButton] = useState<boolean>(true);
+    const [getSignature, setgetSignature] = useState<string>("");
+
+    useEffect(() => {
+        getSignatureImage()
+
+    }, [])
+
+    const getSignatureImage = () => {
+        getData(
+            siteConfig.AUTHENTICATION_SIGNATURE_VIEW,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then(data => {
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatch(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error === true) {
+                    return;
+                }
+                const response = data?.data
+                // console.log(data.kycDetails?.ischequeavailable)
+                // console.log(response.signature)
+
+                setgetSignature(response.signature);
 
 
+            })
+            .catch(err => {
+                // console.log(err);
+            })
 
+        // store.dispatch(getUserProfileDataThunk());
+
+    }
+
+    //    debugger
+    // console.log(getSignature)
 
     const clear = () => {
         sigCanvas.current.clear()
@@ -125,7 +163,7 @@ function HolderSignature() {
                     // return;
 
                 }
-                console.log(data?.error)
+                // console.log(data?.error)
                 // setShowDialog(true)
                 setErrorMsg(data?.error)
 
@@ -133,11 +171,11 @@ function HolderSignature() {
                 //   navigate('/viewprofile');
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
 
 
-        console.log(objBody)
+        // console.log(objBody)
 
 
     }
@@ -263,282 +301,351 @@ function HolderSignature() {
 
 
 
+
     return (
-        <Box style={{ width: "100%" }} ref={refContainer}>
-            <Navbar />
-            <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
-            <Box sx={style.main}>
-                <Grid
-                    container
-                    spacing={0}
-                    sx={{ height: "100vh" }}
-                >
 
-                    <Grid
-                        item
-                        xs={0}
-                        sm={1}
-                        md={2}
-                    >
-                        <Toolbar />
-                        <Sidebar />
-                    </Grid>
-                    <Grid
-                        container
-                        xs={13}
-                        sm={11}
-                        md={10}
-                    >
-                        <Grid sx={{ padding: 2 }} item xs={12}>
-                            <Toolbar />
-                            <Box sx={{ mb: "10px" }} className="checkHeadingStack">
-                                <Typography
+        <>
+            {
+                getSignature ? <Box style={{ width: "92%"}} ref={refContainer}>
+                    <Navbar />
+                    <Box sx={style.main}>
+                        <Grid container spacing={0} >
+                            <Grid item xs={0} sm={1} md={2}>
+                                <Toolbar />
+                                <Sidebar />
 
-                                    component="span"
-                                    className="subTitle5"
-                                >
-                                    Signature is mandatory to setup an investment account and for a redemption request.
-                                </Typography>
-                            </Box >
-                            <Breadcrumbs sx={{ mb: "10px" }} aria-label="breadcrumb">
-                                <Link color="#6495ED" underline="always" href="/home">
-                                    <Typography className='burgerText'> Home</Typography>
-                                </Link>
-                                <Link
-                                    underline="always"
-                                    color="#6495ED"
-                                    href='/viewprofile'
-                                >
-                                    <Typography className='burgerText'>  View Profile</Typography>
+                            </Grid>
+                            <Grid container >
+                                {/* flexDirection: "column", paddingTop: "55px"  */}
+                                {/* sx={{ display: "flex", }} */}
+                                <Grid md={2}>
 
-                                </Link>
-                                <Link
-                                    underline="none"
-                                    color="#8787a2"
-                                    aria-current="page"
-                                >
-
-                                    <Typography className='burgerText'>Account Holder Signature</Typography>
-                                </Link>
-                            </Breadcrumbs>
-
-                            <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-
-                                <Grid container >
-                                    <Grid xs={12} md={8} sm={10}>
-                                        <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
-                                            Add Account Holder Signature
-                                        </Typography>
-                                    </Grid>
                                 </Grid>
+                                <Grid md={10}>
+                                    <Breadcrumbs aria-label="breadcrumb" sx={{ mb: "10px", padding: "20px 0px 0px 30px" }}>
 
-                                <Box style={style.dividerBox}></Box>
-                                {/* <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}> */}
+                                        <Link color="#6495ED" underline="always" href="/home">
+                                            <Typography className='burgerText'> Home</Typography>
+                                        </Link>
+                                        <Link
+                                            underline="always"
+                                            color="#6495ED"
+                                            href='/viewprofile'
+                                        >
+                                            <Typography className='burgerText'>  View Profile</Typography>
 
-                                <Box className="renderBoxsign">
+                                        </Link>
+                                        <Link
+                                            underline="none"
+                                            color="#8787a2"
+                                            aria-current="page"
+                                        >
 
-                                    {
-                                        enableShowText ? <Grid container spacing={3}>
-                                            <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
-                                                <Typography className="checkWillAppearHere">
-                                                    Draw Here...
-                                                </Typography>
+                                            <Typography className='burgerText'>Account Holder Signature</Typography>
+                                        </Link>
+                                    </Breadcrumbs>
+                                    <Typography sx={{
+                                        paddingLeft: " 30px",
+                                        width: "92%"
+                                    }}>
+                                        Your Signature in Record
+                                    </Typography>
+                                    <Box sx={{ padding: "6px 0px 0px 27px" }}> <img src={getSignature} className="getApiimg" /> </Box>
+                                </Grid>
+                            </Grid>
 
-                                            </Grid>
-                                        </Grid> : ""
-                                    }
-                                    {
-                                        enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
-                                            <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
-                                                <Typography className="checkWillAppearHere">
-                                                    Draw Here...
-                                                </Typography>
-
-                                            </Grid>
-                                        </Grid>
-                                    }
-                                    {showSignBox ?
-                                        <Box sx={{ backgroundColor: "white", width: "100%", height: "100%", margin: " 0 auto" }}>
-
-
-                                            <SignaturePad
-
-                                                ref={sigCanvas}
-                                                backgroundColor="white"
-                                                penColor="black"
-                                                onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
-                                                canvasProps={{
-                                                    // width: 600,
-                                                    height: 450,
-                                                    className: styles.sigPad
-
-                                                }}
-
-                                            />
-
-                                        </Box> : ""
-
-                                    }
-
-                                    {
-                                        showSignBox ? "" :
-
-                                            <Grid container sx={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                backgroundColor: "white",
-                                                top: "50%",
-                                                left: "50%",
+                        </Grid>
+                    </Box>
+                </Box>
+                    : <Box style={{ width: "100%" }} ref={refContainer}>
+                        <Navbar />
+                        <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
+                        <Box sx={style.main}>
 
 
-                                            }} spacing={1}>
-                                                <Grid item xs={12} sm={10} md={4}>
-                                                    <img
-                                                        src={imageURL}
-                                                        alt="my signature"
-                                                        style={{
 
-                                                            maxWidth: "-webkit-fill-available",
-                                                            height: "250px"
-                                                        }}
-                                                    />
+
+                            <Grid
+                                container
+                                spacing={0}
+                                sx={{ height: "100vh" }}
+                            >
+
+                                <Grid
+                                    item
+                                    xs={0}
+                                    sm={1}
+                                    md={2}
+                                >
+                                    <Toolbar />
+                                    <Sidebar />
+                                </Grid>
+                                <Grid
+                                    container
+                                    xs={13}
+                                    sm={11}
+                                    md={10}
+                                >
+                                    <Grid sx={{ padding: 2 }} item xs={12}>
+                                        <Toolbar />
+                                        <Box sx={{ mb: "10px" }} className="checkHeadingStack">
+                                            <Typography
+
+                                                component="span"
+                                                className="subTitle5"
+                                            >
+                                                Signature is mandatory to setup an investment account and for a redemption request.
+                                            </Typography>
+                                        </Box >
+                                        <Breadcrumbs sx={{ mb: "10px" }} aria-label="breadcrumb">
+                                            <Link color="#6495ED" underline="always" href="/home">
+                                                <Typography className='burgerText'> Home</Typography>
+                                            </Link>
+                                            <Link
+                                                underline="always"
+                                                color="#6495ED"
+                                                href='/viewprofile'
+                                            >
+                                                <Typography className='burgerText'>  View Profile</Typography>
+
+                                            </Link>
+                                            <Link
+                                                underline="none"
+                                                color="#8787a2"
+                                                aria-current="page"
+                                            >
+
+                                                <Typography className='burgerText'>Account Holder Signature</Typography>
+                                            </Link>
+                                        </Breadcrumbs>
+
+                                        <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+
+                                            <Grid container >
+                                                <Grid xs={12} md={8} sm={10}>
+                                                    <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
+                                                        Add Account Holder Signature
+                                                    </Typography>
                                                 </Grid>
                                             </Grid>
 
+                                            <Box style={style.dividerBox}></Box>
+                                            {/* <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}> */}
+
+                                            <Box className="renderBoxsign">
+
+                                                {
+                                                    enableShowText ? <Grid container spacing={3}>
+                                                        <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
+                                                            <Typography className="checkWillAppearHere">
+                                                                Draw Here...
+                                                            </Typography>
+
+                                                        </Grid>
+                                                    </Grid> : ""
+                                                }
+                                                {
+                                                    enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
+                                                        <Grid sx={{ textAlign: "center", backgroundColor: "white" }} item xs={12}>
+                                                            <Typography className="checkWillAppearHere">
+                                                                Draw Here...
+                                                            </Typography>
+
+                                                        </Grid>
+                                                    </Grid>
+                                                }
+                                                {showSignBox ?
+                                                    <Box sx={{ backgroundColor: "white", width: "100%", height: "100%", margin: " 0 auto" }}>
 
 
-                                    }
+                                                        <SignaturePad
 
-                                </Box>
+                                                            ref={sigCanvas}
+                                                            backgroundColor="white"
+                                                            penColor="black"
+                                                            onBegin={() => { setHideContent(false); setDisable(false); setenableShowText(false) }}
+                                                            canvasProps={{
+                                                                // width: 600,
+                                                                height: 450,
+                                                                className: styles.sigPad
+
+                                                            }}
+
+                                                        />
+
+                                                    </Box> : ""
+
+                                                }
+
+                                                {
+                                                    showSignBox ? "" :
+
+                                                        <Grid container sx={{
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                            backgroundColor: "white",
+                                                            top: "50%",
+                                                            left: "50%",
 
 
+                                                        }} spacing={1}>
+                                                            <Grid item xs={12} sm={10} md={4}>
+                                                                <img
+                                                                    src={imageURL}
+                                                                    alt="my signature"
+                                                                    style={{
 
-                                {/* </Box> */}
-
-                                <Box>
-                                    <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
-
-
-                                        {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
-                                            <Button variant="contained"
-                                                sx={{
-                                                    backgroundColor: "rgba(0, 0, 0, 0.05)",
-                                                    borderRadius: " 23px",
-                                                    marginBottom: "32px",
-                                                    height: "45px",
-                                                    padding: "19px",
-                                                    ml: 1,
-                                                    "&.MuiButtonBase-root:hover": {
-                                                        bgcolor: "rgba(0, 0, 0, 0.05)"
-                                                    }
-
-                                                }}
-                                            >
-
-                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
-                                                    CLEAR & TRY AGAIN
-                                                </Typography>
-
-                                            </Button>
-                                        </Box>}
-
-                                        {tryagain ? "" : <Box textAlign="center" onClick={() => window.location.reload()}>
-                                            <Button
-
-                                                sx={{
-                                                    backgroundColor: "rgba(0, 0, 0, 0.05)",
-                                                    borderRadius: " 23px",
-                                                    marginBottom: "32px",
-                                                    height: "45px",
-                                                    padding: "19px"
-                                                }}
-                                            >
-
-                                                <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
-                                                    CLEAR & TRY AGAIN
-                                                </Typography>
-
-                                            </Button>
-                                        </Box>}
-
-                                        {uploadChequeButton ? (
-                                            ""
-                                        ) : (
-                                            <Button
-
-                                                sx={{
-                                                    backgroundColor: "rgba(0, 0, 0, 0.05)",
-
-                                                    height: "45px",
-                                                    width: "150px",
-                                                    borderRadius: "32px",
-                                                }}
-                                            >
-                                                <Typography className="textLink">
-                                                    Clear & Try Again
-                                                </Typography>
-                                            </Button>
-                                        )}
-                                    </Box>
+                                                                        maxWidth: "-webkit-fill-available",
+                                                                        height: "250px"
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                        </Grid>
 
 
 
+                                                }
 
-
-                                </Box>
-                                <Box style={style.dividerBox}></Box>
-
-                                
-
-                                {disable ? 
-                                    <Box className="saveandaddButton"
-                                        textAlign="center"
-                                        width="80%"
-                                        mb={2}
-                                        sx={{ pointerEvents: "none", opacity: "0.7" }}
-
-                                    >
-
-                                        <SaveAndAddButton />
-
-                                    </Box>
-                                 : 
-                                    <Box className="saveandaddButton"
-                                        textAlign="center"
-                                        width="80%" onClick={setSignature}>
-
-                                        <SaveAndAddButton />
-
-
-
-
-                                    </Box>
-                                }
-
-                                <Button  >Send To Api</Button>
-
-
-                                <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
-                                    <Grid item >
-                                        <div style={{ display: "flex" }}>
-                                            <Box onClick={convertSignInBase64}>
-                                                <img style={{ height: "24px", width: "24px" }} src={sipiclogo} alt="signature" />
                                             </Box>
-                                            <span style={{ padding: "5px 0px 0px 7px", fontSize: "14px", color: "#919eb1" }}> Signatures provided here will be used on official documents.</span>
-                                        </div>
+
+
+
+                                            {/* </Box> */}
+
+                                            <Box>
+                                                <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px" }}>
+
+
+                                                    {hidecontent ? "" : <Box textAlign="center" onClick={clear}>
+                                                        <Button variant="contained"
+                                                            sx={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.05)",
+                                                                borderRadius: " 23px",
+                                                                marginBottom: "32px",
+                                                                height: "45px",
+                                                                padding: "19px",
+                                                                ml: 1,
+                                                                "&.MuiButtonBase-root:hover": {
+                                                                    bgcolor: "rgba(0, 0, 0, 0.05)"
+                                                                }
+
+                                                            }}
+                                                        >
+
+                                                            <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                                CLEAR & TRY AGAIN
+                                                            </Typography>
+
+                                                        </Button>
+                                                    </Box>}
+
+                                                    {tryagain ? "" : <Box textAlign="center" onClick={() => window.location.reload()}>
+                                                        <Button
+
+                                                            sx={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.05)",
+                                                                borderRadius: " 23px",
+                                                                marginBottom: "32px",
+                                                                height: "45px",
+                                                                padding: "19px"
+                                                            }}
+                                                        >
+
+                                                            <Typography sx={{ color: "#6c63ff", fontWeight: "500" }}>
+                                                                CLEAR & TRY AGAIN
+                                                            </Typography>
+
+                                                        </Button>
+                                                    </Box>}
+
+                                                    {uploadChequeButton ? (
+                                                        ""
+                                                    ) : (
+                                                        <Button
+
+                                                            sx={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.05)",
+
+                                                                height: "45px",
+                                                                width: "150px",
+                                                                borderRadius: "32px",
+                                                            }}
+                                                        >
+                                                            <Typography className="textLink">
+                                                                Clear & Try Again
+                                                            </Typography>
+                                                        </Button>
+                                                    )}
+                                                </Box>
+
+
+
+
+
+                                            </Box>
+                                            <Box style={style.dividerBox}></Box>
+
+
+
+                                            {
+                                                showApiButton ? <> {disable ?
+                                                    <Box className="saveandaddButton"
+                                                        textAlign="center"
+                                                        width="80%"
+                                                        mb={2}
+                                                        sx={{ pointerEvents: "none", opacity: "0.7" }}
+
+                                                    >
+
+                                                        <SaveAndAddButton />
+
+                                                    </Box>
+                                                    :
+                                                    <Box className="saveandaddButton"
+                                                        textAlign="center"
+                                                        width="80%" onClick={setSignature}>
+
+                                                        <SaveAndAddButton />
+
+
+
+
+                                                    </Box>
+                                                }</> : <Box onClick={convertSignInBase64} width="80%">
+                                                    <SaveAndAddButton />
+                                                </Box>
+                                            }
+
+
+
+
+
+                                            <Grid container sx={{ padding: "6px 0px 12px 14px" }} >
+                                                <Grid item >
+                                                    <div style={{ display: "flex" }}>
+                                                        <Box >
+                                                            <img style={{ height: "24px", width: "24px" }} src={sipiclogo} alt="signature" />
+                                                        </Box>
+                                                        <span style={{ padding: "5px 0px 0px 7px", fontSize: "14px", color: "#919eb1" }}> Signatures provided here will be used on official documents.</span>
+                                                    </div>
+                                                </Grid>
+
+                                            </Grid>
+
+
+                                        </Box>
+
                                     </Grid>
-
                                 </Grid>
+                            </Grid>
+
+                        </Box>
+                        <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
+                    </Box >
+            }
+        </>
 
 
-                            </Box>
-
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Box>
-            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
-        </Box >
     );
 }
 
