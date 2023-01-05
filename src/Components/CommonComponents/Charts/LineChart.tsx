@@ -11,7 +11,9 @@ import React from 'react'
 //     Filler
 // } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Box } from '@mui/system'
+import { Box,Theme } from '@mui/system'
+import { makeStyles } from "@mui/styles";
+import { ClassNames } from '@emotion/react';
 // import faker from 'faker';
 //   import { faker } from '@faker-js/faker';
 
@@ -56,6 +58,17 @@ import { Box } from '@mui/system'
 //       },
 //     ]
 //   };
+const useStyles: any = makeStyles((theme: Theme) => ({
+  chartWrapper:{
+    '& canvas':{
+      minHeight: '243px',
+    height: 'auto',
+    maxHeight: '410px',
+    width: '100%',
+    minWidth: '350px',
+    }
+  }
+}))
 
   interface LineChartProps{
     optionsValues : any;
@@ -64,9 +77,10 @@ import { Box } from '@mui/system'
   }
 
 const LineChart = (props:LineChartProps) => {
+  const classes = useStyles();
   return (
-    <Box>
-    <Line  options={props.optionsValues} data={props.dataValues} />
+    <Box className={classes.chartWrapper}>
+    <Line options={props.optionsValues} data={props.dataValues} />
     </Box>
   )
 }

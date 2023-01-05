@@ -15,7 +15,11 @@ import Dialog from '@mui/material/Dialog';
 import { tick } from '../../Assets';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { getDataSaveTaxListApi, postSaveTaxGenrateApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
+import {
+    getDataSaveTaxListApi,
+    getDataSaveTaxInvestmentType,
+    postSaveTaxGenrateApi
+} from '../../Store/Save Tax/thunk/save-tax-thunk';
 import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
@@ -65,7 +69,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeIndigoColor)',
         fontSize: 'var(--subTitleFontSize) !important',
         fontWeight: 500,
-        '@media(max-width: 500px)':{
+        '@media(max-width: 500px)': {
             marginLeft: '0px !important',
         }
     },
@@ -125,7 +129,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     ratingBoxImgWrapper: {
         backgroundColor: 'transparent !important',
     },
-    
+
     modalText: {
         backgroundColor: 'var(--uiWhite)',
         // width: 338,
@@ -155,18 +159,18 @@ const RecommendationsELSS = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
-    const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    const { investmentType, investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
     const { saveTaxListData } = useSelector((state: any) => state.saveTaxReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
-    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5', '10', '15', '20'])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
 
-    
+
     useEffect(() => {
-        if(parseInt(investmentAmount) === 0) navigate('/saveTax')
+        if (parseInt(investmentAmount) === 0) navigate('/saveTax')
         const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
         const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
 
@@ -175,18 +179,21 @@ const RecommendationsELSS = () => {
             amount: parseInt(investmentAmount),
         }
 
-        dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
-
         const temp = {
             investmenttype_id: lookUPId,
             amount: parseInt(investmentAmount),
         }
+
+        dispatch(getDataSaveTaxInvestmentType(investmentAmount))
+
+        dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
+
         dispatch(getDataSaveTaxListApi(temp))
 
         console.log("investmentAmount :", investmentAmount)
     }, [investmentAmount])
-    
-    
+
+
 
 
     const handleULIPDate = () => {
@@ -203,7 +210,7 @@ const RecommendationsELSS = () => {
         console.log("calender value", value)
     }
 
-    
+
     const handleCloseContinuePayment = (
         event: {},
         reason: "backdropClick" | "escapeKeyDown"
@@ -233,6 +240,8 @@ const RecommendationsELSS = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
+                            investmentType={investmentType}
+                            investmentAmount={investmentAmount}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
                             boxInputButtonText='Update Plans'
@@ -241,13 +250,13 @@ const RecommendationsELSS = () => {
                             boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                         />
                         <Box className={classes.cmpHeading}>
-                            <Typography component='p'>1 ULIP Plan Found</Typography>
+                            <Typography component='p'>{saveTaxListData?.recommendations && saveTaxListData.recommendations.length} ELSS Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
                         </Box>
 
                         {
-                           saveTaxListData?.recommendations && saveTaxListData.recommendations.map((cardData?: any) => {
-                              return( <Box className={classes.cardStyle}>
+                            saveTaxListData?.recommendations && saveTaxListData.recommendations.map((cardData?: any) => {
+                                return (<Box className={classes.cardStyle}>
                                     <Grid container>
                                         <Grid item xs={12} sm={5}>
                                             <Box className={classes.cardStyleCmpName}>
@@ -298,7 +307,7 @@ const RecommendationsELSS = () => {
                                         </Grid>
                                     </Grid>
                                 </Box>
-                              )
+                                )
                             })
 
                         }
@@ -318,7 +327,7 @@ const RecommendationsELSS = () => {
             </Box>
 
 
-            <Dialog open={open} onClose={() =>  (!open)}>
+            <Dialog open={open} onClose={() => (!open)}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>Set backup account</Typography>
                 <Calendar onChange={handleCalender} value={calenderValue} />
@@ -326,11 +335,11 @@ const RecommendationsELSS = () => {
                     backgroundColor: 'rgba(123, 123, 157, 0.05)',
                     color: '#7b7b9d'
                 }}>
-                    Confirm SIP Date
+                    Confirm ELSS Date
                 </Button>
             </Dialog>
 
-            <Dialog  open={openConfirmation} onClose={handleCloseContinuePayment}>
+            <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
 
                 <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>

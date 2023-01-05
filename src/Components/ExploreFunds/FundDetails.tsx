@@ -17,8 +17,44 @@ import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import FundPerformance from './FundPerformance';
 import { useNavigate } from 'react-router-dom';
 import ExploreFundChart from './ExploreFundChart';
+import { FundChart } from '../FundDetails/FundChart';
+import LineChart from '../CommonComponents/Charts/LineChart';
+
+const chartOptions = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'bottom' as const,
+            display: true,
+        },
+        title: {
+            display: true,
+            text: '',
+        },
+    },
+};
+
+const chartData = {
+    labels: "",
+    datasets: [
+        {
+            label: "Invested Value",
+            data: 1,
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)"
+        },
+        {
+            label: "Projected Value",
+            data: 1,
+            fill: true,
+            borderColor: "#742774"
+        }
+    ]
+};
 
 function Details() {
+
     const refContainer = useRef();
 
     const style = {
@@ -232,9 +268,13 @@ function Details() {
 
 
 
-                            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                <Grid item xs={12}>
-
+                            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ paddingTop: "25px", paddingBottom: "10px", }}>
+                                <Grid item xs={12} sx={{
+                                    borderRadius: "8px",
+                                    backgroundColor: "white",
+                                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                                }}>
+                                    <LineChart optionsValues={chartOptions} dataValues={chartData} />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FundPerformance />
