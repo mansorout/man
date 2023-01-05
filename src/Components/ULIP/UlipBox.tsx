@@ -13,12 +13,14 @@ import './UlipBox.css';
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import BannerSlider from "../CommonComponents/BannerSlider";
 import {
-    SaveTaxInvestmentLumpsumAction,
-    SaveTaxInvestmentMonthlyAction,
     SaveTaxInvestmentAmount,
-    LUMPSUM,
-    MONTHLY
-} from '../../Store/Duck/SaveTaxInvestmentType';
+    ULIP_LUMPSUM,
+    ULIP_MONTHLY,
+    ULIP_INSURANCE_AMOUNT,
+    insuranceUlipLumpsumAction,
+    insuranceUlipMonthlyAction,
+    insuranceUlipAmount,
+} from '../../Store/Duck/InvestmentType';
 import {isMultipleofNumber} from '../../Utils/globalFunctions'
 import LineChart from "../CommonComponents/Charts/LineChart";
 import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
@@ -123,6 +125,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--typeLightBlackColor)',
     },
     performanceGraphCard:{
+        height: '100%',
+        boxSizing: 'border-box',
         backgroundColor: 'var(--uiWhite)',
         borderRadius: '8px',
         boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
@@ -138,25 +142,29 @@ const UlipBox = () => {
     const refContainer = useRef();
 
     const [ years, setYears ] = useState('5');
-    const [investmentType, setInvestmentType] = useState<string>(LUMPSUM)
+    const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
     const [chartLabels, setChartLabels] = useState<string[] | null>(null)
     const [chartInvestedAmount, setChartInvestedAmount] = useState<number[] | null>(null)
     const [chartProjectedAmount, setChartProjectedAmount] = useState<number[] | null>(null)
     const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
+    const { ulipInsuranceType,ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
+        investmentType === ULIP_LUMPSUM ? setLumpsumAmount('') : setMonthlyAmount('');
     };
 
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
+        dispatch(insuranceUlipLumpsumAction(investmentType));
+        dispatch(insuranceUlipAmount(event.target.value));
         setLumpsumAmount(event.target.value);
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(SaveTaxInvestmentMonthlyAction(event.target.value));
+        dispatch(insuranceUlipMonthlyAction(investmentType));
+        dispatch(insuranceUlipAmount(event.target.value));
         setMonthlyAmount(event.target.value);
     };
 
@@ -171,19 +179,22 @@ const UlipBox = () => {
         Legend
     );
     useEffect(() => {
+      dispatch(insuranceUlipLumpsumAction(investmentType))
+    }, [])
+    
+    useEffect(() => {
         const urlTemp: ulipReturnApiParamsTypes = {
-            frequencytype: investmentType === MONTHLY ? '0' : '1', 
-            amount: '10000'
+            frequencytype: investmentType === ULIP_MONTHLY ? '0' : '1', 
+            amount: ulipInsuranceAmount,
         }
      dispatch(getUlipReturnApi(urlTemp))
-    }, [])
+    }, [ulipInsuranceAmount])
 
     useEffect(() => {
-       const labels = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.years + 'Y')
-       const investedamount = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.investedamount)
-       const projectedamount = ulipReturnApiData.map((item:getUlipReturnApiTypes) => item.projectedamount)
+       const labels = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.years + 'Y')
+       const investedamount = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.investedamount)
+       const projectedamount = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.projectedamount)
 
-       console.log("labels : ", labels)
        setChartLabels(labels)
        setChartInvestedAmount(investedamount)
        setChartProjectedAmount(projectedamount)
@@ -235,16 +246,16 @@ const UlipBox = () => {
 
     const handleNavigationFlow = () => {
         // navigate('/ulip/recommendations')
-        if(investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0){
+        if(investmentType === ULIP_LUMPSUM && parseInt(lumpsumAmount) > 0){
             if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
-                dispatch(SaveTaxInvestmentLumpsumAction(LUMPSUM));
+                dispatch(insuranceUlipLumpsumAction(ULIP_LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
                 navigate('/ulip/recommendations')
             } else {
                 alert('Enter amount multiple of 100!')
             }
-        }else if(investmentType === MONTHLY && parseInt(monthlyAmount) > 0){
-                dispatch(SaveTaxInvestmentMonthlyAction(MONTHLY));
+        }else if(investmentType === ULIP_MONTHLY && parseInt(monthlyAmount) > 0){
+                dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
                 dispatch(SaveTaxInvestmentAmount(monthlyAmount))
                 navigate('/ulip/recommendations')
                 // navigate('/saveTax/saveTaxInvestmentType')
@@ -315,7 +326,7 @@ const UlipBox = () => {
                                                                 value={investmentType}
                                                                 onChange={handleRadioChange}
                                                             >
-                                                                <Box className={investmentType === MONTHLY ? classes.investmentField : classes.investmentFieldSelected}>
+                                                                <Box className={investmentType === ULIP_MONTHLY ? classes.investmentField : classes.investmentFieldSelected}>
                                                                     <TextField
                                                                         label="I want to invest"
                                                                         id="outlined-start-adornment"
@@ -324,10 +335,10 @@ const UlipBox = () => {
                                                                         onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
                                                                         InputProps={{
                                                                             endAdornment: <InputAdornment position="start">
-                                                                                <FormControlLabel value={LUMPSUM} control={<Radio />} label="Lumpsum" />
+                                                                                <FormControlLabel value={ULIP_LUMPSUM} control={<Radio />} label="Lumpsum" />
                                                                             </InputAdornment>,
                                                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                                                            readOnly: investmentType === LUMPSUM ? false : true,
+                                                                            readOnly: investmentType === ULIP_LUMPSUM ? false : true,
                                                                         }}
                                                                         className={classes.textField}
                                                                         fullWidth
@@ -341,7 +352,7 @@ const UlipBox = () => {
                                                                     <Divider sx={{ width: '30%' }} />
                                                                 </Box>
 
-                                                                <Box className={investmentType === LUMPSUM? classes.investmentField : classes.investmentFieldSelected}>
+                                                                <Box className={investmentType === ULIP_LUMPSUM? classes.investmentField : classes.investmentFieldSelected}>
 
                                                                     <TextField
                                                                         label="I want to invest"
@@ -350,10 +361,10 @@ const UlipBox = () => {
                                                                         onChange={handleMonthly}
                                                                         InputProps={{
                                                                             endAdornment: <InputAdornment position="start">
-                                                                                <FormControlLabel value={MONTHLY} control={<Radio />} label="Monthly" />
+                                                                                <FormControlLabel value={ULIP_MONTHLY} control={<Radio />} label="Monthly" />
                                                                             </InputAdornment>,
                                                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                                                            readOnly: investmentType === MONTHLY ? false : true,
+                                                                            readOnly: investmentType === ULIP_MONTHLY ? false : true,
                                                                         }}
                                                                         className={classes.textField}
                                                                         fullWidth
@@ -378,7 +389,7 @@ const UlipBox = () => {
                                                             </FormControl>
                                                         </Box>
                                                     </Grid>
-                                                    <Grid item xs={12} md={6}>
+                                                    <Grid item xs={12} md={6} style={{height: '100%'}}>
                                                         {/* <UlipPlanPerformanceCard /> */}
                                                         <Box className={classes.performanceGraphCard}>
                                                             <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>ULIP Plan Performance</Typography>

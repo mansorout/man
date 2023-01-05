@@ -26,7 +26,7 @@ import {
     LUMPSUM,
     MONTHLY,
     saveTaxPercentageAmountAction
-} from '../../Store/Duck/SaveTaxInvestmentType';
+} from '../../Store/Duck/InvestmentType';
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
 import Dialog from '@mui/material/Dialog';
 
@@ -163,14 +163,13 @@ const SaveTaxAmount = () => {
 
 
     useEffect(() => {
-      
+        
+            if(moduleDefaultList.length === 0 || moduleDefaultList.length === undefined){
+                navigate('/saveTax')   
+            }
       moduleDefaultList.length > 0 && moduleDefaultList.map((item:moduleDefaultListObjectType) => {
         if(item?.key === moduleDefaultListkeys?.taxsaving_percentage) setSaveTaxPercentageAmount(item?.value)
     })
-
-    if(moduleDefaultList.length === 0 || moduleDefaultList.length === undefined){
-        navigate('/saveTax')   
-    }
     
     }, [moduleDefaultList])
 
