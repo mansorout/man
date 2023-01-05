@@ -13,6 +13,8 @@ import React, { MouseEvent, ReactElement, useRef } from 'react'
 import { getDatasetAtEvent, getElementsAtEvent, Line, getElementAtEvent } from 'react-chartjs-2';
 import { Chart as ChartJS, InteractionItem } from 'chart.js';
 import { Box } from '@mui/system'
+import {  Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 // import faker from 'faker';
 //   import { faker } from '@faker-js/faker';
 
@@ -57,6 +59,17 @@ import { Box } from '@mui/system'
 //       },
 //     ]
 //   };
+const useStyles: any = makeStyles((theme: Theme) => ({
+  chartWrapper:{
+    '& canvas':{
+      minHeight: '243px',
+    height: 'auto',
+    maxHeight: '410px',
+    width: '100%',
+    minWidth: '350px',
+    }
+  }
+}))
 
 interface LineChartProps {
   optionsValues: any;

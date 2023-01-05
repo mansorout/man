@@ -41,22 +41,14 @@ export const FundChart = () => {
     <>
       <Box
         sx={{
-          margin: "1rem",
+         
           borderRadius: "8px",
           backgroundColor: "white",
           boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         }}
       >
         <Line data={data} />
-        {/* <img
-          src={fundChart}
-          alt="box Chart"
-          style={{
-            width: "100%",
-            height: "297px",
-            maxWidth: "-webkit-fill-available",
-          }}
-        /> */}
+       
       </Box>
     </>
   );

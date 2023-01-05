@@ -16,7 +16,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { PinModalHome } from './Duck/PINModalHome'
 import { ULIPCompare } from './Duck/ULIPCompare'
 import { FilterBox } from './Duck/FilterBox'
-import { SaveTaxInvestmentTypeReducers } from './Duck/SaveTaxInvestmentType'
+import { InvestmentTypeReducers } from './Duck/InvestmentType'
 import { submituserdetails } from './Reducers/action'
 import UserDetailsReducer from './Reducers/UserDetailsReducer'
 import authReducer from './Authentication/reducer/auth-reducers'
@@ -49,7 +49,7 @@ const rootReducer = combineReducers({
     PinModalHome: PinModalHome,
     ULIPCompare: ULIPCompare,
     // investment: investmentReducer,
-    SaveTaxInvestmentType: SaveTaxInvestmentTypeReducers,
+    InvestmentTypeReducers: InvestmentTypeReducers,
     userProfileDetails: UserDetailsReducer,
 
     globalReducer: globalReducer,

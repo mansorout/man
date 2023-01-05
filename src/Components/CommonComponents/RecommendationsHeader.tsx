@@ -17,8 +17,13 @@ import {
     SaveTaxInvestmentMonthlyAction,
     SaveTaxInvestmentAmount,
     LUMPSUM,
-    MONTHLY
-} from '../../Store/Duck/SaveTaxInvestmentType'
+    MONTHLY,
+    ULIP_LUMPSUM,
+    ULIP_MONTHLY,
+    insuranceUlipLumpsumAction,
+    insuranceUlipMonthlyAction,
+    insuranceUlipAmount
+} from '../../Store/Duck/InvestmentType'
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
 
 
@@ -102,6 +107,8 @@ interface RecommendationsHeaderPropsType {
     investmentTypeLabel: string;
     // investmentTypeStartIcon: React.ReactElement<any>;
     // investmentTypeEndIcon: React.ReactElement<any>;
+    investmentType: string;
+    investmentAmount: string;
     // changeInvestmentTypeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
     boxInputLabelText: string;
     boxInputShow:boolean;
@@ -116,7 +123,7 @@ interface RecommendationsHeaderPropsType {
 const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     const classes = useStyles();
     const dispatch: any = useDispatch();
-    const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
+    // const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
 
     // const [premiumPaymentTerm, setPremiumPaymentTerm] = useState<string>('5')
     // const [investmentAmount, setInvestmentAmount] = useState<string>('')
@@ -137,15 +144,24 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     // }, [amount])
     
     const handleInvestmentAmount = () => {
-        if (investmentType === LUMPSUM) {
+        if (props?.investmentType === LUMPSUM) {
             if (isMultipleofNumber(parseInt(amount), 100)) {
                 dispatch(SaveTaxInvestmentAmount(amount))
-                props.boxInputHideHandleChange()
+                props?.boxInputHideHandleChange()
             }else {
                 alert('Enter amount multiple of 100!')
             }
-        } else {
+        } else if (props?.investmentType === MONTHLY) {
             dispatch(SaveTaxInvestmentAmount(amount))
+        }else if (props?.investmentType === ULIP_LUMPSUM) {
+            if (isMultipleofNumber(parseInt(amount), 100)) {
+                dispatch(insuranceUlipAmount(amount))
+                props?.boxInputHideHandleChange()
+            }else {
+                alert('Enter amount multiple of 100!')
+            }
+        }else if (props?.investmentType === ULIP_MONTHLY) {
+            dispatch(insuranceUlipAmount(amount))
         }
     }
 
@@ -154,15 +170,15 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
             <Grid container>
                 <Grid xs={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
                     <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect} fullWidth>
-                        <InputLabel id="demo-simple-select-standard-label">{props.selectTextLabel}</InputLabel>
+                        <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={props.selectChoosedValue}
-                            onChange={props.changeSelectEvent}
+                            value={props?.selectChoosedValue}
+                            onChange={props?.changeSelectEvent}
                             label="Age"
                         >
-                            {props.selectArray.map((item,index) => (
+                            {props?.selectArray.map((item,index) => (
                                 <MenuItem value={item} key={index}>{item} Years</MenuItem>
                             ))}
                             {/* <MenuItem value={5}>5 Years</MenuItem>
@@ -174,13 +190,13 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                 <Grid xs={6} item sx={{ padding: '15px' }}>
                     <Box>
                         <TextField
-                            label={props.investmentTypeLabel}
+                            label={props?.investmentTypeLabel}
                             id="outlined-start-adornment"
-                            value={investmentAmount}
+                            value={props?.investmentAmount}
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <CreateOutlinedIcon sx={{ cursor: 'pointer' }} onClick={props.boxInputShowHandleChange} />,
+                                endAdornment: <CreateOutlinedIcon sx={{ cursor: 'pointer' }} onClick={props?.boxInputShowHandleChange} />,
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
                             className={classes.headerInvestmentTypeInput}
@@ -188,7 +204,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     </Box>
                 </Grid>
             </Grid>
-            <Box className={`${classes.inputWrapper} ${props.boxInputShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
+            <Box className={`${classes.inputWrapper} ${props?.boxInputShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
                 <TextField
                     label="Amount I want to invest monthly"
                     id="outlined-start-adornment"
@@ -196,7 +212,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
                     type='number'
                     InputProps={{
-                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={investmentAmount === '' && true} variant="contained">{props.boxInputButtonText}</Button>,
+                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={props?.investmentAmount === '' && true} variant="contained">{props?.boxInputButtonText}</Button>,
                         startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                         // readOnly: investmentType === 'monthly' ? false : true,
                     }}
