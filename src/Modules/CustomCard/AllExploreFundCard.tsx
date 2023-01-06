@@ -141,8 +141,11 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
     } as React.CSSProperties,
   }
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
+  const [exploreFundData,setExploreFundData] = useState<any>({});
   const url = name.replace(/ /g, '')
   const navigate = useNavigate()
+
+  
 
   return (
     <>
