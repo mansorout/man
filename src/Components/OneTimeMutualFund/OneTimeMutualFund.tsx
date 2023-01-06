@@ -271,14 +271,12 @@ const OneTimeMutualFund = () => {
         if (res && res.length) {
           let objMF: any = res.filter((item: any) => item?.recommendationtype === "Mutual Fund")[0];
           let arrRecomm: any[] = objMF ? objMF["recommendations"] : {};
-          console.log(arrRecomm, "arrRecomm prev");
           for (let i = 0; i < arrRecomm.length; i++) {
             arrRecomm[i] = {
               ...arrRecomm[i],
               ...initialMFData
             }
           }
-          console.log(arrRecomm, "arrRecomm, new");
           setMfCards(arrRecomm)
         }
       }).catch(err => {

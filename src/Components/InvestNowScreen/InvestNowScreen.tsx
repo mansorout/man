@@ -384,7 +384,7 @@ function InvestNowScreen(props: IProps) {
   
   const chartDataDetails: any = useMemo(() => {
     return {
-      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]),
+      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
       datasets: [
         {
           label: "Projected Value",
