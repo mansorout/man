@@ -16,6 +16,7 @@ const siteConfig = Object.freeze({
   USER_EMAIL: "user_email",
   ACCESS_TOKEN_KEY: "access_token",
   CONTACT_NUMBER: "contact_number",
+  INVESTMENT_CARD_TYPE: "investment_card_type",
 
   /**API ID's */
   AUTHENTICATION_API_ID: "k41xvsg1t7",
@@ -52,13 +53,15 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_BANK_ADD: "/authentication/bank/add/",
   AUTHENTICATION_SIGNATURE_ADD: "/authentication/signature/add/",
   AUTHENTICATION_CHEQUE_ADD: "/authentication/cheque/add/",
-  AUTHENTICATION_SIGNATURE_VIEW:"/authentication/signature/view/",
-  
+  AUTHENTICATION_SIGNATURE_VIEW: "/authentication/signature/view/",
+
 
 
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
+  RECOMMENDATION_MUTUALFUND_LIST:"/recommendation/mutualfund/list/",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
+  RECOMMENDATION_FUND_RETURN: "/recommendation/fund/return/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',
   RECOMMENDATION_SAVETAX_LIST: '/recommendation/savetax/list',
   RECOMMENDATION_ULIP_GENERATE: '/recommendation/ulip/generate/',

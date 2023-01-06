@@ -373,17 +373,19 @@ const StartInvestment = () => {
         setActiveButton(enumType.MONTHLY_INCOME);
         dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
         getinvestmentTypeListDataWrtLookupId(investmentTypeValues.SIP);
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT)
       } else if (cardType === globalConstant.LUMPSUM_INVESTMENT) {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
         dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
         getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
       }
-    } else {
-      setActiveButton(enumType.ONE_TIME_LUMSOM);
-      dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
-      getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
     }
-
+    //  else {
+    //   setActiveButton(enumType.ONE_TIME_LUMSOM);
+    //   dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+    //   getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+    // }
   }, []);
 
 
@@ -431,6 +433,7 @@ const StartInvestment = () => {
       });
 
       dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+      localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT)
     } else if (activeButtonType === enumType.ONE_TIME_LUMSOM) {
       navigate("/oneTimeInvestment", {
         state: {
@@ -439,6 +442,7 @@ const StartInvestment = () => {
       });
 
       dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+      localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
     }
   };
 
