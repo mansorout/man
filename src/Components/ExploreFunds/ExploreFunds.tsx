@@ -17,7 +17,6 @@ import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
 import { ExploreFundsList } from '../../Modal/ExploreFunds'
 import { useSelector } from 'react-redux'
 
-
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -140,8 +139,7 @@ function ExploreFunds() {
   }
 
   const [fundList, setFundList] = useState<any[]>([])
-  const [selected, setSelected] = useState<number>(1)
-  const [fundListApi,setfundListApi] = useState<any[]>([])
+
   const menuActions = React.useRef<MenuUnstyledActions>(null);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
@@ -151,25 +149,28 @@ function ExploreFunds() {
   //   setAnchorEl(null) :
   //   setAnchorEl(event.currentTarget)
   // };
+  const [explorefundsfromapi,setexplorefundsfromapi] = useState<any[]>([])
   const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
   console.log(explorFundlist)
+  console.log(explorFundlist?.data)
+ 
+ explorFundlist?.data.map((value:any)=>{
+    console.log(value.fundname)
+  })
+
+  // console.log(explorFundlist?.data[0])
+
+  useEffect(()=>{
+    setFundList(ExploreFundsList)
+    setexplorefundsfromapi( explorFundlist?.data)
+    console.log(explorefundsfromapi)
+  },[])
+  
   
 
   // useEffect(()=>{
-  //   setfundListApi(ExploreFundsList)
+  //   setFundList(ExploreFundsList)
   // },[])
-  // console.log(fundListApi)
-  // console.log(fundListApi[0])
-  
-  // console.log(fundListApi[0]?.cap)
-  // console.log(fundListApi[0]?.logo)
-  // console.log(fundListApi[0]?.name)
-  // console.log(fundListApi[0]?.price)
-  // console.log(fundListApi[0]?.star)
-  // console.log(fundListApi[0]?.type)
-  // console.log(fundListApi[0]?.year1)
-  // console.log(fundListApi[0]?.year3)
-  // console.log(fundListApi[0]?.year5)
 
   const classes = useStyles()
 
@@ -177,8 +178,7 @@ function ExploreFunds() {
 
   const navigate = useNavigate();
 
-  
-  
+  const [selected, setSelected] = useState<number>(1)
 
   return (
       <Box style={{width: "100vw"}} ref={refContainer}>
@@ -232,7 +232,7 @@ function ExploreFunds() {
                 </Box>
                 
                 {
-                  fundList.length &&   fundList.map((item:any,key:number) => {
+                  explorefundsfromapi.length &&   explorefundsfromapi.map((item:any,key:number) => {
                     return(
                       <>
                         <AllExploreFundCard {...item} key={key} />
