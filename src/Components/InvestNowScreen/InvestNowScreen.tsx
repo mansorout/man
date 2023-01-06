@@ -39,7 +39,7 @@ import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typograp
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
-import { setInvestmentCardTypeAction } from '../../Store/Investment/actions/investment-action';
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
 
 type IProps = {
   cardType: string;
@@ -373,7 +373,7 @@ function InvestNowScreen(props: IProps) {
   const timerRef: any = useRef();
 
   const g_investment = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
   
   const [error, setError] = useState<string>("");

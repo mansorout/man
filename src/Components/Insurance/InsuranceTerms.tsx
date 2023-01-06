@@ -40,6 +40,7 @@ import LoopIcon from '@mui/icons-material/Loop';
 import { useDispatch } from 'react-redux';
 import {postTermPurchase} from '../../Store/Insurance/thunk/insurance-thunk'
 import FormHelperText from '@mui/material/FormHelperText';
+import { setTermDataSuccessAction } from '../../Store/Insurance/actions/insurance-actions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -73,6 +74,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 color: 'var(--uiWhite)',
             }
         }
+    },
+    quickSelectedAmount:{
+        backgroundColor: 'var(--ui1Color) !important',
+        color: 'var(--uiWhite) !important',
     },
     premiumAmountFooter: {
         backgroundColor: 'var(--uiWhite)',
@@ -289,7 +294,8 @@ const InsuranceTerms = () => {
                 frequencytype: 0,
                 issmoker : tobaccoSelect === 'yes' ? 1 : 0,
             }
-            dispatch(postTermPurchase(data))
+            dispatch(setTermDataSuccessAction(data))
+            // dispatch(postTermPurchase(data)) 
             setTimeout(() => {
                 navigate('/explorePlan')
             }, 1000);
@@ -330,7 +336,16 @@ const InsuranceTerms = () => {
                         <ul className={classes.quickSelectWrapper}>
                             {
                                 quickPickAmount.map((item, index) => (
-                                    <li key={index} onClick={() => setInsuranceAmount(item)}>{`₹${item}`}</li>
+                                    <li 
+                                    key={index}
+                                     onClick={() =>{
+                                         setInsuranceAmount(item); 
+                                        setInsuranceAmountError(false);
+                                    }}
+                                     className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
+                                     >
+                                        {`₹${item}`}
+                                     </li>
                                 ))
                             }
                         </ul>

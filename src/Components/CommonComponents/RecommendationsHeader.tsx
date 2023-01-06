@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Dialog, Grid, Modal, Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import InputLabel from '@mui/material/InputLabel';
@@ -97,6 +97,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 margin: '0'
         }
     },
+    modalTextButton:{
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+    },
+    modalText:{
+        padding: '20px'
+    }
 }))
 
 interface RecommendationsHeaderPropsType {
@@ -128,6 +136,10 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     // const [premiumPaymentTerm, setPremiumPaymentTerm] = useState<string>('5')
     // const [investmentAmount, setInvestmentAmount] = useState<string>('')
     const [amount, setAmount] = useState<string>('')
+    const [validationAlertDialog, setValidationAlertDialog] = useState({
+        msg: '',
+        bool: false,
+    })
     // const [inputFeildShow, setInputFeildShow] = useState<boolean>(false)
 
 
@@ -144,19 +156,38 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     // }, [amount])
     
     const handleInvestmentAmount = () => {
+        if(parseInt(amount) > 150000){
+            setValidationAlertDialog({
+                msg: 'Amount should be less than 150000',
+                bool: true,
+            })
+            return 
+        }
+
         if (props?.investmentType === LUMPSUM) {
             if (isMultipleofNumber(parseInt(amount), 100)) {
                 dispatch(SaveTaxInvestmentAmount(amount))
                 props?.boxInputHideHandleChange()
             }else {
-                alert('Enter amount multiple of 100!')
+                setValidationAlertDialog({
+                    msg: 'Enter amount multiple of 100!',
+                    bool: true,
+                })
             }
         } else if (props?.investmentType === MONTHLY) {
+            if(parseInt(amount) < 15000){
+                // alert('alert')
+                setValidationAlertDialog({
+                    msg: 'Amount should be more than 15,000',
+                    bool: true,
+                })
+                return 
+            }
             dispatch(SaveTaxInvestmentAmount(amount))
         }else if (props?.investmentType === ULIP_LUMPSUM) {
             if (isMultipleofNumber(parseInt(amount), 100)) {
                 dispatch(insuranceUlipAmount(amount))
-                props?.boxInputHideHandleChange()
+                props?.boxInputHideHandleChange() 
             }else {
                 alert('Enter amount multiple of 100!')
             }
@@ -220,6 +251,19 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     fullWidth
                 />
             </Box>
+            
+            
+            <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({...validationAlertDialog, bool: false})}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
+                <Button onClick={() => setValidationAlertDialog({...validationAlertDialog, bool: false})} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'var(--primaryColor)',
+                    color: '#7b7b9d'
+                }}>
+                    OK
+                </Button>
+            </Dialog>
+            
         </Box >
     )
 }

@@ -72,7 +72,7 @@ const ModalInvestNow = (props: any) => {
   const dispatchLocal = useDispatch();
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
   const objUserDetails: any = customParseJSON(
     localStorage.getItem(siteConfig.USER_INFO)

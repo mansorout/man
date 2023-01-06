@@ -5,7 +5,9 @@ export const globalConstant = Object.freeze({
     EQUITY: "Equity",
     DEBT: "Debt",
     BALANCED: "Balanced",
-    ERROR_OCCURRED: "Some error occurred!"
+    ERROR_OCCURRED: "Some error occurred!",
+    RECOMMENDATIONS: "recommendations",
+    MUTUAL_FUND: "Mutual Fund"
 })
 
 export const lookUpMasterKeys: any = Object.freeze({

@@ -4,7 +4,7 @@ import { Grid, Modal, Theme, Typography } from '@mui/material'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     insuranceTextSaving: {
-        padding: '30px 15px',
+        padding: '20px 15px',
         position: 'relative',
         // paddingBottom: '160px',
         height: 'calc(100% - 75px)',
