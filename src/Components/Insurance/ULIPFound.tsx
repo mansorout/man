@@ -24,6 +24,8 @@ import ULIPCard from "../../Modules/CustomCard/ULIPCard";
 import { FilterAltOutlined, SearchOutlined } from "@mui/icons-material";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 import HealthFilter from "./HealthFilter";
+import AllTrancationCard from "../../Modules/CustomCard/AllTransactionCard";
+import { useDispatch } from "react-redux";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   select: {
@@ -164,7 +166,7 @@ function ULIPFound() {
   const [sumAmount, setSumAmount] = useState<string>("");
   const [showGotit, setShowGotit] = useState<any>(false);
 
-  const [transactions, setTransactions] = useState<any[]>([])
+  const [transactions, setTransactions] = useState<any[]>([]);
 
   const handleSumChange = (e: any) => {
     setSumAmount(e.target.value as string);
@@ -176,7 +178,7 @@ function ULIPFound() {
   };
 
   const classes = useStyles();
-
+  const dispatch: any = useDispatch();
   const handleFilter = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -272,43 +274,49 @@ function ULIPFound() {
 
               {sumAmount !== "" && member !== "" ? (
                 <>
-                  \
-                  <Grid container spacing={1}>
-                    <Grid item xs={12} md={12} textAlign="right">
-                      <Box
-                        style={{
-                          border: "1px solid #dddfe2",
-                          boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                          borderRadius: "4px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                          padding: "5px 14px",
-                        }}
-                      >
-                        <SearchOutlined style={{ color: "#7b7b9d" }} />
-                        <InputBase
-                          placeholder="Search Transactions"
-                          onChange={(e) =>
-                            setTransactions(
-                              transactions.filter((item: { name: string; }) =>
-                                item.name
-                                  .toLowerCase()
-                                  .includes(e.target.value.toLowerCase())
-                              )
-                            )
-                          }
-                          style={{ color: "#7b7b9d", minWidth: "250px" }}
-                        ></InputBase>
-                        <IconButton onClick={handleFilter}>
-                          <FilterAltOutlined style={{ color: "#09b85d" }} />
-                        </IconButton>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                  <HealthFilter
                
-                  />
+
+                  <HealthFilter />
+                  {transactions.filter((item) => item.month == "april").length >
+                  0 ? (
+                    <Typography
+                      style={{
+                        textAlign: "center",
+                        color: "#7b7b9d",
+                        fontSize: "12px",
+                      }}
+                    >
+                      This Month - April 2021
+                    </Typography>
+                  ) : null}
+
+                  <Box p={2}>
+                    {transactions
+                      .filter((item) => item.month == "april")
+                      .map((item, index) => {
+                        return <AllTrancationCard {...item} key={index} />;
+                      })}
+                  </Box>
+                  {transactions.filter((item) => item.month == "march").length >
+                  0 ? (
+                    <Typography
+                      style={{
+                        textAlign: "center",
+                        color: "#7b7b9d",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Previous Month - March 2021
+                    </Typography>
+                  ) : null}
+
+                  <Box p={2}>
+                    {transactions
+                      .filter((item) => item.month == "march")
+                      .map((item, index) => {
+                        return <AllTrancationCard {...item} key={index} />;
+                      })}
+                  </Box>
                   <Grid item xs={12} my={3}>
                     <Typography
                       style={{
@@ -320,9 +328,17 @@ function ULIPFound() {
                     >
                       {ULIPList.length} ULIP Plan Found
                     </Typography>
-                    <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>
+                    <Grid container spacing={1} textAlign="right" sx={{marginTop:"-3%",marginLeft:"-2%"}} >
+                    <Grid item xs={12} md={12}>
+                      <IconButton onClick={(e) => handleFilter(e)}>
+                        <FilterAltOutlined style={{ color: "#09b85d" }} />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                    <Typography style={{ color: "#7b7b9d", fontSize: "14px",marginTop:"0%" }}>
                       One-time lumsum investment of <b>{sumAmount}</b>
                     </Typography>
+                  
                   </Grid>
                   <Grid item xs={12}>
                     {ULIPList.map((item, index) => {
@@ -341,11 +357,6 @@ function ULIPFound() {
 
 export default ULIPFound;
 
-function dispatch(
-  arg0: (dispatch: import("redux").Dispatch<any>) => Promise<void>
-) {
-  throw new Error("Function not implemented.");
-}
 // function dispatch(
 //   arg0: (dispatch: import("redux").Dispatch<any>) => Promise<void>
 // ) {
