@@ -4,9 +4,12 @@ import {
     postTermPurchaseProps,
     ulipReturnApiParamsTypes,
     getUlipReturnApiTypes,
-    sendUlipGenrateApiTypes
+    sendUlipGenrateApiTypes,
+    // genrateApiTypes
 } from '../constants/types'
 import {
+    setTermGenerateSuccessAction,
+    setTermGenerateFailAction,
     setTermPurchaseSuccessAction,
     setTermPurchaseFailAction,
     setUlipReturnSuccessAction,
@@ -14,10 +17,53 @@ import {
     setUlipGenrateSuccessAction,
     setUlipGenrateFailAction,
     setUlipListFailAction,
-    setUlipListSuccessAction
+    setUlipListSuccessAction,
+    setTermListFailAction,
+    setTermListSuccessAction
 } from '../actions/insurance-actions'
 import { checkExpirationOfToken } from '../../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Authentication/actions/auth-actions'
+
+
+export const postTermGenerate = (bodyData: postTermPurchaseProps) => {
+    return (dispatch: any) => {
+        postData(
+            bodyData,
+            siteConfig.RECOMMENDATION_TERM_GENERATE,
+            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+            siteConfig.RECOMENDATION_API_ID,
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setTermGenerateSuccessAction(data?.data))
+        }).catch((error) => {
+            dispatch(setTermGenerateFailAction(error?.error))
+        })
+
+    }
+}
+
+export const getTermListApi = (recommendation_id : number) => {
+    return (dispatch: any) => {
+        getData(
+            siteConfig.RECOMMENDATION_TERM_LIST + `/?recommendation_id=${recommendation_id}`,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.RECOMENDATION_API_ID,
+        ).then((res) => res.json()).then((data) => {
+            if (checkExpirationOfToken(data?.code)) {
+                dispatch(setTokenExpiredStatusAction(true));
+                return;
+            }
+            dispatch(setTermListSuccessAction(data?.data))
+        }).catch((error) => {
+            dispatch(setTermListFailAction(error?.error))
+        })
+
+    }
+}
+
 
 export const postTermPurchase = (bodyData: postTermPurchaseProps) => {
     return (dispatch: any) => {

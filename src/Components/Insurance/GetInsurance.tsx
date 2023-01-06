@@ -48,6 +48,18 @@ const GetInsurance = () => {
                         </Grid>
                     </Grid>
                     <Grid container>
+                <Grid item xs={12} sx={{ padding: '20px 14px' }} >
+                    <HorizontalImgIconLongcard
+                        heading='Term Insurance'
+                        subHeading='Get 1 Cr life cover for as low as ₹490 per month!'
+                        imgUrl={`${process.env.PUBLIC_URL}/assets/images/term-insurance.svg`}
+                        headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
+                        navigatIcon={<ArrowForwardIcon />}
+                        showInsuranceTerms={handleInsuranceTermCondition}
+                    />
+                </Grid>
+            </Grid>
+                    {/* <Grid container>
                         <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
                             <BoxCard
                                 heading='Vehicle Insurance'
@@ -68,7 +80,7 @@ const GetInsurance = () => {
                                 btnClick={()=>{}}
                             />
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
                 <Grid sx={{}} item xs={12} sm={4}>
                     <Grid container sx={{ margin: '15px 0px', height: '100%' }}>
@@ -96,7 +108,7 @@ const GetInsurance = () => {
                 </Grid>
             </Grid>
 
-            <Grid container>
+            {/* <Grid container>
                 <Grid item xs={12} sx={{ padding: '20px 14px' }} >
                     <HorizontalImgIconLongcard
                         heading='Term Insurance'
@@ -107,7 +119,7 @@ const GetInsurance = () => {
                         showInsuranceTerms={handleInsuranceTermCondition}
                     />
                 </Grid>
-            </Grid>
+            </Grid> */}
         </div>
     )
 }
