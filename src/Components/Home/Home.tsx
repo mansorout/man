@@ -24,7 +24,7 @@ import { PinModalHomeCloseAction } from '../../Store/Duck/PINModalHome'
 import { globalConstant, lookUpMasterKeys } from '../../Utils/globalConstant'
 import { getDataWithoutToken } from '../../Utils/api'
 import siteConfig from '../../Utils/siteConfig'
-import { setBannerSectionListAction } from '../../Store/Global/actions/global-actions'
+import { setBannerSectionListAction, setMasterFundListAction } from '../../Store/Global/actions/global-actions'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -220,6 +220,7 @@ const Home = () => {
         }
 
         // let arrCompanyCardsLocal = [...companyCardsLocal];
+        dispatch(setMasterFundListAction(data?.data))
         console.log(data?.data);
         // setCompanyCardLocal(data?.data);
 
