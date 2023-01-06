@@ -1,24 +1,11 @@
-
-// const initialState: any = {
-
-// }
-
-// const insuranceReducer = (state = initialState, action: any) => {
-
-//   switch (action.type) {
-//     case "": {
-//       return action.payload
-//     }
-//   }
-// }
-
-// export default insuranceReducer;
+import { SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT } from "../constants/recommendations-constant";
 
 const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
+  mutaulFundListWrtUserAmount: { data: {} },
 }
 
-export default function investmentReducer(objState = objInitialState, action: any) {
+export default function recommendationsReducer(objState = objInitialState, action: any) {
   switch (action.type) {
     case 'SET_INVESTMENT_TYPE': {
       objState.investment = {
@@ -31,6 +18,13 @@ export default function investmentReducer(objState = objInitialState, action: an
       objState.investment = {
         ...objState.investment,
         ["openDetailDialog"]: action.payload
+      }
+      break;
+    }
+    case SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT: {
+      objState.mutaulFundListWrtUserAmount = {
+        ...objState.mutaulFundListWrtUserAmount,
+        data: action.payload
       }
       break;
     }

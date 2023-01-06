@@ -244,19 +244,9 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={12} sm={11} md={10} sx={{
-                        height: "100vh",
-                        overflow: "scroll",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginLeft: { xs: '5vw', sm: '12vw', md: '28vw' },
-                    }}>
+                    <Grid item xs={12} sm={11} md={10}>
                         <Toolbar />
-                        <Breadcrumbs sx={{
-                            fontSize: '12px',
-                            color: '#6c63ff',
-                            marginBottom: '3vw',
-                        }}>
+                        <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
                             <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
@@ -264,6 +254,7 @@ const BankAccountDetails = () => {
                                 color: '#373e42'
                             }}>Bank Account</Typography>
                         </Breadcrumbs>
+                        <Box className="BoxPadding">
                         <Box component="form" sx={{
                             gap: { xs: '15px', sm: '1vw', md: '1vw', lg: '1vw' },
                             width: '90%',
@@ -271,7 +262,7 @@ const BankAccountDetails = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5vw',
+                            padding: '20px',
                             borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
@@ -437,6 +428,7 @@ const BankAccountDetails = () => {
                                 ><Typography sx={{color:"white",size:"16px",fontWeight:"500"}}>
                                     Continue</Typography></Button>
                             </FormControl>
+                        </Box>
                         </Box>
                     </Grid>
                 </Grid>

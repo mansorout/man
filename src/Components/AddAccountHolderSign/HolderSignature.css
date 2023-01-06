@@ -8,11 +8,6 @@
     margin-left: 0 !important;
 }
 
-/* @media only screen and (min-width: 375px)
-{
-  
-} */
-
 
 .mainContainer {
 
@@ -388,8 +383,6 @@ CSS
     }
 
 }
-
-
 
 @media only screen and (max-device-width: 540px) {
 

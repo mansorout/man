@@ -24,7 +24,11 @@ import { PinModalHomeCloseAction } from '../../Store/Duck/PINModalHome'
 import { globalConstant, lookUpMasterKeys } from '../../Utils/globalConstant'
 import { getDataWithoutToken } from '../../Utils/api'
 import siteConfig from '../../Utils/siteConfig'
-import { setBannerSectionListAction } from '../../Store/Global/actions/global-actions'
+import { setBannerSectionListAction, setMasterFundListAction } from '../../Store/Global/actions/global-actions'
+import { getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
+import { checkExpirationOfToken } from '../../Utils/globalFunctions'
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
+import { apiResponse } from '../../Utils/globalTypes'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -207,27 +211,20 @@ const Home = () => {
     getExploreFundList()
   }
 
-  const getExploreFundList = () => {
-    getDataWithoutToken(
-      siteConfig.RECOMMENDATION_FUND_LIST,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.RECOMENDATION_API_ID
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error === true) {
-          return;
-        }
+  const getExploreFundList = async () => {
+    let data: apiResponse = await getMasterFundListThunk();
+    if (checkExpirationOfToken(data?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
 
-        // let arrCompanyCardsLocal = [...companyCardsLocal];
-        console.log(data?.data);
-        // setCompanyCardLocal(data?.data);
+    if (data?.error === true) {
+      return;
+    }
 
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    dispatch(setMasterFundListAction(data?.data));
   }
+  
 
   const getMasterKeyData = (key: string) => {
     getDataWithoutToken(

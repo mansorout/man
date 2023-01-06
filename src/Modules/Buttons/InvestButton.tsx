@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalInvestNow from "../../Components/InvestNowScreen/ModalInvestNow";
 import { globalConstant } from "../../Utils/globalConstant";
 import { Button, Grid, Typography } from "@mui/material";
-import { setInvestmentCardTypeAction } from "../../Store/Investment/actions/investment-action";
+import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
 import { customParseJSON } from "../../Utils/globalFunctions";
 
@@ -32,7 +32,7 @@ export const InvestButton = (props: IProps) => {
   const dispatch = useDispatch();
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
 
   const [showLogin, setShowLogin] = useState(false);

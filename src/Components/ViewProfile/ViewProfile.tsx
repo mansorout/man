@@ -196,7 +196,7 @@ const ViewProfile = () => {
   // console.log(insuranceTermConditionState)
 
   return (
-    <Box style={{ width: "100vw" }} ref={refContainer}>
+    <Box className="BoxProfilePage" style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
         <Grid container spacing={0} sx={{ height: "auto" }}>
@@ -204,10 +204,11 @@ const ViewProfile = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={13} sm={11} md={10}>
-            <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={11} md={10} className="ScrollBarStyle">
+          <Grid container xs={12} sm={11} md={10}>
+            <Box style={{ width: "100vw" }}>
+            <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={12} md={12} className="ScrollBarStyle">
               <Toolbar />
-              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="#6495ED" underline="always" href='Home' >
                     <Typography className='burgerText'> Home</Typography>
@@ -217,17 +218,20 @@ const ViewProfile = () => {
                   </Link>
                 </Breadcrumbs>   
               </Box>
-              <Grid container>
-                <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }} >
+              <Box className="BoxPadding">
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6} >
                   <ViewProfileCard
                     userDetails={userDetails?.userdetails}
                   />
                 </Grid>
-                <Grid item xs={12} md={6} sx={{ padding: { xs: 0, sm: 3 } }}>
+                <Grid item xs={12} md={6}>
                   <VviewprofileCard kycDetails={userDetails?.kycdetails} />
                 </Grid>
               </Grid>
+              </Box>
             </Grid>
+            </Box>
           </Grid>
         </Grid>
       </Box>

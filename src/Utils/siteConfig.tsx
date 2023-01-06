@@ -17,6 +17,7 @@ const siteConfig = Object.freeze({
   ACCESS_TOKEN_KEY: "access_token",
   CONTACT_NUMBER: "contact_number",
   INVESTMENT_CARD_TYPE: "investment_card_type",
+  INVESTMENT_USER_AMOUNT: "investment_user_amount",
 
   /**API ID's */
   AUTHENTICATION_API_ID: "k41xvsg1t7",
@@ -59,7 +60,7 @@ const siteConfig = Object.freeze({
 
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
-  RECOMMENDATION_MUTUALFUND_LIST:"/recommendation/mutualfund/list/",
+  RECOMMENDATION_MUTUALFUND_LIST: "/recommendation/mutualfund/list/",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
   RECOMMENDATION_FUND_RETURN: "/recommendation/fund/return/",
   RECOMMENDATION_SAVETAX_GENERATE: '/recommendation/savetax/generate',

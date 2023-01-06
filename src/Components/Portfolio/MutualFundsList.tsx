@@ -213,14 +213,14 @@ const MutualFundsList = () => {
   );
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
 
 
   const handlePrice = (value: any) => {
-    if (value === 12.3) {
-      navigate("/funddetails");
-    }
+    navigate("/funddetails");
+    // if (value === 12.3) {
+    // }
   };
 
   const handleNavigation = (strRoute: string) => {
@@ -311,9 +311,6 @@ const MutualFundsList = () => {
                   Mutual Fund Recommendation
                 </Typography>
               </Breadcrumbs>
-
-
-
               <Box
                 className="header"
                 sx={{
