@@ -1,4 +1,4 @@
-import { getData } from "../../../Utils/api";
+import { getData, getDataWithoutToken } from "../../../Utils/api";
 import { globalConstant } from "../../../Utils/globalConstant";
 import { checkExpirationOfToken } from "../../../Utils/globalFunctions";
 import { MFFeatures } from "../../../Utils/globalTypes";
@@ -15,6 +15,24 @@ export const getMutualFundListWrtUserAmountThunk = async (amount: number, id: nu
   await getData(
     strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.RECOMENDATION_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
+
+export const getMasterFundListThunk = async () => {
+  let res: any;
+  await getDataWithoutToken(
+    siteConfig.RECOMMENDATION_FUND_LIST,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
     .then(res => res.json())

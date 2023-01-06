@@ -31,7 +31,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
 import { store } from "../../Store/Store";
-import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/investment-thunk";
+import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 
 // const data = [
 //   {

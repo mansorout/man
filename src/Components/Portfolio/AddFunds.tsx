@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Breadcrumbs,
@@ -24,93 +24,96 @@ import DropDownFilterInvestment from "../Investment/dropDownFilterInvestment";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 import SelectedFunds from "../ExploreFunds/SelectedFunds";
 import AddToPlanComp from "../CommonComponents/AddToPlanComp";
-import { MFFeatures } from "../../Utils/globalTypes";
+import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
 import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
-import { getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import siteConfig from "../../Utils/siteConfig";
+import { getMasterFundListThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setMasterFundListAction } from "../../Store/Global/actions/global-actions";
 
-const data = [
-  {
-    id: 1,
-    logo: "/Miraelogo.svg",
-    title: "Mirae Asset Dynamic Bond Fund Direct Growth",
-    fundType: globalConstant.ALL_FUNDS,
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-    showCheckbox: true,
-    showButtons: false,
-    isMutualFundScreen: false,
-    isChecked: false
-  },
-  {
-    id: 2,
-    logo: "/Miraelogo.svg",
-    title: "Mirae Asset Dynamic Bond Fund Direct Growth",
-    fundType: globalConstant.BALANCED,
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-    showCheckbox: true,
-    showButtons: false,
-    isMutualFundScreen: false,
-    isChecked: false
-  },
-  {
-    id: 3,
-    logo: "/Miraelogo.svg",
-    title: "Mirae Asset Dynamic Bond Fund Direct Growth",
-    fundType: globalConstant.BALANCED,
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-    showCheckbox: true,
-    showButtons: false,
-    isMutualFundScreen: false,
-    isChecked: false
-  },
-  {
-    id: 4,
-    logo: "/Miraelogo.svg",
-    title: "Mirae Asset Dynamic Bond Fund Direct Growth",
-    fundType: globalConstant.EQUITY,
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-    showCheckbox: true,
-    showButtons: false,
-    isMutualFundScreen: false,
-    isChecked: false
-  },
-  {
-    id: 5,
-    logo: "/Miraelogo.svg",
-    title: "Mirae Asset Dynamic Bond Fund Direct Growth",
-    fundType: "Equity",
-    price: 30000,
-    rating: 3.7,
-    morningStarLogo: true,
-    oneYearReturn: 12.3,
-    threeYearReturn: 18.76,
-    fiveYearReturn: 24.33,
-    showCheckbox: true,
-    showButtons: false,
-    isMutualFundScreen: false,
-    isChecked: false
-  },
-];
+// const data = [
+//   {
+//     id: 1,
+//     logo: "/Miraelogo.svg",
+//     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
+//     fundType: globalConstant.ALL_FUNDS,
+//     price: 30000,
+//     rating: 3.7,
+//     morningStarLogo: true,
+//     oneYearReturn: 12.3,
+//     threeYearReturn: 18.76,
+//     fiveYearReturn: 24.33,
+//     showCheckbox: true,
+//     showButtons: false,
+//     isMutualFundScreen: false,
+//     isChecked: false
+//   },
+//   {
+//     id: 2,
+//     logo: "/Miraelogo.svg",
+//     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
+//     fundType: globalConstant.BALANCED,
+//     price: 30000,
+//     rating: 3.7,
+//     morningStarLogo: true,
+//     oneYearReturn: 12.3,
+//     threeYearReturn: 18.76,
+//     fiveYearReturn: 24.33,
+//     showCheckbox: true,
+//     showButtons: false,
+//     isMutualFundScreen: false,
+//     isChecked: false
+//   },
+//   {
+//     id: 3,
+//     logo: "/Miraelogo.svg",
+//     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
+//     fundType: globalConstant.BALANCED,
+//     price: 30000,
+//     rating: 3.7,
+//     morningStarLogo: true,
+//     oneYearReturn: 12.3,
+//     threeYearReturn: 18.76,
+//     fiveYearReturn: 24.33,
+//     showCheckbox: true,
+//     showButtons: false,
+//     isMutualFundScreen: false,
+//     isChecked: false
+//   },
+//   {
+//     id: 4,
+//     logo: "/Miraelogo.svg",
+//     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
+//     fundType: globalConstant.EQUITY,
+//     price: 30000,
+//     rating: 3.7,
+//     morningStarLogo: true,
+//     oneYearReturn: 12.3,
+//     threeYearReturn: 18.76,
+//     fiveYearReturn: 24.33,
+//     showCheckbox: true,
+//     showButtons: false,
+//     isMutualFundScreen: false,
+//     isChecked: false
+//   },
+//   {
+//     id: 5,
+//     logo: "/Miraelogo.svg",
+//     title: "Mirae Asset Dynamic Bond Fund Direct Growth",
+//     fundType: "Equity",
+//     price: 30000,
+//     rating: 3.7,
+//     morningStarLogo: true,
+//     oneYearReturn: 12.3,
+//     threeYearReturn: 18.76,
+//     fiveYearReturn: 24.33,
+//     showCheckbox: true,
+//     showButtons: false,
+//     isMutualFundScreen: false,
+//     isChecked: false
+//   },
+// ];
 
 const initialMFData: MFFeatures = {
   showCheckbox: true,
@@ -152,7 +155,11 @@ const AddFunds = () => {
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
   );
-  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
+  const g_explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist?.data);
+
+  const data: any[]  = useMemo(() => {
+    return g_explorFundlist || [];
+  }, [g_explorFundlist]);
 
   useEffect(() => {
     let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
@@ -161,25 +168,37 @@ const AddFunds = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   handleCustomisePlanScreen();
-  // }, [g_mutualFundListWrtUserAmount]);
+  useEffect(() => {
+    handleAddFundScreen();
+  }, [g_explorFundlist])
 
-  // const handleCustomisePlanScreen = async () => {
+  const handleAddFundScreen = async () => {
 
-  //   if (!g_mutualFundListWrtUserAmount) {
-  //     return;
-  //   }
+    if (!g_explorFundlist) {
+      // navigate(g_investment?.type === globalConstant?.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
+      let data: apiResponse = await getMasterFundListThunk();
+      if (checkExpirationOfToken(data?.code)) {
+        dispatch(setTokenExpiredStatusAction(true));
+        return;
+      }
 
-  //   if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
-  //     let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
-  //     setMfCards(arrRecomm);
-  //   } else {
-  //     setMfCards([]);
-  //     navigate("/onetimemutualfundrecommendation");
-  //   }
-  // }
-  
+      if (data?.error === true) {
+        return;
+      }
+
+      dispatch(setMasterFundListAction(data?.data));
+      return;
+    }
+
+    if (g_explorFundlist && g_explorFundlist.length) {
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_explorFundlist, initialMFData)
+      setMfCards(arrRecomm);
+    } else {
+      console.log("comming in else section")
+      // setMfCards([]);
+      // navigate("/onetimemutualfundrecommendation");
+    }
+  }
 
   const handleSelection = (key: number, type: string, arrData: any[]) => {
     setSelected(key);
@@ -187,6 +206,7 @@ const AddFunds = () => {
     if (type === globalConstant.ALL_FUNDS) {
       setMfCards(data);
       return;
+      // @ts-ignore
     }
     setMfCards(arrData.filter((item: any) => item.fundType === type));
   };
@@ -360,14 +380,9 @@ const AddFunds = () => {
                     >
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
                       <InputBase
-                        onChange={(e) =>
-                          setMfCards(
-                            data.filter((item) =>
-                              item.title
-                                .toLowerCase()
-                                .includes(e.target.value.toLowerCase())
-                            )
-                          )
+                        onChange={(e: any) => {
+                          if (data && data.length) setMfCards(data?.filter((item: any) => item?.title?.toLowerCase()?.includes(e.target.value?.toLowerCase())))
+                        }
                         }
                         placeholder="Search Transactions"
                         style={{ color: "#7b7b9d", minWidth: "250px" }}
@@ -416,7 +431,7 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        All Funds ({data.length})
+                        All Funds ({data?.length})
                       </Typography>
                     </Box>
                     <Box
@@ -439,13 +454,7 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        Equity (
-                        {
-                          data.filter(
-                            (item) => item.fundType === globalConstant.EQUITY
-                          ).length
-                        }
-                        )
+                        Equity ({data && data.length && data.filter((item: any) => item.fundType === globalConstant.EQUITY).length})
                       </Typography>
                     </Box>
                     <Box
@@ -468,13 +477,7 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        Debt (
-                        {
-                          data.filter(
-                            (item) => item.fundType === globalConstant.DEBT
-                          ).length
-                        }
-                        )
+                        Debt ({data && data.length && data.filter((item: any) => item.fundType === globalConstant.DEBT).length})
                       </Typography>
 
                     </Box>
@@ -500,13 +503,7 @@ const AddFunds = () => {
                           fontSize: "14px",
                         }}
                       >
-                        Balanced (
-                        {
-                          data.filter(
-                            (item) => item.fundType === globalConstant.BALANCED
-                          ).length
-                        }
-                        )
+                        Balanced ({data && data.length && data.filter((item: any) => item.fundType === globalConstant.BALANCED).length})
                       </Typography>
                     </Box>
                   </Box>
@@ -520,7 +517,7 @@ const AddFunds = () => {
               }}>
                 {mfCards &&
                   mfCards.length &&
-                  mfCards.map((item, index) => {
+                  mfCards.map((item: any, index: number) => {
                     return (
                       <Box key={index}>
                         <MutualFundCard2

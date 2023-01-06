@@ -26,7 +26,7 @@ import siteConfig from "../../Utils/siteConfig";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import { apiResponse } from "../../Utils/globalTypes";
-import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/investment-thunk";
+import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 
 const data = [
@@ -173,7 +173,7 @@ const CustomizeMF = () => {
       console.log("investmenttype is different");
       return;
     }
-    
+
     if (g_mutualFundListWrtUserAmount) {
       handleCustomisePlanScreen();
     } else {

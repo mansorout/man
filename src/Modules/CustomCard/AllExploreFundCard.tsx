@@ -8,6 +8,7 @@ import { Close, ErrorOutline, InfoRounded, TaskAltOutlined, Warning } from '@mui
 import { warning } from '../../Assets/index'
 import { useNavigate } from 'react-router-dom';
 import Checkbox from "@mui/material/Checkbox";
+import { useSelector } from 'react-redux';
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -141,8 +142,16 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
     } as React.CSSProperties,
   }
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
+  const [exploreFundData,setExploreFundData] = useState<any>({});
   const url = name.replace(/ /g, '')
   const navigate = useNavigate()
+
+  const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
+  console.log(explorFundlist)
+
+
+
+  
 
   return (
     <>

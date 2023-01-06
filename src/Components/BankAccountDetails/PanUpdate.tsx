@@ -277,8 +277,6 @@ const PanUpdate = () => {
                         </Box>
                     </Grid>
 
-
-
                 </Grid>
             </Box>
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={successMsg} />

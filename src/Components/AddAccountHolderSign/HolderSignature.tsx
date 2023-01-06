@@ -120,22 +120,18 @@ function HolderSignature() {
                 // console.log(err);
             })
 
-        // store.dispatch(getUserProfileDataThunk());
+        
 
     }
 
-    //    debugger
-    // console.log(getSignature)
+   
 
     const clear = () => {
         sigCanvas.current.clear()
         setImageURL("")
     }
     const convertSignInBase64 = () => {
-        // setimageToApi(imageURL)
-        // addSignature(imageToApi)
-        // store.dispatch(uploadsignature({ 'signdata': imageURL }))
-        // navigate('/vp')
+       
 
         const objBody = {
             signature: imageURL,

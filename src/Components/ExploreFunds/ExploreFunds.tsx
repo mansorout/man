@@ -15,6 +15,8 @@ import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
 import { ExploreFundsList } from '../../Modal/ExploreFunds'
+import { useSelector } from 'react-redux'
+
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -138,19 +140,36 @@ function ExploreFunds() {
   }
 
   const [fundList, setFundList] = useState<any[]>([])
+  const [selected, setSelected] = useState<number>(1)
+  const [fundListApi,setfundListApi] = useState<any[]>([])
   const menuActions = React.useRef<MenuUnstyledActions>(null);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ? 
-    setAnchorEl(null) :
-    setAnchorEl(event.currentTarget)
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   anchorEl ? 
+  //   setAnchorEl(null) :
+  //   setAnchorEl(event.currentTarget)
+  // };
+  const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
+  console.log(explorFundlist)
+  
 
-  useEffect(()=>{
-    setFundList(ExploreFundsList)
-  },[])
+  // useEffect(()=>{
+  //   setfundListApi(ExploreFundsList)
+  // },[])
+  // console.log(fundListApi)
+  // console.log(fundListApi[0])
+  
+  // console.log(fundListApi[0]?.cap)
+  // console.log(fundListApi[0]?.logo)
+  // console.log(fundListApi[0]?.name)
+  // console.log(fundListApi[0]?.price)
+  // console.log(fundListApi[0]?.star)
+  // console.log(fundListApi[0]?.type)
+  // console.log(fundListApi[0]?.year1)
+  // console.log(fundListApi[0]?.year3)
+  // console.log(fundListApi[0]?.year5)
 
   const classes = useStyles()
 
@@ -158,7 +177,8 @@ function ExploreFunds() {
 
   const navigate = useNavigate();
 
-  const [selected, setSelected] = useState<number>(1)
+  
+  
 
   return (
       <Box style={{width: "100vw"}} ref={refContainer}>
