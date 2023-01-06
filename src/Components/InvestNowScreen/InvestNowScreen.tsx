@@ -422,7 +422,7 @@ function InvestNowScreen(props: IProps) {
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       cb(a);
-    }, 550);
+    }, 200);
   }
 
   const handleOnChangeAmount = (e: any) => {
@@ -505,8 +505,9 @@ function InvestNowScreen(props: IProps) {
       if(data?.error === true){
         return;
       }
-      
-      navigate(path, {state: {amount: amount}});
+
+      localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
+      navigate(path);
     }).catch(err=> {
 
       console.log(err);

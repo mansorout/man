@@ -1,3 +1,4 @@
+import { MFFeatures } from "./globalTypes";
 import siteConfig from "./siteConfig"
 
 export const getModuleWiseBaseUrl = (strApiId: string) => {
@@ -104,15 +105,23 @@ export const underAgeValidate = (birthday: string) => {
   }
 }
 
-export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], initialMFData: any) => {
+
+
+export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], initialMFData: MFFeatures) => {
   try {
     for (let i = 0; i < arrRecomm.length; i++) {
       arrRecomm[i] = {
         ...arrRecomm[i],
-        ...initialMFData
+        "showButtons": initialMFData?.showButtons,
+        "showCheckbox": initialMFData?.showCheckbox,
+        "isMutualFundScreen": initialMFData?.isMutualFundScreen,
+      }
+      if (initialMFData?.isChecked !== undefined) {
+        arrRecomm[i]["isChecked"] = initialMFData?.isChecked;
       }
     }
 
+    console.log(arrRecomm, "arrRecom getMutualFundRecommendationListWRTUserAmount")
     return arrRecomm;
   } catch (err) {
     return [];
