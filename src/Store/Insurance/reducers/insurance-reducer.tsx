@@ -1,5 +1,11 @@
 
 import {
+  SET_TERM_DATA_SUCCESS,
+  SET_TERM_DATA_FAILED,
+  SET_TERM_GENERATE_SUCCESS,
+  SET_TERM_GENERATE_FAILED,
+  SET_TERM_LIST_SUCCESS,
+  SET_TERM_LIST_FAILED,
   SET_TERM_PURCHASE_SUCCESS,
   SET_TERM_PURCHASE_FAILED,
   SET_ULIP_RETURN_SUCCESS,
@@ -13,6 +19,9 @@ import {
 } from '../constants/insurance-constants'
 
 const initialState: any = {
+  termData: {},
+  termGenerateApiData: {},
+  termListApiData: {},
   termPurchaseData: {},
   ulipReturnApiData: [],
   ulipGenrateApiData: {},
@@ -23,6 +32,40 @@ const initialState: any = {
 const insuranceReducer = (state = initialState, action: any) => {
 
   switch (action.type) {
+    case SET_TERM_DATA_SUCCESS:
+      return {
+        ...state,
+        termData: action.payload
+      }
+    case SET_TERM_DATA_FAILED:
+      return {
+        ...state,
+        termData: action.payload
+      }
+
+    case SET_TERM_GENERATE_SUCCESS:
+      return {
+        ...state,
+        termGenerateApiData: action.payload
+      }
+    case SET_TERM_GENERATE_FAILED:
+      return {
+        ...state,
+        termGenerateApiData: action.payload
+      }
+
+      case SET_TERM_LIST_SUCCESS:
+        return {
+          ...state,
+          termListApiData: action.payload
+        }
+      case SET_TERM_LIST_FAILED:
+        return {
+          ...state,
+          termListApiData: action.payload
+        }
+  
+
     case SET_TERM_PURCHASE_SUCCESS:
       return {
         ...state,

@@ -120,7 +120,7 @@ interface InsurancePlanCardPropsType {
     insuranceCompany: string;
     medicalType: string;
     companyLogo: string;
-    lifeCover: string;
+    lifeCover: number;
     coverUpto: string;
     claimSettled: string;
     planAmount: string;
