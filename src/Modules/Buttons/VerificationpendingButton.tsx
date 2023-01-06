@@ -12,8 +12,8 @@ export const VerificationpendingButton = () => {
       backgroundColor: "rgb(255, 195, 0, 0.3)",
       marginTop: "3%",
       width: " 100%",
-      maxWidth: "444px",
-      marginLeft:"-14px"
+      // maxWidth: "444px",
+      // marginLeft:"-14px"
     } as React.CSSProperties,
     text_T: {
       color: "black",
@@ -22,7 +22,7 @@ export const VerificationpendingButton = () => {
       lineHeight: "2",
       opacity: "0.74",
       textTransform: "capitalize",
-      transform: "translate(-50%, -12.9%)",
+      transform: "translate(-66%, 12.1%)",
     } as React.CSSProperties,
   };
   // color: "black",
@@ -43,7 +43,7 @@ export const VerificationpendingButton = () => {
         justifyContent: "space-between",
        
       }}
-      className="KYCpendingStyleButton"
+      // className="KYCpendingStyleButton"
     >
       <img
         src={Checkcirclelogo}
@@ -61,6 +61,7 @@ export const VerificationpendingButton = () => {
         KYC Verification is pending
       </Typography>
       <img
+        className="imgVarification"
         src={arrowForwedlogo}
         alt="smallarrow Logo"
         style={{

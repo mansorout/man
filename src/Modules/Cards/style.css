@@ -414,12 +414,12 @@
       transform: translate(19px, 9px);
     }
    .IncompleteStyle{
-      font-Size: 6px !important;
-      transform: translate(32px, -7px) !important;
+    font-Size: 6px !important;
+    transform: translate(19px, -3px) !important;
     }
     .IncompleteStyle_View{
       font-Size: 6px !important;
-      transform: translate(11px, -7px) !important;
+      transform: translate(11px, -2px) !important;
     }
     /* .CommonStyle__Class{
       font-size: 8px !important;
