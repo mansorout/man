@@ -306,9 +306,11 @@ const OneTimeMutualFund = () => {
               height: "100vh",
               overflow: "scroll",
               marginTop: "4%",
+              width:"100%",
+              display:"block",
               justifyContent: "center",
             }}
-            xs={13}
+            xs={12}
             sm={11}
             md={10}
           >
@@ -316,12 +318,13 @@ const OneTimeMutualFund = () => {
             <Box
               sx={{
                 padding: 0,
-                margin: "2.5vw",
+                margin: "1.5vw",
                 fontFamily: "Roboto",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
               }}
+              className="boxMarginBottom"
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>

@@ -180,8 +180,9 @@ const CustomizeMF = () => {
     if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
       setMfCards(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS]);
     } else {
-      navigate("/onetimemutualfundrecommendation");
-      setMfCards([]);
+      console.log("comming in else case")
+      // navigate("/onetimemutualfundrecommendation");
+      // setMfCards([]);
     }
 
   // }, [g_mutualFundListWrtUserAmount, g_investment?.type]);

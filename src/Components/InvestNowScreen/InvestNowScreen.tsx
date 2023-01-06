@@ -394,7 +394,7 @@ function InvestNowScreen(props: IProps) {
         },
       ]
     };
-  }, [expectedReturns])
+  }, [expectedReturns]);
   
   useEffect(() => {
     if(!g_investment?.type){
@@ -554,7 +554,8 @@ function InvestNowScreen(props: IProps) {
                           <b
                             style={{
                               width: "100%",
-                              margin: "-4% 303px 25px 0",
+                              // margin: "-4% 303px 25px 0",
+                              margin:"6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}
