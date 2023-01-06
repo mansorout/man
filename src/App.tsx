@@ -19,6 +19,7 @@ import './app.css';
 import SprintMoneyLoader from './Components/CommonComponents/sprintMoneyLoader';
 import ExpireTokenDialog from './Components/CommonComponents/ExpireTokenDialog';
 import { SprintMoneyMessanger } from './Components/CommonComponents/SprintMoneyMessanger';
+import AmountAddSnackBar from './Components/CommonComponents/AmountAddSnackBar';
 
 // import Home from './Components/Home/Home';
 // import { AccountCreatedWithGoogle } from './Components/loginwithgoogle/AccountCreatedWithGoogle';
@@ -197,6 +198,8 @@ function App() {
         <Route path="msg" element={<SprintMoneyMessanger btnText={''} btnClick={function (): void {
           throw new Error('Function not implemented.');
         } } open={false} errorText={''} succesText={''} />} />
+         <Route path="/snackbar" element={<AmountAddSnackBar />} />
+
         {/* <Route path="/SprintMoneyLoader" element={<SprintMoneyLoader loadingStatus={true} />} /> */}
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
         {/* <Route path="/funddetails" element={<FundDetails/>} /> */}
