@@ -283,19 +283,9 @@ const Nominee = () => {
 
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={13} sm={11} md={10} sx={{
-                        height: "100vh",
-                        overflow: "scroll",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginLeft: { xs: '4vw', sm: '12vw', md: '28vw' },
-                    }}>
+                    <Grid item xs={12} sm={11} md={10}>
                         <Toolbar />
-                        <Breadcrumbs sx={{
-                            fontSize: '12px',
-                            color: '#6c63ff',
-                            marginBottom: '3vw',
-                        }}>
+                        <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
                             <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
@@ -303,6 +293,7 @@ const Nominee = () => {
                                 color: '#8787a2'
                             }}>Nominee & Declarations</Typography>
                         </Breadcrumbs>
+                        <Box className="BoxPadding">
                         <Box component="form" sx={{
                             gap: { xs: '15px', sm: '26px', md: '17px', lg: '2vw' },
                             width: '90%',
@@ -310,7 +301,7 @@ const Nominee = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5vw',
+                            padding: '20px',
                             borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
@@ -418,7 +409,8 @@ const Nominee = () => {
                                     }}>Submit Details</Typography></Button>
                             </FormControl>
                         </Box>
-                    </Grid>
+                        </Box>
+                        </Grid>
                 </Grid>
             </Box>
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
