@@ -18,9 +18,8 @@ const style = {
     borderRadius: "8px",
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
-    margin: "15px",
-    width: "90%",
-    maxWidth: "400px",
+    marginTop: "15px",
+    width: "100%",
   } as React.CSSProperties,
   text: {
     color: "white",

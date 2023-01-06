@@ -293,7 +293,7 @@ function InvestNowScreen(props: IProps) {
                           <b
                             style={{
                               width: "100%",
-                              margin: "-4% 303px 25px 0",
+                              margin: "6px 12px 18px 0px",
 
                               textAlign: "left",
                               color: "#3c3e42"
@@ -455,11 +455,11 @@ function InvestNowScreen(props: IProps) {
                           <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px", }}>
                             <Typography sx={{ fontSize: "10px", color: "#7b7b9d",paddingLeft:"11px" }}  >*Anytime Withdraw</Typography>
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
+                          <Grid item sm={3} xs={2} sx={{ paddingLeft: "80px" }} className="iconstyle">
                             <Avatar alt="" src={lockinlogo} style={style.ca} />
 
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
+                          <Grid item sm={3} xs={5} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
                             <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
                           </Grid>
 
