@@ -1,0 +1,27 @@
+.investInsidePading{
+    padding: 15px;
+}
+.investModal{
+    text-align: center;
+    display: block;
+}
+.investModal .css-vjbbn8-MuiCardHeader-root{
+    text-align: center;
+    padding-top: 0%;
+    display: inline-block;
+    width: 38px;
+
+    
+}
+@media screen and (max-width: 480px){
+    .boxMarginBottom{
+        margin-bottom: 50px !important;
+    }
+    
+}
+@media (max-width: 768px) {
+    .iconstyle{
+        padding-left:0 !important;
+    }
+}
+
