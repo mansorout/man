@@ -211,9 +211,9 @@ const style = {
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
     // marginTop: "-60px",
-    marginLeft: "4%",
+    // marginLeft: "4%",
     width: "100%",
-    maxWidth: "400px",
+    // maxWidth: "400px",
     marginBottom: "-4%"
 
   },
@@ -672,12 +672,12 @@ const EditprofileCard = () => {
       }}
       >
         <SprintMoneyLoader loadingStatus={loading} />
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6} lg={6} >
-            <Paper className='paddingstyle'
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6} >
+            <Paper className=''
               sx={{
                 p: 2,
-                width: '1', maxWidth: 460, bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
+                 bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
               }}
@@ -875,22 +875,10 @@ const EditprofileCard = () => {
               </Stack>
             </Paper>
           </Grid>
-          <Grid
-            item
-            spacing={3}
-            sx={{
-              maxHeight: "100%",
-              marginTop: "0%",
-              // paddingLeft: { xs: "32px !important", sm: "19% !important", md: "32px !important" }
-            }}
-            className="paperstyle"
-            xs={12} sm={6} lg={6}
-          >
-            <Paper className='paddingstyle'
+          <Grid item xs={12} md={6} className="gridMarginBottom20">
+            <Paper className=''
               sx={{
                 p: 2,
-                width: '1',
-                maxWidth: 460,
                 bgcolor: 'background.paper',
                 marginTop: "-23px",
                 borderRadius: "8px",
@@ -898,7 +886,7 @@ const EditprofileCard = () => {
                 marginLeft: "-1px"
               }}
             >
-              <Typography sx={{ color: "#6c63ff", }}>Gender</Typography>
+              <Typography className='textGender' sx={{ color: "#6c63ff", }}>Gender</Typography>
               <Stack m={2} spacing={2}>
                 <Grid container spacing={2} sx={{
                   maxHeight: "100%",
@@ -907,7 +895,6 @@ const EditprofileCard = () => {
                     <Box
                       sx={{
                         '& button': { m: 1 },
-                        marginLeft: "4px",
                         textAlign: "left"
                       }}
                       className='wholedivbuttons'

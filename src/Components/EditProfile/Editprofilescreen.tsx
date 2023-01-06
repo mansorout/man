@@ -39,7 +39,7 @@ const style = {
   main: {
     boxSizing: "border-box",
     backgroundColor: "#f9f9f9",
-    height: "100vh"
+    // height: "100vh"
   } as React.CSSProperties,
   drawer: {
     zIndex: "500",
@@ -164,11 +164,12 @@ function Editprofilescreen() {
           <Toolbar />
           <Sidebar />
         </Grid>
+        
         <Grid container xs={13} sm={11} md={10} >
           {/* <Grid item sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={10} md={10} className="ScrollBarStyle"> */}
           <Grid item xs={12} sm={10} md={10} >
             <Toolbar />
-            <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+            <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
               <Breadcrumbs aria-label="breadcrumb">
                 <Link color="#6495ED" underline="always" href='Home' >
                   <Typography className='burgerText'> Home</Typography>
@@ -180,10 +181,10 @@ function Editprofilescreen() {
               </Breadcrumbs>
             </Box>
           </Grid>
-          <Grid item xs={6} sm={12} >
+          <Grid item xs={12} sm={12} >
             <EditprofileCard />
           </  Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{marginTop:"30px"}}>
             <Box
               textAlign="center"
               sx={{
