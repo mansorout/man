@@ -10,15 +10,15 @@ export const checkExpirationOfToken = (code: number) => {
 }
 
 export const isMultipleofNumber = (n: number, multipleNum: number) => {
-  // while (n > 0)
-  //     n = n - multipleNum;
-
-  if (n % multipleNum === 0) {
-    return true;
-  } else {
-    return false;
+  try {
+    if (n % multipleNum === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err);
   }
-
 }
 
 export const getLookUpIdWRTModule = (arrLookupList: any, value: string) => {

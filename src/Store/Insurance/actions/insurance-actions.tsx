@@ -1,5 +1,11 @@
 
 import {
+  SET_TERM_DATA_SUCCESS,
+  SET_TERM_DATA_FAILED,
+  SET_TERM_GENERATE_SUCCESS,
+  SET_TERM_GENERATE_FAILED,
+  SET_TERM_LIST_SUCCESS,
+  SET_TERM_LIST_FAILED,
   SET_TERM_PURCHASE_SUCCESS,
   SET_TERM_PURCHASE_FAILED,
   SET_ULIP_RETURN_SUCCESS,
@@ -14,10 +20,67 @@ import {
 
 import {
   getUlipReturnApiTypes,
-  getUlipGenrateApiTypes,
+  listApiTypes,
   getUlipListApiTypes,
-  getUlipSchemeDetailApiTypes
+  getUlipSchemeDetailApiTypes,
+  postTermPurchaseProps
 } from "../constants/types"
+
+
+export const setTermDataSuccessAction = (data: postTermPurchaseProps) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_DATA_SUCCESS,
+      payload: data
+    })
+  }
+}
+
+export const setTermDataFailAction = (data: string) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_DATA_FAILED,
+      payload: data
+    })
+  }
+}
+
+
+export const setTermGenerateSuccessAction = (data: postTermPurchaseProps) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_GENERATE_SUCCESS,
+      payload: data
+    })
+  }
+}
+
+export const setTermGenerateFailAction = (data: string) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_GENERATE_FAILED,
+      payload: data
+    })
+  }
+}
+
+export const setTermListSuccessAction = (data: listApiTypes) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_LIST_SUCCESS,
+      payload: data
+    })
+  }
+}
+
+export const setTermListFailAction = (data: string) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_TERM_LIST_FAILED,
+      payload: data
+    })
+  }
+}
 
 export const setTermPurchaseSuccessAction = (data: any) => {
   return (dispatch: any) => {
@@ -55,7 +118,7 @@ export const setUlipReturnFailAction = (data: string) => {
   }
 }
 
-export const setUlipGenrateSuccessAction = (data: getUlipGenrateApiTypes) => {
+export const setUlipGenrateSuccessAction = (data: listApiTypes) => {
   return (dispatch: any) => {
     dispatch({
       type: SET_ULIP_GENERATE_SUCCESS,
