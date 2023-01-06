@@ -25,10 +25,11 @@ import exploreFundReducer from './Explore funds/reducers/explore-funds-reducer'
 // import investmentReducer from './Home/Investment/reducers/investment-reducer'
 import portfolioReducer from './Portfolio/reducers/protfolio-reducer'
 import insuranceReducer from './Insurance/reducers/insurance-reducer'
-import investmentReducer from './Investment/reducers/investment-reducer'
+import investmentReducer from './Recommendations/reducers/recommendations-reducer'
 import globalReducer from './Global/reducer/global-reducer'
 // import investmentReducer from './Reducers/investmentReducer'
 import saveTaxReducer from './Save Tax/reducers/save-tax-reducer'
+import recommendationsReducer from './Recommendations/reducers/recommendations-reducer'
 
 
 
@@ -56,7 +57,7 @@ const rootReducer = combineReducers({
     authReducer: authReducer,
     exploreFundReducer: exploreFundReducer,
     insuranceReducer: insuranceReducer,
-    investmentReducer: investmentReducer,
+    recommendationsReducer: recommendationsReducer,
     portfolioReducer: portfolioReducer,
     saveTaxReducer:saveTaxReducer
 

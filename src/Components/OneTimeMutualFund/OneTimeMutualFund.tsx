@@ -26,9 +26,9 @@ import { globalConstant } from "../../Utils/globalConstant";
 import { useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
-import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
-import { setInvestmentCardTypeAction } from "../../Store/Investment/actions/investment-action";
+import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
 
 // const data = [
 //   {
@@ -231,7 +231,7 @@ const OneTimeMutualFund = () => {
   const location: any = useLocation();
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
 
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
@@ -257,8 +257,9 @@ const OneTimeMutualFund = () => {
       strUrl,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.RECOMENDATION_API_ID
-    ).then(res => res.json())
-      .then((data: any) => {
+    )
+      .then(res => res.json())
+      .then(async (data: any) => {
         if (checkExpirationOfToken(data?.code)) {
           dispatch(setTokenExpiredStatusAction(true));
           return;
@@ -267,19 +268,13 @@ const OneTimeMutualFund = () => {
         if (data?.error === true) {
           return;
         }
+
         let res = data?.data;
         if (res && res.length) {
-          let objMF: any = res.filter((item: any) => item?.recommendationtype === "Mutual Fund")[0];
-          let arrRecomm: any[] = objMF ? objMF["recommendations"] : {};
-          console.log(arrRecomm, "arrRecomm prev");
-          for (let i = 0; i < arrRecomm.length; i++) {
-            arrRecomm[i] = {
-              ...arrRecomm[i],
-              ...initialMFData
-            }
-          }
-          console.log(arrRecomm, "arrRecomm, new");
-          setMfCards(arrRecomm)
+          let objMF: any = res.filter((item: any) => item?.recommendationtype === globalConstant.MUTUAL_FUND)[0];
+          await dispatch(setMutualFundListWrtUserAmountAction(objMF));
+          let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(objMF ? objMF[globalConstant.RECOMMENDATIONS] : [], initialMFData);
+          setMfCards(arrRecomm);
         }
       }).catch(err => {
         console.log(err)
@@ -311,9 +306,11 @@ const OneTimeMutualFund = () => {
               height: "100vh",
               overflow: "scroll",
               marginTop: "4%",
+              width:"100%",
+              display:"block",
               justifyContent: "center",
             }}
-            xs={13}
+            xs={12}
             sm={11}
             md={10}
           >
@@ -321,12 +318,13 @@ const OneTimeMutualFund = () => {
             <Box
               sx={{
                 padding: 0,
-                margin: "2.5vw",
+                margin: "1.5vw",
                 fontFamily: "Roboto",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
               }}
+              className="boxMarginBottom"
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>

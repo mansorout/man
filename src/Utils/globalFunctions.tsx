@@ -103,3 +103,19 @@ export const underAgeValidate = (birthday: string) => {
     console.log(err)
   }
 }
+
+export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], initialMFData: any) => {
+  try {
+    for (let i = 0; i < arrRecomm.length; i++) {
+      arrRecomm[i] = {
+        ...arrRecomm[i],
+        ...initialMFData
+      }
+    }
+
+    return arrRecomm;
+  } catch (err) {
+    return [];
+    console.log(err)
+  }
+}
