@@ -234,7 +234,7 @@ const ULIPRecommendations = () => {
                                                             color: '#373e42'
                                                         }}>SprintMoney Recommendation</Typography>
                                                     </Breadcrumbs>
-                                                    <Box>
+                                                    <Box> 
                                                         <Typography sx={{
                                                             fontSize: '12px',
                                                             color: '#8787a2',

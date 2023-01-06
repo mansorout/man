@@ -35,6 +35,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         marginTop: '15px',
         cursor: 'pointer',
+        marginLeft: 'auto',
+        marginBottom: '15px',
     },
     termInsuranceCard: {
         display: 'flex',

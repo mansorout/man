@@ -20,10 +20,18 @@ import {
     getDataSaveTaxInvestmentType,
     postSaveTaxGenrateApi
 } from '../../Store/Save Tax/thunk/save-tax-thunk';
-import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
+import { lookUpMasterKeys, bannerSectionValues, investmentTypeValues } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {
+    SaveTaxInvestmentLumpsumAction,
+    SaveTaxInvestmentMonthlyAction,
+    SaveTaxInvestmentAmount,
+    LUMPSUM,
+    MONTHLY,
+    saveTaxPercentageAmountAction
+} from '../../Store/Duck/InvestmentType';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -160,7 +168,7 @@ const RecommendationsELSS = () => {
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
     const { investmentType, investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
-    const { saveTaxListData } = useSelector((state: any) => state.saveTaxReducer)
+    const { saveTaxListData,saveTaxGenrate } = useSelector((state: any) => state.saveTaxReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
@@ -171,28 +179,34 @@ const RecommendationsELSS = () => {
 
     useEffect(() => {
         if (parseInt(investmentAmount) === 0) navigate('/saveTax')
-        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
-        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
-
+        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
+        const lookUPIdLUMPSUM = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.LUMPSUM)
+        const lookUPIdSIP = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.SIP)
+        console.log("lookUPId :", bannersectionArr,lookUPIdLUMPSUM, lookUPIdSIP)
         const saveTavGenrateBody = {
-            investmenttype_id: lookUPId,
+            investmenttype_id: investmentType === LUMPSUM ? lookUPIdLUMPSUM : lookUPIdSIP,
             amount: parseInt(investmentAmount),
         }
-
         const temp = {
-            investmenttype_id: lookUPId,
+            investmenttype_id: investmentType === LUMPSUM ? lookUPIdLUMPSUM : lookUPIdSIP,
             amount: parseInt(investmentAmount),
         }
-
-        dispatch(getDataSaveTaxInvestmentType(investmentAmount))
-
+        
+        // dispatch(getDataSaveTaxInvestmentType(investmentAmount))
         dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
-
-        dispatch(getDataSaveTaxListApi(temp))
-
         console.log("investmentAmount :", investmentAmount)
+        dispatch(getDataSaveTaxListApi(temp))
     }, [investmentAmount])
 
+    // useEffect(() => {
+    //     const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
+    //     const lookUPId = getLookUpIdWRTModule(bannersectionArr, lookUpMasterKeys.INVESTMENT_TYPE)
+    //     const temp = {
+    //         investmenttype_id: lookUPId,
+    //         amount: parseInt(investmentAmount),
+    //     }
+    //     saveTaxListData?.recommendation_id && dispatch(getDataSaveTaxListApi(temp))
+    // }, [saveTaxGenrate])
 
 
 

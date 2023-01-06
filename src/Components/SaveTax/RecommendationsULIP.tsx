@@ -261,7 +261,7 @@ const RecommendationsULIP = () => {
         const ulipGenrateBody = {
             amount: parseInt(investmentAmount),
             frequencytype: investmentType === MONTHLY ? 0 : 1,
-            term_id: lookUPId //85
+            term_id: 85 //85
         }
         dispatch(postUlipGenrateApi(ulipGenrateBody))
     }, [investmentAmount])
@@ -380,7 +380,7 @@ const RecommendationsULIP = () => {
                             boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                         />
                         <Box className={classes.cmpHeading}>
-                            <Typography component='p'>1 ULIP Plan Found</Typography>
+                            <Typography component='p'>{ulipListApiData?.length && ulipListApiData.length} ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
                         </Box>
 
