@@ -23,6 +23,8 @@ import Calendar from "react-calendar";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
+import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
+import { getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 
 const data = [
   {
@@ -138,59 +140,57 @@ const style = {
   },
 };
 
+const initialMFData = {
+  showCheckbox: false,
+  showButtons: true,
+  isMutualFundScreen: false,
+}
+
 const CustomizeMF = () => {
   const navigate: any = useNavigate();
   const dispatch = useDispatch();
-  // const [fundList, setFundList] = useState<MFProp[]>(data);
 
   const [mfCards, setMfCards] = useState<any[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
   const g_investment = useSelector((state: any) => state?.recommendationsReducer?.investment);
-  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount);
-  console.log(g_mutualFundListWrtUserAmount);
-  // const userAmount: number = useMemo(() => { return location?.state?.amount }, []);
+  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
   useEffect(() => {
     let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
-
     if (!g_investment?.type) {
       dispatch(setInvestmentCardTypeAction(strCardType));
     }
-
-    // if (!userAmount) {
-    //   navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
-    // } else {
-    //   getMutualFundListWrtUserAmount(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12);
-    // }
   }, []);
 
 
   useEffect(() => {
-    // if (!g_investment?.type) {
-    //   return;
-    // }
+    handleCustomisePlanScreen();
+  }, [g_mutualFundListWrtUserAmount]);
 
-    
+  const handleCustomisePlanScreen = async () => {
     if (!g_mutualFundListWrtUserAmount) {
       return;
     }
 
-    console.log(g_mutualFundListWrtUserAmount);
-
     if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
-      setMfCards(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS]);
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
+      setMfCards(arrRecomm);
     } else {
-      console.log("comming in else case")
-      // navigate("/onetimemutualfundrecommendation");
-      // setMfCards([]);
+      setMfCards([]);
+      navigate("/onetimemutualfundrecommendation");
     }
-
-  // }, [g_mutualFundListWrtUserAmount, g_investment?.type]);
-  }, [g_mutualFundListWrtUserAmount]);
+  }
 
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
   }
+
+  const handlePrice = (value: any) => {
+    navigate("/funddetails");
+    // if (value === 12.3) {
+    // }
+  };
+
 
   return (
     <Box style={{ width: "100vw" }}>
@@ -287,8 +287,8 @@ const CustomizeMF = () => {
                       color: "#7b7b9d",
                     }}
                   >
-                    Monthly investment of ₹5,000
-                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {mfCards[0]?.recommendedamount ? mfCards[0]?.recommendedamount : 0}
+                    {/* Monthly investment of ₹5,000 */}
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? " " + mfCards[0]?.recommendedamount : " " + 0}
                   </Typography>
                 </Box>
                 <Box
@@ -318,12 +318,24 @@ const CustomizeMF = () => {
               </Box>
 
               <Box>
-                {mfCards.length &&
+                {mfCards &&
+                  mfCards.length &&
                   mfCards.map((item, index) => (
                     <Box sx={{ marginTop: "1.25vw" }} key={index}>
                       <MutualFundCard2 {...item} />
                     </Box>
                   ))}
+
+                {/* {mfCards &&
+                  mfCards.length &&
+                  mfCards.map((mfCard) => (
+                    <Box
+                      sx={{ marginTop: "1.25vw" }}
+                    // onClick={() => handlePrice(mfCard.oneYearReturn)}
+                    >
+                      <OneTimeMutualFundCard2 {...mfCard} />
+                    </Box>
+                  ))} */}
               </Box>
             </Box>
             <Box
