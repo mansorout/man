@@ -41,6 +41,7 @@ export const VerificationpendingButton = () => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
+       
       }}
       className="KYCpendingStyleButton"
     >

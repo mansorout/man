@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -12,7 +12,9 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InsurancePlanCard from '../CommonComponents/InsurancePlanCard'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import { useNavigate } from 'react-router-dom';
-
+import { getTermListApi, postTermGenerate } from '../../Store/Insurance/thunk/insurance-thunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTermListApiTypes } from '../../Store/Insurance/constants/types';
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const style = {
@@ -76,8 +78,24 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }));
 
 const ExplorePlan = () => {
-    const classes = useStyles()
+    const classes = useStyles();
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
+    const { termData, termListApiData, termGenerateApiData } = useSelector((state: any) => state.insuranceReducer)
+    
+
+
+
+    useEffect(() => {
+        dispatch(postTermGenerate(termData))
+    }, [termData])
+
+
+    useEffect(() => {
+        termGenerateApiData?.recommendation_id && dispatch(getTermListApi(termGenerateApiData?.recommendation_id));
+    }, [termGenerateApiData])
+    
+    
 
     const handleBuyNow = () => {
         navigate('/choosedPlanDetail')
@@ -105,7 +123,7 @@ const ExplorePlan = () => {
                                             <Switch {...label} defaultChecked />
                                             <span>Annually</span>
                                         </Box>
-                                        <span>5 Plans with annually investment of ₹50,000</span>
+                                        <span>{termListApiData?.length} Plans with annually investment of ₹{termData?.lifecover}</span>
                                     </Box>
                                     <Box className={classes.filterIconBox} sx={{alignItems: {xs : 'flex-start', sm: 'flex-end'}}}>
                                         <IconWithBgColor
@@ -116,7 +134,34 @@ const ExplorePlan = () => {
                                         <span>Prices inclusive of GST*</span>
                                     </Box>
                                 </Box>
-                                <InsurancePlanCard
+                                {
+                                    termListApiData?.length > 0 && termListApiData.map((cardItem: getTermListApiTypes) => (
+                                        <InsurancePlanCard
+                                            insuranceCompany={cardItem.providername}
+                                            medicalType={cardItem.ismedicalcheckrequire === 0 ? 'No Medical' : 'Medical'}
+                                            // companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
+                                            companyLogo={cardItem.providerlogo}
+                                            lifeCover={cardItem.lifecover}
+                                            coverUpto={`${cardItem.maxage} Years`}
+                                            claimSettled={cardItem.claimsettlementratio}
+                                            planAmount='₹599 pm'
+                                            amountType='Premium Amt.'
+                                            planOffer='Buy online and Save up to 3.75%'
+                                        />
+                                    ))
+                                }
+                                {/* <InsurancePlanCard
+                                    insuranceCompany='SBI Life Insurance eShield'
+                                    medicalType='No Medical'
+                                    companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
+                                    lifeCover={100000}
+                                    coverUpto='65 Years'
+                                    claimSettled='99.1%'
+                                    planAmount='₹599 pm'
+                                    amountType='Premium Amt.'
+                                    planOffer='Buy online and Save up to 3.75%'
+                                /> */}
+                                {/* <InsurancePlanCard
                                     insuranceCompany='SBI Life Insurance eShield'
                                     medicalType='No Medical'
                                     companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
@@ -148,18 +193,7 @@ const ExplorePlan = () => {
                                     planAmount='₹599 pm'
                                     amountType='Premium Amt.'
                                     planOffer='Buy online and Save up to 3.75%'
-                                />
-                                <InsurancePlanCard
-                                    insuranceCompany='SBI Life Insurance eShield'
-                                    medicalType='No Medical'
-                                    companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
-                                    lifeCover='1 Crore'
-                                    coverUpto='65 Years'
-                                    claimSettled='99.1%'
-                                    planAmount='₹599 pm'
-                                    amountType='Premium Amt.'
-                                    planOffer='Buy online and Save up to 3.75%'
-                                />
+                                /> */}
                             </Box>
                             <FooterWithBtn
                                 btnText='Buy Now'

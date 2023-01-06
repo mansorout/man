@@ -39,6 +39,7 @@ const BankAccountDetails = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [disablenomineeButton,setDisablenomineeButton] = useState<boolean>(true);
 
 
     function handleSubmit(event: any) {
@@ -56,6 +57,10 @@ const BankAccountDetails = () => {
         } else if (accountHolder === '') {
             setAccountHolderError(true);
         }
+
+
+
+        
 
         // else {
         //     navigate('/viewprofile');
@@ -104,6 +109,23 @@ const BankAccountDetails = () => {
     }
 
     const style = {
+        button: {
+            ml: 1,
+            "&.MuiButtonBase-root:hover": {
+                bgcolor: '#23db7b'
+            },
+            borderRadius: '0.5rem',
+            boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
+            backgroundColor: '#23db7b',
+            padding: '1rem',
+            textTransform: 'capitalize'
+            
+            
+         
+         
+          
+           
+        } as React.CSSProperties,
         main: {
             boxSizing: "border-box",
             backgroundColor: "#f9f9f9",
@@ -243,7 +265,7 @@ const BankAccountDetails = () => {
                             }}>Bank Account</Typography>
                         </Breadcrumbs>
                         <Box component="form" sx={{
-                            gap: { xs: '1vw', sm: '1vw', md: '1vw', lg: '1vw' },
+                            gap: { xs: '15px', sm: '1vw', md: '1vw', lg: '1vw' },
                             width: '90%',
                             maxWidth: '488px',
                             display: 'flex',
@@ -331,7 +353,7 @@ const BankAccountDetails = () => {
                                 />
                             </FormControl>
 
-                            <FormControl sx={{ paddingTop: "10px" }}>
+                            <FormControl >
                                 <TextField
                                     type="password"
                                     id="outlined-bank-acc-no"
@@ -397,20 +419,23 @@ const BankAccountDetails = () => {
 
                             <FormControl>
                                 <Button
+                                disabled={disablenomineeButton}
                                     variant="contained"
                                     onClick={handleSubmit}
-                                    sx={{
-                                        ml: 1,
-                                        "&.MuiButtonBase-root:hover": {
-                                            bgcolor: '#23db7b'
-                                        },
-                                        borderRadius: '0.5rem',
-                                        boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                        backgroundColor: '#23db7b',
-                                        padding: '1rem',
-                                        textTransform: 'capitalize',
-                                    }}
-                                >Continue</Button>
+                                    // sx={{
+                                    //     ml: 1,
+                                    //     "&.MuiButtonBase-root:hover": {
+                                    //         bgcolor: '#23db7b'
+                                    //     },
+                                    //     borderRadius: '0.5rem',
+                                    //     boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
+                                    //     backgroundColor: '#23db7b',
+                                    //     padding: '1rem',
+                                    //     textTransform: 'capitalize',
+                                    // }}
+                                    style={style.button}
+                                ><Typography sx={{color:"white",size:"16px",fontWeight:"500"}}>
+                                    Continue</Typography></Button>
                             </FormControl>
                         </Box>
                     </Grid>

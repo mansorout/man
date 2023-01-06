@@ -52,6 +52,7 @@ import LoopIcon from '@mui/icons-material/Loop';
 import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import Card from '@mui/material/Card';
 import { InsuranceCard } from '../../Modal/InsuranceCard';
+import ModalGotit from './ModalGotit';
 
 const style = {
     main: {
@@ -349,6 +350,10 @@ const HealthInsurance = () => {
         },
 
     ]
+    const handleGotit=()=>{
+        setShowGotit(true)
+    }
+    const [showGotit, setShowGotit] = useState(false);
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
             <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -438,9 +443,11 @@ const HealthInsurance = () => {
             </Box>
             <FooterWithBtn
                 btnText='Continue'
-                btnClick={() => { navigate('/healthInsurance/findInsurance')}}
+                btnClick={handleGotit}
+                // btnClick={() => { navigate('/healthInsurance/findInsurance')}}
             />
-        </div >
+             <ModalGotit open={showGotit} close={() => setShowGotit(false)} />
+        </div>
     )
 }
 

@@ -1,9 +1,28 @@
 
 
+// export type postTermGenerateProps = {
+//     lifecover: number | null,
+//     frequencytype: number,
+//     issmoker: number,
+// }
+
+
+
 export type postTermPurchaseProps = {
     lifecover: number | null,
     frequencytype: number,
     issmoker: number,
+}
+
+export type getTermListApiTypes = {
+    providerlogo: string,
+    providername: string,
+    planname: string,
+    lifecover: number,
+    annualpremium: number,
+    maxage: number,
+    ismedicalcheckrequire: number,
+    claimsettlementratio: string
 }
 
 export type ulipReturnApiParamsTypes = {
@@ -23,7 +42,7 @@ export type sendUlipGenrateApiTypes = {
     term_id: number
 }
 
-export type getUlipGenrateApiTypes = {
+export type listApiTypes = {
     recommendation_id: number
 }
 
