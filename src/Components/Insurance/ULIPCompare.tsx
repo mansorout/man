@@ -158,7 +158,9 @@ function ULIPCompare() {
   useEffect(()=>{
     setCompany1(ULIPList.filter((item) => item.id == ULIPId[0])[0])
     setCompany2(ULIPList.filter((item) => item.id == ULIPId[1])[0])
+    console.log(ULIPList)
   },[])
+ 
 
   const classes = useStyles()
 

@@ -68,6 +68,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ConfirmationModal from './ConfirmationModal';
 import CompleteModal from './CompleteModal';
 import HdfcModal from './HdfcModal';
+import CertifyModal from './CertifyModal';
 
 const style = {
     main: {
@@ -730,7 +731,7 @@ const ProposalFormStep4 = () => {
 
 
             </Box>
-            <ConfirmationModal open={openConfirmationModal} setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
+            <CertifyModal open={openConfirmationModal} setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
             <HdfcModal open={openHdfcModal} setOpen={setOpenHdfcModal} />
             <CompleteModal open={openCompleteModal} setOpen={setOpenCompleteModal} onBtnPress={()=>{navigate('/home')}}/>
             <FooterWithBtn

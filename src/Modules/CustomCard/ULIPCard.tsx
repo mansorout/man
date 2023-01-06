@@ -153,6 +153,7 @@ function ULIPCard({id, logo, name, renewalBonus, cashlessHospital, anualEMI, mon
   const navigate = useNavigate();
 
   const { ULIPId }: any = useSelector((state: any) => state.ULIPCompare)
+  console.log(ULIPId)
 
   const handleCompare = () => {
     if(ULIPId.length > 1){
@@ -167,7 +168,7 @@ function ULIPCard({id, logo, name, renewalBonus, cashlessHospital, anualEMI, mon
 
   return (
     <>
-    <Box style={{ position:"relative", gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
+    <Box style={{ position:"relative", gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"27px 20px"}}>
       <Box style={{display:"flex", flexWrap:'wrap', gap:"15px"}}>
         <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
           <img src={logo} width="100%" alt='logo'></img>
