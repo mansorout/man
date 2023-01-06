@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Breadcrumbs,
@@ -17,10 +17,12 @@ import SelectSipDateButton from "../../Modules/Buttons/SelectSipDateButton";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { globalConstant } from "../../Utils/globalConstant";
 import Calendar from "react-calendar";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
+import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
+import siteConfig from "../../Utils/siteConfig";
 
 const data = [
   {
@@ -107,50 +109,84 @@ const enumActiveScreen = Object.freeze({
   OPEN_NET_BANKING: 3,
 });
 
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    height: "100vh",
+  } as React.CSSProperties,
+  modalText: {
+    backgroundColor: "#FFF",
+    width: 338,
+    textAlign: "center",
+    marginLeft: "1px",
+    padding: "5px",
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4,
+    fontWeight: "500",
+    borderColor: "#fff",
+  },
+  button: {
+    height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    transform: "translate(8px, -23px)",
+    color: "#fff",
+    width: 350,
+    marginTop: 21,
+    marginLeft: -8,
+  },
+};
+
 const CustomizeMF = () => {
   const navigate: any = useNavigate();
+  const dispatch = useDispatch();
+  // const [fundList, setFundList] = useState<MFProp[]>(data);
 
-  const [fundList, setFundList] = useState<MFProp[]>(data);
-
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh",
-    } as React.CSSProperties,
-    modalText: {
-      backgroundColor: "#FFF",
-      width: 338,
-      textAlign: "center",
-      marginLeft: "1px",
-      padding: "5px",
-      borderTopRightRadius: 4,
-      borderTopLeftRadius: 4,
-      fontWeight: "500",
-      borderColor: "#fff",
-    },
-    button: {
-      height: "48px",
-      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-      backgroundColor: "#23db7b",
-      transform: "translate(8px, -23px)",
-      color: "#fff",
-      width: 350,
-      marginTop: 21,
-      marginLeft: -8,
-    },
-  };
-
-  const g_investment = useSelector(
-    (state: any) => state?.investmentReducer?.investment
-  );
-  const [activeScreen, setActiveScreen] = useState<number>(
-    enumActiveScreen.CLOSE_MODAL
-  );
+  const [mfCards, setMfCards] = useState<any[]>([]);
+  const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
+  const g_investment = useSelector((state: any) => state?.recommendationsReducer?.investment);
+  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount);
+  console.log(g_mutualFundListWrtUserAmount);
+  // const userAmount: number = useMemo(() => { return location?.state?.amount }, []);
 
   useEffect(() => {
-    // setMfCards(data);
+    let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
+
+    if (!g_investment?.type) {
+      dispatch(setInvestmentCardTypeAction(strCardType));
+    }
+
+    // if (!userAmount) {
+    //   navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
+    // } else {
+    //   getMutualFundListWrtUserAmount(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12);
+    // }
   }, []);
+
+
+  useEffect(() => {
+    // if (!g_investment?.type) {
+    //   return;
+    // }
+
+    
+    if (!g_mutualFundListWrtUserAmount) {
+      return;
+    }
+
+    console.log(g_mutualFundListWrtUserAmount);
+
+    if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
+      setMfCards(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS]);
+    } else {
+      console.log("comming in else case")
+      // navigate("/onetimemutualfundrecommendation");
+      // setMfCards([]);
+    }
+
+  // }, [g_mutualFundListWrtUserAmount, g_investment?.type]);
+  }, [g_mutualFundListWrtUserAmount]);
 
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
@@ -243,7 +279,7 @@ const CustomizeMF = () => {
                       color: "#3c3e42",
                     }}
                   >
-                    {fundList.length} Mutual Funds Found
+                    {mfCards.length} Mutual Funds Found
                   </Typography>
                   <Typography
                     sx={{
@@ -252,6 +288,7 @@ const CustomizeMF = () => {
                     }}
                   >
                     Monthly investment of ₹5,000
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {mfCards[0]?.recommendedamount ? mfCards[0]?.recommendedamount : 0}
                   </Typography>
                 </Box>
                 <Box
@@ -281,8 +318,8 @@ const CustomizeMF = () => {
               </Box>
 
               <Box>
-                {fundList.length &&
-                  fundList.map((item, index) => (
+                {mfCards.length &&
+                  mfCards.map((item, index) => (
                     <Box sx={{ marginTop: "1.25vw" }} key={index}>
                       <MutualFundCard2 {...item} />
                     </Box>
