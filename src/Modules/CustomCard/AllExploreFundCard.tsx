@@ -13,19 +13,23 @@ import { useSelector } from 'react-redux';
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface Prop {
-  logo: string,
-  name: string,
-  cap: string,
-  type: string,
-  price: string,
-  year1: string,
-  year3: string,
-  year5: string,
-  star: string,
+  secid:any,
+
+  fundimage: any,
+  fundname: string,
+  category: string,
+  categorygroup: string,
+  aum: string,
+  return1yr: string,
+  return3yr: string,
+  return5yr: string,
+  ratingoverall
+  : string,
   box: boolean
 }
 
-function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star, cap, box }: Prop) {
+function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5yr, categorygroup, fundimage, ratingoverall
+  , category, box }: Prop) {
 
 
 
@@ -142,60 +146,67 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
     } as React.CSSProperties,
   }
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
-  const [exploreFundData,setExploreFundData] = useState<any>({});
-  const url = name.replace(/ /g, '')
+  const [exploreFundData, setExploreFundData] = useState<any>({});
+  // const url = name.replace(/ /g, '')
   const navigate = useNavigate()
 
   const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
   console.log(explorFundlist)
 
+  const handleSelect =(id:any)=>{
+    navigate('/details')
+    alert(id)
+    
+  }
 
 
-  
+
+
 
   return (
     <>
-      
-      <Box  style={{ gap: "20px", flexWrap: "wrap", overflowX: "scroll", marginBottom: "15px", display: "flex", backgroundColor: "white", borderRadius: "8px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding: "10px 20px" }}>
-        <Box onClick={() => { navigate('/details') }} style={{ display: "flex", gap: "10px", flexWrap: "wrap", width: "100%", maxWidth: "400px" }}>
+
+      <Box style={{ gap: "20px", flexWrap: "wrap", overflowX: "scroll", marginBottom: "15px", display: "flex", backgroundColor: "white", borderRadius: "8px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding: "10px 20px" }}>
+        <Box onClick={() => { handleSelect(secid) }} style={{ display: "flex", gap: "10px", flexWrap: "wrap", width: "100%", maxWidth: "400px" }}>
           <Box style={{ overflow: "hidden", height: "32px", width: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
-            <img src={logo} width="100%" alt='mirae'></img>
+            <img src={fundimage} width="100%" alt='mirae'></img>
           </Box>
           <Box>
-            <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{name}</Typography>
+            <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{fundname}</Typography>
             <Box style={{ display: "flex", gap: "10px" }}>
               <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{cap}</Typography>
+                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{category}</Typography>
               </Box>
               <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{type}</Typography>
+                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{categorygroup}</Typography>
               </Box>
             </Box>
           </Box>
         </Box>
         <Box style={{ padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
-          <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{price}</Typography>
+          <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{aum}</Typography>
         </Box>
-        <Chip style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }} avatar={<Avatar alt="star" src={Star} />} label={star} />
+        <Chip style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }} avatar={<Avatar alt="star" src={Star} />} label={ratingoverall
+        } />
         <Box style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}>
           <Box>
             <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>1yr return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{year1}</Typography>
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{return1yr}</Typography>
           </Box>
           <Box>
             <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3yrs return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{year3} </Typography>
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{return3yr} </Typography>
           </Box>
           <Box>
             <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>5yrs return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{year5}</Typography>
-            
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{return5yr}</Typography>
+
           </Box>
           <Box>
             <Checkbox
               id="topping" name="topping"
               {...label}
-              defaultChecked
+              defaultChecked={false}
               sx={{
                 color: "#3D70B2"[800],
                 "&.Mui-checked": {
@@ -205,6 +216,7 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
             />
           </Box>
         </Box>
+        
       </Box>
 
       <Modal open={openPaymentModal} onClose={() => setOpenPaymentModal(false)}>
@@ -262,7 +274,7 @@ function AllExploreFundCard({ name, price, year1, year5, year3, type, logo, star
       </Modal>
     </>
   )
-  }
+}
 
 
 export default AllExploreFundCard
