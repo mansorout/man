@@ -24,6 +24,10 @@ import DropDownFilterInvestment from "../Investment/dropDownFilterInvestment";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 import SelectedFunds from "../ExploreFunds/SelectedFunds";
 import AddToPlanComp from "../CommonComponents/AddToPlanComp";
+import { MFFeatures } from "../../Utils/globalTypes";
+import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
+import { getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import siteConfig from "../../Utils/siteConfig";
 
 const data = [
   {
@@ -108,6 +112,13 @@ const data = [
   },
 ];
 
+const initialMFData: MFFeatures = {
+  showCheckbox: true,
+  showButtons: false,
+  isMutualFundScreen: false,
+  isChecked: false
+}
+
 const style = {
   main: {
     boxSizing: "border-box",
@@ -134,26 +145,50 @@ const AddFunds = () => {
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
-  const [fundList, setFundList] = useState<any[]>([]);
+  // const [fundList, setFundList] = useState<any[]>([]);
+  const [mfCards, setMfCards] = useState<any[]>([]);
   const [selected, setSelected] = useState<number>(1);
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
   );
-
+  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
   useEffect(() => {
-    setFundList(data);
+    let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
+    if (!g_investment?.type) {
+      dispatch(setInvestmentCardTypeAction(strCardType));
+    }
   }, []);
+
+  // useEffect(() => {
+  //   handleCustomisePlanScreen();
+  // }, [g_mutualFundListWrtUserAmount]);
+
+  // const handleCustomisePlanScreen = async () => {
+
+  //   if (!g_mutualFundListWrtUserAmount) {
+  //     return;
+  //   }
+
+  //   if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
+  //     let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
+  //     setMfCards(arrRecomm);
+  //   } else {
+  //     setMfCards([]);
+  //     navigate("/onetimemutualfundrecommendation");
+  //   }
+  // }
+  
 
   const handleSelection = (key: number, type: string, arrData: any[]) => {
     setSelected(key);
     setFundSelecteds([]);
     if (type === globalConstant.ALL_FUNDS) {
-      setFundList(data);
+      setMfCards(data);
       return;
     }
-    setFundList(arrData.filter((item: any) => item.fundType === type));
+    setMfCards(arrData.filter((item: any) => item.fundType === type));
   };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
@@ -174,7 +209,7 @@ const AddFunds = () => {
       isItemAlreadyPresent = false;
     });
 
-    let fundListSelectedItem: number = fundList.length && fundList.filter(item => item.id === id)[0];
+    let fundListSelectedItem: number = mfCards.length && mfCards.filter(item => item.id === id)[0];
 
     if (type === true) {
       if (isItemAlreadyPresent) {
@@ -299,7 +334,7 @@ const AddFunds = () => {
                         marginTop: "20px",
                       }}
                     >
-                      {`${fundList.length}`} funds found
+                      {`${mfCards.length}`} funds found
                     </Typography>
                   </Box>
                 </Box>
@@ -326,7 +361,7 @@ const AddFunds = () => {
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
                       <InputBase
                         onChange={(e) =>
-                          setFundList(
+                          setMfCards(
                             data.filter((item) =>
                               item.title
                                 .toLowerCase()
@@ -441,7 +476,7 @@ const AddFunds = () => {
                         }
                         )
                       </Typography>
-                    
+
                     </Box>
                     <Box
                       onClick={() =>
@@ -483,8 +518,9 @@ const AddFunds = () => {
                 justifyContent: "center",
                 width: { xs: "100%" }
               }}>
-                {fundList.length &&
-                  fundList.map((item, index) => {
+                {mfCards &&
+                  mfCards.length &&
+                  mfCards.map((item, index) => {
                     return (
                       <Box key={index}>
                         <MutualFundCard2
@@ -492,7 +528,7 @@ const AddFunds = () => {
                           onClick={(val, type, elt) => handleAddFundsSelection(val, type, elt)}
                           index={index}
                         />
-                    
+
                       </Box>
                     );
                   })}
@@ -501,17 +537,17 @@ const AddFunds = () => {
             {
               fundSelecteds.length > 0 ?
                 <>
-              
+
                   <AddToPlanComp
                     fundsCount={fundSelecteds.length}
                     onClick={() => null}
                   />
-                  
+
                 </>
                 : null
             }
           </Grid>
-        
+
         </Grid>
       </Box>
     </Box>

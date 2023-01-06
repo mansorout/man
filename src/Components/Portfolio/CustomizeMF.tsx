@@ -21,10 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { globalConstant } from "../../Utils/globalConstant";
 import Calendar from "react-calendar";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
-import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
+import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
-import { getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import { apiResponse } from "../../Utils/globalTypes";
+import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/investment-thunk";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 
 const data = [
   {
@@ -155,20 +158,53 @@ const CustomizeMF = () => {
   const g_investment = useSelector((state: any) => state?.recommendationsReducer?.investment);
   const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
+  //@ts-ignore
+  const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
+  const strCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
+
   useEffect(() => {
-    let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
     if (!g_investment?.type) {
       dispatch(setInvestmentCardTypeAction(strCardType));
     }
   }, []);
 
-
   useEffect(() => {
-    handleCustomisePlanScreen();
+    if (strCardType !== g_investment?.type) {
+      console.log("investmenttype is different");
+      return;
+    }
+    
+    if (g_mutualFundListWrtUserAmount) {
+      handleCustomisePlanScreen();
+    } else {
+      handleResponse();
+    }
   }, [g_mutualFundListWrtUserAmount]);
+
+
+  const handleResponse = async () => {
+    let data: apiResponse = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+    if (checkExpirationOfToken(data?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (data?.error === true) {
+      return;
+    }
+
+    let res = data?.data;
+    if (res && res.length) {
+      let objMF: any = res.filter((item: any) => item?.recommendationtype === globalConstant.MUTUAL_FUND)[0];
+      await dispatch(setMutualFundListWrtUserAmountAction(objMF));
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(objMF ? objMF[globalConstant.RECOMMENDATIONS] : [], initialMFData);
+      setMfCards(arrRecomm);
+    }
+  }
 
   const handleCustomisePlanScreen = async () => {
     if (!g_mutualFundListWrtUserAmount) {
+
       return;
     }
 

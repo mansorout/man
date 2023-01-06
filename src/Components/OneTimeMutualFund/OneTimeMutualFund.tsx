@@ -23,13 +23,15 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
 import { globalConstant } from "../../Utils/globalConstant";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
 import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
-import { MFFeatures } from "../../Utils/globalTypes";
+import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
+import { store } from "../../Store/Store";
+import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/investment-thunk";
 
 // const data = [
 //   {
@@ -237,15 +239,27 @@ const OneTimeMutualFund = () => {
   const navigate: any = useNavigate();
   const location: any = useLocation();
 
-  const g_investment: any = useSelector(
-    (state: any) => state?.recommendationsReducer?.investment
-  );
-
+  const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
+  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data, shallowEqual);
+  
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
+  
   // @ts-ignore
   const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
 
   useEffect(() => {
+    console.log("onetimemutual.tsx mounted");
+    initiate();
+    return () => {
+      console.log("onetimemutual.tsx unmounted")
+    }
+  }, []);
+
+  useEffect(() => {
+    handleCustomisePlanScreen();
+  }, [g_mutualFundListWrtUserAmount]);
+
+  const initiate = async () => {
     let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
 
     if (!g_investment?.type) {
@@ -255,44 +269,46 @@ const OneTimeMutualFund = () => {
     if (!userAmount) {
       navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
     } else {
-      getMutualFundListWrtUserAmount(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12);
+      let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+      if (res) handleResponse(res);
     }
-  }, []);
+  }
 
-  const getMutualFundListWrtUserAmount = (amount: number, id: number) => {
-    let strUrl = siteConfig.RECOMMENDATION_MUTUALFUND_LIST + `?investmenttype_id=${id}&amount=${amount}`;
-    getData(
-      strUrl,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.RECOMENDATION_API_ID
-    )
-      .then(res => res.json())
-      .then(async (data: any) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
+  const handleResponse = async (data: apiResponse) => {
+    if (checkExpirationOfToken(data?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
 
-        if (data?.error === true) {
-          return;
-        }
+    if (data?.error === true) {
+      return;
+    }
 
-        let res = data?.data;
-        if (res && res.length) {
-          let objMF: any = res.filter((item: any) => item?.recommendationtype === globalConstant.MUTUAL_FUND)[0];
-          await dispatch(setMutualFundListWrtUserAmountAction(objMF));
-          let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(objMF ? objMF[globalConstant.RECOMMENDATIONS] : [], initialMFData);
-          setMfCards(arrRecomm);
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+    let res = data?.data;
+    if (res && res.length) {
+      let objMF: any = res.filter((item: any) => item?.recommendationtype === globalConstant.MUTUAL_FUND)[0];
+      await dispatch(setMutualFundListWrtUserAmountAction(objMF));
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(objMF ? objMF[globalConstant.RECOMMENDATIONS] : [], initialMFData);
+      setMfCards(arrRecomm);
+    }
+  }
+
+  const handleCustomisePlanScreen = async () => {
+    if (!g_mutualFundListWrtUserAmount) {
+      return;
+    }
+
+    if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
+      setMfCards(arrRecomm);
+    } else {
+      setMfCards([]);
+      // navigate("/onetimemutualfundrecommendation");
+    }
   }
 
   const handlePrice = (value: any) => {
     navigate("/funddetails");
-    // if (value === 12.3) {
-    // }
   };
 
   const handleNavigation = (strRoute: string) => {

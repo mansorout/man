@@ -114,10 +114,14 @@ export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], i
         ...arrRecomm[i],
         "showButtons": initialMFData?.showButtons,
         "showCheckbox": initialMFData?.showCheckbox,
-        "isMutualFundScreen": initialMFData?.isMutualFundScreen
+        "isMutualFundScreen": initialMFData?.isMutualFundScreen,
+      }
+      if (initialMFData?.isChecked !== undefined) {
+        arrRecomm[i]["isChecked"] = initialMFData?.isChecked;
       }
     }
 
+    console.log(arrRecomm, "arrRecom getMutualFundRecommendationListWRTUserAmount")
     return arrRecomm;
   } catch (err) {
     return [];
