@@ -253,7 +253,7 @@ export const Login = () => {
               shouldButtonDisable === false && number && number.length === 10 ?
                 <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
                   {" "}
-                  <img src={SuccessLogo} width="22px" alt="Cross" />{" "}
+                  <img src={validMobile} width="22px" alt="Cross" />{" "}
                 </InputAdornment> : ""
             ),
             // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
