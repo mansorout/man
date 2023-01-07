@@ -420,7 +420,7 @@ function InvestNowScreen(props: IProps) {
 
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
+    timerRef.current = setTimeout(() => { 
       cb(a);
     }, 550);
   }
