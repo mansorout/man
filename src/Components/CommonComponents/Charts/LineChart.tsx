@@ -11,7 +11,7 @@ import React, { MouseEvent, ReactElement, useRef } from 'react'
 //     Filler
 // } from 'chart.js';
 import { getDatasetAtEvent, getElementsAtEvent, Line, getElementAtEvent } from 'react-chartjs-2';
-import { Chart as ChartJS, InteractionItem } from 'chart.js';
+import { CategoryScale, Chart as ChartJS, InteractionItem, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
 import { Box } from '@mui/system'
 import {  Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -78,6 +78,16 @@ interface LineChartProps {
 }
 
 const LineChart = (props: LineChartProps) => {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
   const chartRef: any = useRef(null);
 
   const printElementAtEvent = (element: InteractionItem[]) => {
