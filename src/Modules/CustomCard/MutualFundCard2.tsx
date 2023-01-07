@@ -28,21 +28,41 @@ import {
 import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 
 export interface MFProp {
-  id: number;
-  logo: string;
-  title: string;
-  fundType: string;
-  price: number;
-  rating: number;
-  morningStarLogo: boolean;
-  oneYearReturn: number;
-  threeYearReturn: number;
-  fiveYearReturn: number;
+  // id: number;
+  // logo: string;
+  // title: string;
+  // fundType: string;
+  // price: number;
+  // rating: number;
+  // morningStarLogo: boolean;
+  // oneYearReturn: number;
+  // threeYearReturn: number;
+  // fiveYearReturn: number;
+  // showButtons: boolean;
+  // showCheckbox: boolean;
+  // isMutualFundScreen: boolean;
+  onClick?: (data: any, type: any, element: string) => void | undefined;
+  isChecked?: boolean
+
+  onCardClick?: (id: string) => void | undefined//from mutual fund screen
+
+  recommendation_id: number,
+  recommendationfund_id: number,
+  recommendationtype_id: number,
+  fundname: string;
+  category: string,
+  return1yr: string;
+  return3yr: string;
+  return5yr: string;
+  categorygroup: string;
+  recommendedamount: number;
+  ratingoverall: number;
+  fundimage: string;
+  secid: string;
+  returnytd: string
   showButtons: boolean;
   showCheckbox: boolean;
   isMutualFundScreen: boolean;
-  onClick?: (data: any, type: any, element: string) => void | undefined;
-  isChecked?: boolean
 }
 
 const enumActiveScreen = Object.freeze({
@@ -123,6 +143,7 @@ const style = {
     color: "white",
   },
 };
+
 const MutualFundCard2 = (props: MFProp) => {
   const classes = useStyles();
   const naviagte = useNavigate();
@@ -155,6 +176,9 @@ const MutualFundCard2 = (props: MFProp) => {
               ? { xs: "unset", lg: "100vh" }
               : "unset",
         }}
+        onClick={() => {
+          if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
+        }}
       >
         <Box
           style={{
@@ -177,7 +201,7 @@ const MutualFundCard2 = (props: MFProp) => {
               justifyContent: "center",
             }}
           >
-            <img src={props?.logo} width="100%" alt="mirae"></img>
+            <img src={props?.fundimage} width="100%" alt="mirae"></img>
           </Box>
           <Box>
             <Typography
@@ -189,12 +213,9 @@ const MutualFundCard2 = (props: MFProp) => {
                 lineHeight: "1.19",
               }}
             >
-              {props?.title}
+              {props?.fundname}
             </Typography>
             <Box style={{ display: "flex", gap: "10px" }}>
-              {/* <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                  <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{props?.cap}</Typography>
-                </Box> */}
               <Box
                 style={{
                   padding: "4px 5px",
@@ -202,7 +223,7 @@ const MutualFundCard2 = (props: MFProp) => {
                 }}
               >
                 <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                  {props?.fundType}
+                  {props?.categorygroup}
                 </Typography>
               </Box>
             </Box>
@@ -218,21 +239,18 @@ const MutualFundCard2 = (props: MFProp) => {
           <Typography
             style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
           >
-            ₹{props?.price}
+            ₹{props?.recommendedamount}
           </Typography>
         </Box>
         <Chip
           style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }}
           avatar={<Avatar alt="star" src={Star} />}
-          label={props?.rating}
+          label={props?.ratingoverall}
         />
         <Box
-          // style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}
           sx={{
-            // width: { ...widthRef.current },
             width: props?.showButtons === true ? { md: "min-content" } : "unset",
             display: "flex",
-            // gap: "30px",
             gap: props?.showButtons === true ? { xs: "30px", md: "8%" } : "30px",
             justifyContent:
               props?.showButtons === true ? { xs: "unset", md: "center" } : "unset",
@@ -244,7 +262,7 @@ const MutualFundCard2 = (props: MFProp) => {
               1yrs return
             </Typography>
             <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
-              ₹{props?.oneYearReturn}
+              ₹{props?.return1yr}
             </Typography>
           </Box>
           <Box>
@@ -252,7 +270,7 @@ const MutualFundCard2 = (props: MFProp) => {
               3yrs return
             </Typography>
             <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
-              ₹{props?.threeYearReturn}{" "}
+              ₹{props?.return3yr}{" "}
             </Typography>
           </Box>
           <Box>
@@ -260,7 +278,7 @@ const MutualFundCard2 = (props: MFProp) => {
               5yrs return
             </Typography>
             <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
-              ₹{props?.fiveYearReturn}
+              ₹{props?.return5yr}
             </Typography>
           </Box>
           {props?.isMutualFundScreen === true ? (
@@ -278,8 +296,6 @@ const MutualFundCard2 = (props: MFProp) => {
                         justifyContent: "flex-end",
                         gap: "1vw",
                         marginTop: { xs: "unset", sm: "8%" },
-                        // position: { md: "absolute" },
-                        // right: { md: "-5%" },
                       }}
                     >
                       <Button
@@ -318,9 +334,8 @@ const MutualFundCard2 = (props: MFProp) => {
               // for add funds
               <Box component="span" >
                 <Checkbox
-                  // checked={props?.isChecked}
                   onClick={(e: any) => {
-                    if (props?.onClick) props?.onClick(props?.id, e?.target?.checked, "checked")
+                    if (props?.onClick) props?.onClick(props?.recommendation_id, e?.target?.checked, "checked")
                   }} />
               </Box>
             ) : (
@@ -328,7 +343,7 @@ const MutualFundCard2 = (props: MFProp) => {
               <Box
                 component="span"
                 onClick={(e: any) => {
-                  if (props?.onClick) props?.onClick(props?.id, null, "radio")
+                  if (props?.onClick) props?.onClick(props?.recommendation_id, null, "radio")
                 }}
               >
                 {

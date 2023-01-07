@@ -159,16 +159,16 @@ function VviewprofileCard(props: IProps) {
         <>
             <Box
                 sx={{
-                    p: 1,
+                    // p: 1,
 
-                    width: "1",
+                    width: "100%",
                     bgcolor: "background.paper",
-                    marginTop: "30px",
+                    // marginTop: "30px",
                     borderRadius: "4px",
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                className="thirdboxstyle"
+                // className="thirdboxstyle"
 
             >
                 <List>
@@ -410,30 +410,24 @@ function VviewprofileCard(props: IProps) {
                             }
                         />
                     </ListItem>
-                    <Grid
-                        container
-                        spacing={1}
-                        textAlign="center"
-                        sx={{ paddingLeft: "32px" }}
-                    >
-                        <Grid item xs={12} md={12}>
-                            <VerificationpendingButton />
-                        </Grid>
-                    </Grid>
+                   
+                    <Box className="BoxVerification">
+                    <VerificationpendingButton />
+                    </Box>
                 </List>
             </Box>
 
             <Box
                 sx={{
-                    p: 1,
+                    // p: 1,
                     borderRadius: "4px",
-                    width: "1",
+                    width: "100%",
                     bgcolor: "background.paper",
                     marginTop: "30px",
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                className="thirdboxstyle"
+                // className="thirdboxstyle"
 
             >
                 <List>
@@ -491,16 +485,16 @@ function VviewprofileCard(props: IProps) {
 
             <Box
                 sx={{
-                    p: 1,
+                    // p: 1,
 
-                    width: "1",
+                    width: "100%",
                     borderRadius: "4px",
                     bgcolor: "background.paper",
                     marginTop: "30px",
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                className="thirdboxstyle"
+                // className="thirdboxstyle"
 
 
             >

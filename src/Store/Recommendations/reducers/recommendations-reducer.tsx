@@ -2,7 +2,7 @@ import { SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT } from "../constants/recommendatio
 
 const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
-  mutaulFundListWrtUserAmount: { data: {} }
+  mutaulFundListWrtUserAmount: { data: {} },
 }
 
 export default function recommendationsReducer(objState = objInitialState, action: any) {
@@ -22,7 +22,7 @@ export default function recommendationsReducer(objState = objInitialState, actio
       break;
     }
     case SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT: {
-      objState.investment = {
+      objState.mutaulFundListWrtUserAmount = {
         ...objState.mutaulFundListWrtUserAmount,
         data: action.payload
       }

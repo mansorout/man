@@ -176,11 +176,11 @@ const ViewProfileCard = (props: IProps) => {
     <>
       <Card
         sx={{
-          p: 4,
-          marginTop: "30px",
+          p: 1,
+          marginTop: "0px",
           height: " fit-content",
         }}
-        className="paddingviewprofilestyle"
+        // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -270,14 +270,14 @@ const ViewProfileCard = (props: IProps) => {
                 }
               </Typography>
             </ListItem>
-            <ListItem className="twoeightpixel">
+            <ListItem>
               <ListItemAvatar>
                 <Avatar alt="" src={cakelogo} style={style.ca} />
               </ListItemAvatar>
               <ListItemText
                 primary={
                   <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
-                  className="CommonStyle__Classofb_Date"
+                  // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
                   </Typography>
@@ -302,7 +302,7 @@ const ViewProfileCard = (props: IProps) => {
               />
               {/* ViewProfileState?.userdetails */}
               <ListItemText
-                  className="CommonStyle__Class_Gender"
+                  // className="CommonStyle__Class_Gender"
                 primary="Gender"
                 // secondary={g_viewProfileState?.userdetails?.gender !== "" ? g_viewProfileState?.userdetails?.gender : ""}
                 secondary={formData?.gender || ""}
@@ -310,13 +310,13 @@ const ViewProfileCard = (props: IProps) => {
               />
             </ListItem>
 
-            <ListItem className="PlaceofBirth__Style">
+            <ListItem>
               <ListItemAvatar>
                 <Avatar alt="" src={icbirthplacelogo} style={style.ca} />
               </ListItemAvatar>
 
               <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
-                className="CommonStyle__Class"
+                // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {
