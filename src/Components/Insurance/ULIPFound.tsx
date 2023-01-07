@@ -2,18 +2,21 @@ import React, { useRef, useState } from "react";
 import "./insurance.css";
 import { Box } from "@mui/system";
 import {
+  Breadcrumbs,
   Button,
   FormControl,
   Grid,
   IconButton,
   InputBase,
   InputLabel,
+  Link,
   MenuItem,
   OutlinedInput,
   Select,
   SelectChangeEvent,
   Theme,
   Typography,
+
 } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -214,13 +217,32 @@ function ULIPFound() {
               xs={12}
             >
               <Toolbar />
+              <Box role="presentation" sx={{ marginTop: "-1%" }}>
+              <Breadcrumbs aria-label="breadcrumb" >
+                <Link color="#6495ED" underline="always" href='Home' >
+                  <Typography className='burgerText'> Home</Typography>
+                </Link>
+                 <Link underline="always" href='/explorefunds'>
+                  <Typography color="#6495ED" className='burgerText'>Get Insured </Typography>
+                </Link>
+                <Link underline="always" color="#6495ED" sx={{ fontSize: "12px", width: "100%" }}>
+                  <Typography color="#6495ED"  className='burgerText'>Health Insurance</Typography>
+                </Link>
+                <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                  <Typography className='burgerText'>Recommended Plans</Typography>
+                </Link>
+             
+              </Breadcrumbs>
+            </Box>
+         
               <Grid
                 item
                 xs={12}
                 p={2}
                 borderRadius={2}
-                style={{ backgroundColor: "#6a63f6" }}
+                style={{ backgroundColor: "#6a63f6",marginTop:"1%" }}
               >
+                
                 <Box
                   p={1}
                   style={{
@@ -317,7 +339,7 @@ function ULIPFound() {
                         return <AllTrancationCard {...item} key={index} />;
                       })}
                   </Box>
-                  <Grid item xs={12} my={3}>
+                  <Grid item xs={12} my={3} sx={{marginTop:"-49px"}}>
                     <Typography
                       style={{
                         color: "#3c3e42",
@@ -335,12 +357,12 @@ function ULIPFound() {
                       </IconButton>
                     </Grid>
                   </Grid>
-                    <Typography style={{ color: "#7b7b9d", fontSize: "14px",marginTop:"0%" }}>
+                    <Typography style={{ color: "#7b7b9d", fontSize: "14px",marginTop:"-1%" }}>
                       One-time lumsum investment of <b>{sumAmount}</b>
                     </Typography>
                   
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} >
                     {ULIPList.map((item, index) => {
                       return <ULIPCard {...item} key={index}></ULIPCard>;
                     })}

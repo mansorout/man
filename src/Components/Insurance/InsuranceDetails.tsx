@@ -17,6 +17,7 @@ import InsuranceCoverage from './InsuranceCoverage'
 import { RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material';
 import HospitalNetwork from './HospitalNetwork'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {  useNavigate } from 'react-router-dom'
 
 function InsuranceDetails() {
 
@@ -137,10 +138,8 @@ function InsuranceDetails() {
     const refContainer = useRef();
     const [open, setOpen] = useState<boolean>(false)
 
-    const handleClick = () => {
-        setOpen(!open)
-    }
-
+ 
+const navigate=useNavigate()
 
     return (
         <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -361,7 +360,7 @@ function InsuranceDetails() {
                             </Modal>
                             <FooterWithBtn
                                 btnText='Buy Now'
-                                btnClick={handleClick}
+                                btnClick={()=>navigate('/proposalForm')}
                             />
                         </Grid>
                     </Grid>
