@@ -3,6 +3,7 @@ import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography, Theme
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
+import ULIPRecommendationCard from '../../Modules/Cards/ULIP/ULIPRecommendationCard'
 import ULIPHeader from "../../Modules/Cards/ULIP/ULIPHeader";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 import ULIPBlueButton from "../../Modules/Buttons/ULIP/ULIPBlueButton";
@@ -21,10 +22,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import {
     LUMPSUM,
-    MONTHLY
+    MONTHLY,
+    ULIP_LUMPSUM
 } from '../../Store/Duck/InvestmentType'
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
+import SearchCmp from "../CommonComponents/SearchCmp";
 
 const enumActiveScreen = Object.freeze({
     CLOSE_MODAL: 0,
@@ -48,8 +51,16 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
 }))
 
-const ULIPRecommendations = () => {
+type radioTypes = {
+    value: number;
+    label: string;
+}
+type sortTypes = {
+    value: string;
+    label: string;
+}
 
+const ULIPRecommendations = () => {
     const classes = useStyles();
     const refContainer = useRef();
     const navigate = useNavigate();
@@ -65,8 +76,59 @@ const ULIPRecommendations = () => {
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
     const [recommendationHeaderInvestmentAmount, setRecommendationHeaderInvestmentAmount] = useState<string>('')
-
-
+    const [customSortValue, setCustomSortValue] = useState<string>('second')
+    const [policyTermValue, setPolicyTermValue] = useState<number | null>(null)
+    const [lifeCoverValue, setLifeCoverValue] = useState<number | null>(null)
+    const [customSort, setCustomSort] = useState<sortTypes[]>([
+        {
+            value: 'highToLowReturn',
+            label: 'Return - High to Low',
+        },
+        {
+            value: 'highToLowRating',
+            label: 'Rating - High to Low',
+        },
+        {
+            value: 'highToLowFundSize',
+            label: 'Fund Size - High to Low',
+        }
+    ]);
+    const [policyTerm, setPolicyTerm] = useState<radioTypes[]>([
+        {
+            value: 5,
+            label: '5 Years',
+        },
+        {
+            value: 7,
+            label: '7 Years',
+        },
+        {
+            value: 10,
+            label: '10 Years',
+        },
+        {
+            value: 15,
+            label: '15 Years',
+        },
+    ])
+    const [lifeCover, setLifeCover] = useState<radioTypes[]>([
+        {
+            value: 500000,
+            label: '₹5 Lacs',
+        },
+        {
+            value: 1500000,
+            label: '₹15 Lacs',
+        },
+        {
+            value: 7500000,
+            label: '₹75 Lacs',
+        },
+        {
+            value: 10000000,
+            label: '₹1 Crore',
+        },
+    ]);
     const ulipData: ULIPProp[] = [
         {
             logo: '/Miraelogo.svg',
@@ -90,9 +152,9 @@ const ULIPRecommendations = () => {
 
     useEffect(() => {
         console.log("ulipInsuranceAmount :", ulipInsuranceAmount)
-        if(parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
+        if (parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
     }, [])
-    
+
 
     const style = {
         main: {
@@ -168,7 +230,20 @@ const ULIPRecommendations = () => {
         }
     };
 
+    
+    const handleSortRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCustomSortValue(event.target.value);
+        console.log("sort :",event.target.value )
+    }
 
+    const handlePolicyTermRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPolicyTermValue(parseInt(event.target.value));
+        console.log("policy term :",event.target.value )
+    }
+    const handleLifeCoverRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLifeCoverValue(parseInt(event.target.value));
+        console.log("Life cover :",event.target.value )
+    }
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
             <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -177,112 +252,126 @@ const ULIPRecommendations = () => {
                     <Toolbar />
                     <Sidebar />
                     <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important' } }} item xs={12}>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
+                            {/* <Grid container >
+                                    <Grid container spacing={0} > */}
+                            <Grid container item sx={{ overflow: "hidden" }} xs={12}>
 
-                            <div>
-                                <Grid container >
-                                    <Grid container spacing={0} >
-                                        <Grid container item sx={{ overflow: "scroll" }} xs={12}>
+                                <Box sx={{
+                                    backgroundColor: "#f9f9f9",
+                                    paddingBottom: "50px",
 
-                                            <Box sx={{
-                                                backgroundColor: "#f9f9f9",
-                                                paddingBottom: "50px",
-
-                                                width: "100%",
-                                                fontFamily: 'Roboto',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'center'
-                                            }}>
-                                                {/* <ULIPHeader /> */}
-                                                <RecommendationsHeader
-                                                    selectTextLabel='Premium Payment Term'
-                                                    selectArray={recommendationHeaderSelectArr}
-                                                    selectChoosedValue={recommendationHeaderSelectChoosed}
-                                                    changeSelectEvent={(event: SelectChangeEvent) => {
-                                                        setRecommendationHeaderSelectChoosed(event.target.value);
-                                                    }}
-                                                    investmentTypeLabel='Investment Type'
-                                                    investmentType={ulipInsuranceType}
-                                                    investmentAmount={ulipInsuranceAmount}
-                                                    // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
-                                                    boxInputLabelText='Amount I want to invest monthly'
-                                                    boxInputButtonText='Update Plans'
-                                                    boxInputShow={recommendationHeaderInputFeildShow}
-                                                    boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
-                                                    boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
+                                    width: "100%",
+                                    fontFamily: 'Roboto',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center'
+                                }}>
+                                    {/* <ULIPHeader /> */}
+                                    <RecommendationsHeader
+                                        selectTextLabel='Premium Payment Term'
+                                        selectArray={recommendationHeaderSelectArr}
+                                        selectChoosedValue={recommendationHeaderSelectChoosed}
+                                        changeSelectEvent={(event: SelectChangeEvent) => {
+                                            setRecommendationHeaderSelectChoosed(event.target.value);
+                                        }}
+                                        investmentTypeLabel='Investment Type'
+                                        investmentType={ulipInsuranceType}
+                                        investmentAmount={ulipInsuranceAmount}
+                                        // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
+                                        boxInputLabelText='Amount I want to invest monthly'
+                                        boxInputButtonText='Update Plans'
+                                        boxInputShow={recommendationHeaderInputFeildShow}
+                                        boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
+                                        boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
+                                    />
+                                    <Box sx={{
+                                        padding: 0,
+                                        margin: '2.5vw',
+                                        fontFamily: 'Roboto',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        gap: '1vw',
+                                    }}>
+                                        <Breadcrumbs sx={{
+                                            fontSize: '12px',
+                                            color: '#6c63ff',
+                                            marginBottom: '1vw',
+                                        }}>
+                                            <Link href="/home">Home</Link>
+                                            <Link href="/insurance">Get Insured</Link>
+                                            <Link href="/ulip/investoptions">ULIP</Link>
+                                            <Typography sx={{
+                                                fontSize: '12px',
+                                                color: '#373e42'
+                                            }}>SprintMoney Recommendation</Typography>
+                                        </Breadcrumbs>
+                                        <Box sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+                                            <Box>
+                                                <Typography sx={{
+                                                    fontSize: '12px',
+                                                    color: '#8787a2',
+                                                }}>This plan provide tax benefit of 80C</Typography>
+                                                <Typography sx={{
+                                                    fontSize: '18px',
+                                                    fontWeight: 500,
+                                                    color: '#3c3e42',
+                                                }}>2 ULIP Plan Found</Typography>
+                                            </Box>
+                                            <Box>
+                                                <SearchCmp
+                                                    sort={customSort}
+                                                    policyTerm={policyTerm}
+                                                    lifeCover={lifeCover}
+                                                    sortValue={customSortValue}
+                                                    policyTermValue={policyTermValue}
+                                                    lifeCoverValue={lifeCoverValue}
+                                                    sortCb={handleSortRadio}
+                                                    policyTermCb={handlePolicyTermRadio}
+                                                    lifeCoverCb={handleLifeCoverRadio}
                                                 />
-                                                <Box sx={{
-                                                    padding: 0,
-                                                    margin: '2.5vw',
-                                                    fontFamily: 'Roboto',
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    justifyContent: 'center',
-                                                    gap: '1vw',
-                                                }}>
-                                                    <Breadcrumbs sx={{
-                                                        fontSize: '12px',
-                                                        color: '#6c63ff',
-                                                        marginBottom: '1vw',
-                                                    }}>
-                                                        <Link href="/home">Home</Link>
-                                                        <Link href="/insurance">Get Insured</Link>
-                                                        <Link href="/ulip/investoptions">ULIP</Link>
-                                                        <Typography sx={{
-                                                            fontSize: '12px',
-                                                            color: '#373e42'
-                                                        }}>SprintMoney Recommendation</Typography>
-                                                    </Breadcrumbs>
-                                                    <Box> 
-                                                        <Typography sx={{
-                                                            fontSize: '12px',
-                                                            color: '#8787a2',
-                                                        }}>This plan provide tax benefit of 80C</Typography>
-                                                        <Typography sx={{
-                                                            fontSize: '18px',
-                                                            fontWeight: 500,
-                                                            color: '#3c3e42',
-                                                        }}>2 ULIP Plan Found</Typography>
-                                                    </Box>
-                                                    <Box sx={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        gap: '1.5vw',
-                                                    }}>
-                                                        <FormControl>
-                                                            <RadioGroup
-                                                                aria-labelledby="demo-radio-buttons-group-label"
-                                                                defaultValue="female"
-                                                                name="radio-buttons-group"
-                                                            >
-                                                                {
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '1.5vw',
+                                        }}>
+                                            <FormControl>
+                                                <RadioGroup
+                                                    aria-labelledby="demo-radio-buttons-group-label"
+                                                    defaultValue="female"
+                                                    name="radio-buttons-group"
+                                                >
+                                                    {/* {
 
                                                                     ulipData?.map(data => <ULIPCoFundCard {...data} />)
-                                                                }
-                                                            </RadioGroup>
-                                                        </FormControl>
-                                                    </Box>
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                        <Button variant="outlined" onClick={() => navigate("/ulip/options")}
-                                                            style={style.buttons} sx={{
-                                                                backgroundColor: '#00b4ff',
-                                                            }}>
-                                                            <Typography sx={{ color: "white" }}>EXPLORE OTHER OPTIONS</Typography>
-                                                        </Button>
-                                                    </Box>
-                                                    {/*
+                                                                } */}
+                                                    <ULIPRecommendationCard
+                                                    />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Box>
+                                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            <Button variant="outlined" onClick={() => navigate("/ulip/options")}
+                                                style={style.buttons} sx={{
+                                                    backgroundColor: '#00b4ff',
+                                                }}>
+                                                <Typography sx={{ color: "white" }}>EXPLORE OTHER OPTIONS</Typography>
+                                            </Button>
+                                        </Box>
+                                        {/*
                                                 <Button onClick={ handleOpen }>Open dialog</Button>
                                                 <ThirdPartyHdfc open={ open } handleClose={ handleClose } />
                                             */}
-                                                </Box>
+                                    </Box>
 
-                                            </Box>
-                                        </Grid>
+                                </Box>
+                            </Grid>
 
-                                    </Grid>
-                                </Grid>
-                            </div >
+                            {/* </Grid>
+                                </Grid> */}
                         </Grid>
                     </Grid>
                 </Box>
@@ -292,8 +381,8 @@ const ULIPRecommendations = () => {
             <FooterWithBtn
                 // btnText='Select ULIP Date'
                 // btnClick={() => setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)}
-                btnText={ulipInsuranceType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
-                btnClick={ulipInsuranceType === LUMPSUM ? handleBuyNow : handleULIPDate}
+                btnText={ulipInsuranceType === ULIP_LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
+                btnClick={ulipInsuranceType === ULIP_LUMPSUM ? handleBuyNow : handleULIPDate}
             />
 
 

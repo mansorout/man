@@ -241,9 +241,9 @@ const OneTimeMutualFund = () => {
 
   const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
   const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data, shallowEqual);
-  
+
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
-  
+
   // @ts-ignore
   const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
 
@@ -307,12 +307,16 @@ const OneTimeMutualFund = () => {
     }
   }
 
-  const handlePrice = (value: any) => {
-    navigate("/funddetails");
-  };
-
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
+  }
+
+  const handleNavigationOfFundDetails = (secid: string) => {
+    if (secid) {
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/onetimemutualfundrecommendation" } });
+    } else {
+      console.log(secid, "invalid secid");
+    }
   }
 
   return (
@@ -462,9 +466,10 @@ const OneTimeMutualFund = () => {
                   mfCards.map((mfCard) => (
                     <Box
                       sx={{ marginTop: "1.25vw" }}
-                      onClick={() => handlePrice(mfCard.oneYearReturn)}
                     >
-                      <MutualFundCard2 {...mfCard} />
+                      <MutualFundCard2 {...mfCard}
+                        onCardClick={handleNavigationOfFundDetails}
+                      />
                     </Box>
                   ))}
               </Box>
