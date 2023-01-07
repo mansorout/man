@@ -150,8 +150,8 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
   // const url = name.replace(/ /g, '')
   const navigate = useNavigate()
 
-  const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
-  console.log(explorFundlist)
+  // const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
+  // console.log(explorFundlist)
 
   const handleSelect =(id:any)=>{
     navigate('/details')
