@@ -731,7 +731,7 @@ const ProposalFormStep4 = () => {
 
 
             </Box>
-            <CertifyModal open={openConfirmationModal} setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
+            <CertifyModal   close={() => setOpenConfirmationModal(false)} open={openConfirmationModal} setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
             <HdfcModal open={openHdfcModal} setOpen={setOpenHdfcModal} />
             <CompleteModal open={openCompleteModal} setOpen={setOpenCompleteModal} onBtnPress={()=>{navigate('/home')}}/>
             <FooterWithBtn
