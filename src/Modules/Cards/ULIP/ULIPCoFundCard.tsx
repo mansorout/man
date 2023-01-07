@@ -26,7 +26,6 @@ const formatter2 = new Intl.NumberFormat('en-IN', {
 });
 
 const ULIPCoFundCard = (props: ULIPProp) => {
-
   const [checked, setChecked] = useState(false);
 
   const style = {
