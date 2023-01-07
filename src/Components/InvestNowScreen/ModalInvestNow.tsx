@@ -72,7 +72,7 @@ const ModalInvestNow = (props: any) => {
   const dispatchLocal = useDispatch();
 
   const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
   const objUserDetails: any = customParseJSON(
     localStorage.getItem(siteConfig.USER_INFO)
@@ -165,7 +165,7 @@ const ModalInvestNow = (props: any) => {
           style={{
             maxWidth: "30%",
             minWidth: "20%",
-            borderRadius: " 8px 8px 0px 0px",
+            borderRadius: "10px",
             boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
             backgroundColor: "white",
             display: "flex",
@@ -176,25 +176,26 @@ const ModalInvestNow = (props: any) => {
             position: "absolute",
             top: "50%",
             left: "50%",
-            padding: "11px",
+            // padding: "11px",
             transform: "translate(-50%,-50%)",
           }}
           className="smallmodal"
         >
-          <Grid container style={{ backgroundColor: "white", display: "flex" }}>
-            <Grid item xs={8}>
+         <div className="investInsidePading">
+         <Grid container style={{ backgroundColor: "white", display: "flex" }}>
+            <Grid item className="investModal" xs={12}>
               <CardHeader
                 avatar={
-                  <Box sx={{ paddingTop: "0%" }} textAlign="center">
+                  <Box sx={{ paddingTop: "0%", }} textAlign="center">
                     <img
                       src={sipiclogo}
                       alt="sprint-money"
                       style={{
                         width: "38px",
                         height: "38px",
-                        paddingLeft: "200px",
+                        paddingLeft: "0",
                       }}
-                      className="siplogoStyle"
+                      className=""
                     />
                   </Box>
                 }
@@ -205,44 +206,23 @@ const ModalInvestNow = (props: any) => {
               />
             </Grid>
 
-            <Grid
-              sx={{
-                display: "contents",
-                position: " absolute",
-              }}
-              item
-              xs={4}
-            >
-              <Box
-                onClick={props.close}
-                sx={{
-                  margin: "12px 0px 8px 81px",
-                  opacity: " 0.54 ",
-                  paddingLeft: "20px",
-                  paddingTop: "1%",
-                }}
-                className="closeIconStyle"
-              >
-                <ClearIcon />
-              </Box>
-            </Grid>
+            
+            <Box textAlign="center" sx={{padding:"3px 16px", width:"100%"}}>
             <b
               style={{
                 textAlign: "center",
-                paddingLeft: "32%",
                 paddingBottom: "1%",
               }}
-              className="HelpUsStyle"
             >
               Help us know you better.
             </b>
             <Typography
               textAlign="center"
-              sx={{ fontSize: "14px", paddingLeft: "20%", color: "#7b7b9d" }}
-              className="KnowMoreStyle"
+              sx={{ fontSize: "14px", paddingLeft: "0", color: "#7b7b9d" }}
             >
               Share details below to view recommendations
             </Typography>
+            </Box>
           </Grid>
 
           <Grid container spacing={2} sx={{ paddingTop: "5%" }}>
@@ -344,15 +324,16 @@ const ModalInvestNow = (props: any) => {
               />
             </Grid>
           </Grid>
+         </div>
           <Button
             disabled={showSubmit}
             fullWidth
             onClick={handleClick}
             sx={{
-              padding: " 18px 155px 19px",
+              padding: " 15px",
               backgroundColor: "#23db7b",
               marginTop: " 15px",
-              ml: 1,
+              borderRadius:"0px 0px 10px 10px",
               "&.MuiButtonBase-root:hover": {
                 bgcolor: "#23db7b",
               },
@@ -363,7 +344,31 @@ const ModalInvestNow = (props: any) => {
               Save Details{" "}
             </Typography>
           </Button>
+          <Grid
+              sx={{
+                // display: "contents",
+                // position: " absolute",
+              }}
+              item
+              xs={2}
+            >
+              <Box
+                onClick={props.close}
+                sx={{
+                  margin: "12px 0px 8px 81px",
+                  opacity: " 0.54 ",
+                  position: "absolute",
+                  top: "1px",
+                  right: "15px",
+                }}
+                className="closeIconStyle"
+              >
+                <ClearIcon />
+              </Box>
+              
+            </Grid>
         </Box>
+        
       </Modal>
     </div>
   );

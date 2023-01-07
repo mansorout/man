@@ -23,12 +23,15 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
 import { globalConstant } from "../../Utils/globalConstant";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
-import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
-import { setInvestmentCardTypeAction } from "../../Store/Investment/actions/investment-action";
+import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
+import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
+import { store } from "../../Store/Store";
+import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 
 // const data = [
 //   {
@@ -166,11 +169,17 @@ const data = [
   },
 ];
 
-const initialMFData = {
-  checkbox: false,
-  buttons: false,
+const initialMFData: MFFeatures = {
+  showCheckbox: false,
+  showButtons: false,
   isMutualFundScreen: true,
 }
+
+// showButtons: boolean;
+// showCheckbox: boolean;
+// isMutualFundScreen: boolean;
+// onClick?: (data: any, type: any, element: string) => void | undefined;
+// isChecked?: boolean
 
 const enumActiveScreen = Object.freeze({
   CLOSE_MODAL: 0,
@@ -230,14 +239,27 @@ const OneTimeMutualFund = () => {
   const navigate: any = useNavigate();
   const location: any = useLocation();
 
-  const g_investment: any = useSelector(
-    (state: any) => state?.investmentReducer?.investment
-  );
+  const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
+  const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data, shallowEqual);
 
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
-  const userAmount: number = useMemo(() => { return location?.state?.amount }, []);
+
+  // @ts-ignore
+  const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
 
   useEffect(() => {
+    console.log("onetimemutual.tsx mounted");
+    initiate();
+    return () => {
+      console.log("onetimemutual.tsx unmounted")
+    }
+  }, []);
+
+  useEffect(() => {
+    handleCustomisePlanScreen();
+  }, [g_mutualFundListWrtUserAmount]);
+
+  const initiate = async () => {
     let strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
 
     if (!g_investment?.type) {
@@ -247,53 +269,54 @@ const OneTimeMutualFund = () => {
     if (!userAmount) {
       navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
     } else {
-      getMutualFundListWrtUserAmount(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12);
+      let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+      if (res) handleResponse(res);
     }
-  }, []);
-
-  const getMutualFundListWrtUserAmount = (amount: number, id: number) => {
-    let strUrl = siteConfig.RECOMMENDATION_MUTUALFUND_LIST + `?investmenttype_id=${id}&amount=${amount}`;
-    getData(
-      strUrl,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.RECOMENDATION_API_ID
-    ).then(res => res.json())
-      .then((data: any) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
-
-        if (data?.error === true) {
-          return;
-        }
-        let res = data?.data;
-        if (res && res.length) {
-          let objMF: any = res.filter((item: any) => item?.recommendationtype === "Mutual Fund")[0];
-          let arrRecomm: any[] = objMF ? objMF["recommendations"] : {};
-          console.log(arrRecomm, "arrRecomm prev");
-          for (let i = 0; i < arrRecomm.length; i++) {
-            arrRecomm[i] = {
-              ...arrRecomm[i],
-              ...initialMFData
-            }
-          }
-          console.log(arrRecomm, "arrRecomm, new");
-          setMfCards(arrRecomm)
-        }
-      }).catch(err => {
-        console.log(err)
-      })
   }
 
-  const handlePrice = (value: any) => {
-    if (value === 12.3) {
-      navigate("/funddetails");
+  const handleResponse = async (data: apiResponse) => {
+    if (checkExpirationOfToken(data?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
     }
-  };
+
+    if (data?.error === true) {
+      return;
+    }
+
+    let res = data?.data;
+    if (res && res.length) {
+      let objMF: any = res.filter((item: any) => item?.recommendationtype === globalConstant.MUTUAL_FUND)[0];
+      await dispatch(setMutualFundListWrtUserAmountAction(objMF));
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(objMF ? objMF[globalConstant.RECOMMENDATIONS] : [], initialMFData);
+      setMfCards(arrRecomm);
+    }
+  }
+
+  const handleCustomisePlanScreen = async () => {
+    if (!g_mutualFundListWrtUserAmount) {
+      return;
+    }
+
+    if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
+      let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
+      setMfCards(arrRecomm);
+    } else {
+      setMfCards([]);
+      // navigate("/onetimemutualfundrecommendation");
+    }
+  }
 
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
+  }
+
+  const handleNavigationOfFundDetails = (secid: string) => {
+    if (secid) {
+      navigate("/funddetails", { state: { secid: secid } });
+    } else {
+      console.log(secid, "invalid secid");
+    }
   }
 
   return (
@@ -311,9 +334,11 @@ const OneTimeMutualFund = () => {
               height: "100vh",
               overflow: "scroll",
               marginTop: "4%",
+              width: "100%",
+              display: "block",
               justifyContent: "center",
             }}
-            xs={13}
+            xs={12}
             sm={11}
             md={10}
           >
@@ -321,12 +346,13 @@ const OneTimeMutualFund = () => {
             <Box
               sx={{
                 padding: 0,
-                margin: "2.5vw",
+                margin: "1.5vw",
                 fontFamily: "Roboto",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
               }}
+              className="boxMarginBottom"
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} md={12}>
@@ -424,14 +450,28 @@ const OneTimeMutualFund = () => {
                 </Box>
               </Box>
               <Box>
-                {mfCards.map((mfCard) => (
-                  <Box
-                    sx={{ marginTop: "1.25vw" }}
-                    onClick={() => handlePrice(mfCard.oneYearReturn)}
-                  >
-                    <OneTimeMutualFundCard2 {...mfCard} />
-                  </Box>
-                ))}
+                {/* {mfCards &&
+                  mfCards.length &&
+                  mfCards.map((mfCard) => (
+                    <Box
+                      sx={{ marginTop: "1.25vw" }}
+                      onClick={() => handlePrice(mfCard.oneYearReturn)}
+                    >
+                      <OneTimeMutualFundCard2 {...mfCard} />
+                    </Box>
+                  ))} */}
+
+                {mfCards &&
+                  mfCards.length &&
+                  mfCards.map((mfCard) => (
+                    <Box
+                      sx={{ marginTop: "1.25vw" }}
+                    >
+                      <MutualFundCard2 {...mfCard}
+                        onCardClick={handleNavigationOfFundDetails}
+                      />
+                    </Box>
+                  ))}
               </Box>
               <Box
                 sx={{

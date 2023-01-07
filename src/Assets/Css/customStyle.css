@@ -1,0 +1,73 @@
+.investInsidePading{padding: 15px;
+}
+.investModal{text-align: center;display: block;
+}
+.investModal .css-vjbbn8-MuiCardHeader-root{
+    text-align: center;
+    padding-top: 0%;
+    display: inline-block;
+    width: 38px;   
+}
+.BoxPadding{
+    margin:25px;
+}
+.BoxVerification{
+    padding: 18px;
+}
+.wholedivbuttons{
+    margin-left: -10px;
+}
+.textGender{
+    padding: 3px 14px;
+}
+
+@media (max-width: 900px) {
+    .btnEditTab{
+        margin-left:3px !important;
+    }
+}
+@media (max-width: 768px) {
+    .btnEditTab{
+        margin-left: 0px !important;
+    }
+    .iconstyle{
+        padding-left:0 !important;
+    }
+    .gridMarginBottom20{
+        margin-top: 20px !important;
+    }
+}
+@media screen and (max-width: 480px){
+    .gridMarginBottom20{
+        margin-top: 20px !important;
+    }
+    .wholedivbuttons {
+        margin-left: 11px;
+    }
+    .css-1nzwz6l button {
+        margin: 0px 17px;
+    }
+    .boxMarginBottom{
+        margin-bottom: 50px !important;
+    }
+    .BoxPadding{
+        margin:13px;
+    }
+    .BoxProfilePage .css-hyum1k-MuiToolbar-root{
+        min-height: 50px;
+    }
+    .boxBreadcrumb{
+        margin: -22px 0px 21px 25px !important;
+    }
+    
+}
+@media screen and (max-width: 280px){
+   .css-4g6ai3 img{
+     width: 108px !important;
+   }
+   .css-4g6ai3 div{
+    padding: 5px !important;
+   }
+}
+
+

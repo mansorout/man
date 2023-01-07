@@ -28,22 +28,22 @@ import {
 import { RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 
 export interface MFProp {
-  recommendation_id:number,
-  recommendationfund_id:number,
-  recommendationtype_id:number,
+  recommendation_id: number,
+  recommendationfund_id: number,
+  recommendationtype_id: number,
   fundname: string;
-  category:string,
+  category: string,
   return1yr: string;
   return3yr: string;
   return5yr: string;
   categorygroup: string;
-  recommendedamount:number;
+  recommendedamount: number;
   ratingoverall: number;
   fundimage: string;
   secid: string;
-  returnytd:string 
-  buttons: boolean;
-  checkbox: boolean;
+  returnytd: string
+  showButtons: boolean;
+  showCheckbox: boolean;
   isMutualFundScreen: boolean;
 }
 
@@ -125,7 +125,7 @@ const style = {
     color: "white",
   },
 };
-const OneTimeMutualFundCard2 = (props: MFProp) => {
+const OneTimeMutualFundCard2 = (props: any) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);

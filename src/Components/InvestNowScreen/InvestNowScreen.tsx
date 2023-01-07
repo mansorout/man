@@ -39,7 +39,7 @@ import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typograp
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
-import { setInvestmentCardTypeAction } from '../../Store/Investment/actions/investment-action';
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
 
 type IProps = {
   cardType: string;
@@ -373,7 +373,7 @@ function InvestNowScreen(props: IProps) {
   const timerRef: any = useRef();
 
   const g_investment = useSelector(
-    (state: any) => state?.investmentReducer?.investment
+    (state: any) => state?.recommendationsReducer?.investment
   );
   
   const [error, setError] = useState<string>("");
@@ -384,7 +384,7 @@ function InvestNowScreen(props: IProps) {
   
   const chartDataDetails: any = useMemo(() => {
     return {
-      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]),
+      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
       datasets: [
         {
           label: "Projected Value",
@@ -394,7 +394,7 @@ function InvestNowScreen(props: IProps) {
         },
       ]
     };
-  }, [expectedReturns])
+  }, [expectedReturns]);
   
   useEffect(() => {
     if(!g_investment?.type){
@@ -422,7 +422,7 @@ function InvestNowScreen(props: IProps) {
     clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => { 
       cb(a);
-    }, 550);
+    }, 200);
   }
 
   const handleOnChangeAmount = (e: any) => {
@@ -505,8 +505,9 @@ function InvestNowScreen(props: IProps) {
       if(data?.error === true){
         return;
       }
-      
-      navigate(path, {state: {amount: amount}});
+
+      localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
+      navigate(path);
     }).catch(err=> {
 
       console.log(err);
@@ -554,7 +555,8 @@ function InvestNowScreen(props: IProps) {
                           <b
                             style={{
                               width: "100%",
-                              margin: "-4% 303px 25px 0",
+                              // margin: "-4% 303px 25px 0",
+                              margin:"6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}

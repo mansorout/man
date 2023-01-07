@@ -15,6 +15,7 @@ import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
 import { ExploreFundsList } from '../../Modal/ExploreFunds'
+import { useSelector } from 'react-redux'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -138,19 +139,38 @@ function ExploreFunds() {
   }
 
   const [fundList, setFundList] = useState<any[]>([])
+
   const menuActions = React.useRef<MenuUnstyledActions>(null);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ? 
-    setAnchorEl(null) :
-    setAnchorEl(event.currentTarget)
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   anchorEl ? 
+  //   setAnchorEl(null) :
+  //   setAnchorEl(event.currentTarget)
+  // };
+  const [explorefundsfromapi,setexplorefundsfromapi] = useState<any[]>([])
+  const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
+  console.log(explorFundlist)
+  console.log(explorFundlist?.data)
+ 
+ explorFundlist?.data.map((value:any)=>{
+    console.log(value.fundname)
+  })
+
+  // console.log(explorFundlist?.data[0])
 
   useEffect(()=>{
     setFundList(ExploreFundsList)
+    setexplorefundsfromapi( explorFundlist?.data)
+    console.log(explorefundsfromapi)
   },[])
+  
+  
+
+  // useEffect(()=>{
+  //   setFundList(ExploreFundsList)
+  // },[])
 
   const classes = useStyles()
 
@@ -212,7 +232,7 @@ function ExploreFunds() {
                 </Box>
                 
                 {
-                  fundList.length &&   fundList.map((item:any,key:number) => {
+                  explorefundsfromapi.length &&   explorefundsfromapi.map((item:any,key:number) => {
                     return(
                       <>
                         <AllExploreFundCard {...item} key={key} />
