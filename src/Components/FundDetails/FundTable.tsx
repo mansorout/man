@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,27 +15,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { withStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 
-// const StyledTableCell = styled(TableCell)(({ theme }) => ({
-//   [`&.${tableCellClasses.head}`]: {
-//     backgroundColor: theme.palette.common.white,
-//     color: theme.palette.common.black,
-//   },
-//   [`&.${tableCellClasses.body}`]: {
-//     fontSize: 16,
-   
-
-//   },
-  
-// }));
-
-// const TableCell = withStyles({
-  
-// })(MuiTableCell);
-
 const StyledTableCell = styled(TableCell)(theme => ({
   root: {
     width: "100%",
-   
+
     overflowX: "auto"
   },
   table: {
@@ -59,102 +42,102 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Accordion:any = withStyles({
-    root: {
-      "&$expanded": {
-        margin: "auto",
-      }
-    },
-    expanded: {}
-  })(MuiAccordion);
+const Accordion: any = withStyles({
+  root: {
+    "&$expanded": {
+      margin: "auto",
+    }
+  },
+  expanded: {}
+})(MuiAccordion);
 
-  
 
-function createData(
-  period: string,
-  returnvalue: number,
-  benchmark: number,
- 
-) {
-  return { period, returnvalue, benchmark};
+type IProps = {
+  tableData: any
 }
 
-const rows = [
-  createData('1 month', 11.56, 10.43),
-  createData('3 months', 26.41, 9.0),
-  createData('6 months', 17.85, 16.0),
-  createData('1 year', 16.96, 3.7),
-  createData('3 years', 9.45, 16.0,),
-  createData('6 years', 12.72, 16.0,),
-];
+const FundTable = (props: IProps) => {
 
-export default function FundTable () {
-  return (
+  const [rows, setRows] = useState<any[]>([]);
 
-    <>
-      <Box sx={{margin:"1rem"}}>
-      <MuiAccordion sx={{
-         borderRadius: "8px",
-         backgroundColor:"white",
-         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-         }} >
-        <AccordionSummary
-        sx={{height: "84px",
-            padding: "12px 12px 21px 16px",
-            borderRadius:" 8px",
-            margin: "0px 16px 0px 16px",
-            backgroundColor: "#fff"
-          }}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Box sx={{
-             
-             
-            
-            }}>
-            <Typography className='risko_meter'>Fund Performance</Typography>
-            <Typography className='Level-of-Risk-in-the-Scheme'>* Returns over 1 year are annualised</Typography>
-            </Box>
-        </AccordionSummary>
-        <AccordionDetails  >
-       <TableContainer sx={{backgroundColor:"#ffff"}}>
-      <Table  aria-label="customized table"   sx={{
-    [`& .${tableCellClasses.root}`]: {
-      borderBottom: "none"
+  useEffect(() => {
+    if (props?.tableData) {
+      let tableData: any[] = Object.values(props?.tableData);
+      if (tableData && tableData.length) {
+        let arrFilteredData: any[] = tableData.filter((item: any) => item?.islist === true);
+
+        // @ts-ignore
+        let arrRows: any[] = arrFilteredData.length && arrFilteredData.map((item: any) => {
+          return createData(item?.years, item?.return, item?.benchmark);
+        });
+
+        setRows(arrRows);
+      }
     }
-  }}>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell className='portfoliotext'>PERIOD</StyledTableCell>
-            <StyledTableCell className='portfoliotext' align="right">RETURN</StyledTableCell>
-            
-            <StyledTableCell className='portfoliotext' align="right">BENCHMARK</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody >
-          {rows.map((row) => (
-            <StyledTableRow key={row.period}>
-              <StyledTableCell component="th" scope="row">
-                {row.period}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.returnvalue}%</StyledTableCell>
-              <StyledTableCell align="right">{row.benchmark}%</StyledTableCell>
-             
-              
-              
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-      </TableContainer>
-    
-        </AccordionDetails>
-      </MuiAccordion>
+  }, [props?.tableData])
+
+  const createData = (years: number, returns: string, benchmark: string,) => {
+    return { years, returns, benchmark };
+  }
+
+  return (
+    <>
+      <Box sx={{ margin: "1rem" }}>
+        <MuiAccordion sx={{
+          borderRadius: "8px",
+          backgroundColor: "white",
+          boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+        }} >
+          <AccordionSummary
+            sx={{
+              height: "84px",
+              padding: "12px 12px 21px 16px",
+              borderRadius: " 8px",
+              margin: "0px 16px 0px 16px",
+              backgroundColor: "#fff"
+            }}
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Box>
+              <Typography className='risko_meter'>Fund Performance</Typography>
+              <Typography className='Level-of-Risk-in-the-Scheme'>* Returns over 1 year are annualised</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails  >
+            <TableContainer sx={{ backgroundColor: "#ffff" }}>
+              <Table aria-label="customized table" sx={{
+                [`& .${tableCellClasses.root}`]: {
+                  borderBottom: "none"
+                }
+              }}>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell className='portfoliotext'>PERIOD</StyledTableCell>
+                    <StyledTableCell className='portfoliotext' align="right">RETURN</StyledTableCell>
+                    <StyledTableCell className='portfoliotext' align="right">BENCHMARK</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody >
+                  {rows &&
+                    rows.length &&
+                    rows.map((row: { years: number, returns: string, benchmark: string }) => (
+                      <StyledTableRow key={row.years}>
+                        <StyledTableCell component="th" scope="row"> {row?.years}</StyledTableCell>
+                        <StyledTableCell align="right">{row?.returns}%</StyledTableCell>
+                        <StyledTableCell align="right">{row?.benchmark}%</StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </AccordionDetails>
+        </MuiAccordion>
       </Box>
     </>
-   
+
   );
 }
 
+export default FundTable;

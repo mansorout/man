@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Accordion, AccordionDetails, AccordionSummary, AppBar, Box, Button, makeStyles, Stack, Typography } from '@mui/material'
 import ProgressBars from './ProgressBars'
@@ -20,49 +20,33 @@ import MarketCap from './MarketCap'
 //   }
 // }));
 
+type IProps = {
+  holdingInfo: any
+}
 
-export const LatestAssets = () => {
+export const LatestAssets = (props: IProps) => {
 
-  const [sector, setSectors] = useState<boolean>(false);
-  const [compony, setCompany] = useState<boolean>(false);
-  const [market, setMarketcap] = useState<boolean>(false);
-  const [selected, setSelected] = useState<number>(1)
-  // const classes = useStyles();
+  const holdingInfo = useMemo(() => { return props?.holdingInfo ? props?.holdingInfo : {} }, [props?.holdingInfo]);
+  const headingKeys = useMemo(() => { return Object.keys(holdingInfo ? holdingInfo : {}) }, [holdingInfo]);
+  const [activeTab, setActiveTab] = useState<string>("");
+  const [activeTabData, setActiveTabData] = useState<any>();
 
   useEffect(() => {
+    if (!activeTab) {
+      setActiveTab(headingKeys[0]);
+    }
+  }, [headingKeys])
 
-    setSectors(true)
+  useEffect(() => {
+    if (holdingInfo[activeTab]) {
+      console.log(holdingInfo[activeTab], "holdingInfo?.activeTab")
+      setActiveTabData(holdingInfo[activeTab]);
+    }
+  }, [activeTab])
 
-  }, [])
-
-
-  const handleSector = () => {
-    setSelected(1);
-    setSectors(true)
-    setCompany(false)
-    setMarketcap(false)
+  const handleTabToggling = (item: string) => {
+    setActiveTab(item);
   }
-
-  const handleCompany = () => {
-    setSelected(2);
-    setSectors(false)
-    setCompany(true)
-    setMarketcap(false)
-  }
-
-  const handleMarktCap = () => {
-    setSelected(3);
-    setSectors(false)
-    setCompany(false)
-    setMarketcap(true)
-  }
-
-
-
-
-
-
-
 
   return (
     <>
@@ -84,11 +68,7 @@ export const LatestAssets = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Box sx={{
-
-
-
-            }}>
+            <Box >
               <Typography className='risko_meter'>Latest Asset & Portfolio Allocation</Typography>
               <Typography className='Level-of-Risk-in-the-Scheme'>as on Aug 31, 2020</Typography>
             </Box>
@@ -96,34 +76,49 @@ export const LatestAssets = () => {
           <AccordionDetails>
             <Typography>
               <AppBar sx={{ background: 'transparent', boxShadow: 'none' }} position="static">
-
-
                 <Stack direction="row" gap={1}>
-                  <Button onClick={handleSector} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                    <Typography style={{fontWeight:"500", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>
-                      Sectors
-                    </Typography>
-                  </Button>
-                  <Button onClick={handleCompany} style={{cursor:"pointer", border:`1px solid ${ selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
-                    <Typography style={{fontWeight:"500", color:`${ selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>
-                      Companies
-                    </Typography>
-                  </Button>
-                  <Button onClick={handleMarktCap}style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px" }}>
-                    <Typography style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>
-                      MarketCap
-                    </Typography>
-                  </Button>
+                  {
+                    headingKeys && headingKeys.length && headingKeys.map((item: string, index: number) => {
+                      return (
+                        <Button
+                          key={index}
+                          onClick={() => handleTabToggling(item)}
+                          style={{
+                            cursor: "pointer",
+                            border: `1px solid ${item === activeTab ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                            borderRadius: "8px",
+                            backgroundColor: `${item === activeTab ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                            textAlign: "center",
+                            padding: "12px 14px"
+                          }}
+                        >
+                          <Typography style={{ fontWeight: "500", color: `${item === activeTab ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>
+                            {item}
+                          </Typography>
+                        </Button>
+                      )
+                    })
+                  }
                 </Stack>
               </AppBar>
-
             </Typography>
             <br />
 
-
-
-
             {
+              activeTabData &&
+                Object.keys(activeTabData).length ?
+                activeTab === "marketcap" ?
+                  <MarketCap /> :
+
+                  <ProgressBars
+                    progressData={activeTabData}
+                    activeTab={activeTab}
+                  />
+                : null
+            }
+
+
+            {/* {
               sector === true ? <ProgressBars /> : ""
             }
 
@@ -133,11 +128,11 @@ export const LatestAssets = () => {
 
             {
               market === true ? <MarketCap /> : " "
-            }
+            } */}
 
 
           </AccordionDetails>
-         
+
         </Accordion>
 
       </Box>

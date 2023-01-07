@@ -56,7 +56,7 @@ import ProposalForm from "../Components/Insurance/ProposalForm"
 import ProposalFormStep2 from "../Components/Insurance/ProposalFormStep2"
 import ProposalFormStep3 from "../Components/Insurance/ProposalFormStep3"
 import ProposalFormStep4 from "../Components/Insurance/ProposalFormStep4"
-import Details from "../Components/ExploreFunds/FundDetails"
+// import Details from "../Components/ExploreFunds/FundDetails"
 import SelectedFunds from "../Components/ExploreFunds/SelectedFunds"
 import TimerLoader from "../Modules/NetBanking/TimerLoader"
 import Loaderwithtime from "../Components/CommonComponents/Circular Loader/Loaderwithtime"
@@ -328,10 +328,10 @@ export const privateRoutesConstants: prConstant[] = [
     path: "/proposalFormStep4",
     component: <ProposalFormStep4 />
   },
-  {
-    path: "/details",
-    component: <Details />
-  },
+  // {
+  //   path: "/details",
+  //   component: <Details />
+  // },
   {
     path: "/selectedfunds",
     component: <SelectedFunds />
