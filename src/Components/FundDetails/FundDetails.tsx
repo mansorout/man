@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Drawer as DrawerList,
   List,
@@ -50,7 +50,7 @@ import {
 import { makeStyles } from "@mui/styles";
 import { Logo, Profile } from "../../Assets/index";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import FundDetailCard from "../TxnFilters/FundDetailCard";
@@ -188,45 +188,13 @@ const style = {
   } as React.CSSProperties,
 };
 
-function FundDetails() {
-  function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
-
-  const [open, setOpen] = useState<boolean>(false);
-
-  const menuActions = React.useRef<MenuUnstyledActions>(null);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
-
-  const handleClickBreadCrumbs = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget);
-  };
-
+const FundDetails = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const refContainer = useRef();
-
-  const navigate = useNavigate();
-
-  const [mpin, setMpin] = useState<string | null>();
-  const [openModal, setOpenModal] = useState<boolean>(true);
-
-  const handleLoad = () => {
-    setMpin(localStorage.getItem("mpin"));
-    setOpen(true);
-  };
-
-  const [OTP, setOTP] = useState<string>("");
-
-  const handleOtpChange = (otp: any) => {
-    setOTP(otp);
-  };
-
-  const error: string[] = useSelector((state: any) => state.error);
+  const secId: string = useMemo(() => { return location?.state?.secid }, [])
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -240,14 +208,7 @@ function FundDetails() {
           <Grid container xs={13} sm={11} md={10}>
             <Grid sx={{ padding: 2 }} item xs={12}>
               <Toolbar />
-
-              <Grid
-                container
-                sx={{ height: "100vh", overflow: "scroll" }}
-                xs={13}
-                sm={11}
-                md={13}
-              >
+              <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={13} >
                 <Grid
                   sx={{
                     height: { xs: "auto", sm: "inherit" },
@@ -263,7 +224,8 @@ function FundDetails() {
                     role="presentation"
                     sx={{ margin: "27px 0px 21px 25px" }}
                   >
-                    <Breadcrumbs aria-label="breadcrumb">
+
+                    {/* <Breadcrumbs aria-label="breadcrumb">
                       <Link color="#6495ED" underline="always" href="/home">
                         <Typography className="burgerText"> Home</Typography>
                       </Link>
@@ -331,7 +293,8 @@ function FundDetails() {
                           Axis Small Cap Fund Regular Growth
                         </Typography>
                       </Link>
-                    </Breadcrumbs>
+                    </Breadcrumbs> */}
+
                   </Box>
                   {FundCardsData.map((item, index) => {
                     return (
