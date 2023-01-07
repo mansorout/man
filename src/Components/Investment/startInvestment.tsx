@@ -26,6 +26,7 @@ import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions
 import { getLookUpIdWRTModule } from '../../Utils/globalFunctions'
 import { getData, getDataWithoutToken } from '../../Utils/api'
 import siteConfig from '../../Utils/siteConfig'
+import { ClassNames } from '@emotion/react'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -176,7 +177,6 @@ const objMonthlyInvestmentData = Object.freeze({
         img: "./assets/images/Group_5244.svg"
       },
     ],
-
   },
   disadvantages: {
     heading: "Disadvantage of Monthly Investment",
@@ -457,11 +457,11 @@ const StartInvestment = () => {
           </Grid>
 
 
-          <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
+          <Grid container xs={12} sm={11} md={10}>
+            <Grid item xs={13}>
               <Toolbar />
               <Grid container>
-                <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                   <Breadcrumbs aria-label="breadcrumb">
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
@@ -471,11 +471,12 @@ const StartInvestment = () => {
                     </Link>
                   </Breadcrumbs>
                 </Box>
-                <Grid item xs={12} sx={{ padding: 2 }}>
+                <Grid container>
+                  <Grid item xs={12} className="BoxStartInvest">
                   <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
+                        <Typography className="tabBoxSize" style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
                         {
                           activeButton === enumType.ONE_TIME_LUMSOM ?
                             <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
@@ -484,7 +485,7 @@ const StartInvestment = () => {
                       </Box>
                       <Box style={{ position: "relative" }}>
 
-                        <Typography style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
+                        <Typography className="tabBoxSize" style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
                         {
                           activeButton === enumType.MONTHLY_INCOME ?
                             <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "143px", right: "0px" }}></Box>
@@ -494,7 +495,7 @@ const StartInvestment = () => {
                     </Box>
                   </Box>
                 </Grid>
-                <Grid container>
+                </Grid>
                   <Grid item xs={12}>
                     <Box>
                       {
@@ -515,7 +516,6 @@ const StartInvestment = () => {
                       }
                     </Box>
                   </Grid>
-                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -588,7 +588,7 @@ const useStyles = makeStyles((theme: any) => (
       borderRadius: "8px"
     },
     lsAdvantageCardOne: {
-      backgroundColor: "blue"
+      backgroundColor: "black"
 
     },
     lsAdvantageCardTwo: {
@@ -640,7 +640,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
       alignItems: "flex-end",
       justifyContent: "space-between",
       margin: "0px 20px 20px 20px "
-    }
+    },
   }
 
 
@@ -656,9 +656,9 @@ const MultipleInvestmentHandling = (props: IProps) => {
   return (
     <>
       <Grid item xs={12} sx={{ padding: 2 }}>
-        <Box className={classes.firstContainer} sx={{ flexWrap: { xs: "wrap", sm: "no-wrap" }, alignItems: "center", justifyContent: { xs: "center !important", sm: "space-between !important" } }} textAlign="center" >
+        <Box className={classes.firstContainer +" "+ "HeadAndGetStartedNow"} sx={{ flexWrap: { xs: "wrap", sm: "no-wrap" }, alignItems: "center", justifyContent: { xs: "center !important", sm: "space-between !important" } }} textAlign="center" >
           <Typography component="h4" className={classes.typography + " " + classes.relative} style={{ color: "#3c3e42" }}>{props?.data?.title}</Typography>
-          <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)} sx={{ marginTop: { xs: "2%", sm: "unset" } }}>
+          <Button variant="contained" className={classes.button +" "+ "btnGetStartedNow"} style={{ backgroundColor: "#23db7b" }} fullWidth onClick={() => handleButtonOnClick(props?.type)} sx={{ marginTop: { xs: "2%", sm: "unset" } }}>
             <Typography component="span" className={classes.text} >Get Started Now</Typography>
           </Button>
         </Box>
@@ -670,16 +670,16 @@ const MultipleInvestmentHandling = (props: IProps) => {
             className={classes.borderRadius + " " + classes.boxShadow}
             style={{ backgroundColor: "#544ec8", padding: "10px", width: "96%", position: "relative" }}
             sx={{
-              paddingBottom: { xs: "31% !important", sm: "4% !important" },
+              paddingBottom: { xs: "0% !important", sm: "4% !important" },
               marginTop: { xs: "5%", sm: "0%" }
             }}>
             <Typography style={{ color: "white", fontSize: "18px", margin: "10px", }} >{props?.data?.cardDetails?.subHeading}</Typography>
             <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
-            <Typography style={{ maxWidth: "70%", display: "flex", flexWrap: "wrap", color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
+            <Typography className='textDescCard' style={{ maxWidth: "70%", display: "flex", flexWrap: "wrap", color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
             <Box className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", margin: "10px" }}>
-              <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", height: "30px" }} fullWidth>Invest Now</Button>
+              <Button variant="contained" className={classes.button} sx={{ backgroundColor: "#23db7b", height: "30px", }} fullWidth>Invest Now</Button>
             </Box>
-            <ImageListItem sx={{
+            <ImageListItem className='CardImageinvest' sx={{
               display: { xs: "flex", sm: "block" },
               flexDirection: { xs: "column", sm: "none" },
               justifyContent: { xs: "center", sm: "none" },
@@ -698,7 +698,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             </ImageListItem>
           </Box>
           {/* advantage */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+          <Box className={classes.borderRadius + " " + classes.boxShadow + " " + "boxMarginTop"} style={{ backgroundColor: "white", padding: "10px", width: "96%",  marginTop: "30px" }}>
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.advantages?.heading}</Typography>
             {
               props?.data?.advantages?.features?.length && props?.data?.advantages?.features?.map((featureItem: any, featureIndex: any) => {
@@ -726,9 +726,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.advantages?.cards?.length && props?.data?.advantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box sx={style.container} key={cardIndex} >
-
-                    <Box style={{ padding: "60px 30px", }}>
+                  <Box sx={style.container} key={cardIndex} className={cardItem?.className} >
+                    <Box sx={{padding: { xs: "20px 10px", sm: "60px 30px" }}}>
                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
@@ -756,7 +755,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             }
           </Box>
           {/* disadvantage */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", margin: "10px", padding: "10px", width: "96%", marginTop: "30px" }}>
+          <Box className={classes.borderRadius + " " + classes.boxShadow + " " + "boxMarginTop"} style={{ backgroundColor: "white", padding: "10px", width: "96%", marginTop: "30px" }}>
             <Typography component="h4" style={{ margin: "21px 0px -8px 14px" }}>{props?.data?.disadvantages?.heading}</Typography>
             {
               props?.data?.disadvantages?.features?.length && props?.data?.disadvantages?.features?.map((featureItem: any, featureIndex: any) => {
@@ -785,8 +784,8 @@ const MultipleInvestmentHandling = (props: IProps) => {
             {
               props?.data?.disadvantages?.cards?.length && props?.data?.disadvantages?.cards?.map((cardItem: any, cardIndex: number) => {
                 return (
-                  <Box sx={style.container} key={cardIndex}>
-                    <Box style={{ padding: "60px 30px", }}>
+                  <Box sx={style.container} key={cardIndex} className={cardItem?.className}>
+                    <Box sx={{padding: { xs: "20px 10px", sm: "60px 30px" }}}>
                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
@@ -816,7 +815,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Box>
 
           {/* factor box */}
-          <Box className={classes.borderRadius + " " + classes.boxShadow} style={{ backgroundColor: "white", padding: "10px", margin: "10px", width: "96%", marginTop: "30px" }}>
+          <Box className={classes.borderRadius + " " + classes.boxShadow + " " + "boxMarginTop"} style={{ backgroundColor: "white", padding: "10px", width: "96%", marginTop: "30px" }}>
             {/* <Typography component="h4" className={classes.typography} style={{ color: "black", margin: "21px 0px -8px 14px" }}  >{props?.data?.factors?.heading}</Typography> */}
 
             <Box sx={{
@@ -841,7 +840,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             }
           </Box>
 
-          <Box style={{ paddingBottom: "50px", paddingTop: "20px", width: "95%" }} onClick={() => handleButtonOnClick(props?.type)}>
+          <Box style={{ paddingBottom: "50px", paddingTop: "20px", width: "98%" }} onClick={() => handleButtonOnClick(props?.type)}>
             <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", width: "100%", maxWidth: "100%" }} fullWidth>
               <Typography component="span" className={classes.text} >Get Started Now</Typography>
             </Button>

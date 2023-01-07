@@ -2,11 +2,14 @@
 }
 .investModal{text-align: center;display: block;
 }
-.investModal .css-vjbbn8-MuiCardHeader-root{
+.investModal .MuiCardHeader-root{
     text-align: center;
     padding-top: 0%;
     display: inline-block;
     width: 38px;   
+}
+.boxMarginTop{
+    margin-top: 30px !important;
 }
 .BoxPadding{
     margin:25px;
@@ -20,13 +23,49 @@
 .textGender{
     padding: 3px 14px;
 }
+/* :nth-child(2) {
+    background: red;
+  } */
+  .lsAdvantageCardOne{
+    background: #e2eafc !important;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+  }
+  .lsAdvantageCardOne p{
+    color: #000 !important;
+  }
+  .lsAdvantageCardOne p:first-child{
+    opacity: 0.87 !important;
+  }
+  .lsAdvantageCardOne p:nth-child(2){
+    font-weight: 700 !important;
+  }
+  .lsDisdvantageCardOne{
+    background: #dff7ea !important;
+  }
+  .lsDisdvantageCardOne p{
+    color: #000 !important;
+  }
 
+.BoxStartInvest{
+    padding: 10px 26px;
+}
+@media (max-width: 1200px){
+    .verificationStyle{
+        transform: translate(-8%, 12.1%) !important;
+    }
+}
 @media (max-width: 900px) {
+    .verificationStyle {
+        transform: translate(-130%, 12.1%) !important;
+    }
     .btnEditTab{
         margin-left:3px !important;
     }
 }
 @media (max-width: 768px) {
+    .btnGetStartedNow {
+        max-width: 100% !important;
+    }
     .btnEditTab{
         margin-left: 0px !important;
     }
@@ -38,6 +77,27 @@
     }
 }
 @media screen and (max-width: 480px){
+    .textDescCard{
+        max-width: 100% !important;
+    }
+    .css-lmrtft {
+        padding-bottom:0%!important;}
+    .CardImageinvest img{
+        right: 3%;
+        width: 56px !important;
+        bottom: 2%;
+        top: 10px;
+        height: 60px !important;
+        position: absolute;
+    }
+    
+    .HeadAndGetStartedNow{
+    padding: 0px !important;
+    margin-bottom: 40px !important;
+    }
+    .btnGetStartedNow{
+        max-width: 100% !important;
+    }
     .gridMarginBottom20{
         margin-top: 20px !important;
     }
@@ -59,9 +119,19 @@
     .boxBreadcrumb{
         margin: -22px 0px 21px 25px !important;
     }
+    .BoxStartInvest {
+        padding: 5px 15px;
+    }
     
 }
 @media screen and (max-width: 280px){
+    
+    /* .css-ahj2mt-MuiTypography-root{
+        font-size: 1rem !important;
+    } */
+    .tabBoxSize{
+        font-size: 16px !important;
+    }
    .css-4g6ai3 img{
      width: 108px !important;
    }
