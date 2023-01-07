@@ -44,6 +44,7 @@ export interface MFProp {
   onClick?: (data: any, type: any, element: string) => void | undefined;
   isChecked?: boolean
 
+  onCardClick?: (id: string) => void | undefined//from mutual fund screen
 
   recommendation_id: number,
   recommendationfund_id: number,
@@ -142,6 +143,7 @@ const style = {
     color: "white",
   },
 };
+
 const MutualFundCard2 = (props: MFProp) => {
   const classes = useStyles();
   const naviagte = useNavigate();
@@ -173,6 +175,9 @@ const MutualFundCard2 = (props: MFProp) => {
             props?.isMutualFundScreen === true
               ? { xs: "unset", lg: "100vh" }
               : "unset",
+        }}
+        onClick={() => {
+          if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
         }}
       >
         <Box
@@ -211,9 +216,6 @@ const MutualFundCard2 = (props: MFProp) => {
               {props?.fundname}
             </Typography>
             <Box style={{ display: "flex", gap: "10px" }}>
-              {/* <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                  <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{props?.cap}</Typography>
-                </Box> */}
               <Box
                 style={{
                   padding: "4px 5px",
@@ -246,12 +248,9 @@ const MutualFundCard2 = (props: MFProp) => {
           label={props?.ratingoverall}
         />
         <Box
-          // style={{ display: "flex", gap: "30px", flexWrap: "wrap" }}
           sx={{
-            // width: { ...widthRef.current },
             width: props?.showButtons === true ? { md: "min-content" } : "unset",
             display: "flex",
-            // gap: "30px",
             gap: props?.showButtons === true ? { xs: "30px", md: "8%" } : "30px",
             justifyContent:
               props?.showButtons === true ? { xs: "unset", md: "center" } : "unset",
@@ -297,8 +296,6 @@ const MutualFundCard2 = (props: MFProp) => {
                         justifyContent: "flex-end",
                         gap: "1vw",
                         marginTop: { xs: "unset", sm: "8%" },
-                        // position: { md: "absolute" },
-                        // right: { md: "-5%" },
                       }}
                     >
                       <Button
@@ -337,7 +334,6 @@ const MutualFundCard2 = (props: MFProp) => {
               // for add funds
               <Box component="span" >
                 <Checkbox
-                  // checked={props?.isChecked}
                   onClick={(e: any) => {
                     if (props?.onClick) props?.onClick(props?.recommendation_id, e?.target?.checked, "checked")
                   }} />
