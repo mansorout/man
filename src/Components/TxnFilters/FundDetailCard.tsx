@@ -1,37 +1,22 @@
-import {
-  Box,
-  Chip,
-  TableContainer,
-  Table,
-  TableRow,
-  TableBody,
-  TableHead,
-  TableCell,
-  Avatar,
-  Typography,
-  Button,
-  Grid,
-  Stack,
-  Divider,
-  styled,
-} from "@mui/material";
-import { SmallStar } from "../../Assets";
+import { useNavigate } from "react-router-dom";
 
 import "./FundDetailCard.css";
-import { MorningStarlogo } from "../../Assets";
-import { useNavigate } from "react-router-dom";
+import { SmallStar } from "../../Assets";
 import MuiGrid from "@mui/material/Grid";
+import { MorningStarlogo } from "../../Assets";
+import { Box, Chip, TableContainer, Table, TableRow, TableBody, TableHead, TableCell, Avatar, Typography, Button, Grid, Stack, Divider, styled, } from "@mui/material";
 
 interface Prop {
   logo: string;
   name: string;
   cap: string;
   type: string;
-  year1: number;
-  year3: number;
   year5: number;
   rating: number;
   morning_star_logo?: string;
+  aum: string
+  dayendnav: number,
+  dayendnavdate: string
 }
 
 const FundDetailCard = (props: Prop) => {
@@ -41,14 +26,6 @@ const FundDetailCard = (props: Prop) => {
     currency: "INR",
     maximumFractionDigits: 0,
   });
-
-  // const Grid = styled(MuiGrid)(({ theme }) => ({
-  //   width: '100%',
-  //   ...theme.typography.body2,
-  //   '& [role="separator"]': {
-  //     margin: theme.spacing(0, 2),
-  //   },
-  // }));
 
   return (
     <Box
@@ -135,7 +112,7 @@ const FundDetailCard = (props: Prop) => {
             sx={{ display: "contents" }}
             className="FundDetails_Heading"
           >
-            Axis Small Cap Fund Regular Growth
+            {props?.name}
           </Typography>
         </Grid>
       </Grid>
@@ -193,7 +170,7 @@ const FundDetailCard = (props: Prop) => {
                         color: "#FFFFFF !important",
                       }}
                     >
-                      NAV - 16/09/2020{" "}
+                      NAV - {props?.dayendnavdate}{" "}
                       <p
                         style={{
                           fontSize: "20px",
@@ -202,7 +179,7 @@ const FundDetailCard = (props: Prop) => {
                         }}
                       >
                         <span style={{}}>₹</span>
-                        {props.year1}
+                        {props.dayendnav}
                       </p>
                     </TableCell>
                     <TableCell
@@ -217,7 +194,7 @@ const FundDetailCard = (props: Prop) => {
                           color: "#f9f9f9 ! important",
                         }}
                       >
-                        {props.year3}%
+                        {props.year5}%
                       </p>
                     </TableCell>
                     <TableCell className="table_head">
@@ -229,7 +206,7 @@ const FundDetailCard = (props: Prop) => {
                           color: "#f9f9f9",
                         }}
                       >
-                        ₹{props.year5}Cr
+                        ₹{props.aum}
                       </p>
                     </TableCell>
                   </TableRow>

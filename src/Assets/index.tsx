@@ -78,6 +78,8 @@ export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
     export const arrowForwedlogo = require("./Profile/ArrowForwedlogo.png")
 
     export const Logoici= require("./Profile/Logoici.png")
+    export const logohdfchdfc= require("./Profile/Hdfcbank.png")
+
     export const circlechecklogo=require("./Profile/Circlrchecklogo.png")
     export const Mylocationicon=require("./Profile/mylocationicon.png")
     export const manicon=require("./Profile/ManIcon.png")

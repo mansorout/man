@@ -140,7 +140,7 @@ const UlipBox = () => {
     const navigate = useNavigate();
     const dispatch: any = useDispatch()
     const refContainer = useRef();
-
+    const timerRef: any = useRef();
     const [ years, setYears ] = useState('5');
     const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState('')
@@ -151,6 +151,13 @@ const UlipBox = () => {
     const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
     const { ulipInsuranceType,ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
 
+    const handleTimer = (cb: any | void, a: any) => {
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => { 
+            dispatch(cb(a));
+        }, 550);
+      }
+
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
         investmentType === ULIP_LUMPSUM ? setLumpsumAmount('') : setMonthlyAmount('');
@@ -158,13 +165,15 @@ const UlipBox = () => {
 
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(insuranceUlipLumpsumAction(investmentType));
-        dispatch(insuranceUlipAmount(event.target.value));
+        // dispatch(insuranceUlipAmount(event.target.value));
+        handleTimer(insuranceUlipAmount, event.target.value);
         setLumpsumAmount(event.target.value);
     };
 
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(insuranceUlipMonthlyAction(investmentType));
-        dispatch(insuranceUlipAmount(event.target.value));
+        // dispatch(insuranceUlipAmount(event.target.value));
+        handleTimer(insuranceUlipAmount, event.target.value);
         setMonthlyAmount(event.target.value);
     };
 

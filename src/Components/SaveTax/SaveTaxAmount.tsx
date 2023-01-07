@@ -216,7 +216,7 @@ const SaveTaxAmount = () => {
                 dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
                 navigate('/saveTax/saveTaxInvestmentType')
             } else {
-                // alert('Enter amount multiple of 100!') 
+                // alert('Enter amount multiple of 100!')
                 setValidationAlertDialog({
                     msg: 'Enter amount multiple of 100!',
                     bool: true,

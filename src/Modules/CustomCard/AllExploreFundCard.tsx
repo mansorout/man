@@ -154,9 +154,7 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
   // console.log(explorFundlist)
 
   const handleSelect =(id:any)=>{
-    navigate('/details')
-    alert(id)
-    
+    navigate('/funddetails', {state:{secid: id, parentRoute:"/explorefunds"}})
   }
 
 

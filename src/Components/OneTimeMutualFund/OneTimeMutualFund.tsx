@@ -313,7 +313,7 @@ const OneTimeMutualFund = () => {
 
   const handleNavigationOfFundDetails = (secid: string) => {
     if (secid) {
-      navigate("/funddetails", { state: { secid: secid } });
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/onetimemutualfundrecommendation" } });
     } else {
       console.log(secid, "invalid secid");
     }
