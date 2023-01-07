@@ -4,9 +4,9 @@ import { Box, styled } from '@mui/system'
 import { Avatar, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import {FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
+import { FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
-import {Theme } from '@mui/material';
+import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../CommonComponents/Navbar'
@@ -178,7 +178,7 @@ function ExploreFunds() {
         // let arrCompanyCardsLocal = [...companyCardsLocal];
         dispatch(setMasterFundListAction(data?.data))
         console.log(data?.data);
-        const explorefundData = data?.data 
+        const explorefundData = data?.data
         console.log(explorefundData)
         // setCompanyCardLocal(data?.data);
 
@@ -192,6 +192,8 @@ function ExploreFunds() {
 
   const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
   console.log(explorFundlist)
+  console.log(explorFundlist?.data?.length)
+  console.log(explorFundlist?.data[0].categorygroup)
   console.log(explorFundlist?.data)
 
   // explorFundlist?.data.map((value: any) => {
@@ -207,7 +209,7 @@ function ExploreFunds() {
     console.log(explorefundsfromapi)
 
     initiate();
-    
+
   }, [])
 
 
@@ -254,7 +256,7 @@ function ExploreFunds() {
                   <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
                     <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
-                      <InputBase onChange={(e) => setFundList(ExploreFundsList.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search funds...' style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
+                      <InputBase onChange={(e) => setexplorefundsfromapi(explorefundsfromapi.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} placeholder='Search funds...' style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
                     </Box>
 
                     <Box onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
@@ -268,7 +270,7 @@ function ExploreFunds() {
                   </Box>
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                     <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({ExploreFundsList.length})</Typography>
+                      <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorFundlist?.data?.length})</Typography>
                     </Box>
                     <Box onClick={() => { setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                       <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({ExploreFundsList.filter((item) => item.type == 'Equity').length})</Typography>
