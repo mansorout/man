@@ -5,7 +5,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Typography } from "@mui/material";
 
-export default function SimpleSnackbar() {
+type IProps = {
+    fundsCount: number;
+    onClick: () => void
+    buttonText: string;
+  
+  }
+
+export default function SimpleSnackbar(props:IProps) {
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {

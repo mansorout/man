@@ -198,7 +198,9 @@ function App() {
         <Route path="msg" element={<SprintMoneyMessanger btnText={''} btnClick={function (): void {
           throw new Error('Function not implemented.');
         } } open={false} errorText={''} succesText={''} />} />
-         <Route path="/snackbar" element={<AmountAddSnackBar />} />
+         <Route path="/snackbar" element={<AmountAddSnackBar fundsCount={0} onClick={function (): void {
+          throw new Error('Function not implemented.');
+        } } buttonText={''} />} />
 
         {/* <Route path="/SprintMoneyLoader" element={<SprintMoneyLoader loadingStatus={true} />} /> */}
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}

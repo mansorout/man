@@ -20,6 +20,7 @@ import { getDataWithoutToken } from '../../Utils/api'
 import siteConfig from '../../Utils/siteConfig'
 import { setMasterFundListAction } from '../../Store/Global/actions/global-actions'
 import { lookUpMasterKeys } from '../../Utils/globalConstant'
+import AddToPlanComp from '../CommonComponents/AddToPlanComp'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -144,6 +145,7 @@ function ExploreFunds() {
   }
 
   const [fundList, setFundList] = useState<any[]>([])
+  const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
 
   const menuActions = React.useRef<MenuUnstyledActions>(null);
 
@@ -194,11 +196,31 @@ function ExploreFunds() {
   console.log(explorFundlist)
   console.log(explorFundlist?.data?.length)
   console.log(explorFundlist?.data[0].categorygroup)
+
   console.log(explorFundlist?.data)
 
   // explorFundlist?.data.map((value: any) => {
   //   console.log(value.fundname)
   // })
+
+  explorFundlist?.data?.filter((item:any) => {
+    const length = item.type == 'Equity'.length
+    console.log(length)
+  })
+
+  explorFundlist?.data.map((value: any) => {
+    if(value.categorygroup === "Equity" ){
+      console.log(value.categorygroup.length)
+    }
+    
+  })
+
+
+
+  //   explorFundlist?.data.filter((item:any) => {
+  // console.log(item.name.toLowerCase())
+  //   })
+
 
   // console.log(explorFundlist?.data[0])
 
@@ -298,7 +320,19 @@ function ExploreFunds() {
               }
 
             </Grid>
+            {
+              fundSelecteds.length > 0 ?
+                <>
+
+                  <AddToPlanComp
+                    fundsCount={fundSelecteds.length}
+                    onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
+
+                </>
+                : null
+            }
           </Grid>
+
         </Grid>
       </Box>
     </Box>
