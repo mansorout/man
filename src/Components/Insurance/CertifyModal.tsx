@@ -28,6 +28,7 @@ import { globalConstant } from "../../Utils/globalConstant";
 import "./ModalGotit.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import HdfcModal from "./HdfcModal";
+import ProposalFormStep4 from "./ProposalFormStep4";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 const CertifyModal = (props: any) => {
@@ -40,12 +41,17 @@ const CertifyModal = (props: any) => {
     const [openHdfcModal, setOpenHdfcModal] = React.useState(false);
     const [openTakeItEasyModal, setOpenTakeItEasyModal] = React.useState(false);
   const navigate = useNavigate();
-  const handleProceedBuyButton=()=>{
+  const handlebyproceedbutton=()=>{
 
-     setOpenConfirmationModal(true)
+    setOpenHdfcModal(true) 
+    
   }
 
   useEffect(() => {
+    if(openHdfcModal){
+        setOpenConfirmationModal(false)
+        
+    }
    setTimeout(()=>{setCount(2)},5000)
   }, [])
   return (
@@ -53,7 +59,7 @@ const CertifyModal = (props: any) => {
       <Modal open={props.open}>
         <Box
           style={{
-            maxWidth: "30%",
+            maxWidth: "27%",
             minWidth: "20%",
             borderRadius: "10px",
             boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
@@ -147,8 +153,8 @@ const CertifyModal = (props: any) => {
             <Button
               // disabled={showSubmit}
               fullWidth
-              onClick={handleProceedBuyButton}
-            
+              onClick={handlebyproceedbutton}
+              
               sx={{
             
                 width: "158px",
@@ -169,7 +175,8 @@ const CertifyModal = (props: any) => {
                 Proceed to Buy{" "}
               </Typography>
             </Button>
-            <HdfcModal  open={openConfirmationModal}   close={() => setOpenConfirmationModal(true)}  setOpen={setOpenConfirmationModal} onBtnPress={()=>{setOpenConfirmationModal(false);setOpenHdfcModal(true);setTimeout(()=>{setOpenCompleteModal(true)},2000)}}/>
+            <HdfcModal open={openHdfcModal} setOpen={setOpenHdfcModal} close={() => setOpenHdfcModal(false)}/>
+            
         
 
           </Box>

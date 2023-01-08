@@ -125,7 +125,7 @@ const CongratsModal = (props: any) => {
         <Box
           style={{
             width: "100%",
-            maxWidth: "398px",
+            maxWidth: "431px",
             borderRadius: "8px",
             boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
             backgroundColor: "white",

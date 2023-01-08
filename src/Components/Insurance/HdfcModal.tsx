@@ -33,19 +33,15 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CongratsModal from "./CongratsModal";
 
 function HdfcModal(props: any) {
-        
-    const [openConfirmationModal, setOpenConfirmationModal] = React.useState(false);
-    const [openCompleteModal, setOpenCompleteModal] = React.useState(false);
-    const [openHdfcModal, setOpenHdfcModal] = React.useState(false);
-    const [openTakeItEasyModal, setOpenTakeItEasyModal] = React.useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const navigate = useNavigate();
   const handleCongrates = () => {
-    setOpenConfirmationModal(true);
+    setShowLogin(true);
   };
   return (
     <>
       <Modal open={props.open}>
+  
         <Box
           style={{
             width: "90%",
@@ -65,18 +61,18 @@ function HdfcModal(props: any) {
             padding: "60px",
           }}
         >
-          <Grid container>
+                <Grid container>
             <Grid item xs={12} md={12}>
-              <Box
-                textAlign="right"
-                sx={{ color: "#d1d6dd" }}
-                onClick={props.close}
+              <Box textAlign="right" sx={{color:"#d1d6dd"}}
+                 onClick={props.close}
               >
-                <ClearIcon />
+                <ClearIcon 
+                
+                 />
               </Box>
             </Grid>
           </Grid>
-
+      
           <Box
             my={2}
             style={{
@@ -109,9 +105,8 @@ function HdfcModal(props: any) {
                 Loading...
               </p>
               <CongratsModal
-                open={openConfirmationModal}
-                close={() => setOpenConfirmationModal(false)}
-              
+                open={showLogin}
+                close={() => setShowLogin(false)}
               />
             </div>
           </Box>
