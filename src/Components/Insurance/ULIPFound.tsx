@@ -411,9 +411,9 @@ function ULIPFound() {
                   <Grid item xs={12}>
                     {ULIPList.map((item, index) => {
                       console.log(item.id);
-                      if (item.id === 1) {
+                      
                         return <ULIPCard {...item} key={index}></ULIPCard>;
-                      }
+                      
                     })}
                   </Grid>
                 </>
