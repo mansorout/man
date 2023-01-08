@@ -210,7 +210,7 @@ function HolderSignature() {
         main: {
             boxSizing: "border-box",
             backgroundColor: "#f9f9f9",
-            height: "100vh",
+            // height: "100vh",
         } as React.CSSProperties,
         drawer: {
             zIndex: "500",
@@ -364,7 +364,7 @@ function HolderSignature() {
                             <Grid
                                 container
                                 spacing={0}
-                                sx={{ height: "100vh" }}
+                                // sx={{ height: "100vh" }}
                             >
 
                                 <Grid

@@ -747,21 +747,21 @@ function InvestNowScreen(props: IProps) {
                           <Divider />
                         </div>
                         <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
-                          <Grid item xs={1} className="">
+                          <Grid item xs={1} sx={{ paddingLeft: "0px" }}>
                             <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
                           </Grid>
-                          <Grid item xs={5} className="" sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}  >*Anytime Withdraw</Typography>
+                          <Grid item xs={5} sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
+                            <Typography sx={{ fontSize: {xs:"10px", sm:"12px"}, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={6}>
                               <Grid container>
-                              <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }} className="">
+                              <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }}>
                               <Box className="imageRightBox" style={{float: "right"}}>
                               <Avatar alt="" src={lockinlogo} style={style.ca} />
                               </Box>
                           </Grid>
-                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }} className="">
-                            <Typography sx={{ fontSize: "12px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
+                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
+                            <Typography sx={{ fontSize:{xs:"10px", sm:"12px"}, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
                           </Grid>
                               </Grid>
                           </Grid>
