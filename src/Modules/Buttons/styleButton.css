@@ -10,17 +10,19 @@
   }
 
   .verificationStyle {
-    padding-left: 18% !important;
-    transform: translate(-66%, -7.9%) !important;
+    transform: translate(-108%, 3.1%) !important;
     font-size: 12px !important;
   }
 }
 
 @media (max-width: 768px) {
   .verificationStyle {
-    padding-left: 15% !important;
-    transform: translate(-68%, -4.9%) !important;
-    font-size: 12px !important;
+    transform: translate(-73%, 3.1%) !important;
+  }
+}
+@media (max-width: 650px) {
+  .verificationStyle {
+    transform: translate(-50%, 3.1%) !important;
   }
 }
 
@@ -37,43 +39,33 @@
   }
 
   .verificationStyle {
-    padding-left: 15% !important;
-    transform: translate(-62%, -7.9%) !important;
-    font-size: 12px !important;
+    transform: translate(-40%, 3.1%) !important;
   }
 }
 
-@media (max-width: 414px) {
+@media (max-width: 480px) {
   .verificationStyle {
-    padding-left: 7% !important;
-    transform: translate(-40%, -8.9%) !important;
-    font-size: 10px !important;
+    transform: translate(-25%, 3.1%) !important;
   }
 }
 
 @media (max-width: 390px) {
   .verificationStyle {
-    padding-left: 7% !important;
-    transform: translate(-30%, -8.9%) !important;
-    font-size: 10px !important;
+    transform: translate(-5%, 3.1%) !important;
   }
 }
 @media (max-width: 375px) {
   .verificationStyle {
-    padding-left: 7% !important;
-    transform: translate(-25%, -4.9%) !important;
-    font-size: 10px !important;
   }
 }
 
 @media (max-width: 280px) {
   .verificationStyle {
-    padding-left: 1% !important;
-    transform: translate(0%, -18.9%) !important;
-    font-size: 8px !important;
+    transform: translate(-2%, 3.1%) !important;
     width: 100%;
+    font-size: 8px !important;
   }
   .imgVarification{
-    margin-left: 39px;
+    margin-left: 39px !important;
   }
 }

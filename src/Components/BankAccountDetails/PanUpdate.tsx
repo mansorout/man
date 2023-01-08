@@ -39,7 +39,7 @@ const style = {
         fontSize: '12px',
         color: '#7b7b9d',
         textAlign: 'center',
-        width: '36.28vw',
+        width: '100%',
     } as React.CSSProperties,
     footer2: {
         fontSize: '12px',
@@ -170,19 +170,9 @@ const PanUpdate = () => {
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid container item xs={12} sm={11} md={10} sx={{
-                        height: "100vh",
-                        overflow: "scroll",
-                        display: 'flex',
-                        flexDirection: 'column',
-                        paddingLeft: { xs: '8vw', md: '' },
-                    }}>
+                    <Grid item xs={12} sm={11} md={10}>
                         <Toolbar />
-                        <Breadcrumbs sx={{
-                            fontSize: '12px',
-                            color: '#6c63ff',
-                            padding: "31px 0px 23px 0px"
-                        }}>
+                        <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
                             <Link href="/viewprofile">View Profile</Link>
                             <Typography sx={{
@@ -190,14 +180,15 @@ const PanUpdate = () => {
                                 color: '#373e42'
                             }}>PAN Update</Typography>
                         </Breadcrumbs>
+                        <Box className="BoxPadding">
                         <Box component="form" sx={{
-                            gap: { xs: '1vw', sm: '1vw', md: '1.5vw', lg: '2vw' },
+                             gap: { xs: '15px', sm: '26px', md: '17px', lg: '2vw' },
                             width: '90%',
                             maxWidth: '488px',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '1.5vw',
+                            padding: '20px',
                             borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
@@ -260,10 +251,13 @@ const PanUpdate = () => {
 
                         <Box sx={{
                             marginTop:"120px",
-                            alignItems: 'center',
-                            marginLeft: '20vw',
                             backgroundColor: '#f9f9f9',
-                        }}>
+                        }}
+                        >
+                            <Box sx={{
+                            margin: "auto",
+                            width: "304px",
+                          }}>
                             <Typography style={style.footer}>
                                 By submitting these details, you agree to share your details to BSE for
                                 further transactions
@@ -274,6 +268,8 @@ const PanUpdate = () => {
                             }}>
                                 <Link href="/termsandcondition">Terms and conditions</Link>
                             </Typography>
+                            </Box>
+                        </Box>
                         </Box>
                     </Grid>
 

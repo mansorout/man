@@ -38,7 +38,7 @@ import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } f
 import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typography } from '@mui/material'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
+import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, rightsign, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
 import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
 
 type IProps = {
@@ -75,7 +75,7 @@ const style = {
   main: {
     boxSizing: "border-box",
     backgroundColor: "#f9f9f9",
-    height: "100vh"
+    // height: "100vh"
   } as React.CSSProperties,
   drawer: {
     zIndex: "500",
@@ -521,16 +521,15 @@ function InvestNowScreen(props: IProps) {
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh" }}
         >
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10} >
-            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10} className="ScrollBarStyle22">
+            <Grid item xs={12} sm={10} md={10} className="ScrollBarStyle22">
               <Toolbar />
-              <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="#6495ED" underline="always" href='Home' >
                     <Typography className='burgerText'> Home</Typography>
@@ -748,17 +747,23 @@ function InvestNowScreen(props: IProps) {
                           <Divider />
                         </div>
                         <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
-                          <Grid item xs={1} className="withlogoiconstyle_style">
+                          <Grid item xs={1} sx={{ paddingLeft: "0px" }}>
                             <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
                           </Grid>
-                          <Grid item xs={5} className="withdraliconstyle" sx={{ paddingTop: "10px", }}>
-                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d", paddingLeft: "11px" }}  >*Anytime Withdraw</Typography>
+                          <Grid item xs={5} sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
+                            <Typography sx={{ fontSize: {xs:"10px", sm:"12px"}, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingLeft: "80px" }} className="iconstyle">
-                            <Avatar alt="" src={lockinlogo} style={style.ca} />
+                          <Grid item xs={6}>
+                              <Grid container>
+                              <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }}>
+                              <Box className="imageRightBox" style={{float: "right"}}>
+                              <Avatar alt="" src={lockinlogo} style={style.ca} />
+                              </Box>
                           </Grid>
-                          <Grid item xs={3} sx={{ paddingTop: "9px", paddingLeft: "14px" }} className="NoLockinperiod">
-                            <Typography sx={{ fontSize: "10px", color: "#7b7b9d" }}>*No Lock-in Period</Typography>
+                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
+                            <Typography sx={{ fontSize:{xs:"10px", sm:"12px"}, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
+                          </Grid>
+                              </Grid>
                           </Grid>
                         </Grid>
                       </CardContent>

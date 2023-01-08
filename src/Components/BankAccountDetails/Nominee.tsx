@@ -313,7 +313,7 @@ const Nominee = () => {
                                 fontSize: '14px',
                                 fontWeight: 500,
                                 color: '#3c3e42',
-                            }}>Add Nominee & Declarations</Typography>
+                            }}>Add Nominee & Declarations </Typography>
 
                             <FormControl>
                                 <TextField
