@@ -761,7 +761,7 @@ function ULIPFound() {
                               </b>
                             </Box>
                             <Box textAlign="left">
-                              <b style={{ fontSize: "14px" }}>₹5 Lacs</b>
+                              <b style={{ fontSize: "14px" }}>₹5 Lac</b>
                             </Box>
                           </Box>
                           <img
