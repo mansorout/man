@@ -17,7 +17,6 @@ import {
   iclogoplus,
   Logo,
   MonoLogo,
-
   Profile,
   SIP,
   sipiclogo,
@@ -26,8 +25,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { globalConstant } from "../../Utils/globalConstant";
 import "./ModalGotit.css";
 const ModalGotit = (props: any) => {
-const navigate=useNavigate()
-return (
+  const navigate = useNavigate();
+  return (
     <div>
       <Modal open={props.open}>
         <Box
@@ -51,25 +50,24 @@ return (
           className="smallmodal"
         >
           <Grid container>
-            <Grid item xs={12} md={12} textAlign="center" >
+            <Grid item xs={12} md={12} textAlign="center">
               <Box
                 sx={{ backgroundColor: "var(--marigold)" }}
                 textAlign="center"
               >
-                <div style={{paddingTop:"7%"}}>
-                <img
-                  src={iciclogoiclogo}
-                  alt="sprint-money"
-                  style={{
-                    width: "95.8px",
-                    height: "95.8px",
-                    backgroundColor:"var(--marigold)",
-                    border: "20px solid  #ffc300",
-                    borderRadius:'50%'
-                  }}
-                />
+                <div style={{ paddingTop: "7%", }}>
+                  <img
+                    src={iciclogoiclogo}
+                    alt="sprint-money"
+                    style={{
+                      width: "95.8px",
+                      height: "95.8px",
+                      borderRadius: "50%", border: "px solid  #ffc300", backgroundColor: "var(--marigold)"
+                   
+                    
+                    }}
+                  />
                 </div>
-            
               </Box>
               <Box sx={{}}>
                 <Typography sx={{ fontSize: " 14px" }}>
@@ -95,26 +93,35 @@ return (
                   marginTop: "4%",
                 }}
               >
-              <Box sx={{paddingLeft:"10%",paddingTop:'5%'}}>
-              <Box textAlign="left" >
-                  <b style={{color:"#544ec8",fontSize:"12px"}}>Existing Plan</b>
+                <Box sx={{ paddingLeft: "10%", paddingTop: "5%" }}>
+                  <Box textAlign="left">
+                    <b style={{ color: "#544ec8", fontSize: "12px" }}>
+                      Existing Plan
+                    </b>
+                  </Box>
+                  <Box textAlign="left">
+                    <b style={{ color: "#3c3e42", fontSize: "14px" }}>
+                      ₹5 Lacs
+                    </b>
+                  </Box>
                 </Box>
-                <Box textAlign="left">
-                  <b style={{color:"#3c3e42",fontSize:"14px"}}>₹5 Lacs</b>
+                <img
+                  src={iclogoplus}
+                  alt="Sprint__money"
+                  style={{ transform: "translate(0px,-29px)" }}
+                />
+                <Box sx={{ marginTop: "-25.5%", paddingRight: "8%" }}>
+                  <Box textAlign="right">
+                    <b style={{ color: "#544ec8", fontSize: "12px" }}>
+                      Top-up Plan
+                    </b>
+                  </Box>
+                  <Box textAlign="right">
+                    <b style={{ color: "#3c3e42", fontSize: "14px" }}>
+                      ₹10 Lacs
+                    </b>
+                  </Box>
                 </Box>
-              </Box>
-              <img src={iclogoplus} alt="Sprint__money" style={{transform: "translate(0px,-29px)"}}/>
-            <Box sx={{marginTop:'-25.5%',paddingRight:"8%"}}>
-        
-            <Box textAlign="right">
-                  <b style={{color:"#544ec8",fontSize:"12px"}}>Top-up Plan</b>
-                </Box>
-                <Box textAlign="right">
-                  <b style={{color:"#3c3e42",fontSize:"14px"}}>₹10 Lacs</b>
-                </Box>
-            </Box>
-                
-           
               </Box>
               <Box sx={{ paddingTop: "20px" }}>
                 <b
@@ -131,20 +138,24 @@ return (
                 <Button
                   // disabled={showSubmit}
                   fullWidth
-                  onClick={() => { navigate('/healthInsurance/findInsurance')}}
+                  onClick={() => {
+                    navigate("/healthInsurance/findInsurance");
+                  }}
                   sx={{
-                    width:"158px",
-                    height:"42px",
+                    width: "158px",
+                    height: "42px",
                     backgroundColor: "#23db7b",
                     marginTop: "9%",
                     ml: 1,
                     "&.MuiButtonBase-root:hover": {
                       bgcolor: "#23db7b",
                     },
-                    boxShadow:" 0 4px 8px 0 rgba(35, 219, 123, 0.4)"
+                    boxShadow: " 0 4px 8px 0 rgba(35, 219, 123, 0.4)",
                   }}
                 >
-                  <Typography sx={{ fonSize: "14px",fontWeight:"500", color: "white" }}>
+                  <Typography
+                    sx={{ fonSize: "14px", fontWeight: "500", color: "white" }}
+                  >
                     {" "}
                     OK, Got it{" "}
                   </Typography>
