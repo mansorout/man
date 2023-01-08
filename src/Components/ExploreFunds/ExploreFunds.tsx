@@ -203,17 +203,34 @@ function ExploreFunds() {
   //   console.log(value.fundname)
   // })
 
-  explorFundlist?.data?.filter((item:any) => {
-    const length = item.type == 'Equity'.length
-    console.log(length)
-  })
 
-  explorFundlist?.data.map((value: any) => {
-    if(value.categorygroup === "Equity" ){
-      console.log(value.categorygroup.length)
-    }
-    
-  })
+
+  const countfiltered = explorFundlist?.data.filter(function (element: any) {
+    return element.categorygroup == 'Equity';
+  }).length
+
+  console.log(countfiltered);
+
+  // setexplorefundsfromapi(countfiltered)
+
+  const countfiltered2 = explorFundlist?.data.filter(function (element: any) {
+    return element.categorygroup == 'Balanced';
+  }).length
+
+  console.log(countfiltered2);
+
+  const countfiltered3 = explorFundlist?.data.filter(function (element: any) {
+    return element.categorygroup == 'Debt';
+  }).length
+
+  console.log(countfiltered3);
+
+  // explorFundlist?.data.map((value: any) => {
+  //   if (value.categorygroup === "Equity") {
+  //     console.log(value.categorygroup.length)
+  //   }
+
+  // })
 
 
 
@@ -294,14 +311,19 @@ function ExploreFunds() {
                     <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                       <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorFundlist?.data?.length})</Typography>
                     </Box>
-                    <Box onClick={() => { setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({ExploreFundsList.filter((item) => item.type == 'Equity').length})</Typography>
+                    <Box onClick={() => {
+                      setSelected(2); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
+                        == 'Equity'))
+                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({countfiltered}) </Typography>
                     </Box>
-                    <Box onClick={() => { setSelected(3); setFundList(ExploreFundsList.filter((item) => item.type == 'Debt')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Debt ({ExploreFundsList.filter((item) => item.type == 'Debt').length})</Typography>
+                    <Box onClick={() => { setSelected(3); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
+                        == 'Debt')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Debt ({countfiltered3})</Typography>
                     </Box>
-                    <Box onClick={() => { setSelected(4); setFundList(ExploreFundsList.filter((item) => item.type == 'Balanced')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Balanced ({ExploreFundsList.filter((item) => item.type == 'Balanced').length})</Typography>
+                    <Box onClick={() => { setSelected(4); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
+                        == 'Balanced')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                      <Typography style={{ fontWeight: "500", color: `${selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Balanced({countfiltered2})</Typography>
                     </Box>
 
                   </Box>
