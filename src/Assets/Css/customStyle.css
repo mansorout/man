@@ -2,6 +2,11 @@
 }
 .investModal{text-align: center;display: block;
 }
+
+.largeHeadingText{
+    position: relative;
+    z-index: 1;
+}
 .investModal .MuiCardHeader-root{
     text-align: center;
     padding-top: 0%;
@@ -45,6 +50,50 @@
   .lsDisdvantageCardOne p{
     color: #000 !important;
   }
+  .miAdvantageCardOne{
+    background: #9ddfa569 !important;
+  }
+  .miAdvantageCardOne p{
+    color: #000 !important;
+  }
+  .miAdvantageCardOne p:first-child{
+    font-weight: 500 !important;
+    font-size: 22px !important;
+  }
+  .miAdvantageCardOne p:nth-child(2){
+    font-weight: 600 !important;
+    font-size: 22px !important;
+  }
+  .miAdvantageCardOne p:nth-child(3){
+    opacity: 0.5 !important;
+    font-size: 30px !important;
+  }
+  .miAdvantageCardOne p:nth-child(4){
+    font-weight: 700 !important;
+    font-size: 22px !important;
+  }
+  .miAdvantageCardTwo{
+    background:#a3a4a34a !important;
+  }
+  .miAdvantageCardTwo p{
+    color: #000 !important;
+  }
+  .miAdvantageCardTwo p:first-child{
+    opacity: 0.5 !important;
+    font-size: 22px !important;
+  }
+  .miAdvantageCardTwo p:nth-child(2){
+    font-weight: 700 !important;
+    font-size: 25px !important;
+  }
+  .miAdvantageCardTwo p:nth-child(3){
+    opacity: 0.8 !important;
+    font-size: 22px !important;
+    
+  }
+  .miDisadvantageCardOne{
+    background: #6c63ff !important;
+  }
 
 .BoxStartInvest{
     padding: 10px 26px;
@@ -63,6 +112,7 @@
     }
 }
 @media (max-width: 768px) {
+    
     .btnGetStartedNow {
         max-width: 100% !important;
     }
@@ -75,8 +125,49 @@
     .gridMarginBottom20{
         margin-top: 20px !important;
     }
+
+    .miAdvantageCardOne p:first-child{
+        font-size: 18px !important;
+      }
+      .miAdvantageCardOne p:nth-child(2){
+        font-size: 18px !important;
+      }
+      .miAdvantageCardOne p:nth-child(3){
+        font-size: 25px !important;
+      }
+      .miAdvantageCardOne p:nth-child(4){
+        font-size: 18px !important;
+      }
+      .miAdvantageCardTwo p:first-child{
+        font-size:18px !important;
+      }
+      .miAdvantageCardTwo p:nth-child(2){
+        font-size: 20px !important;
+      }
+      .miAdvantageCardTwo p:nth-child(3){
+        font-size: 18px !important;
+        
+      }
+      .renderBoxsign {
+        min-height: auto !important;
+        width: 83% !important;
+    }
+   
 }
+@media screen and (max-width: 600px){
+    .checkHeadingStack{
+        margin-top: -50px !important;
+    }
+}
+
 @media screen and (max-width: 480px){
+    .tabSecBox{
+        align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 600px;
+    flex-wrap: nowrap !important;
+    }
     .textDescCard{
         max-width: 100% !important;
     }
@@ -124,14 +215,15 @@
     }
     
 }
+@media screen and (max-width: 360px){
+    
+    .tabBoxSize{
+        font-size: 11px !important;
+        line-height: 30px !important;
+    }
+}
 @media screen and (max-width: 280px){
     
-    /* .css-ahj2mt-MuiTypography-root{
-        font-size: 1rem !important;
-    } */
-    .tabBoxSize{
-        font-size: 16px !important;
-    }
    .css-4g6ai3 img{
      width: 108px !important;
    }
