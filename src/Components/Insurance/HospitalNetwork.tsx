@@ -70,7 +70,7 @@ export default function HospitalNetwork() {
                     aria-controls="panel2a-content"
                     id="panel2a-header"
                 >
-                    <Box sx={{}}>
+                    <Box>
                         <Typography className='risko_meter'>Network Hospitals (150)</Typography>
                         <Typography className='Level-of-Risk-in-the-Scheme'>Cashless treatment available in your area</Typography>
                     </Box>
