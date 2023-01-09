@@ -442,42 +442,43 @@ function ULIPFound() {
                 </Grid>
               </Grid>
               <Card sx={{ width: "100%", marginTop: "2%" }}>
-<Grid container sx={{marginTop:"2%"}} >
-  <Grid xs={4} md={4}>
-  <Avatar
-                    className="Gender_Logo_Style"
-                    alt=""
-                    src={wclogo}
-                    style={style.ca}
-                    sx={{ marginLeft: "25px" }}
-                  />
-  </Grid>
-  <Grid xs={5} md={5}>
-  <div style={{marginLeft: "-57%",
-    marginTop: "2%"
-}}>
-                    <b style={{ color: "#3c3e42", fontSize: "16px" }}>
-                      SprintMoney cost saver combo
-                      <Typography
-                        sx={{
-                          color: "#7b7b9e",
-                          fontSize: "14px",
-                          fontWeight: "500",
-                        }}
-                      >
-                        You're saving ₹2,500 from a regular plan
-                      </Typography>
-                    </b>
-                  </div>
-    </Grid>
-    <Grid xs={3} md={3} >
-    <Box sx={{ marginTop:{ xs:"-3rem", sm:"1rem"}}}>
-                  
-                  <b style={{color:"white",backgroundColor:"#6c63ff"}}>₹13,008 P.A</b>
-                  <b style={{color:"#7b7b9d",marginLeft:"3%"}}>₹1,199 p.m</b>
-                </Box>
-    </Grid>
-</Grid>
+                <Grid container sx={{ marginTop: "2%" }}>
+                  <Grid xs={4} md={4}>
+                    <Avatar
+                      className="Gender_Logo_Style"
+                      alt=""
+                      src={wclogo}
+                      style={style.ca}
+                      sx={{ marginLeft: "25px" }}
+                    />
+                  </Grid>
+                  <Grid xs={5} md={5}>
+                    <div style={{ marginLeft: "-57%", marginTop: "2%" }}>
+                      <b style={{ color: "#3c3e42", fontSize: "16px" }}>
+                        SprintMoney cost saver combo
+                        <Typography
+                          sx={{
+                            color: "#7b7b9e",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          You're saving ₹2,500 from a regular plan
+                        </Typography>
+                      </b>
+                    </div>
+                  </Grid>
+                  <Grid xs={3} md={3}>
+                    <Box sx={{ marginTop: { xs: "-3rem", sm: "1rem" } }}>
+                      <b style={{ color: "white", backgroundColor: "#6c63ff" }}>
+                        ₹13,008 P.A
+                      </b>
+                      <b style={{ color: "#7b7b9d", marginLeft: "3%" }}>
+                        ₹1,199 p.m
+                      </b>
+                    </Box>
+                  </Grid>
+                </Grid>
 
                 {/* <Box sx={{ display: "flex", marginTop: "1.6%" }}>
                   <Avatar
@@ -753,7 +754,6 @@ function ULIPFound() {
                             flexDirection: "row",
                           }}
                         >
-
                           <Done
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
                           />
@@ -761,74 +761,105 @@ function ULIPFound() {
                             Organ Donor Expenses : Available
                           </p>
 
+                          <Grid
+                            container
+                            sx={{ paddingLeft: "50%", marginTop: "-5%" }}
+                          >
+                            <Grid item xs={12} md={12} textAlign="right">
+                              <div style={{}}>
+                                <Box
+                                  sx={{
+                                    width: "281px",
+                                    height: "113px",
+                                    position: " relative",
+                                    top: " 0%",
+                                    left: " 0%",
+                                    transform: " translate(-3px  103px)",
+                                    textAlign: "center",
 
-                          <Grid container sx={{paddingLeft:"50%",marginTop:"-5%"}}>
-                    <Grid item xs={12} md={12} textAlign="right">
-                      
-                      <div style={{}}>
-                        <Box
-                          sx={{
-                            width: "281px",
-                            height: "113px",
-                            position: " relative",
-                            top: " 0%",
-                            left: " 0%",
-                            transform: " translate(-3px  103px)",
-                            textAlign: "center",
-
-                            // padding:"20px 56px 1px",
-                            opacity: "0.7",
-                            borderRadius: "8px",
-                            backgroundColor: "#ebfaff",
-                          }}
-                        >
-                          <Box sx={{ paddingLeft: "10%", paddingTop: "5%" }}>
-                            <Box textAlign="left">
-                              <b style={{ color: "#544ec8", fontSize: "12px" }}>
-                                Base Plan
-                              </b>
-                            </Box>
-                            <Box textAlign="left">
-                              <b style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                                Sum Insured{" "}
-                              </b>
-                            </Box>
-                            <Box textAlign="left">
-                              <b style={{ fontSize: "14px" }}>₹5 Lac</b>
-                            </Box>
-                          </Box>
-                          <img
-                            src={iclogoplus}
-                            alt="Sprint__money"
-                            style={{ transform: "translate(0px,-29px)" }}
-                          />
-                          <Box sx={{ marginTop: "-28%", paddingRight: "8%" }}>
-                            <Box textAlign="right">
-                              <b style={{ color: "#544ec8", fontSize: "12px" }}>
-                                Super Top-up Plan
-                              </b>
-                            </Box>
-                            <Box textAlign="right">
-                              <b style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                                Sum Insured
-                              </b>
-                            </Box>
-                            <Box textAlign="right">
-                              <b style={{ fontSize: "14px" }}>₹10 Lacs</b>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </div>
-                    </Grid>
-                  </Grid>
+                                    // padding:"20px 56px 1px",
+                                    opacity: "0.7",
+                                    borderRadius: "8px",
+                                    backgroundColor: "#ebfaff",
+                                  }}
+                                >
+                                  <Box
+                                    sx={{
+                                      paddingLeft: "10%",
+                                      paddingTop: "5%",
+                                    }}
+                                  >
+                                    <Box textAlign="left">
+                                      <b
+                                        style={{
+                                          color: "#544ec8",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Base Plan
+                                      </b>
+                                    </Box>
+                                    <Box textAlign="left">
+                                      <b
+                                        style={{
+                                          color: "#7b7b9d",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Sum Insured{" "}
+                                      </b>
+                                    </Box>
+                                    <Box textAlign="left">
+                                      <b style={{ fontSize: "14px" }}>₹5 Lac</b>
+                                    </Box>
+                                  </Box>
+                                  <img
+                                    src={iclogoplus}
+                                    alt="Sprint__money"
+                                    style={{
+                                      transform: "translate(0px,-29px)",
+                                    }}
+                                  />
+                                  <Box
+                                    sx={{
+                                      marginTop: "-28%",
+                                      paddingRight: "8%",
+                                    }}
+                                  >
+                                    <Box textAlign="right">
+                                      <b
+                                        style={{
+                                          color: "#544ec8",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Super Top-up Plan
+                                      </b>
+                                    </Box>
+                                    <Box textAlign="right">
+                                      <b
+                                        style={{
+                                          color: "#7b7b9d",
+                                          fontSize: "12px",
+                                        }}
+                                      >
+                                        Sum Insured
+                                      </b>
+                                    </Box>
+                                    <Box textAlign="right">
+                                      <b style={{ fontSize: "14px" }}>
+                                        ₹10 Lacs
+                                      </b>
+                                    </Box>
+                                  </Box>
+                                </Box>
+                              </div>
+                            </Grid>
+                          </Grid>
                         </div>
-            
                       </Grid>
-              
                     </Grid>
-            
                   </div>
-              
                 </Card>
               </Card>
             </Grid>
