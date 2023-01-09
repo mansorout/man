@@ -427,7 +427,7 @@ const ProposalForm = () => {
 
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 1/4</p>
-                                <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buyingjjjjj transaction</p>
+                                <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buying transaction</p>
                                 <Box width="100%" >
                                     <LinearProgressBar value={20} />
                                 </Box>
