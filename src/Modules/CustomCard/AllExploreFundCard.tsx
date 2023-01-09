@@ -157,6 +157,12 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
     navigate('/funddetails', {state:{secid: id, parentRoute:"/explorefunds"}})
   }
 
+  const handleOnChange =(id:any)=>{
+    let selectedfund  = []
+    
+    alert(id)
+  }
+
 
 
 
@@ -202,6 +208,7 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
           </Box>
           <Box>
             <Checkbox
+             onChange={()=>{handleOnChange(secid)}}
               id="topping" name="topping"
               {...label}
               defaultChecked={false}
