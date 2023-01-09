@@ -527,8 +527,13 @@ function InvestNowScreen(props: IProps) {
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10} >
-            <Grid item xs={12} sm={10} md={10} className="ScrollBarStyle22">
+            <Grid item xs={12} sm={10} md={10} sx={{ height: "100vh",
+            overflow: "scroll",
+            width: "100%",
+            display: "block",
+            justifyContent: "center", }} className="ScrollBarStyle22">
               <Toolbar />
+              <Grid container>
               <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="#6495ED" underline="always" href='Home' >
@@ -542,10 +547,9 @@ function InvestNowScreen(props: IProps) {
                   </Link>
                 </Breadcrumbs>
               </Box>
-              <Box>
-              </Box>
-              <Box sx={{ width: '100%' }} >
-                <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
+              </Grid>
+              <Box className="BoxPadding" >
+                <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
                   <Grid item md={6} xs={12}>
                     <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
                       className="InvestStylepadview">

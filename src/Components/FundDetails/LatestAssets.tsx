@@ -108,7 +108,10 @@ export const LatestAssets = (props: IProps) => {
               activeTabData &&
                 Object.keys(activeTabData).length ?
                 activeTab === "marketcap" ?
-                  <MarketCap /> :
+                  <MarketCap
+                    progressData={holdingInfo}
+                    activeTab={activeTab}
+                  /> :
 
                   <ProgressBars
                     progressData={activeTabData}

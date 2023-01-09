@@ -594,26 +594,18 @@ const FundDetails = () => {
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
       <Box sx={style.main}>
-        <Grid container spacing={0} sx={{ height: "100vh" }}>
+        <Grid container spacing={0}>
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={13} sm={11} md={10}>
-            <Grid sx={{ padding: 2 }} item xs={12}>
+          <Grid container xs={13} sm={11} md={10} sx={{ height: "100vh",
+            overflow: "scroll",
+            width: "100%",
+            display: "block",
+            justifyContent: "center", }}>
               <Toolbar />
-              <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={13} >
-                <Grid
-                  sx={{
-                    height: { xs: "auto", sm: "inherit" },
-                    padding: 0,
-                    boxSizing: "border-box",
-                    overflow: { sx: "auto", sm: "auto", md: "auto" },
-                  }}
-                  item
-                  xs={13}
-                >
-                  <Toolbar />
+            <Box className="BoxPadding" >
                   <Box
                     role="presentation"
                     sx={{ margin: "27px 0px 21px 25px" }}
@@ -714,7 +706,7 @@ const FundDetails = () => {
                     backgroundColor: "white",
                     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                   }}>
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                    <Box sx={{ display: "flex", flexDirection: "row", padding:"5px 10px" }}>
                       <Typography component="h6" sx={{ color: "black" }}>
                         {fundDetails?.dayendnav}
                       </Typography>
@@ -722,8 +714,8 @@ const FundDetails = () => {
                         {fundDetails?.isnavincrease ? `+${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) up arrow` : `-${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) down arrow`}
                       </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      <Typography component="h6" sx={{ color: "grey" }}>
+                    <Box sx={{ display: "flex", flexDirection: "row", padding:"5px 10px" }}>
+                      <Typography component="h6" sx={{ color: "grey",}}>
                         {fundDetails?.dayendnavdate}
                       </Typography>
                       <Typography component="span" sx={{ color: "grey" }}>
@@ -746,13 +738,13 @@ const FundDetails = () => {
                     rowSpacing={1}
                     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                   >
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
                       <MinInvest
                         sipminamount={fundDetails?.sipminamount}
                         lumpsumminamount={fundDetails?.lumpsumminamount}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
                       <SchemeDoc
                         openSchemeDocument={() => {
                           const link = document.createElement('a');
@@ -770,18 +762,16 @@ const FundDetails = () => {
                     rowSpacing={1}
                     columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                   >
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
                       <RiskoMeter />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
                       <LatestAssets
                         holdingInfo={fundDetails?.holdinginfo}
                       />
                     </Grid>
                   </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
+                  </Box>
           </Grid>
         </Grid>
       </Box>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Box } from '@mui/system'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -19,9 +19,9 @@ import { type } from 'os';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
-    searchCmp:{
+    searchCmp: {
         position: 'relative',
-        '@media(max-width: 500px)':{
+        '@media(max-width: 500px)': {
             margin: '15px 0px'
         }
     },
@@ -39,10 +39,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         top: '100%',
         minWidth: '100%',
         width: '360px',
-        right: '-200%',
+        right: '-400px',
         zIndex: '11',
         transition: 'all 0.3s ease-in-out',
-        '@media(max-width: 400px)':{
+        '@media(max-width: 400px)': {
             width: '270px',
         }
     },
@@ -55,21 +55,30 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     filterOptions: {
 
     },
-    tabStyles:{
-        '& button':{
+    tabStyles: {
+        '& button': {
             alignItems: 'flex-start !important',
         }
     },
-    radioStyle:{
+    radioStyle: {
         // '& svg':{
         //     color: 'var(--primaryColor)',
         // },
-        '& .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked':{
+        '& .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked': {
             color: 'var(--primaryColor)',
         }
     },
-    showFilterBox:{
+    showFilterBox: {
         right: '0px',
+    },
+    searchIconBox: {
+        backgroundColor: 'var(--primaryColor)',
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }))
 
@@ -90,7 +99,7 @@ function TabPanel(props: TabPanelProps) {
             id={`vertical-tabpanel-${index}`}
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
-            style={{overflow: 'scroll'}}
+            style={{ overflow: 'scroll' }}
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
@@ -118,15 +127,19 @@ type sortTypes = {
 }
 
 interface SearchCmpProps {
-    sort: sortTypes[];
-    policyTerm: radioTypes[];
-    lifeCover: radioTypes[];
-    sortValue: string;
-    policyTermValue: number | null;
-    lifeCoverValue: number | null;
-    sortCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    policyTermCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    lifeCoverCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // sort: sortTypes[];
+    // policyTerm: radioTypes[];
+    // lifeCover: radioTypes[];
+    filtersOptions: any;
+    searchBox?: boolean;
+    searchKeysFun?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // sortValue: string;
+    // policyTermValue: number | null;
+    // lifeCoverValue: number | null;
+    handleCB: (e: any) => void;
+    // sortCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // policyTermCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    // lifeCoverCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 
@@ -141,27 +154,35 @@ const SearchCmp = (props: SearchCmpProps) => {
 
     return (
         <Box className={classes.searchCmp}>
-            <TextField
-                id="outlined-basic"
-                label="Search funds..."
-                variant="outlined"
-                size='small'
-                fullWidth
-                className={classes.searchFeild}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon />
-                        </InputAdornment>
-                    ),
-                    endAdornment: (
-                        <InputAdornment position="start" onClick={() => setFilterBoxShowHide(true)}>
-                            <FilterAltOutlinedIcon sx={{ color: 'var(--primaryColor)', cursor: 'pointer' }} />
-                        </InputAdornment>
-                    ),
-                }}
-            />
-            {/* <div>SearchCmp</div> */}
+            {
+                props?.searchBox === true  ? (
+                    <TextField
+                        id="outlined-basic"
+                        label="Search fund"
+                        variant="outlined"
+                        size='small'
+                        fullWidth
+                        className={classes.searchFeild}
+                        onChange={props?.searchKeysFun}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="start" onClick={() => setFilterBoxShowHide(true)}>
+                                    <FilterAltOutlinedIcon sx={{ color: 'var(--primaryColor)', cursor: 'pointer' }} />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                ) : (
+                    <Box className={classes.searchIconBox} onClick={() => setFilterBoxShowHide(true)}>
+                        <FilterAltOutlinedIcon sx={{ color: 'var(--uiWhite)', cursor: 'pointer' }} />
+                    </Box>
+                )
+            }
             <Box className={`${classes.filterBox} ${filterBoxShowHide ? classes.showFilterBox : ''}`}>
                 <Box className={classes.filterHeader}>
                     <Typography component='p' sx={{ padding: '0px 15px', color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500 }}>Filters</Typography>
@@ -180,11 +201,51 @@ const SearchCmp = (props: SearchCmpProps) => {
                             sx={{ borderRight: 1, borderColor: 'divider' }}
                             className={classes.tabStyles}
                         >
-                            <Tab label="Sort" {...a11yProps(0)} />
+                            {/* <Tab label="Sort" {...a11yProps(0)} />
                             <Tab label="Policy Term" {...a11yProps(1)} />
-                            <Tab label="Life Cover" {...a11yProps(2)} />
+                            <Tab label="Life Cover" {...a11yProps(2)} /> */}
+                            {
+                                props?.filtersOptions && props?.filtersOptions.length && props?.filtersOptions.map((item: any, index: number) => (
+                                    <Tab label={item?.key} {...a11yProps(index)} />
+                                ))
+                            }
                         </Tabs>
-                        <TabPanel value={value} index={0}>
+
+
+                        {
+                            props?.filtersOptions && props?.filtersOptions.length && props?.filtersOptions?.map((parentItem: any, parentIndex: number) => (
+                                <TabPanel value={value} index={parentIndex}>
+                                    <FormControl>
+                                        <RadioGroup
+                                            aria-labelledby="demo-radio-buttons-group-label"
+                                            defaultValue="highToLowReturn"
+                                            name="radio-buttons-group"
+                                            // value={props.sortValue}
+                                            // onChange={(e) => props.sortCb(e)}
+                                            // onChange={(e) => props.handleCB({parentItem,e})}
+                                            className={classes.radioStyle}
+                                        >
+                                            {
+                                                parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                    <FormControlLabel
+                                                        className={classes.radioStyle}
+                                                        value={nestedItem?.value}
+                                                        control={<Radio />}
+                                                        label={nestedItem?.label}
+                                                        onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
+                                                    />
+                                                    // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
+                                                    // ))
+                                                ))
+                                            }
+                                        </RadioGroup>
+                                    </FormControl>
+                                </TabPanel>
+                            ))
+                        }
+
+
+                        {/* <TabPanel value={value} index={0}>
                             <FormControl>
                                 <RadioGroup
                                     aria-labelledby="demo-radio-buttons-group-label"
@@ -195,13 +256,10 @@ const SearchCmp = (props: SearchCmpProps) => {
                                     className={classes.radioStyle}
                                 >
                                     {
-                                        props.sort.map((sortItem: sortTypes) => (
+                                        props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
                                             <FormControlLabel className={classes.radioStyle} value={sortItem.value} control={<Radio />} label={sortItem.label} />
                                         ))
                                     }
-                                    {/* <FormControlLabel className={classes.radioStyle} value="female" control={<Radio />} label="Return - High to Low" />
-                                    <FormControlLabel className={classes.radioStyle} value="male" control={<Radio />} label="Rating - High to Low" />
-                                    <FormControlLabel className={classes.radioStyle} value="other" control={<Radio />} label="Fund Size - High to Low" /> */}
                                 </RadioGroup>
                             </FormControl>
                         </TabPanel>
@@ -215,16 +273,10 @@ const SearchCmp = (props: SearchCmpProps) => {
                                     onChange={(e) => props.policyTermCb(e)}
                                 >
                                 {
-                                    props.policyTerm.map((policyTermItem: radioTypes) => (
+                                   props?.policyTerm && props?.policyTerm?.length &&  props?.policyTerm?.map((policyTermItem: radioTypes) => (
                                         <FormControlLabel className={classes.radioStyle} value={policyTermItem.value} control={<Radio />} label={policyTermItem.label} />
                                     ))
                                 }
-                                    {/* <FormControlLabel value="5" control={<Radio />} label="5 Years" />
-                                    <FormControlLabel value="7" control={<Radio />} label="7 Years" />
-                                    <FormControlLabel value="10" control={<Radio />} label="10 Years" />
-                                    <FormControlLabel value="15" control={<Radio />} label="15 Years" />
-                                    <FormControlLabel value="20" control={<Radio />} label="20 Years" />
-                                    <FormControlLabel value="25" control={<Radio />} label="25 Years" /> */}
                                 </RadioGroup>
                             </FormControl>
                         </TabPanel>
@@ -238,19 +290,13 @@ const SearchCmp = (props: SearchCmpProps) => {
                                     onChange={(e) => props.lifeCoverCb(e)}
                                 >
                                 {
-                                    props.lifeCover.map((lifeCoverItem: radioTypes) => (
+                                     props?.lifeCover && props?.lifeCover?.length &&  props?.lifeCover?.map((lifeCoverItem: radioTypes) => (
                                         <FormControlLabel className={classes.radioStyle} value={lifeCoverItem.value} control={<Radio />} label={lifeCoverItem.label} />
                                     ))
                                 }
-                                    {/* <FormControlLabel value="500000" control={<Radio />} label="₹5 Lacs" />
-                                    <FormControlLabel value="1500000" control={<Radio />} label="₹15 Lacs" />
-                                    <FormControlLabel value="5000000" control={<Radio />} label="₹50 Lacs" />
-                                    <FormControlLabel value="7500000" control={<Radio />} label="₹75 Lacs" />
-                                    <FormControlLabel value="10000000" control={<Radio />} label="₹1 Crore" />
-                                    <FormControlLabel value="250000000" control={<Radio />} label="₹10 Crore" /> */}
                                 </RadioGroup>
                             </FormControl>
-                        </TabPanel>
+                        </TabPanel> */}
                     </Box>
                 </Box>
             </Box>

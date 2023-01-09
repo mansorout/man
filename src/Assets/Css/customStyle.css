@@ -2,7 +2,9 @@
 }
 .investModal{text-align: center;display: block;
 }
-
+.HeadAndGetStartedNow{
+  height: auto !important;
+}
 .largeHeadingText{
     position: relative;
     z-index: 1;
@@ -184,7 +186,7 @@
     
     .HeadAndGetStartedNow{
     padding: 0px !important;
-    margin-bottom: 40px !important;
+    margin-bottom: 10px !important;
     }
     .btnGetStartedNow{
         max-width: 100% !important;
