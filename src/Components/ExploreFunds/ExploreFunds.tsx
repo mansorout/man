@@ -174,7 +174,7 @@ function ExploreFunds(props: any) {
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
       siteConfig.RECOMENDATION_API_ID
     )
-      .then(res => res.json())
+      .then((res: any) => res.json())
       .then((data: any) => {
         if (data?.error === true) {
           return;
