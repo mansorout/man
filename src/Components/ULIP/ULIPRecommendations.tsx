@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography, Theme, FormControl, FormControlLabel, RadioGroup } from "@mui/material";
+import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography, Theme, FormControl, FormControlLabel, RadioGroup, DialogContent } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import ULIPCoFundCard, { ULIPProp } from "../../Modules/Cards/ULIP/ULIPCoFundCard";
@@ -28,6 +28,24 @@ import {
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import SearchCmp from "../CommonComponents/SearchCmp";
+import { postUlipGenrateApi, getUlipListApi } from "../../Store/Insurance/thunk/insurance-thunk";
+import { lookUpMasterKeys, bannerSectionValues } from "../../Utils/globalConstant";
+import { customParseJSON, getLookUpIdWRTModule } from "../../Utils/globalFunctions";
+import { getUlipListApiTypes } from "../../Store/Insurance/constants/types";
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
+import LineChart from '../CommonComponents/Charts/LineChart';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+} from 'chart.js';
 
 const enumActiveScreen = Object.freeze({
     CLOSE_MODAL: 0,
@@ -49,6 +67,75 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             display: 'inline-block !important   '
         }
     },
+    knowMoreDialog: {
+        display: 'flex',
+        position: 'relative',
+    },
+    knowMoreDialogImageWrapper: {
+        width: '45px',
+        height: '45px',
+        borderRadius: '50%',
+        '& img': {
+            width: '100%',
+            height: 'auto',
+        }
+    },
+    chartBox: {
+        marginTop: '15px',
+        padding: '15px 15px',
+        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+        borderRadius: '8px',
+    },
+    chartCmpName: {
+        position: 'relative',
+        padding: '15px 20px',
+        '&::before': {
+            content: '""',
+            display: 'inline-block',
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            backgroundColor: '#ffc300',
+            position: 'absolute',
+            top: '17px',
+            left: '0'
+        }
+    },
+    cmpInvestmentDetail: {
+        marginTop: '15px',
+        padding: '15px 15px',
+        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+        borderRadius: '8px',
+        display: 'flex',
+        '& span': {
+            color: 'var(--typeIndigoColor)',
+            fontSize: 'var(--subTitleFontSize)'
+        },
+        '& p': {
+            color: 'var(--typeLightBlackColor)',
+            fontSize: 'var(--titleFontSize)',
+            marginBottom: '8px',
+        }
+    },
+    featureBox: {
+        marginTop: '15px',
+        padding: '15px 15px',
+        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+        borderRadius: '8px',
+    },
+    featureText: {
+        display: 'flex',
+    },
+    featureBoxImgWrapper: {
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        backgroundColor: 'var(--secondaryColor)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: '15px',
+    }
 }))
 
 type radioTypes = {
@@ -60,12 +147,25 @@ type sortTypes = {
     label: string;
 }
 
+type filterIndexesTypes = {
+    key: 'string',
+    keyValues: [
+        {
+            value: number | string,
+            label: string
+        }
+    ]
+}
+
 const ULIPRecommendations = () => {
     const classes = useStyles();
     const refContainer = useRef();
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const { ulipInsuranceType, ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
+    const { ulipGenrateApiData, ulipListApiData } = useSelector((state: any) => state.insuranceReducer)
     const [open, setOpen] = useState(false);
+    const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
@@ -79,56 +179,70 @@ const ULIPRecommendations = () => {
     const [customSortValue, setCustomSortValue] = useState<string>('second')
     const [policyTermValue, setPolicyTermValue] = useState<number | null>(null)
     const [lifeCoverValue, setLifeCoverValue] = useState<number | null>(null)
-    const [customSort, setCustomSort] = useState<sortTypes[]>([
-        {
-            value: 'highToLowReturn',
-            label: 'Return - High to Low',
-        },
-        {
-            value: 'highToLowRating',
-            label: 'Rating - High to Low',
-        },
-        {
-            value: 'highToLowFundSize',
-            label: 'Fund Size - High to Low',
-        }
-    ]);
-    const [policyTerm, setPolicyTerm] = useState<radioTypes[]>([
-        {
-            value: 5,
-            label: '5 Years',
-        },
-        {
-            value: 7,
-            label: '7 Years',
-        },
-        {
-            value: 10,
-            label: '10 Years',
-        },
-        {
-            value: 15,
-            label: '15 Years',
-        },
-    ])
-    const [lifeCover, setLifeCover] = useState<radioTypes[]>([
-        {
-            value: 500000,
-            label: '₹5 Lacs',
-        },
-        {
-            value: 1500000,
-            label: '₹15 Lacs',
-        },
-        {
-            value: 7500000,
-            label: '₹75 Lacs',
-        },
-        {
-            value: 10000000,
-            label: '₹1 Crore',
-        },
-    ]);
+
+    const [filterIndexes, setFilterIndexes] = useState<any>(
+        [
+            {
+                key: 'Sort',
+                keyValues: [
+                    {
+                        value: 'highToLowReturn',
+                        label: 'Return - High to Low',
+                    },
+                    {
+                        value: 'highToLowRating',
+                        label: 'Rating - High to Low',
+                    },
+                    {
+                        value: 'highToLowFundSize',
+                        label: 'Fund Size - High to Low',
+                    }
+                ]
+            },
+            {
+                key: 'Policy Term',
+                keyValues: [
+                    {
+                        value: 5,
+                        label: '5 Years',
+                    },
+                    {
+                        value: 7,
+                        label: '7 Years',
+                    },
+                    {
+                        value: 10,
+                        label: '10 Years',
+                    },
+                    {
+                        value: 15,
+                        label: '15 Years',
+                    },
+                ]
+            },
+            {
+                key: 'Life Cover',
+                keyValues: [
+                    {
+                        value: 500000,
+                        label: '₹5 Lacs',
+                    },
+                    {
+                        value: 1500000,
+                        label: '₹15 Lacs',
+                    },
+                    {
+                        value: 7500000,
+                        label: '₹75 Lacs',
+                    },
+                    {
+                        value: 10000000,
+                        label: '₹1 Crore',
+                    },
+                ]
+            }
+        ]
+    )
     const ulipData: ULIPProp[] = [
         {
             logo: '/Miraelogo.svg',
@@ -150,10 +264,37 @@ const ULIPRecommendations = () => {
         },
     ];
 
+    // useEffect(() => {
+    //     console.log("ulipInsuranceAmount  :", ulipInsuranceAmount)
+    //     if (parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
+    // }, [])
+    ChartJS.register(
+        Filler,
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+    );
+
+
     useEffect(() => {
-        console.log("ulipInsuranceAmount :", ulipInsuranceAmount)
         if (parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
-    }, [])
+        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
+        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        const ulipGenrateBody = {
+            amount: parseInt(ulipInsuranceAmount),
+            frequencytype: ulipInsuranceType === ULIP_LUMPSUM ? 1 : 0,
+            term_id: 85 //85
+        }
+        dispatch(postUlipGenrateApi(ulipGenrateBody))
+    }, [ulipInsuranceAmount])
+
+    useEffect(() => {
+        ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
+    }, [ulipGenrateApiData])
 
 
     const style = {
@@ -230,20 +371,60 @@ const ULIPRecommendations = () => {
         }
     };
 
-    
-    const handleSortRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCustomSortValue(event.target.value);
-        console.log("sort :",event.target.value )
+
+    // const handleSortRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setCustomSortValue(event.target.value);
+    //     console.log("sort :", event.target.value)
+    // }
+
+    // const handlePolicyTermRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setPolicyTermValue(parseInt(event.target.value));
+    //     console.log("policy term :", event.target.value)
+    // }
+    // const handleLifeCoverRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setLifeCoverValue(parseInt(event.target.value));
+    //     console.log("Life cover :", event.target.value)
+    // }
+
+    const handleFilterCB = (data:any) => {
+        console.log("click value :", data,)
     }
 
-    const handlePolicyTermRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPolicyTermValue(parseInt(event.target.value));
-        console.log("policy term :",event.target.value )
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+                display: false,
+            },
+            title: {
+                display: false,
+                text: 'Chart.js Line Chart',
+            },
+        },
+    };
+
+    const chartData = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 'july', "Aug"],
+        datasets: [
+            {
+                label: "First dataset",
+                data: [33, 530, 85, 120, 440, 65, 300, 700],
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)"
+            },
+        ]
+    };
+
+
+    const handleKnowMoreDialog = (ulip_id?: number) => {
+        // dispatch(getUlipSchemeDetailApi(ulip_id))
+        console.log("Know MOre Acrion")
+        setKnowMoreDialog(true)
     }
-    const handleLifeCoverRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLifeCoverValue(parseInt(event.target.value));
-        console.log("Life cover :",event.target.value )
-    }
+
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
             <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -307,7 +488,7 @@ const ULIPRecommendations = () => {
                                                 color: '#373e42'
                                             }}>SprintMoney Recommendation</Typography>
                                         </Breadcrumbs>
-                                        <Box sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                             <Box>
                                                 <Typography sx={{
                                                     fontSize: '12px',
@@ -321,15 +502,19 @@ const ULIPRecommendations = () => {
                                             </Box>
                                             <Box>
                                                 <SearchCmp
-                                                    sort={customSort}
-                                                    policyTerm={policyTerm}
-                                                    lifeCover={lifeCover}
-                                                    sortValue={customSortValue}
-                                                    policyTermValue={policyTermValue}
-                                                    lifeCoverValue={lifeCoverValue}
-                                                    sortCb={handleSortRadio}
-                                                    policyTermCb={handlePolicyTermRadio}
-                                                    lifeCoverCb={handleLifeCoverRadio}
+                                                    filtersOptions={filterIndexes}
+                                                    // sort={customSort}
+                                                    // policyTerm={policyTerm}
+                                                    // lifeCover={lifeCover}
+                                                    // sortValue={customSortValue}
+                                                    // policyTermValue={policyTermValue}
+                                                    // lifeCoverValue={lifeCoverValue}
+                                                    searchKeysFun={(e) => console.log("search keys : ",e)}
+                                                    searchBox={true}
+                                                    handleCB={handleFilterCB}
+                                                // sortCb={handleSortRadio}
+                                                // policyTermCb={handlePolicyTermRadio}
+                                                // lifeCoverCb={handleLifeCoverRadio}
                                                 />
                                             </Box>
                                         </Box>
@@ -348,8 +533,21 @@ const ULIPRecommendations = () => {
 
                                                                     ulipData?.map(data => <ULIPCoFundCard {...data} />)
                                                                 } */}
-                                                    <ULIPRecommendationCard
-                                                    />
+                                                    {
+                                                        ulipListApiData.length > 0 && ulipListApiData?.map((cardItem: getUlipListApiTypes) => (
+                                                            <ULIPRecommendationCard
+                                                                logoUrl={cardItem?.providerlogo}
+                                                                companyName={cardItem?.ulipname}
+                                                                projectedAmount={cardItem?.projectedvalue}
+                                                                topPerformingFund={`${cardItem?.topreturn}`}
+                                                                lifeCover={cardItem?.lifecover}
+                                                                investedVlaue={cardItem?.investedvalue}
+                                                                taxSavingOnInvestment={cardItem?.taxsavingoninvestment}
+                                                                knowMoreAction={() => handleKnowMoreDialog()}
+                                                                downloadBrochuraAction={() => console.log("downloadBrochuraAction Acrion")}
+                                                            />
+                                                        ))
+                                                    }
                                                 </RadioGroup>
                                             </FormControl>
                                         </Box>
@@ -457,6 +655,92 @@ const ULIPRecommendations = () => {
                     </Box>
                 </>
             </Modal> */}
+
+
+
+            <Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog}>
+                <DialogTitle sx={{ boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)' }}>
+                    <Box className={classes.knowMoreDialog}>
+                        <Box className={classes.knowMoreDialogImageWrapper}>
+                            <img src={process.env.PUBLIC_URL + '/assets/images/investment-cmp-logo.webp'} alt="" />
+                        </Box>
+                        <Box>
+                            <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} >Know More</Typography>
+                            <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)' }} >Bajaj Allianz Future Gain</Typography>
+                        </Box>
+                        <CloseOutlinedIcon
+                            onClick={() => setKnowMoreDialog(false)}
+                            sx={{ position: 'absolute', right: '0px', top: '0px', cursor: 'pointer', color: '#d1d6dd' }}
+                        />
+                    </Box>
+                </DialogTitle>
+                <DialogContent>
+                    <Box className={classes.chartBox}>
+                        <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} >Fund Performance</Typography>
+                        <LineChart optionsValues={chartOptions} dataValues={chartData} />
+
+                        <Box className={classes.chartCmpName}>
+                            <Typography component='p' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)', fontWeight: 500, }} >BAJAJ</Typography>
+                            <Typography component='b' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }} >14.38%</Typography>
+                            <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subTitleFontSize)', }} >in 1 Year</Typography>
+                        </Box>
+                    </Box>
+
+                    <Box className={classes.cmpInvestmentDetail}>
+                        <Grid container>
+                            <Grid item xs={12} sm={6}>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Investment Term</Typography>
+                                        <Typography component='p'>5 Years</Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
+                                        <Typography component='p'>14.38% Return</Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Tax Saving on Investment</Typography>
+                                        <Typography component='p'>₹15,000 Every Year</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Investment Type</Typography>
+                                        <Typography component='p'>₹7,200 pm</Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Life Cover</Typography>
+                                        <Typography component='p'>₹5 Lac</Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography component='span'>Tax Saving on Maturity</Typography>
+                                        <Typography component='p'>₹1.5 Lac</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Box>
+
+                    <Box className={classes.featureBox}>
+                        <Box className={classes.featureText}>
+                            <Box className={classes.featureBoxImgWrapper}>
+                                <img src={process.env.PUBLIC_URL + '/assets/images/feature-icon.svg'} alt="" />
+                            </Box>
+                            <Box>
+                                <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>Features</Typography>
+                                <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>A value for money investment option that
+                                    match tax saving requirements!</Typography>
+                            </Box>
+                        </Box>
+                        <Box>
+
+                        </Box>
+                    </Box>
+
+                </DialogContent>
+            </Dialog>
         </div >
     )
 };

@@ -7,7 +7,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import ULIPFooter from "../../Modules/Cards/ULIP/ULIPFooter";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { makeStyles } from "@mui/styles";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './UlipBox.css';
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
@@ -21,7 +21,7 @@ import {
     insuranceUlipMonthlyAction,
     insuranceUlipAmount,
 } from '../../Store/Duck/InvestmentType';
-import {isMultipleofNumber} from '../../Utils/globalFunctions'
+import { isMultipleofNumber } from '../../Utils/globalFunctions'
 import LineChart from "../CommonComponents/Charts/LineChart";
 import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
 import { getUlipReturnApiTypes, ulipReturnApiParamsTypes } from "../../Store/Insurance/constants/types";
@@ -124,7 +124,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontSize: '16px !important',
         color: 'var(--typeLightBlackColor)',
     },
-    performanceGraphCard:{
+    performanceGraphCard: {
         height: '100%',
         boxSizing: 'border-box',
         backgroundColor: 'var(--uiWhite)',
@@ -141,7 +141,7 @@ const UlipBox = () => {
     const dispatch: any = useDispatch()
     const refContainer = useRef();
     const timerRef: any = useRef();
-    const [ years, setYears ] = useState('5');
+    const [years, setYears] = useState('5');
     const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState('')
     const [monthlyAmount, setMonthlyAmount] = useState('')
@@ -149,14 +149,14 @@ const UlipBox = () => {
     const [chartInvestedAmount, setChartInvestedAmount] = useState<number[] | null>(null)
     const [chartProjectedAmount, setChartProjectedAmount] = useState<number[] | null>(null)
     const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
-    const { ulipInsuranceType,ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
+    const { ulipInsuranceType, ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => { 
+        timerRef.current = setTimeout(() => {
             dispatch(cb(a));
         }, 550);
-      }
+    }
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
@@ -188,28 +188,28 @@ const UlipBox = () => {
         Legend
     );
     useEffect(() => {
-      dispatch(insuranceUlipLumpsumAction(investmentType))
+        dispatch(insuranceUlipLumpsumAction(investmentType))
     }, [])
-    
+
     useEffect(() => {
         const urlTemp: ulipReturnApiParamsTypes = {
-            frequencytype: investmentType === ULIP_MONTHLY ? '0' : '1', 
+            frequencytype: investmentType === ULIP_MONTHLY ? '0' : '1',
             amount: ulipInsuranceAmount,
         }
-     dispatch(getUlipReturnApi(urlTemp))
+        dispatch(getUlipReturnApi(urlTemp))
     }, [ulipInsuranceAmount])
 
     useEffect(() => {
-       const labels = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.years + 'Y')
-       const investedamount = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.investedamount)
-       const projectedamount = ulipReturnApiData?.map((item:getUlipReturnApiTypes) => item.projectedamount)
+        const labels = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.years + 'Y')
+        const investedamount = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.investedamount)
+        const projectedamount = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.projectedamount)
 
-       setChartLabels(labels)
-       setChartInvestedAmount(investedamount)
-       setChartProjectedAmount(projectedamount)
+        setChartLabels(labels)
+        setChartInvestedAmount(investedamount)
+        setChartProjectedAmount(projectedamount)
     }, [ulipReturnApiData])
-    
-    
+
+
 
     const style = {
         main: {
@@ -218,7 +218,7 @@ const UlipBox = () => {
             height: "100vh"
         } as React.CSSProperties,
     };
-    
+
     const chartOptions = {
         responsive: true,
         plugins: {
@@ -226,10 +226,10 @@ const UlipBox = () => {
                 position: 'bottom' as const,
                 display: true,
             },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-            },
+            // title: {
+            //     display: true,
+            //     text: 'Chart.js Line Chart',
+            // },
         },
     };
 
@@ -244,10 +244,10 @@ const UlipBox = () => {
                 borderColor: "rgba(75,192,192,1)"
             },
             {
-              label: "Projected Value",
-              data: chartProjectedAmount,
-              fill: true,
-              borderColor: "#742774"
+                label: "Projected Value",
+                data: chartProjectedAmount,
+                fill: true,
+                borderColor: "#742774"
             }
         ]
     };
@@ -255,7 +255,7 @@ const UlipBox = () => {
 
     const handleNavigationFlow = () => {
         // navigate('/ulip/recommendations')
-        if(investmentType === ULIP_LUMPSUM && parseInt(lumpsumAmount) > 0){
+        if (investmentType === ULIP_LUMPSUM && parseInt(lumpsumAmount) > 0) {
             if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
                 dispatch(insuranceUlipLumpsumAction(ULIP_LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
@@ -263,11 +263,11 @@ const UlipBox = () => {
             } else {
                 alert('Enter amount multiple of 100!')
             }
-        }else if(investmentType === ULIP_MONTHLY && parseInt(monthlyAmount) > 0){
-                dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
-                dispatch(SaveTaxInvestmentAmount(monthlyAmount))
-                navigate('/ulip/recommendations')
-                // navigate('/saveTax/saveTaxInvestmentType')
+        } else if (investmentType === ULIP_MONTHLY && parseInt(monthlyAmount) > 0) {
+            dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
+            dispatch(SaveTaxInvestmentAmount(monthlyAmount))
+            navigate('/ulip/recommendations')
+            // navigate('/saveTax/saveTaxInvestmentType')
         }
     }
 
@@ -280,22 +280,22 @@ const UlipBox = () => {
                     <Sidebar />
                     <Grid container>
                         <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-                        
+
                             <div>
-                                <Grid  item rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                    <Grid  container spacing={0} >
-                                        <Grid  container item sx={{  overflow: "scroll" }} xs={12}>
-                                            
+                                <Grid item rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                    <Grid container spacing={0} >
+                                        <Grid container item sx={{ overflow: "scroll" }} xs={12}>
+
                                             <Box
-                                            sx={{
-                                                padding: 0,
-                                                width:"100%",
-                                                margin: '2vw',
-                                                fontFamily: 'Roboto',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'center'           
-                                            }}>
+                                                sx={{
+                                                    padding: 0,
+                                                    width: "100%",
+                                                    margin: '2vw',
+                                                    fontFamily: 'Roboto',
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center'
+                                                }}>
                                                 <Breadcrumbs sx={{
                                                     fontSize: '12px',
                                                     color: '#6c63ff',
@@ -315,13 +315,13 @@ const UlipBox = () => {
                                                     alignItems: 'flex-start',
                                                 }}>
                                                     <Grid item xs={12} md={6}>
-                                                        <Box className={classes.investmentType} sx={{ 
-                                                            display:"flex",
-                                                            flexDirection:"column",
-                                                            gap:"20px",
+                                                        <Box className={classes.investmentType} sx={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            gap: "20px",
                                                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-                                                            backgroundColor: '#fff', 
-                                                        }}>                                                                    
+                                                            backgroundColor: '#fff',
+                                                        }}>
 
                                                             <Typography sx={{
                                                                 fontSize: '18px',
@@ -361,7 +361,7 @@ const UlipBox = () => {
                                                                     <Divider sx={{ width: '30%' }} />
                                                                 </Box>
 
-                                                                <Box className={investmentType === ULIP_LUMPSUM? classes.investmentField : classes.investmentFieldSelected}>
+                                                                <Box className={investmentType === ULIP_LUMPSUM ? classes.investmentField : classes.investmentFieldSelected}>
 
                                                                     <TextField
                                                                         label="I want to invest"
@@ -386,9 +386,9 @@ const UlipBox = () => {
                                                                 <Select
                                                                     labelId="demo-simple-select-label"
                                                                     id="demo-simple-select"
-                                                                    value={ years }
+                                                                    value={years}
                                                                     label="For next"
-                                                                    onChange={ (e) => setYears(e.target.value) }
+                                                                    onChange={(e) => setYears(e.target.value)}
                                                                 >
                                                                     <MenuItem value={5}>5 Years</MenuItem>
                                                                     <MenuItem value={10}>10 Years</MenuItem>
@@ -398,11 +398,25 @@ const UlipBox = () => {
                                                             </FormControl>
                                                         </Box>
                                                     </Grid>
-                                                    <Grid item xs={12} md={6} style={{height: '100%'}}>
+                                                    <Grid item xs={12} md={6} style={{ height: '100%' }}>
                                                         {/* <UlipPlanPerformanceCard /> */}
                                                         <Box className={classes.performanceGraphCard}>
                                                             <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>ULIP Plan Performance</Typography>
-                                                            <LineChart optionsValues={chartOptions} dataValues={chartData} />
+                                                            <LineChart
+                                                             optionsValues={chartOptions}
+                                                              dataValues={chartData}
+                                                              onClick={(e) => console.log("click values :", e )}
+                                                              />
+                                                            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                                                <Box>
+                                                                    <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Invested Value</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹2.5 Lac</Typography>
+                                                                </Box>
+                                                                <Box>
+                                                                    <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Projected Value</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹4.75 Lac</Typography>
+                                                                </Box>
+                                                            </Box>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
