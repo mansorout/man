@@ -42,112 +42,112 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   }
   `,
 );
+const useStyles: any = makeStyles((theme: Theme) => ({
+  appbar: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "64px",
+    position: "fixed",
+    zIndex: "3000",
+  },
+}));
+
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    height: "100vh"
+  } as React.CSSProperties,
+  drawer: {
+    zIndex: "500",
+    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)"
+  } as React.CSSProperties,
+  image: {
+    width: '176px',
+  } as React.CSSProperties,
+  profileContainer: {
+    borderRadius: "8px",
+    border: "solid 1px #4f46de",
+    backgroundColor: "#6c63ff",
+    padding: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "10px",
+    cursor: "pointer"
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  profile: {
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    border: "1px solid white"
+  },
+  profileInter: {
+    width: "40px",
+    height: "40px",
+    border: "solid 1px rgba(75, 123, 236, 0.49)",
+    borderRadius: "50%"
+  },
+  menuContainer: {
+    boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
+    boxSizing: "border-box",
+    padding: "10px",
+    backgroundColor: "white",
+    marginRight: "20px"
+  } as React.CSSProperties,
+  menuButton: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "10px 0px"
+  } as React.CSSProperties,
+  menuText: {
+    color: "black",
+    fontSize: "10px",
+    fontWeight: "500",
+    padding: "5px 10px",
+    borderRadius: "4px",
+    backgroundColor: "#ffc300",
+    cursor: "pointer"
+  },
+  menuText2: {
+    padding: "6px 12px",
+    borderRadius: "4px",
+    border: "solid 1px #23db7b",
+    backgroundColor: "rgba(35, 219, 123, 0.12)",
+    fontSize: "12px",
+    fontWeight: "500",
+    color: "#09b85d",
+    cursor: "pointer"
+  },
+  button: {
+    height: "48px",
+    borderRadius: "8px",
+    boxShadow: "none",
+    backgroundColor: "white",
+    textAlign: "left",
+    justifyContent: "flex-start",
+  } as React.CSSProperties,
+  menuIcon: {
+    color: "#6c63ff",
+    fontSize: "24px"
+  },
+  appBar: {
+    backgroundColor: "white",
+  },
+  logo: {
+    width: "50px",
+    padding: "20px 0px",
+  } as React.CSSProperties,
+
+}
 
 function ExploreFunds(props: any) {
 
-  const useStyles: any = makeStyles((theme: Theme) => ({
-    appbar: {
-      backgroundColor: "white",
-      width: "100%",
-      height: "64px",
-      position: "fixed",
-      zIndex: "3000",
-    },
-  }));
-
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh"
-    } as React.CSSProperties,
-    drawer: {
-      zIndex: "500",
-      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)"
-    } as React.CSSProperties,
-    image: {
-      width: '176px',
-    } as React.CSSProperties,
-    profileContainer: {
-      borderRadius: "8px",
-      border: "solid 1px #4f46de",
-      backgroundColor: "#6c63ff",
-      padding: "10px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: "10px",
-      cursor: "pointer"
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between"
-    },
-    profile: {
-      width: "20px",
-      height: "20px",
-      borderRadius: "50%",
-      border: "1px solid white"
-    },
-    profileInter: {
-      width: "40px",
-      height: "40px",
-      border: "solid 1px rgba(75, 123, 236, 0.49)",
-      borderRadius: "50%"
-    },
-    menuContainer: {
-      boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
-      boxSizing: "border-box",
-      padding: "10px",
-      backgroundColor: "white",
-      marginRight: "20px"
-    } as React.CSSProperties,
-    menuButton: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "10px 0px"
-    } as React.CSSProperties,
-    menuText: {
-      color: "black",
-      fontSize: "10px",
-      fontWeight: "500",
-      padding: "5px 10px",
-      borderRadius: "4px",
-      backgroundColor: "#ffc300",
-      cursor: "pointer"
-    },
-    menuText2: {
-      padding: "6px 12px",
-      borderRadius: "4px",
-      border: "solid 1px #23db7b",
-      backgroundColor: "rgba(35, 219, 123, 0.12)",
-      fontSize: "12px",
-      fontWeight: "500",
-      color: "#09b85d",
-      cursor: "pointer"
-    },
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "none",
-      backgroundColor: "white",
-      textAlign: "left",
-      justifyContent: "flex-start",
-    } as React.CSSProperties,
-    menuIcon: {
-      color: "#6c63ff",
-      fontSize: "24px"
-    },
-    appBar: {
-      backgroundColor: "white",
-    },
-    logo: {
-      width: "50px",
-      padding: "20px 0px",
-    } as React.CSSProperties,
-
-  }
 
   const [fundList, setFundList] = useState<any[]>([])
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
@@ -167,11 +167,11 @@ function ExploreFunds(props: any) {
 
   // dynamic rendering add replace remove
 
-  const add_fund_button_fromSipFlow: any = useMemo(() => { return location?.state?.CEF_ADD_FUND }, []);
-  console.log(add_fund_button_fromSipFlow)
+  const status: any = useMemo(() => { return location?.state?.status }, []);
+  // console.log(add_fund_button_fromSipFlow)
 
-  const add_replace_button_fromSipFlow: any = useMemo(() => { return location?.state?.CEF_REPLACE_FUND }, []);
-  console.log(add_replace_button_fromSipFlow)
+  // const add_replace_button_fromSipFlow: any = useMemo(() => { return location?.state?.CEF_REPLACE_FUND }, []);
+  // console.log(add_replace_button_fromSipFlow)
 
 
   const handleNavigation = (strRoute: string) => {
@@ -270,7 +270,7 @@ function ExploreFunds(props: any) {
           <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll" } }} item xs={12}>
               <Toolbar />
-              {
+              {/* {
                 add_fund_button_fromSipFlow || add_replace_button_fromSipFlow ? <Breadcrumbs
                   sx={{
                     fontSize: "12px",
@@ -312,14 +312,14 @@ function ExploreFunds(props: any) {
                     </Typography>
                   }
                 </Breadcrumbs> : ""
-              }
+              } */}
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
 
                 <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
 
 
                   {
-                    add_replace_button_fromSipFlow ? <Box>
+                    status === globalConstant.CEF_REPLACE_FUND ? <Box>
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                       <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>SIP Investment</Typography>
@@ -327,7 +327,7 @@ function ExploreFunds(props: any) {
 
                     </Box> : <>
                       {
-                        add_fund_button_fromSipFlow === globalConstant.CEF_ADD_FUND ? <Box>
+                        status === globalConstant.CEF_ADD_FUND ? <Box>
                           <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                           <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                           <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>SIP Investment</Typography>
@@ -405,25 +405,23 @@ function ExploreFunds(props: any) {
 
 
 
-            {
-              fundSelecteds.length > 0 ?
-                <>
 
-                  <AddToPlanComp
-                    fundsCount={fundSelecteds.length}
-                    onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
-
-                </>
-                : null
-            }
           </Grid>
           {
-            add_replace_button_fromSipFlow ?
+            status === globalConstant.CEF_REPLACE_FUND ?
               <FooterWithBtn
                 btnText="Replace Fund"
                 btnClick={() => null}
               />
-              : null
+              : (
+                fundSelecteds.length > 0 ?
+                  <>
+                    <AddToPlanComp
+                      fundsCount={fundSelecteds.length}
+                      onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
+                  </>
+                  : null
+              )
           }
 
         </Grid>

@@ -46,6 +46,7 @@ export interface MFProp {
   isChecked?: boolean
 
   onCardClick?: (id: string) => void | undefined//from mutual fund screen
+  onRemoveCardClick?: (recommendationfund_id: number, secid: string) => void | undefined //for removing card on click 
 
   recommendation_id: number,
   recommendationfund_id: number,
@@ -150,11 +151,10 @@ const MutualFundCard2 = (props: MFProp) => {
   const naviagte = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
 
-  const handleClick = (strtype: string) => {
-    if (strtype === "no") {
-      setRemoveInvestment(false);
-      return;
-    }
+  const handleRemoveClick = (strtype: string) => {
+    setRemoveInvestment(false);
+    if (strtype === "no") return
+    if (props?.onRemoveCardClick) props?.onRemoveCardClick(props?.recommendationfund_id, props?.secid);
   };
 
   return (
@@ -177,9 +177,7 @@ const MutualFundCard2 = (props: MFProp) => {
               ? { xs: "unset", lg: "100vh" }
               : "unset",
         }}
-        onClick={() => {
-          if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
-        }}
+
       >
         <Box
           style={{
@@ -204,7 +202,11 @@ const MutualFundCard2 = (props: MFProp) => {
           >
             <img src={props?.fundimage} width="100%" alt="mirae"></img>
           </Box>
-          <Box>
+          <Box
+            onClick={() => {
+              if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
+            }}
+          >
             <Typography
               style={{
                 marginBottom: "10px",
@@ -213,6 +215,7 @@ const MutualFundCard2 = (props: MFProp) => {
                 fontWeight: "500",
                 lineHeight: "1.19",
               }}
+
             >
               {props?.fundname}
             </Typography>
@@ -304,7 +307,7 @@ const MutualFundCard2 = (props: MFProp) => {
                         style={style.buttons}
                         className={classes.replaceBtn}
                         // onClick={() => naviagte("/replaceFunds")}
-                        onClick={() => naviagte('/explorefunds', {state:{globalConstant,CEF_REPLACE_FUND: true, parentRoute:"/explorefunds"}})}
+                        onClick={() => naviagte('/explorefunds', { state: { status: globalConstant.CEF_REPLACE_FUND, parentRoute: "/onetimemutualfundrecommendation" } })}
                       >
                         <img src={ReplaceButtonIcon} />
                         Replace
@@ -419,7 +422,7 @@ const MutualFundCard2 = (props: MFProp) => {
                     variant="contained"
                     className={classes?.button}
                     fullWidth
-                    onClick={() => handleClick("no")}
+                    onClick={() => handleRemoveClick("no")}
                     sx={{
                       pointerEvents: "fill",
                     }}
@@ -439,7 +442,7 @@ const MutualFundCard2 = (props: MFProp) => {
                     variant="contained"
                     className={classes?.button}
                     fullWidth
-                    onClick={() => handleClick("yes")}
+                    onClick={() => handleRemoveClick("yes")}
                     sx={{
                       pointerEvents: "fill",
                     }}
