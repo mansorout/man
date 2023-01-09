@@ -99,6 +99,7 @@ export const VerifyOtp = () => {
     let { data, error }: { data: any, error: string } = g_loginData;
     if (data?.accesstoken) {
       localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, data?.accesstoken);
+      console.log(data?.userInfo, "data?.userInfo")
       localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(data?.userInfo));
 
       let objUserDetail: any = data?.userInfo?.userdetails;
