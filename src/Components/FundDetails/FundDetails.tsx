@@ -774,6 +774,7 @@ const FundDetails = () => {
                       <RiskoMeter />
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                      {/* <Grid item xs={12} > */}
                       <LatestAssets
                         holdingInfo={fundDetails?.holdinginfo}
                       />
