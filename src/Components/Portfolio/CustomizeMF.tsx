@@ -297,23 +297,18 @@ const CustomizeMF = () => {
           </Grid>
           <Grid
             container
-            sx={{ height: "100vh", overflow: "scroll" }}
-            xs={13}
+            sx={{ height: "100vh",
+            overflow: "scroll",
+            width: "100%",
+            display: "block",
+            justifyContent: "center", }}
+            xs={12}
             sm={11}
             md={10}
           >
             <Toolbar />
-            <Box
-              sx={{
-                width: "80.875vw",
-                padding: 0,
-                margin: "2.5vw",
-                fontFamily: "Roboto",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
+            <Grid container>
+            <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
               <Breadcrumbs
                 sx={{
                   fontSize: "12px",
@@ -346,8 +341,10 @@ const CustomizeMF = () => {
                   Customize Plan
                 </Typography>
               </Breadcrumbs>
-
-              <Box
+            </Box>
+            </Grid>
+            <Box className="BoxPadding">
+            <Box
                 className="header"
                 sx={{
                   display: "flex",
@@ -436,17 +433,16 @@ const CustomizeMF = () => {
                     </Box>
                   ))} */}
               </Box>
-            </Box>
             <Box
               sx={{
-                width: "83.75vw",
-                height: "6.1vw",
-                marginTop: "8vw",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
-                backgroundColor: "#fff",
+                // width: "83.75vw",
+                // height: "6.1vw",
+                // marginTop: "8vw",
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                // backgroundColor: "#fff",
               }}
             >
 
@@ -469,6 +465,7 @@ const CustomizeMF = () => {
                   setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
                 }}
               />
+            </Box>
             </Box>
           </Grid>
         </Grid>
