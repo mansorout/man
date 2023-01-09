@@ -28,6 +28,7 @@ import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } 
 import { apiResponse } from "../../Utils/globalTypes";
 import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { postData } from "../../Utils/api";
 
 const data = [
   {
@@ -221,12 +222,69 @@ const CustomizeMF = () => {
     navigate(strRoute);
   }
 
-  const handlePrice = (value: any) => {
-    navigate("/funddetails");
-    // if (value === 12.3) {
-    // }
-  };
+  const handleNavigationOfFundDetails = (secid: string) => {
+    if (secid) {
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/customizemf" } });
+    } else {
+      console.log(secid, "invalid secid");
+    }
+  }
 
+  const handleRemoveCard = (recommendationfund_id: number, secid: string) => {
+    if (recommendationfund_id) {
+      console.log(recommendationfund_id, "recommendationfund_id");
+      let arrMFCards = [...mfCards];
+
+      if (arrMFCards && arrMFCards.length) {
+        let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
+        console.log(fil);
+        setMfCards(fil);
+      }
+
+      postData(
+        { recommendationfund_id: recommendationfund_id, status_id: 2, secid: secid },
+        siteConfig.RECOMMENDATION_FUND_UPDATE,
+        siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+        siteConfig.RECOMENDATION_API_ID
+      )
+        .then(res => res.json())
+        .then((data: apiResponse) => {
+          if (checkExpirationOfToken(data?.code)) {
+            dispatch(setTokenExpiredStatusAction(true));
+            return;
+          }
+
+          if (data?.error == true) {
+            return
+          }
+
+          let arrMFCards = [...mfCards];
+
+          if (arrMFCards && arrMFCards.length) {
+            let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
+            console.log(fil);
+            setMfCards(fil);
+          }
+
+        })
+    } else {
+      console.log("recommendationfund_id invalid")
+    }
+  }
+
+  const getTotalRecomendedAmount = () => {
+    let arrMFCards: any[] = [...mfCards];
+    if (arrMFCards && arrMFCards.length) {
+
+      // let arrfill: any[] = arrMFCards.map((item: any) => item?.recommendedamount ? parseFloat(item?.recommendedamount) : 0)[0];
+      // console.log(arrfill)
+
+      // console.log(
+
+      //     .reduce((p: number, n: number) => { p + n })
+      // );
+    }
+  }
 
   return (
     <Box style={{ width: "100vw" }}>
@@ -331,8 +389,8 @@ const CustomizeMF = () => {
                   }}
                 >
                   <Button
-                    onClick={() => navigate('/explorefunds', {state:{CommonExploreFund: true, parentRoute:"/explorefunds"}})}
-                    
+                    // onClick={() => navigate("/addfunds")}
+                    onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_ADD_FUND, parentRoute: "/explorefunds" } })}
                     sx={{
                       width: "200px",
                       height: "38px",
@@ -356,7 +414,11 @@ const CustomizeMF = () => {
                   mfCards.length &&
                   mfCards.map((item, index) => (
                     <Box sx={{ marginTop: "1.25vw" }} key={index}>
-                      <MutualFundCard2 {...item} />
+                      <MutualFundCard2
+                        {...item}
+                        onCardClick={handleNavigationOfFundDetails}
+                        onRemoveCardClick={handleRemoveCard}
+                      />
                     </Box>
                   ))}
 
