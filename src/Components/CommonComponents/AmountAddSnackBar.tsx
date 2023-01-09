@@ -1,44 +1,69 @@
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { Typography } from "@mui/material";
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref,
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+type IProps = {
+    fundsCount: number;
+    onClick: () => void
+    buttonText: string;
+  
+  }
 
-export default function CustomizedSnackbars() {
-  const [open, setOpen] = React.useState(false);
+export default function SimpleSnackbar(props:IProps) {
+    const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+    const handleClick = () => {
+        setOpen(true);
+    };
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    const handleClose = (
+        event: React.SyntheticEvent | Event,
+        reason?: string
+    ) => {
+        if (reason === "clickaway") {
+            return;
+        }
 
-    setOpen(false);
-  };
+        setOpen(false);
+    };
 
-  return (
-    <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button variant="outlined" onClick={handleClick}>
-        Open success snackbar
-      </Button>
-      <Snackbar open={open}  onClose={handleClose}>
-      {/* autoHideDuration={6000} */}
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
+    const action = (
+        <>
+            <Button sx={{
+                backgroundColor: "#23db7b", ml: 1,
+                "&.MuiButtonBase-root:hover": {
+                    bgcolor: "#23db7b"
+                }
+            }} onClick={() => alert("hiii")}>
+                <Typography
+                    sx={{
+                        color: "#ffffff",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        textTransform: "capitalized"
 
-     
-    </Stack>
-  );
+                    }}
+                >
+
+                    Buy Now
+                </Typography>
+            </Button>
+        </>
+    );
+
+    return (
+        <>
+            <Button onClick={handleClick}>Open simple snackbar</Button>
+            <Snackbar
+                open={open}
+                // autoHideDuration={6000}
+                onClose={handleClose}
+                message="3 Funds Selected"
+                action={action}
+            />
+        </>
+    );
 }
