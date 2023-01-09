@@ -50,13 +50,14 @@ import ULIPOptions from "../Components/ULIP/ULIPOptions"
 import TransactionsDone from "../Components/ULIP/TransactionsDone"
 import ULIPHome from "../Components/ULIP/ULIPHome"
 import ULIPFound from "../Components/Insurance/ULIPFound"
-import { ULIPCompare } from "../Store/Duck/ULIPCompare"
+import ULIPCompare from "../Components/Insurance/ULIPCompare"
+// import { ULIPCompare } from "../Store/Duck/ULIPCompare"
 import InsuranceDetails from "../Components/Insurance/InsuranceDetails"
 import ProposalForm from "../Components/Insurance/ProposalForm"
 import ProposalFormStep2 from "../Components/Insurance/ProposalFormStep2"
 import ProposalFormStep3 from "../Components/Insurance/ProposalFormStep3"
 import ProposalFormStep4 from "../Components/Insurance/ProposalFormStep4"
-import Details from "../Components/ExploreFunds/FundDetails"
+// import Details from "../Components/ExploreFunds/FundDetails"
 import SelectedFunds from "../Components/ExploreFunds/SelectedFunds"
 import TimerLoader from "../Modules/NetBanking/TimerLoader"
 import Loaderwithtime from "../Components/CommonComponents/Circular Loader/Loaderwithtime"
@@ -328,10 +329,10 @@ export const privateRoutesConstants: prConstant[] = [
     path: "/proposalFormStep4",
     component: <ProposalFormStep4 />
   },
-  {
-    path: "/details",
-    component: <Details />
-  },
+  // {
+  //   path: "/details",
+  //   component: <Details />
+  // },
   {
     path: "/selectedfunds",
     component: <SelectedFunds />

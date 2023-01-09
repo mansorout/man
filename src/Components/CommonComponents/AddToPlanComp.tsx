@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 type IProps = {
   fundsCount: number;
   onClick: () => void
+  buttonText: string;
+  buttonnametext: string;
+
 }
 
 const style = {
@@ -42,7 +45,7 @@ const AddToPlanComp = (props: IProps) => {
         <Button variant="contained" style={style.buttonnetbank} fullWidth >
           {/* <Button variant="contained" style={style.buttonnetbank} fullWidth onClick={()=>navigate("/sipsuccessscreen")}> */}
           <Box sx={{ display: "flex", justifyContent: 'space-between', alignItems: "center" }}>
-            <Typography sx={{ fontSize: "11px", width: "111px" }}>{props?.fundsCount} Funds Selected</Typography>
+            <Typography sx={{ fontSize: "11px", width: "126px" }}>{props?.fundsCount} {props.buttonText}</Typography>
             &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
             &nbsp;  &nbsp;  &nbsp;  &nbsp;
             <Typography sx={{
@@ -56,7 +59,7 @@ const AddToPlanComp = (props: IProps) => {
               style={style.texttwo}
               onClick={() => props?.onClick()}
             >
-              <p>Add To Plan</p>
+              <p>{props?.buttonnametext}</p>
             </Typography>
           </Box>
         </Button>

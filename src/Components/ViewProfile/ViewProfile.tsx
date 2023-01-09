@@ -20,7 +20,7 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../CommonComponents/Sidebar';
 import Navbar from '../CommonComponents/Navbar';
-import { checkExpirationOfToken } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, customParseJSON } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
@@ -176,10 +176,15 @@ const ViewProfile = () => {
           return;
         }
         const response = data?.data;
+        let objLSData: any = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+        console.log(objLSData, "objLSData old")
+        if (objLSData?.userdetails) {
+          objLSData["userdetails"] = response?.userdetails;
+          localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(objLSData));
 
+          console.log(objLSData, "objLSData new ")
+        }
         setUserDetails(response);
-      
-        
       })
       .catch(err => {
         console.log(err);
@@ -206,31 +211,31 @@ const ViewProfile = () => {
           </Grid>
           <Grid container xs={12} sm={11} md={10}>
             <Box style={{ width: "100vw" }}>
-            <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={12} md={12} className="ScrollBarStyle">
-              <Toolbar />
-              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Link color="#6495ED" underline="always" href='Home' >
-                    <Typography className='burgerText'> Home</Typography>
-                  </Link>
-                  <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                    <Typography className='burgerText'>View Profile</Typography>
-                  </Link>
-                </Breadcrumbs>   
-              </Box>
-              <Box className="BoxPadding">
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6} >
-                  <ViewProfileCard
-                    userDetails={userDetails?.userdetails}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <VviewprofileCard kycDetails={userDetails?.kycdetails} />
-                </Grid>
+              <Grid sx={{ height: "auto", padding: 0, boxSizing: "border-box" }} item xs={13} sm={12} md={12} className="ScrollBarStyle">
+                <Toolbar />
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>View Profile</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                <Box className="BoxPadding">
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} md={6} >
+                      <ViewProfileCard
+                        userDetails={userDetails?.userdetails}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <VviewprofileCard kycDetails={userDetails?.kycdetails} />
+                    </Grid>
+                  </Grid>
+                </Box>
               </Grid>
-              </Box>
-            </Grid>
             </Box>
           </Grid>
         </Grid>

@@ -537,8 +537,7 @@ const AddFunds = () => {
 
                   <AddToPlanComp
                     fundsCount={fundSelecteds.length}
-                    onClick={() => null}
-                  />
+                    onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"}                  />
 
                 </>
                 : null
