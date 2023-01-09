@@ -62,6 +62,7 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   RECOMMENDATION_MUTUALFUND_LIST: "/recommendation/mutualfund/list/",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
+  RECOMMENDATION_FUND_UPDATE: "/recommendation/mutualfund/update/",
   RECOMMENDATION_FUND_RETURN: "/recommendation/fund/return/",
   RECOMMENDATION_FUND_DETAIL: '/recommendation/fund/detail',
   RECOMMENDTAION_FUND_NAV_DETAIL: '/recommendation/fund/nav/detail',

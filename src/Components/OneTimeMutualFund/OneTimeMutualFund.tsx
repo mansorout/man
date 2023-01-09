@@ -418,7 +418,7 @@ const OneTimeMutualFund = () => {
                       color: "#7b7b9d",
                     }}
                   >
-                    One-Time Lumpsum investment of {userAmount ? userAmount : 0}
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {userAmount ? userAmount : 0}
                   </Typography>
                 </Box>
                 <Box

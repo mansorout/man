@@ -28,6 +28,7 @@ import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } 
 import { apiResponse } from "../../Utils/globalTypes";
 import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { postData } from "../../Utils/api";
 
 const data = [
   {
@@ -221,148 +222,209 @@ const CustomizeMF = () => {
     navigate(strRoute);
   }
 
-  const handlePrice = (value: any) => {
-    navigate("/funddetails");
-    // if (value === 12.3) {
-    // }
-  };
+  const handleNavigationOfFundDetails = (secid: string) => {
+    if (secid) {
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/customizemf" } });
+    } else {
+      console.log(secid, "invalid secid");
+    }
+  }
 
+  const handleRemoveCard = (recommendationfund_id: number, secid: string) => {
+    if (recommendationfund_id) {
+      console.log(recommendationfund_id, "recommendationfund_id");
+      let arrMFCards = [...mfCards];
 
-  return (
-    <Box style={{ width: "100vw" }}>
-      <Navbar />
-      <Box sx={style.main}>
-        <Grid container spacing={0}>
-          <Grid item xs={0} sm={1} md={2}>
-            <Toolbar />
-            <Sidebar />
-          </Grid>
-          <Grid
-            container
-            sx={{ height: "100vh", overflow: "scroll" }}
-            xs={13}
-            sm={11}
-            md={10}
+      if (arrMFCards && arrMFCards.length) {
+        let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
+        console.log(fil);
+        setMfCards(fil);
+      }
+
+      postData(
+        { recommendationfund_id: recommendationfund_id, status_id: 2, secid: secid },
+        siteConfig.RECOMMENDATION_FUND_UPDATE,
+        siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+        siteConfig.RECOMENDATION_API_ID
+      )
+        .then(res => res.json())
+        .then((data: apiResponse) => {
+          if (checkExpirationOfToken(data?.code)) {
+            dispatch(setTokenExpiredStatusAction(true));
+            return;
+          }
+
+          if (data?.error == true) {
+            return
+          }
+
+          let arrMFCards = [...mfCards];
+
+          if (arrMFCards && arrMFCards.length) {
+            let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
+            console.log(fil);
+            setMfCards(fil);
+          }
+
+        })
+    } else {
+      console.log("recommendationfund_id invalid")
+    }
+  }
+
+  const getTotalRecomendedAmount = () => {
+    let arrMFCards: any[] = [...mfCards];
+    if (arrMFCards && arrMFCards.length) {
+
+      // let arrfill: any[] = arrMFCards.map((item: any) => item?.recommendedamount ? parseFloat(item?.recommendedamount) : 0)[0];
+      // console.log(arrfill)
+
+      // console.log(
+        
+      //     .reduce((p: number, n: number) => { p + n })
+      // );
+    }
+  }
+
+return (
+  <Box style={{ width: "100vw" }}>
+    <Navbar />
+    <Box sx={style.main}>
+      <Grid container spacing={0}>
+        <Grid item xs={0} sm={1} md={2}>
+          <Toolbar />
+          <Sidebar />
+        </Grid>
+        <Grid
+          container
+          sx={{ height: "100vh", overflow: "scroll" }}
+          xs={13}
+          sm={11}
+          md={10}
+        >
+          <Toolbar />
+          <Box
+            sx={{
+              width: "80.875vw",
+              padding: 0,
+              margin: "2.5vw",
+              fontFamily: "Roboto",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
           >
-            <Toolbar />
-            <Box
+            <Breadcrumbs
               sx={{
-                width: "80.875vw",
-                padding: 0,
-                margin: "2.5vw",
-                fontFamily: "Roboto",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
+                fontSize: "12px",
+                color: "#6c63ff",
               }}
             >
-              <Breadcrumbs
+              <Link href="/home">Home</Link>
+              <Link
+                onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+              >
+                Investment
+              </Link>
+              <Link
+                onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+              >
+                {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+              </Link>
+              <Link
+                onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+              >
+                Mutual Fund Recommendation
+              </Link>
+              <Typography
                 sx={{
                   fontSize: "12px",
-                  color: "#6c63ff",
+                  color: "#373e42",
                 }}
               >
-                <Link href="/home">Home</Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
-                >
-                  Investment
-                </Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+                Customize Plan
+              </Typography>
+            </Breadcrumbs>
 
-                >
-                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                </Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
-                >
-                  Mutual Fund Recommendation
-                </Link>
+            <Box
+              className="header"
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItem: "flex-end",
+                marginBottom: { xs: "7%", sm: "0%" },
+              }}
+            >
+              <Box className="heading_main">
                 <Typography
                   sx={{
                     fontSize: "12px",
-                    color: "#373e42",
+                    fontWeight: "bold",
+                    color: "#8787a2",
                   }}
                 >
-                  Customize Plan
+                  Explore Funds
                 </Typography>
-              </Breadcrumbs>
-
+                <Typography
+                  sx={{
+                    fontSize: "18px",
+                    fontWeight: 500,
+                    color: "#3c3e42",
+                  }}
+                >
+                  {mfCards.length} Mutual Funds Found
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#7b7b9d",
+                  }}
+                >
+                  {/* Monthly investment of ₹5,000 */}
+                  {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? " " + mfCards[0]?.recommendedamount : " " + 0}
+                </Typography>
+              </Box>
               <Box
-                className="header"
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItem: "flex-end",
-                  marginBottom: { xs: "7%", sm: "0%" },
+                  justifyContent: "flex-end",
                 }}
               >
-                <Box className="heading_main">
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: "#8787a2",
-                    }}
-                  >
-                    Explore Funds
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "18px",
-                      fontWeight: 500,
-                      color: "#3c3e42",
-                    }}
-                  >
-                    {mfCards.length} Mutual Funds Found
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      color: "#7b7b9d",
-                    }}
-                  >
-                    {/* Monthly investment of ₹5,000 */}
-                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? " " + mfCards[0]?.recommendedamount : " " + 0}
-                  </Typography>
-                </Box>
-                <Box
+                <Button
+                  onClick={() => navigate("/addfunds")}
                   sx={{
-                    display: "flex",
-                    justifyContent: "flex-end",
+                    width: "200px",
+                    height: "38px",
+                    padding: "11px 36px",
+                    borderRadius: "8px",
+                    border: "solid 1px #23db7b",
+                    backgroundColor: "#dff7ea",
+                    textTransform: "capitalize",
+                    fontSize: "14px",
+                    fontWeight: 500,
+                    color: "#09b85d",
                   }}
                 >
-                  <Button
-                    onClick={() => navigate("/addfunds")}
-                    sx={{
-                      width: "200px",
-                      height: "38px",
-                      padding: "11px 36px",
-                      borderRadius: "8px",
-                      border: "solid 1px #23db7b",
-                      backgroundColor: "#dff7ea",
-                      textTransform: "capitalize",
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "#09b85d",
-                    }}
-                  >
-                    Add More Funds
-                  </Button>
-                </Box>
+                  Add More Funds
+                </Button>
               </Box>
+            </Box>
 
-              <Box>
-                {mfCards &&
-                  mfCards.length &&
-                  mfCards.map((item, index) => (
-                    <Box sx={{ marginTop: "1.25vw" }} key={index}>
-                      <MutualFundCard2 {...item} />
-                    </Box>
-                  ))}
+            <Box>
+              {mfCards &&
+                mfCards.length &&
+                mfCards.map((item, index) => (
+                  <Box sx={{ marginTop: "1.25vw" }} key={index}>
+                    <MutualFundCard2
+                      {...item}
+                      onCardClick={handleNavigationOfFundDetails}
+                      onRemoveCardClick={handleRemoveCard}
+                    />
+                  </Box>
+                ))}
 
-                {/* {mfCards &&
+              {/* {mfCards &&
                   mfCards.length &&
                   mfCards.map((mfCard) => (
                     <Box
@@ -372,54 +434,91 @@ const CustomizeMF = () => {
                       <OneTimeMutualFundCard2 {...mfCard} />
                     </Box>
                   ))} */}
-              </Box>
             </Box>
-            <Box
-              sx={{
-                width: "83.75vw",
-                height: "6.1vw",
-                marginTop: "8vw",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
-                backgroundColor: "#fff",
-              }}
-            >
+          </Box>
+          <Box
+            sx={{
+              width: "83.75vw",
+              height: "6.1vw",
+              marginTop: "8vw",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+              backgroundColor: "#fff",
+            }}
+          >
 
-              <FooterWithBtn
-                btnText={
-                  g_investment?.type === globalConstant.SIP_INVESTMENT
-                    ? "Select SIP Date"
-                    : "Buy Now"
+            <FooterWithBtn
+              btnText={
+                g_investment?.type === globalConstant.SIP_INVESTMENT
+                  ? "Select SIP Date"
+                  : "Buy Now"
+              }
+              btnClick={() => {
+                if (
+                  g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
+                ) {
+                  navigate("/netbanking", {
+                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                    replace: true,
+                  });
+                  return;
                 }
-                btnClick={() => {
-                  if (
-                    g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
-                  ) {
-                    navigate("/netbanking", {
-                      state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                      replace: true,
-                    });
-                    return;
-                  }
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
-                }}
-              />
-            </Box>
-          </Grid>
+                setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+              }}
+            />
+          </Box>
         </Grid>
-        <Modal
-          sx={{ borderRadius: 8 }}
-          open={
-            activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
-              ? true
-              : false
-          }
-          onClose={() => {
-            setActiveScreen(enumActiveScreen.CLOSE_MODAL);
+      </Grid>
+      <Modal
+        sx={{ borderRadius: 8 }}
+        open={
+          activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
+            ? true
+            : false
+        }
+        onClose={() => {
+          setActiveScreen(enumActiveScreen.CLOSE_MODAL);
+        }}
+      >
+        <Box
+          alignItems="center"
+          justifyContent="center"
+          sx={{
+            marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
+            marginTop: { xs: "50%", lg: "13%", md: "30%" },
           }}
         >
+          <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+          <Calendar />
+          <Button
+            onClick={() => {
+              setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+            }}
+            variant="contained"
+            style={style.button}
+            sx={{
+              backgroundColor: "rgba(123, 123, 157, 0.05)",
+              color: "#7b7b9d",
+            }}
+          >
+            Confirm SIP Date
+          </Button>
+        </Box>
+      </Modal>
+      <Modal
+        sx={{ borderRadius: 8 }}
+        open={
+          activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL
+            ? true
+            : false
+        }
+        onClose={() => {
+          setActiveScreen(enumActiveScreen.CLOSE_MODAL);
+        }}
+      >
+        <>
           <Box
             alignItems="center"
             justifyContent="center"
@@ -428,86 +527,49 @@ const CustomizeMF = () => {
               marginTop: { xs: "50%", lg: "13%", md: "30%" },
             }}
           >
-            <Typography sx={style.modalText}>Monthly SIP Date</Typography>
-            <Calendar />
+            <Box
+              sx={{
+                backgroundColor: "#fff",
+                width: 300,
+                alignItems: "center",
+                padding: 3,
+                textAlign: "center",
+              }}
+            >
+              <Box>
+                <img style={{ height: 120, width: 120 }} src={tick} />
+              </Box>
+              <Typography sx={{ marginTop: 1, fontWeight: "600" }}>
+                Date confirmed!
+              </Typography>
+              <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
+                Your Monthly SIP Date is 8th of every month
+              </Typography>
+            </Box>
+            {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
             <Button
               onClick={() => {
-                setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+                navigate("/netbanking", {
+                  state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                  replace: true,
+                });
               }}
               variant="contained"
               style={style.button}
               sx={{
                 backgroundColor: "rgba(123, 123, 157, 0.05)",
                 color: "#7b7b9d",
+                marginLeft: 8,
               }}
             >
-              Confirm SIP Date
+              Continue to Payment
             </Button>
           </Box>
-        </Modal>
-        <Modal
-          sx={{ borderRadius: 8 }}
-          open={
-            activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL
-              ? true
-              : false
-          }
-          onClose={() => {
-            setActiveScreen(enumActiveScreen.CLOSE_MODAL);
-          }}
-        >
-          <>
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              sx={{
-                marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-                marginTop: { xs: "50%", lg: "13%", md: "30%" },
-              }}
-            >
-              <Box
-                sx={{
-                  backgroundColor: "#fff",
-                  width: 300,
-                  alignItems: "center",
-                  padding: 3,
-                  textAlign: "center",
-                }}
-              >
-                <Box>
-                  <img style={{ height: 120, width: 120 }} src={tick} />
-                </Box>
-                <Typography sx={{ marginTop: 1, fontWeight: "600" }}>
-                  Date confirmed!
-                </Typography>
-                <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
-                  Your Monthly SIP Date is 8th of every month
-                </Typography>
-              </Box>
-              {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
-              <Button
-                onClick={() => {
-                  navigate("/netbanking", {
-                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                    replace: true,
-                  });
-                }}
-                variant="contained"
-                style={style.button}
-                sx={{
-                  backgroundColor: "rgba(123, 123, 157, 0.05)",
-                  color: "#7b7b9d",
-                  marginLeft: 8,
-                }}
-              >
-                Continue to Payment
-              </Button>
-            </Box>
-          </>
-        </Modal>
-      </Box>
+        </>
+      </Modal>
     </Box>
-  );
+  </Box>
+);
 };
 
 export default CustomizeMF;
