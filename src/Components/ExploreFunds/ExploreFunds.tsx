@@ -1,14 +1,14 @@
 
 import './Portfolio.css'
 import { Box, styled } from '@mui/system'
-import { Avatar, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
+import { Avatar, Breadcrumbs, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
 import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
@@ -26,6 +26,8 @@ import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
 import { Component } from 'react-image-crop'
+import { globalConstant } from '../../Utils/globalConstant'
+import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -158,12 +160,23 @@ function ExploreFunds(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
   const [selected, setSelected] = useState<number>(1)
+
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
   );
 
-  const AddFundButton: string = useMemo(() => { return location?.state?.CommonExploreFund }, []);
-  console.log(AddFundButton)
+  // dynamic rendering add replace remove
+
+  const add_fund_button_fromSipFlow: any = useMemo(() => { return location?.state?.CEF_ADD_FUND }, []);
+  console.log(add_fund_button_fromSipFlow)
+
+  const add_replace_button_fromSipFlow: any = useMemo(() => { return location?.state?.CEF_REPLACE_FUND }, []);
+  console.log(add_replace_button_fromSipFlow)
+
+
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  }
 
 
   // data from the calling api in same component
@@ -258,25 +271,77 @@ function ExploreFunds(props: any) {
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll" } }} item xs={12}>
               <Toolbar />
               {
-                AddFundButton ? <h6>Breadcrumbs</h6> : ""
+                add_fund_button_fromSipFlow || add_replace_button_fromSipFlow ? <Breadcrumbs
+                  sx={{
+                    fontSize: "12px",
+                    color: "#6c63ff",
+                  }}
+                >
+                  <Link to='/home'>Home</Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")} to={''}                >
+                    Investment
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")} to={''}
+                  >
+                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")} to={''}                >
+                    Mutual Fund Recommendation
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation("/customizemf")} to={''}                >
+                    Customize Plan</Link>
+                  {add_fund_button_fromSipFlow ?
+                    <Typography
+                      sx={{
+                        fontSize: "12px",
+                        color: "#373e42",
+                      }}
+                    >
+                      Choose fund to Add
+                    </Typography> : <Typography
+                      sx={{
+                        fontSize: "12px",
+                        color: "#373e42",
+                      }}
+                    >
+                      Choose fund to Replace
+                    </Typography>
+                  }
+                </Breadcrumbs> : ""
               }
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
 
                 <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+
+
                   {
-                    AddFundButton ? <Box>
+                    add_replace_button_fromSipFlow ? <Box>
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                      <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>SIP Investment</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{explorFundlist?.data?.length}funds found</Typography>
+                      <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>SIP Investment</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorFundlist?.data?.length} funds found</Typography>
 
-                    </Box> : <Box>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
-                      <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>3 funds found</Typography>
+                    </Box> : <>
+                      {
+                        add_fund_button_fromSipFlow === globalConstant.CEF_ADD_FUND ? <Box>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                          <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>SIP Investment</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{explorFundlist?.data?.length} funds found</Typography>
 
-                    </Box>
+                        </Box> : <Box>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
+                          <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorFundlist?.data?.length} funds found</Typography>
+
+                        </Box>
+                      }
+                    </>
                   }
 
 
@@ -336,6 +401,10 @@ function ExploreFunds(props: any) {
               }
 
             </Grid>
+
+
+
+
             {
               fundSelecteds.length > 0 ?
                 <>
@@ -348,6 +417,14 @@ function ExploreFunds(props: any) {
                 : null
             }
           </Grid>
+          {
+            add_replace_button_fromSipFlow ?
+              <FooterWithBtn
+                btnText="Replace Fund"
+                btnClick={() => null}
+              />
+              : null
+          }
 
         </Grid>
       </Box>
