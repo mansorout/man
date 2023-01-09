@@ -320,7 +320,7 @@ const OneTimeMutualFund = () => {
   }
 
   return (
-    <Box style={{ width: "100vw" }}>
+    <Box style={{ width: "100vw",}}>
       <Navbar />
       <Box sx={style.main}>
         <Grid container spacing={0}>
@@ -333,7 +333,6 @@ const OneTimeMutualFund = () => {
             sx={{
               height: "100vh",
               overflow: "scroll",
-              marginTop: "4%",
               width: "100%",
               display: "block",
               justifyContent: "center",
@@ -343,19 +342,8 @@ const OneTimeMutualFund = () => {
             md={10}
           >
             <Toolbar />
-            <Box
-              sx={{
-                padding: 0,
-                margin: "1.5vw",
-                fontFamily: "Roboto",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-              className="boxMarginBottom"
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={12}>
+              <Grid container>
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                   <Breadcrumbs
                     sx={{
                       fontSize: "12px",
@@ -383,10 +371,10 @@ const OneTimeMutualFund = () => {
                       Mutual Fund Recommendation
                     </Typography>
                   </Breadcrumbs>
-                </Grid>
+              </Box>
               </Grid>
-
-              <Box
+              <Box className="BoxPadding">
+                      <Box
                 className="header"
                 sx={{
                   display: "flex",
@@ -500,14 +488,14 @@ const OneTimeMutualFund = () => {
             </Box>
             <Box
               sx={{
-                width: "83.75vw",
-                height: "6.1vw",
-                marginTop: "8vw",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
-                backgroundColor: "#fff",
+                // width: "83.75vw",
+                // height: "6.1vw",
+                // marginTop: "8vw",
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                // backgroundColor: "#fff",
               }}
             >
 

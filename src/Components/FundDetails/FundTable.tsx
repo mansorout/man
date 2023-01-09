@@ -82,7 +82,7 @@ const FundTable = (props: IProps) => {
 
   return (
     <>
-      <Box sx={{ margin: "1rem" }}>
+      <Box sx={{ marginTop: "1rem" }}>
         <MuiAccordion sx={{
           borderRadius: "8px",
           backgroundColor: "white",

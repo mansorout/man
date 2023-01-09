@@ -10,6 +10,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        boxShadow: "0 0 6px 0 rgb(0 0 0 / 16%) !important",
     },
     premiumAmountFooter: {
         backgroundColor: 'var(--uiWhite)',
@@ -20,9 +21,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         position: 'fixed',
         bottom: '0px',
         right: '0px',
-        left: '0px',
-        '@media(min-width: 900px)': {
-            left: 'calc(0px + 245px)'
+        left: '0px !important',
+        transform:" translateX(7%)",
+        '@media(max-width: 600px)': {
+            transform: 'translateX(0%)'
         }
     },
     premiumAmountBox: {
@@ -71,7 +73,7 @@ const FooterWithBtn = (props: FooterBtnWithBoxType) => {
         <Box sx={{
             position: 'relative',
             zIndex: '1',
-            marginTop: '150px',
+            // marginTop: '150px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
                 <Button className={`${props.btnDisable === true ? '': classes.bgGreenColor}`} type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick} disabled={props.btnDisable}>{props.btnText}</Button>
