@@ -7,7 +7,10 @@ export const globalConstant = Object.freeze({
     BALANCED: "Balanced",
     ERROR_OCCURRED: "Some error occurred!",
     RECOMMENDATIONS: "recommendations",
-    MUTUAL_FUND: "Mutual Fund"
+    MUTUAL_FUND: "Mutual Fund",
+    CEF_ADD_FUND:"",
+    CEF_REMOVE_FUND:"",
+    CEF_REPLACE_FUND:"",
 })
 
 export const lookUpMasterKeys: any = Object.freeze({

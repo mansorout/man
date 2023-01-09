@@ -26,6 +26,7 @@ import {
   Radiobutton,
 } from "../../Assets";
 import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
+import { globalConstant } from "../../Utils/globalConstant";
 
 export interface MFProp {
   // id: number;
@@ -302,7 +303,8 @@ const MutualFundCard2 = (props: MFProp) => {
                         variant="contained"
                         style={style.buttons}
                         className={classes.replaceBtn}
-                        onClick={() => naviagte("/replaceFunds")}
+                        // onClick={() => naviagte("/replaceFunds")}
+                        onClick={() => naviagte('/explorefunds', {state:{globalConstant,CEF_REPLACE_FUND: true, parentRoute:"/explorefunds"}})}
                       >
                         <img src={ReplaceButtonIcon} />
                         Replace
