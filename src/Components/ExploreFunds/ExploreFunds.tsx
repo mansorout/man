@@ -21,6 +21,11 @@ import siteConfig from '../../Utils/siteConfig'
 import { setMasterFundListAction } from '../../Store/Global/actions/global-actions'
 import { lookUpMasterKeys } from '../../Utils/globalConstant'
 import AddToPlanComp from '../CommonComponents/AddToPlanComp'
+import { getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
+import { checkExpirationOfToken } from '../../Utils/globalFunctions'
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
+import { apiResponse } from '../../Utils/globalTypes'
+import { Component } from 'react-image-crop'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -47,8 +52,6 @@ function ExploreFunds() {
       zIndex: "3000",
     },
   }));
-
-
 
   const style = {
     main: {
@@ -146,26 +149,19 @@ function ExploreFunds() {
 
   const [fundList, setFundList] = useState<any[]>([])
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
-
   const menuActions = React.useRef<MenuUnstyledActions>(null);
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
-
-  // const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //   anchorEl ? 
-  //   setAnchorEl(null) :
-  //   setAnchorEl(event.currentTarget)
-  // };
   const [explorefundsfromapi, setexplorefundsfromapi] = useState<any[]>([])
-  const initiate = async () => {
-    // Object.keys(lookUpMasterKeys).forEach((lookupKey: string) => {
-    //   getMasterKeyData(lookUpMasterKeys[lookupKey]);
-    // });
+  const classes = useStyles()
+  const dispatch: any = useDispatch();
+  const refContainer = useRef();
+  const navigate = useNavigate();
+  const [selected, setSelected] = useState<number>(1)
 
-    getExploreFundList()
-  }
 
-  const getExploreFundList = () => {
+  // data from the calling api in same component
+
+  useEffect(() => {
     getDataWithoutToken(
       siteConfig.RECOMMENDATION_FUND_LIST,
       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
@@ -176,32 +172,35 @@ function ExploreFunds() {
         if (data?.error === true) {
           return;
         }
-
-        // let arrCompanyCardsLocal = [...companyCardsLocal];
-        dispatch(setMasterFundListAction(data?.data))
-        console.log(data?.data);
-        const explorefundData = data?.data
+        console.log(`useeffectapi ${data?.data?.data}`);
+        const explorefundData = data?.data?.data
         console.log(explorefundData)
-        // setCompanyCardLocal(data?.data);
 
       })
       .catch(err => {
         console.log(err);
       })
-  }
+  }, [])
 
 
+
+  // data from home Component
 
   const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
   console.log(explorFundlist)
   console.log(explorFundlist?.data?.length)
-  console.log(explorFundlist?.data[0].categorygroup)
-
   console.log(explorFundlist?.data)
 
-  // explorFundlist?.data.map((value: any) => {
-  //   console.log(value.fundname)
-  // })
+  useEffect(() => {
+    setFundList(ExploreFundsList)
+    setexplorefundsfromapi(explorFundlist?.data)
+    console.log(explorefundsfromapi)
+
+  }, [])
+
+
+
+
 
 
 
@@ -210,8 +209,6 @@ function ExploreFunds() {
   }).length
 
   console.log(countfiltered);
-
-  // setexplorefundsfromapi(countfiltered)
 
   const countfiltered2 = explorFundlist?.data.filter(function (element: any) {
     return element.categorygroup == 'Balanced';
@@ -225,46 +222,17 @@ function ExploreFunds() {
 
   console.log(countfiltered3);
 
-  // explorFundlist?.data.map((value: any) => {
-  //   if (value.categorygroup === "Equity") {
-  //     console.log(value.categorygroup.length)
-  //   }
+  explorFundlist?.data.map((value: any) => {
+    if (value.categorygroup === "Equity") {
+      console.log(value.categorygroup.length)
+    }
 
-  // })
-
-
-
-  //   explorFundlist?.data.filter((item:any) => {
-  // console.log(item.name.toLowerCase())
-  //   })
-
-
-  // console.log(explorFundlist?.data[0])
-
-  useEffect(() => {
-    setFundList(ExploreFundsList)
-    // setexplorefundsfromapi(explorFundlist?.data)
-    setexplorefundsfromapi(explorFundlist?.data)
-    console.log(explorefundsfromapi)
-
-    initiate();
-
-  }, [])
+  })
 
 
 
-  // useEffect(()=>{
-  //   setFundList(ExploreFundsList)
-  // },[])
 
-  const classes = useStyles()
-  const dispatch: any = useDispatch();
 
-  const refContainer = useRef();
-
-  const navigate = useNavigate();
-
-  const [selected, setSelected] = useState<number>(1)
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
@@ -312,17 +280,21 @@ function ExploreFunds() {
                       <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorFundlist?.data?.length})</Typography>
                     </Box>
                     <Box onClick={() => {
-                      setSelected(2); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
+                      setSelected(2); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
                         == 'Equity'))
                     }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                       <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({countfiltered}) </Typography>
                     </Box>
-                    <Box onClick={() => { setSelected(3); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
-                        == 'Debt')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                    <Box onClick={() => {
+                      setSelected(3); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
+                        == 'Debt'))
+                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                       <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Debt ({countfiltered3})</Typography>
                     </Box>
-                    <Box onClick={() => { setSelected(4); setexplorefundsfromapi(explorefundsfromapi.filter((item:any) => item.categorygroup
-                        == 'Balanced')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                    <Box onClick={() => {
+                      setSelected(4); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
+                        == 'Balanced'))
+                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                       <Typography style={{ fontWeight: "500", color: `${selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Balanced({countfiltered2})</Typography>
                     </Box>
 
@@ -332,7 +304,7 @@ function ExploreFunds() {
               </Box>
 
               {
-                explorefundsfromapi.length && explorefundsfromapi.map((item: any, key: number) => {
+                explorefundsfromapi.map((item: any, key: number) => {
                   return (
                     <>
                       <AllExploreFundCard {...item} key={key} />
