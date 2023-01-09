@@ -2,13 +2,13 @@
 import './Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Avatar, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
 import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
@@ -41,7 +41,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   `,
 );
 
-function ExploreFunds() {
+function ExploreFunds(props: any) {
 
   const useStyles: any = makeStyles((theme: Theme) => ({
     appbar: {
@@ -156,7 +156,14 @@ function ExploreFunds() {
   const dispatch: any = useDispatch();
   const refContainer = useRef();
   const navigate = useNavigate();
+  const location = useLocation();
   const [selected, setSelected] = useState<number>(1)
+  const g_investment: any = useSelector(
+    (state: any) => state?.recommendationsReducer?.investment
+  );
+
+  const AddFundButton: string = useMemo(() => { return location?.state?.CommonExploreFund }, []);
+  console.log(AddFundButton)
 
 
   // data from the calling api in same component
@@ -250,14 +257,29 @@ function ExploreFunds() {
           <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll" } }} item xs={12}>
               <Toolbar />
+              {
+                AddFundButton ? <h6>Breadcrumbs</h6> : ""
+              }
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
-                <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
-                  <Box>
-                    <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Choose Funds to Invest</Typography>
-                    <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                    <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>3 funds found</Typography>
 
-                  </Box>
+                <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                  {
+                    AddFundButton ? <Box>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                      <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>SIP Investment</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{explorFundlist?.data?.length}funds found</Typography>
+
+                    </Box> : <Box>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
+                      <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>3 funds found</Typography>
+
+                    </Box>
+                  }
+
+
                 </Box>
                 <Box padding={2} >
                   <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>

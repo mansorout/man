@@ -334,7 +334,8 @@ const CustomizeMF = () => {
                   }}
                 >
                   <Button
-                    onClick={() => navigate("/addfunds")}
+                    onClick={() => navigate('/explorefunds', {state:{CommonExploreFund: true, parentRoute:"/explorefunds"}})}
+                    
                     sx={{
                       width: "200px",
                       height: "38px",
