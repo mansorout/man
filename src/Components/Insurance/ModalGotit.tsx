@@ -54,6 +54,7 @@ const ModalGotit = (props: any) => {
               <Box
                 sx={{    my:"10px", }}
                 textAlign="center"
+                
              
               >
               
