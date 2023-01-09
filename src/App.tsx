@@ -75,7 +75,7 @@ import AmountAddSnackBar from './Components/CommonComponents/AmountAddSnackBar';
 // import InitiateSip from './Components/SIPScreen/initiateSip';
 // import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 // import ULIPFound from './Components/Insurance/ULIPFound';
-// import ULIPCompare from './Components/Insurance/ULIPCompare';
+ import ULIPCompare from './Components/Insurance/ULIPCompare';
 // import ProposalForm from './Components/Insurance/ProposalForm';
 // import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 // import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
@@ -188,7 +188,7 @@ function App() {
         <Route path="/verifysec" element={<VerifySec />} />
         <Route path="/setnewpin" element={<Setpin />} />
         <Route path="/ExpireTokenDialog" element={<ExpireTokenDialog />} />
-
+     
         {/* set to be private */}
         <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
@@ -265,9 +265,9 @@ function App() {
         {/* <Route path="/ulip/options" element={<ULIPOptions />} />
         <Route path="/ulip/txndone" element={<TransactionsDone />} />
         <Route path="/ulip/home" element={<ULIPHome />} />
-        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
+        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} /> */}
         <Route path="/healthInsurance/compareULIP" element={<ULIPCompare />} />
-        <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
+        {/* <Route path="/healthInsurance/letsfindrightinsurance" element={<ULIPFound />} />
         <Route path="/healthInsurance/knowMore" element={<InsuranceDetails />} />
         <Route path="/proposalForm" element={<ProposalForm />} /> */}
 

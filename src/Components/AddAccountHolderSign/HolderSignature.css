@@ -131,7 +131,7 @@ CSS
 .renderBoxsign {
    
     background-color: white !important;
-    min-height: 300px !important;
+    min-height: 300px;
     width: 80% !important;
    
 }

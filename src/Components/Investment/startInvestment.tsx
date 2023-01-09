@@ -239,7 +239,7 @@ const StartInvestment = () => {
     main: {
       boxSizing: "border-box",
       backgroundColor: "#f9f9f9",
-      height: "100vh"
+      // height: "100vh"
     } as React.CSSProperties,
     drawer: {
       zIndex: "500",
@@ -474,7 +474,7 @@ const StartInvestment = () => {
                 <Grid container>
                   <Grid item xs={12} className="BoxStartInvest">
                   <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
+                    <Box className="tabSecBox" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <Typography className="tabBoxSize" style={activeButton === enumType.ONE_TIME_LUMSOM ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.ONE_TIME_LUMSOM)}>{objLumSomeInvestmentData?.title}</Typography>
                         {
@@ -488,7 +488,7 @@ const StartInvestment = () => {
                         <Typography className="tabBoxSize" style={activeButton === enumType.MONTHLY_INCOME ? style.activeBtn : style.nonActiveBtn} onClick={() => handleOnClick(enumType.MONTHLY_INCOME)}>{objMonthlyInvestmentData?.title}</Typography>
                         {
                           activeButton === enumType.MONTHLY_INCOME ?
-                            <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "143px", right: "0px" }}></Box>
+                            <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%", right: "0px" }}></Box>
                             : null
                         }
                       </Box>
@@ -663,7 +663,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
           </Button>
         </Box>
         <Box style={{
-          position: "relative", display: "flex", flexDirection: "column", alignItems: "center", height: "100vh"
+          position: "relative", display: "flex", flexDirection: "column", alignItems: "center",
         }} >
           {/* handle box */}
           < Box
@@ -840,7 +840,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             }
           </Box>
 
-          <Box style={{ paddingBottom: "50px", paddingTop: "20px", width: "98%" }} onClick={() => handleButtonOnClick(props?.type)}>
+          <Box sx={{ paddingBottom: "50px", paddingTop: "20px", width:{xs:"100%", sm:"98%"} }} onClick={() => handleButtonOnClick(props?.type)}>
             <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b", width: "100%", maxWidth: "100%" }} fullWidth>
               <Typography component="span" className={classes.text} >Get Started Now</Typography>
             </Button>
