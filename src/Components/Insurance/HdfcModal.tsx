@@ -40,78 +40,7 @@ function HdfcModal(props: any) {
   };
   return (
     <>
-      <Modal open={props.open}>
-  
-        <Box
-          style={{
-            width: "90%",
-            maxWidth: "330px",
-            borderRadius: "8px",
-            boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
-            backgroundColor: "white",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-between",
-            overflow: "hidden",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
-            padding: "60px",
-          }}
-        >
-                <Grid container>
-            <Grid item xs={12} md={12}>
-              <Box textAlign="right" sx={{color:"#d1d6dd"}}
-                 onClick={props.close}
-              >
-                <ClearIcon 
-                
-                 />
-              </Box>
-            </Grid>
-          </Grid>
-      
-          <Box
-            my={2}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "148px",
-              height: "180px",
-              borderRadius: "50%",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingTop: "39px",
-              }}
-            >
-              <img
-                src={hdfcErgo}
-                alt="S__M"
-                style={{ height: "148px", width: "148px" }}
-              />
-              <p
-                style={{ fontWeight: "500", cursor: "pointer" }}
-                onClick={handleCongrates}
-              >
-                Loading...
-              </p>
-              <CongratsModal
-                open={showLogin}
-                close={() => setShowLogin(false)}
-              />
-            </div>
-          </Box>
-        </Box>
-      </Modal>
+   
 
       {/* <Modal
         sx={{

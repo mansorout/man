@@ -411,9 +411,8 @@ function ULIPFound() {
                   <Grid item xs={12}>
                     {ULIPList.map((item, index) => {
                       console.log(item.id);
-                      
-                        return <ULIPCard {...item} key={index}></ULIPCard>;
-                      
+
+                      return <ULIPCard {...item} key={index}></ULIPCard>;
                     })}
                   </Grid>
                 </>
@@ -443,7 +442,44 @@ function ULIPFound() {
                 </Grid>
               </Grid>
               <Card sx={{ width: "100%", marginTop: "2%" }}>
-                <Box sx={{ display: "flex", marginTop: "1.6%" }}>
+<Grid container sx={{marginTop:"2%"}} >
+  <Grid xs={4} md={4}>
+  <Avatar
+                    className="Gender_Logo_Style"
+                    alt=""
+                    src={wclogo}
+                    style={style.ca}
+                    sx={{ marginLeft: "25px" }}
+                  />
+  </Grid>
+  <Grid xs={5} md={5}>
+  <div style={{marginLeft: "-57%",
+    marginTop: "2%"
+}}>
+                    <b style={{ color: "#3c3e42", fontSize: "16px" }}>
+                      SprintMoney cost saver combo
+                      <Typography
+                        sx={{
+                          color: "#7b7b9e",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        You're saving ₹2,500 from a regular plan
+                      </Typography>
+                    </b>
+                  </div>
+    </Grid>
+    <Grid xs={3} md={3} >
+    <Box sx={{ marginTop:{ xs:"-3rem", sm:"1rem"}}}>
+                  
+                  <b style={{color:"white",backgroundColor:"#6c63ff"}}>₹13,008 P.A</b>
+                  <b style={{color:"#7b7b9d",marginLeft:"3%"}}>₹1,199 p.m</b>
+                </Box>
+    </Grid>
+</Grid>
+
+                {/* <Box sx={{ display: "flex", marginTop: "1.6%" }}>
                   <Avatar
                     className="Gender_Logo_Style"
                     alt=""
@@ -465,16 +501,16 @@ function ULIPFound() {
                       </Typography>
                     </b>
                   </div>
-                </Box>
-              <Grid container>
-<Grid item xs={12} md={12} textAlign="right">
-  <Box sx={{display:"flex", marginLeft:"12px"}}>
-  <b>₹1,199 p.m</b>
-<b>₹13,008 P.A</b>
-  </Box>
-
-</Grid>
-              </Grid>
+                </Box> */}
+                {/* <Grid container>
+                  <Grid item xs={12} md={12} textAlign="right">
+                    <Box sx={{ marginTop:{ xs:"-3rem", sm:"1rem"}}}>
+                  
+                      <b style={{color:"white",marginLeft:"-10%",backgroundColor:"#6c63ff"}}>₹13,008 P.A</b>
+                      <b style={{color:"#7b7b9d",marginLeft:"3%"}}>₹1,199 p.m</b>
+                    </Box>
+                  </Grid>
+                </Grid> */}
 
                 {/* <CardHeader
                   avatar={
@@ -717,22 +753,19 @@ function ULIPFound() {
                             flexDirection: "row",
                           }}
                         >
+
                           <Done
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
                           />
                           <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
                             Organ Donor Expenses : Available
                           </p>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                  <Grid container>
-                    <Grid item xs={12} md={6} textAlign="right">
-                      <div style={{ 
-                     
+
+
+                          <Grid container sx={{paddingLeft:"50%",marginTop:"-5%"}}>
+                    <Grid item xs={12} md={12} textAlign="right">
                       
-                      }}>
+                      <div style={{}}>
                         <Box
                           sx={{
                             width: "281px",
@@ -788,6 +821,14 @@ function ULIPFound() {
                       </div>
                     </Grid>
                   </Grid>
+                        </div>
+            
+                      </Grid>
+              
+                    </Grid>
+            
+                  </div>
+              
                 </Card>
               </Card>
             </Grid>
