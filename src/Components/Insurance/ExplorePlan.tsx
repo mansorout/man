@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { getTermListApi, postTermGenerate } from '../../Store/Insurance/thunk/insurance-thunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTermListApiTypes } from '../../Store/Insurance/constants/types';
+import SearchCmp from '../CommonComponents/SearchCmp';
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const style = {
@@ -68,12 +69,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        '& span': {
-            fontSize: 'var(--subTitleFontSize)',
-            color: 'var(--uiDarkGreyColor)',
-            display: 'inline-block',
-            marginTop: '15px',
-        }
+        // '& span': {
+        //     fontSize: 'var(--subTitleFontSize)',
+        //     color: 'var(--uiDarkGreyColor)',
+        //     display: 'inline-block',
+        //     marginTop: '15px',
+        // }
     }
 }));
 
@@ -82,6 +83,69 @@ const ExplorePlan = () => {
     const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const { termData, termListApiData, termGenerateApiData } = useSelector((state: any) => state.insuranceReducer)
+    const [filterIndexes, setFilterIndexes] = useState<any>(
+        [
+            {
+                key: 'Sort',
+                keyValues: [
+                    {
+                        value: 'highToLowReturn',
+                        label: 'Return - High to Low',
+                    },
+                    {
+                        value: 'highToLowRating',
+                        label: 'Rating - High to Low',
+                    },
+                    {
+                        value: 'highToLowFundSize',
+                        label: 'Fund Size - High to Low',
+                    }
+                ]
+            },
+            {
+                key: 'Policy Term',
+                keyValues: [
+                    {
+                        value: 5,
+                        label: '5 Years',
+                    },
+                    {
+                        value: 7,
+                        label: '7 Years',
+                    },
+                    {
+                        value: 10,
+                        label: '10 Years',
+                    },
+                    {
+                        value: 15,
+                        label: '15 Years',
+                    },
+                ]
+            },
+            {
+                key: 'Life Cover',
+                keyValues: [
+                    {
+                        value: 500000,
+                        label: '₹5 Lacs',
+                    },
+                    {
+                        value: 1500000,
+                        label: '₹15 Lacs',
+                    },
+                    {
+                        value: 7500000,
+                        label: '₹75 Lacs',
+                    },
+                    {
+                        value: 10000000,
+                        label: '₹1 Crore',
+                    },
+                ]
+            }
+        ]
+    )
     
 
 
@@ -101,6 +165,11 @@ const ExplorePlan = () => {
         navigate('/choosedPlanDetail')
     }
 
+    const handleFilterCB = (data:any) => {
+        console.log("click value :", data,)
+    }
+
+
     return (
         <div>
             <Box style={{ width: "100vw" }}>
@@ -109,7 +178,7 @@ const ExplorePlan = () => {
                     <Toolbar />
                     <Sidebar />
                     <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
+                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: "hidden", paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
                             <Box>
                                 <Box className={classes.topHeading}>
                                     <span>Explore Plans</span>
@@ -125,13 +194,22 @@ const ExplorePlan = () => {
                                         </Box>
                                         <span>{termListApiData?.length} Plans with annually investment of ₹{termData?.lifecover}</span>
                                     </Box>
-                                    <Box className={classes.filterIconBox} sx={{alignItems: {xs : 'flex-start', sm: 'flex-end'}}}>
-                                        <IconWithBgColor
+                                    <Box className={classes.filterIconBox} sx={{ alignItems: { xs: 'flex-start', sm: 'flex-end', } }}>
+                                        {/* <IconWithBgColor
                                             icon={<FilterAltOutlinedIcon />}
                                             bgColor='var(--primaryColor)'
                                             iconColor='var(--uiWhite)'
+                                        /> */}
+                                        <SearchCmp
+                                            filtersOptions={filterIndexes}
+                                            handleCB={handleFilterCB}
                                         />
-                                        <span>Prices inclusive of GST*</span>
+                                        <Typography component='span' sx={{
+                                            fontSize: 'var(--subTitleFontSize)',
+                                            color: 'var(--uiDarkGreyColor)',
+                                            display: 'inline-block',
+                                            marginTop: '15px',
+                                        }}>Prices inclusive of GST*</Typography>
                                     </Box>
                                 </Box>
                                 {
