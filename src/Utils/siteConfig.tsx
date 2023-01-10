@@ -42,6 +42,7 @@ const siteConfig = Object.freeze({
   METADATA_LOOKUP_LIST: "/metadata/lookup/list/",
   METADATA_BANNER_LIST: "/metadata/banner/list/",
   METADATA_PINCODE_LIST: "/metadata/pincode/list/",
+  METADATA_CATEGORYGROUP_LIST: "/metadata/categorygroup/list/",
 
   //Savtax
   SAVETAX_COMPARISON: "/savetax/comparison",
