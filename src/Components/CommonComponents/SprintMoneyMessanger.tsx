@@ -70,18 +70,18 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
             >
                 <DialogTitle></DialogTitle>
 
-                <DialogContent sx={{ minWidth: "201px" }}>
+                <DialogContent sx={{ minWidth: "300px" }}>
                     {
                         !props.errorText ? <Grid container>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={2}>
 
                                 <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
                                     <img style={{ height: "25px", width: "25px", }} src={SuccessLogo} alt="error" />
                                 </Box>
                             </Grid>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={10}>
                                 <DialogContentText sx={{ color: "green" }} id="alert-dialog-slide-description">
                                     {props.succesText}
                                 </DialogContentText>

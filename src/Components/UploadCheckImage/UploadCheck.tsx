@@ -273,7 +273,7 @@ function UploadCheck() {
     main: {
       boxSizing: "border-box",
       backgroundColor: "#f9f9f9",
-      height: "100vh",
+      // height: "100vh",
     } as React.CSSProperties,
     drawer: {
       zIndex: "500",
@@ -380,9 +380,10 @@ function UploadCheck() {
             container
             xs={13}
             sm={11}
-            md={10}
-          >
-            <Grid sx={{ padding: 2 }} item xs={12}>
+            md={10}>
+              <Grid
+            container>
+            <Grid sx={{ padding:3 }} item xs={12}>
               <Toolbar />
               <Box sx={{ mb: "10px" }} className="checkHeadingStack">
                 <Typography
@@ -640,6 +641,7 @@ function UploadCheck() {
                   Terms and conditions
                 </Typography>
               </Box>
+            </Grid>
             </Grid>
           </Grid>
         </Grid>

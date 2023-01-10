@@ -283,7 +283,13 @@ const Nominee = () => {
 
                         <Sidebar />
                     </Grid>
-                    <Grid item xs={12} sm={11} md={10}>
+                    <Grid item xs={12} sm={11} md={10} sx={{
+                        height: "100vh",
+                        overflow: "scroll",
+                        width: "100%",
+                        display: "block",
+                        justifyContent: "center",
+                        }}>
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
