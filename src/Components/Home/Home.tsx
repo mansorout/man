@@ -182,6 +182,7 @@ const Home = () => {
 
   useEffect(() => {
     initiate();
+    
   }, []);
 
   // FINANCIAL_YEAR: 'financialyear',
@@ -212,7 +213,7 @@ const Home = () => {
   }
 
   const getExploreFundList = async () => {
-    let data: apiResponse = await getMasterFundListThunk();
+    let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST);
     if (checkExpirationOfToken(data?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -224,7 +225,7 @@ const Home = () => {
 
     dispatch(setMasterFundListAction(data?.data));
   }
-  
+
 
   const getMasterKeyData = (key: string) => {
     getDataWithoutToken(

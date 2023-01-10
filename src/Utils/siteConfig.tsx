@@ -42,6 +42,7 @@ const siteConfig = Object.freeze({
   METADATA_LOOKUP_LIST: "/metadata/lookup/list/",
   METADATA_BANNER_LIST: "/metadata/banner/list/",
   METADATA_PINCODE_LIST: "/metadata/pincode/list/",
+  METADATA_CATEGORYGROUP_LIST: "/metadata/categorygroup/list/",
 
   //Savtax
   SAVETAX_COMPARISON: "/savetax/comparison",
@@ -61,8 +62,8 @@ const siteConfig = Object.freeze({
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   RECOMMENDATION_MUTUALFUND_LIST: "/recommendation/mutualfund/list/",
+  RECOMMENDATION_MUTUALFUND_UPDATE: "/recommendation/mutualfund/update/",
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
-  RECOMMENDATION_FUND_UPDATE: "/recommendation/mutualfund/update/",
   RECOMMENDATION_FUND_RETURN: "/recommendation/fund/return/",
   RECOMMENDATION_FUND_DETAIL: '/recommendation/fund/detail',
   RECOMMENDTAION_FUND_NAV_DETAIL: '/recommendation/fund/nav/detail',

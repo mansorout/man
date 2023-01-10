@@ -109,7 +109,7 @@ const ProgressBars = (props: IProps) => {
                   <Typography sx={{ alignItems: "right" }} className='percentageValue'>{item?.percentage}%</Typography>
                 </Grid>
               </Grid>
-              <ProgressBar completed={item?.percentage} isLabelVisible={false} height="8px"/>
+              <ProgressBar completed={item?.percentage} isLabelVisible={false} height="8px" />
               <br />
             </div>
           )
