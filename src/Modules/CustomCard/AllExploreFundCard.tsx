@@ -168,13 +168,14 @@ function AllExploreFundCard({ secid, fundname, aum, return1yr, return3yr, return
 
 
   const handleOnChange = (event: any) => {
+  
     
 
-    // let newArray = [...fundCard, event.target.value];
-    // if (fundCard.includes(event.target.value)) {
-    //   newArray = newArray.filter(day => day !== event.target.value);
-    // }
-    // setFundCard(newArray);
+    let newArray = [...fundCard, event.target.value];
+    if (fundCard.includes(event.target.value)) {
+      newArray = newArray.filter(day => day !== event.target.value);
+    }
+    setFundCard(newArray);
 
     // alert(event.target.id)
     // setFundCard(celebs => [ ...celebs, ...event.target.value]);
