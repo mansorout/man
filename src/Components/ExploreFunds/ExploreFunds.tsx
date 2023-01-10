@@ -195,12 +195,15 @@ function ExploreFunds(props: any) {
         console.log(`useeffectapi ${data?.data?.data}`);
         const explorefundData = data?.data?.data
         console.log(explorefundData)
+        setexplorefundsfromapi(explorefundData)
 
       })
       .catch(err => {
         console.log(err);
       })
   }, [])
+
+  console.log(explorefundsfromapi)
 
 
 
@@ -213,8 +216,9 @@ function ExploreFunds(props: any) {
 
   useEffect(() => {
     setFundList(ExploreFundsList)
-    setexplorefundsfromapi(explorFundlist?.data)
-    console.log(explorefundsfromapi)
+    
+    // setexplorefundsfromapi(explorFundlist?.data)
+    // console.log(explorefundsfromapi)
 
   }, [])
 
@@ -224,25 +228,25 @@ function ExploreFunds(props: any) {
 
 
 
-  const countfiltered = explorFundlist?.data.filter(function (element: any) {
+  const countfiltered = explorefundsfromapi.filter(function (element: any) {
     return element.categorygroup == 'Equity';
   }).length
 
   console.log(countfiltered);
 
-  const countfiltered2 = explorFundlist?.data.filter(function (element: any) {
+  const countfiltered2 = explorefundsfromapi.filter(function (element: any) {
     return element.categorygroup == 'Balanced';
   }).length
 
   console.log(countfiltered2);
 
-  const countfiltered3 = explorFundlist?.data.filter(function (element: any) {
+  const countfiltered3 = explorefundsfromapi.filter(function (element: any) {
     return element.categorygroup == 'Debt';
   }).length
 
   console.log(countfiltered3);
 
-  explorFundlist?.data.map((value: any) => {
+  explorefundsfromapi.map((value: any) => {
     if (value.categorygroup === "Equity") {
       console.log(value.categorygroup.length)
     }
@@ -323,7 +327,7 @@ function ExploreFunds(props: any) {
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                       <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>SIP Investment</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorFundlist?.data?.length} funds found</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorefundsfromapi.length} funds found</Typography>
 
                     </Box> : <>
                       {
@@ -331,13 +335,13 @@ function ExploreFunds(props: any) {
                           <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                           <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                           <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>SIP Investment</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{explorFundlist?.data?.length} funds found</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{explorefundsfromapi.length} funds found</Typography>
 
                         </Box> : <Box>
                           <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                           <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
                           <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorFundlist?.data?.length} funds found</Typography>
+                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{explorefundsfromapi.length} funds found</Typography>
 
                         </Box>
                       }
@@ -364,7 +368,7 @@ function ExploreFunds(props: any) {
                   </Box>
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                     <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorFundlist?.data?.length})</Typography>
+                      <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorefundsfromapi.length})</Typography>
                     </Box>
                     <Box onClick={() => {
                       setSelected(2); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
