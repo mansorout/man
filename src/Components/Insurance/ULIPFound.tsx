@@ -39,6 +39,7 @@ import { red } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { hdfcErgo, iclogoplus, wclogo } from "../../Assets";
+import NeedMoreTime from "./NeedMoreTime";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   select: {
@@ -55,6 +56,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }));
 
 function ULIPFound() {
+ 
   const style = {
     main: {
       boxSizing: "border-box",
@@ -215,6 +217,8 @@ function ULIPFound() {
     setShowGotit(true);
   };
 
+
+ 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -719,6 +723,7 @@ function ULIPFound() {
                                       backgroundColor: "#e3f6eb",
                                       marginTop: "-5%",
                                     }}
+                                  
                                   >
                                     {" "}
                                     <HelpOutlineIcon
@@ -735,10 +740,12 @@ function ULIPFound() {
                                         marginLeft: "5px",
                                         marginTop: "1.45px",
                                       }}
+                                   
                                     >
                                       KNOW MORE
                                     </Typography>
                                   </Button>
+                                
                                 </Grid>
                               </Grid>
                             </Box>
