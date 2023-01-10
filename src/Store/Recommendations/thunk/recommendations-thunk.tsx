@@ -28,12 +28,30 @@ export const getMutualFundListWrtUserAmountThunk = async (amount: number, id: nu
   return res;
 }
 
-export const getMasterFundListThunk = async () => {
+export const getMasterFundListThunk = async (strUrl: string) => {
   let res: any;
   await getDataWithoutToken(
-    siteConfig.RECOMMENDATION_FUND_LIST,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
+
+export const getCategoryGroupListThunk = async () => {
+  let res: any;
+  await getDataWithoutToken(
+    siteConfig.METADATA_CATEGORYGROUP_LIST,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.METADATA_API_ID
   )
     .then(res => res.json())
     .then((data: any) => {
