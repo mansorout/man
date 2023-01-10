@@ -599,19 +599,21 @@ const FundDetails = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={13} sm={11} md={10} sx={{ height: "100vh",
+          <Grid container xs={13} sm={11} md={10} sx={{
+            height: "100vh",
             overflow: "scroll",
             width: "100%",
             display: "block",
-            justifyContent: "center", }}>
-              <Toolbar />
+            justifyContent: "center",
+          }}>
+            <Toolbar />
             <Box className="BoxPadding" >
-                  <Box
-                    role="presentation"
-                    sx={{ margin: "27px 0px 21px 25px" }}
-                  >
+              <Box
+                role="presentation"
+                sx={{ margin: "27px 0px 21px 25px" }}
+              >
 
-                    {/* <Breadcrumbs aria-label="breadcrumb">
+                {/* <Breadcrumbs aria-label="breadcrumb">
                       <Link color="#6495ED" underline="always" href="/home">
                         <Typography className="burgerText"> Home</Typography>
                       </Link>
@@ -681,97 +683,99 @@ const FundDetails = () => {
                       </Link>
                     </Breadcrumbs> */}
 
-                  </Box>
+              </Box>
 
-                  {
-                    fundDetails &&
-                      Object.keys(fundDetails).length ?
-                      <FundDetailCard
-                        logo={fundDetails?.fundimage}
-                        name={fundDetails?.fundname}
-                        cap={fundDetails?.category}
-                        type={fundDetails?.categorygroup}
-                        year5={fundDetails?.return5yr}
-                        rating={fundDetails?.ratingoverall}
-                        aum={fundDetails?.aum}
-                        dayendnav={fundDetails?.dayendnav}
-                        dayendnavdate={fundDetails?.dayendnavdate}
-                      />
-                      : null
-                  }
-
-                  <Grid xs={12} sx={{
-                    marginTop: "2%",
-                    borderRadius: "8px",
-                    backgroundColor: "white",
-                    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                  }}>
-                    <Box sx={{ display: "flex", flexDirection: "row", padding:"5px 10px" }}>
-                      <Typography component="h6" sx={{ color: "black" }}>
-                        {fundDetails?.dayendnav}
-                      </Typography>
-                      <Typography component="span" sx={{ color: fundDetails?.isnavincrease ? "green" : "red" }}>
-                        {fundDetails?.isnavincrease ? `+${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) up arrow` : `-${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) down arrow`}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", flexDirection: "row", padding:"5px 10px" }}>
-                      <Typography component="h6" sx={{ color: "grey",}}>
-                        {fundDetails?.dayendnavdate}
-                      </Typography>
-                      <Typography component="span" sx={{ color: "grey" }}>
-                        desclaimer
-                      </Typography>
-                    </Box>
-                    <LineChart
-                      optionsValues={chartOptions}
-                      dataValues={chartDataDetails}
-                      onClick={(val: any) => null}
-                    />
-                  </Grid>
-
-                  <FundTable
-                    tableData={fundDetails?.performance}
+              {
+                fundDetails &&
+                  Object.keys(fundDetails).length ?
+                  <FundDetailCard
+                    logo={fundDetails?.fundimage}
+                    name={fundDetails?.fundname}
+                    cap={fundDetails?.category}
+                    type={fundDetails?.categorygroup}
+                    year5={fundDetails?.return5yr}
+                    rating={fundDetails?.ratingoverall}
+                    aum={fundDetails?.aum}
+                    dayendnav={fundDetails?.dayendnav}
+                    dayendnavdate={fundDetails?.dayendnavdate}
                   />
+                  : null
+              }
 
-                  <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  >
-                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                      <MinInvest
-                        sipminamount={fundDetails?.sipminamount}
-                        lumpsumminamount={fundDetails?.lumpsumminamount}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                      <SchemeDoc
-                        openSchemeDocument={() => {
-                          const link = document.createElement('a');
-                          link.href = fundDetails?.schemedoc;
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
+              <Grid xs={12} sx={{
+                marginTop: "2%",
+                borderRadius: "8px",
+                backgroundColor: "white",
+                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+              }}>
+                <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
+                  <Typography component="h6" sx={{ color: "black" }}>
+                    {fundDetails?.dayendnav}
+                  </Typography>
+                  <Typography component="span" sx={{ color: fundDetails?.isnavincrease ? "green" : "red" }}>
+                    {fundDetails?.isnavincrease ? `+${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) up arrow` : `-${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) down arrow`}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
+                  <Typography component="h6" sx={{ color: "grey", }}>
+                    {fundDetails?.dayendnavdate}
+                  </Typography>
+                  <Typography component="span" sx={{ color: "grey" }}>
+                    desclaimer
+                  </Typography>
+                </Box>
+                <LineChart
+                  optionsValues={chartOptions}
+                  dataValues={chartDataDetails}
+                  onClick={(val: any) => null}
+                />
+              </Grid>
 
-                  <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  >
-                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                      <RiskoMeter />
-                    </Grid>
-                    <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                      <LatestAssets
-                        holdingInfo={fundDetails?.holdinginfo}
-                      />
-                    </Grid>
-                  </Grid>
-                  </Box>
+              <FundTable
+                tableData={fundDetails?.performance}
+              />
+
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                  <MinInvest
+                    sipminamount={fundDetails?.sipminamount}
+                    lumpsumminamount={fundDetails?.lumpsumminamount}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                  <SchemeDoc
+                    openSchemeDocument={() => {
+                      const link = document.createElement('a');
+                      link.href = fundDetails?.schemedoc;
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                  <RiskoMeter
+                    holdingInfo={fundDetails?.holdinginfo}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                  <LatestAssets
+                    holdingInfo={fundDetails?.holdinginfo}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
       </Box>

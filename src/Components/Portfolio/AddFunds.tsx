@@ -157,7 +157,7 @@ const AddFunds = () => {
   );
   const g_explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist?.data);
 
-  const data: any[]  = useMemo(() => {
+  const data: any[] = useMemo(() => {
     return g_explorFundlist || [];
   }, [g_explorFundlist]);
 
@@ -230,15 +230,18 @@ const AddFunds = () => {
     });
 
     let fundListSelectedItem: number = mfCards.length && mfCards.filter(item => item.id === id)[0];
+    console.log(fundListSelectedItem)
 
     if (type === true) {
       if (isItemAlreadyPresent) {
         return;
       }
       arrFundSelecteds.push(fundListSelectedItem);
+      console.log(arrFundSelecteds)
     } else {
       arrFundSelecteds.splice(fundSelectedsIndex, 1);
     }
+
 
     // let arrSelectedFundList: any[] = [...fundList];
     // // arrSelectedFundList[]
@@ -537,7 +540,7 @@ const AddFunds = () => {
 
                   <AddToPlanComp
                     fundsCount={fundSelecteds.length}
-                    onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"}                  />
+                    onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
 
                 </>
                 : null
