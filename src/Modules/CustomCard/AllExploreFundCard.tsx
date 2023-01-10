@@ -2,7 +2,7 @@
 import { meria, Star } from '../../Assets'
 import { Box, styled } from '@mui/system'
 import { Avatar, Button, Chip, Grid, Icon, List, Modal, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Divider, } from '@mui/material';
 import { Close, ErrorOutline, InfoRounded, TaskAltOutlined, Warning } from '@mui/icons-material';
 import { warning } from '../../Assets/index'
@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface Prop {
-  secid:any,
+  secid: any,
 
   fundimage: any,
   fundname: string,
@@ -26,9 +26,10 @@ interface Prop {
   ratingoverall
   : string,
   box: boolean
+
 }
 
-function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5yr, categorygroup, fundimage, ratingoverall
+function AllExploreFundCard({ secid, fundname, aum, return1yr, return3yr, return5yr, categorygroup, fundimage, ratingoverall
   , category, box }: Prop) {
 
 
@@ -147,15 +148,45 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
   }
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
   const [exploreFundData, setExploreFundData] = useState<any>({});
+  const [fundCard, setFundCard] = useState<any>([]);
+  const [term, setTerm] = useState("");
   // const url = name.replace(/ /g, '')
   const navigate = useNavigate()
 
   // const explorFundlist: any = useSelector((state: any) => state.globalReducer?.explorefundlist);
   // console.log(explorFundlist)
 
-  const handleSelect =(id:any)=>{
-    navigate('/funddetails', {state:{secid: id, parentRoute:"/explorefunds"}})
+  const handleSelect = (id: any) => {
+    navigate('/funddetails', { state: { secid: id, parentRoute: "/explorefunds" } })
   }
+
+  let original: any = [];
+
+  const exFunction = () => {
+
+  }
+
+
+  const handleOnChange = (event: any) => {
+  
+    
+
+    let newArray = [...fundCard, event.target.value];
+    if (fundCard.includes(event.target.value)) {
+      newArray = newArray.filter(day => day !== event.target.value);
+    }
+    setFundCard(newArray);
+
+    // alert(event.target.id)
+    // setFundCard(celebs => [ ...celebs, ...event.target.value]);
+
+  }
+
+  useEffect(() => {
+    console.log(fundCard)
+  }, [fundCard])
+
+
 
 
 
@@ -202,7 +233,9 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
           </Box>
           <Box>
             <Checkbox
-              id="topping" name="topping"
+              value={secid}
+              onChange={handleOnChange}
+              id={secid} name="topping"
               {...label}
               defaultChecked={false}
               sx={{
@@ -213,8 +246,9 @@ function AllExploreFundCard({ secid,fundname, aum, return1yr, return3yr, return5
               }}
             />
           </Box>
+
         </Box>
-        
+
       </Box>
 
       <Modal open={openPaymentModal} onClose={() => setOpenPaymentModal(false)}>

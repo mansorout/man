@@ -1,29 +1,89 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Riskometer } from '../../Assets'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, animator } from "chart.js";
 
-export const RiskoMeter = () => {
+type IProps = {
+  holdingInfo: any
+}
+
+const chartOptions = {
+  plugins: {
+    legend: {
+      display: true,
+      position: 'bottom'
+    },
+    tooltip: {
+      enabled: false
+    }
+  },
+  layout: {
+    padding: {
+
+
+    }
+  },
+  rotation: -90,
+  circumference: 180,
+  cutout: "60%",
+  maintainAspectRatio: true,
+  responsive: true,
+}
+
+const enumChartMessages = {
+  LOW: "low",
+  MODERATELY_HIGH_RISK_FUND: "",
+}
+
+export const RiskoMeter = (props: IProps) => {
   Chart.register(ArcElement);
-  const data = {
-    type: 'doughnut',
-    datasets: [
-      {
-        data: [20, 20, 20, 20, 20],
-        backgroundColor: [
-          "#8ad400",
-          "#d2eb00",
-          "#ecb004",
-          "#ff7800",
-          "#ef0200"
-        ],
-        display: true,
-        spacing: 35,
-      }
-    ]
-  };
+
+  useEffect(() => {
+    console.log(props?.holdingInfo);
+  }, [props?.holdingInfo]);
+
+  const chartData: any = useMemo(() => {
+    return {
+      type: 'doughnut',
+      datasets: [
+        {
+          data: [20, 20, 20, 20, 20],
+          needleValue: 6,
+          backgroundColor: [
+            "#8ad400",
+            "#d2eb00",
+            "#ecb004",
+            "#ff7800",
+            "#ef0200"
+          ],
+          display: true,
+          spacing: 35,
+        }
+      ]
+    }
+  }, [props?.holdingInfo]);
+
+  // const data = {
+  //   type: 'doughnut',
+  //   datasets: [
+  //     {
+  //       data: [20, 20, 20, 20, 20],
+  //       needleValue: 6,
+  //       backgroundColor: [
+  //         "#8ad400",
+  //         "#d2eb00",
+  //         "#ecb004",
+  //         "#ff7800",
+  //         "#ef0200"
+  //       ],
+  //       display: true,
+  //       spacing: 35,
+  //     }
+  //   ]
+  // };
+
   return (
     <>
       <Box >
@@ -64,7 +124,7 @@ export const RiskoMeter = () => {
 
 
               <Doughnut
-                data={data}
+                data={chartData}
                 options={{
                   plugins: {
                     legend: {
@@ -89,7 +149,8 @@ export const RiskoMeter = () => {
                 }}
               />
               <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
-                This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk</span> fund
+                {/*  it should be dynamic according to api:::: below line*/}
+                This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk {enumChartMessages.MODERATELY_HIGH_RISK_FUND}</span> fund
               </Typography>
             </Box>
 
