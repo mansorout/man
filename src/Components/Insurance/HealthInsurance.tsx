@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, styled } from "@mui/system";
-import { Grid, Modal, Switch, Theme, Typography } from "@mui/material";
+import { FormHelperText, Grid, Modal, Switch, Theme, Typography } from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import {
@@ -34,12 +34,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import {
-    Breadcrumbs,
-    Link
- 
-  
-  } from "@mui/material";
+import { Breadcrumbs, Link } from "@mui/material";
 import { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -293,8 +288,11 @@ const HealthInsurance = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setInsuranceAmount(event.target.value as string);
-    console.log(event.target.value)
- 
+    console.log(event.target.value);
+    if(event.target.value !== ""){
+      setError(false)
+      setAmountErrorText("")
+    }
   };
 
   const selectFromQuickPick = (item: string) => {
@@ -392,20 +390,34 @@ const HealthInsurance = () => {
   ];
   const [checked, setChecked] = React.useState(false);
   const [showGotit, setShowGotit] = useState(false);
+
+  const [error, setError] = React.useState<boolean>(false);
+  const [amountErrorText, setAmountErrorText] = React.useState<any>("");
+
+
   const handleGotit = () => {
-    if(checked === true){
-      setShowGotit(true);
-    }else{
-      navigate("/healthInsurance/findInsurance")
-    }
     
+    if (checked === true) {
+      setShowGotit(true);
+    }  
+    if(insuranceAmount === ""){
+      setError(true)
+      setAmountErrorText("please enter valid input")
+     
+  }  else{
+    navigate("/healthInsurance/findInsurance")
+    
+  }
+
   };
- 
+
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+  };
+  console.log(checked);
+  const hanldeClickHealthSinput = () => {
     
   };
-  console.log(checked)
   return (
     <div
       style={{
@@ -437,22 +449,27 @@ const HealthInsurance = () => {
               xs={12}
             >
               <Box sx={{ paddingLeft: "30px" }}>
-
-              <Box role="presentation" sx={{ marginTop: "-1%" }}>
-              <Breadcrumbs aria-label="breadcrumb" >
-                <Link color="#6495ED" underline="always" href='Home' >
-                  <Typography className='burgerText'> Home</Typography>
-                </Link>
-                 <Link underline="always" href='/explorefunds'>
-                  <Typography color="#6495ED" className='burgerText'>Get Insured </Typography>
-                </Link>
-                <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                  <Typography color="#6495ED"  className='burgerText'>Health Insurance</Typography>
-                </Link>
-           
-             
-              </Breadcrumbs>
-            </Box>
+                <Box role="presentation" sx={{ marginTop: "-1%" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href="Home">
+                      <Typography className="burgerText"> Home</Typography>
+                    </Link>
+                    <Link underline="always" href="/explorefunds">
+                      <Typography color="#6495ED" className="burgerText">
+                        Get Insured{" "}
+                      </Typography> 
+                    </Link>
+                    <Link
+                      underline="none"
+                      color="#878782"
+                      sx={{ fontSize: "12px", width: "100%" }}
+                    >
+                      <Typography color="#6495ED" className="burgerText">
+                        Health Insurance
+                      </Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
                 <BannerSlider
                   sliderDetails={sliderDetails}
                   sliderSetting={settings}
@@ -489,9 +506,10 @@ const HealthInsurance = () => {
                             <span>No</span>
                             <span>
                               <Switch
-                               checked={checked}
-                               onChange={handleChecked}
-                              color="primary" />
+                                checked={checked}
+                                onChange={handleChecked}
+                                color="primary"
+                              />
                             </span>
                             <span>Yes</span>
                           </div>
@@ -508,6 +526,7 @@ const HealthInsurance = () => {
                           Term Insurance
                         </b>
                         <FormControl fullWidth>
+                          
                           <InputLabel id="demo-simple-select-label">
                             Term Insurance
                           </InputLabel>
@@ -517,12 +536,14 @@ const HealthInsurance = () => {
                             value={insuranceAmount}
                             label="insuranceAmount"
                             onChange={handleChange}
-                          >
+                            error={error}
+                           >
                             <MenuItem value={300000}>₹ 3,00,000</MenuItem>
                             <MenuItem value={500000}>₹ 5,00,000</MenuItem>
                             <MenuItem value={700000}>₹ 7,00,000</MenuItem>
                             <MenuItem value={1000000}>₹ 10,00,000</MenuItem>
                           </Select>
+                          <FormHelperText sx={{color:'red'}}>{amountErrorText}</FormHelperText>
                         </FormControl>
                         <Box sx={{ paddingTop: "20px" }}>
                           <span
@@ -610,6 +631,10 @@ const HealthInsurance = () => {
       <FooterWithBtn
         btnText="Continue"
         btnClick={handleGotit}
+       // onClick={onSubmit}
+
+        
+
         // btnClick={() => { navigate('/healthInsurance/findInsurance')}}
       />
       <ModalGotit open={showGotit} close={() => setShowGotit(false)} />
