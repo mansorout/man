@@ -14,7 +14,6 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 interface Prop {
   secid: any,
-
   fundimage: any,
   fundname: string,
   category: string,
@@ -23,129 +22,126 @@ interface Prop {
   return1yr: string,
   return3yr: string,
   return5yr: string,
-  ratingoverall
-  : string,
+  ratingoverall: string,
   box: boolean
+}
 
+
+const style = {
+  main: {
+    boxSizing: "border-box",
+    backgroundColor: "#f9f9f9",
+    height: "100vh"
+  } as React.CSSProperties,
+  drawer: {
+    zIndex: "500",
+    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)"
+  } as React.CSSProperties,
+  image: {
+    width: '176px',
+  } as React.CSSProperties,
+  profileContainer: {
+    borderRadius: "8px",
+    border: "solid 1px #4f46de",
+    backgroundColor: "#6c63ff",
+    padding: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "10px",
+    cursor: "pointer"
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  profile: {
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    border: "1px solid white"
+  },
+  profileInter: {
+    width: "40px",
+    height: "40px",
+    border: "solid 1px rgba(75, 123, 236, 0.49)",
+    borderRadius: "50%"
+  },
+  menuContainer: {
+    boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
+    boxSizing: "border-box",
+    padding: "10px",
+    backgroundColor: "white",
+    marginRight: "20px"
+  } as React.CSSProperties,
+  menuButton: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "10px 0px"
+  } as React.CSSProperties,
+  menuText: {
+    color: "black",
+    fontSize: "10px",
+    fontWeight: "500",
+    padding: "5px 10px",
+    borderRadius: "4px",
+    backgroundColor: "#ffc300",
+    cursor: "pointer"
+  },
+  menuText2: {
+    padding: "6px 12px",
+    borderRadius: "4px",
+    border: "solid 1px #23db7b",
+    backgroundColor: "rgba(35, 219, 123, 0.12)",
+    fontSize: "12px",
+    fontWeight: "500",
+    color: "#09b85d",
+    cursor: "pointer"
+  },
+  button: {
+    height: "48px",
+    borderRadius: "8px",
+    boxShadow: "none",
+    backgroundColor: "white",
+    textAlign: "left",
+    justifyContent: "flex-start",
+  } as React.CSSProperties,
+  menuIcon: {
+    color: "#6c63ff",
+    fontSize: "24px"
+  },
+  appBar: {
+    backgroundColor: "white",
+  },
+  logo: {
+    width: "50px",
+    padding: "20px 0px",
+  } as React.CSSProperties,
+  button2: {
+    height: "48px",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    width: "100%",
+    marginTop: "40px"
+  } as React.CSSProperties,
+  text: {
+    color: "white"
+  },
+  button3: {
+    height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    marginBottm: "10px",
+    width: "100%",
+    maxWidth: "400px",
+  } as React.CSSProperties,
 }
 
 function AllExploreFundCard({ secid, fundname, aum, return1yr, return3yr, return5yr, categorygroup, fundimage, ratingoverall
   , category, box }: Prop) {
 
-
-
-
-  const style = {
-    main: {
-      boxSizing: "border-box",
-      backgroundColor: "#f9f9f9",
-      height: "100vh"
-    } as React.CSSProperties,
-    drawer: {
-      zIndex: "500",
-      boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)"
-    } as React.CSSProperties,
-    image: {
-      width: '176px',
-    } as React.CSSProperties,
-    profileContainer: {
-      borderRadius: "8px",
-      border: "solid 1px #4f46de",
-      backgroundColor: "#6c63ff",
-      padding: "10px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: "10px",
-      cursor: "pointer"
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between"
-    },
-    profile: {
-      width: "20px",
-      height: "20px",
-      borderRadius: "50%",
-      border: "1px solid white"
-    },
-    profileInter: {
-      width: "40px",
-      height: "40px",
-      border: "solid 1px rgba(75, 123, 236, 0.49)",
-      borderRadius: "50%"
-    },
-    menuContainer: {
-      boxShadow: "0 10px 20px 0 rgba(0, 0, 0, 0.12)",
-      boxSizing: "border-box",
-      padding: "10px",
-      backgroundColor: "white",
-      marginRight: "20px"
-    } as React.CSSProperties,
-    menuButton: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      margin: "10px 0px"
-    } as React.CSSProperties,
-    menuText: {
-      color: "black",
-      fontSize: "10px",
-      fontWeight: "500",
-      padding: "5px 10px",
-      borderRadius: "4px",
-      backgroundColor: "#ffc300",
-      cursor: "pointer"
-    },
-    menuText2: {
-      padding: "6px 12px",
-      borderRadius: "4px",
-      border: "solid 1px #23db7b",
-      backgroundColor: "rgba(35, 219, 123, 0.12)",
-      fontSize: "12px",
-      fontWeight: "500",
-      color: "#09b85d",
-      cursor: "pointer"
-    },
-    button: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "none",
-      backgroundColor: "white",
-      textAlign: "left",
-      justifyContent: "flex-start",
-    } as React.CSSProperties,
-    menuIcon: {
-      color: "#6c63ff",
-      fontSize: "24px"
-    },
-    appBar: {
-      backgroundColor: "white",
-    },
-    logo: {
-      width: "50px",
-      padding: "20px 0px",
-    } as React.CSSProperties,
-    button2: {
-      height: "48px",
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-      backgroundColor: "#23db7b",
-      width: "100%",
-      marginTop: "40px"
-    } as React.CSSProperties,
-    text: {
-      color: "white"
-    },
-    button3: {
-      height: "48px",
-      boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-      backgroundColor: "#23db7b",
-      marginBottm: "10px",
-      width: "100%",
-      maxWidth: "400px",
-    } as React.CSSProperties,
-  }
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false)
   const [exploreFundData, setExploreFundData] = useState<any>({});
   const [fundCard, setFundCard] = useState<any>([]);
@@ -168,8 +164,8 @@ function AllExploreFundCard({ secid, fundname, aum, return1yr, return3yr, return
 
 
   const handleOnChange = (event: any) => {
-  
-    
+
+
 
     // let newArray = [...fundCard, event.target.value];
     // if (fundCard.includes(event.target.value)) {

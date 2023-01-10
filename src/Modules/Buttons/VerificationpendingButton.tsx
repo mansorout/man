@@ -19,10 +19,15 @@ export const VerificationpendingButton = () => {
       color: "black",
       fontSize: "12px",
       fontWeight: "500",
-      lineHeight: "2",
+      lineHeight: "22px",
       opacity: "0.74",
       textTransform: "capitalize",
-      transform: "translate(-66%, 12.1%)",
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignContent: "center",
+      justifyContent: "center",
+      alignItems: "flex-end",
     } as React.CSSProperties,
   };
   // color: "black",
@@ -45,20 +50,21 @@ export const VerificationpendingButton = () => {
       }}
       // className="KYCpendingStyleButton"
     >
-      <img
-        src={Checkcirclelogo}
-        width="24"
-        height="24"
-        alt="Google Logo"
-        style={{ marginLeft: "6px" }}
-      />
+      
 
       <Typography
         component="span"
         style={style.text_T}
-        className="verificationStyle"
+        sx={{fontSize:{sm:"12px"}}}
+        className="textFontKyc"
       >
-        KYC Verification is pending
+        <img
+        src={Checkcirclelogo}
+        width="24"
+        // height="24"
+        alt="Google Logo"
+      />
+        <span className="textKyc" style={{marginLeft:"20px"}}>KYC Verification is pending</span>
       </Typography>
       <img
         className="imgVarification"

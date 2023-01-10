@@ -29,25 +29,13 @@ import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, R
 import { globalConstant } from "../../Utils/globalConstant";
 
 export interface MFProp {
-  // id: number;
-  // logo: string;
-  // title: string;
-  // fundType: string;
-  // price: number;
-  // rating: number;
-  // morningStarLogo: boolean;
-  // oneYearReturn: number;
-  // threeYearReturn: number;
-  // fiveYearReturn: number;
-  // showButtons: boolean;
-  // showCheckbox: boolean;
-  // isMutualFundScreen: boolean;
   onClick?: (data: any, type: any, element: string) => void | undefined;
   isChecked?: boolean
 
   onCardClick?: (id: string) => void | undefined//from mutual fund screen
   onRemoveCardClick?: (recommendationfund_id: number, secid: string) => void | undefined //for removing card on click 
 
+  // API types
   recommendation_id: number,
   recommendationfund_id: number,
   recommendationtype_id: number,
@@ -61,7 +49,10 @@ export interface MFProp {
   ratingoverall: number;
   fundimage: string;
   secid: string;
-  returnytd: string
+  returnytd: string;
+
+
+  // feature wise propsTypes
   showButtons: boolean;
   showCheckbox: boolean;
   isMutualFundScreen: boolean;
@@ -176,7 +167,7 @@ const MutualFundCard2 = (props: MFProp) => {
             props?.isMutualFundScreen === true
               ? { xs: "unset", lg: "100%" }
               : "unset",
-              boxSizing: "border-box"
+          boxSizing: "border-box"
         }}
 
       >
@@ -256,9 +247,11 @@ const MutualFundCard2 = (props: MFProp) => {
           sx={{
             width: props?.showButtons === true ? { md: "min-content" } : "unset",
             display: "flex",
-            gap: props?.showButtons === true ? { xs: "30px", md: "10%", lg:"6%", '@media(max-width: 600px)': {
-              transform: 'translateX(0%)'
-          } } : "30px",
+            gap: props?.showButtons === true ? {
+              xs: "30px", md: "10%", lg: "6%", '@media(max-width: 600px)': {
+                transform: 'translateX(0%)'
+              }
+            } : "30px",
             justifyContent:
               props?.showButtons === true ? { xs: "unset", md: "center" } : "unset",
             flexWrap: "wrap",

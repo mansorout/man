@@ -800,7 +800,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -826,7 +826,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -855,7 +855,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -893,15 +893,15 @@ const EditprofileCard = () => {
                 }}>
                   <Grid item xs={12} >
                     <Box
-                      sx={{
-                        '& button': { m: 1 },
-                        textAlign: "left"
-                      }}
-                      className='wholedivbuttons'
+                      // sx={{
+                      //   '& button': { m: "3px 5px" },
+                      //   textAlign: "left"
+                      // }}
+                      // className='wholedivbuttons'
                     >
                       <Button
                         id={"male"}
-                        className="malestyle"
+                        className="icongenderredius"
                         name="gender"
                         onClick={() => {
                           setActiveGender(enumActiveGender.MALE);
@@ -926,17 +926,18 @@ const EditprofileCard = () => {
                           padding: "12px 14px"
                         }}
                       >
-                        <img
+                         <img
                           src={manicon}
                           alt="smallarrow Logo"
-                          style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "-3px" }}
+                          style={{ width: "24px", height: "24px", borderRadius: "12px",}}
                         />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Male</Typography>
+                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle"> 
+                       Male</Typography>
                       </Button>
                       <Button
                         name="gender"
                         value={"female"}
-                        className="femalestyle"
+                        className="icongenderredius"
                         onClick={() => {
                           setActiveGender(enumActiveGender.FEMALE);
                           setFormData({ ...formData, gender: enumActiveGender.FEMALE })
@@ -954,12 +955,12 @@ const EditprofileCard = () => {
                         size="medium"
                         sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}
                       >
-                        <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
+                         <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
+                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
                       </Button>
                       <Button
                         id={"transgender"}
-                        className="buttontransgender"
+                        className="icongenderredius"
                         name="gender" onClick={() => {
                           setActiveGender(enumActiveGender.TRANS);
                           setFormData({ ...formData, gender: enumActiveGender.TRANS })
@@ -972,8 +973,8 @@ const EditprofileCard = () => {
                           backgroundColor: `${activeGender === enumActiveGender.TRANS ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px"
                         }}
                         variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                        <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", marginLeft: "2px" }} />
-                        <Typography sx={{ marginLeft: "2px", color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Transgender</Typography>
+                        <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
+                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Transgender</Typography>
                       </Button>
                       {validateInputs?.gender ?
                         <Typography component='span' sx={{ color: "red" }}>
@@ -1023,7 +1024,7 @@ const EditprofileCard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="end">
-                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", left: "86%", cursor: "pointer" }} />
+                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", right: "1px", padding:"10px", width:"20px", background:"#fff", cursor: "pointer" }} />
                           </InputAdornment>),
                       }}>
                     </TextField>
@@ -1039,7 +1040,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1066,7 +1067,7 @@ const EditprofileCard = () => {
                       inputLabelSX={{
                         color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1122,7 +1123,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1148,7 +1149,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff",
                         // width: "100%"
                       }}

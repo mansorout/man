@@ -94,6 +94,7 @@ const ProgressBars = (props: IProps) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Box className="large-2">
       {
         progressData &&
         progressData.length &&
@@ -108,12 +109,14 @@ const ProgressBars = (props: IProps) => {
                   <Typography sx={{ alignItems: "right" }} className='percentageValue'>{item?.percentage}%</Typography>
                 </Grid>
               </Grid>
-              <ProgressBar completed={item?.percentage} isLabelVisible={false} height="8px"/>
+              <ProgressBar completed={item?.percentage} isLabelVisible={false} height="8px" />
               <br />
             </div>
           )
         })
       }
+      </Box>
+     
 
       <Grid container sx={{ padding: " 11px 78px" }} >
         <Grid xs={12}>
