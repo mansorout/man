@@ -457,7 +457,7 @@ const HealthInsurance = () => {
                     <Link underline="always" href="/explorefunds">
                       <Typography color="#6495ED" className="burgerText">
                         Get Insured{" "}
-                      </Typography>
+                      </Typography> 
                     </Link>
                     <Link
                       underline="none"
