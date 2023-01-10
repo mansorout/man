@@ -118,7 +118,14 @@
   background-color: #737272;
   border: 1px solid #000;
 }
+.icongenderredius{
+  margin: 3px 6px !important;
+}
 @media (max-width: 1200px){
+  .icongenderredius{
+    margin: 3px 5px !important;
+    padding: 12px 6px !important;
+  }
     .verificationStyle{
         transform: translate(-8%, 12.1%) !important;
     }
@@ -132,7 +139,9 @@
     }
 }
 @media (max-width: 768px) {
-    
+  .icongenderredius{
+    margin: 3px 5px !important;
+  }
     .btnGetStartedNow {
         max-width: 100% !important;
     }
@@ -181,6 +190,10 @@
 }
 
 @media screen and (max-width: 480px){
+  .icongenderredius{
+    margin: 3px 5px !important;
+    padding: 9px 7px !important;
+  }
     .tabSecBox{
         align-items: center !important;
     justify-content: space-between !important;
