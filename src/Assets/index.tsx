@@ -71,7 +71,7 @@ export const familyrestroomlogo = require("./Profile/familyrestroomlogo.png")
     export const iciclogoiclogo= require("./Profile/Logoic.png")
     export const iclogoplus= require("./Profile/IcplusCombo.png")
     export const thumb= require("./Profile/Thumb.png")
-
+    export const Needmore= require("./Profile/needmore.png")
     export const Locklogo=require("./Profile/locklogo.png")
     export const chequelogo=require("./Profile/Chequelogo.png")
     export const Checkcirclelogo = require("./Profile/checkcirclelogo-24px.png")

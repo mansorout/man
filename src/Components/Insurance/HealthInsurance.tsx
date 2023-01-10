@@ -390,10 +390,22 @@ const HealthInsurance = () => {
       btnText: "Get Insured",
     },
   ];
-  const handleGotit = () => {
-    setShowGotit(true);
-  };
+  const [checked, setChecked] = React.useState(false);
   const [showGotit, setShowGotit] = useState(false);
+  const handleGotit = () => {
+    if(checked === true){
+      setShowGotit(true);
+    }else{
+      navigate("/healthInsurance/findInsurance")
+    }
+    
+  };
+ 
+  const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    
+  };
+  console.log(checked)
   return (
     <div
       style={{
@@ -476,7 +488,10 @@ const HealthInsurance = () => {
                           <div style={{ width: "150px" }}>
                             <span>No</span>
                             <span>
-                              <Switch color="primary" />
+                              <Switch
+                               checked={checked}
+                               onChange={handleChecked}
+                              color="primary" />
                             </span>
                             <span>Yes</span>
                           </div>
