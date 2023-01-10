@@ -176,7 +176,7 @@ const AddFunds = () => {
 
     if (!g_explorFundlist) {
       // navigate(g_investment?.type === globalConstant?.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
-      let data: apiResponse = await getMasterFundListThunk();
+      let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST);
       if (checkExpirationOfToken(data?.code)) {
         dispatch(setTokenExpiredStatusAction(true));
         return;
