@@ -703,7 +703,7 @@ function ULIPFound() {
                             display: "flex",
                             gap: "8px",
                             alignItems: "center",
-                            flexDirection: "row",
+                            flexDirection: "row"
                           }}
                         >
                           <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
@@ -756,7 +756,7 @@ function ULIPFound() {
                             gap: "8px",
                             alignItems: "center",
                             flexDirection: "row",
-                            flexWrap:"wrap"
+                            
                           }}
                         >
                           <Grid
