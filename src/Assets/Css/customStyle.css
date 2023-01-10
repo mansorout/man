@@ -100,16 +100,20 @@
 .BoxStartInvest{
     padding: 10px 26px;
 }
+.large-2{
+  max-height: 400px;
+  height: 400px;
+  overflow-y: scroll;
+}
 .large-2::-webkit-scrollbar-track {
-  border: 1px solid #000;
+  border: 1px solid rgb(231, 228, 228);
   padding: 2px 0;
-  background-color: #404040;
+  /* background-color: #404040; */
 }
-.force-overflow {
-  min-height: 450px;
-}
+
 .large-2::-webkit-scrollbar {
   width: 10px;
+  display: block;
 }
 
 .large-2::-webkit-scrollbar-thumb {
