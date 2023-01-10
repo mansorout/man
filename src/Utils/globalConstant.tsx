@@ -8,9 +8,9 @@ export const globalConstant = Object.freeze({
     ERROR_OCCURRED: "Some error occurred!",
     RECOMMENDATIONS: "recommendations",
     MUTUAL_FUND: "Mutual Fund",
-    CEF_ADD_FUND:"",
-    CEF_REMOVE_FUND:"",
-    CEF_REPLACE_FUND:"",
+    CEF_ADD_FUND: "Add Funds",
+    CEF_EXPLORE_FUND: "Explore Funds",
+    CEF_REPLACE_FUND: "Replace Funds",
 })
 
 export const lookUpMasterKeys: any = Object.freeze({
