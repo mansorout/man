@@ -113,10 +113,11 @@ export const LatestAssets = (props: IProps) => {
                     activeTab={activeTab}
                   /> :
 
-                  <ProgressBars
-                    progressData={activeTabData}
-                    activeTab={activeTab}
-                  />
+                  // <ProgressBars
+                  //   progressData={activeTabData}
+                  //   activeTab={activeTab}
+                  // />
+                  "fgfgfg"
                 : null
             }
 

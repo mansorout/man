@@ -242,12 +242,12 @@ const ViewProfileCard = (props: IProps) => {
               <ListItemAvatar>
                 <Avatar alt="" src={GrouMobilecicon} style={style.ca} />
               </ListItemAvatar>
-              <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+              <Typography sx={{fontSize: "13px", color:formData.mobilenumber || ""?"#7b7b9d":"#3c3e42"}}
                className="CommonStyle__Class"
               >
                 Mobile Number
                 {
-                  <Typography sx={{ fontSize: "14px" }}>
+                  <Typography sx={{ fontSize: "14px", color:"#3c3e42" }}>
                     {formData?.mobilenumber || ""}
                   </Typography>
                 }
@@ -258,13 +258,13 @@ const ViewProfileCard = (props: IProps) => {
               <ListItemAvatar>
                 <Avatar alt="" src={emaillogo} style={style.ca} />{" "}
               </ListItemAvatar>
-              <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+              <Typography sx={{ fontSize: "13px", color:formData.emailaddress || ""?"#7b7b9d":"#3c3e42" }}
                className="CommonStyle__Class"
               >
                 Email Address
                 {
                   // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                  <Typography sx={{ fontSize: "14px" }}>
+                  <Typography sx={{ fontSize: "14px", color:"#3c3e42" }}>
                     {formData?.emailaddress || ""}
                   </Typography>
                 }
@@ -276,7 +276,7 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+                  <Typography sx={{ fontSize: "14px", color:formData.dateofbirth || ""?"#7b7b9d":"#3c3e42" }}
                   // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
@@ -284,7 +284,7 @@ const ViewProfileCard = (props: IProps) => {
                 }
                 secondary={
                   userData?.formData?.dateofbirth !== "" ? (
-                    <Typography sx={{ fontSize: "14px" }}>
+                    <Typography sx={{ fontSize: "14px" , color:"#3c3e42" }}>
                       {" "}
                       {formData?.dateofbirth || ""}
                     </Typography>
@@ -306,7 +306,7 @@ const ViewProfileCard = (props: IProps) => {
                 primary="Gender"
                 // secondary={g_viewProfileState?.userdetails?.gender !== "" ? g_viewProfileState?.userdetails?.gender : ""}
                 secondary={formData?.gender || ""}
-                sx={{ marginLeft: "20px", color: "#3c3e42" }}
+                sx={{ marginLeft: "20px", fontSize:"13px", color:formData.gender || ""?"#7b7b9d":"#3c3e42" }}
               />
             </ListItem>
 
@@ -315,7 +315,7 @@ const ViewProfileCard = (props: IProps) => {
                 <Avatar alt="" src={icbirthplacelogo} style={style.ca} />
               </ListItemAvatar>
 
-              <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+              <Typography sx={{ fontSize: "13px", color:formData.placeofbirth?"#7b7b9d":"#3c3e42" }}
                 // className="CommonStyle__Class"
               >
                 Place of Birth
@@ -323,7 +323,7 @@ const ViewProfileCard = (props: IProps) => {
                   g_viewProfileState?.userdetails?.placeofbirth !== "" ?
                     <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
                   } */}
-                <Typography sx={{ fontSize: "14px" }}>
+                <Typography sx={{ fontSize: "14px" , color: "#3c3e42" }}>
                   {formData?.placeofbirth}
                 </Typography>
               </Typography>
@@ -335,11 +335,11 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}
+                  <Typography sx={{ fontSize: "13px", color:formData.addressline1?"#7b7b9d":"#3c3e42"}}
                   className="CommonStyle__Class"
                   >
                     Communication Address
-                    <Typography sx={{ fontSize: "14px" }}>
+                    <Typography sx={{ fontSize: "14px",  color: "#3c3e42"  }}>
                       {formData?.addressline1}
                     </Typography>
                     {/* {
@@ -357,11 +357,11 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "14px" }}
+                  <Typography sx={{ fontSize: "13px", color:formData.incomeslab?"#7b7b9d":"#3c3e42" }}
                   className="CommonStyle__Class"
                   >
                     Income slab
-                    <Typography sx={{ fontSize: "14px" }}>
+                    <Typography sx={{ fontSize: "14px" , color:"#3c3e42" }}>
                       {formData?.incomeslab}
                     </Typography>
                     {/* {
