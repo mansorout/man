@@ -52,24 +52,26 @@ const ModalGotit = (props: any) => {
           <Grid container>
             <Grid item xs={12} md={12} textAlign="center">
               <Box
-                sx={{ backgroundColor: "var(--marigold)" }}
+                sx={{    my:"10px", }}
                 textAlign="center"
+                
+             
               >
-                <div style={{ paddingTop: "7%", }}>
+              
                   <img
                     src={iciclogoiclogo}
                     alt="sprint-money"
                     style={{
-                      width: "95.8px",
-                      height: "95.8px",
-                      borderRadius: "50%", border: "px solid  #ffc300", backgroundColor: "var(--marigold)"
+                      width: "98px",
+                      height: "98px",
+                      borderRadius: "50%",  backgroundColor: "hsl(39deg 97% 49% / 20%)"
                    
                     
                     }}
                   />
-                </div>
+              
               </Box>
-              <Box sx={{}}>
+              <Box sx={{my:"20px"}}>
                 <Typography sx={{ fontSize: " 14px" }}>
                   As you already have your base plan,
                 </Typography>

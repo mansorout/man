@@ -174,8 +174,9 @@ const MutualFundCard2 = (props: MFProp) => {
           padding: "10px 20px",
           width:
             props?.isMutualFundScreen === true
-              ? { xs: "unset", lg: "100vh" }
+              ? { xs: "unset", lg: "100%" }
               : "unset",
+              boxSizing: "border-box"
         }}
 
       >
@@ -255,7 +256,9 @@ const MutualFundCard2 = (props: MFProp) => {
           sx={{
             width: props?.showButtons === true ? { md: "min-content" } : "unset",
             display: "flex",
-            gap: props?.showButtons === true ? { xs: "30px", md: "8%" } : "30px",
+            gap: props?.showButtons === true ? { xs: "30px", md: "10%", lg:"6%", '@media(max-width: 600px)': {
+              transform: 'translateX(0%)'
+          } } : "30px",
             justifyContent:
               props?.showButtons === true ? { xs: "unset", md: "center" } : "unset",
             flexWrap: "wrap",

@@ -34,6 +34,7 @@ import {
 } from "../../Store/Duck/ULIPCompare";
 import { useNavigate } from "react-router-dom";
 import * as React from "react";
+import NeedMoreTime from "../../Components/Insurance/NeedMoreTime";
 
 
 interface Prop {
@@ -168,7 +169,7 @@ function ULIPCard({
   };
 
   const dispatch: any = useDispatch();
-
+const [showneedTime,setShowneedTime] =  React.useState<boolean>(false);
   const [optSelected, setOptSelected] = React.useState<boolean>(false);
 
   const handleOptChange = () => {
@@ -186,6 +187,8 @@ function ULIPCard({
   console.log(ULIPId);
 
   const handleCompare = () => {
+   
+
     if (ULIPId.length > 1) {
       navigate("/healthInsurance/compareULIP");
     }
@@ -195,6 +198,13 @@ function ULIPCard({
       navigate("/healthInsurance/knowMore");
     }
   };
+  const [showNeedModal, setShowNeedModal] = React.useState(false);
+  
+  const handleClickKnowmore=()=>{
+    // setShowNeedModal(true)
+    navigate("/healthInsurance/knowMore")
+
+  }
 
   return (
     <>
@@ -304,6 +314,7 @@ function ULIPCard({
                 COMPARE
               </Typography>
             </Box>
+            <NeedMoreTime open={showneedTime}/>
             <Box
               style={{
                 cursor: "pointer",
@@ -315,15 +326,17 @@ function ULIPCard({
                 alignItems: "center",
                 gap: "5px",
               }}
+              onClick={handleClickKnowmore}
             >
               <HelpOutline style={{ color: `#09b85d`, fontSize: "14px" }} />
               <Typography
-                onClick={handleKnowMore}
+             
                 style={{ color: `#09b85d`, fontSize: "12px" }}
               >
                 KNOW MORE
               </Typography>
             </Box>
+            <NeedMoreTime open={showNeedModal} close={() => setShowNeedModal(false)} />
           </Box>
         </Box>
         <FormControlLabel

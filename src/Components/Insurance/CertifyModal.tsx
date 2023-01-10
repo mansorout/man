@@ -106,7 +106,10 @@ const CertifyModal = (props: any) => {
               <Box>
                 <Grid container>
                   <Grid item xs={1} md={1} sx={{ marginTop: "10px" }}>
-                    <Box>
+                    <Box sx={{
+                            marginLeft: "-22%",
+                            marginTop: "-3px",
+                       }}>
                       <Checkbox
                         id="topping"
                         name="topping"
@@ -116,6 +119,7 @@ const CertifyModal = (props: any) => {
                           color: "#3D70B2"[800],
                           "&.Mui-checked": {
                             color: "#09b85d",
+                           
                           },
                         }}
                       />

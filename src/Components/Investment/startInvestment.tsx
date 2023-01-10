@@ -540,7 +540,7 @@ const useStyles = makeStyles((theme: any) => (
       borderRadius: "8px",
       boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
       backgroundColor: "#23db7b",
-      margin: "15px",
+      // margin: "15px",
       width: "90%",
       maxWidth: "280px",
     },

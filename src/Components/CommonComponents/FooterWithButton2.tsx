@@ -10,6 +10,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        boxShadow: "0 0 6px 0 rgb(0 0 0 / 16%) !important",
     },
     premiumAmountFooter: {
         backgroundColor: 'var(--uiWhite)',
@@ -20,9 +21,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         position: 'fixed',
         bottom: '0px',
         right: '0px',
-        left: '0px',
-        '@media(min-width: 900px)': {
-            left: 'calc(0px + 245px)'
+        left: '0px !important',
+        transform:" translateX(7%)",
+        '@media(max-width: 600px)': {
+            transform: 'translateX(0%)'
         }
     },
     premiumAmountBox: {
@@ -66,17 +68,11 @@ const FooterWithButton2 = (props: FooterBtnWithBoxType) => {
         <Box sx={{
             position: 'relative',
             zIndex: '1',
-            marginTop: '150px',
+            // marginTop: '150px',
+            
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
                 <Button type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}>{props.btnText}</Button>
-                {/* <Box className={classes.premiumAmountBox} sx={{ width: { xs: '80%', sm: '35%' } }}>
-                <div className={classes.insuranceCardIcon}>
-                    {props.boxIcon}
-                </div>
-                <b style={{ fontSize: 'var(--titleFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>{props.boxText}</b>
-                <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', }}>{props.boxAmount}</b>
-            </Box> */}
             </div>
         </Box>
     )

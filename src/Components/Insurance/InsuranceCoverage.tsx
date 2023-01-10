@@ -76,6 +76,7 @@ export default function InsuranceCoverage() {
                     </Box>
 
                 </AccordionSummary>
+                
                 <AccordionDetails>
                     <div>
                         <p style={{ fontWeight: 500, fontSize: '14px' }} >COVERED</p>
