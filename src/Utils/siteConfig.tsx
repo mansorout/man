@@ -33,8 +33,9 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
   AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
+  AUTHENTICATION_METAUPLOAD_IMAGE : "/metadata/upload/image/",
 
-  //Metadata
+  // //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
   METADATA_MODULE_DEFAULTS_LIST: '/metadata/module/defaults/list',
