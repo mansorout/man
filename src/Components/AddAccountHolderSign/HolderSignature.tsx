@@ -302,7 +302,7 @@ function HolderSignature() {
 
         <>
             {
-                getSignature ? <Box style={{ width: "92%"}} ref={refContainer}>
+                getSignature ? <Box style={{ width: "100%"}} ref={refContainer}>
                     <Navbar />
                     <Box sx={style.main}>
                         <Grid container spacing={0} >
@@ -311,14 +311,16 @@ function HolderSignature() {
                                 <Sidebar />
 
                             </Grid>
-                            <Grid container >
-                                {/* flexDirection: "column", paddingTop: "55px"  */}
-                                {/* sx={{ display: "flex", }} */}
-                                <Grid md={2}>
-
-                                </Grid>
-                                <Grid md={10}>
-                                    <Breadcrumbs aria-label="breadcrumb" sx={{ mb: "10px", padding: "20px 0px 0px 30px" }}>
+                            <Grid sx={{
+              height: "100vh",
+              overflow: "scroll",
+              width: "100%",
+              display: "block",
+              justifyContent: "center",
+            }} item xs={12} sm={11} md={10}>
+                                <Toolbar />
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                                    <Breadcrumbs aria-label="breadcrumb">
 
                                         <Link color="#6495ED" underline="always" href="/home">
                                             <Typography className='burgerText'> Home</Typography>
@@ -340,14 +342,16 @@ function HolderSignature() {
                                             <Typography className='burgerText'>Account Holder Signature</Typography>
                                         </Link>
                                     </Breadcrumbs>
+                                    </Box>
+                                    <Box className="BoxPadding">
                                     <Typography sx={{
-                                        paddingLeft: " 30px",
-                                        width: "92%"
+                                        // paddingLeft: " 30px",
+                                        width: "100%"
                                     }}>
                                         Your Signature in Record
                                     </Typography>
                                     <Box sx={{ padding: "6px 0px 0px 27px" }}> <img src={getSignature} className="getApiimg" /> </Box>
-                                </Grid>
+                                    </Box>
                             </Grid>
 
                         </Grid>
@@ -357,14 +361,9 @@ function HolderSignature() {
                         <Navbar />
                         <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
                         <Box sx={style.main}>
-
-
-
-
                             <Grid
                                 container
                                 spacing={0}
-                                // sx={{ height: "100vh" }}
                             >
 
                                 <Grid
@@ -382,7 +381,7 @@ function HolderSignature() {
                                     sm={11}
                                     md={10}
                                 >
-                                    <Grid sx={{ padding: 2 }} item xs={12}>
+                                    <Grid sx={{ padding:"20px" }} item xs={12}>
                                         <Toolbar />
                                         <Box sx={{ mb: "10px" }} className="checkHeadingStack">
                                             <Typography

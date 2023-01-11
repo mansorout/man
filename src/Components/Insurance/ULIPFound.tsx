@@ -24,7 +24,13 @@ import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import { ULIPList } from "../../Modal/ULIP";
 import ULIPCard from "../../Modules/CustomCard/ULIPCard";
-import { Done, FilterAltOutlined, SearchOutlined } from "@mui/icons-material";
+import {
+  Compare,
+  Done,
+  FilterAltOutlined,
+  HelpOutline,
+  SearchOutlined,
+} from "@mui/icons-material";
 import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 import HealthFilter from "./HealthFilter";
 import AllTrancationCard from "../../Modules/CustomCard/AllTransactionCard";
@@ -56,7 +62,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }));
 
 function ULIPFound() {
- 
   const style = {
     main: {
       boxSizing: "border-box",
@@ -217,8 +222,6 @@ function ULIPFound() {
     setShowGotit(true);
   };
 
-
- 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -473,13 +476,48 @@ function ULIPFound() {
                     </div>
                   </Grid>
                   <Grid xs={3} md={3}>
-                    <Box sx={{ marginTop: { xs: "-3rem", sm: "1rem" } }}>
-                      <b style={{ color: "white", backgroundColor: "#6c63ff" }}>
-                        ₹13,008 P.A
-                      </b>
-                      <b style={{ color: "#7b7b9d", marginLeft: "3%" }}>
-                        ₹1,199 p.m
-                      </b>
+                    <Box style={{ textAlign: "right" }}>
+                      <Box
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "15px",
+                          paddingLeft: "15%",
+                        }}
+                      >
+                        <Box
+                          style={{
+                            padding: "4px 8px",
+                            backgroundColor: "#d6d5ef",
+                            borderRadius: "2px",
+                          }}
+                        >
+                          <Typography
+                            style={{
+                              color: "#6c63ff",
+                              fontSize: "14px",
+                              fontWeight: "500",
+                            }}
+                          >
+                            <b>₹13,008 P.A</b>
+                          </Typography>
+                        </Box>
+                        <Typography
+                          style={{ color: "#7b7b9d", fontSize: "14px" }}
+                        >
+                          ₹1,199 P.M.
+                        </Typography>
+                      </Box>
+                      <Box
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "15px",
+                          marginTop: "15px",
+                        }}
+                      >
+                        <NeedMoreTime />
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
@@ -566,108 +604,45 @@ function ULIPFound() {
                       HDFC ERGO - Silver Plan for Family
                     </b>
                   </Box>
-                  {/* <CardHeader
-                  sx={{color:"#3c3e42",fontSize:"16px",fontWeight:"500"}}
-                    avatar={
-                      <Avatar
-                        className="Gender_Logo_Style"
-                        alt=""
-                        src={hdfcErgo}
-                        style={style.ca}
-                        sx={{ marginLeft: "25px" }}
-                      />
-                    }
-                    action={
-                  <div style={{marginLeft:"-3%",marginTop:"4%"}}>
-                         <Box
-                      sx={{
-                        width: "281px",
-                        height: "113px",
-                        position:" relative",
-                        top:" 0%",
-                        left:" 0%",
-                        transform:" translate(-3px  103px)",
-                        textAlign: "center",
-                        
-                        // padding:"20px 56px 1px",
-                        opacity: "0.7",
-                        borderRadius: "8px",
-                        backgroundColor: "#ebfaff",
-                    
-                    
-                        
-                      }}
-                    >
-                      <Box sx={{ paddingLeft: "10%", paddingTop: "5%" }}>
-                
-                        <Box textAlign="left">
-                          <b style={{ color: "#544ec8", fontSize: "12px" }}>
-                          Base Plan
-                          </b>
-                        </Box>
-                        <Box textAlign="left">
-                          <b style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                          Sum Insured                          </b>
-                        </Box>
-                        <Box textAlign="left">
-                          <b style={{ fontSize: "14px" }}>
-                            ₹5 Lacs
-                          </b>
-                        </Box>
-                    
-                     
-                      </Box>
-                      <img
-                        src={iclogoplus}
-                        alt="Sprint__money"
-                        style={{ transform: "translate(0px,-29px)" }}
-                      />
-                      <Box sx={{ marginTop: "-28%", paddingRight: "8%" }}>
-                        <Box textAlign="right">
-                          <b style={{ color: "#544ec8", fontSize: "12px" }}>
-                          Super Top-up Plan
-                          </b>
-                        </Box>
-                        <Box textAlign="right">
-                          <b style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                          Sum Insured  
-                          </b>
-                        </Box>
-                        <Box textAlign="right">
-                          <b style={{  fontSize: "14px" }}>
-                            ₹10 Lacs
-                          </b>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </div>
-                 
-                   
-                    }
-                    title="HDFC ERGO - Silver Plan for Family"
-                    subheader="You're saving ₹2,500 from a regular plan"
-                  /> */}
+
                   <div style={{ marginTop: "-2%", marginLeft: "3%" }}>
                     <Grid container spacing={1} sx={{ paddingLeft: "7%" }}>
                       <Grid item xs={2} md={2}>
-                        <div
+                        <Box
                           style={{
                             display: "flex",
-                            gap: "8px",
+                            gap: "10px",
                             alignItems: "center",
-                            flexDirection: "row",
                           }}
                         >
                           <Done
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
                           />
-                          <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
+                          <Typography
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          >
                             Renewal Bonus : 50%
-                          </p>
-                        </div>
+                          </Typography>
+                        </Box>
+                        <Box
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Done
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          />
+                          <Typography
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          >
+                            Coverage for Covid-19 : Yes
+                          </Typography>
+                        </Box>
                       </Grid>
                       <Grid item xs={10} md={10}>
-                        <div
+                        {/* <div
                           style={{
                             display: "flex",
                             gap: "8px",
@@ -681,7 +656,40 @@ function ULIPFound() {
                           <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
                             Cashless Hospitals : 125
                           </p>
-                        </div>
+                        </div> */}
+
+                        <Box
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Done
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          />
+                          <Typography
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          >
+                            Cashless Hospitals : 125
+                          </Typography>
+                        </Box>
+                        <Box
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Done
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          />
+                          <Typography
+                            style={{ color: "#7b7b9d", fontSize: "14px" }}
+                          >
+                            Organ Donor Expenses : Available
+                          </Typography>
+                        </Box>
                       </Grid>
                     </Grid>
                     <Grid
@@ -695,18 +703,10 @@ function ULIPFound() {
                             display: "flex",
                             gap: "8px",
                             alignItems: "center",
-                            flexDirection: "row",
+                            flexDirection: "row"
                           }}
                         >
-                          <Done
-                            style={{
-                              color: "#7b7b9d",
-                              fontSize: "14px",
-                              marginTop: "-45%",
-                            }}
-                          />
                           <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                            Coverage for Covid-19 : Yes
                             <Box sx={{ marginTop: "-40%" }}>
                               <Grid
                                 container
@@ -723,7 +723,6 @@ function ULIPFound() {
                                       backgroundColor: "#e3f6eb",
                                       marginTop: "-5%",
                                     }}
-                                  
                                   >
                                     {" "}
                                     <HelpOutlineIcon
@@ -740,12 +739,10 @@ function ULIPFound() {
                                         marginLeft: "5px",
                                         marginTop: "1.45px",
                                       }}
-                                   
                                     >
                                       KNOW MORE
                                     </Typography>
                                   </Button>
-                                
                                 </Grid>
                               </Grid>
                             </Box>
@@ -759,29 +756,22 @@ function ULIPFound() {
                             gap: "8px",
                             alignItems: "center",
                             flexDirection: "row",
+                            
                           }}
                         >
-                          <Done
-                            style={{ color: "#7b7b9d", fontSize: "14px" }}
-                          />
-                          <p style={{ color: "#7b7b9d", fontSize: "12px" }}>
-                            Organ Donor Expenses : Available
-                          </p>
-
                           <Grid
                             container
                             sx={{ paddingLeft: "50%", marginTop: "-5%" }}
                           >
                             <Grid item xs={12} md={12} textAlign="right">
-                              <div style={{}}>
+                              <div
+                                style={{ marginLeft: "25%", marginTop: "-5%" }}
+                              >
                                 <Box
                                   sx={{
                                     width: "281px",
                                     height: "113px",
-                                    position: " relative",
-                                    top: " 0%",
-                                    left: " 0%",
-                                    transform: " translate(-3px  103px)",
+
                                     textAlign: "center",
 
                                     // padding:"20px 56px 1px",

@@ -10,11 +10,12 @@ export const invThunk = () => null
 
 //Mutual Fund
 
-export const setGenerateMutualFundWrtUserInputThunk = async (siteUrl: any)=>{
+export const setGenerateMutualFundWrtUserInputThunk = async (objBody: any)=>{
   let res: any;
-  const {investmenttype_id, amount} = siteUrl
+  // const {investmenttype_id, amount} = siteUrl
   await postData(
-    {investmenttype_id : investmenttype_id, amount: amount} ,
+    // {investmenttype_id : investmenttype_id, amount: amount} ,
+    objBody,
     siteConfig.RECOMMENDATION_SAVETAX_GENERATE,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
@@ -50,11 +51,11 @@ export const getMutualFundListWrtUserAmountThunk = async (amount: number, id: nu
 }
 
 
-export const setAddMutualFundThunk = async (siteUrl:any) => {
+export const setAddMutualFundThunk = async (objBody:any) => {
   let res: any;
-  const {recommendation_id, secid, amount } = siteUrl
+  
   await postData(
-    {recommendation_id: recommendation_id, secid : secid, amount : amount },
+    objBody,
     siteConfig.RECOMMENDATION_MUTUALFUND_ADD,
     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
     siteConfig.RECOMENDATION_API_ID
@@ -70,11 +71,11 @@ export const setAddMutualFundThunk = async (siteUrl:any) => {
   return res;
 }
 
-export const setUpdateMutualFundThunk = async (siteUrl:any) => {
+export const setUpdateMutualFundThunk = async (objBody:any) => {
   let res: any;
-  const {recommendationfund_id  } = siteUrl
+  
   await postData(
-    {recommendationfund_id : recommendationfund_id},
+    objBody,
     siteConfig.RECOMMENDATION_MUTUALFUND_UPDATE,
     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
     siteConfig.RECOMENDATION_API_ID
@@ -109,10 +110,10 @@ export const getMasterFundListThunk = async (strUrl: string) => {
   return res;
 }
 
-export const getPercentageReturnOfFundThunk = async (siteUrl: any)=> {
+export const getPercentageReturnOfFundThunk = async (strUrl: any)=> {
   let res : any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -126,10 +127,10 @@ export const getPercentageReturnOfFundThunk = async (siteUrl: any)=> {
   })
   return res
 }
-export const getDetailOfFundThunk = async (siteUrl: any)=> {
+export const getDetailOfFundThunk = async (strUrl: any)=> {
   let res : any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -162,10 +163,10 @@ export const getListOfMutualFundProviderCoThunk = async ()=> {
   return res
 }
 
-export const getNAVOfMutualFundThunk = async (siteUrl: any)=> {
+export const getNAVOfMutualFundThunk = async (strUrl: any)=> {
   let res : any;
   await getDataWithoutToken(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -179,10 +180,10 @@ export const getNAVOfMutualFundThunk = async (siteUrl: any)=> {
   })
   return res
 }
-export const getComparisonBetweenMutualFundThunkAndUlip = async (siteUrl: any)=> {
+export const getComparisonBetweenMutualFundThunkAndUlip = async (strUrl: any)=> {
   let res : any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -219,11 +220,11 @@ export const getCategoryGroupListThunk = async () => {
 //new
 
 // saveTax
-export const setSavetaxGenerateThunk = async (siteUrl: any)=>{
+export const setSavetaxGenerateThunk = async (objBody: any)=>{
   let res: any;
-  const {investmenttype_id, amount} = siteUrl
+  
   await postData(
-    {investmenttype_id : investmenttype_id, amount: amount} ,
+    objBody,
     siteConfig.RECOMMENDATION_SAVETAX_GENERATE,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
@@ -238,10 +239,10 @@ export const setSavetaxGenerateThunk = async (siteUrl: any)=>{
   return res
 }
 
-export const getSavetaxListThunk = async (siteUrl:any) => {
+export const getSavetaxListThunk = async (strUrl:any) => {
   let res: any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -277,10 +278,10 @@ export const setHealthGenerateThunk = async (objBody:any) => {
   return res;
 }
 
-export const getHealthListThunk = async (siteUrl:any) => {
+export const getHealthListThunk = async (strUrl:any) => {
   let res: any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -334,10 +335,10 @@ export const setGenerateUlipRecomendationsThunk = async (objBody:any) => {
   return res;
 }
 
-export const getUlipListThunk = async (siteUrl:any) => {
+export const getUlipListThunk = async (strUrl:any) => {
   let res: any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )
@@ -373,10 +374,10 @@ export const setGenerateTermRecomendationsThunk = async (objBody:any) => {
   return res;
 }
 
-export const getTermListThunk =  async (siteUrl:any)=>{
+export const getTermListThunk =  async (strUrl:any)=>{
   let res : any;
   await getData(
-    siteUrl,
+    strUrl,
     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.RECOMENDATION_API_ID
   )

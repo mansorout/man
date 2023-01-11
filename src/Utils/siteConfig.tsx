@@ -60,8 +60,6 @@ const siteConfig = Object.freeze({
   METADATA_FAMILYRELATION_LIST: "/metadata/familyrelation/list", //new
   METADATA_SUPPORT_REQUEST_ADD: "metadata/support/request/add", //new
 
-
-
   //Savtax
   SAVETAX_COMPARISON: "/savetax/comparison",
   SAVETAX_CALCULATE: "/savetax/calculate",
@@ -111,7 +109,9 @@ const siteConfig = Object.freeze({
   INSURANCE_PORTFOLIO_LIST: "/insurance/portfolio/list",
 
 
+  // Payments
 
+    
 
 
 
