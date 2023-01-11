@@ -43,7 +43,7 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_MEMBER_ADD: "/authentication/member/add",//new
   AUTHENTICATION_MEMBER_LIST: "/authentication/member/list",//new
   AUTHENTICATION_MEMBER_UPDATE: "/authentication/member/update",//new
-
+  AUTHENTICATION_METAUPLOAD_IMAGE: "/metadata/upload/image/", //new
   // //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",

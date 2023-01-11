@@ -35,6 +35,7 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
+import { apiResponse } from "../../Utils/globalTypes";
 
 const style = {
   containertwo: {
@@ -130,7 +131,7 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   const ImageData = {
     filename: "kk",
-    image: imgSrc,
+    image:"wwww.png",
     module: "profile",
   };
   console.log(imgSrc)
@@ -180,7 +181,8 @@ const ViewProfileCard = (props: IProps) => {
 
  
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+   
     
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
@@ -189,29 +191,93 @@ const ViewProfileCard = (props: IProps) => {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
+   let res : apiResponse = await setuploadimagethunk(ImageData)
+  console.log(res);
+    // @ts-ignore
+  handleApiResponse(res, [setImgSrc]);
+}
 
 
-    postData(
-      ImageData,
-      siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatchLocal(setTokenExpiredStatusAction(true));
-          return;
-        }
 
-        if (data?.error) {
+  
+const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+  alert("hhhh")
+  if (checkExpirationOfToken(res?.code)) {
+    dispatch(setTokenExpiredStatusAction(true));
+    return;
+  }
+
+  if (res?.error === true) {
+    return;
+  }
+
+  arrFunc.forEach((item: void) => {
+    // @ts-ignore
+    if (res?.data) item(res?.data);
+  })
+
+}
+
+
+
+
+ 
+  //   await postData(
+  //     ImageData,
+  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+  //     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+  //     siteConfig.RECOMENDATION_API_ID
+  //   )
+  //     .then(res => res.json())
+  //     .then((data: any) => {
+  //       res = data;
+  //     }).catch(err => {
+  //       console.log(err)
+  //       return undefined;
+  //     })
+  
+  //   return res;
+  // }
+  
+  // export const setUpdateMutualFundThunk = async (objBody:any) => {
+  //   let res: any;
+    
+  //   await postData(
+  //     objBody,
+  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+  //     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+  //     siteConfig.RECOMENDATION_API_ID
+  //   )
+  //     .then(res => res.json())
+  //     .then((data: any) => {
+  //       res = data;
+  //     }).catch(err => {
+  //       console.log(err)
+  //       return undefined;
+  //     })
+  
+  //   return res;
+  //   postData(
+  //     ImageData,
+  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+  //     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+  //     siteConfig.AUTHENTICATION_API_ID
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (checkExpirationOfToken(data?.code)) {
+  //         dispatchLocal(setTokenExpiredStatusAction(true));
+  //         return;
+  //       }
+
+  //       if (data?.error) {
         
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <>
@@ -450,3 +516,11 @@ const ViewProfileCard = (props: IProps) => {
 };
 
 export default ViewProfileCard;
+  function setuploadimagethunk(ImageData: { filename: string; image: string; module: string; }): any {
+    throw new Error("Function not implemented.");
+  }
+
+  function dispatch(arg0: { type: string; payload: any; }) {
+    throw new Error("Function not implemented.");
+  }
+
