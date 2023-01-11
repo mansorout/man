@@ -35,6 +35,8 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
+import { apiResponse } from "../../Utils/globalTypes";
+import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
 
 const style = {
   containertwo: {
@@ -178,10 +180,10 @@ const ViewProfileCard = (props: IProps) => {
   }, [props?.userDetails]);
   // }, [g_viewProfileState])
 
- 
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
+
+  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () =>
@@ -190,7 +192,7 @@ const ViewProfileCard = (props: IProps) => {
       reader.readAsDataURL(e.target.files[0]);
     }
 
-
+   
     // postData(
     //   ImageData,
     //   siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
@@ -205,7 +207,7 @@ const ViewProfileCard = (props: IProps) => {
     //     }
 
     //     if (data?.error) {
-        
+
     //     }
     //   })
     //   .catch((err) => {
@@ -213,6 +215,7 @@ const ViewProfileCard = (props: IProps) => {
     //   });
   };
 
+ 
   return (
     <>
       <Card
@@ -221,7 +224,7 @@ const ViewProfileCard = (props: IProps) => {
           marginTop: "0px",
           height: " fit-content",
         }}
-        // className="paddingviewprofilestyle"
+      // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -329,7 +332,7 @@ const ViewProfileCard = (props: IProps) => {
                       fontSize: "14px",
                       color: formData.dateofbirth || "" ? "#7b7b9d" : "#3c3e42",
                     }}
-                    // className="CommonStyle__Classofb_Date"
+                  // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
                   </Typography>
@@ -376,7 +379,7 @@ const ViewProfileCard = (props: IProps) => {
                   fontSize: "13px",
                   color: formData.placeofbirth ? "#7b7b9d" : "#3c3e42",
                 }}
-                // className="CommonStyle__Class"
+              // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {
