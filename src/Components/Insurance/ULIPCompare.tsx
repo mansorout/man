@@ -11,6 +11,7 @@ import { ULIPList } from '../../Modal/ULIP'
 import { useSelector } from 'react-redux'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { sipiclogo } from '../../Assets'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   select : {
@@ -311,13 +312,40 @@ function ULIPCompare() {
                         return(
                           <TableRow key={index}>
                             <TableCell style={{borderRight:"1px solid #e0e0e0"}} variant="head">
-                              <Typography style={{padding:"15px", color:"#3c3e42", fontWeight:"500", fontSize:"16px"}}>{item.name}</Typography>
+                              <Typography style={{padding:"15px", color:"#3c3e42", fontWeight:"500", fontSize:"16px"}}>{item.name}
+                              <Grid container>
+                                <Grid item xs={12} md={12} textAlign="right" sx={{marginTop:"-20%"}}>
+                                <img
+                      src={sipiclogo}
+                      alt="sprint-money"
+                      style={{
+                        width: "38px",
+                        height: "38px",
+                        paddingLeft: "0",
+                      }}
+                      className=""
+                    />
+                                </Grid>
+                              </Grid>
+                               </Typography>
+                              
                             </TableCell>
-                            <TableCell style={{borderRight:"1px solid #e0e0e0"}}>
+                        
+                              <TableCell style={{borderRight:"1px solid #e0e0e0"}}>
+                              <Grid container>
+                              <Grid item xs={12} md={12} textAlign="right">
                               <Typography style={{padding:"15px", color:"#3c3e42", fontSize:"16px"}}>{`${company1 == '' ? "" : Object.entries(company1)?.filter((item1) => item1[0] == item.objKey)[0][1]}`}</Typography>
+                              </Grid>
+                            </Grid>
                             </TableCell>
+                    
+                        
                             <TableCell>
+                            <Grid container>
+                              <Grid item xs={12} md={12} textAlign="right">
                               <Typography style={{padding:"15px", color:"#3c3e42", fontSize:"16px"}}>{`${company2 == '' ? "" : Object.entries(company2)?.filter((item1) => item1[0] == item.objKey)[0][1]}`}</Typography>
+                              </Grid>
+                            </Grid>
                             </TableCell>
                           </TableRow>
                         )
