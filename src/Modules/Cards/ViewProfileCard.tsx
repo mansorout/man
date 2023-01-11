@@ -205,7 +205,7 @@ const ViewProfileCard = (props: IProps) => {
         }
 
         if (data?.error) {
-          return;
+        
         }
       })
       .catch((err) => {
