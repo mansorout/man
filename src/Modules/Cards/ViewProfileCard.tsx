@@ -191,26 +191,26 @@ const ViewProfileCard = (props: IProps) => {
     }
 
 
-    postData(
-      ImageData,
-      siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatchLocal(setTokenExpiredStatusAction(true));
-          return;
-        }
+    // postData(
+    //   ImageData,
+    //   siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+    //   siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    //   siteConfig.AUTHENTICATION_API_ID
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (checkExpirationOfToken(data?.code)) {
+    //       dispatchLocal(setTokenExpiredStatusAction(true));
+    //       return;
+    //     }
 
-        if (data?.error) {
+    //     if (data?.error) {
         
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
