@@ -515,7 +515,7 @@ const ReplaceFunds = () => {
                 justifyContent: "center",
                 width: { xs: "100%" }
               }}>
-                {fundList.length &&
+                {/* {fundList.length &&
                   fundList.map((item, index) => {
                     return (
                       <Box key={index}>
@@ -526,7 +526,7 @@ const ReplaceFunds = () => {
                         />
                       </Box>
                     );
-                  })}
+                  })} */}
               </Box>
               {
                 fundSelecteds.length ?
