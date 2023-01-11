@@ -124,6 +124,77 @@ const SelectedFunds = () => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
+    const [tempVar, setTempVar] = useState([
+        {
+            "fundname": "SBI Arbitrage Opportunities Reg Gr",
+            "return1yr": "3.92",
+            "return3yr": "3.83",
+            "return5yr": "4.78",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 3,
+            "returnytd": "3.68",
+            "secid": "F000000CDJ",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo2.svg",
+            "aum": "1000.00",
+            "providername": "SBI Funds Management Ltd",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 500,
+            "lumpsumminamount": 5000,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        },
+        {
+            "fundname": "UTI Arbitrage Reg Gr",
+            "return1yr": "3.47",
+            "return3yr": "3.92",
+            "return5yr": "4.86",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 5,
+            "returnytd": "3.21",
+            "secid": "F000000CUO",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo14.svg",
+            "aum": "1000.00",
+            "providername": "UTI Asset Management Co Ltd",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 500,
+            "lumpsumminamount": 5000,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        },
+        {
+            "fundname": "IDFC Arbitrage Reg IDCW-P",
+            "return1yr": "3.48",
+            "return3yr": "3.57",
+            "return5yr": "4.22",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 2,
+            "returnytd": "3.26",
+            "secid": "F000000FX5",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo10.svg",
+            "aum": "1000.00",
+            "providername": "IDFC Asset Management Company Limited",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 100,
+            "lumpsumminamount": 100,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        }
+    ])
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -168,9 +239,18 @@ const SelectedFunds = () => {
 
                                         <Grid item xs={12} md={6} >
                                             <Box>
-                                                <FundAmtCard heading={'Axis Small Cap Fund Regular Fund'} />
-                                                <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
-                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
+                                                {
+                                                    tempVar?.map((selectedFund) => (
+                                                        <FundAmtCard
+                                                            data={selectedFund}
+                                                            heading={'Axis Small Cap Fund Regular Fund'}
+                                                            replaceBtnAction={(item) => console.log('kpokas :',item)}
+                                                            removeBtnAction={(item) => console.log('asbhjasd :',item)}
+                                                        />
+                                                    ))
+                                                }
+                                                {/* <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
+                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} /> */}
                                             </Box>
 
                                             <Button

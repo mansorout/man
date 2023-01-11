@@ -143,6 +143,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 interface FundAmtCard {
     heading: string;
+    data: any;
+    replaceBtnAction: (para:any) => void;
+    removeBtnAction: (para:any) => void;
 }
 
 export default function FundAmtCard(props: FundAmtCard) {
@@ -196,7 +199,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                                 //     minWidth: { md: 600, xs: 350 }
                                 // }}
                                 className={classes.cardHeading}
-                            >{`${props.heading}`}</Typography>
+                            >{`${props?.data?.fundname}`}</Typography>
                         </Box>
 
                         <List>
@@ -235,13 +238,16 @@ export default function FundAmtCard(props: FundAmtCard) {
                     }}
                         className={classes.cardBtn}
                     >
-                        <Button variant='contained' sx={{
-                            backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                            color: '#7b7b9d', ml: 1,
-                            "&.MuiButtonBase-root:hover": {
-                                bgcolor: 'rgba(123, 123, 157, 0.05)'
-                            }
-                        }}>
+                        <Button variant='contained'
+                            sx={{
+                                backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                                color: '#7b7b9d', ml: 1,
+                                "&.MuiButtonBase-root:hover": {
+                                    bgcolor: 'rgba(123, 123, 157, 0.05)'
+                                }
+                            }}
+                            onClick={() => props.replaceBtnAction(props?.data)}
+                        >
                             <img src={ReplaceButtonIcon} />
                             Replace
                         </Button>
