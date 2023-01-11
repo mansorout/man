@@ -29,11 +29,14 @@ import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, R
 import { globalConstant } from "../../Utils/globalConstant";
 
 export interface MFProp {
-  onClick?: (data: any, type: any, element: string) => void | undefined;
+  onClick?: (data: any, type: any, element: string, index: number | undefined) => void | undefined;
   isChecked?: boolean
 
   onCardClick?: (id: string) => void | undefined//from mutual fund screen
   onRemoveCardClick?: (recommendationfund_id: number, secid: string) => void | undefined //for removing card on click 
+
+
+  variableMasterFundListIndex?: number
 
   // API types
   recommendation_id: number,
@@ -336,7 +339,7 @@ const MutualFundCard2 = (props: MFProp) => {
               <Box component="span" >
                 <Checkbox
                   onClick={(e: any) => {
-                    if (props?.onClick) props?.onClick(props?.recommendation_id, e?.target?.checked, "checked")
+                    if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.variableMasterFundListIndex)
                   }} />
               </Box>
             ) : (
@@ -344,7 +347,7 @@ const MutualFundCard2 = (props: MFProp) => {
               <Box
                 component="span"
                 onClick={(e: any) => {
-                  if (props?.onClick) props?.onClick(props?.recommendation_id, null, "radio")
+                  if (props?.onClick) props?.onClick(props?.secid, null, "radio", props?.variableMasterFundListIndex)
                 }}
               >
                 {
