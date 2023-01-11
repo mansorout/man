@@ -102,6 +102,13 @@ const PanUpdate = () => {
     // };
     // setShouldButtonDisable(true);
 
+    let objBody = {
+        pannumber: value,
+
+    };
+    console.log(objBody)
+ 
+
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         if (value === '' || error) {
@@ -114,14 +121,10 @@ const PanUpdate = () => {
         
         else {
             // navigate('/viewprofile');
-        }
+        
         // alert(value)
         dispatch(setDisableButtonAction(true));
-        let objBody = {
-            pannumber: value,
-
-        };
-        console.log(objBody)
+        
         setShouldButtonDisable(true)
         postData(
             objBody,
@@ -157,8 +160,10 @@ const PanUpdate = () => {
             .catch(err => {
                 console.log(err)
             })
+        }
 
     }
+    
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -174,7 +179,7 @@ const PanUpdate = () => {
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link href="/viewprofile">View Profile</Link>
+                            <Link onClick={() => navigate('/viewprofile')}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
@@ -227,7 +232,7 @@ const PanUpdate = () => {
                                     required
                                     label="Enter your PAN number"
                                     placeholder="AAAAA9999A"
-                                    helperText={error ? "enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
+                                    helperText={error ? "The PAN number you’ve entered is incorrect, please enter a valid PAN number." : "Your PAN will be used to verify your KYC"}
                                     value={value}
                                     
                                     // error={validateInputs?.mobilenumber}
@@ -240,7 +245,7 @@ const PanUpdate = () => {
                             </FormControl>
 
                             <FormControl sx={{ padding: "18px 0px 17px 0px" }}>
-                                <Button disabled={panButton} variant="contained" style={style.button} fullWidth onClick={handleClick} >
+                                <Button  variant="contained" style={style.button} fullWidth onClick={handleClick} >
                                     <Typography style={style.text} className="largeButtonText">
                                         Continue
                                     </Typography>
@@ -266,7 +271,7 @@ const PanUpdate = () => {
                                 fontWeight: 500,
                                 color: '#6c63ff',
                             }}>
-                                <Link href="/termsandcondition">Terms and conditions</Link>
+                                <Link onClick={() => navigate('/termsandcondition')}>Terms and conditions</Link>
                             </Typography>
                             </Box>
                         </Box>
@@ -275,10 +280,13 @@ const PanUpdate = () => {
 
                 </Grid>
             </Box>
+
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={successMsg} />
         </Box>
     )
 };
 
 export default PanUpdate;
+
+// disabled={panButton} 
 
