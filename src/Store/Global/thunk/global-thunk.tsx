@@ -1,4 +1,4 @@
-import { getDataWithoutToken } from "../../../Utils/api";
+import { getDataWithoutToken, postData } from "../../../Utils/api";
 import { checkExpirationOfToken } from "../../../Utils/globalFunctions";
 import siteConfig from "../../../Utils/siteConfig";
 import { setTokenExpiredStatusAction } from "../../Authentication/actions/auth-actions";
@@ -83,4 +83,24 @@ export const getIncomeSlabListThunk = () => {
         console.log(err);
       })
   }
+}
+
+export const setUploadImageThunk = async (objBody:any) => {
+  let res: any;
+  
+  await postData(
+    objBody,
+    siteConfig.METADATA_UPLOAD_IMAGE,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.RECOMENDATION_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
 }

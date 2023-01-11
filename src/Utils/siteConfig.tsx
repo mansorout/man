@@ -108,10 +108,13 @@ const siteConfig = Object.freeze({
   INSURANCE_TERM_PURCHAGE: "/insurance/term/purchase",
   INSURANCE_PORTFOLIO_LIST: "/insurance/portfolio/list",
 
-
   // Payments
 
-    
+  PAYMENT_BSE_REGISTER : "/payment/bse/register",
+  PAYMENT_PORTOFOLIO_LIST : "/payment/portfolio/list",
+
+
+
 
 
 
