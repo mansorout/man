@@ -6,6 +6,8 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, animator } from "chart.js";
 import ReactSpeedometer from "react-d3-speedometer";
 
+
+
 type IProps = {
   holdingInfo: any
 }
@@ -49,6 +51,30 @@ const enumChartMessages = {
 
 }
 
+function segmentValueFormatter(value:any) {
+  if (value < 1) {
+    return ` Low`
+  }
+  if (value < 2) {
+    return `Low to Moderate`
+  }
+  if (value < 3) {
+    return ` Moderate`
+  }
+  if (value < 4) {
+    return ` Moderately High`
+  }
+  if (value < 5) {
+    return ` High`
+  }
+  if (value < 6) {
+    return ` Very High`
+  }
+
+  // return `${value} `
+  return ``
+}
+
 export const RiskoMeter = (props: IProps) => {
   const [riskValue, setRiskValue] = useState<any>("");
   Chart.register(ArcElement);
@@ -87,24 +113,24 @@ export const RiskoMeter = (props: IProps) => {
 
 
 
-  // const data = {
-  //   type: 'doughnut',
-  //   datasets: [
-  //     {
-  //       data: [20, 20, 20, 20, 20],
-  //       needleValue: 6,
-  //       backgroundColor: [
-  //         "#8ad400",
-  //         "#d2eb00",
-  //         "#ecb004",
-  //         "#ff7800",
-  //         "#ef0200"
-  //       ],
-  //       display: true,
-  //       spacing: 35,
-  //     }
-  //   ]
-  // };
+  const data = {
+    type: 'doughnut',
+    datasets: [
+      {
+        data: [20, 20, 20, 20, 20],
+        needleValue: 6,
+        backgroundColor: [
+          "#8ad400",
+          "#d2eb00",
+          "#ecb004",
+          "#ff7800",
+          "#ef0200"
+        ],
+        display: true,
+        spacing: 35,
+      }
+    ]
+  };
 
   return (
     <>
@@ -171,14 +197,18 @@ export const RiskoMeter = (props: IProps) => {
                 }}
               /> */}
               <ReactSpeedometer
-              currentValueText={""}
+               segmentValueFormatter={segmentValueFormatter}
+              currentValueText={''}
               needleColor={"black"}
+              // paddingHorizontal={100}
+              // paddingVertical={100}
                 maxValue={6}
                 value={riskValue - (.5)}
                 segments={6}
                 width={400}
+                
                 // gap= {35}
-                segmentColors={["#23db7b",
+                segmentColors={["#5deb00",
                   "#8ad400",
                   "#d2eb00",
                   "#ecb004",
