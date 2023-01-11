@@ -30,6 +30,7 @@ import { globalConstant } from '../../Utils/globalConstant'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
 import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
+import { setMasterFundListForExploreFundsAction } from '../../Store/Recommendations/actions/recommendations-action'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -308,9 +309,9 @@ function ExploreFunds(props: any) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(masterFundList, "masterFundList useeefect")
-  },[masterFundList])
+  }, [masterFundList])
 
   const getTotalFundCound = (categorygroup: string) => {
     // return 
@@ -321,6 +322,7 @@ function ExploreFunds(props: any) {
     let arrMasterFundList: any[] = [...masterFundList];
     if (status === globalConstant.CEF_EXPLORE_FUND) {
       //explore fund
+
       if (isChecked) {
         if (arrMasterFundList[index]["secid"] === secid) {
           arrMasterFundList[index]["fundSelected"] = isChecked;
@@ -329,11 +331,20 @@ function ExploreFunds(props: any) {
         arrMasterFundList[index]["fundSelected"] = false;
       }
 
+      let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
+
+      setFundSelecteds(arrNew);
       setMasterFundList(arrMasterFundList);
+      dispatch(setMasterFundListForExploreFundsAction(arrNew));
+
     } else if (status === globalConstant.CEF_REPLACE_FUND) {
       //replace fund
+
+
     } else {
       //add fund
+
+
     }
     // let arrFundSelecteds: any = [...fundSelecteds];
     // let fundSelectedsIndex: number = 0;
@@ -480,13 +491,9 @@ function ExploreFunds(props: any) {
                         )
                       })
                     }
-
                   </Box>
-
                 </Box>
               </Box>
-
-
               {
                 variableMasterFundList &&
                 variableMasterFundList.length &&
@@ -505,11 +512,6 @@ function ExploreFunds(props: any) {
               }
 
             </Grid>
-
-
-
-
-
           </Grid>
           {
             status === globalConstant.CEF_REPLACE_FUND ?
@@ -522,7 +524,9 @@ function ExploreFunds(props: any) {
                   <>
                     <AddToPlanComp
                       fundsCount={fundSelecteds.length}
-                      onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
+                      onClick={() => null}
+                      buttonText={"Funds Selected"}
+                      buttonnametext={"Add To Plan"} />
                   </>
                   : null
               )
