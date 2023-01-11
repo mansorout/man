@@ -20,16 +20,15 @@ import { InvestmentTypeReducers } from './Duck/InvestmentType'
 import { submituserdetails } from './Reducers/action'
 import UserDetailsReducer from './Reducers/UserDetailsReducer'
 import authReducer from './Authentication/reducer/auth-reducers'
-import exploreFundReducer from './Explore funds/reducers/explore-funds-reducer'
 // import insuranceReducer from './Home/Insurance/reducers/insurance-reducer'
 // import investmentReducer from './Home/Investment/reducers/investment-reducer'
-import portfolioReducer from './Portfolio/reducers/protfolio-reducer'
 import insuranceReducer from './Insurance/reducers/insurance-reducer'
 import investmentReducer from './Recommendations/reducers/recommendations-reducer'
 import globalReducer from './Global/reducer/global-reducer'
 // import investmentReducer from './Reducers/investmentReducer'
 import saveTaxReducer from './Save Tax/reducers/save-tax-reducer'
 import recommendationsReducer from './Recommendations/reducers/recommendations-reducer'
+import paymentsReducer from './Payments/reducers/payments-reducer'
 
 
 
@@ -55,11 +54,10 @@ const rootReducer = combineReducers({
 
     globalReducer: globalReducer,
     authReducer: authReducer,
-    exploreFundReducer: exploreFundReducer,
     insuranceReducer: insuranceReducer,
     recommendationsReducer: recommendationsReducer,
-    portfolioReducer: portfolioReducer,
-    saveTaxReducer:saveTaxReducer
+    paymentsReducer: paymentsReducer,
+    saveTaxReducer: saveTaxReducer
 
 
 })

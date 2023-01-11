@@ -3,7 +3,7 @@ const initialState: any = {
 
 }
 
-const portfolioReducer = (state = initialState, action: any) => {
+const paymentsReducer = (state = initialState, action: any) => {
 
 
   switch (action.type) {
@@ -16,5 +16,5 @@ const portfolioReducer = (state = initialState, action: any) => {
   return state
 }
 
-export default portfolioReducer;
+export default paymentsReducer;
 

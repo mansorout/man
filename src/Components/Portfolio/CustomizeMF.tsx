@@ -243,7 +243,7 @@ const CustomizeMF = () => {
 
       postData(
         { recommendationfund_id: recommendationfund_id, status_id: 2, secid: secid },
-        siteConfig.RECOMMENDATION_FUND_UPDATE,
+        siteConfig.RECOMMENDATION_MUTUALFUND_UPDATE,
         siteConfig.CONTENT_TYPE_APPLICATION_JSON,
         siteConfig.RECOMENDATION_API_ID
       )

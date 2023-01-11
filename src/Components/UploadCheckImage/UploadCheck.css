@@ -89,7 +89,7 @@
 }
 
 .previewImg {
-    margin-left: 195px !important;
+    margin-left: 0px !important;
     margin-top: 57px !important;
     border: 1px solid black !important;
     width: 564px !important;
@@ -201,7 +201,7 @@
     }
 
     .previewImg {
-        margin-left: 77px !important;
+        margin-left:0px !important;
         margin-top: 16px !important;
         border: 1px solid black !important;
         width: 564px !important;
@@ -253,7 +253,7 @@
     }
 
     .previewImg {
-        margin-left: 77px !important;
+        margin-left: 0px !important;
         margin-top: 131px !important;
         border: 1px solid black !important;
         width: 564px !important;
@@ -286,7 +286,7 @@
     }
 
     .previewImg {
-        margin-left: 77px !important;
+        margin-left: 0px !important;
         margin-top: 131px !important;
         border: 1px solid black !important;
         width: 564px !important;
