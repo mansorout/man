@@ -29,6 +29,7 @@ import {
 } from "../../Store/Authentication/actions/auth-actions";
 import siteConfig from "../../Utils/siteConfig";
 import { store } from "../../Store/Store";
+import { globalConstant } from "../../Utils/globalConstant";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   mobileMenu: {
@@ -131,11 +132,11 @@ const Sidebar = () => {
                 my: 0.5,
                 background:
                   pathName == "/portfolio" ||
-                  pathName == "/holdings" ||
-                  pathName == "/transactions" ||
-                  pathName == "/reports" ||
-                  pathName == "/sips" ||
-                  pathName == "/cancleSip"
+                    pathName == "/holdings" ||
+                    pathName == "/transactions" ||
+                    pathName == "/reports" ||
+                    pathName == "/sips" ||
+                    pathName == "/cancleSip"
                     ? "rgba(0, 0, 0, 0.05)"
                     : "transparent",
                 flexDirection: { sm: "column", md: "row" },
@@ -152,11 +153,11 @@ const Sidebar = () => {
                   sx={{
                     color:
                       pathName == "/portfolio" ||
-                      pathName == "/holdings" ||
-                      pathName == "/transactions" ||
-                      pathName == "/reports" ||
-                      pathName == "/sips" ||
-                      pathName == "/cancleSip"
+                        pathName == "/holdings" ||
+                        pathName == "/transactions" ||
+                        pathName == "/reports" ||
+                        pathName == "/sips" ||
+                        pathName == "/cancleSip"
                         ? "#23db7b"
                         : "black",
                   }}
@@ -171,7 +172,7 @@ const Sidebar = () => {
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
               onClick={() => {
-                navigate("/explorefunds");
+                navigate("/explorefunds", { state: { status: globalConstant.CEF_EXPLORE_FUND, parentRoute: "/home" } });
                 handleMenuOpen();
               }}
               sx={{

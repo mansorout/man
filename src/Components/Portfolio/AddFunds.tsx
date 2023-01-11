@@ -518,7 +518,7 @@ const AddFunds = () => {
                 justifyContent: "center",
                 width: { xs: "100%" }
               }}>
-                {mfCards &&
+                {/* {mfCards &&
                   mfCards.length &&
                   mfCards.map((item: any, index: number) => {
                     return (
@@ -531,7 +531,7 @@ const AddFunds = () => {
 
                       </Box>
                     );
-                  })}
+                  })} */}
               </Box>
             </Box>
             {

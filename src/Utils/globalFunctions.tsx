@@ -121,7 +121,7 @@ export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], i
       }
     }
 
-    console.log(arrRecomm, "arrRecom getMutualFundRecommendationListWRTUserAmount")
+    // console.log(arrRecomm, "arrRecom getMutualFundRecommendationListWRTUserAmount")
     return arrRecomm;
   } catch (err) {
     return [];
