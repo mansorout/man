@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Breadcrumbs, Button, FormControl, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, FormControl, FormHelperText, Grid, InputLabel, inputLabelClasses, Link, MenuItem, Select, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 import Navbar from "../CommonComponents/Navbar";
@@ -48,40 +48,6 @@ const Nominee = () => {
         relation: ""
 
     });
-    // const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
-
-
-
-
-
-
-    /*
-        const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const value = e.target.value.trim();
-            setName(value);
-            const pattern = /^[A-Za-z\s\.]+$/;
-            if (!pattern.test(value)) {
-                setNameError(true);
-            } else {
-                setNameError(false);
-                
-            }
-        }
-    */
-    // const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    //     setNameError(false);
-    //     const value = e.target.value;
-    //     setName(value);
-
-    //     const pattern = /[A-Za-z]+/;
-    //     if (!pattern.test(value)) {
-    //         setNameError(true);
-    //     } else {
-    //         setNameError(false);
-
-    //     }
-    // }
 
    
 
@@ -115,84 +81,60 @@ const Nominee = () => {
 
     }
 
-    // useEffect(()=>{
-
-    //    console.log(name)
-    //    console.log(dateOfBirth)
-    //    console.log(relation)
-    // },[])
-
-   
-    // console.log(name)
-    // console.log(dateOfBirth)
-    // console.log(relation)
-
-
-
-
-
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        //    if(userDetails.userdetails?.customer_id != 0){
 
-        //    }
-        //    else{
+        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation!== ''  ) {
 
-        //    }
-
-        // if (name === '') {
-        //     setNameError(true);
-        // } else if (dateOfBirth === '') {
-        //     setDobError(true);
-        // } else if (relation === '') {
-        //     setRelationError(true);
-        //     setSelectErrorMsg('Please select a relation');
-        // }
-
-        // else {
-        //     // navigate('/viewprofile');
-        // }
-        setLoading(true);
-        setShouldButtonDisable(true)
-        postData(
-            formData,
-            siteConfig.AUTHENTICATION_NOMINEE_ADD,
-            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-            siteConfig.AUTHENTICATION_API_ID
-        )
-            .then(res => res.json())
-            .then((data) => {
-                setShouldButtonDisable(false);
-                setSuccesMsg(data?.status?.message)
-                setLoading(false);
-                if (data.status === true) {
-                    setSuccesMsg("Nominee Added Successfully")
-                }
-                else {
-                    setErrorMsg("Something Went Wrong")
-                }
-
-
-
-
-                if (checkExpirationOfToken(data?.code)) {
-                    dispatchLocal(setTokenExpiredStatusAction(true));
-                    return;
-                }
-
-                if (data?.error) {
-                    return;
-                    setErrorMsg(data?.error)
-
-                }
-
-                // console.log("profile saved");
-                setShowDialog(true)
-                // navigate('/viewprofile');
-            })
-            .catch(err => {
-                // console.log(err)
-            })
-        setShowDialog(true)
+            setLoading(true);
+            setShouldButtonDisable(true)
+            postData(
+                formData,
+                siteConfig.AUTHENTICATION_NOMINEE_ADD,
+                siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+                siteConfig.AUTHENTICATION_API_ID
+            )
+                .then(res => res.json())
+                .then((data) => {
+                    setShouldButtonDisable(false);
+                    setSuccesMsg(data?.status?.message)
+                    setLoading(false);
+                    if (data.status === true) {
+                        setSuccesMsg("Nominee Added Successfully")
+                    }
+                    else {
+                        setErrorMsg("Something Went Wrong")
+                    }
+    
+    
+    
+    
+                    if (checkExpirationOfToken(data?.code)) {
+                        dispatchLocal(setTokenExpiredStatusAction(true));
+                        return;
+                    }
+    
+                    if (data?.error) {
+                        return;
+                        setErrorMsg(data?.error)
+    
+                    }
+    
+                    
+                    setShowDialog(true)
+                })
+                .catch(err => {
+                    // console.log(err)
+                })
+            setShowDialog(true)
+        }
+        else{
+          
+           setDobError(true)
+           setRelationError(true)
+           setNameError(true)
+        }
+       
+       
 
 
     }
@@ -237,7 +179,7 @@ const Nominee = () => {
             .then(res => res.json())
             .then(data => {
                 if (checkExpirationOfToken(data?.code)) {
-                    dispatch(setTokenExpiredStatusAction(true));
+                    dispatchLocal(setTokenExpiredStatusAction(true));
                     return;
                 }
 
@@ -293,7 +235,7 @@ const Nominee = () => {
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link href="/viewprofile">View Profile</Link>
+                            <Link onClick={()=>{navigate('/viewprofile')}}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#8787a2'
@@ -345,6 +287,7 @@ const Nominee = () => {
                                     error={nameError}
                                     helperText={nameError ? "Please enter Full Name" : ''}
                                 />
+                                
                             </FormControl>
 
                             <FormControl>
@@ -396,14 +339,16 @@ const Nominee = () => {
 
                                 </Select>
                                 <Box component="span" className="select-box" sx={{
-                                    color: 'red',
+                                    color: '#d32f2f',
                                     fontSize: '12px',
-                                    marginTop: '2px',
-                                }}>{relationError ? selectErrorMsg : ''}</Box>
+                                    padding: "8px 0px 0px 12px"
+                                }}>{relationError ? 'Please Select Relation': ""}</Box>
+                                {/* <FormHelperText>Error</FormHelperText> */}
                             </FormControl>
 
                             <FormControl>
-                                <Button disabled={disablenomineeButton} variant="contained"
+                                <Button  variant="contained"
+                                // disabled={disablenomineeButton}
                                     //  sx={{
 
                                     // }}
@@ -425,7 +370,5 @@ const Nominee = () => {
 };
 
 export default Nominee;
-function dispatch(arg0: { type: string; payload: any; }) {
-    throw new Error("Function not implemented.");
-}
+
 
