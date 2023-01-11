@@ -50,6 +50,9 @@ const style = {
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
+    cmpWrapper: {
+        backgroundColor: "var(--bgLayoutColor)",
+    }
 }));
 
 const SelectedFunds = () => {
@@ -134,10 +137,10 @@ const SelectedFunds = () => {
     };
 
     return (
-        <Box style={{ width: "100vw" }} ref={refContainer}>
+        <Box ref={refContainer}>
             <Navbar />
-            <Box sx={style.main}>
-                <Grid container spacing={0} sx={{ height: "100vh" }}>
+            <Box className={classes.cmpWrapper}>
+                <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
                         <Sidebar />
@@ -146,7 +149,7 @@ const SelectedFunds = () => {
                         <Grid sx={{ padding: 2 }} item xs={12}>
                             <Toolbar />
                             <Grid container>
-                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" } }} item xs={12}>
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" }, paddingBottom: '70px', }} item xs={12}>
                                     <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
                                         <Breadcrumbs aria-label="breadcrumb">
                                             <Link color="#6495ED" underline="always" href="/explorefunds">

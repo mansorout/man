@@ -10,6 +10,8 @@ import { Grid, TextField } from '@mui/material';
 import List from '@mui/material/List';
 import { InvestButton } from '../../Modules/Buttons/InvestButton';
 import { maskgroup, RemoveButtonIcon, ReplaceButtonIcon } from '../../Assets';
+import { makeStyles } from '@mui/styles';
+import { Theme, } from '@mui/material'
 
 
 const bull = (
@@ -102,16 +104,49 @@ const style = {
         fontWeight: 500,
         margin: '4ox'
     }
-
-
 }
+
+
+const useStyles: any = makeStyles((theme: Theme) => ({
+    cardWrap: {
+        boxShadow: 'var(--themeShadow)',
+        padding: '15px 7px',
+        borderRadius: '8px',
+    },
+    headingWrap: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: '12px',
+        // justifyContent: 'center',
+        '& img': {
+            width: '30px',
+            height: '30px',
+            borderRadius: '50%',
+            border: '1px solid #f2f2f2',
+            display: 'inline-block',
+            marginRight: '10px',
+        }
+    },
+    cardHeading: {
+        color: 'var(--typeLightBlackColor)',
+        fontWeight: 500,
+
+    },
+    cardBtn: {
+        '& button': {
+            boxShadow: 'none',
+        }
+    }
+
+}))
 
 interface FundAmtCard {
     heading: string;
 }
 
 export default function FundAmtCard(props: FundAmtCard) {
-
+    const classes = useStyles()
     const [amount, setAmount] = React.useState<any>();
     const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
     const [error, setError] = React.useState<any>("")
@@ -141,30 +176,30 @@ export default function FundAmtCard(props: FundAmtCard) {
     return (
         <>
             <Card sx={{ maxWidth: { sm: 600, xs: 350 }, marginBottom: 5 }}>
-                <CardContent>
+                <Box className={classes.cardWrap}>
                     <Stack m={2} spacing={6}>
-                        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                            <img style={{ height: 20, width: 20 }} src={maskgroup} />
+                        <Box className={classes.headingWrap}>
+                            <img src={maskgroup} />
                             <Typography
-                                sx={{
-                                    height: "19px",
-                                    margin: "0 303px 25px 0",
-                                    fontFamily: "Roboto",
-                                    fontSize: "16px",
-                                    fontWeight: "500",
-                                    fontStretch: "normal",
-                                    fontStyle: "normal",
-                                    lineHeight: "1.25",
-                                    letterSpacing: "normal",
-                                    textAlign: " left",
-                                    color: " #3c3e42",
-                                    minWidth: { md: 600, xs: 350 }
-                                }}
+                                // sx={{
+                                //     // height: "19px",
+                                //     // margin: "0 303px 25px 0",
+                                //     fontFamily: "Roboto",
+                                //     // fontSize: "16px",
+                                //     fontWeight: "500",
+                                //     fontStretch: "normal",
+                                //     fontStyle: "normal",
+                                //     lineHeight: "1.25",
+                                //     letterSpacing: "normal",
+                                //     textAlign: " left",
+                                //     color: " #3c3e42",
+                                //     minWidth: { md: 600, xs: 350 }
+                                // }}
+                                className={classes.cardHeading}
                             >{`${props.heading}`}</Typography>
                         </Box>
 
                         <List>
-
                             <TextField label={amount > 20000000 ? "" : "Enter Investment Amount"}
                                 type="number"
                                 name="middleName"
@@ -177,7 +212,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                             </TextField>
                             <Typography
                                 sx={{
-                                   
+
                                     height: "14px",
                                     margin: "-8px 135px 0 1px",
 
@@ -197,22 +232,20 @@ export default function FundAmtCard(props: FundAmtCard) {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         gap: '1vw',
-                    }}>
-                        <Button variant='contained' style={style.buttons} sx={{
+                    }}
+                        className={classes.cardBtn}
+                    >
+                        <Button variant='contained' sx={{
                             backgroundColor: 'rgba(123, 123, 157, 0.05)',
                             color: '#7b7b9d', ml: 1,
                             "&.MuiButtonBase-root:hover": {
                                 bgcolor: 'rgba(123, 123, 157, 0.05)'
                             }
                         }}>
-
-
-
-
                             <img src={ReplaceButtonIcon} />
                             Replace
                         </Button>
-                        <Button variant="contained" style={style.buttons} sx={{
+                        <Button variant="contained" sx={{
                             backgroundColor: 'rgba(255, 83, 0, 0.05)',
                             color: '#ff5300', ml: 1,
                             "&.MuiButtonBase-root:hover": {
@@ -222,9 +255,8 @@ export default function FundAmtCard(props: FundAmtCard) {
                             <img src={RemoveButtonIcon} />
                             Remove
                         </Button>
-
                     </Box>
-                </CardContent>
+                </Box>
             </Card>
 
         </>

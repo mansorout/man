@@ -385,7 +385,7 @@ const RecommendationsULIP = () => {
                         </Box>
 
                             {
-                                ulipListApiData.length > 0 && ulipListApiData?.map((cardItem:getUlipListApiTypes) => (
+                                ulipListApiData?.length > 0 && ulipListApiData?.map((cardItem:getUlipListApiTypes) => (
                                     <Box className={classes.cardStyle} key={cardItem?.ulip_id}>
                                         <Grid container>
                                             <Grid item sm={5} xs={12}>
