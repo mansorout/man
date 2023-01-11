@@ -31,10 +31,18 @@ const siteConfig = Object.freeze({
 
   /**API'S*/
   //Authentication
+
+  AUTHENTICATION_TOKEN_REFRESH: "/authentication/token/refresh",//new
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
   AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
+  AUTHENTICATION_IFSC_DETAILS: "/authentication/ifsc/details",//new
+  AUTHENTICATION_CHEQUE_VIEW: "/authentication/cheque/view",//new
+  AUTHENTICATION_CVL_STATUS: "/authentication/cvl/status",//new
+  AUTHENTICATION_MEMBER_ADD: "/authentication/member/add",//new
+  AUTHENTICATION_MEMBER_LIST: "/authentication/member/list",//new
+  AUTHENTICATION_MEMBER_UPDATE: "/authentication/member/update",//new
 
   //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
@@ -45,6 +53,14 @@ const siteConfig = Object.freeze({
   METADATA_BANNER_LIST: "/metadata/banner/list/",
   METADATA_PINCODE_LIST: "/metadata/pincode/list/",
   METADATA_CATEGORYGROUP_LIST: "/metadata/categorygroup/list/",
+  METADATA_MODULE_CONTENT_LIST: "/metadata/module/content/list",//new
+  METADATA_MODULE_LIST: "/metadata/module/list", //new
+  METADATA_UPLOAD_IMAGE: "/metadata/upload/image", //new
+  METADATA_BSENEFT_LIST: "/metadata/bseneft/list", //new
+  METADATA_FAMILYRELATION_LIST: "/metadata/familyrelation/list", //new
+  METADATA_SUPPORT_REQUEST_ADD: "metadata/support/request/add", //new
+
+
 
   //Savtax
   SAVETAX_COMPARISON: "/savetax/comparison",
@@ -62,10 +78,13 @@ const siteConfig = Object.freeze({
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
   RECOMMENDATION_MUTUALFUND_LIST: "/recommendation/mutualfund/list/",
+  RECOMMENDATION_MUTUALFUND_ADD: "/recommendation/mutualfund/add", //new
+  RECOMMENDATION_MUTUALFUND_UPDATE: "/recommendation/mutualfund/update/",
+  RECOMMENDATION_MUTUALFUND_COMPARISON: "/recommendation/mutualfund/comparison", //new
   RECOMMENDATION_FUND_LIST: "/recommendation/fund/list/",
-  RECOMMENDATION_FUND_UPDATE: "/recommendation/mutualfund/update/",
   RECOMMENDATION_FUND_RETURN: "/recommendation/fund/return/",
   RECOMMENDATION_FUND_DETAIL: "/recommendation/fund/detail",
+  RECOMMENDATION_FUND_PROVIDER_LIST: "/recommendation/fund/provider/list",
   RECOMMENDTAION_FUND_NAV_DETAIL: "/recommendation/fund/nav/detail",
   RECOMMENDATION_SAVETAX_GENERATE: "/recommendation/savetax/generate",
   RECOMMENDATION_SAVETAX_LIST: "/recommendation/savetax/list",
@@ -76,11 +95,23 @@ const siteConfig = Object.freeze({
   RECOMMENDATION_HEALTH_GENERATE:"/recommendation/health/generate",//new
   RECOMMENDATION_HEALTH_LIST:"/recommendation/health/list",//new
   RECOMMENDATION_HEALTH_UPDATE:"/recommendation/health/update",//new
-
-
+  
   // Insurance
   INSURANCE_ULIP_RETURN: "/insurance/ulip/returns",
   INSURANCE_ULIP_SCHEME_DETAIL: "/insurance/ulip/scheme/detail",
+  INSURANCE_ULIP_QUOTE_GENERATE: "/insurance/ulip/quote/generate",//new
+  INSURANCE_ULIP_SUMASSURED: "/insurance/ulip/sumassured",
+  INSURANCE_HEALTH_SUMINSURED_LIST: "/insurance/health/suminsured/list",
+  INSURANCE_HEALTH_PLAN_DETAIL: "/insurance/health/plan/detail",
+  INSURANCE_HEALTH_POLICY_GENARATION: "/insurance/health/policy/generation",
+  INSURANCE_HEALTH_POLICY_GENARATION_TOPUP: "/insurance/health/policy/generation/topup",
+  INSURANCE_HEALTH_POLICY_UPDATE: "/insurance/health/policy/update",
+  INSURANCE_HEALTH_MAXAGE: "/insurance/health/maxage",
+  INSURANCE_TERM_PURCHAGE: "/insurance/term/purchase",
+  INSURANCE_PORTFOLIO_LIST: "/insurance/portfolio/list",
+
+
+
 
 
 
