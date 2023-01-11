@@ -27,6 +27,8 @@ import {
 } from "../../Assets";
 import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, RadioButtonChecked, RadioButtonUnchecked } from "@mui/icons-material";
 import { globalConstant } from "../../Utils/globalConstant";
+import { useDispatch } from "react-redux";
+import { setReplaceFundActiveIndexForInvestmentAction } from "../../Store/Recommendations/actions/recommendations-action";
 
 export interface MFProp {
   onClick?: (data: any, type: any, element: string, index: number | undefined) => void | undefined;
@@ -35,8 +37,9 @@ export interface MFProp {
   onCardClick?: (id: string) => void | undefined//from mutual fund screen
   onRemoveCardClick?: (recommendationfund_id: number, secid: string) => void | undefined //for removing card on click 
 
+  fundselected?: boolean
 
-  variableMasterFundListIndex?: number
+  activeIndex?: number
 
   // API types
   recommendation_id: number,
@@ -142,7 +145,8 @@ const style = {
 
 const MutualFundCard2 = (props: MFProp) => {
   const classes = useStyles();
-  const naviagte = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
 
   const handleRemoveClick = (strtype: string) => {
@@ -306,7 +310,10 @@ const MutualFundCard2 = (props: MFProp) => {
                         style={style.buttons}
                         className={classes.replaceBtn}
                         // onClick={() => naviagte("/replaceFunds")}
-                        onClick={() => naviagte('/explorefunds', { state: { status: globalConstant.CEF_REPLACE_FUND, parentRoute: "/onetimemutualfundrecommendation" } })}
+                        onClick={() => {
+                          dispatch(setReplaceFundActiveIndexForInvestmentAction(props?.activeIndex))
+                          navigate('/explorefunds', { state: { status: globalConstant.CEF_REPLACE_FUND, parentRoute: "/onetimemutualfundrecommendation" } })
+                        }}
                       >
                         <img src={ReplaceButtonIcon} />
                         Replace
@@ -339,20 +346,23 @@ const MutualFundCard2 = (props: MFProp) => {
               <Box component="span" >
                 <Checkbox
                   onClick={(e: any) => {
-                    if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.variableMasterFundListIndex)
-                  }} />
+                    if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
+                  }}
+                // checked={props?.fundselected ? props?.fundselected : false}
+                />
+
               </Box>
             ) : (
               // for replace funds
               <Box
                 component="span"
                 onClick={(e: any) => {
-                  if (props?.onClick) props?.onClick(props?.secid, null, "radio", props?.variableMasterFundListIndex)
+                  if (props?.onClick) props?.onClick(props?.secid, null, "radio", props?.activeIndex)
                 }}
               >
                 {
                   props?.isChecked === true ?
-                    <>
+                    <>``
                       <RadioButtonChecked sx={{ color: "var(--primaryColor)" }} />
                     </>
                     : <>
