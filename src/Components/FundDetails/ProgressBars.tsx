@@ -94,6 +94,7 @@ const ProgressBars = (props: IProps) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Box className="large-2">
       {
         progressData &&
         progressData.length &&
@@ -114,6 +115,8 @@ const ProgressBars = (props: IProps) => {
           )
         })
       }
+      </Box>
+     
 
       <Grid container sx={{ padding: " 11px 78px" }} >
         <Grid xs={12}>

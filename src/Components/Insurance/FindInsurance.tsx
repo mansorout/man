@@ -376,20 +376,21 @@ const FindInsurance = () => {
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 1/2</p>
                                 <p style={{ color: '#ffffff' }}>Help us to select the members you want to insure</p>
-                                <Box width="100%" >
+                                <Box width="100%"  >
                                     <LinearProgressBar value={10} />
                                 </Box>
                             </div>
 
-                            <div style={{display:'flex', justifyContent:'center'}}>
+                            <div style={{display:'flex', justifyContent:'center'}} className="halfStepStyle">
                                 <div className='genderSelect'>
-                                    <p className='purpleText'>I'm a</p>
+                                    <p className='purpleText'>I'm a </p>
                                     <div className='genderContainer'>
                                         {SelectGender.map((item, index) => {
                                             return (
                                                 <CardWithImage text={item.desc} headIcon={item.logo} isSelected={genderSelect == item.desc} btnClick={() => { setGenderSelect(item.desc)}} />
                                             )
-                                        })}</div>
+                                        })}
+                                        </div>
                                     <p className='purpleText'>I want health cover for</p>
                                     <CardWithImageAndCount text={'Me'} headIcon={manicon} isSelected={me} btnClick={() => { setMe(!me)}} />
                                     <CardWithImageAndCount text={'Spouse'} headIcon={manicon} isSelected={spouse} btnClick={() => { setSpouse(!spouse)}} />

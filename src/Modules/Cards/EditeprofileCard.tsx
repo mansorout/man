@@ -800,7 +800,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -826,7 +826,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -855,7 +855,7 @@ const EditprofileCard = () => {
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          top: "-1px",
+                          top: "1px",
                           background: "#fff"
                         }}
                         // selectSX={{
@@ -1040,7 +1040,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1067,7 +1067,7 @@ const EditprofileCard = () => {
                       inputLabelSX={{
                         color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1123,7 +1123,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff"
                       }}
                       // selectSX={{
@@ -1149,7 +1149,7 @@ const EditprofileCard = () => {
                         color: "rgba(0, 0, 0, 0.6)",
                         fontSize: "15px",
                         fontWeight: "normal",
-                        top: "-1px",
+                        top: "1px",
                         background: "#fff",
                         // width: "100%"
                       }}
