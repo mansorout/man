@@ -11,6 +11,7 @@ export const globalConstant = Object.freeze({
     CEF_ADD_FUND: "Add Funds",
     CEF_EXPLORE_FUND: "Explore Funds",
     CEF_REPLACE_FUND: "Replace Funds",
+    CEF_REPLACE_OF_EXPLORE_FUND: "Replace Funds"
 })
 
 export const lookUpMasterKeys: any = Object.freeze({

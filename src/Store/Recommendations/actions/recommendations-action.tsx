@@ -1,4 +1,4 @@
-import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT } from "../constants/recommendations-constant"
+import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT, SET_SELECTED_FUNDS_FOR_INVESTMENT } from "../constants/recommendations-constant"
 
 export const setInvestmentCardTypeAction = (data: any) => {
   return { type: "SET_INVESTMENT_TYPE", payload: data }
@@ -14,4 +14,8 @@ export const setMutualFundListWrtUserAmountAction = (data: any) => {
 
 export const setMasterFundListForExploreFundsAction = (data: any) => {
   return { type: SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, payload: data };
+}
+
+export const setSelectedFundsForInvestmentAction = (data: any) => {
+  return { type: SET_SELECTED_FUNDS_FOR_INVESTMENT, payload: data };
 }
