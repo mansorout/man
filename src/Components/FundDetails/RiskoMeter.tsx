@@ -53,22 +53,22 @@ const enumChartMessages = {
 
 function segmentValueFormatter(value:any) {
   if (value < 1) {
-    return ` Low`
+    return ` `
   }
   if (value < 2) {
-    return `Low to Moderate`
+    return ``
   }
   if (value < 3) {
-    return ` Moderate`
+    return ``
   }
   if (value < 4) {
-    return ` Moderately High`
+    return ``
   }
   if (value < 5) {
-    return ` High`
+    return ``
   }
   if (value < 6) {
-    return ` Very High`
+    return ``
   }
 
   // return `${value} `
