@@ -30,7 +30,8 @@ import { globalConstant } from '../../Utils/globalConstant'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
 import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
-import { setMasterFundListForExploreFundsAction } from '../../Store/Recommendations/actions/recommendations-action'
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
+import SelectedFunds from './SelectedFunds'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -335,7 +336,7 @@ function ExploreFunds(props: any) {
 
       setFundSelecteds(arrNew);
       setMasterFundList(arrMasterFundList);
-      dispatch(setMasterFundListForExploreFundsAction(arrNew));
+
 
     } else if (status === globalConstant.CEF_REPLACE_FUND) {
       //replace fund
@@ -389,6 +390,10 @@ function ExploreFunds(props: any) {
     // setFundSelecteds(arrFundSelecteds);
   }
 
+  useEffect(() => {
+    console.log(fundSelecteds, "fundSelecteds");
+  }, [fundSelecteds])
+
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -415,21 +420,31 @@ function ExploreFunds(props: any) {
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
 
-                    </Box> : <>
-                      {
-                        status === globalConstant.CEF_ADD_FUND ? <Box>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
-                        </Box> : <Box>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
-                          <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
-                        </Box>
-                      }
-                    </>
+                    </Box> :
+                      <>
+                        {
+                          status === globalConstant.CEF_ADD_FUND ? <Box>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                            <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                          </Box> :
+                            status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                              <Box>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
+                                {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                              </Box>
+                              :
+                              <Box>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
+                                <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                              </Box>
+                        }
+                      </>
                   }
 
 
@@ -513,18 +528,32 @@ function ExploreFunds(props: any) {
 
             </Grid>
           </Grid>
+
           {
             status === globalConstant.CEF_REPLACE_FUND ?
               <FooterWithBtn
                 btnText="Replace Fund"
-                btnClick={() => null}
+                btnClick={() => {
+                  if (status === globalConstant.CEF_REPLACE_FUND) {
+                    dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                    navigate("/customizemf")
+                  }
+                }}
               />
               : (
                 fundSelecteds.length > 0 ?
                   <>
                     <AddToPlanComp
                       fundsCount={fundSelecteds.length}
-                      onClick={() => null}
+                      onClick={() => {
+                        if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+                          dispatch(setMasterFundListForExploreFundsAction(fundSelecteds));
+                          navigate("/selectedfunds");
+                        } else if (status === globalConstant.CEF_ADD_FUND) {
+                          dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                          navigate("/customizemf");
+                        }
+                      }}
                       buttonText={"Funds Selected"}
                       buttonnametext={"Add To Plan"} />
                   </>
