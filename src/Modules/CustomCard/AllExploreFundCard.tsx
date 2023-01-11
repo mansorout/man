@@ -167,20 +167,54 @@ function AllExploreFundCard({ secid, fundname, aum, return1yr, return3yr, return
 
 
 
-    let newArray = [...fundCard, event.target.value];
-    if (fundCard.includes(event.target.value)) {
-      newArray = newArray.filter(day => day !== event.target.value);
-    }
-    setFundCard(newArray);
+    // let newArray = [...fundCard, event.target.value];
+    // if (fundCard.includes(event.target.value)) {
+    //   newArray = newArray.filter(day => day !== event.target.value);
+    // }
+   
+    // let addedArr =newArray.join()
+    // console.log(addedArr)
+    // setFundCard(newArray);
+
 
     // alert(event.target.id)
     // setFundCard(celebs => [ ...celebs, ...event.target.value]);
+     
+    // const value = event.target.value;
+    // setFundCard((prev:any) =>
+    //   fundCard.includes(value)
+    //     ? prev.filter((cur:any) => cur !== value)
+    //     : [...prev, event.target.value]
+    // );
+
+    const value = event.target.value;
+
+    let modArr = fundCard;
+    console.log(modArr)
+    modArr.push(value);
+    console.log(modArr)
+
+    // if(fundCard.includes(value) ){
+    //   fundCard.filter((cur:any) => cur !== value)
+    // }
+    // else{
+      setFundCard(modArr);
+      // }
+      console.log(fundCard)
+        
+        
+  
+
+   
+    
+
+
 
   }
 
-  useEffect(() => {
-    console.log(fundCard)
-  }, [fundCard])
+  // useEffect(() => {
+  //   console.log(fundCard)
+  // }, [fundCard])
 
 
 
