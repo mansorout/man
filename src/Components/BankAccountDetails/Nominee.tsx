@@ -21,17 +21,19 @@ const enumErrorMsg = {
 }
 
 type kycDataProps = {
-    nomineenamefromapi: string,
-    nomineerelationfromapi: string,
-    nomineedateofbirthfromapi: string
+    name: string,
+    dateOfBirth: string,
+    relation: string
+
 
 
 }
 
 const initialFormData: kycDataProps = {
-    nomineenamefromapi: "",
-    nomineerelationfromapi: "",
-    nomineedateofbirthfromapi: ""
+    name: "",
+    dateOfBirth: "",
+    relation: ""
+
 }
 
 
@@ -59,11 +61,8 @@ const Nominee = () => {
     const [disablenomineeButton, setDisablenomineeButton] = useState<boolean>(true);
     const [kyc, setKycData] = useState<kycDataProps>({ ...initialFormData });
 
-    const [formdata, setFormdata] = useState<any>({
-        name: "",
-        dateOfBirth: "",
-        relation: ""
-
+    const [formdata, setFormdata] = useState<kycDataProps>({
+        ...initialFormData 
     });
 
     //  data taking form edit profile api
@@ -208,7 +207,7 @@ const Nominee = () => {
 
 
     useEffect(() => {
-        getUserProfileData(); 
+        getUserProfileData();
         // getkycData()
     }, [])
 
@@ -229,22 +228,18 @@ const Nominee = () => {
                     return;
                 }
                 const response = data?.data
-                // console.log(data.kycDetails?.ischequeavailable)
-                // console.log(response)
-                // console.log(response.userdetails.customer_id)
 
-                if (response.userdetails?.customer_id != 0) {
+               if (response.userdetails?.customer_id != 0) {
                     setUserDetails(response);
                     setNomineeName(response.kycdetails?.nomineedetails?.nominee_name)
                     setNomineeRelation(response.kycdetails?.nomineedetails?.relation)
                     setNomineeDob(response.kycdetails?.nomineedetails?.nominee_dob)
-                    // console.log(response.kycdetails?.nomineedetails?.relation)
-                    setKycData((prev: kycDataProps) => ({
+                    setFormdata((prev: kycDataProps) => ({
                         ...prev,
-                        nomineenamefromapi: response.kycdetails?.nomineedetails?.nominee_name,
-                        nomineerelationfromapi: response.kycdetails?.nomineedetails?.relation,
-                        nomineedateofbirthfromapi: response.kycdetails?.nomineedetails?.nominee_dob,
-                        
+                        name: response.kycdetails?.nomineedetails?.nominee_name,
+                        dateOfBirth: response.kycdetails?.nomineedetails?.nominee_dob,
+                        relation: response.kycdetails?.nomineedetails?.relation_id,
+
                     }))
                 }
 
@@ -253,31 +248,13 @@ const Nominee = () => {
 
             })
             .catch(err => {
-                // console.log(err);
+              
             })
 
-        // store.dispatch(getUserProfileDataThunk());
+        
 
     }
-    // console.log(userDetails?.kycdetails?.nomineedetails?.nominee_name)
-    // console.log(nomineename)
-    // console.log(nomineeRelation)
-    // console.log(nomineeDob)
-
-
-    // const getkycData = () => {
-    //     setKycData((prev: kycDataProps) => ({
-    //         ...prev,
-    //         firstname: userDetails?.kycdetails?.nomineedetails?.nominee_name,
-    //         dateofbirth: userDetails?.kycdetails?.nomineedetails?.nominee_dob,
-    //         relation: userDetails?.kycdetails?.nomineedetails?.relation
-    //     }))
-    // }
-
-    console.log(userDetails?.kycdetails?.nomineedetails?.nominee_name)
-    console.log(kyc)
-    // console.log(userDetails?.userdetails?.customer_id)
-    // console.log(userDetails?.kycdetails?.pannumber)
+    
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -348,7 +325,7 @@ const Nominee = () => {
                                         onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
                                         // required
                                         label="Full Name"
-                                        // value={formData?.nominee_name}
+                                        value={formData?.fullname}
                                         name="name"
                                         onChange={handlechange}
                                         error={nameError}
@@ -394,14 +371,14 @@ const Nominee = () => {
                                 <FormControl>
                                     <InputLabel>Relation</InputLabel>
                                     <Select
-                                         
+
                                         label={relationError ? "Please choose a relation" : "Relation"}
-                                        value={formdata.relation}
+                                        value={formData.relation_id}
                                         onChange={handlechange}
                                         error={relationError}
                                         name="relation"
                                     >
-                                        
+
                                         <MenuItem value="9">Daughter</MenuItem>
                                         <MenuItem value="8">Son</MenuItem>
                                         <MenuItem value="7">Wife</MenuItem>
