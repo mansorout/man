@@ -142,7 +142,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }))
 
 interface FundAmtCard {
-    heading: string;
     data: any;
     investmentType: number;
     replaceBtnAction: (param:any) => void;

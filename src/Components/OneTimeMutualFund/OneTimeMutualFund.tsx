@@ -466,6 +466,7 @@ const OneTimeMutualFund = () => {
                   display: "flex",
                   justifyContent: "center",
                   marginTop: "3vw",
+                  marginBottom:"80px",
                 }}
               >
                 <Button

@@ -993,7 +993,8 @@ const EditprofileCard = () => {
                         fontSize: "17px",
                         marginTop: "4%",
                         marginRight: "6%",
-                      }}
+                      }}    
+                      
                       fullWidth
                       label="Date of Birth"
                       onBlur={handleBlur}

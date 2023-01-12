@@ -21,17 +21,17 @@ const enumErrorMsg = {
 }
 
 type kycDataProps = {
-   nominee_name: string,
-   relation: string,
-   nominee_dob: string
+    nomineenamefromapi: string,
+    nomineerelationfromapi: string,
+    nomineedateofbirthfromapi: string
 
 
 }
 
 const initialFormData: kycDataProps = {
-    nominee_name: "",
-    relation: "",
-    nominee_dob: "",
+    nomineenamefromapi: "",
+    nomineerelationfromapi: "",
+    nomineedateofbirthfromapi: ""
 }
 
 
@@ -66,7 +66,7 @@ const Nominee = () => {
 
     });
 
-//  data taking form edit profile api
+    //  data taking form edit profile api
 
     // const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
 
@@ -80,7 +80,7 @@ const Nominee = () => {
 
 
 
-      
+
 
     const handlechange = (e: any) => {
         e.preventDefault();
@@ -208,7 +208,8 @@ const Nominee = () => {
 
 
     useEffect(() => {
-        getUserProfileData();getkycData()
+        getUserProfileData(); 
+        // getkycData()
     }, [])
 
     const getUserProfileData = () => {
@@ -238,6 +239,13 @@ const Nominee = () => {
                     setNomineeRelation(response.kycdetails?.nomineedetails?.relation)
                     setNomineeDob(response.kycdetails?.nomineedetails?.nominee_dob)
                     // console.log(response.kycdetails?.nomineedetails?.relation)
+                    setKycData((prev: kycDataProps) => ({
+                        ...prev,
+                        nomineenamefromapi: response.kycdetails?.nomineedetails?.nominee_name,
+                        nomineerelationfromapi: response.kycdetails?.nomineedetails?.relation,
+                        nomineedateofbirthfromapi: response.kycdetails?.nomineedetails?.nominee_dob,
+                        
+                    }))
                 }
 
 
@@ -257,14 +265,14 @@ const Nominee = () => {
     // console.log(nomineeDob)
 
 
-    const getkycData =()=>{
-        setKycData((prev: kycDataProps) => ({
-            ...prev,
-            firstname: userDetails?.kycdetails?.nomineedetails?.nominee_name ,
-            dateofbirth: userDetails?.kycdetails?.nomineedetails?.nominee_dob ,
-            relation: userDetails?.kycdetails?.nomineedetails?.relation
-          }))
-    }
+    // const getkycData = () => {
+    //     setKycData((prev: kycDataProps) => ({
+    //         ...prev,
+    //         firstname: userDetails?.kycdetails?.nomineedetails?.nominee_name,
+    //         dateofbirth: userDetails?.kycdetails?.nomineedetails?.nominee_dob,
+    //         relation: userDetails?.kycdetails?.nomineedetails?.relation
+    //     }))
+    // }
 
     console.log(userDetails?.kycdetails?.nomineedetails?.nominee_name)
     console.log(kyc)
@@ -327,6 +335,7 @@ const Nominee = () => {
                                             maxLength: 30,
                                         }}
                                         InputLabelProps={{
+                                            shrink: true,
                                             sx: {
                                                 color: "#3c3e42",
                                                 [`&.${inputLabelClasses.shrink}`]: {
@@ -385,12 +394,14 @@ const Nominee = () => {
                                 <FormControl>
                                     <InputLabel>Relation</InputLabel>
                                     <Select
+                                         
                                         label={relationError ? "Please choose a relation" : "Relation"}
                                         value={formdata.relation}
                                         onChange={handlechange}
                                         error={relationError}
                                         name="relation"
                                     >
+                                        
                                         <MenuItem value="9">Daughter</MenuItem>
                                         <MenuItem value="8">Son</MenuItem>
                                         <MenuItem value="7">Wife</MenuItem>

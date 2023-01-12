@@ -231,7 +231,7 @@ function NETbanking() {
                 </Breadcrumbs>
               </Box>
               <Card sx={{ maxWidth: 456, }}  >
-                <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option</Typography>
+                <Typography style={{ marginLeft: "5%", fontSize: "16px", marginTop: "5%", fontWeight: "500", height: "19px" }} >Select a payment option </Typography>
                 <CardHeader
                   avatar={
 

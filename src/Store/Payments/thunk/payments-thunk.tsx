@@ -158,5 +158,23 @@ export const getMandateAuthThunk = async (strUrl: string) => {
   return res;
 }
 
+export const getListOfPortfolioThunk = async (strUrl: string) => {
+  let res: any;
+
+  await getData(
+    strUrl,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.PAYMENT_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
 
 
