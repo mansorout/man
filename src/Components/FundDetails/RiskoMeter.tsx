@@ -1,12 +1,21 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Riskometer } from '../../Assets'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, animator } from "chart.js";
+import ReactSpeedometer from "react-d3-speedometer";
+
+
 
 type IProps = {
   holdingInfo: any
+}
+
+type customSegmentLabels ={
+  text: 'string',
+  position: 'string',
+  color: 'string',
 }
 
 const chartOptions = {
@@ -33,30 +42,67 @@ const chartOptions = {
 }
 
 const enumChartMessages = {
-  LOW: "low",
-  MODERATELY_HIGH_RISK_FUND: "",
+  LOW_RISK : "low",
+  MODERATELY_LOW_RISK_FUND: "Low to Moderate",
+  MODERATE_RISK_FUND:"Moderate",
+  MODERATELY_HIGH_RISK_FUND: "Moderately High",
+  HIGH_RISK_FUND: "High",
+  VERY_HIGH_RISK: "Very High"
+
+}
+
+function segmentValueFormatter(value:any) {
+  if (value < 1) {
+    return ` `
+  }
+  if (value < 2) {
+    return ``
+  }
+  if (value < 3) {
+    return ``
+  }
+  if (value < 4) {
+    return ``
+  }
+  if (value < 5) {
+    return ``
+  }
+  if (value < 6) {
+    return ``
+  }
+
+  // return `${value} `
+  return ``
 }
 
 export const RiskoMeter = (props: IProps) => {
+  const [riskValue, setRiskValue] = useState<any>("");
   Chart.register(ArcElement);
 
   useEffect(() => {
-    console.log(props?.holdingInfo);
+    console.log(props?.holdingInfo.riskometer);
+    setRiskValue(6)
+    // setRiskValue(props?.holdingInfo.riskometer)
   }, [props?.holdingInfo]);
+
+  useEffect(() => { })
+  console.log(riskValue)
 
   const chartData: any = useMemo(() => {
     return {
       type: 'doughnut',
       datasets: [
         {
-          data: [20, 20, 20, 20, 20],
+          data: [20, 20, 20, 20, 20, 20],
           needleValue: 6,
           backgroundColor: [
+            "#23db7b",
             "#8ad400",
             "#d2eb00",
             "#ecb004",
             "#ff7800",
-            "#ef0200"
+            "#ef0200",
+
           ],
           display: true,
           spacing: 35,
@@ -65,24 +111,26 @@ export const RiskoMeter = (props: IProps) => {
     }
   }, [props?.holdingInfo]);
 
-  // const data = {
-  //   type: 'doughnut',
-  //   datasets: [
-  //     {
-  //       data: [20, 20, 20, 20, 20],
-  //       needleValue: 6,
-  //       backgroundColor: [
-  //         "#8ad400",
-  //         "#d2eb00",
-  //         "#ecb004",
-  //         "#ff7800",
-  //         "#ef0200"
-  //       ],
-  //       display: true,
-  //       spacing: 35,
-  //     }
-  //   ]
-  // };
+
+
+  const data = {
+    type: 'doughnut',
+    datasets: [
+      {
+        data: [20, 20, 20, 20, 20],
+        needleValue: 6,
+        backgroundColor: [
+          "#8ad400",
+          "#d2eb00",
+          "#ecb004",
+          "#ff7800",
+          "#ef0200"
+        ],
+        display: true,
+        spacing: 35,
+      }
+    ]
+  };
 
   return (
     <>
@@ -114,7 +162,7 @@ export const RiskoMeter = (props: IProps) => {
             <Box sx={{
               margin: "1rem",
 
-              // margin: "24px 32px",
+
               padding: " 12px 12px 21px 16px",
               borderRadius: "8px",
 
@@ -123,7 +171,7 @@ export const RiskoMeter = (props: IProps) => {
             }}>
 
 
-              <Doughnut
+              {/* <Doughnut
                 data={chartData}
                 options={{
                   plugins: {
@@ -132,7 +180,7 @@ export const RiskoMeter = (props: IProps) => {
                       position: 'bottom'
                     },
                     tooltip: {
-                      enabled: false
+                      enabled: true
                     }
                   },
                   layout: {
@@ -147,12 +195,64 @@ export const RiskoMeter = (props: IProps) => {
                   maintainAspectRatio: true,
                   responsive: true,
                 }}
+              /> */}
+              <ReactSpeedometer
+               segmentValueFormatter={segmentValueFormatter}
+              currentValueText={''}
+              needleColor={"black"}
+              // paddingHorizontal={100}
+              // paddingVertical={100}
+                maxValue={6}
+                value={riskValue - (.5)}
+                segments={6}
+                width={400}
+                
+                // gap= {35}
+                segmentColors={["#5deb00",
+                  "#8ad400",
+                  "#d2eb00",
+                  "#ecb004",
+                  "#ff7800",
+                  "#ef0200",]}
+                  // needleHeightRatio={1.9}
+
+                  // customSegmentLabels={[
+                  //   {
+                  //     text: 'Very Bad',
+                  //     position: 'INSIDE',
+                  //     color: '#555',
+                  //   },
+                  //   {
+                  //     text: 'Bad',
+                  //     position: 'INSIDE',
+                  //     color: '#555',
+                  //   },
+                  //   {
+                  //     text: 'Ok',
+                  //     position: 'INSIDE',
+                  //     color: '#555',
+                  //     fontSize: '19px',
+                  //   },
+                  //   {
+                  //     text: 'Good',
+                  //     position: 'INSIDE',
+                  //     color: '#555',
+                  //   },
+                  //   {
+                  //     text: 'Very Good',
+                  //     position: 'INSIDE',
+                  //     color: '#555',
+                  //   },
+                  // ]}
+             
               />
               <Typography sx={{ textAlign: "center" }} className='This-is-a-moderately-high-risk-fund'>
-                {/*  it should be dynamic according to api:::: below line*/}
-                This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'>moderately high risk {enumChartMessages.MODERATELY_HIGH_RISK_FUND}</span> fund
+
+                This is a <span className='This-is-a-moderately-high-risk-fund .text-style-1'> {riskValue === 6  ? enumChartMessages.VERY_HIGH_RISK : riskValue === 5 ? enumChartMessages.HIGH_RISK_FUND :  riskValue === 4 ? enumChartMessages.MODERATELY_HIGH_RISK_FUND : riskValue === 3 ? enumChartMessages.MODERATE_RISK_FUND : riskValue === 2 ? enumChartMessages.MODERATELY_LOW_RISK_FUND : riskValue === 1 ? enumChartMessages.LOW_RISK : "" } risk  </span> fund
               </Typography>
             </Box>
+
+            
 
           </AccordionDetails>
         </Accordion>

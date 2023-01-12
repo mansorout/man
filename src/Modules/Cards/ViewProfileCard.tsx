@@ -35,7 +35,7 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
-import { apiResponse } from "../../Utils/globalTypes";
+import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
 
 const style = {
   containertwo: {
@@ -191,15 +191,16 @@ const ViewProfileCard = (props: IProps) => {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
-   let res : apiResponse = await setuploadimagethunk(ImageData)
-  console.log(res);
+     // @ts-ignore
+   let res : apiResponse = await setUploadImageThunk(ImageData)
+   console.log(res);
     // @ts-ignore
-  handleApiResponse(res, [setImgSrc]);
+  handleApiResponse(data.res, [setImgSrc]);
 }
 
 
 
-  
+    // @ts-ignore
 const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
   alert("hhhh")
   if (checkExpirationOfToken(res?.code)) {
@@ -214,6 +215,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
   arrFunc.forEach((item: void) => {
     // @ts-ignore
     if (res?.data) item(res?.data);
+    console.log(res?.data)
   })
 
 }
@@ -221,42 +223,6 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
 
 
 
- 
-  //   await postData(
-  //     ImageData,
-  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
-  //     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-  //     siteConfig.RECOMENDATION_API_ID
-  //   )
-  //     .then(res => res.json())
-  //     .then((data: any) => {
-  //       res = data;
-  //     }).catch(err => {
-  //       console.log(err)
-  //       return undefined;
-  //     })
-  
-  //   return res;
-  // }
-  
-  // export const setUpdateMutualFundThunk = async (objBody:any) => {
-  //   let res: any;
-    
-  //   await postData(
-  //     objBody,
-  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
-  //     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-  //     siteConfig.RECOMENDATION_API_ID
-  //   )
-  //     .then(res => res.json())
-  //     .then((data: any) => {
-  //       res = data;
-  //     }).catch(err => {
-  //       console.log(err)
-  //       return undefined;
-  //     })
-  
-  //   return res;
   //   postData(
   //     ImageData,
   //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
@@ -287,7 +253,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
           marginTop: "0px",
           height: " fit-content",
         }}
-        // className="paddingviewprofilestyle"
+      // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -395,7 +361,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
                       fontSize: "14px",
                       color: formData.dateofbirth || "" ? "#7b7b9d" : "#3c3e42",
                     }}
-                    // className="CommonStyle__Classofb_Date"
+                  // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
                   </Typography>
@@ -442,7 +408,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
                   fontSize: "13px",
                   color: formData.placeofbirth ? "#7b7b9d" : "#3c3e42",
                 }}
-                // className="CommonStyle__Class"
+              // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {
@@ -516,9 +482,9 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
 };
 
 export default ViewProfileCard;
-  function setuploadimagethunk(ImageData: { filename: string; image: string; module: string; }): any {
-    throw new Error("Function not implemented.");
-  }
+  // function setUploadImageThunk(ImageData: { filename: string; image: string; module: string; }): any {
+  //   throw new Error("Function not implemented.");
+  // }
 
   function dispatch(arg0: { type: string; payload: any; }) {
     throw new Error("Function not implemented.");
