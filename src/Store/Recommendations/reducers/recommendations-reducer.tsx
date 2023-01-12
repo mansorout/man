@@ -33,10 +33,25 @@ export default function recommendationsReducer(objState = objInitialState, actio
       }
       break;
     }
-    case SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS: {
-      objState.masterFundListForExploreFunds = {
-        ...objState.masterFundListForExploreFunds,
-        data: action.payload
+    // case SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS: {
+    //   // objState = {
+    //   //   ...objState.masterFundListForExploreFunds,
+    //   //   data: action.payload
+    //   // }
+    //   objState.masterFundListForExploreFunds = {
+    //     ...objState.masterFundListForExploreFunds,
+    //     data: action.payload
+    //   }
+    //   break;
+    // }
+    case SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS:{ 
+     objState = {
+        ...objState,
+        masterFundListForExploreFunds:
+        {
+          ...objState.masterFundListForExploreFunds,
+          data: action.payload
+          }
       }
       break;
     }
