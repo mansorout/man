@@ -35,7 +35,6 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
-import { apiResponse } from "../../Utils/globalTypes";
 import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
 
 const style = {
@@ -132,7 +131,7 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   const ImageData = {
     filename: "kk",
-    image: imgSrc,
+    image:"wwww.png",
     module: "profile",
   };
   console.log(imgSrc)
@@ -180,10 +179,11 @@ const ViewProfileCard = (props: IProps) => {
   }, [props?.userDetails]);
   // }, [g_viewProfileState])
 
-
+ 
 
   const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-
+   
+    
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () =>
@@ -191,31 +191,60 @@ const ViewProfileCard = (props: IProps) => {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
+     // @ts-ignore
+   let res : apiResponse = await setUploadImageThunk(ImageData)
+   console.log(res);
+    // @ts-ignore
+  handleApiResponse(data.res, [setImgSrc]);
+}
 
-   
-    // postData(
-    //   ImageData,
-    //   siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
-    //   siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-    //   siteConfig.AUTHENTICATION_API_ID
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (checkExpirationOfToken(data?.code)) {
-    //       dispatchLocal(setTokenExpiredStatusAction(true));
-    //       return;
-    //     }
 
-    //     if (data?.error) {
 
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
+    // @ts-ignore
+const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+  alert("hhhh")
+  if (checkExpirationOfToken(res?.code)) {
+    dispatch(setTokenExpiredStatusAction(true));
+    return;
+  }
 
- 
+  if (res?.error === true) {
+    return;
+  }
+
+  arrFunc.forEach((item: void) => {
+    // @ts-ignore
+    if (res?.data) item(res?.data);
+    console.log(res?.data)
+  })
+
+}
+
+
+
+
+  //   postData(
+  //     ImageData,
+  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+  //     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+  //     siteConfig.AUTHENTICATION_API_ID
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (checkExpirationOfToken(data?.code)) {
+  //         dispatchLocal(setTokenExpiredStatusAction(true));
+  //         return;
+  //       }
+
+  //       if (data?.error) {
+        
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   return (
     <>
       <Card
@@ -453,3 +482,11 @@ const ViewProfileCard = (props: IProps) => {
 };
 
 export default ViewProfileCard;
+  // function setUploadImageThunk(ImageData: { filename: string; image: string; module: string; }): any {
+  //   throw new Error("Function not implemented.");
+  // }
+
+  function dispatch(arg0: { type: string; payload: any; }) {
+    throw new Error("Function not implemented.");
+  }
+
