@@ -370,18 +370,21 @@ const FindInsurance = () => {
                 <Box sx={style.main}>
                     <Toolbar />
                     <Sidebar />
-                    <Grid container>
+                    <Grid container className="SideBarStyle">
                         <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
-                            <p >Let’s find right Insurance</p>
+                            <p style={{paddingLeft:"3%"}} >Let’s find right Insurance</p>
+                            <div className='Progress__BarStyle'>
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 1/2</p>
                                 <p style={{ color: '#ffffff' }}>Help us to select the members you want to insure</p>
-                                <Box width="100%"  >
+                                <Box width="100%" >
                                     <LinearProgressBar value={10} />
                                 </Box>
                             </div>
-
-                            <div style={{display:'flex', justifyContent:'center'}} className="halfStepStyle">
+                            </div>
+                       
+                     <div className="widthStyleHalfbar">
+                        <div style={{display:'flex', justifyContent:'center',width:"100%"}} className="halfStepStyle">
                                 <div className='genderSelect'>
                                     <p className='purpleText'>I'm a </p>
                                     <div className='genderContainer'>
@@ -391,7 +394,7 @@ const FindInsurance = () => {
                                             )
                                         })}
                                         </div>
-                                    <p className='purpleText'>I want health cover for</p>
+                                    <p className='purpleText' id="purpletexttwo">I want health cover for</p>
                                     <CardWithImageAndCount text={'Me'} headIcon={manicon} isSelected={me} btnClick={() => { setMe(!me)}} />
                                     <CardWithImageAndCount text={'Spouse'} headIcon={manicon} isSelected={spouse} btnClick={() => { setSpouse(!spouse)}} />
                                     <CardWithImageAndCount text={'Daughter'} headIcon={manicon} isSelected={daughter} btnClick={() => {setDaughter(!daughter) }} inc={() => {setDaughterCount(daughterCount+1) }} dec={() => {daughterCount && setDaughterCount(daughterCount-1) }} isCount={true} count={daughterCount} />
@@ -401,6 +404,8 @@ const FindInsurance = () => {
 
                                 </div>
                             </div>
+                               </div>
+                      
                         </Grid>
                     </Grid>
                 </Box>
