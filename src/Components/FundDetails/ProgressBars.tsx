@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 
+import {  Theme } from "@mui/material";
+import Box from '@mui/material/Box';
+import { makeStyles } from "@mui/styles";
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -9,61 +10,83 @@ import Grid from '@mui/material/Grid';
 import ProgressBar from "@ramonak/react-progress-bar";
 import { isArray } from 'underscore';
 
-const Consumerstaples = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+// const Consumerstaples = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     borderRadius: 5,
+//     backgroundColor: theme.palette.mode === 'light' ? '#4749ab' : '#308fe8',
+//   },
+// }));
+// const GovernmentSecurities = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     borderRadius: 5,
+//     backgroundColor: theme.palette.mode === 'light' ? "#64dbff" : '#308fe8',
+//   },
+// }));
+// const Energy = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     borderRadius: 5,
+//     backgroundColor: theme.palette.mode === 'light' ? '#4b7bec' : '#308fe8',
+//   },
+// }));
+// const FixedDeposits = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     borderRadius: 5,
+//     backgroundColor: theme.palette.mode === 'light' ? '#eaa221' : '#308fe8',
+//   },
+// }));
+// const Consumerstaples2 = styled(LinearProgress)(({ theme }) => ({
+//   height: 10,
+//   borderRadius: 5,
+//   [`&.${linearProgressClasses.colorPrimary}`]: {
+//     backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+//   },
+//   [`& .${linearProgressClasses.bar}`]: {
+//     borderRadius: 5,
+//     backgroundColor: theme.palette.mode === 'light' ? '#6495ED' : '#308fe8',
+//   },
+// }));
+
+
+const useStyles: any = makeStyles((theme: Theme) => ({
+  lowRisk: {
+
+    bgColor: "#5deb00"
   },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#4749ab' : '#308fe8',
+  moderateLow: {
+
+    bgColor: "#d2eb00"
+  },
+  moderateHigh: {
+
+    bgColor: "#ff7800"
+  },
+  highRisk: {
+
+    bgColor:  "#ef0200"
   },
 }));
-const GovernmentSecurities = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? "#64dbff" : '#308fe8',
-  },
-}));
-const Energy = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#4b7bec' : '#308fe8',
-  },
-}));
-const FixedDeposits = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#eaa221' : '#308fe8',
-  },
-}));
-const Consumerstaples2 = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#6495ED' : '#308fe8',
-  },
-}));
+
+
 
 type IProps = {
   progressData: any
@@ -72,6 +95,7 @@ type IProps = {
 const ProgressBars = (props: IProps) => {
 
   const [progressData, setProgressData] = useState<any[]>([]);
+  const classes = useStyles();
 
   useEffect(() => {
     if (props?.progressData) {
@@ -92,31 +116,33 @@ const ProgressBars = (props: IProps) => {
     }
   }, [props?.progressData, props?.activeTab])
 
+  console.log()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Box className="large-2">
-      {
-        progressData &&
-        progressData.length &&
-        progressData.map((item: any, index: number) => {
-          return (
-            <div key={index}>
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography className='ProgressTitle'>{item?.title}</Typography>
+        {
+          progressData &&
+          progressData.length &&
+          progressData.map((item: any, index: number) => {
+            return (
+              <div key={index}>
+                <Grid container spacing={3}>
+                  <Grid item xs={8}>
+                    <Typography className='ProgressTitle'>{item?.title}</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography sx={{ alignItems: "right" }} className='percentageValue'>{item?.percentage}%</Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <Typography sx={{ alignItems: "right" }} className='percentageValue'>{item?.percentage}%</Typography>
-                </Grid>
-              </Grid>
-              <ProgressBar completed={item?.percentage} isLabelVisible={false} height="8px" />
-              <br />
-            </div>
-          )
-        })
-      }
+                <ProgressBar completed={item?.percentage} bgColor={ item?.percentage <=25 ? "#5deb00" : item?.percentage <=50 ?" #d2eb00" : item?.percentage <=75 ? "#ff7800" : item?.percentage <=100 ? "#ef0200" : ""     }  isLabelVisible={false} height="8px" />
+                <br />
+              </div>
+            )
+          })
+        }
       </Box>
-     
+
 
       <Grid container sx={{ padding: " 11px 78px" }} >
         <Grid xs={12}>

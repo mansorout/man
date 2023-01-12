@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { tick } from '../../Assets';
+import { globalConstant } from '../../Utils/globalConstant';
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -50,15 +52,28 @@ const style = {
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
+    cmpWrapper: {
+        backgroundColor: "var(--bgLayoutColor)",
+    }
 }));
 
 const SelectedFunds = () => {
     const dispatch: any = useDispatch();
+    const navigate = useNavigate()
     const refContainer = useRef();
     const classes = useStyles()
     const [insuranceTermCondition, setInsuranceTermCondition] = useState<boolean>(false)
     const { insuranceTermConditionState } = useSelector((state: any) => state.InsuranceTermConditionReducer);
+    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
+    const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds);
+    const [selectedFundsList, setselectedFundsList] = useState([])
+    const [selected, setSelected] = useState<number>(1)
+    const [fundList, setFundList] = useState<any[]>([])
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
 
+    
 
     useEffect(() => {
         dispatch(InsuranceTermConditionAction(false))
@@ -69,60 +84,16 @@ const SelectedFunds = () => {
     }, [insuranceTermConditionState])
 
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-    };
+    useEffect(() => {
+        if(!g_selectedFunds?.length) navigate("/explorefunds")
+        console.log("g_selectedFunds : ", g_selectedFunds)
+        setselectedFundsList(g_selectedFunds)
+      }, [g_selectedFunds])
 
-    const sliderDetails = [
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-    ]
+      useEffect(() => {
+        console.log(g_selectedFundsForExploreFunds, "explore fund screen and useffect of g_selectedFundsForExploreFunds");
+    }, [g_selectedFundsForExploreFunds])
 
-    const [selected, setSelected] = useState<number>(1)
-    const [fundList, setFundList] = useState<any[]>([])
-    const [open, setOpen] = React.useState<boolean>(false);
-    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
-    const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
-
-    const navigate = useNavigate()
     const handleClick = () => {
         setOpen(!open)
     }
@@ -132,12 +103,23 @@ const SelectedFunds = () => {
     const handleDateChange = () => {
         console.log("Date is: ");
     };
+    
+
+    const handleNavigation = (selectedFundAction: string) => {
+        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
+    }
+   
+    const handleRemoveBtn = (selectedFundAction:any) => {
+        const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item.secid !== selectedFundAction.secid)
+        console.log("temp kp:",temp)
+        dispatch(setMasterFundListForExploreFundsAction(temp));
+    }
 
     return (
-        <Box style={{ width: "100vw" }} ref={refContainer}>
+        <Box ref={refContainer}>
             <Navbar />
-            <Box sx={style.main}>
-                <Grid container spacing={0} sx={{ height: "100vh" }}>
+            <Box className={classes.cmpWrapper}>
+                <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
                         <Sidebar />
@@ -146,10 +128,10 @@ const SelectedFunds = () => {
                         <Grid sx={{ padding: 2 }} item xs={12}>
                             <Toolbar />
                             <Grid container>
-                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" } }} item xs={12}>
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" }, paddingBottom: '70px', }} item xs={12}>
                                     <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
                                         <Breadcrumbs aria-label="breadcrumb">
-                                            <Link color="#6495ED" underline="always" href="/explorefunds">
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate("/explorefunds", { state: { status: globalConstant.CEF_EXPLORE_FUND, parentRoute: "/home" } })}>
                                                 <Typography className='burgerText'>Explore Funds</Typography>
                                             </Link>
                                             <Link underline='none' color="#8787a2" aria-current="page">
@@ -158,21 +140,31 @@ const SelectedFunds = () => {
                                         </Breadcrumbs>
                                     </Box>
                                     <Box sx={{ margin: "27px 0px 21px 25px" }}>
-                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>3 Funds Selected</Typography>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>{selectedFundsList && selectedFundsList?.length} Funds Selected</Typography>
                                     </Box>
 
                                     <Grid container sx={{ display: "flex" }} >
 
                                         <Grid item xs={12} md={6} >
                                             <Box>
-                                                <FundAmtCard heading={'Axis Small Cap Fund Regular Fund'} />
-                                                <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
-                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
+                                                {
+                                                    selectedFundsList && selectedFundsList?.length &&
+                                                    selectedFundsList?.map((selectedFund:any) => (
+                                                        <FundAmtCard
+                                                            data={selectedFund}
+                                                            investmentType={selected}
+                                                            replaceBtnAction={(item) => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
+                                                            removeBtnAction={(item) => handleRemoveBtn(item)}
+                                                        />
+                                                    ))
+                                                }
+                                                {/* <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
+                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} /> */}
                                             </Box>
 
                                             <Button
                                                 onClick={() =>
-                                                    alert("hiii")
+                                                    handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
                                                 }
                                                 sx={{
                                                     backgroundColor: "#00b4ff",
@@ -204,21 +196,14 @@ const SelectedFunds = () => {
                                                         <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                                                             <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>
                                                         </Box>
-                                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                                            <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
+                                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(0); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 0 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 0 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                            <Typography style={{ fontWeight: "500", color: `${selected == 0 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
                                                         </Box>
                                                     </Box>
                                                 </Box>
                                             </Grid>
-
-
-
                                         </Grid>
-
-
-
                                     </Grid>
-
 
                                     {
                                         onetimeLumpsum ? <FooterWithBtn
@@ -230,16 +215,8 @@ const SelectedFunds = () => {
                                         />
                                     }
 
-
-
-
                                 </Grid>
                             </Grid>
-
-
-
-
-
                         </Grid>
 
                     </Grid>
@@ -257,7 +234,7 @@ const SelectedFunds = () => {
                     }}>
                         Confirm SIP Date
                     </Button>
-                    
+
                 </Box>
             </Modal>
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>

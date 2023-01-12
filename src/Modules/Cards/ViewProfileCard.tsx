@@ -31,6 +31,11 @@ import Paper from "@mui/material/Paper";
 import "./style.css";
 import { height, padding } from "@mui/system";
 import { Console } from "console";
+import siteConfig from "../../Utils/siteConfig";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { postData } from "../../Utils/api";
+import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
 
 const style = {
   containertwo: {
@@ -107,13 +112,16 @@ type IProps = {
   userDetails: any;
 };
 
+
 const ViewProfileCard = (props: IProps) => {
+  const dispatchLocal = useDispatch();
+
   /**refernce variables */
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
   /**reducer state */
-  const userData: any = useSelector((state: any) => state.userProfileDetails)
-  console.log(userData)
+  const userData: any = useSelector((state: any) => state.userProfileDetails);
+  console.log(userData);
   // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   // console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
 
@@ -121,6 +129,15 @@ const ViewProfileCard = (props: IProps) => {
   /**local states */
   const [imgSrc, setImgSrc] = useState<any>("");
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
+  const ImageData = {
+    filename: "kk",
+    image:"wwww.png",
+    module: "profile",
+  };
+  console.log(imgSrc)
+  console.log(ImageData)
+
+
 
   const checkDOB = (strDOB: string) => {
     if (!strDOB) {
@@ -162,7 +179,11 @@ const ViewProfileCard = (props: IProps) => {
   }, [props?.userDetails]);
   // }, [g_viewProfileState])
 
-  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+ 
+
+  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+   
+    
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () =>
@@ -170,7 +191,59 @@ const ViewProfileCard = (props: IProps) => {
       );
       reader.readAsDataURL(e.target.files[0]);
     }
-  };
+     // @ts-ignore
+   let res : apiResponse = await setUploadImageThunk(ImageData)
+   console.log(res);
+    // @ts-ignore
+  handleApiResponse(data.res, [setImgSrc]);
+}
+
+
+
+    // @ts-ignore
+const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+  alert("hhhh")
+  if (checkExpirationOfToken(res?.code)) {
+    dispatch(setTokenExpiredStatusAction(true));
+    return;
+  }
+
+  if (res?.error === true) {
+    return;
+  }
+
+  arrFunc.forEach((item: void) => {
+    // @ts-ignore
+    if (res?.data) item(res?.data);
+    console.log(res?.data)
+  })
+
+}
+
+
+
+
+  //   postData(
+  //     ImageData,
+  //     siteConfig.AUTHENTICATION_METAUPLOAD_IMAGE,
+  //     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+  //     siteConfig.AUTHENTICATION_API_ID
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (checkExpirationOfToken(data?.code)) {
+  //         dispatchLocal(setTokenExpiredStatusAction(true));
+  //         return;
+  //       }
+
+  //       if (data?.error) {
+        
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <>
@@ -180,7 +253,7 @@ const ViewProfileCard = (props: IProps) => {
           marginTop: "0px",
           height: " fit-content",
         }}
-        // className="paddingviewprofilestyle"
+      // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -222,8 +295,7 @@ const ViewProfileCard = (props: IProps) => {
                     padding: "2px 21px 3px 23px",
                   }}
                   className="IncompleteStyle"
-
->
+                >
                   Incomplete
                 </Typography>
               }
@@ -242,12 +314,16 @@ const ViewProfileCard = (props: IProps) => {
               <ListItemAvatar>
                 <Avatar alt="" src={GrouMobilecicon} style={style.ca} />
               </ListItemAvatar>
-              <Typography sx={{fontSize: "13px", color:formData.mobilenumber || ""?"#7b7b9d":"#3c3e42"}}
-               className="CommonStyle__Class"
+              <Typography
+                sx={{
+                  fontSize: "13px",
+                  color: formData.mobilenumber || "" ? "#7b7b9d" : "#3c3e42",
+                }}
+                className="CommonStyle__Class"
               >
                 Mobile Number
                 {
-                  <Typography sx={{ fontSize: "14px", color:"#3c3e42" }}>
+                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                     {formData?.mobilenumber || ""}
                   </Typography>
                 }
@@ -258,13 +334,17 @@ const ViewProfileCard = (props: IProps) => {
               <ListItemAvatar>
                 <Avatar alt="" src={emaillogo} style={style.ca} />{" "}
               </ListItemAvatar>
-              <Typography sx={{ fontSize: "13px", color:formData.emailaddress || ""?"#7b7b9d":"#3c3e42" }}
-               className="CommonStyle__Class"
+              <Typography
+                sx={{
+                  fontSize: "13px",
+                  color: formData.emailaddress || "" ? "#7b7b9d" : "#3c3e42",
+                }}
+                className="CommonStyle__Class"
               >
                 Email Address
                 {
                   // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                  <Typography sx={{ fontSize: "14px", color:"#3c3e42" }}>
+                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                     {formData?.emailaddress || ""}
                   </Typography>
                 }
@@ -276,7 +356,11 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "14px", color:formData.dateofbirth || ""?"#7b7b9d":"#3c3e42" }}
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      color: formData.dateofbirth || "" ? "#7b7b9d" : "#3c3e42",
+                    }}
                   // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
@@ -284,7 +368,7 @@ const ViewProfileCard = (props: IProps) => {
                 }
                 secondary={
                   userData?.formData?.dateofbirth !== "" ? (
-                    <Typography sx={{ fontSize: "14px" , color:"#3c3e42" }}>
+                    <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                       {" "}
                       {formData?.dateofbirth || ""}
                     </Typography>
@@ -294,7 +378,7 @@ const ViewProfileCard = (props: IProps) => {
                 }
               />
               <Avatar
-                   className="Gender_Logo_Style"
+                className="Gender_Logo_Style"
                 alt=""
                 src={wclogo}
                 style={style.ca}
@@ -302,11 +386,15 @@ const ViewProfileCard = (props: IProps) => {
               />
               {/* ViewProfileState?.userdetails */}
               <ListItemText
-                  // className="CommonStyle__Class_Gender"
+                // className="CommonStyle__Class_Gender"
                 primary="Gender"
                 // secondary={g_viewProfileState?.userdetails?.gender !== "" ? g_viewProfileState?.userdetails?.gender : ""}
                 secondary={formData?.gender || ""}
-                sx={{ marginLeft: "20px", fontSize:"13px", color:formData.gender || ""?"#7b7b9d":"#3c3e42" }}
+                sx={{
+                  marginLeft: "20px",
+                  fontSize: "13px",
+                  color: formData.gender || "" ? "#7b7b9d" : "#3c3e42",
+                }}
               />
             </ListItem>
 
@@ -315,15 +403,19 @@ const ViewProfileCard = (props: IProps) => {
                 <Avatar alt="" src={icbirthplacelogo} style={style.ca} />
               </ListItemAvatar>
 
-              <Typography sx={{ fontSize: "13px", color:formData.placeofbirth?"#7b7b9d":"#3c3e42" }}
-                // className="CommonStyle__Class"
+              <Typography
+                sx={{
+                  fontSize: "13px",
+                  color: formData.placeofbirth ? "#7b7b9d" : "#3c3e42",
+                }}
+              // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {
                   g_viewProfileState?.userdetails?.placeofbirth !== "" ?
                     <Typography sx={{ fontSize: "14px" }}>{g_viewProfileState?.userdetails?.placeofbirth}</Typography> : ""
                   } */}
-                <Typography sx={{ fontSize: "14px" , color: "#3c3e42" }}>
+                <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                   {formData?.placeofbirth}
                 </Typography>
               </Typography>
@@ -335,11 +427,15 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "13px", color:formData.addressline1?"#7b7b9d":"#3c3e42"}}
-                  className="CommonStyle__Class"
+                  <Typography
+                    sx={{
+                      fontSize: "13px",
+                      color: formData.addressline1 ? "#7b7b9d" : "#3c3e42",
+                    }}
+                    className="CommonStyle__Class"
                   >
                     Communication Address
-                    <Typography sx={{ fontSize: "14px",  color: "#3c3e42"  }}>
+                    <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                       {formData?.addressline1}
                     </Typography>
                     {/* {
@@ -357,11 +453,15 @@ const ViewProfileCard = (props: IProps) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography sx={{ fontSize: "13px", color:formData.incomeslab?"#7b7b9d":"#3c3e42" }}
-                  className="CommonStyle__Class"
+                  <Typography
+                    sx={{
+                      fontSize: "13px",
+                      color: formData.incomeslab ? "#7b7b9d" : "#3c3e42",
+                    }}
+                    className="CommonStyle__Class"
                   >
                     Income slab
-                    <Typography sx={{ fontSize: "14px" , color:"#3c3e42" }}>
+                    <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
                       {formData?.incomeslab}
                     </Typography>
                     {/* {
@@ -382,3 +482,11 @@ const ViewProfileCard = (props: IProps) => {
 };
 
 export default ViewProfileCard;
+  // function setUploadImageThunk(ImageData: { filename: string; image: string; module: string; }): any {
+  //   throw new Error("Function not implemented.");
+  // }
+
+  function dispatch(arg0: { type: string; payload: any; }) {
+    throw new Error("Function not implemented.");
+  }
+

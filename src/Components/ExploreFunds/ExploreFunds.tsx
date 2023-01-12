@@ -29,6 +29,9 @@ import { Component } from 'react-image-crop'
 import { globalConstant } from '../../Utils/globalConstant'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
+import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
+import SelectedFunds from './SelectedFunds'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -147,6 +150,27 @@ const style = {
 
 }
 
+const initialMFDataForAddFund = {
+  showCheckbox: true,
+  showButtons: false,
+  isMutualFundScreen: false,
+  isChecked: false
+}
+
+const initialMFDataForReplaceFund = {
+  showCheckbox: false,
+  showButtons: false,
+  isMutualFundScreen: false,
+  isChecked: false
+}
+
+const initialMFDataForExploreFund = {
+  showCheckbox: true,
+  showButtons: false,
+  isMutualFundScreen: false,
+  isChecked: false
+}
+
 function ExploreFunds(props: any) {
 
   const classes = useStyles();
@@ -155,11 +179,12 @@ function ExploreFunds(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [selected, setSelected] = useState<number>(1)
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
-  const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
+  const [initialMFData, setInitialMFData] = useState<boolean>(false);
+  const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
+  const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0)
 
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
@@ -170,35 +195,45 @@ function ExploreFunds(props: any) {
   // const masterFundListLength: number = useMemo(() => { return masterFundList && masterFundList.length ? masterFundList.length : 0 }, [masterFundList]);
 
   const [masterFundListLength, setMasterFundListLength] = useState<number>(0);
+  const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
 
   useEffect(() => {
-    getMasterFundList();
     getCategoryGroupList();
+    return () => {
+      console.log("explore fund unmounted");
+    }
   }, []);
 
   useEffect(() => {
-    console.log(categoryGroupList, "useeffect categoryGroupList");
+    if (categoryGroupList && categoryGroupList.length) {
+      const { data, isFundPurchased } = g_masterFundListForExploreFunds;
+      if (isFundPurchased) {
+        getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+      } else {
+        if (data && data.length) {
+          setMasterFundList(data);
+        } else {
+          getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+        }
+      }
+    }
   }, [categoryGroupList])
 
   useEffect(() => {
-    console.log(masterFundList, "useeffect masterFundList");
-  }, [masterFundList])
-
-  useEffect(() => {
-    console.log(variableMasterFundList, "useeffect variableMasterFundList");
-    setMasterFundListLength(variableMasterFundList && variableMasterFundList.length ? variableMasterFundList.length : 0)
-  }, [variableMasterFundList])
-
-  const getMasterFundList = async () => {
-    let res: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST);
-    // @ts-ignore
-    handleApiResponse(res?.data, [setMasterFundList, setVariableMasterFundList]);
-  }
+    handlingFeatureWiseCard(masterFundList);
+  }, [masterFundList]);
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
+    res.data = [...res.data?.categorygroups];
     // @ts-ignore
-    handleApiResponse(res, [setCategoryGroupList])
+    handleApiResponse(res, [setCategoryGroupList]);
+  }
+
+  const getMasterFundList = async (url: string) => {
+    let res: apiResponse = await getMasterFundListThunk(url);
+    // @ts-ignore
+    handleApiResponse(res?.data, [setMasterFundList]);
   }
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
@@ -219,34 +254,34 @@ function ExploreFunds(props: any) {
 
   }
 
-  const handleNavigation = (strRoute: string) => {
-    navigate(strRoute);
+  const handlingFeatureWiseCard = async (arrRecom: any[]) => {
+    if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
+      setVariableMasterFundList(arrRecom);
+      return;
+    }
+
+    if (arrRecom && arrRecom.length) {
+
+      setMasterFundListLength(arrRecom.length);
+
+      //setting initialMFData according to status of screens
+      let arrNew: any[] = [];
+      if (status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
+        arrNew = await getMutualFundRecommendationListWRTUserAmount(arrRecom, initialMFDataForAddFund);
+      } else if (status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+        arrNew = await getMutualFundRecommendationListWRTUserAmount(arrRecom, initialMFDataForReplaceFund);
+      } else {
+        arrNew = await getMutualFundRecommendationListWRTUserAmount(arrRecom, initialMFDataForExploreFund);
+      }
+
+      if (arrNew && arrNew.length) {
+        setVariableMasterFundList(arrNew); //setting this variable list state
+      } else {
+        setVariableMasterFundList([]); //setting this variable list state
+      }
+    }
+
   }
-
-  // const countfiltered = explorefundsfromapi.filter(function (element: any) {
-  //   return element.categorygroup == 'Equity';
-  // }).length
-
-  // console.log(countfiltered);
-
-  // const countfiltered2 = explorefundsfromapi.filter(function (element: any) {
-  //   return element.categorygroup == 'Balanced';
-  // }).length
-
-  // console.log(countfiltered2);
-
-  // const countfiltered3 = explorefundsfromapi.filter(function (element: any) {
-  //   return element.categorygroup == 'Debt';
-  // }).length
-
-  // console.log(countfiltered3);
-
-  // explorefundsfromapi.map((value: any) => {
-  //   if (value.categorygroup === "Equity") {
-  //     console.log(value.categorygroup.length)
-  //   }
-
-  // })
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
@@ -262,7 +297,13 @@ function ExploreFunds(props: any) {
       }
 
       let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
-      setVariableMasterFundList(arrFiltered);
+
+      if (arrFiltered && arrFiltered.length) {
+        // handlingFeatureWiseCard(arrFiltered);
+        setVariableMasterFundList(arrFiltered)
+      } else {
+        setVariableMasterFundList([]);
+      }
     } else {
       console.log("master fund list is empty");
     }
@@ -275,6 +316,68 @@ function ExploreFunds(props: any) {
       console.log(secid, "invalid secid");
     }
   }
+
+  useEffect(() => {
+    console.log(masterFundList, "masterFundList useeefect")
+  }, [masterFundList])
+
+  const getTotalFundCound = (categorygroup: string) => {
+    // return 
+  }
+
+  const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
+
+    // let arrMasterFundList: any[] = [...masterFundList];
+    let arrMasterFundList: any[] = [...variableMasterFundList];
+    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
+      //explore fund and add fund of investment
+
+      if (isChecked) {
+        if (arrMasterFundList[index]["secid"] === secid) {
+          arrMasterFundList[index]["fundSelected"] = isChecked;
+        }
+      } else {
+        arrMasterFundList[index]["fundSelected"] = false;
+      }
+
+      let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
+
+      setFundSelecteds(arrNew);
+      // setMasterFundList(arrMasterFundList);
+      setVariableMasterFundList(arrMasterFundList);
+    } else if (status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+      //replace fund
+
+      //replacing fund according to sec id 
+      let objFundListSelectedItem: any = {};
+      let arrSelectedFundList: any[] = arrMasterFundList.map((item: any) => {
+        if (item?.isChecked !== undefined) {
+          if (item["secid"] === secid) {
+            item["isChecked"] = true;
+            objFundListSelectedItem = { ...item };
+          } else {
+            item["isChecked"] = false;
+          }
+        }
+
+        return item;
+      });
+
+
+      setFundSelecteds([objFundListSelectedItem]);
+      setVariableMasterFundList(arrSelectedFundList);
+      // setMasterFundList(arrSelectedFundList);
+      setInitialMFData(true);
+    } else {
+      //replace of explore fund
+
+
+    }
+  }
+
+  useEffect(() => {
+    console.log(fundSelecteds, "fundSelecteds");
+  }, [fundSelecteds])
 
 
   return (
@@ -302,21 +405,39 @@ function ExploreFunds(props: any) {
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
 
-                    </Box> : <>
-                      {
-                        status === globalConstant.CEF_ADD_FUND ? <Box>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
-                        </Box> : <Box>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
-                          <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                          <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
-                        </Box>
-                      }
-                    </>
+                    </Box> :
+                      <>
+                        {
+                          status === globalConstant.CEF_ADD_FUND ? <Box>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                            <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                          </Box> :
+                            status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                              <Box>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
+                                {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                              </Box>
+                              : status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND ?
+                                <Box>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                  <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                                  {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                </Box>
+                                :
+                                <Box>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
+                                  <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                                </Box>
+
+                        }
+                      </>
                   }
 
 
@@ -343,35 +464,46 @@ function ExploreFunds(props: any) {
                     </Box>
                     <DropDownFilterInvestment />
                   </Box>
-                  {/* <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                    <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({explorefundsfromapi.length})</Typography>
-                    </Box>
-                    <Box onClick={() => {
-                      setSelected(2); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
-                        == 'Equity'))
-                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Equity ({countfiltered}) </Typography>
-                    </Box>
-                    <Box onClick={() => {
-                      setSelected(3); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
-                        == 'Debt'))
-                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Debt ({countfiltered3})</Typography>
-                    </Box>
-                    <Box onClick={() => {
-                      setSelected(4); setexplorefundsfromapi(explorefundsfromapi.filter((item: any) => item.categorygroup
-                        == 'Balanced'))
-                    }} style={{ cursor: "pointer", border: `1px solid ${selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                      <Typography style={{ fontWeight: "500", color: `${selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Balanced({countfiltered2})</Typography>
-                    </Box>
+                  <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
 
-                  </Box> */}
-
+                    {
+                      categoryGroupList &&
+                      categoryGroupList.length &&
+                      categoryGroupList.map((item: any, index: number) => {
+                        return (
+                          <Box
+                            key={index}
+                            onClick={() => {
+                              setActiveCategoryGroupIndex(index);
+                              let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              setFundSelecteds([]);
+                              setInitialMFData(false);
+                              getMasterFundList(url);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                              borderRadius: "8px",
+                              backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                              textAlign: "center",
+                              padding: "12px 14px"
+                            }}>
+                            <Typography
+                              style={{
+                                fontWeight: "500",
+                                color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
+                                fontSize: "14px"
+                              }}>
+                              {/* {item}({getTotalFundCound(item)}) */}
+                              {item}
+                            </Typography>
+                          </Box>
+                        )
+                      })
+                    }
+                  </Box>
                 </Box>
               </Box>
-
-
               {
                 variableMasterFundList &&
                 variableMasterFundList.length &&
@@ -380,7 +512,9 @@ function ExploreFunds(props: any) {
                     <Box key={index}>
                       <MutualFundCard2
                         {...item}
+                        activeIndex={index}
                         onCardClick={handleNavigationOfFundDetails}
+                        onClick={handleAddFundsSelection}
                       />
                     </Box>
                   )
@@ -388,24 +522,41 @@ function ExploreFunds(props: any) {
               }
 
             </Grid>
-
-
-
-
-
           </Grid>
+
           {
-            status === globalConstant.CEF_REPLACE_FUND ?
+            status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
               <FooterWithBtn
                 btnText="Replace Fund"
-                btnClick={() => null}
+                btnClick={() => {
+                  if (status === globalConstant.CEF_REPLACE_FUND) {
+                    dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                    navigate("/customizemf");
+                  } else if (status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+                    dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
+                    navigate("/selectedfunds");
+                  }
+                }}
               />
               : (
                 fundSelecteds.length > 0 ?
                   <>
                     <AddToPlanComp
                       fundsCount={fundSelecteds.length}
-                      onClick={() => null} buttonText={"Funds Selected"} buttonnametext={"Add To Plan"} />
+                      onClick={() => {
+                        if (status === globalConstant.CEF_EXPLORE_FUND) {
+                          dispatch(setMasterFundListForExploreFundsAction(fundSelecteds));
+                          navigate("/selectedfunds");
+                        } else if (status === globalConstant.CEF_ADD_FUND) {
+                          dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                          navigate("/customizemf");
+                        } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
+                          dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
+                          navigate("/selectedfunds");
+                        }
+                      }}
+                      buttonText={"Funds Selected"}
+                      buttonnametext={"Add To Plan"} />
                   </>
                   : null
               )
@@ -413,7 +564,7 @@ function ExploreFunds(props: any) {
 
         </Grid>
       </Box>
-    </Box>
+    </Box >
   )
 }
 
@@ -491,7 +642,7 @@ export default ExploreFunds;
     // !!KYC.ispannumberverified &&
     // !!KYC.issignatureavailable;
 
-    // isbseregistered === true ? 
+    // isbseregistered === true ?
 
     // isKycComplete && isProfileComplete && !isbseregistered => call BSE api
 

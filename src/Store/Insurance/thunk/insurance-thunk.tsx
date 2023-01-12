@@ -1,5 +1,5 @@
 import siteConfig from '../../../Utils/siteConfig'
-import { getData, postData } from '../../../Utils/api'
+import { getData, getDataWithoutToken, postData } from '../../../Utils/api'
 import {
     postTermPurchaseProps,
     ulipReturnApiParamsTypes,
@@ -45,7 +45,7 @@ export const postTermGenerate = (bodyData: postTermPurchaseProps) => {
     }
 }
 
-export const getTermListApi = (recommendation_id : number) => {
+export const getTermListApi = (recommendation_id: number) => {
     return (dispatch: any) => {
         getData(
             siteConfig.RECOMMENDATION_TERM_LIST + `/?recommendation_id=${recommendation_id}`,
@@ -69,7 +69,7 @@ export const postTermPurchase = (bodyData: postTermPurchaseProps) => {
     return (dispatch: any) => {
         postData(
             bodyData,
-            siteConfig.TERM_PURCHASE,
+            siteConfig.INSURANCE_TERM_PURCHASE,
             siteConfig.CONTENT_TYPE_APPLICATION_JSON,
             siteConfig.INSURANCE_API_ID,
         ).then((res) => res.json()).then((data) => {
@@ -125,7 +125,7 @@ export const postUlipGenrateApi = (bodyData: sendUlipGenrateApiTypes) => {
 }
 
 
-export const getUlipListApi = (recommendation_id : number) => {
+export const getUlipListApi = (recommendation_id: number) => {
     return (dispatch: any) => {
         getData(
             siteConfig.RECOMMENDATION_ULIP_LIST + `/?recommendation_id=${recommendation_id}`,
@@ -144,7 +144,7 @@ export const getUlipListApi = (recommendation_id : number) => {
     }
 }
 
-export const getUlipSchemeDetailApi = (ulip_id : number) => {
+export const getUlipSchemeDetailApi = (ulip_id: number) => {
     return (dispatch: any) => {
         getData(
             siteConfig.INSURANCE_ULIP_SCHEME_DETAIL + `/?ulip_id=${ulip_id}`,
@@ -155,12 +155,158 @@ export const getUlipSchemeDetailApi = (ulip_id : number) => {
                 dispatch(setTokenExpiredStatusAction(true));
                 return;
             }
-            debugger
+            // debugger
             // dispatch(setUlipListSuccessAction(data?.data))
         }).catch((error) => {
-            debugger
+            // debugger
             // dispatch(setUlipListFailAction(error?.error))
         })
 
     }
+}
+
+
+export const setUlipGenerateQuoteThunk = async (objBody:any)=>{
+    let res : any
+    
+    await postData(
+        objBody,
+        siteConfig.INSURANCE_ULIP_QUOTE_GENERATE,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const getULipSumassuredThunk = async (strUrl:any)=>{
+    let res : any
+    await getData(
+        strUrl,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+
+export const getListOfSuminsuredThunk = async ()=>{
+    let res : any
+    await getData(
+        siteConfig.INSURANCE_HEALTH_SUMINSURED_LIST,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const getDetailsOfHealthPlanThunk = async (strUrl:any)=>{
+    let res : any
+    await getDataWithoutToken(
+        strUrl,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const setGenerateHealthPolicyThunk = async (objBody:any)=>{
+    let res : any
+    
+    await postData(
+        objBody,
+        siteConfig.INSURANCE_HEALTH_POLICY_GENARATION,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const setUpdateHealthPolicyThunk = async (objBody:any)=>{
+    let res : any
+    
+    await postData(
+        objBody,
+        siteConfig.INSURANCE_HEALTH_POLICY_UPDATE,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const setGenerateTermPolicyThunk = async (objBody:any)=>{
+    let res : any
+
+    await postData(
+        objBody,
+        siteConfig.INSURANCE_TERM_PURCHASE,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
+}
+
+export const getListOfInsurancePortfolioThunk = async ()=>{
+    let res : any
+    await getData(
+        siteConfig.INSURANCE_PORTFOLIO_LIST,
+        siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED, 
+        siteConfig.INSURANCE_API_ID
+    )
+    .then(res=> res.json())
+    .then(data=> res = data)
+    .catch(err => {
+        console.log(err);
+        return undefined
+        
+    })
+    return res;
 }

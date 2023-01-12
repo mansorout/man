@@ -305,10 +305,7 @@ export const privateRoutesConstants: prConstant[] = [
     path: "/healthInsurance/compareULIP",
     component: <ULIPCompare />
   },
-  {
-    path: "/healthInsurance/letsfindrightinsurance",
-    component: <ULIPFound />
-  },
+
   {
     path: "/healthInsurance/knowMore",
     component: <InsuranceDetails />

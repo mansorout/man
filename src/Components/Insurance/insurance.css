@@ -1,59 +1,211 @@
 .progressContainer {
-    margin: 24px 32px;
-    padding: 22px 21px;
-    object-fit: contain;
-    background-color: #675ff5;
-    border-radius: 8px;
+  margin: 24px 32px;
+  padding: 22px 21px;
+  object-fit: contain;
+  background-color: #675ff5;
+  border-radius: 8px;
 }
 
 .genderSelect {
-    border-radius: 8px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    max-width: 384px;
-    padding: 23px 42px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 384px;
+  padding: 23px 42px;
 }
 
 .genderContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .purpleText {
-    font-size: 16px;
-    color: #6c63ff;
-    font-weight: 500;
+  font-size: 16px;
+  color: #6c63ff;
+  font-weight: 500;
 }
 
 .proposalStep2Container {
-    max-width: 487px;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    padding: 16px;
-    margin: 16px 32px
+  max-width: 487px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 16px;
+  margin: 16px 32px;
 }
 
 .addressCard {
-    max-width: 487px;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    padding: 16px;
-    margin: 16px 32px
+  max-width: 487px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 16px;
+  margin: 16px 32px;
 }
 
 .fotterText {
-    font-size: 14px;
-    color: rgba(98, 100, 104, 0.74);
+  font-size: 14px;
+  color: rgba(98, 100, 104, 0.74);
 }
 /* 
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border: 1px solid white !important
 } */
 
-.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon{
-    color:white !important
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  color: white !important;
+}
+@media (width: 1024px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  .progressContainer {
+    width: 100% !important;
+    margin-left: -50px !important;
+  }
+  .progressContainetwo{
+    width: 97% !important;
+    margin-left: 18px !important;
+  }
+}
+@media (width: 912px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  .progressContainer {
+    width: 100% !important;
+    margin-left: -60px !important;
+  }
+  .genderSelect {
+    width: 305px !important;
+    margin-left: -14% !important;
+  }
+  .progressContainetwo{
+    width: 97% !important;
+    margin-left: 18px !important;
+  }
+  /* .genderContainer{
+        margin: 0 2px !important
+    } */
+}
+@media (width: 820px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  .progressContainer {
+    width: 96% !important;
+    margin-left: -12px !important;
+  }
+  .progressContainetwo{
+    width: 97% !important;
+    margin-left: 21px !important;
+  }
+}
+@media (width: 768px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  .progressContainer {
+    width: 97% !important;
+    margin-left: -16px !important;
+  }
+  .progressContainetwo{
+    width: 97% !important;
+    margin-left: 18px !important;
+  }
+
+  /* .genderContainer{
+        margin: 0 2px !important
+    } */
+}
+@media (max-width: 480px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  .progressContainer {
+  
+    width: 91% !important;
+    margin-left: 1px !important;
+
+  }
+  .genderSelect {
+    width: 305px !important;
+  }
+
+  .progressContainetwo{
+    width: 100% !important;
+    margin-left: 2px !important;
+  }
+  /* .genderContainer{
+        margin: 0 2px !important
+    } */
+}
+@media (width:414px) {
+    .progressContainer {
+  
+        width: 90% !important;
+        margin-left: -1px !important;
+    
+      } 
+}
+@media (width:390px) {
+    .genderSelect {
+        width: 283px !important;
+    }
 }
 
+@media (width: 280px) {
+  .genderSelect {
+    width: 185px !important;
+  }
+  .progressContainer {
+    width: 86% !important;
+    margin-left: -10px !important;
+  }
+  .genderContainer {
+    margin: 0 2px !important;
+  }
+  .progressContainetwo{
+    width: 100% !important;
+    margin-left: 1px !important;
+  }
+   .Progress__BarStyle{
+    
+    width: 106% !important;
+   
+  }
+
+  
+}
+
+@media (width:375px) {
+    .SideBarStyle{
+        padding: 9px !important;
+    }
+    .progressContainer {
+        width: 92% !important;
+        margin-left: -8px !important;
+    }
+    .genderSelect {
+        width: 261px !important;
+    }
+}
+@media (width:393px) {
+    .genderSelect {
+        width: 295px !important;
+    }
+    .progressContainer {
+        width: 93% !important;
+        margin-left: -7px !important;
+    }
+}
+@media (width:360px) {
+    .genderSelect {
+         width: 266px !important;
+    }
+    .progressContainer {
+        width: 93% !important;
+        margin-left: -9px !important;
+    }
+}

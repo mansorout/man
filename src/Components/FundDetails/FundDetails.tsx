@@ -766,7 +766,7 @@ const FundDetails = () => {
               >
                 <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
                   <RiskoMeter
-                    holdingInfo={fundDetails?.holdinginfo}
+                    holdingInfo={fundDetails}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
