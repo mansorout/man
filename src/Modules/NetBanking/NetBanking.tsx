@@ -232,24 +232,16 @@ function NetBanking() {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={13} sm={11} md={10}>
-            <Grid
-              sx={{
-                maxWidth: "99%",
-
-                height: "100vh",
-                boxSizing: "border-box",
-                overflow: "scroll",
-                paddingLeft: "1%",
-                paddingTop: "7px",
-              }}
-              item
-              xs={13}
-              sm={11}
-              md={10}
-            >
+          <Grid container xs={13} sm={11} md={10} sx={{
+                        height: "100vh",
+                        overflow: "scroll",
+                        width: "100%",
+                        display: "block",
+                        justifyContent: "center",
+              }}>
               <Toolbar />
-              <Box role="presentation">
+              <Grid container>
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link
                     color="#6495ED"
@@ -296,7 +288,9 @@ function NetBanking() {
                   </Link>
                 </Breadcrumbs>
               </Box>
-              <Card sx={{ maxWidth: 456, marginTop: "10px" }}>
+              </Grid>
+              <Box className="BoxPadding" >
+              <Card sx={{ maxWidth: 456, marginTop:"-28px", marginBottom:"60px" }}>
                 <Typography
                   style={{
                     marginLeft: "5%",
@@ -484,7 +478,7 @@ function NetBanking() {
               >
                 <NetBankingButton />
               </Box>
-            </Grid>
+              </Box>
           </Grid>
         </Grid>
       </Box>

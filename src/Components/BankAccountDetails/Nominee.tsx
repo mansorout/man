@@ -363,6 +363,8 @@ const Nominee = () => {
                                         /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                         e.preventDefault()
                                     }
+                                    placeholder="DD-MM-YYYY"
+                                    label="Date of Birth"
                                     required
                                     type="date"
                                     // label="Date of Birth"

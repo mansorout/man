@@ -68,7 +68,7 @@ const FooterWithButton2 = (props: FooterBtnWithBoxType) => {
         <Box sx={{
             position: 'relative',
             zIndex: '1',
-            // marginTop: '150px',
+            marginTop: '120px',
             
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
