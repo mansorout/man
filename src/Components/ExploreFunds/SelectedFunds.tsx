@@ -155,7 +155,9 @@ const SelectedFunds = () => {
                                                         <FundAmtCard
                                                             data={selectedFund}
                                                             investmentType={selected}
-                                                            replaceBtnAction={() => handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)}
+                                                            replaceBtnAction={() => console.log("fun")
+                                                                // handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
+                                                            }
                                                             removeBtnAction={(item) => handleRemoveBtn(item)}
                                                         />
                                                     ))
