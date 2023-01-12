@@ -126,7 +126,7 @@ const SelectedFunds = () => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
-    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
+    const g_selectedFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
     const [tempVar, setTempVar] = useState([
         {
             "fundname": "SBI Arbitrage Opportunities Reg Gr",
@@ -198,7 +198,10 @@ const SelectedFunds = () => {
             "fundSelected": true
         }
     ])
-
+    const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds);
+    useEffect(() => {
+        console.log(g_selectedFundsForExploreFunds, "explore fund screen and useffect of g_selectedFundsForExploreFunds");
+    }, [g_selectedFundsForExploreFunds])
     const navigate = useNavigate()
     const handleClick = () => {
         setOpen(!open)
@@ -210,12 +213,12 @@ const SelectedFunds = () => {
         console.log("Date is: ");
     };
 
-    const handleReplaceBtn = (selectedFundAction:any) => {
-        navigate("/explorefunds", { state: { status: globalConstant.CEF_REPLACE_OF_EXPLORE_FUND, parentRoute: "/home" } })
+    const handleNavigation = (selectedFundAction: string) => {
+        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
     }
 
-    const handleRemoveBtn = (selectedFundAction:any) => {
-        const temp = g_selectedFunds.filter((item:any) => item.secid !== selectedFundAction.secid)
+    const handleRemoveBtn = (selectedFundAction: any) => {
+        const temp = g_selectedFunds.filter((item: any) => item.secid !== selectedFundAction.secid)
         dispatch(setSelectedFundsForInvestmentAction(temp));
     }
 
@@ -252,12 +255,12 @@ const SelectedFunds = () => {
                                         <Grid item xs={12} md={6} >
                                             <Box>
                                                 {
-                                                    g_selectedFunds?.map((selectedFund:any) => (
+                                                    g_selectedFunds?.map((selectedFund: any) => (
                                                         <FundAmtCard
                                                             data={selectedFund}
                                                             heading={'Axis Small Cap Fund Regular Fund'}
                                                             investmentType={selected}
-                                                            replaceBtnAction={(item) => handleReplaceBtn(item)}
+                                                            replaceBtnAction={(item) => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
                                                             removeBtnAction={(item) => handleRemoveBtn(item)}
                                                         />
                                                     ))
@@ -268,7 +271,7 @@ const SelectedFunds = () => {
 
                                             <Button
                                                 onClick={() =>
-                                                    alert("hiii")
+                                                    handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
                                                 }
                                                 sx={{
                                                     backgroundColor: "#00b4ff",
@@ -338,7 +341,7 @@ const SelectedFunds = () => {
                     }}>
                         Confirm SIP Date
                     </Button>
-                    
+
                 </Box>
             </Modal>
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
