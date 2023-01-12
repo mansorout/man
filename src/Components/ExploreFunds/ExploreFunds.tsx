@@ -182,6 +182,7 @@ function ExploreFunds(props: any) {
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
+  const [initialMFData, setInitialMFData] = useState<boolean>(false);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0)
 
@@ -197,7 +198,6 @@ function ExploreFunds(props: any) {
   const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
 
   useEffect(() => {
-    // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST);
     getCategoryGroupList();
     return () => {
       console.log("explore fund unmounted");
@@ -220,7 +220,6 @@ function ExploreFunds(props: any) {
   }, [categoryGroupList])
 
   useEffect(() => {
-    // console.log(masterFundList, "useeffect masterFundList");
     handlingFeatureWiseCard(masterFundList);
   }, [masterFundList]);
 
@@ -256,12 +255,17 @@ function ExploreFunds(props: any) {
   }
 
   const handlingFeatureWiseCard = async (arrRecom: any[]) => {
+    if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
+      setVariableMasterFundList(arrRecom);
+      return;
+    }
+
     if (arrRecom && arrRecom.length) {
+
       setMasterFundListLength(arrRecom.length);
 
+      //setting initialMFData according to status of screens
       let arrNew: any[] = [];
-      // let arrRecom: any[] = [...masterFundList];
-
       if (status === globalConstant.CEF_ADD_FUND) {
         arrNew = await getMutualFundRecommendationListWRTUserAmount(arrRecom, initialMFDataForAddFund);
       } else if (status === globalConstant.CEF_REPLACE_FUND) {
@@ -271,8 +275,10 @@ function ExploreFunds(props: any) {
       }
 
       if (arrNew && arrNew.length) {
-        setVariableMasterFundList(arrNew);
-      };
+        setVariableMasterFundList(arrNew); //setting this variable list state
+      } else {
+        setVariableMasterFundList([]); //setting this variable list state
+      }
     }
 
   }
@@ -286,14 +292,15 @@ function ExploreFunds(props: any) {
       const { value } = e?.target;
       let arrMasterFundList: any[] = [...masterFundList];
       if (!value) {
-        handlingFeatureWiseCard(arrMasterFundList);
+        setVariableMasterFundList(arrMasterFundList);
         return;
       }
 
       let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
 
       if (arrFiltered && arrFiltered.length) {
-        handlingFeatureWiseCard(arrFiltered)
+        // handlingFeatureWiseCard(arrFiltered);
+        setVariableMasterFundList(arrFiltered)
       } else {
         setVariableMasterFundList([]);
       }
@@ -320,9 +327,10 @@ function ExploreFunds(props: any) {
 
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
 
-    let arrMasterFundList: any[] = [...masterFundList];
-    if (status === globalConstant.CEF_EXPLORE_FUND) {
-      //explore fund
+    // let arrMasterFundList: any[] = [...masterFundList];
+    let arrMasterFundList: any[] = [...variableMasterFundList];
+    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
+      //explore fund and add fund of investment
 
       if (isChecked) {
         if (arrMasterFundList[index]["secid"] === secid) {
@@ -335,59 +343,36 @@ function ExploreFunds(props: any) {
       let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
 
       setFundSelecteds(arrNew);
-      setMasterFundList(arrMasterFundList);
-
-
+      // setMasterFundList(arrMasterFundList);
+      setVariableMasterFundList(arrMasterFundList);
     } else if (status === globalConstant.CEF_REPLACE_FUND) {
       //replace fund
 
+      //replacing fund according to sec id 
+      let objFundListSelectedItem: any = {};
+      let arrSelectedFundList: any[] = arrMasterFundList.map((item: any) => {
+        if (item?.isChecked !== undefined) {
+          if (item["secid"] === secid) {
+            item["isChecked"] = true;
+            objFundListSelectedItem = { ...item };
+          } else {
+            item["isChecked"] = false;
+          }
+        }
 
+        return item;
+      });
+
+
+      setFundSelecteds([objFundListSelectedItem]);
+      setVariableMasterFundList(arrSelectedFundList);
+      // setMasterFundList(arrSelectedFundList);
+      setInitialMFData(true);
     } else {
       //add fund
 
 
     }
-    // let arrFundSelecteds: any = [...fundSelecteds];
-    // let fundSelectedsIndex: number = 0;
-    // let isItemAlreadyPresent: boolean = false
-
-    // arrFundSelecteds.forEach((item: any, index: number) => {
-    //   if (item.id === id) {
-    //     fundSelectedsIndex = index;
-    //     isItemAlreadyPresent = true;
-    //     return;
-    //   }
-    //   isItemAlreadyPresent = false;
-    // });
-
-    // let fundListSelectedItem: number = mfCards.length && mfCards.filter(item => item.id === id)[0];
-    // console.log(fundListSelectedItem)
-
-    // if (type === true) {
-    //   if (isItemAlreadyPresent) {
-    //     return;
-    //   }
-    //   arrFundSelecteds.push(fundListSelectedItem);
-    //   console.log(arrFundSelecteds)
-    // } else {
-    //   arrFundSelecteds.splice(fundSelectedsIndex, 1);
-    // }
-
-
-    // let arrSelectedFundList: any[] = [...fundList];
-    // // arrSelectedFundList[]
-
-    // arrSelectedFundList.forEach((item: any) => {
-    //   if (item.id === id) {
-    //     item.checked = !item.checked;
-    //   }
-    // })
-
-    // setFundList(arrSelectedFundList)
-
-    // here we have to dispatch action for setting latest data
-
-    // setFundSelecteds(arrFundSelecteds);
   }
 
   useEffect(() => {
@@ -482,7 +467,9 @@ function ExploreFunds(props: any) {
                             key={index}
                             onClick={() => {
                               setActiveCategoryGroupIndex(index);
-                              let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`
+                              let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              setFundSelecteds([]);
+                              setInitialMFData(false);
                               getMasterFundList(url);
                             }}
                             style={{
@@ -517,7 +504,7 @@ function ExploreFunds(props: any) {
                     <Box key={index}>
                       <MutualFundCard2
                         {...item}
-                        variableMasterFundListIndex={index}
+                        activeIndex={index}
                         onCardClick={handleNavigationOfFundDetails}
                         onClick={handleAddFundsSelection}
                       />
