@@ -144,8 +144,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 interface FundAmtCard {
     heading: string;
     data: any;
-    replaceBtnAction: (para:any) => void;
-    removeBtnAction: (para:any) => void;
+    investmentType: number;
+    replaceBtnAction: (param:any) => void;
+    removeBtnAction: (param:any) => void;
 }
 
 export default function FundAmtCard(props: FundAmtCard) {
@@ -160,20 +161,23 @@ export default function FundAmtCard(props: FundAmtCard) {
     }
 
     function handleOnBlurAmount(e: any) {
-        if (amount < 5000) {
-            setError(true)
-            setErrorMessageFN("Amount should be greater than 5000")
-        } else if (amount > 20000000) {
-            setError(true)
-            setErrorMessageFN("Amount should be less than 2 Cr")
-        } else {
-            setErrorMessageFN("")
+        if(props.investmentType === 1){
+            if (amount < props.data.lumpsumminamount) {
+                setError(true)
+                setErrorMessageFN(`Amount should be greater than ${props.data.lumpsumminamount}`)
+            }
+        } else{
+            if (amount < props.data.sipminamount) {
+                setError(true)
+                setErrorMessageFN(`Amount should be greater than ${props.data.sipminamount}`)
+            } 
         }
+        
     }
     let textColor = "#8787a2"
     if (amount === "" || !amount || amount?.length == 0) {
         textColor = "#8787a2"
-    } else if (amount < 5000 || amount > 20000000) {
+    } else if (amount < props?.data?.sipminamount || amount < props?.data?.lumpsumminamount) {
         textColor = 'red'
     }
     return (
@@ -183,27 +187,13 @@ export default function FundAmtCard(props: FundAmtCard) {
                     <Stack m={2} spacing={6}>
                         <Box className={classes.headingWrap}>
                             <img src={maskgroup} />
-                            <Typography
-                                // sx={{
-                                //     // height: "19px",
-                                //     // margin: "0 303px 25px 0",
-                                //     fontFamily: "Roboto",
-                                //     // fontSize: "16px",
-                                //     fontWeight: "500",
-                                //     fontStretch: "normal",
-                                //     fontStyle: "normal",
-                                //     lineHeight: "1.25",
-                                //     letterSpacing: "normal",
-                                //     textAlign: " left",
-                                //     color: " #3c3e42",
-                                //     minWidth: { md: 600, xs: 350 }
-                                // }}
-                                className={classes.cardHeading}
-                            >{`${props?.data?.fundname}`}</Typography>
+                            <Typography className={classes.cardHeading}>
+                                {`${props?.data?.fundname}`}
+                            </Typography>
                         </Box>
 
                         <List>
-                            <TextField label={amount > 20000000 ? "" : "Enter Investment Amount"}
+                            <TextField label="Enter Investment Amount"
                                 type="number"
                                 name="middleName"
                                 fullWidth
@@ -228,7 +218,7 @@ export default function FundAmtCard(props: FundAmtCard) {
                                     textAlign: " left",
                                     color: textColor,
                                 }}
-                            >{amount > 20000000 ? `Maximum amount you can invest is ₹2 Cr` : `Minimum investment amount is ₹5,000`}</Typography>
+                            >{props?.investmentType === 1 ? amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` :  amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
                         </List>
                     </Stack>
                     <Box sx={{
@@ -257,7 +247,9 @@ export default function FundAmtCard(props: FundAmtCard) {
                             "&.MuiButtonBase-root:hover": {
                                 bgcolor: 'rgba(255, 83, 0, 0.05)'
                             }
-                        }}>
+                        }}
+                        onClick={() => props.removeBtnAction(props?.data)}
+                        >
                             <img src={RemoveButtonIcon} />
                             Remove
                         </Button>
