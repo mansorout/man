@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { tick } from '../../Assets';
+import { globalConstant } from '../../Utils/globalConstant';
+import { setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -50,6 +52,9 @@ const style = {
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
+    cmpWrapper: {
+        backgroundColor: "var(--bgLayoutColor)",
+    }
 }));
 
 const SelectedFunds = () => {
@@ -121,6 +126,78 @@ const SelectedFunds = () => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
+    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
+    const [tempVar, setTempVar] = useState([
+        {
+            "fundname": "SBI Arbitrage Opportunities Reg Gr",
+            "return1yr": "3.92",
+            "return3yr": "3.83",
+            "return5yr": "4.78",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 3,
+            "returnytd": "3.68",
+            "secid": "F000000CDJ",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo2.svg",
+            "aum": "1000.00",
+            "providername": "SBI Funds Management Ltd",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 500,
+            "lumpsumminamount": 5000,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        },
+        {
+            "fundname": "UTI Arbitrage Reg Gr",
+            "return1yr": "3.47",
+            "return3yr": "3.92",
+            "return5yr": "4.86",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 5,
+            "returnytd": "3.21",
+            "secid": "F000000CUO",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo14.svg",
+            "aum": "1000.00",
+            "providername": "UTI Asset Management Co Ltd",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 500,
+            "lumpsumminamount": 5000,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        },
+        {
+            "fundname": "IDFC Arbitrage Reg IDCW-P",
+            "return1yr": "3.48",
+            "return3yr": "3.57",
+            "return5yr": "4.22",
+            "category": "Arbitrage Fund",
+            "categorygroup": "Alternative",
+            "ratingoverall": 2,
+            "returnytd": "3.26",
+            "secid": "F000000FX5",
+            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo10.svg",
+            "aum": "1000.00",
+            "providername": "IDFC Asset Management Company Limited",
+            "issipenabled": 1,
+            "islumpsumenabled": 1,
+            "sipminamount": 100,
+            "lumpsumminamount": 100,
+            "showButtons": false,
+            "showCheckbox": true,
+            "isMutualFundScreen": false,
+            "isChecked": false,
+            "fundSelected": true
+        }
+    ])
 
     const navigate = useNavigate()
     const handleClick = () => {
@@ -133,11 +210,20 @@ const SelectedFunds = () => {
         console.log("Date is: ");
     };
 
+    const handleReplaceBtn = (selectedFundAction:any) => {
+        navigate("/explorefunds", { state: { status: globalConstant.CEF_REPLACE_OF_EXPLORE_FUND, parentRoute: "/home" } })
+    }
+
+    const handleRemoveBtn = (selectedFundAction:any) => {
+        const temp = g_selectedFunds.filter((item:any) => item.secid !== selectedFundAction.secid)
+        dispatch(setSelectedFundsForInvestmentAction(temp));
+    }
+
     return (
-        <Box style={{ width: "100vw" }} ref={refContainer}>
+        <Box ref={refContainer}>
             <Navbar />
-            <Box sx={style.main}>
-                <Grid container spacing={0} sx={{ height: "100vh" }}>
+            <Box className={classes.cmpWrapper}>
+                <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
                         <Sidebar />
@@ -146,10 +232,10 @@ const SelectedFunds = () => {
                         <Grid sx={{ padding: 2 }} item xs={12}>
                             <Toolbar />
                             <Grid container>
-                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" } }} item xs={12}>
+                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" }, paddingBottom: '70px', }} item xs={12}>
                                     <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
                                         <Breadcrumbs aria-label="breadcrumb">
-                                            <Link color="#6495ED" underline="always" href="/explorefunds">
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate("/explorefunds", { state: { status: globalConstant.CEF_EXPLORE_FUND, parentRoute: "/home" } })}>
                                                 <Typography className='burgerText'>Explore Funds</Typography>
                                             </Link>
                                             <Link underline='none' color="#8787a2" aria-current="page">
@@ -158,16 +244,26 @@ const SelectedFunds = () => {
                                         </Breadcrumbs>
                                     </Box>
                                     <Box sx={{ margin: "27px 0px 21px 25px" }}>
-                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>3 Funds Selected</Typography>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>{g_selectedFunds?.length} Funds Selected</Typography>
                                     </Box>
 
                                     <Grid container sx={{ display: "flex" }} >
 
                                         <Grid item xs={12} md={6} >
                                             <Box>
-                                                <FundAmtCard heading={'Axis Small Cap Fund Regular Fund'} />
-                                                <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
-                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} />
+                                                {
+                                                    g_selectedFunds?.map((selectedFund:any) => (
+                                                        <FundAmtCard
+                                                            data={selectedFund}
+                                                            heading={'Axis Small Cap Fund Regular Fund'}
+                                                            investmentType={selected}
+                                                            replaceBtnAction={(item) => handleReplaceBtn(item)}
+                                                            removeBtnAction={(item) => handleRemoveBtn(item)}
+                                                        />
+                                                    ))
+                                                }
+                                                {/* <FundAmtCard heading={'PGIM India Midcap Opportunities Fund Growth'} />
+                                                <FundAmtCard heading={'Quant Mid Cap Fund Growth'} /> */}
                                             </Box>
 
                                             <Button
@@ -204,21 +300,14 @@ const SelectedFunds = () => {
                                                         <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                                                             <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>
                                                         </Box>
-                                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(2); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 2 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 2 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                                            <Typography style={{ fontWeight: "500", color: `${selected == 2 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
+                                                        <Box onClick={() => { setOnetimeLumpsum(false); setSelected(0); setFundList(ExploreFundsList.filter((item) => item.type == 'Equity')) }} style={{ cursor: "pointer", border: `1px solid ${selected == 0 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 0 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                                            <Typography style={{ fontWeight: "500", color: `${selected == 0 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Monthly SIP </Typography>
                                                         </Box>
                                                     </Box>
                                                 </Box>
                                             </Grid>
-
-
-
                                         </Grid>
-
-
-
                                     </Grid>
-
 
                                     {
                                         onetimeLumpsum ? <FooterWithBtn
@@ -230,16 +319,8 @@ const SelectedFunds = () => {
                                         />
                                     }
 
-
-
-
                                 </Grid>
                             </Grid>
-
-
-
-
-
                         </Grid>
 
                     </Grid>
