@@ -105,12 +105,10 @@ const SelectedFunds = () => {
     };
     
 
-    const handleReplaceBtn = (selectedFundAction:any) => {
-        navigate("/explorefunds", { state: { status: globalConstant.CEF_REPLACE_OF_EXPLORE_FUND, parentRoute: "/home" } })
-    }
     const handleNavigation = (selectedFundAction: string) => {
         navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
     }
+   
     const handleRemoveBtn = (selectedFundAction:any) => {
         const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item.secid !== selectedFundAction.secid)
         console.log("temp kp:",temp)
@@ -155,9 +153,7 @@ const SelectedFunds = () => {
                                                         <FundAmtCard
                                                             data={selectedFund}
                                                             investmentType={selected}
-                                                            replaceBtnAction={() => console.log("fun")
-                                                                // handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
-                                                            }
+                                                            replaceBtnAction={(item) => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
                                                             removeBtnAction={(item) => handleRemoveBtn(item)}
                                                         />
                                                     ))
@@ -167,7 +163,9 @@ const SelectedFunds = () => {
                                             </Box>
 
                                             <Button
-                                                onClick={() => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
+                                                onClick={() =>
+                                                    handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
+                                                }
                                                 sx={{
                                                     backgroundColor: "#00b4ff",
 
@@ -236,7 +234,7 @@ const SelectedFunds = () => {
                     }}>
                         Confirm SIP Date
                     </Button>
-                    
+
                 </Box>
             </Modal>
             <Modal sx={{ borderRadius: 8 }} open={openConfirmation} onClose={() => { setOpenConfirmation(!openConfirmation) }}>
