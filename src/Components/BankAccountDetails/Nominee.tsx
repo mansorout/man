@@ -56,7 +56,10 @@ const Nominee = () => {
         e.preventDefault();
         let { name, value } = e.target;
 
-
+        formdata.name !== '' ? setNameError(false) : setNameError(true)
+        formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true)
+        formdata.relation !== '' ? setRelationError(false) : setRelationError(true)
+        
         setFormdata({
             ...formdata,
             [name]: value
@@ -128,11 +131,20 @@ const Nominee = () => {
             setShowDialog(true)
         }
         
+        
         else{
           
-            setDobError(true)
-           setRelationError(true)
-           setNameError(true)
+            {
+                formdata.name !== '' ? setNameError(false) : setNameError(true) 
+            }
+            {
+                formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true) 
+            }
+            {
+                formdata.relation !== '' ? setRelationError(false) : setRelationError(true) 
+            }
+        //    setRelationError(true)
+        //    setNameError(true)
         }
        
        
@@ -331,7 +343,7 @@ const Nominee = () => {
                                     error={relationError}
                                     name="relation"
                                 >
-                                    <MenuItem value="9">Doughter</MenuItem>
+                                    <MenuItem value="9">Daughter</MenuItem>
                                     <MenuItem value="8">Son</MenuItem>
                                     <MenuItem value="7">Wife</MenuItem>
                                     <MenuItem value="6">Husband</MenuItem>
@@ -343,7 +355,7 @@ const Nominee = () => {
                                     color: '#d32f2f',
                                     fontSize: '12px',
                                     padding: "8px 0px 0px 12px"
-                                }}>{relationError ? 'All feilds are Required': ""}</Box>
+                                }}>{relationError ? 'Please choose a relation': ""}</Box>
                                 {/* <FormHelperText>Error</FormHelperText> */}
                             </FormControl>
 
