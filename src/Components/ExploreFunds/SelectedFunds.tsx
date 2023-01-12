@@ -18,7 +18,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { tick } from '../../Assets';
 import { globalConstant } from '../../Utils/globalConstant';
-import { setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action';
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -59,11 +59,21 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 const SelectedFunds = () => {
     const dispatch: any = useDispatch();
+    const navigate = useNavigate()
     const refContainer = useRef();
     const classes = useStyles()
     const [insuranceTermCondition, setInsuranceTermCondition] = useState<boolean>(false)
     const { insuranceTermConditionState } = useSelector((state: any) => state.InsuranceTermConditionReducer);
+    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
+    const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds);
+    const [selectedFundsList, setselectedFundsList] = useState([])
+    const [selected, setSelected] = useState<number>(1)
+    const [fundList, setFundList] = useState<any[]>([])
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
+    const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
 
+    
 
     useEffect(() => {
         dispatch(InsuranceTermConditionAction(false))
@@ -74,132 +84,16 @@ const SelectedFunds = () => {
     }, [insuranceTermConditionState])
 
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-    };
+    useEffect(() => {
+        if(!g_selectedFunds?.length) navigate("/explorefunds")
+        console.log("g_selectedFunds : ", g_selectedFunds)
+        setselectedFundsList(g_selectedFunds)
+      }, [g_selectedFunds])
 
-    const sliderDetails = [
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-        {
-            topHeading: 'Protect your family',
-            topSubHeading: 'from a life of compromises',
-            heading: 'Get ₹1 Crore',
-            subHeading: 'Term Insurance Cover @ 12*/day',
-            bgColor: 'var(--ui1Color)',
-            imgUrl: '/assets/images/insurance-banner-img.png',
-            btnText: 'Get Free Quote',
-        },
-    ]
+      useEffect(() => {
+        console.log(g_selectedFundsForExploreFunds, "explore fund screen and useffect of g_selectedFundsForExploreFunds");
+    }, [g_selectedFundsForExploreFunds])
 
-    const [selected, setSelected] = useState<number>(1)
-    const [fundList, setFundList] = useState<any[]>([])
-    const [open, setOpen] = React.useState<boolean>(false);
-    const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
-    const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
-    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
-    const [tempVar, setTempVar] = useState([
-        {
-            "fundname": "SBI Arbitrage Opportunities Reg Gr",
-            "return1yr": "3.92",
-            "return3yr": "3.83",
-            "return5yr": "4.78",
-            "category": "Arbitrage Fund",
-            "categorygroup": "Alternative",
-            "ratingoverall": 3,
-            "returnytd": "3.68",
-            "secid": "F000000CDJ",
-            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo2.svg",
-            "aum": "1000.00",
-            "providername": "SBI Funds Management Ltd",
-            "issipenabled": 1,
-            "islumpsumenabled": 1,
-            "sipminamount": 500,
-            "lumpsumminamount": 5000,
-            "showButtons": false,
-            "showCheckbox": true,
-            "isMutualFundScreen": false,
-            "isChecked": false,
-            "fundSelected": true
-        },
-        {
-            "fundname": "UTI Arbitrage Reg Gr",
-            "return1yr": "3.47",
-            "return3yr": "3.92",
-            "return5yr": "4.86",
-            "category": "Arbitrage Fund",
-            "categorygroup": "Alternative",
-            "ratingoverall": 5,
-            "returnytd": "3.21",
-            "secid": "F000000CUO",
-            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo14.svg",
-            "aum": "1000.00",
-            "providername": "UTI Asset Management Co Ltd",
-            "issipenabled": 1,
-            "islumpsumenabled": 1,
-            "sipminamount": 500,
-            "lumpsumminamount": 5000,
-            "showButtons": false,
-            "showCheckbox": true,
-            "isMutualFundScreen": false,
-            "isChecked": false,
-            "fundSelected": true
-        },
-        {
-            "fundname": "IDFC Arbitrage Reg IDCW-P",
-            "return1yr": "3.48",
-            "return3yr": "3.57",
-            "return5yr": "4.22",
-            "category": "Arbitrage Fund",
-            "categorygroup": "Alternative",
-            "ratingoverall": 2,
-            "returnytd": "3.26",
-            "secid": "F000000FX5",
-            "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo10.svg",
-            "aum": "1000.00",
-            "providername": "IDFC Asset Management Company Limited",
-            "issipenabled": 1,
-            "islumpsumenabled": 1,
-            "sipminamount": 100,
-            "lumpsumminamount": 100,
-            "showButtons": false,
-            "showCheckbox": true,
-            "isMutualFundScreen": false,
-            "isChecked": false,
-            "fundSelected": true
-        }
-    ])
-
-    const navigate = useNavigate()
     const handleClick = () => {
         setOpen(!open)
     }
@@ -209,14 +103,18 @@ const SelectedFunds = () => {
     const handleDateChange = () => {
         console.log("Date is: ");
     };
+    
 
     const handleReplaceBtn = (selectedFundAction:any) => {
         navigate("/explorefunds", { state: { status: globalConstant.CEF_REPLACE_OF_EXPLORE_FUND, parentRoute: "/home" } })
     }
-
+    const handleNavigation = (selectedFundAction: string) => {
+        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
+    }
     const handleRemoveBtn = (selectedFundAction:any) => {
-        const temp = g_selectedFunds.filter((item:any) => item.secid !== selectedFundAction.secid)
-        dispatch(setSelectedFundsForInvestmentAction(temp));
+        const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item.secid !== selectedFundAction.secid)
+        console.log("temp kp:",temp)
+        dispatch(setMasterFundListForExploreFundsAction(temp));
     }
 
     return (
@@ -244,7 +142,7 @@ const SelectedFunds = () => {
                                         </Breadcrumbs>
                                     </Box>
                                     <Box sx={{ margin: "27px 0px 21px 25px" }}>
-                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>{g_selectedFunds?.length} Funds Selected</Typography>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>{selectedFundsList && selectedFundsList?.length} Funds Selected</Typography>
                                     </Box>
 
                                     <Grid container sx={{ display: "flex" }} >
@@ -252,12 +150,14 @@ const SelectedFunds = () => {
                                         <Grid item xs={12} md={6} >
                                             <Box>
                                                 {
-                                                    g_selectedFunds?.map((selectedFund:any) => (
+                                                    selectedFundsList && selectedFundsList?.length &&
+                                                    selectedFundsList?.map((selectedFund:any) => (
                                                         <FundAmtCard
                                                             data={selectedFund}
-                                                            heading={'Axis Small Cap Fund Regular Fund'}
                                                             investmentType={selected}
-                                                            replaceBtnAction={(item) => handleReplaceBtn(item)}
+                                                            replaceBtnAction={() => console.log("fun")
+                                                                // handleNavigation(globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND)
+                                                            }
                                                             removeBtnAction={(item) => handleRemoveBtn(item)}
                                                         />
                                                     ))
@@ -267,9 +167,7 @@ const SelectedFunds = () => {
                                             </Box>
 
                                             <Button
-                                                onClick={() =>
-                                                    alert("hiii")
-                                                }
+                                                onClick={() => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
                                                 sx={{
                                                     backgroundColor: "#00b4ff",
 
