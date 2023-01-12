@@ -125,6 +125,31 @@
 .icongenderredius{
   margin: 3px 6px !important;
 }
+.ToastFooter{
+  padding: 15px;
+    margin-left: -16px;
+    margin-right: -16px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    left: 58%;
+    transform: translate(-50%, 0px);
+}
+.SipSuccessBox{
+  background-color: white;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 0px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 20%) 0px 1px 5px 0px;
+    transform: translate(-32%, 0%);
+    left: 50%;
+    position: absolute;
+}
 @media (max-width: 1200px){
   .icongenderredius{
     margin: 3px 5px !important;
@@ -141,8 +166,17 @@
     .btnEditTab{
         margin-left:3px !important;
     }
+    .SipSuccessBox {
+      transform: translate(-50%, 0%);
+      left: 50%;
+  }
 }
 @media (max-width: 768px) {
+  .ToastFooter{
+    left: 11px;
+    right: 11px;
+      transform: translate(0%, 0px);
+  }
   .icongenderredius{
     margin: 3px 5px !important;
   }
@@ -190,6 +224,9 @@
 @media screen and (max-width: 600px){
     .checkHeadingStack{
         margin-top: -50px !important;
+    }
+    .SipSuccessBox{
+      max-width:335px;
     }
 }
 
@@ -257,6 +294,9 @@
     .tabBoxSize{
         font-size: 11px !important;
         line-height: 30px !important;
+    }
+    .SipSuccessBox{
+      max-width: 250px;
     }
 }
 @media screen and (max-width: 280px){
