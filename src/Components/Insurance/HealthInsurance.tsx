@@ -432,7 +432,7 @@ const HealthInsurance = () => {
         <Box sx={style.main}>
           <Toolbar />
           <Sidebar />
-          <Grid container>
+          <Grid container sx={{padding:"9px"}}>
             <Grid
               sx={{
                 height: { xs: "auto", sm: "inherit" },
@@ -482,6 +482,7 @@ const HealthInsurance = () => {
                   rowSpacing={1}
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                   sx={{ paddingLeft: "30px" }}
+                
                 >
                   <Grid item xs={12} sm={6}>
                     <Box

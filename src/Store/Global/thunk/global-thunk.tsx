@@ -85,11 +85,11 @@ export const getIncomeSlabListThunk = () => {
   }
 }
 
-export const setUploadImageThunk = async (objBody:any) => {
+export const setUploadImageThunk = async (ImageData:any) => {
   let res: any;
   
   await postData(
-    objBody,
+    ImageData,
     siteConfig.METADATA_UPLOAD_IMAGE,
     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
     siteConfig.RECOMENDATION_API_ID

@@ -50,7 +50,7 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_MEMBER_LIST: "/authentication/member/list",//new
   AUTHENTICATION_MEMBER_UPDATE: "/authentication/member/update",//new
 
-  //Metadata
+  // //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
   METADATA_MODULE_DEFAULTS_LIST: "/metadata/module/defaults/list",
@@ -154,6 +154,8 @@ const siteConfigOld = Object.freeze({
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
   AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
   AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
+  AUTHENTICATION_UPLOAD_IMAGE: "/metadata/upload/image/",
+  
 
   //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
