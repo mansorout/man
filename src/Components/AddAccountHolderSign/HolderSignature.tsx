@@ -328,7 +328,7 @@ function HolderSignature() {
                                         <Link
                                             underline="always"
                                             color="#6495ED"
-                                            href='/viewprofile'
+                                            onClick={()=>{navigate('/viewprofile')}}
                                         >
                                             <Typography className='burgerText'>  View Profile</Typography>
 

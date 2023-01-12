@@ -127,9 +127,10 @@ const Nominee = () => {
                 })
             setShowDialog(true)
         }
+        
         else{
           
-           setDobError(true)
+            setDobError(true)
            setRelationError(true)
            setNameError(true)
         }
@@ -342,7 +343,7 @@ const Nominee = () => {
                                     color: '#d32f2f',
                                     fontSize: '12px',
                                     padding: "8px 0px 0px 12px"
-                                }}>{relationError ? 'Please Select Relation': ""}</Box>
+                                }}>{relationError ? 'All feilds are Required': ""}</Box>
                                 {/* <FormHelperText>Error</FormHelperText> */}
                             </FormControl>
 
