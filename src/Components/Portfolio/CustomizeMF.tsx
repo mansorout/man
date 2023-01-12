@@ -26,7 +26,7 @@ import siteConfig from "../../Utils/siteConfig";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
 import { apiResponse } from "../../Utils/globalTypes";
-import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
+import { getMutualFundListWrtUserAmountThunk, setAddMutualFundThunk, setUpdateMutualFundThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
 
@@ -157,7 +157,10 @@ const CustomizeMF = () => {
   const [mfCards, setMfCards] = useState<any[]>([]);
   const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
   const g_investment = useSelector((state: any) => state?.recommendationsReducer?.investment);
+  const g_selectedFundsForInvestment = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForInvestment);
   const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
+  const g_replaceFundActiveIndexForInvestment = useSelector((state: any) => state?.recommendationsReducer?.replaceFundActiveIndexForInvestment);
+
 
   //@ts-ignore
   const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
@@ -182,6 +185,76 @@ const CustomizeMF = () => {
     }
   }, [g_mutualFundListWrtUserAmount]);
 
+  useEffect(() => {
+    const { data } = g_selectedFundsForInvestment;
+    if (!data) {
+      console.log(g_selectedFundsForInvestment, "data undefined");
+      return;
+    }
+
+    if (!data.length) return;
+
+    let arrRecomm: any[] = g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS];
+    let recommendedamount: number | null = arrRecomm[0] ? arrRecomm[0]["recommendedamount"] : null;
+    let recommendation_id: number | null = g_mutualFundListWrtUserAmount ? g_mutualFundListWrtUserAmount["recommendation_id"] : null;
+    let recommendationfund_id: number | null = arrRecomm[g_replaceFundActiveIndexForInvestment] ? arrRecomm[g_replaceFundActiveIndexForInvestment]["recommendationfund_id"] : null;
+
+    if (data[0]["isChecked"] === false && data[0]["fundSelected"] && (data.length === 1 || data.length > 1)) {
+      // this for add fund
+      data.map((item: any) => {
+        handleAddmutualFundApi({
+          recommendation_id: recommendation_id,
+          secid: item["secid"],
+          amount: recommendedamount
+        })
+      })
+
+    } else {
+      // this is for replace fund
+      let masterFund = data[0];
+      let secid: string = masterFund["isChecked"] === true ? masterFund["secid"] : "";
+      if (secid && recommendationfund_id) {
+        let objBody = {
+          recommendationfund_id: recommendationfund_id,
+          secid: secid
+        }
+
+        handleUpdateMutualFundAPI(objBody);
+      }
+    }
+  }, [g_selectedFundsForInvestment, g_replaceFundActiveIndexForInvestment])
+
+
+  const handleUpdateMutualFundAPI = async (objBody: any) => {
+    let res: apiResponse = await setUpdateMutualFundThunk(objBody);
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+    handleResponse();
+  }
+
+  const handleAddmutualFundApi = async (objBody: any) => {
+    let res: apiResponse = await setAddMutualFundThunk(objBody);
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+    handleResponse();
+  }
+
 
   const handleResponse = async () => {
     let data: apiResponse = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
@@ -205,7 +278,6 @@ const CustomizeMF = () => {
 
   const handleCustomisePlanScreen = async () => {
     if (!g_mutualFundListWrtUserAmount) {
-
       return;
     }
 
@@ -232,57 +304,22 @@ const CustomizeMF = () => {
 
   const handleRemoveCard = (recommendationfund_id: number, secid: string) => {
     if (recommendationfund_id) {
-      console.log(recommendationfund_id, "recommendationfund_id");
-      let arrMFCards = [...mfCards];
-
-      if (arrMFCards && arrMFCards.length) {
-        let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
-        console.log(fil);
-        setMfCards(fil);
+      let objBody = {
+        recommendationfund_id: recommendationfund_id,
+        status_id: globalConstant.REMOVE_FUND_STATUS_ID
       }
 
-      postData(
-        { recommendationfund_id: recommendationfund_id, status_id: 2, secid: secid },
-        siteConfig.RECOMMENDATION_MUTUALFUND_UPDATE,
-        siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-        siteConfig.RECOMENDATION_API_ID
-      )
-        .then(res => res.json())
-        .then((data: apiResponse) => {
-          if (checkExpirationOfToken(data?.code)) {
-            dispatch(setTokenExpiredStatusAction(true));
-            return;
-          }
-
-          if (data?.error == true) {
-            return
-          }
-
-          let arrMFCards = [...mfCards];
-
-          if (arrMFCards && arrMFCards.length) {
-            let fil: any[] = arrMFCards.filter((item: any) => item?.recommendationfund_id !== recommendationfund_id);
-            console.log(fil);
-            setMfCards(fil);
-          }
-
-        })
+      handleUpdateMutualFundAPI(objBody);
     } else {
       console.log("recommendationfund_id invalid")
     }
   }
 
-  const getTotalRecomendedAmount = () => {
-    let arrMFCards: any[] = [...mfCards];
-    if (arrMFCards && arrMFCards.length) {
-
-      // let arrfill: any[] = arrMFCards.map((item: any) => item?.recommendedamount ? parseFloat(item?.recommendedamount) : 0)[0];
-      // console.log(arrfill)
-
-      // console.log(
-
-      //     .reduce((p: number, n: number) => { p + n })
-      // );
+  const getTotalRecomendedAmount = (amount: number) => {
+    if (mfCards && mfCards.length && amount) {
+      let totalAmount: number = amount * mfCards.length;
+      // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, totalAmount.toString());
+      return ` ${totalAmount}`;
     }
   }
 
@@ -297,54 +334,56 @@ const CustomizeMF = () => {
           </Grid>
           <Grid
             container
-            sx={{ height: "100vh",
-            overflow: "scroll",
-            width: "100%",
-            display: "block",
-            justifyContent: "center", }}
+            sx={{
+              height: "100vh",
+              overflow: "scroll",
+              width: "100%",
+              display: "block",
+              justifyContent: "center",
+            }}
             xs={12}
             sm={11}
             md={10}
           >
             <Toolbar />
             <Grid container>
-            <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-              <Breadcrumbs
-                sx={{
-                  fontSize: "12px",
-                  color: "#6c63ff",
-                }}
-              >
-                <Link href="/home">Home</Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
-                >
-                  Investment
-                </Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
-
-                >
-                  {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                </Link>
-                <Link
-                  onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
-                >
-                  Mutual Fund Recommendation
-                </Link>
-                <Typography
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Breadcrumbs
                   sx={{
                     fontSize: "12px",
-                    color: "#373e42",
+                    color: "#6c63ff",
                   }}
                 >
-                  Customize Plan
-                </Typography>
-              </Breadcrumbs>
-            </Box>
+                  <Link href="/home">Home</Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                  >
+                    Investment
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+                  >
+                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                  >
+                    Mutual Fund Recommendation
+                  </Link>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "#373e42",
+                    }}
+                  >
+                    Customize Plan
+                  </Typography>
+                </Breadcrumbs>
+              </Box>
             </Grid>
             <Box className="BoxPadding">
-            <Box
+              <Box
                 className="header"
                 sx={{
                   display: "flex",
@@ -379,7 +418,7 @@ const CustomizeMF = () => {
                     }}
                   >
                     {/* Monthly investment of ₹5,000 */}
-                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? " " + mfCards[0]?.recommendedamount : " " + 0}
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? getTotalRecomendedAmount(mfCards[0]?.recommendedamount) : " " + 0}
                   </Typography>
                 </Box>
                 <Box
@@ -416,6 +455,7 @@ const CustomizeMF = () => {
                     <Box sx={{ marginTop: "1.25vw" }} key={index}>
                       <MutualFundCard2
                         {...item}
+                        activeIndex={index}
                         onCardClick={handleNavigationOfFundDetails}
                         onRemoveCardClick={handleRemoveCard}
                       />
@@ -433,39 +473,39 @@ const CustomizeMF = () => {
                     </Box>
                   ))} */}
               </Box>
-            <Box
-              sx={{
-                // width: "83.75vw",
-                // height: "6.1vw",
-                // marginTop: "8vw",
-                // display: "flex",
-                // justifyContent: "center",
-                // alignItems: "center",
-                // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
-                // backgroundColor: "#fff",
-              }}
-            >
-
-              <FooterWithBtn
-                btnText={
-                  g_investment?.type === globalConstant.SIP_INVESTMENT
-                    ? "Select SIP Date"
-                    : "Buy Now"
-                }
-                btnClick={() => {
-                  if (
-                    g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
-                  ) {
-                    navigate("/netbanking", {
-                      state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                      replace: true,
-                    });
-                    return;
-                  }
-                  setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+              <Box
+                sx={{
+                  // width: "83.75vw",
+                  // height: "6.1vw",
+                  // marginTop: "8vw",
+                  // display: "flex",
+                  // justifyContent: "center",
+                  // alignItems: "center",
+                  // boxShadow: "0 0 6px 0 rgba(0, 0, 0, 0.16)",
+                  // backgroundColor: "#fff",
                 }}
-              />
-            </Box>
+              >
+
+                <FooterWithBtn
+                  btnText={
+                    g_investment?.type === globalConstant.SIP_INVESTMENT
+                      ? "Select SIP Date"
+                      : "Buy Now"
+                  }
+                  btnClick={() => {
+                    if (
+                      g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
+                    ) {
+                      navigate("/netbanking", {
+                        state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                        replace: true,
+                      });
+                      return;
+                    }
+                    setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+                  }}
+                />
+              </Box>
             </Box>
           </Grid>
         </Grid>

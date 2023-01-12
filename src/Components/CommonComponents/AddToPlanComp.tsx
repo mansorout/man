@@ -38,9 +38,10 @@ const style = {
 }
 
 const AddToPlanComp = (props: IProps) => {
+  console.log("AddToPlanComp()")
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} textAlign="center" sx={{ marginTop: { xs: "0%", md: "14%" } }}>
+    <Grid container spacing={2} sx={{ display: "flex", justifyContent: "center" }}>
+      <Grid item xs={12} textAlign="center" sx={{ marginTop: { xs: "0%", md: "14%" }, position: "fixed", bottom: "0%" }}>
         {/* <Grid item xs={12} textAlign="center" > */}
         <Button variant="contained" style={style.buttonnetbank} fullWidth >
           {/* <Button variant="contained" style={style.buttonnetbank} fullWidth onClick={()=>navigate("/sipsuccessscreen")}> */}
