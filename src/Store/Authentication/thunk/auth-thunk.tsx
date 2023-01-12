@@ -1,4 +1,4 @@
-import { getData, postData, postDataWithoutToken } from "../../../Utils/api";
+import { getData, getDataWithoutToken, postData, postDataWithoutToken } from "../../../Utils/api";
 import { checkExpirationOfToken } from "../../../Utils/globalFunctions";
 import siteConfig from "../../../Utils/siteConfig";
 import { addContactNumber } from "../../Action-Creators";
@@ -96,3 +96,125 @@ export const getUserProfileDataThunk = () => {
   }
 }
 
+
+export const getListOfOnboardingIntroThunk = async () => {
+  let res: any
+  await getDataWithoutToken(
+    siteConfig.AUTHENTICATION_INTRO_LIST,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+
+export const getBankDetailsWrtIFSCThunk = async (strUrl: string) => {
+  let res: any
+  await getDataWithoutToken(
+    strUrl,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+export const getCanceledChequeViewThunk = async () => {
+  let res: any
+  await getData(
+    siteConfig.AUTHENTICATION_CHEQUE_VIEW,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+export const getCvlStatusThunk = async () => {
+  let res: any
+  await getData(
+    siteConfig.AUTHENTICATION_CVL_STATUS,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+
+export const setAddUsersFamilyMemebrThunk = async (objBody: any) => {
+  let res: any
+
+  await postData(
+    objBody,
+    siteConfig.AUTHENTICATION_MEMBER_ADD,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+
+
+export const getListOfFamilyMemebrsThunk = async () => {
+  let res: any
+  await getData(
+    siteConfig.AUTHENTICATION_MEMBER_LIST,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
+
+export const setUpdateFamilyMemberDetailsThunk = async (objBody: any) => {
+  let res: any
+
+  await postData(
+    objBody,
+    siteConfig.AUTHENTICATION_MEMBER_UPDATE,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+  return res;
+}
