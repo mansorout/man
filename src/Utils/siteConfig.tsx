@@ -1,17 +1,14 @@
-
 const siteConfig = Object.freeze({
   /**KEYS*/
   X_API_KEY: "ffuLdSFQZ53751vd0Rrvi3H2im5Tq0oR4CYkNifo",
-  GOOGLE_OAUTH_CLIENT_ID:
-    "823267183036-k02hrr39426mgjc3ud146iov09e80dgf.apps.googleusercontent.com",
+  GOOGLE_OAUTH_CLIENT_ID: "823267183036-k02hrr39426mgjc3ud146iov09e80dgf.apps.googleusercontent.com",
 
   /**Base URL */
   BASE_URL: ".execute-api.ap-south-1.amazonaws.com/staging", //staging Development Server
 
   /**Content-types */
   CONTENT_TYPE_APPLICATION_JSON: "application/json",
-  CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED:
-    "application/x-www-form-urlencoded",
+  CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED: "application/x-www-form-urlencoded",
 
   /**Local storage keys */
   USER_INFO: "user_info",
@@ -32,6 +29,7 @@ const siteConfig = Object.freeze({
 
   /**API'S*/
   //Authentication
+  AUTHENTICATION_INTRO_LIST: "/authentication/intro/list",
   AUTHENTICATION_TOKEN_REFRESH: "/authentication/token/refresh",//new
   AUTHENTICATION_OTP_SEND: "/authentication/otp/send",
   AUTHENTICATION_OTP_VERIFY: "/authentication/otp/verify",
@@ -50,7 +48,7 @@ const siteConfig = Object.freeze({
   AUTHENTICATION_MEMBER_LIST: "/authentication/member/list",//new
   AUTHENTICATION_MEMBER_UPDATE: "/authentication/member/update",//new
 
-  // //Metadata
+  //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
   METADATA_CITY_LIST: "/metadata/city/list",
   METADATA_MODULE_DEFAULTS_LIST: "/metadata/module/defaults/list",
@@ -64,13 +62,7 @@ const siteConfig = Object.freeze({
   METADATA_UPLOAD_IMAGE: "/metadata/upload/image", //new
   METADATA_BSENEFT_LIST: "/metadata/bseneft/list", //new
   METADATA_FAMILYRELATION_LIST: "/metadata/familyrelation/list", //new
-  METADATA_SUPPORT_REQUEST_ADD: "metadata/support/request/add", //new
-
-  //Savtax
-  SAVETAX_COMPARISON: "/savetax/comparison",
-  SAVETAX_CALCULATE: "/savetax/calculate",
-  TERM_PURCHASE: "/insurance/term/purchase/",
-
+  METADATA_SUPPORT_REQUEST_ADD: "/metadata/support/request/add", //new
 
   //Recommendations
   RECOMMENDATION_MUTUALFUND_GENERATE: "/recommendation/mutualfund/generate",
@@ -97,19 +89,35 @@ const siteConfig = Object.freeze({
   INSURANCE_ULIP_RETURN: "/insurance/ulip/returns",
   INSURANCE_ULIP_SCHEME_DETAIL: "/insurance/ulip/scheme/detail",
   INSURANCE_ULIP_QUOTE_GENERATE: "/insurance/ulip/quote/generate",//new
-  INSURANCE_ULIP_SUMASSURED: "/insurance/ulip/sumassured",
-  INSURANCE_HEALTH_SUMINSURED_LIST: "/insurance/health/suminsured/list",
-  INSURANCE_HEALTH_PLAN_DETAIL: "/insurance/health/plan/detail",
-  INSURANCE_HEALTH_POLICY_GENARATION: "/insurance/health/policy/generation",
-  INSURANCE_HEALTH_POLICY_GENARATION_TOPUP: "/insurance/health/policy/generation/topup",
-  INSURANCE_HEALTH_POLICY_UPDATE: "/insurance/health/policy/update",
-  INSURANCE_HEALTH_MAXAGE: "/insurance/health/maxage",
-  INSURANCE_TERM_PURCHAGE: "/insurance/term/purchase",
-  INSURANCE_PORTFOLIO_LIST: "/insurance/portfolio/list",
+  INSURANCE_ULIP_SUMASSURED: "/insurance/ulip/sumassured",//new
+  INSURANCE_HEALTH_SUMINSURED_LIST: "/insurance/health/suminsured/list",//new
+  INSURANCE_HEALTH_PLAN_DETAIL: "/insurance/health/plan/detail",//new
+  INSURANCE_HEALTH_POLICY_GENARATION: "/insurance/health/policy/generation",//new
+  INSURANCE_HEALTH_POLICY_GENARATION_TOPUP: "/insurance/health/policy/generation/topup",//new
+  INSURANCE_HEALTH_POLICY_UPDATE: "/insurance/health/policy/update",//new
+  INSURANCE_HEALTH_MAXAGE: "/insurance/health/maxage",//new
+  INSURANCE_TERM_PURCHASE: "/insurance/term/purchase",//new
+  INSURANCE_PORTFOLIO_LIST: "/insurance/portfolio/list",//new
 
-  // Payments
-  PAYMENT_BSE_REGISTER: "/payment/bse/register",
-  PAYMENT_PORTOFOLIO_LIST: "/payment/portfolio/list",
+  //Savtax
+  SAVETAX_CALCULATE: "/savetax/calculate",//new 
+  SAVETAX_COMPARISON: "/savetax/comparison",//new
+
+  // Payment
+  PAYMENT_BSE_REGISTER: "/payment/bse/register", //new
+  PAYMENT_PORTOFOLIO_LIST: "/payment/portfolio/list",//new
+  PAYMENT_ORDER_SIP_CANCEL: "/payment/order/sip/cancel",//new
+  PAYMENT_ORDER_LUMPSUM: "/payment/order/lumpsum",//new
+  PAYMENT_ORDER_SIP: "/payment/order/sip",//new
+  PAYMENT_ORDER_REDEEM: "/payment/order/redeem",//new
+  PAYMENT_TRANSACTION_LIST: "/payment/transaction/list",//new
+  PAYMENT_PAYMENT: "/payment/payment",//new
+  PAYMENT_PAYMENT_STATUS: "/payment/payment/status",//new
+  PAYMENT_MANDATE_AUTH: "/payment/mandate/auth",//new
+  PAYMENT_MANDATE_STATUS: "/payment/mandate/status",//new
+  PAYMENT_REPORT_PORTFOLIO: "/payment/report/portfolio",//new
+  PAYMENT_REPORT_CAPITALGAIN: "/payment/report/capitalgain",//new
+  PAYMENT_REPORT_TRANSACTION: "/payment/report/transaction"//new
 })
 
 export default siteConfig
@@ -155,7 +163,7 @@ const siteConfigOld = Object.freeze({
   AUTHENTICATION_PROFILE_EDIT: "/authentication/profile/edit/",
   AUTHENTICATION_PROFILE_VIEW: "/authentication/profile/view/",
   AUTHENTICATION_UPLOAD_IMAGE: "/metadata/upload/image/",
-  
+
 
   //Metadata
   METADATA_STATE_LIST: "/metadata/state/list/",
