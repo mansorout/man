@@ -11,7 +11,7 @@ export const globalConstant = Object.freeze({
     CEF_ADD_FUND: "Add Funds", //for investment module
     CEF_REPLACE_FUND: "Replace Funds",//for investment module
     CEF_EXPLORE_FUND: "Explore Funds", //for explore fund screen
-    CEF_REPLACE_OF_EXPLORE_FUND: "Replace Funds",// for redirect to explore fund for replacing funds selected from explore fund modal
+    CEF_REPLACE_OF_EXPLORE_FUND: "Replace Funds of explore funds",// for redirect to explore fund for replacing funds selected from explore fund modal
     REMOVE_FUND_STATUS_ID: 2
 })
 
