@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
 import { useState } from "react";
 import { UpiInput } from "./UpiInput";
 import { UpiList } from "./UpiList";
+import { Typography } from "@mui/material";
 import './Upi.css'
 
 function UpiMainCom() {
@@ -10,10 +10,14 @@ function UpiMainCom() {
   const toggleComplete: ToggleComplete = selectedTodo => {
     const updatedTodos = todos.map(upi => {
       if (upi === selectedTodo) {
-        return { ...upi, complete: !upi.complete };
+        return {
+          ...upi,
+          complete: !upi.complete
+        };
       }
       return upi;
     });
+    
     setTodos(updatedTodos);
   };
 
@@ -35,10 +39,12 @@ function UpiMainCom() {
 
   return (
     <div className="upi-app">
-
-
-      <UpiList todos={todos} toggleComplete={toggleComplete} onRemoveUpi={removeTodo} EditUpi={EditUpi} />
-      
+      <UpiList
+        todos={todos}
+        toggleComplete={toggleComplete}
+        onRemoveUpi={removeTodo}
+        EditUpi={EditUpi}
+      />
       <UpiInput addUpi={addUpi} />
     </div>
   );
