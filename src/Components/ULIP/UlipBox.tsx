@@ -307,22 +307,11 @@ const UlipBox = (props:any) => {
     }
     useEffect(() => {
         const lookup__id_Arr = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
-         //const lookUpSaveTaxObj = lookup__id_Arr.filter((item:any) => item.value === bannerSectionValues.ULIP_TERM && item)
          const ulip:any = customParseJSON(localStorage.getItem("ulip-term"))
          console.log(typeof(ulip))
          console.log(ulip)
          setUlipYears(ulip)
-        // const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
-
-        // const saveTavGenrateBody = {
-        //     investmenttype_id: lookUPId,
-        //     amount: parseInt(investmentAmount),
-        // }
-        // if(parseInt(investmentAmount) === 0) navigate('/saveTax')
-        // dispatch(getDataSaveTaxInvestmentType(investmentAmount))
-        // console.log("investmentAmount :", investmentAmount, savetaxPercentageAmount)
-
-        // dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
+       
     }, [])
     const hadleLineChart=(e:any)=>{
      alert("haldeiuchart")
@@ -471,7 +460,7 @@ const UlipBox = (props:any) => {
                                                             <LineChart
                                                             optionsValues={chartOptions}
                                                           dataValues={chartData}
-                                                          onClick={(e) => console.log("click values :", e )}
+                                                           onClick={hadleLineChart}
 
                                                               />
                                                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>

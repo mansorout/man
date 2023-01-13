@@ -196,9 +196,9 @@ const ViewProfileCard = (props: IProps) => {
 
   // }
    const onSelectFile =(e: React.ChangeEvent<HTMLInputElement>) => {
-    alert("jjjj")
+    // alert("jjjj")
     if (e.target.files && e.target.files.length > 0) {
-      alert("h")
+      // alert("h")
         const reader = new FileReader();
       reader.onload = (fileLoadedEvent: any) => {
         let base64 = fileLoadedEvent.target.result;
@@ -206,7 +206,7 @@ const ViewProfileCard = (props: IProps) => {
         console.log(base64)
         localStorage.setItem("imgSrc",base64)
        let image =  localStorage.getItem("imgSrc")
-       
+
         setImgSrc(base64);
        
       };
