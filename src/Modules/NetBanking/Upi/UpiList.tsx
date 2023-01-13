@@ -4,21 +4,20 @@ import "./Upi.css"
 
 interface TodoListProps {
   todos: Array<upi>;
-  toggleComplete: ToggleComplete;
+  toggleSelect: ToggleSelect;
   onRemoveUpi: RemoveUpi;
-  EditUpi: EditUpi;
 }
 
-export const UpiList: React.FC<TodoListProps> = ({ todos, toggleComplete, onRemoveUpi, EditUpi }) => {
+export const UpiList: React.FC<TodoListProps> = ({ todos, toggleSelect, onRemoveUpi }) => {
   return (
     <ul>
      {todos.map(upi => (
        <UpiListFull
           key={upi.text}
           upi={upi}
-          toggleComplete={toggleComplete}
+          toggleSelect={toggleSelect}
           onRemoveUpi={onRemoveUpi}
-          EditUpi={EditUpi}
+          
         />
      ))}
     </ul>
