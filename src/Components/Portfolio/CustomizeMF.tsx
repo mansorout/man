@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { globalConstant } from "../../Utils/globalConstant";
 import Calendar from "react-calendar";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
-import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
+import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction, setSelectedFundsForInvestmentAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
@@ -222,6 +222,8 @@ const CustomizeMF = () => {
         handleUpdateMutualFundAPI(objBody);
       }
     }
+
+    dispatch(setSelectedFundsForInvestmentAction([]));
   }, [g_selectedFundsForInvestment, g_replaceFundActiveIndexForInvestment])
 
 

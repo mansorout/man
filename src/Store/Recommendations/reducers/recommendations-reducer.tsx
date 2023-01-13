@@ -4,9 +4,9 @@ const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
   mutaulFundListWrtUserAmount: { data: {} },
   masterFundListForExploreFunds: { data: [], isFundPurchased: true },
-  selectedFundsForInvestment: { data: {} },
+  selectedFundsForInvestment: { data: [] },
   replaceFundActiveIndexForInvestment: null,
-  selectedFundsForExploreFunds: { data: {} },
+  selectedFundsForExploreFunds: { data: [] },
 }
 
 export default function recommendationsReducer(objState = objInitialState, action: any) {
@@ -44,21 +44,24 @@ export default function recommendationsReducer(objState = objInitialState, actio
     //   }
     //   break;
     // }
-    case SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS:{ 
-     objState = {
+    case SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS: {
+      objState = {
         ...objState,
         masterFundListForExploreFunds:
         {
           ...objState.masterFundListForExploreFunds,
           data: action.payload
-          }
+        }
       }
       break;
     }
     case SET_SELECTED_FUNDS_FOR_INVESTMENT: {
-      objState.selectedFundsForInvestment = {
-        ...objState.selectedFundsForInvestment,
-        data: action.payload
+      objState = {
+        ...objState,
+        selectedFundsForInvestment: {
+          ...objState.selectedFundsForInvestment,
+          data: action.payload
+        }
       }
       break;
     }
