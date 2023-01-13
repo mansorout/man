@@ -589,7 +589,19 @@ const FundDetails = () => {
   //         }
   //     }
   // }
-
+  // let options = {
+  //   year:"numeric",
+  //   day:"2-digit",
+  //   month:"short",
+  //   hour:"2-digit",
+  //   minute:"2-digit",
+  //   hour12:true,  
+  // };
+  // let result=(new Date('2/1/2021')).toLocaleString("en-US",options);
+  // result=result.replaceAll(',','');
+  // console.log(fundDetails.dayendnavdate);
+  // let monthNames:any = fundDetails.dayendnavdate.toLocaleString('en-us',{day:'numeric', month:'short'});
+  // console.log(monthNames)
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -599,7 +611,7 @@ const FundDetails = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container xs={13} sm={11} md={10} sx={{
+          <Grid container xs={12} sm={11} md={10} sx={{
             height: "100vh",
             overflow: "scroll",
             width: "100%",
@@ -607,13 +619,13 @@ const FundDetails = () => {
             justifyContent: "center",
           }}>
             <Toolbar />
-            <Box className="BoxPadding" >
+            {/* <Grid container>
               <Box
                 role="presentation"
                 sx={{ margin: "27px 0px 21px 25px" }}
               >
 
-                {/* <Breadcrumbs aria-label="breadcrumb">
+                 <Breadcrumbs aria-label="breadcrumb">
                       <Link color="#6495ED" underline="always" href="/home">
                         <Typography className="burgerText"> Home</Typography>
                       </Link>
@@ -681,10 +693,11 @@ const FundDetails = () => {
                           Axis Small Cap Fund Regular Growth
                         </Typography>
                       </Link>
-                    </Breadcrumbs> */}
-
+                    </Breadcrumbs> 
               </Box>
-
+              </Grid> */}
+              <Box className="BoxPadding">
+                <Box sx={{marginTop:"-10px"}}>
               {
                 fundDetails &&
                   Object.keys(fundDetails).length ?
@@ -709,16 +722,18 @@ const FundDetails = () => {
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
               }}>
                 <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
-                  <Typography component="h6" sx={{ color: "black" }}>
-                    {fundDetails?.dayendnav}
+                  <Typography component="span" sx={{ color: "black", fontSize:"18px" }}>
+                    {<>
+                      ₹{fundDetails?.dayendnav}
+                    </>}
                   </Typography>
-                  <Typography component="span" sx={{ color: fundDetails?.isnavincrease ? "green" : "red" }}>
-                    {fundDetails?.isnavincrease ? `+${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) up arrow` : `-${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) down arrow`}
+                  <Typography component="span" sx={{position:"relative", color: fundDetails?.isnavincrease ? "green" : "red" }}>
+                    {fundDetails?.isnavincrease ? <>&nbsp;{`+${fundDetails?.navchange}(${fundDetails?.navchangepercentage})`}&nbsp;<span className="upArrow"><span></span></span></> : <>&nbsp;{`${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) `} &nbsp;<span className="downArrow"><span></span></span></>}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
-                  <Typography component="h6" sx={{ color: "grey", }}>
-                    {fundDetails?.dayendnavdate}
+                  <Typography component="span" sx={{ color: "grey", }}>
+                    {fundDetails?.dayendnavdate} &nbsp;
                   </Typography>
                   <Typography component="span" sx={{ color: "grey" }}>
                     desclaimer
@@ -775,6 +790,7 @@ const FundDetails = () => {
                   />
                 </Grid>
               </Grid>
+            </Box>
             </Box>
           </Grid>
         </Grid>

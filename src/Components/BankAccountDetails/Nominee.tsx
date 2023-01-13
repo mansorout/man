@@ -7,7 +7,7 @@ import Sidebar from "../CommonComponents/Sidebar";
 import { getData, postData } from "../../Utils/api";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
@@ -20,6 +20,22 @@ const enumErrorMsg = {
 
 }
 
+type kycDataProps = {
+    name: string,
+    dateOfBirth: string,
+    relation: string
+
+
+
+}
+
+const initialFormData: kycDataProps = {
+    name: "",
+    dateOfBirth: "",
+    relation: ""
+
+}
+
 
 const Nominee = () => {
 
@@ -27,9 +43,10 @@ const Nominee = () => {
     const dispatchLocal = useDispatch();
     const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
 
-    const [nomineename, setNomineeName] = useState('');
-    const [nomineeRelation, setNomineeRelation] = useState('');
-    
+    const [nomineename, setNomineeName] = useState<string>('');
+    const [nomineeRelation, setNomineeRelation] = useState<string>('');
+    const [nomineeDob, setNomineeDob] = useState<string>('');
+
 
     const [selectErrorMsg, setSelectErrorMsg] = useState('');
 
@@ -42,14 +59,26 @@ const Nominee = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [userDetails, setUserDetails] = useState<any>({});
     const [disablenomineeButton, setDisablenomineeButton] = useState<boolean>(true);
-    const [formdata, setFormdata] = useState<any>({
-        name: "",
-        dateOfBirth: "",
-        relation: ""
+    const [kyc, setKycData] = useState<kycDataProps>({ ...initialFormData });
 
+    const [formdata, setFormdata] = useState<kycDataProps>({
+        ...initialFormData 
     });
 
-   
+    //  data taking form edit profile api
+
+    // const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+
+    // console.log(g_profileData)
+
+    // useEffect(() => {
+    //     if (g_profileData?.userdetails) getUserProfileData();
+    //   }, [g_profileData?.userdetails]);
+
+    //   console.log(g_profileData?.userdetails)
+
+
+
 
 
     const handlechange = (e: any) => {
@@ -59,7 +88,7 @@ const Nominee = () => {
         formdata.name !== '' ? setNameError(false) : setNameError(true)
         formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true)
         formdata.relation !== '' ? setRelationError(false) : setRelationError(true)
-        
+
         setFormdata({
             ...formdata,
             [name]: value
@@ -68,13 +97,11 @@ const Nominee = () => {
 
 
     useEffect(() => {
-        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation!== ''  ) {
+        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation !== '') {
 
             setDisablenomineeButton(false)
         }
-        console.log(formdata.name)
-        console.log(formdata.dateOfBirth)
-        console.log(formdata.relation)
+
     }, [formdata])
 
     const formData = {
@@ -86,7 +113,7 @@ const Nominee = () => {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 
-        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation!== ''  ) {
+        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation !== '') {
 
             setLoading(true);
             setShouldButtonDisable(true)
@@ -107,22 +134,22 @@ const Nominee = () => {
                     else {
                         setErrorMsg("Something Went Wrong")
                     }
-    
-    
-    
-    
+
+
+
+
                     if (checkExpirationOfToken(data?.code)) {
                         dispatchLocal(setTokenExpiredStatusAction(true));
                         return;
                     }
-    
+
                     if (data?.error) {
                         return;
                         setErrorMsg(data?.error)
-    
+
                     }
-    
-                    
+
+
                     setShowDialog(true)
                 })
                 .catch(err => {
@@ -130,24 +157,24 @@ const Nominee = () => {
                 })
             setShowDialog(true)
         }
-        
-        
-        else{
-          
+
+
+        else {
+
             {
-                formdata.name !== '' ? setNameError(false) : setNameError(true) 
+                formdata.name !== '' ? setNameError(false) : setNameError(true)
             }
             {
-                formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true) 
+                formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true)
             }
             {
-                formdata.relation !== '' ? setRelationError(false) : setRelationError(true) 
+                formdata.relation !== '' ? setRelationError(false) : setRelationError(true)
             }
-        //    setRelationError(true)
-        //    setNameError(true)
+            //    setRelationError(true)
+            //    setNameError(true)
         }
-       
-       
+
+
 
 
     }
@@ -181,6 +208,7 @@ const Nominee = () => {
 
     useEffect(() => {
         getUserProfileData();
+        // getkycData()
     }, [])
 
     const getUserProfileData = () => {
@@ -200,15 +228,19 @@ const Nominee = () => {
                     return;
                 }
                 const response = data?.data
-                // console.log(data.kycDetails?.ischequeavailable)
-                // console.log(response)
-                // console.log(response.userdetails.customer_id)
 
-                if (response.userdetails?.customer_id != 0) {
+               if (response.userdetails?.customer_id != 0) {
                     setUserDetails(response);
                     setNomineeName(response.kycdetails?.nomineedetails?.nominee_name)
                     setNomineeRelation(response.kycdetails?.nomineedetails?.relation)
-                    // console.log(response.kycdetails?.nomineedetails?.relation)
+                    setNomineeDob(response.kycdetails?.nomineedetails?.nominee_dob)
+                    setFormdata((prev: kycDataProps) => ({
+                        ...prev,
+                        name: response.kycdetails?.nomineedetails?.nominee_name,
+                        dateOfBirth: response.kycdetails?.nomineedetails?.nominee_dob,
+                        relation: response.kycdetails?.nomineedetails?.relation_id,
+
+                    }))
                 }
 
 
@@ -216,15 +248,13 @@ const Nominee = () => {
 
             })
             .catch(err => {
-                // console.log(err);
+              
             })
 
-        store.dispatch(getUserProfileDataThunk());
+        
 
     }
-
-    // console.log(userDetails?.userdetails?.customer_id)
-    // console.log(userDetails?.kycdetails?.pannumber)
+    
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -244,139 +274,143 @@ const Nominee = () => {
                         width: "100%",
                         display: "block",
                         justifyContent: "center",
-                        }}>
+                    }}>
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link onClick={()=>{navigate('/viewprofile')}}>View Profile</Link>
+                            <Link onClick={() => { navigate('/viewprofile') }}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#8787a2'
                             }}>Nominee & Declarations</Typography>
                         </Breadcrumbs>
                         <Box className="BoxPadding">
-                        <Box component="form" sx={{
-                            gap: { xs: '15px', sm: '26px', md: '17px', lg: '2vw' },
-                            width: '90%',
-                            maxWidth: '488px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-around',
-                            padding: '20px',
-                            borderRadius: '0.5vw',
-                            boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-                            backgroundColor: '#fff',
-                            fontFamily: 'Roboto',
-                            fontSize: '14px',
-                        }}>
-
-                            <Typography sx={{
+                            <Box component="form" sx={{
+                                gap: { xs: '15px', sm: '26px', md: '17px', lg: '2vw' },
+                                width: '90%',
+                                maxWidth: '488px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                padding: '20px',
+                                borderRadius: '0.5vw',
+                                boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+                                backgroundColor: '#fff',
+                                fontFamily: 'Roboto',
                                 fontSize: '14px',
-                                fontWeight: 500,
-                                color: '#3c3e42',
-                            }}>Add Nominee & Declarations </Typography>
+                            }}>
 
-                            <FormControl>
-                                <TextField
-                                    inputProps={{
-                                        maxLength: 30,
-                                    }}
-                                    InputLabelProps={{
-                                        sx: {
-                                            color: "#3c3e42",
-                                            [`&.${inputLabelClasses.shrink}`]: {
-                                                color: "#000000",
-                                                opacity: "0.6"
+                                <Typography sx={{
+                                    fontSize: '14px',
+                                    fontWeight: 500,
+                                    color: '#3c3e42',
+                                }}>Add Nominee & Declarations </Typography>
 
+                                <FormControl>
+                                    <TextField
+                                        inputProps={{
+                                            maxLength: 30,
+                                        }}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            sx: {
+                                                color: "#3c3e42",
+                                                [`&.${inputLabelClasses.shrink}`]: {
+                                                    color: "#000000",
+                                                    opacity: "0.6"
+
+                                                }
                                             }
-                                        }
-                                    }}
-                                    onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
-                                    // required
-                                    label="Full Name"
-                                    value={formdata.name}
-                                    name="name"
-                                    onChange={handlechange}
-                                    error={nameError}
-                                    helperText={nameError ? "Please enter Full Name" : ''}
-                                />
-                                
-                            </FormControl>
+                                        }}
+                                        onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
+                                        // required
+                                        label="Full Name"
+                                        value={formData?.fullname}
+                                        name="name"
+                                        onChange={handlechange}
+                                        error={nameError}
+                                        helperText={nameError ? "Please enter Full Name" : ''}
+                                    />
 
-                            <FormControl>
-                                <TextField
-                                    InputLabelProps={{
-                                        sx: {
-                                            color: "#3c3e42",
-                                            [`&.${inputLabelClasses.shrink}`]: {
-                                                color: "#000000",
-                                                opacity: "0.6"
+                                </FormControl>
 
+                                <FormControl>
+                                    <TextField
+
+                                        placeholder="DD-MM-YYYY"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            sx: {
+                                                color: "#3c3e42",
+                                                [`&.${inputLabelClasses.shrink}`]: {
+                                                    color: "#000000",
+                                                    opacity: "0.6"
+
+                                                }
                                             }
+                                        }}
+                                        onKeyPress={(e) =>
+                                            /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                            e.preventDefault()
                                         }
-                                    }}
-                                    onKeyPress={(e) =>
-                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
-                                        e.preventDefault()
-                                    }
-                                    placeholder="DD-MM-YYYY"
-                                    label="Date of Birth"
-                                    required
-                                    type="date"
-                                    // label="Date of Birth"
-                                    value={formdata.dateOfBirth}
-                                    name="dateOfBirth"
-                                    onChange={handlechange}
-                                    error={dobError}
-                                    helperText={dobError ? "Please choose a date" : ''}
-                                    inputProps={{
-                                        max: "2023-01-01",
-                                        min: "1950-01-01"
-                                    }}
-                                />
-                            </FormControl>
+                                        required
+                                        type="date"
+                                        label="Date of Birth"
+                                        value={formdata.dateOfBirth}
+                                        name="dateOfBirth"
+                                        onChange={handlechange}
+                                        error={dobError}
+                                        helperText={dobError ? "Please choose a date" : ''}
+                                        inputProps={{
+                                            max: "2023-01-01",
+                                            min: "1950-01-01"
+                                        }}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <InputLabel>Relation</InputLabel>
-                                <Select
-                                    label={relationError ? "Please choose a relation" : "Relation"}
-                                    value={formdata.relation}
-                                    onChange={handlechange}
-                                    error={relationError}
-                                    name="relation"
-                                >
-                                    <MenuItem value="9">Daughter</MenuItem>
-                                    <MenuItem value="8">Son</MenuItem>
-                                    <MenuItem value="7">Wife</MenuItem>
-                                    <MenuItem value="6">Husband</MenuItem>
-                                    <MenuItem value="5">Mother</MenuItem>
-                                    <MenuItem value="4">Father</MenuItem>
+                                <FormControl>
+                                    <InputLabel>Relation</InputLabel>
+                                    <Select
 
-                                </Select>
-                                <Box component="span" className="select-box" sx={{
-                                    color: '#d32f2f',
-                                    fontSize: '12px',
-                                    padding: "8px 0px 0px 12px"
-                                }}>{relationError ? 'Please choose a relation': ""}</Box>
-                                {/* <FormHelperText>Error</FormHelperText> */}
-                            </FormControl>
+                                        label={relationError ? "Please choose a relation" : "Relation"}
+                                        value={formData.relation_id}
+                                        onChange={handlechange}
+                                        error={relationError}
+                                        name="relation"
+                                    >
 
-                            <FormControl>
-                                <Button  variant="contained"
-                                // disabled={disablenomineeButton}
-                                    //  sx={{
+                                        <MenuItem value="9">Daughter</MenuItem>
+                                        <MenuItem value="8">Son</MenuItem>
+                                        <MenuItem value="7">Wife</MenuItem>
+                                        <MenuItem value="6">Husband</MenuItem>
+                                        <MenuItem value="5">Mother</MenuItem>
+                                        <MenuItem value="4">Father</MenuItem>
 
-                                    // }}
+                                    </Select>
+                                    <Box component="span" className="select-box" sx={{
+                                        color: '#d32f2f',
+                                        fontSize: '12px',
+                                        padding: "8px 0px 0px 12px"
+                                    }}>{relationError ? 'Please choose a relation' : ""}</Box>
+                                    {/* <FormHelperText>Error</FormHelperText> */}
+                                </FormControl>
 
-                                    style={style.button}
-                                    onClick={handleClick}><Typography sx={{
-                                        color: "white", fontSize: "16px",
-                                        fontweight: "500"
-                                    }}>Submit Details</Typography></Button>
-                            </FormControl>
+                                <FormControl>
+                                    <Button variant="contained"
+                                        // disabled={disablenomineeButton}
+                                        //  sx={{
+
+                                        // }}
+
+                                        style={style.button}
+                                        onClick={handleClick}><Typography sx={{
+                                            color: "white", fontSize: "16px",
+                                            fontweight: "500"
+                                        }}>Submit Details</Typography></Button>
+                                </FormControl>
+                            </Box>
                         </Box>
-                        </Box>
-                        </Grid>
+                    </Grid>
                 </Grid>
             </Box>
             <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
