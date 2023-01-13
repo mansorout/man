@@ -110,8 +110,13 @@ const style = {
 const useStyles: any = makeStyles((theme: Theme) => ({
     cardWrap: {
         boxShadow: 'var(--themeShadow)',
-        padding: '15px 7px',
+        // padding: '15px 7px',
+        paddingBottom: '15px',
         borderRadius: '8px',
+    },
+    cardDeactiveState: {
+        backgroundColor: '#ddd',
+        marginBottom: '10px !important',
     },
     headingWrap: {
         display: 'flex',
@@ -133,7 +138,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontWeight: 500,
 
     },
-    cardBtn: {
+    cardBtnWrap: {
+        backgroundColor: 'var(--uiWhite)',
         '& button': {
             boxShadow: 'none',
         }
@@ -144,6 +150,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 interface FundAmtCard {
     data: any;
     investmentType: number;
+    handleOnChangeFun: (e:any,param: any) => void;
     replaceBtnAction: (param:any) => void;
     removeBtnAction: (param:any) => void;
 }
@@ -181,9 +188,17 @@ export default function FundAmtCard(props: FundAmtCard) {
     }
     return (
         <>
-            <Card sx={{ maxWidth: { sm: 600, xs: 350 }, marginBottom: 5 }}>
-                <Box className={classes.cardWrap}>
-                    <Stack m={2} spacing={6}>
+            <Card sx={{ maxWidth: { sm: 600, xs: 350 }, padding: '0px', marginBottom: '15px' }}>
+                <Box className={`${classes.cardWrap}`}>
+                    <Stack m={2} spacing={6}
+                        className={
+                            `${props?.investmentType === 1 ?
+                                props?.data?.islumpsumenabled === 1 ? '' : classes.cardDeactiveState
+                                :
+                                props?.data?.issipenabled === 1 ? '' : classes.cardDeactiveState
+                            }`
+                        }
+                        sx={{ margin: '0px', padding: '15px' }}>
                         <Box className={classes.headingWrap}>
                             <img src={maskgroup} />
                             <Typography className={classes.cardHeading}>
@@ -191,41 +206,53 @@ export default function FundAmtCard(props: FundAmtCard) {
                             </Typography>
                         </Box>
 
-                        <List>
-                            <TextField label="Enter Investment Amount"
-                                type="number"
-                                name="middleName"
-                                fullWidth
-                                placeholder='₹1,00,000'
-                                onBlur={handleOnBlurAmount}
-                                onChange={handleChange}
-                                value={amount}
-                                sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
-                            </TextField>
-                            <Typography
-                                sx={{
+                        {
 
-                                    height: "14px",
-                                    margin: "-8px 135px 0 1px",
+                            (props?.data?.islumpsumenabled === 1 || props?.data?.issipenabled === 1)  ?
+                                    (
+                                    <List>
+                                        <TextField label="Enter Investment Amount"
+                                            type="number"
+                                            name="middleName"
+                                            fullWidth
+                                            placeholder='₹1,00,000'
+                                            onBlur={handleOnBlurAmount}
+                                            onChange={(e) => props?.handleOnChangeFun(e, props?.data)}
+                                            value={amount}
+                                            sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
+                                        </TextField>
+                                        <Typography
+                                            sx={{
+                                                height: "14px",
+                                                margin: "-8px 135px 0 1px",
 
-                                    fontSize: "12px",
-                                    fontWeight: "normal",
-                                    fontStretch: "normal",
-                                    fontStyle: "normal",
-                                    lineHeight: " 1.33",
-                                    letterSpacing: "normal",
-                                    textAlign: " left",
-                                    color: textColor,
-                                }}
-                            >{props?.investmentType === 1 ? amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` :  amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
-                        </List>
+                                                fontSize: "12px",
+                                                fontWeight: "normal",
+                                                fontStretch: "normal",
+                                                fontStyle: "normal",
+                                                lineHeight: " 1.33",
+                                                letterSpacing: "normal",
+                                                textAlign: " left",
+                                                color: textColor,
+                                            }}
+                                        >{props?.investmentType === 1 ? amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` : amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
+                                    </List>
+                                    ) : (
+                                        <Box sx={{ borderTop: '1px solid #acacac', margin: '0px !important', paddingTop: '10px' }}>
+                                            <Typography component='p'>
+                                                This fund is not accepting Lumpsum investment currently.
+                                            </Typography>
+                                        </Box>
+                                    )
+                                
+                        }
                     </Stack>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'flex-end',
                         gap: '1vw',
                     }}
-                        className={classes.cardBtn}
+                        className={classes.cardBtnWrap}
                     >
                         <Button variant='contained'
                             sx={{
