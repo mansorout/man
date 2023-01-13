@@ -1,4 +1,4 @@
-import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT, SET_REPLACE_FUND_ACTIVE_INDEX_FOR_INVESTMENT, SET_SELECTED_FUNDS_FOR_EXPLORE_FUNDS, SET_SELECTED_FUNDS_FOR_INVESTMENT } from "../constants/recommendations-constant"
+import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT, SET_REPLACE_FUND_ACTIVE_INDEX_FOR_INVESTMENT, SET_SELECTED_FUNDS_FOR_EXPLORE_FUNDS, SET_SELECTED_FUNDS_FOR_INVESTMENT, SET_REPLACE_FUNDS_FOR_EXPLORE_FUNDS } from "../constants/recommendations-constant"
 
 export const setInvestmentCardTypeAction = (data: any) => {
   return { type: "SET_INVESTMENT_TYPE", payload: data }
@@ -26,4 +26,8 @@ export const setReplaceFundActiveIndexForInvestmentAction = (data: any) => {
 
 export const setSelectedFundsForExploreFundsAction = (data: any) => {
   return { type: SET_SELECTED_FUNDS_FOR_EXPLORE_FUNDS, payload: data };
+}
+
+export const setReplaceFundsForExploreFundsAction = (data: any) => {
+  return { type: SET_REPLACE_FUNDS_FOR_EXPLORE_FUNDS, payload: data };
 }
