@@ -85,7 +85,7 @@ export const setMakePaymentThunk = async (objBody: any) => {
   await postData(
     objBody,
     siteConfig.PAYMENT_PAYMENT,
-    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
     siteConfig.PAYMENT_API_ID
   )
     .then(res => res.json())
@@ -178,3 +178,26 @@ export const getListOfPortfolioThunk = async (strUrl: string) => {
 }
 
 
+export const setVerifyUpiIDThunk = async (objBody: any) => {
+  let objHeaders: any = {
+    "Content-Type": "application/json",
+    Authorization: `Basic ${localStorage.getItem(siteConfig.ACCESS_TOKEN_KEY)}`
+  };
+
+  let res: any = await fetch("https://api.attestr.com/api/v1/public/finanx/vpa", {
+    method: "POST",
+    mode: "cors",
+    // cache: "no-cache",
+    // credentials: "same-origin",
+    headers: objHeaders,
+    body: objBody,
+  })
+  // .then(res => res.json())
+  // .then((data: any) => {
+
+  // })
+  // .catch(err => console.log(err));
+
+  // console.log(res);
+  return await res;
+}
