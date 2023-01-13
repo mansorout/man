@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement, useRef } from 'react'
+import React, { MouseEvent, ReactElement, useRef, useState } from 'react'
 // import {
 //     Chart as ChartJS,
 //     CategoryScale,
@@ -78,6 +78,7 @@ interface LineChartProps {
 }
 
 const LineChart = (props: LineChartProps) => {
+  const [graphlinechart,setGraphLineChart] = useState()
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -101,8 +102,11 @@ const LineChart = (props: LineChartProps) => {
   };
 
   const handleOnClick = (event: MouseEvent<HTMLCanvasElement>) => {
+  
+   
     if (!chartRef.current) return;
     printElementAtEvent(getElementAtEvent(chartRef.current, event));
+
   }
 
   return (
