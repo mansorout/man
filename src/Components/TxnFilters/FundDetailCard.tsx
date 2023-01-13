@@ -118,7 +118,7 @@ const FundDetailCard = (props: Prop) => {
       </Grid>
       <Box
         sx={{
-          width: { xs: "246px", sm: "217px" },
+          width: { xs: "246px", sm: "300px" }, marginTop:{xs:"10px", sm:"15px"}
         }}
       >
         <Chip
@@ -158,24 +158,28 @@ const FundDetailCard = (props: Prop) => {
           marginTop={2}
           marginBottom={2}
         >
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             <TableContainer>
               <Table size="small">
                 <TableHead>
                   <TableRow sx={{ color: "red" }}>
                     <TableCell
+                    className="tableThText"
                       sx={{
-                        borderRight: "2px solid #f9f9f9",
+                        borderRight: "1px solid #f9f9f9",
                         size: "14px",
-                        color: "#FFFFFF !important",
+                        color:"#fafafaad !important", fontWeight:"300",
+                        padding:{xs:"7px 20px", sm:"7px 40px"}
                       }}
                     >
                       NAV - {props?.dayendnavdate}{" "}
                       <p
+                       className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
                           color: "#f9f9f9",
+                          margin:"5px 0px"
                         }}
                       >
                         <span style={{}}>₹</span>
@@ -183,27 +187,32 @@ const FundDetailCard = (props: Prop) => {
                       </p>
                     </TableCell>
                     <TableCell
-                      sx={{ borderRight: "2px solid #f9f9f9" }}
-                      className="table_head"
+                    
+                      sx={{ borderRight: "1px solid #f9f9f9", color:"#fafafaad !important", fontWeight:"300", padding:{xs:"7px 20px", sm:"7px 40px"} }}
+                      className="tableThText table_head"
                     >
                       Returns (5 Yrs){" "}
                       <p
+                       className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
-                          color: "#f9f9f9 ! important",
+                          color: "#fff",
+                          margin:"5px 0px"
                         }}
                       >
                         {props.year5}%
                       </p>
                     </TableCell>
-                    <TableCell className="table_head">
+                    <TableCell sx={{color:"#fafafaad !important", fontWeight:"300", padding:{xs:"7px 20px", sm:"7px 40px"}}} className="tableThText table_head">
                       AUM{" "}
                       <p
+                      className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
                           color: "#f9f9f9",
+                          margin:"5px 0px"
                         }}
                       >
                         ₹{props.aum}

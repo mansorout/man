@@ -233,28 +233,13 @@ const navigate=useNavigate()
             <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} item xs={12} sm={10} md={10}>
               <Toolbar />
               <Grid container sx={{ display: "flex" }} wrap='nowrap'>
-                {/* <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
-
-                <InvestNowScreenCard/>
-              </Grid> */}
                 <Grid item xs={6} sx={{ padding: { xs: 0, sm: 3 } }} >
                   <IInvestNowScreenCard />
                 </Grid>
 
 
               </Grid>
-
-              <Box
-                textAlign="center"
-                sx={{
-                  margin: "auto",
-                  width: "304px",
-                }}
-              >
-
-
-              </Box>
-              <Box style={style.container}>
+             <Box className="SipSuccessBox">
                 <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
                 <Typography mb={1} variant="h1" align="center" className="SipSucessScreen">
                 Your investment is in progress!
@@ -276,12 +261,8 @@ const navigate=useNavigate()
            
        
               </Box>
-
-            </Grid>
-
+             </Grid>
           </Grid>
-
-
         </Grid>
 
       </Box>

@@ -11,7 +11,8 @@ export const globalConstant = Object.freeze({
     CEF_ADD_FUND: "Add Funds", //for investment module
     CEF_REPLACE_FUND: "Replace Funds",//for investment module
     CEF_EXPLORE_FUND: "Explore Funds", //for explore fund screen
-    CEF_REPLACE_OF_EXPLORE_FUND: "Replace Funds",// for redirect to explore fund for replacing funds selected from explore fund modal
+    CEF_REPLACE_OF_EXPLORE_FUND: "Replace Funds of explore funds",// for redirect to explore fund for replacing funds selected from explore fund modal
+    CEF_ADD_FUND_OF_EXPLORE_FUND: "Add Fund of explore funds",
     REMOVE_FUND_STATUS_ID: 2
 })
 
@@ -52,3 +53,29 @@ export const investmentTypeValues = Object.freeze({
     SIP: "SIP"
 })
 
+export const paymentMethodKeys = Object.freeze({
+    NET_BANKING: "NET_BANKING",
+    UPI: "UPI",
+    NEFT_RTGS: "NEFT_RTGS"
+})
+
+export const paymentMethods = Object.freeze({
+    [paymentMethodKeys.NET_BANKING]: {
+        index: 0,
+        id: 1,
+        title: 'Net Banking',
+        value: 'net_banking',
+    },
+    [paymentMethodKeys.UPI]: {
+        index: 2,
+        id: 2,
+        title: 'UPI',
+        value: 'upi',
+    },
+    [paymentMethodKeys.NEFT_RTGS]: {
+        index: 1,
+        id: 3,
+        title: 'NEFT / RTGS',
+        value: 'neft',
+    },
+});

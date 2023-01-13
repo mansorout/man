@@ -422,6 +422,7 @@ const EditprofileCard = () => {
     if (!g_profileData?.userdetails) {
       return;
     }
+    
 
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.stateofbirth_id, true);
@@ -992,7 +993,8 @@ const EditprofileCard = () => {
                         fontSize: "17px",
                         marginTop: "4%",
                         marginRight: "6%",
-                      }}
+                      }}    
+                      
                       fullWidth
                       label="Date of Birth"
                       onBlur={handleBlur}
