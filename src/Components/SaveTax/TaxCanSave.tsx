@@ -191,14 +191,14 @@ const TaxCanSave = () => {
         taxSavinig: 0,
     })
 
-    if(alreadyInvesting <=150000){
-        console.log("fine")
-    }
-    else{
-        console.log("not fine")
-        setdisableButton(true)
+    // if(alreadyInvesting <=150000){
+    //     console.log("true")
+    // }
+    // else{
+    //     console.log("false")
+    //     setdisableButton(true)
 
-    }
+    // }
 
     const [inputFeildInfo, setInputFeildInfo] = useState<moduleDefaultListObjectType>({
         key: '',
