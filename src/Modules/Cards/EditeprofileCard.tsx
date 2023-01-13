@@ -422,6 +422,7 @@ const EditprofileCard = () => {
     if (!g_profileData?.userdetails) {
       return;
     }
+    
 
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.stateofbirth_id, true);
