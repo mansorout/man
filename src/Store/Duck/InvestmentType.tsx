@@ -84,7 +84,7 @@ export const SaveTaxInvestmentMonthlyAction = (props: string) => async (dispatch
 }
 
 
-export const SaveTaxInvestmentAmount = (props: string) => async (dispatch: Dispatch<any>) => {
+export const SaveTaxInvestmentAmount = (props: any) => async (dispatch: Dispatch<any>) => {
     dispatch({
         type: INVESTMENT_AMOUNT,
         payload: props

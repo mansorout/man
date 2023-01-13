@@ -394,7 +394,7 @@ const FindInsurance = () => {
                                             )
                                         })}
                                         </div>
-                                    <p className='purpleText' id="purpletexttwo">I want health cover for</p>
+                                    <p className='purpleText'>I want health cover for</p>
                                     <CardWithImageAndCount text={'Me'} headIcon={manicon} isSelected={me} btnClick={() => { setMe(!me)}} />
                                     <CardWithImageAndCount text={'Spouse'} headIcon={manicon} isSelected={spouse} btnClick={() => { setSpouse(!spouse)}} />
                                     <CardWithImageAndCount text={'Daughter'} headIcon={manicon} isSelected={daughter} btnClick={() => {setDaughter(!daughter) }} inc={() => {setDaughterCount(daughterCount+1) }} dec={() => {daughterCount && setDaughterCount(daughterCount-1) }} isCount={true} count={daughterCount} />

@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import siteConfig from '../../Utils/siteConfig';
 import { modifyName } from '../../Utils/globalFunctions';
+import ViewProfileCard from '../../Modules/Cards/ViewProfileCard';
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 // import { any } from '../../Redux/Store';
 
 
@@ -207,7 +209,10 @@ const Navbar = () => {
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
+       
+        let keyImg = localStorage.getItem("imgSrc");
     }
+   
 
     return (
         <div>
@@ -219,7 +224,11 @@ const Navbar = () => {
                         <img onClick={() => navigate("/home")} src={Logo} alt="Sprint Money" style={style.image} />
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
-                        <img src={Profile} alt="image" style={style.profile} />
+                        <img src={"keyImg?keyImg:Profile" } 
+                        
+                        alt="image" style={style.profile} />
+                        
+                    
                         <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi{objUserDetail?.userName ? (objUserDetail?.userName.length > 8 ? modifyName(objUserDetail?.userName, 8) : `, ${objUserDetail?.userName}`) : ``}</Typography>
                         {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
                     </Box>
@@ -232,7 +241,8 @@ const Navbar = () => {
                     >
                         <StyledMenuItem>
                             <Box style={style.menuContainer}>
-                                <img src={Profile} alt="image" style={style.profileInter} />
+                                <img src={"keyImg?keyImg:Profile"} alt="image" style={style.profileInter} />
+                            
                                 <Typography className='mediumButtonText'>{objUserDetail?.userName ? objUserDetail?.userName : ""}</Typography>
                                 <Typography className="caption">{objUserDetail?.userEmail ? objUserDetail?.userEmail : ""}</Typography>
                                 <Box style={style.menuButton}>
