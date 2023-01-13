@@ -112,7 +112,6 @@ type IProps = {
   userDetails: any;
 };
 
-
 const ViewProfileCard = (props: IProps) => {
   const dispatchLocal = useDispatch();
 
@@ -131,13 +130,9 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   const ImageData = {
     filename: "kk",
-    image:"wwww.png",
+    image: "wwww.png",
     module: "profile",
   };
-  console.log(imgSrc)
-  console.log(ImageData)
-
-
 
   const checkDOB = (strDOB: string) => {
     if (!strDOB) {
@@ -179,49 +174,75 @@ const ViewProfileCard = (props: IProps) => {
   }, [props?.userDetails]);
   // }, [g_viewProfileState])
 
- 
+  //   const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
-  const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-   
-    
+  //     if (e.target.files && e.target.files.length > 0) {
+  //       const reader = new FileReader();
+  //       reader.addEventListener("load", () =>
+  //         setImgSrc(reader.result?.toString() || "")
+  //       );
+  //        let dddddd = reader.readAsDataURL(e.target.files[0]);
+  //        console.log(dddddd)
+  //     }
+
+  //     //  @ts-ignore
+  //    let res : apiResponse = await setUploadImageThunk(ImageData)
+  // console.log(res)
+  // localStorage.setItem("imgSrc",imgSrc)
+  // console.log(imgSrc)
+  //     // @ts-ignore
+  //   handleApiResponse(res, [setImgSrc]);
+  //   console.log(imgSrc)
+
+  // }
+   const onSelectFile =(e: React.ChangeEvent<HTMLInputElement>) => {
+    // alert("jjjj")
     if (e.target.files && e.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setImgSrc(reader.result?.toString() || "")
-      );
+      // alert("h")
+        const reader = new FileReader();
+      reader.onload = (fileLoadedEvent: any) => {
+        let base64 = fileLoadedEvent.target.result;
+        
+        console.log(base64)
+        localStorage.setItem("imgSrc",base64)
+       let image =  localStorage.getItem("imgSrc")
+
+        setImgSrc(base64);
+       
+      };
       reader.readAsDataURL(e.target.files[0]);
     }
-     // @ts-ignore
-   let res : apiResponse = await setUploadImageThunk(ImageData)
-   console.log(res);
-    // @ts-ignore
-  handleApiResponse(data.res, [setImgSrc]);
-}
+    
+    
+       //  @ts-ignore
+  //      let res : apiResponse = await setUploadImageThunk(ImageData)
+  // console.log(res)
+  // localStorage.setItem("imgSrc",imgSrc)
+  // console.log(imgSrc)
+  //     // @ts-ignore
+  //   handleApiResponse(res, [setImgSrc]);
+    
+  };
 
+  // @ts-ignore
+  const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+    alert("eeee");
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
 
+      return;
+    }
 
-    // @ts-ignore
-const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-  alert("hhhh")
-  if (checkExpirationOfToken(res?.code)) {
-    dispatch(setTokenExpiredStatusAction(true));
-    return;
-  }
+    if (res?.error === true) {
+      return;
+    }
 
-  if (res?.error === true) {
-    return;
-  }
-
-  arrFunc.forEach((item: void) => {
-    // @ts-ignore
-    if (res?.data) item(res?.data);
-    console.log(res?.data)
-  })
-
-}
-
-
-
+    arrFunc.forEach((item: void) => {
+      // @ts-ignore
+      if (res?.data) item(res?.data);
+      console.log(res?.data);
+    });
+  };
 
   //   postData(
   //     ImageData,
@@ -237,7 +258,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
   //       }
 
   //       if (data?.error) {
-        
+
   //       }
   //     })
   //     .catch((err) => {
@@ -246,14 +267,16 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
   // };
 
   return (
+    
     <>
+   
       <Card
         sx={{
           p: 1,
           marginTop: "0px",
           height: " fit-content",
         }}
-      // className="paddingviewprofilestyle"
+        // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -361,7 +384,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
                       fontSize: "14px",
                       color: formData.dateofbirth || "" ? "#7b7b9d" : "#3c3e42",
                     }}
-                  // className="CommonStyle__Classofb_Date"
+                    // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
                   </Typography>
@@ -408,7 +431,7 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
                   fontSize: "13px",
                   color: formData.placeofbirth ? "#7b7b9d" : "#3c3e42",
                 }}
-              // className="CommonStyle__Class"
+                // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {
@@ -482,11 +505,10 @@ const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
 };
 
 export default ViewProfileCard;
-  // function setUploadImageThunk(ImageData: { filename: string; image: string; module: string; }): any {
-  //   throw new Error("Function not implemented.");
-  // }
+// function setUploadImageThunk(ImageData: { filename: string; image: string; module: string; }): any {
+//   throw new Error("Function not implemented.");
+// }
 
-  function dispatch(arg0: { type: string; payload: any; }) {
-    throw new Error("Function not implemented.");
-  }
-
+function dispatch(arg0: { type: string; payload: any }) {
+  throw new Error("Function not implemented.");
+}

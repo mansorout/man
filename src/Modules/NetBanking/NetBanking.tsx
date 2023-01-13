@@ -1,62 +1,43 @@
-import "./NetBanking.css";
-import Avatar from "@mui/material/Avatar";
-
-import { Box, styled } from "@mui/system";
-import {
-  Breadcrumbs,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  Grid,
-  InputAdornment,
-  Modal,
-  Typography,
-} from "@mui/material";
-import React, { useRef, useState } from "react";
-import { Toolbar } from "@mui/material";
-import {
-  Assessment,
-  ErrorOutline,
-  Home as HomeIcon,
-  InfoRounded,
-  RadioButtonChecked,
-  RadioButtonUncheckedOutlined,
-  Search,
-} from "@mui/icons-material";
-import {
-  MenuItemUnstyled,
-  menuItemUnstyledClasses,
-  MenuUnstyled,
-  MenuUnstyledActions,
-  PopperUnstyled,
-} from "@mui/base";
-import { AppBar, Button, Theme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import {
-  Active_Upi,
-  hdfclogo,
-  Logo,
-  Profile,
-  Radiobutton,
-  SIP,
-  upilogo,
-} from "../../Assets/index";
-
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-
-import IconButton from "@mui/material/IconButton";
-import Radio from "@mui/material/Radio";
-import { green } from "@mui/material/colors";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import MakepaymentNetbankingbutton from "../../Modules/Buttons/MakepaymentNetbankingbutton";
-import Link from "@mui/material/Link";
-import Sidebar from "../../Components/CommonComponents/Sidebar";
-import Navbar from "../../Components/CommonComponents/Navbar";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ClearIcon from "@mui/icons-material/Clear";
+
+//global constant and function imports
+import siteConfig from "../../Utils/siteConfig";
+import { apiResponse } from "../../Utils/globalTypes";
+import { customParseJSON } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setMakePaymentThunk, setVerifyUpiIDThunk } from "../../Store/Payments/thunk/payments-thunk";
+
+//CSS imports
+import "./NetBanking.css";
+import { Active_Upi, ContactError, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo, validMobile, } from "../../Assets/index";
+
+//Components imports
 import UpiMainCom from "./Upi/UpiMainCom";
 import NetBankingButton from "../Buttons/NetBankingButton";
+import MakepaymentNetbankingbutton from "../../Modules/Buttons/MakepaymentNetbankingbutton";
+
+//MUI imports
+import Card from "@mui/material/Card";
+import Link from "@mui/material/Link";
+import { TextField, Toolbar } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { Box, styled } from "@mui/system";
+import IconButton from "@mui/material/IconButton";
+import CardHeader from "@mui/material/CardHeader";
+import { AppBar, Button, Theme } from "@mui/material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled, } from "@mui/base";
+import { Breadcrumbs, Checkbox, Container, FormControlLabel, Grid, InputAdornment, Modal, Typography, } from "@mui/material";
+import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded, RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from "@mui/icons-material";
+import Sidebar from "../../Components/CommonComponents/Sidebar";
+import Navbar from "../../Components/CommonComponents/Navbar";
+import ClearIcon from "@mui/icons-material/Clear";
+
+
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -177,51 +158,129 @@ const style = {
   },
 };
 
+const enumBankType = {
+
+}
+
 function NetBanking() {
   const classes = useStyles();
   const refContainer = useRef();
   const location: any = useLocation();
+  const dispatch: any = useDispatch();
   const navigate: any = useNavigate();
-  const [timePeriodSelected, setTimePeriodSelected] = useState<boolean[]>([
-    true,
-    false,
-    false,
-    false,
-  ]);
-  const [focus, setFocus] = useState<boolean>(false);
+  const timerRef: any = useRef();
+
+  const cardType: any = useMemo(() => { return location?.state?.cardType; }, []);
+  const userInfo: any = useMemo(() => { return customParseJSON(localStorage.getItem(siteConfig.USER_INFO)) }, []);
+
+  const g_initialPaymentData = useSelector((state: any) => state?.paymentsReducer?.initialPaymentData?.data);
+
   const [upiId, setUpiId] = useState<string>("");
+  const [paymentMode, setPaymentMode] = useState<number>(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
   const [opneBankAccmodal, setOpenBankAccmodal] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
-  const menuActions = React.useRef<MenuUnstyledActions>(null);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
+  const [shouldUPIVerified, setShouldUPIVerified] = useState<boolean>(false);
+  const [timePeriodSelected, setTimePeriodSelected] = useState<boolean[]>([true, false, false]);
 
-  const cardType: any = location?.state?.cardType;
+  useEffect(() => {
+    console.log(g_initialPaymentData, "netbankng.tsx :: useeffect of g_initialPaymentData");
 
-  const handleTimePeriodChange = (index: number) => {
-    index === 0
-      ? setTimePeriodSelected([true, false, false, false])
-      : index === 1
-      ? setTimePeriodSelected([false, true, false, false])
-      : index === 2
-      ? setTimePeriodSelected([false, false, true, false])
-      : setTimePeriodSelected([false, false, false, true]);
+  }, [g_initialPaymentData]);
+
+  useEffect(() => {
+    if (upiId.length > 5) {
+      setShouldUPIVerified(true);
+    } else {
+      setShouldUPIVerified(false);
+    }
+  }, [upiId])
+
+  const handleMakePayment = async () => {
+    console.log("handleMakePayment()");
+
+    let objBody: any = {
+      order_id: g_initialPaymentData?.orderId,
+      paymentmode: paymentMode
+    }
+
+    if (upiId && upiId.length) {
+      objBody["upiid"] = upiId;
+    }
+
+
+
+    let res: apiResponse = await setMakePaymentThunk(objBody);
+
+    console.log(res);
+
+
+  }
+
+  const handleApiResponse = (res: apiResponse) => {
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+
+  }
+
+  const handleTimePeriodChange = (item: number) => {
+
+    console.log(item);
+    let arrTimePeriodSelected: boolean[] = [...timePeriodSelected];
+
+    switch (item) {
+      case paymentMethods[paymentMethodKeys.NET_BANKING]["id"]: {
+        arrTimePeriodSelected = [true, false, false];
+        setPaymentMode(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
+        break;
+      }
+      case paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]: {
+        arrTimePeriodSelected = [false, true, false];
+        setPaymentMode(paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]);
+        break;
+      }
+      case paymentMethods[paymentMethodKeys.UPI]["id"]: {
+        arrTimePeriodSelected = [false, false, true];
+        setPaymentMode(paymentMethods[paymentMethodKeys.UPI]["id"]);
+        break;
+      }
+    }
+
+    setTimePeriodSelected(arrTimePeriodSelected);
   };
 
-  const handleMobile = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setUpiId(e.target.value);
-  };
+  const hideNumbersWithStars = (str: string) => {
+    if (str && str.length) {
+      let leading = str.slice(0, 4);
+      let trailing = str.slice(-2);
+      str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
+      return str;
+    }
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget);
-  };
+    return "";
+  }
 
-  const [selectedValue, setSelectedValue] = React.useState("a");
+  const verifyUPIIdFromApi = async (value: string) => {
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
+    if (!value) return;
+    let res: any = await setVerifyUpiIDThunk({
+      "vpa": value
+    })
+
+    console.log(res);
+  }
+
+  const handleTimer = (cb: any | void, a: any) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      cb(a);
+    }, 200);
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -233,16 +292,16 @@ function NetBanking() {
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10} sx={{
-                        height: "100vh",
-                        overflow: "scroll",
-                        width: "100%",
-                        display: "block",
-                        justifyContent: "center",
-              }}>
-              <Toolbar />
-              <Grid container>
+            height: "100vh",
+            overflow: "scroll",
+            width: "100%",
+            display: "block",
+            justifyContent: "center",
+          }}>
+            <Toolbar />
+            <Grid container>
               <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
+                {/* <Breadcrumbs aria-label="breadcrumb">
                   <Link
                     color="#6495ED"
                     underline="always"
@@ -286,11 +345,11 @@ function NetBanking() {
                       Select a payment option
                     </Typography>
                   </Link>
-                </Breadcrumbs>
+                </Breadcrumbs> */}
               </Box>
-              </Grid>
-              <Box className="BoxPadding" >
-              <Card sx={{ maxWidth: 456, marginTop:"-28px", marginBottom:"60px" }}>
+            </Grid>
+            <Box className="BoxPadding" >
+              <Card sx={{ maxWidth: 456, marginTop: "-28px", marginBottom: "60px" }}>
                 <Typography
                   style={{
                     marginLeft: "5%",
@@ -316,8 +375,8 @@ function NetBanking() {
                         sx={{}}
                         control={
                           <Checkbox
-                            onChange={() => handleTimePeriodChange(1)}
-                            checked={timePeriodSelected[1]}
+                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.NET_BANKING]["id"])}
+                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]]}
                             icon={
                               <RadioButtonUncheckedOutlined
                                 style={{ color: "#23db7b" }}
@@ -330,7 +389,8 @@ function NetBanking() {
                             }
                           />
                         }
-                        label="NEFT/RTGS"
+
+                        label={paymentMethods[paymentMethodKeys.NET_BANKING]["title"]}
                       />
                     }
                     action={
@@ -353,7 +413,7 @@ function NetBanking() {
                     }}
                   />
                   <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                    4825 ********** 25
+                    {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
                   </p>
                   <Box style={style.divider}></Box>
 
@@ -364,8 +424,9 @@ function NetBanking() {
                         sx={{}}
                         control={
                           <Checkbox
-                            onChange={() => handleTimePeriodChange(2)}
-                            checked={timePeriodSelected[2]}
+                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"])}
+                            // checked={timePeriodSelected[2]}
+                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NEFT_RTGS]["index"]]}
                             icon={
                               <RadioButtonUncheckedOutlined
                                 style={{ color: "#23db7b" }}
@@ -378,7 +439,8 @@ function NetBanking() {
                             }
                           />
                         }
-                        label="NEFT/RTGS"
+                        // label="NEFT/RTGS"
+                        label={paymentMethods[paymentMethodKeys.NEFT_RTGS]["title"]}
                       />
                     }
                     action={
@@ -401,7 +463,8 @@ function NetBanking() {
                     }}
                   />
                   <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                    4825 ********** 25
+                    {/* 4825 ********** 25 */}
+                    {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
                   </p>
                   <Box style={style.divider}></Box>
 
@@ -412,8 +475,8 @@ function NetBanking() {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            onChange={() => handleTimePeriodChange(3)}
-                            checked={timePeriodSelected[3]}
+                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.UPI]["id"])}
+                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]]}
                             icon={
                               <RadioButtonUncheckedOutlined
                                 style={{ color: "#23db7b" }}
@@ -426,7 +489,8 @@ function NetBanking() {
                             }
                           />
                         }
-                        label="UPI"
+                        // label="UPI"
+                        label={paymentMethods[paymentMethodKeys.UPI]["title"]}
                       />
                     }
                     action={
@@ -454,34 +518,70 @@ function NetBanking() {
                       fontWeight: "500",
                     }}
                   />
+                  {
+                    timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true ?
+                      <>
+                        <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
+                          Saved UPI Options
+                        </p>
 
-                  <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                    Saved UPI Options
-                  </p>
+                        <TextField
+                          value={upiId}
+                          onChange={(e: any) => {
+                            setUpiId(e.target.value);
+                            handleTimer(verifyUPIIdFromApi, e.target.value)
+                          }}
+                          InputProps={{
+                            endAdornment: shouldUPIVerified ? (
+                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                {" "}
+                                <img src={validMobile} width="22px" alt="Cross" />{" "}
+                              </InputAdornment>
+                            ) : (
+                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                {" "}
+                                <img src={ContactError} width="22px" alt="Cross" />{" "}
+                              </InputAdornment>
+                            ),
+                            // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
+                          }}
 
-                  <Box sx={{ marginLeft: "20px" }}>
-                    <UpiMainCom />
-                  </Box>
+                          sx={{ width: "80%", margin: "5%" }}
+                        />
+                        {/* <Box sx={{ marginLeft: "20px" }}>
+                          <UpiMainCom />
+                        </Box> */}
+
+                      </>
+                      : null
+                  }
                 </Box>
               </Card>
               <Box
                 onClick={() => {
-                  if (timePeriodSelected[3] === true) {
+                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
                     navigate("/processingpayments", {
                       state: { cardType: cardType },
                       replace: true,
                     });
                     return;
                   }
+
                   setOpenBankAccmodal(true);
                 }}
               >
-                <NetBankingButton />
+                <NetBankingButton
+                  totalAmount={g_initialPaymentData?.totalAmount ? g_initialPaymentData?.totalAmount : ""}
+                  onClick={handleMakePayment}
+                />
               </Box>
-              </Box>
+            </Box>
           </Grid>
         </Grid>
       </Box>
+
+
+
 
       <Modal open={opneBankAccmodal}>
         <Box
@@ -500,7 +600,6 @@ function NetBanking() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%,-50%)",
-            
           }}
         >
           <Grid
@@ -755,14 +854,14 @@ function NetBanking() {
                   },
                   padding: "10px 32px 9px",
                   borderRadius: " 4px",
-                  marginLeft:"0px"
+                  marginLeft: "0px"
 
                 }}
               >
                 <Typography
                   sx={{
                     color: "white",
-                   
+
                   }}
                 >
                   Proceed

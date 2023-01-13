@@ -1,1 +1,1 @@
-export const paymentsConstant = ""
+export const SET_INITIAL_PAYMENT_DATA = "SET_INITIAL_PAYMENT_DATA"

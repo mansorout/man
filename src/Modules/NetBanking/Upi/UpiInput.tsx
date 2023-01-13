@@ -32,7 +32,8 @@ export const UpiInput: React.FC<TodoFormProps> = ({ addUpi }) => {
 
         id="outlined-basic" label="Enter UPI ID" variant="outlined" sx={{ width: "96%" }} type="text" value={newUpi} className="upi-input" onChange={handleChange}>
       </TextField>
-      <button style={{ visibility: "hidden" }} onClick={handleSubmit}>Add Upi</button>
+      <button  onClick={handleSubmit}>Add Upi</button>
+      <button  onClick={(()=>{alert(`upiid ${newUpi}`)})}>Get Upi</button>
 
     </form>
   )

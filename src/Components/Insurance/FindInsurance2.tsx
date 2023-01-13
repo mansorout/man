@@ -471,6 +471,7 @@ const FindInsurance2 = () => {
               <div
                 style={{ display: "flex", justifyContent: "center" }}
                 className="gendeslectStyle"
+                
               >
                 <div className="genderSelect">
                   <p>Date of Birth of Selected Members</p>

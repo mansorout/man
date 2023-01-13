@@ -16,10 +16,17 @@ const initialState: any = {
 const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_IS_USER_AUTENTICATED: {
-      state.authUser = {
-        ...state.authUser,
-        isUserAuthenticated: action.payload
+      state = {
+        ...state,
+        authUser: {
+          ...state.authUser,
+          isUserAuthenticated: action.payload
+        }
       }
+      // state.authUser = {
+      //   ...state.authUser,
+      //   isUserAuthenticated: action.payload
+      // }
       break;
     }
     case SET_LOGIN_DATA_ON_SUCCESS: {
