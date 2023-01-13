@@ -220,11 +220,12 @@ const InitiateSip = (props: IProps) => {
             <Toolbar />
             <Sidebar />
           </Grid>
-            <Grid sx={{ height: "100vh",
+            <Grid item xs={12} sm={10} md={10}>
+            <Grid item xs={12} sm={10} md={10} sx={{ height: "100vh",
             overflow: "scroll",
             width: "100%",
             display: "block",
-            justifyContent: "center", }} item xs={12} sm={10} md={10}>
+            justifyContent: "center", }}>
               <Toolbar />
               <Grid container>
               <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
@@ -241,16 +242,18 @@ const InitiateSip = (props: IProps) => {
                 </Breadcrumbs>
               </Box>
               </Grid>
-              <Box className="BoxPadding">
-                <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+              <Box className="BoxPadding sss">
+                <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
                   <Grid item md={6} xs={12}>
-                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}>
+                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
+                      className="InvestStylepadview">
                       <CardContent>
                         <Stack m={2} spacing={6}>
-                          <b
+                        <b
                             style={{
                               width: "100%",
-                              margin: "-4% 303px 25px 0",
+                              // margin: "-4% 303px 25px 0",
+                              margin:"6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}
@@ -418,7 +421,7 @@ const InitiateSip = (props: IProps) => {
 
                 </Grid>
               </Box>
-
+              </Grid>
             </Grid>
         </Grid>
 

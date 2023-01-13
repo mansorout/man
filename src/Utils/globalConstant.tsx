@@ -53,3 +53,29 @@ export const investmentTypeValues = Object.freeze({
     SIP: "SIP"
 })
 
+export const paymentMethodKeys = Object.freeze({
+    NET_BANKING: "NET_BANKING",
+    UPI: "UPI",
+    NEFT_RTGS: "NEFT_RTGS"
+})
+
+export const paymentMethods = Object.freeze({
+    [paymentMethodKeys.NET_BANKING]: {
+        index: 0,
+        id: 1,
+        title: 'Net Banking',
+        value: 'net_banking',
+    },
+    [paymentMethodKeys.UPI]: {
+        index: 2,
+        id: 2,
+        title: 'UPI',
+        value: 'upi',
+    },
+    [paymentMethodKeys.NEFT_RTGS]: {
+        index: 1,
+        id: 3,
+        title: 'NEFT / RTGS',
+        value: 'neft',
+    },
+});

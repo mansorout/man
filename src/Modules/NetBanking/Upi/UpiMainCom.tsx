@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
 import { useState } from "react";
 import { UpiInput } from "./UpiInput";
 import { UpiList } from "./UpiList";
+import { Typography } from "@mui/material";
 import './Upi.css'
 
 function UpiMainCom() {
@@ -13,10 +13,14 @@ function UpiMainCom() {
     const updatedTodos = todos.map(upi => {
        console.log(upi)
       if (upi === selectedTodo) {
-        return { ...upi, complete: !upi.complete };
+        return {
+          ...upi,
+          complete: !upi.complete
+        };
       }
       return upi;
     });
+    
     setTodos(updatedTodos);
   };
 
