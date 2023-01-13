@@ -217,7 +217,10 @@ export default function FundAmtCard(props: FundAmtCard) {
                                             fullWidth
                                             placeholder='₹1,00,000'
                                             onBlur={handleOnBlurAmount}
-                                            onChange={(e) => props?.handleOnChangeFun(e, props?.data)}
+                                            onChange={(e) => {
+                                                props?.handleOnChangeFun(e, props?.data)
+                                                setAmount(e.target.value)
+                                            }}
                                             value={amount}
                                             sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
                                         </TextField>
