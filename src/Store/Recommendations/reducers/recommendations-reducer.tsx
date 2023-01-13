@@ -1,4 +1,4 @@
-import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT, SET_REPLACE_FUND_ACTIVE_INDEX_FOR_INVESTMENT, SET_SELECTED_FUNDS_FOR_EXPLORE_FUNDS, SET_SELECTED_FUNDS_FOR_INVESTMENT } from "../constants/recommendations-constant";
+import { SET_MASTER_FUND_LIST_FOR_EXPLORE_FUNDS, SET_MUTUAL_FUND_LIST_WRT_USER_AMOUNT, SET_REPLACE_FUND_ACTIVE_INDEX_FOR_INVESTMENT, SET_SELECTED_FUNDS_FOR_EXPLORE_FUNDS, SET_SELECTED_FUNDS_FOR_INVESTMENT, SET_REPLACE_FUNDS_FOR_EXPLORE_FUNDS } from "../constants/recommendations-constant";
 
 const objInitialState: any = {
   investment: { type: "", openDetailDialog: false },
@@ -7,6 +7,7 @@ const objInitialState: any = {
   selectedFundsForInvestment: { data: {} },
   replaceFundActiveIndexForInvestment: null,
   selectedFundsForExploreFunds: { data: {} },
+  replaceFundActiveIndexForExploreFund: null,
 }
 
 export default function recommendationsReducer(objState = objInitialState, action: any) {
@@ -52,6 +53,14 @@ export default function recommendationsReducer(objState = objInitialState, actio
           ...objState.masterFundListForExploreFunds,
           data: action.payload
           }
+      }
+      break;
+    }
+    
+    case SET_REPLACE_FUNDS_FOR_EXPLORE_FUNDS: {
+      objState.replaceFundActiveIndexForExploreFund = {
+        ...objState.replaceFundActiveIndexForExploreFund,
+        data: action.payload
       }
       break;
     }
