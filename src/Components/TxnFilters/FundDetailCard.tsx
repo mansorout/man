@@ -96,6 +96,11 @@ const FundDetailCard = (props: Prop) => {
               />
             }
           />
+          <Box>
+          <Button className="btnAddthisFundToPlan" variant="contained" style={{ backgroundColor: "#23db7b", marginTop:"10px", boxShadow:"none", }}>
+  Add this Fund to Plan
+        </Button>
+          </Box>
         </Box>
       </Box>
 

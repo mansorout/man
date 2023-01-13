@@ -194,12 +194,6 @@ const ViewProfile = () => {
 
   }
 
-  console.log(userDetails?.userdetails)
-  console.log(userDetails?.kycdetails?.pannumber)
-
-  // const  {insuranceTermConditionState}:any = useSelector((state: any) => state.setUserViewProfileDataAction);
-  // console.log(insuranceTermConditionState)
-
   return (
     <Box className="BoxProfilePage" style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />

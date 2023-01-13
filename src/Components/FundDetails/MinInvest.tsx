@@ -49,8 +49,9 @@ const FundInvest = (props: IProps) => {
         <Grid item xs sx={{ marginTop: "7px 0px" }}>
           <Typography sx={{
             fontFamily: "Roboto",
-            fontSize: "16px", color: "#3c3e42", fontWeight: "500"
+            fontSize:{xs:"14px",sm:"16px"}, color: "#3c3e42", fontWeight: "500"
           }} >Min. Investment:</Typography>
+          <Box sx={{borderRight:"2px solid #8380801c", marginRight:{xs:"5px" , sm:"40px"}}}>
           <Typography sx={{
             fontFamily: "Roboto",
             fontSize: "12px", color: "#7b7b9d", fontWeight: "500"
@@ -59,6 +60,7 @@ const FundInvest = (props: IProps) => {
             fontFamily: "Roboto",
             fontSize: "14px", color: "#3c3e42", fontWeight: "500"
           }}>₹{props?.sipminamount}</Typography>
+          </Box>
         </Grid>
         <Grid item xs sx={{ marginTop: "21px" }}>
           <Typography sx={{

@@ -1,10 +1,19 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+
+//global constant and function imports
 import siteConfig from "../../Utils/siteConfig";
+import { apiResponse } from "../../Utils/globalTypes";
+import { customParseJSON } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken } from "../../Utils/globalFunctions";
+import { paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
+import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setMakePaymentThunk, setVerifyUpiIDThunk } from "../../Store/Payments/thunk/payments-thunk";
 
 //CSS imports
 import "./NetBanking.css";
-import { Active_Upi, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo, } from "../../Assets/index";
+import { Active_Upi, ContactError, hdfclogo, Logo, Profile, Radiobutton, SIP, upilogo, validMobile, } from "../../Assets/index";
 
 //Components imports
 import UpiMainCom from "./Upi/UpiMainCom";
@@ -14,7 +23,7 @@ import MakepaymentNetbankingbutton from "../../Modules/Buttons/MakepaymentNetban
 //MUI imports
 import Card from "@mui/material/Card";
 import Link from "@mui/material/Link";
-import { Toolbar } from "@mui/material";
+import { TextField, Toolbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box, styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
@@ -27,11 +36,8 @@ import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded, RadioButtonChe
 import Sidebar from "../../Components/CommonComponents/Sidebar";
 import Navbar from "../../Components/CommonComponents/Navbar";
 import ClearIcon from "@mui/icons-material/Clear";
-import { paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
-import { customParseJSON } from "../../Utils/globalFunctions";
-import { useSelector } from "react-redux";
-import { setMakePaymentThunk } from "../../Store/Payments/thunk/payments-thunk";
-import { apiResponse } from "../../Utils/globalTypes";
+
+
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -160,7 +166,9 @@ function NetBanking() {
   const classes = useStyles();
   const refContainer = useRef();
   const location: any = useLocation();
+  const dispatch: any = useDispatch();
   const navigate: any = useNavigate();
+  const timerRef: any = useRef();
 
   const cardType: any = useMemo(() => { return location?.state?.cardType; }, []);
   const userInfo: any = useMemo(() => { return customParseJSON(localStorage.getItem(siteConfig.USER_INFO)) }, []);
@@ -168,14 +176,23 @@ function NetBanking() {
   const g_initialPaymentData = useSelector((state: any) => state?.paymentsReducer?.initialPaymentData?.data);
 
   const [upiId, setUpiId] = useState<string>("");
-  const [paymentMode, setPaymentMode] = useState<number>(0);
+  const [paymentMode, setPaymentMode] = useState<number>(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
   const [opneBankAccmodal, setOpenBankAccmodal] = useState<boolean>(false);
+  const [shouldUPIVerified, setShouldUPIVerified] = useState<boolean>(false);
   const [timePeriodSelected, setTimePeriodSelected] = useState<boolean[]>([true, false, false]);
 
   useEffect(() => {
     console.log(g_initialPaymentData, "netbankng.tsx :: useeffect of g_initialPaymentData");
 
-  }, [g_initialPaymentData])
+  }, [g_initialPaymentData]);
+
+  useEffect(() => {
+    if (upiId.length > 5) {
+      setShouldUPIVerified(true);
+    } else {
+      setShouldUPIVerified(false);
+    }
+  }, [upiId])
 
   const handleMakePayment = async () => {
     console.log("handleMakePayment()");
@@ -185,14 +202,30 @@ function NetBanking() {
       paymentmode: paymentMode
     }
 
-    if (upiId) {
+    if (upiId && upiId.length) {
       objBody["upiid"] = upiId;
     }
+
 
 
     let res: apiResponse = await setMakePaymentThunk(objBody);
 
     console.log(res);
+
+
+  }
+
+  const handleApiResponse = (res: apiResponse) => {
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+
   }
 
   const handleTimePeriodChange = (item: number) => {
@@ -200,21 +233,22 @@ function NetBanking() {
     console.log(item);
     let arrTimePeriodSelected: boolean[] = [...timePeriodSelected];
 
-
     switch (item) {
       case paymentMethods[paymentMethodKeys.NET_BANKING]["id"]: {
         arrTimePeriodSelected = [true, false, false];
+        setPaymentMode(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
         break;
       }
       case paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]: {
         arrTimePeriodSelected = [false, true, false];
+        setPaymentMode(paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]);
         break;
       }
       case paymentMethods[paymentMethodKeys.UPI]["id"]: {
         arrTimePeriodSelected = [false, false, true];
+        setPaymentMode(paymentMethods[paymentMethodKeys.UPI]["id"]);
         break;
       }
-
     }
 
     setTimePeriodSelected(arrTimePeriodSelected);
@@ -231,7 +265,22 @@ function NetBanking() {
     return "";
   }
 
+  const verifyUPIIdFromApi = async (value: string) => {
 
+    if (!value) return;
+    let res: any = await setVerifyUpiIDThunk({
+      "vpa": value
+    })
+
+    console.log(res);
+  }
+
+  const handleTimer = (cb: any | void, a: any) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      cb(a);
+    }, 200);
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -476,9 +525,32 @@ function NetBanking() {
                           Saved UPI Options
                         </p>
 
-                        <Box sx={{ marginLeft: "20px" }}>
+                        <TextField
+                          value={upiId}
+                          onChange={(e: any) => {
+                            setUpiId(e.target.value);
+                            handleTimer(verifyUPIIdFromApi, e.target.value)
+                          }}
+                          InputProps={{
+                            endAdornment: shouldUPIVerified ? (
+                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                {" "}
+                                <img src={validMobile} width="22px" alt="Cross" />{" "}
+                              </InputAdornment>
+                            ) : (
+                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                {" "}
+                                <img src={ContactError} width="22px" alt="Cross" />{" "}
+                              </InputAdornment>
+                            ),
+                            // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
+                          }}
+
+                          sx={{ width: "80%", margin: "5%" }}
+                        />
+                        {/* <Box sx={{ marginLeft: "20px" }}>
                           <UpiMainCom />
-                        </Box>
+                        </Box> */}
 
                       </>
                       : null
@@ -487,7 +559,7 @@ function NetBanking() {
               </Card>
               <Box
                 onClick={() => {
-                  if (timePeriodSelected[3] === true) {
+                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
                     navigate("/processingpayments", {
                       state: { cardType: cardType },
                       replace: true,
