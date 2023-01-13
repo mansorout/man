@@ -48,14 +48,14 @@ const CompanyFundCard = (props: Prop) => {
                     width: { xs: '246px', sm: '217px' }
                 }}>
                     <Typography>{ props.name }</Typography>
-                    <Chip label={ props.cap } sx={{
-                        margin: '05px'
+                    <Chip className="textPropName" label={ props.cap } sx={{
+                        margin: '05px', 
                     }} />
-                    <Chip label={ props.type } sx={{
+                    <Chip className="textPropName" label={ props.type } sx={{
                         margin: '05px'
                     }} />
                 </Box>
-                <Chip label={ formatter.format(props.price) } />
+                <Chip style={{color:"#6c63ff"}} label={ formatter.format(props.price) } />
             </Box>
             <Box sx={{
                 display: 'flex',
@@ -80,7 +80,7 @@ const CompanyFundCard = (props: Prop) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Chip avatar={<Avatar alt="star" src={ Star } />}  label={ props.rating + '.0' } />
+                <Chip className="starProsText" avatar={<Avatar alt="star" src={ Star } />}  label={ props.rating + '.0' } />
             </Box>
         </Box>        
     )

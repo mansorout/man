@@ -108,8 +108,11 @@ const ProgressBars = (props: IProps) => {
         if (props?.activeTab === "sectors") {
           // let arrkeys: any[] = props?.progressData && props?.progressData.length ? Object.keys(props?.progressData) : [];
           let arrkeys: any[] = Object.keys(props?.progressData) || [];
+          console.log(arrkeys.length)
           if (arrkeys && arrkeys.length) {
             setProgressData(arrkeys.map((item: any) => { return { title: item, percentage: parseFloat(props?.progressData[item] ? props?.progressData[item] : "0") } }))
+          }else{
+            // alert("fff")
           }
         }
       }

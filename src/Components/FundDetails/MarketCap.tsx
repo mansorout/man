@@ -65,24 +65,30 @@ export default function MarketCap(props: IProps) {
       }
     }
   }, [props?.progressData])
-
-
+  const options = {
+    legend: {
+      display: false,
+    },
+    elements: {
+      
+    }
+  };
+  
   return (
     <>
+    
       <Box sx={{ width: '100%' }}>
         {/* <Grid container rowSpacing={0} columnSpacing={20} sx={{ display: "flex", paddingLeft: "40px", paddingTop: "7.5px" }}> */}
         <Grid container rowSpacing={0} columnSpacing={2} >
           {/* <Grid item xs={5} sx={{ paddingLeft: "25px" }} > */}
-          <Grid item xs={12} sm={8}  >
+          <Grid item xs={8} sm={8}>
             <Doughnut
               data={data}
-              options={{
-                elements: {},
-              }}
+              options={options}
             />
           </Grid>
           {/* <Grid item xs={7} sx={{ paddingLeft: "50px", alignItems: "right" }}> */}
-          <Grid item xs={12} sm={4} >
+          <Grid item xs={4} sm={4} >
             {
               keys && keys.length && keys.map((item, index) => {
                 return (

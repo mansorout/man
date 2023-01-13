@@ -158,14 +158,13 @@ export const RiskoMeter = (props: IProps) => {
             </Box>
 
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails sx={{padding:{xs:"1px 4px 10px", sm:"8px 16px 16px"}}}>
             <Box sx={{
-              margin: "1rem",
-
-
-              padding: " 12px 12px 21px 16px",
+              // margin: "1rem",
+              // padding: " 12px 12px 21px 16px",
               borderRadius: "8px",
-
+              display:"block",
+              textAlign:"center",
               boxSizing: "border-box",
               backgroundColor: "white",
             }}>
@@ -197,6 +196,8 @@ export const RiskoMeter = (props: IProps) => {
                 }}
               /> */}
               <ReactSpeedometer
+              forceRender={true}
+              // dimensionUnit={"100px"}
                segmentValueFormatter={segmentValueFormatter}
               currentValueText={''}
               needleColor={"black"}
@@ -205,7 +206,8 @@ export const RiskoMeter = (props: IProps) => {
                 maxValue={6}
                 value={riskValue - (.5)}
                 segments={6}
-                width={400}
+                width={250}
+                height={150}
                 
                 // gap= {35}
                 segmentColors={["#5deb00",
