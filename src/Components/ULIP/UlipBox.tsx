@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { Box, Breadcrumbs, Divider, FormControl, FormControlLabel, Grid, InputAdornment, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, TextField, Theme, Toolbar, Typography } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
@@ -21,7 +21,7 @@ import {
     insuranceUlipMonthlyAction,
     insuranceUlipAmount,
 } from '../../Store/Duck/InvestmentType';
-import { isMultipleofNumber } from '../../Utils/globalFunctions'
+import { customParseJSON, getLookUpIdWRTModule, isMultipleofNumber } from '../../Utils/globalFunctions'
 import LineChart from "../CommonComponents/Charts/LineChart";
 import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
 import { getUlipReturnApiTypes, ulipReturnApiParamsTypes } from "../../Store/Insurance/constants/types";
@@ -36,6 +36,8 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import { Terminal } from "@mui/icons-material";
+import { bannerSectionValues, lookUpMasterKeys } from "../../Utils/globalConstant";
 
 
 
@@ -133,8 +135,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         padding: '15px',
     }
 }))
-
-const UlipBox = () => {
+const MAX_LENGTH = 10;
+const UlipBox = (props:any) => {
 
     const classes = useStyles();
     const navigate = useNavigate();
@@ -143,13 +145,19 @@ const UlipBox = () => {
     const timerRef: any = useRef();
     const [years, setYears] = useState('5');
     const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
-    const [lumpsumAmount, setLumpsumAmount] = useState('')
-    const [monthlyAmount, setMonthlyAmount] = useState('')
+    const [lumpsumAmount, setLumpsumAmount] = useState(0)
+    const [monthlyAmount, setMonthlyAmount] = useState(0)
     const [chartLabels, setChartLabels] = useState<string[] | null>(null)
     const [chartInvestedAmount, setChartInvestedAmount] = useState<number[] | null>(null)
     const [chartProjectedAmount, setChartProjectedAmount] = useState<number[] | null>(null)
     const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
     const { ulipInsuranceType, ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [error,setError] = useState(false)
+    const [monthyshowerror, setMonthlyShowError] = useState("")
+    const [merror,setMerror] = useState(false)
+    const [ulipYears,setUlipYears] = useState<any>([])
+    const [handlelinechart,setHandlelinechart]= useState(0)
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
@@ -160,21 +168,42 @@ const UlipBox = () => {
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
-        investmentType === ULIP_LUMPSUM ? setLumpsumAmount('') : setMonthlyAmount('');
+        investmentType === ULIP_LUMPSUM ? setLumpsumAmount(0) : setMonthlyAmount(0);
     };
 
-    const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLumpsum = (event:any) => {
         dispatch(insuranceUlipLumpsumAction(investmentType));
         // dispatch(insuranceUlipAmount(event.target.value));
         handleTimer(insuranceUlipAmount, event.target.value);
-        setLumpsumAmount(event.target.value);
+        let conNumber = Number(event.target.value)
+        setLumpsumAmount(conNumber);
+        console.log(Number(conNumber))
+        console.log(typeof(conNumber))
+        if(conNumber < 5000)
+        {
+          setErrorMessage("please fill min. 5000 amount")
+          setError(true)
+        }else{
+            setErrorMessage("")  
+            setError(false)
+        }
     };
-
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(insuranceUlipMonthlyAction(investmentType));
         // dispatch(insuranceUlipAmount(event.target.value));
         handleTimer(insuranceUlipAmount, event.target.value);
-        setMonthlyAmount(event.target.value);
+        let monNumber = Number(event.target.value)
+        setMonthlyAmount(monNumber);
+        console.log(Number(monNumber))
+        console.log(typeof(monNumber))
+      if(monNumber < 1000){
+        setMonthlyShowError("please fill min. 1000 amount")
+        setMerror(true)
+      }
+      else{
+        setMonthlyShowError("")
+        setMerror(false)
+      }
     };
 
     ChartJS.register(
@@ -207,6 +236,8 @@ const UlipBox = () => {
         setChartLabels(labels)
         setChartInvestedAmount(investedamount)
         setChartProjectedAmount(projectedamount)
+        localStorage.getItem(ulipReturnApiData)
+        console.log(ulipReturnApiData)
     }, [ulipReturnApiData])
 
 
@@ -251,24 +282,53 @@ const UlipBox = () => {
             }
         ]
     };
+    
 
 
     const handleNavigationFlow = () => {
         // navigate('/ulip/recommendations')
-        if (investmentType === ULIP_LUMPSUM && parseInt(lumpsumAmount) > 0) {
-            if (isMultipleofNumber(parseInt(lumpsumAmount), 100) === true) {
+        if (investmentType === ULIP_LUMPSUM && lumpsumAmount > 0) {
+            if (isMultipleofNumber(lumpsumAmount, 100) === true) {
                 dispatch(insuranceUlipLumpsumAction(ULIP_LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
                 navigate('/ulip/recommendations')
             } else {
                 alert('Enter amount multiple of 100!')
             }
-        } else if (investmentType === ULIP_MONTHLY && parseInt(monthlyAmount) > 0) {
+        } else if (investmentType === ULIP_MONTHLY && (monthlyAmount) > 0) {
             dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
             dispatch(SaveTaxInvestmentAmount(monthlyAmount))
             navigate('/ulip/recommendations')
             // navigate('/saveTax/saveTaxInvestmentType')
         }
+    }
+    const handleYear = (e: { target: { value: SetStateAction<string>; }; })=>{
+         setYears(e.target.value)
+    }
+    useEffect(() => {
+        const lookup__id_Arr = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
+         //const lookUpSaveTaxObj = lookup__id_Arr.filter((item:any) => item.value === bannerSectionValues.ULIP_TERM && item)
+         const ulip:any = customParseJSON(localStorage.getItem("ulip-term"))
+         console.log(typeof(ulip))
+         console.log(ulip)
+         setUlipYears(ulip)
+        // const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+
+        // const saveTavGenrateBody = {
+        //     investmenttype_id: lookUPId,
+        //     amount: parseInt(investmentAmount),
+        // }
+        // if(parseInt(investmentAmount) === 0) navigate('/saveTax')
+        // dispatch(getDataSaveTaxInvestmentType(investmentAmount))
+        // console.log("investmentAmount :", investmentAmount, savetaxPercentageAmount)
+
+        // dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
+    }, [])
+    const hadleLineChart=(e:any)=>{
+     alert("haldeiuchart")
+     setHandlelinechart(e.target.value)
+     console.log(e.target.value)
+     
     }
 
     return (
@@ -337,10 +397,13 @@ const UlipBox = () => {
                                                             >
                                                                 <Box className={investmentType === ULIP_MONTHLY ? classes.investmentField : classes.investmentFieldSelected}>
                                                                     <TextField
+                                                                      error={error}
                                                                         label="I want to invest"
                                                                         id="outlined-start-adornment"
                                                                         value={lumpsumAmount}
                                                                         onChange={handleLumpsum}
+                                                                        helperText={errorMessage}
+                                                                       
                                                                         onKeyPress={e => /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) && e.preventDefault()}
                                                                         InputProps={{
                                                                             endAdornment: <InputAdornment position="start">
@@ -367,6 +430,8 @@ const UlipBox = () => {
                                                                         label="I want to invest"
                                                                         id="outlined-start-adornment"
                                                                         value={monthlyAmount}
+                                                                        error={merror}
+                                                                        helperText={monthyshowerror}
                                                                         onChange={handleMonthly}
                                                                         InputProps={{
                                                                             endAdornment: <InputAdornment position="start">
@@ -388,12 +453,13 @@ const UlipBox = () => {
                                                                     id="demo-simple-select"
                                                                     value={years}
                                                                     label="For next"
-                                                                    onChange={(e) => setYears(e.target.value)}
+                                                                    onChange={handleYear}
                                                                 >
-                                                                    <MenuItem value={5}>5 Years</MenuItem>
-                                                                    <MenuItem value={10}>10 Years</MenuItem>
-                                                                    <MenuItem value={15}>15 Years</MenuItem>
-                                                                    <MenuItem value={20}>20 Years</MenuItem>
+                                                                    {ulipYears.map((item:any)=>{
+                                                                        return <MenuItem value={item.value}>{item.value} year</MenuItem>
+                                                                    })}
+                                                                    
+                                                                    
                                                                 </Select>
                                                             </FormControl>
                                                         </Box>
@@ -403,18 +469,19 @@ const UlipBox = () => {
                                                         <Box className={classes.performanceGraphCard}>
                                                             <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>ULIP Plan Performance</Typography>
                                                             <LineChart
-                                                             optionsValues={chartOptions}
-                                                              dataValues={chartData}
-                                                              onClick={(e) => console.log("click values :", e )}
+                                                            optionsValues={chartOptions}
+                                                          dataValues={chartData}
+                                                          onClick={(e) => console.log("click values :", e )}
+
                                                               />
                                                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                                                                 <Box>
                                                                     <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Invested Value</Typography>
-                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹2.5 Lac</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{handlelinechart}y</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Projected Value</Typography>
-                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹4.75 Lac</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{handlelinechart} y</Typography>
                                                                 </Box>
                                                             </Box>
                                                         </Box>
@@ -434,7 +501,7 @@ const UlipBox = () => {
             </Box>
             <FooterWithBtn
                 btnText='Show Me Recommendations'
-                btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
+                btnDisable={lumpsumAmount < 5000  && monthlyAmount < 1000 ? true : false}
                 btnClick={handleNavigationFlow}
             />
         </div >
