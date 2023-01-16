@@ -11,6 +11,7 @@ const initialState: any = {
   authUser: { isUserAuthenticated: false },
   login: { data: {}, error: "" },
   profile: { data: {}, error: "" },
+  profileVerification: { data: { isKycCompleted: false, isProfileComplete: false, isBseRegistered: false, isUserProfileFullCompleted: false } }
 }
 
 const authReducer = (state = initialState, action: any) => {
