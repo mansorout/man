@@ -1,4 +1,5 @@
-import { MFFeatures } from "./globalTypes";
+import { arrKycCompletionKeys, arrProfileCompletion, objUserProfileValidationData } from "./globalConstant";
+import { MFFeatures, profileValidationKeys } from "./globalTypes";
 import siteConfig from "./siteConfig"
 
 export const getModuleWiseBaseUrl = (strApiId: string) => {
@@ -124,7 +125,117 @@ export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], i
     // console.log(arrRecomm, "arrRecom getMutualFundRecommendationListWRTUserAmount")
     return arrRecomm;
   } catch (err) {
-    return [];
     console.log(err)
+    return [];
   }
 }
+
+export const validateProfileCompletion = () => {
+  try {
+
+    let objUserDetail = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+
+    if (!objUserDetail) return objUserProfileValidationData;
+
+    //profile completion
+    for (let i = 0; i < arrProfileCompletion.length; i++) {
+      if (!objUserDetail?.userdetails[arrProfileCompletion[i]]) {
+        objUserProfileValidationData.isProfileComplete = false;
+        break;
+      }
+
+      objUserProfileValidationData.isProfileComplete = true;
+    }
+
+    //kyc completion
+    for (let i = 0; i < arrKycCompletionKeys.length; i++) {
+      if (!objUserDetail?.kycdetails[arrKycCompletionKeys[i]]) {
+        objUserProfileValidationData.isKycCompleted = false;
+        break;
+      }
+
+      objUserProfileValidationData.isKycCompleted = true;
+    }
+
+    if (objUserProfileValidationData.isProfileComplete && objUserProfileValidationData.isKycCompleted) {
+      //now check isbseregistered === true or false
+      if (objUserDetail?.userdetails?.isbseregistered) {
+        objUserProfileValidationData.isBseRegistered = true;
+        objUserProfileValidationData.isUserProfileFullCompleted = true;
+      } else {
+        objUserProfileValidationData.isBseRegistered = false;
+      }
+    }
+
+
+    return objUserProfileValidationData;
+  } catch (err) {
+    console.log(err);
+    return objUserProfileValidationData;
+  }
+}
+
+// {
+//   "userdetails": {
+//       "customer_id": 137,
+//       "firstname": "JASKIRAT",
+//       "middlename": "",
+//       "lastname": "SINGH",
+//       "emailaddress": "jaskirat.singh@okoders.tech",
+//       "isemailverified": 0,
+//       "mobilenumber": "8368988740",
+//       "ismobileverified": 1,
+//       "dateofbirth": "07-07-2000",
+//       "fk_occupation_id": null,
+//       "image": "",
+//       "gender": "Male",
+//       "height": null,
+//       "weight": null,
+//       "uniqueid": 531165,
+//       "addressline1": "1313",
+//       "addressline2": "",
+//       "pincode": "121004",
+//       "city_id": 115,
+//       "city": "FARIDABAD",
+//       "state_id": 8,
+//       "state": "HARYANA",
+//       "country_id": 1,
+//       "iscvlverified": 1,
+//       "cvlremarks": null,
+//       "placeofbirth_id": 87,
+//       "placeofbirth": "WEST DELHI",
+//       "incomeslab": "> 5 Lacs and <=10 Lacs",
+//       "incomecode": 33,
+//       "incomeslab_id": 3,
+//       "bankname": null,
+//       "countryofbirth": "INDIA",
+//       "isnetbankingavailable": false,
+//       "isbseregistered": true
+//   },
+//   "kycdetails": {
+//       "ispannumberverified": true,
+//       "pannumber": "ODLPS9259F",
+//       "isnomineedetailsavailable": true,
+//       "nomineedetails": {
+//           "nominee_name": "jaskirat",
+//           "nominee_dob": "25-07-2000",
+//           "relation_id": 1,
+//           "relation": "homepage"
+//       },
+//       "isbankdetailsavailable": true,
+//       "isbankdetailsverifed": true,
+//       "bankdetails": {
+//           "accountholdername": true,
+//           "accountnumber": true,
+//           "ifsc": true,
+//           "accounttype": true
+//       },
+//       "issignatureavailable": true,
+//       "ischequeavailable": true,
+//       "iscvlverified": true,
+//       "cvlremarks": true,
+//       "cvlverificationurl": "https://new.camsonline.com/Investors/Transactions/KYC/Paper-less-KYC"
+//   },
+//   "showprofilecompletion": false,
+//   "showholdingdetails": false
+// }

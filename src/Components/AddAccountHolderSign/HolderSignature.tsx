@@ -491,7 +491,7 @@ function HolderSignature() {
                                                                     alt="my signature"
                                                                     style={{
 
-                                                                        maxWidth: "-webkit-fill-available",
+                                                                        maxWidth: "100%",
                                                                         height: "250px"
                                                                     }}
                                                                 />
