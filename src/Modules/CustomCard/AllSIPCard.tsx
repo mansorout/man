@@ -252,7 +252,7 @@ function AllSIPCard({name,SIPDate, SIPAmount, type, logo, mandate, order, cap, s
           </Box>
       </Box>
       {
-        status == 'Stoped' || status == 'Awaited' ? 
+        status == 'Stopped' || status == 'Awaited' ? 
         <Box style={{zIndex:"99", backgroundColor:"#e0f8ff", padding:"10px", borderRadius:"0px 0px 8px 8px"}}>
           <Typography style={{color:"#544ec8", fontSize:"12px", fontWeight:"500", paddingLeft:"60px"}}>Stopped SIP on {stopDate}</Typography>
         </Box> : null
