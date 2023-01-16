@@ -189,11 +189,11 @@ function Editprofilescreen() {
               textAlign="center"
               sx={{
                 margin: "auto",
-                width: "304px",
+                // width: "304px",
               }}
             >
 
-              <Typography component="span" className="bottomContentText ">
+              <Typography component="span" className="bottomContentText">
                 By submitting these details, you are agree to share your details
                 to BSE for further transactions <br />
               </Typography>

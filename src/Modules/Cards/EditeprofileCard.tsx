@@ -666,8 +666,8 @@ const EditprofileCard = () => {
 
   return (
     <>
-      <div style={{
-        padding: '29px',
+      <Box sx={{
+        padding: {xs:"10px", sm:"29px"},
         borderRadius: "8px",
         marginBottom: "-15px",
       }}
@@ -677,7 +677,7 @@ const EditprofileCard = () => {
           <Grid item xs={12} md={6} >
             <Paper className=''
               sx={{
-                p: 2,
+                p:{xs:"5px", sm:"2"},
                  bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
@@ -879,7 +879,7 @@ const EditprofileCard = () => {
           <Grid item xs={12} md={6} className="gridMarginBottom20">
             <Paper className=''
               sx={{
-                p: 2,
+                p:{xs:"5px", sm:"2"},
                 bgcolor: 'background.paper',
                 marginTop: "-23px",
                 borderRadius: "8px",
@@ -1184,7 +1184,7 @@ const EditprofileCard = () => {
             </Paper>
           </Grid>
         </Grid>
-      </div>
+      </Box>
     </>
   )
 }

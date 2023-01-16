@@ -70,7 +70,8 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
             >
                 <DialogTitle></DialogTitle>
 
-                <DialogContent sx={{ minWidth: "300px" }}>
+                <DialogContent sx={{width:{xs:"100%", sm:"100%"}, minWidth:{xs:"100%", sm:"300px"},
+            padding:{xs:"10px 4px", sm:"0px 0px"} }}>
                     {
                         !props.errorText ? <Grid container>
 
@@ -88,22 +89,18 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
                             </Grid>
 
 
-                        </Grid> : <Grid container sx={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <Grid item xs={2}>
+                        </Grid> : <Grid container>
+                            <Grid item xs={10} sm={11}>
+                                <DialogContentText sx={{ color: "red", textAlign: "center" }} id="alert-dialog-slide-description">
+                                    {props.errorText}
+                                </DialogContentText>
+                            </Grid>
+                            <Grid item xs={2} sm={1}>
 
                                 <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
                                     <img style={{ height: "25px", width: "25px", }} src={ContactError} alt="error" />
                                 </Box>
                             </Grid>
-                            <Grid item xs={10}>
-                                <DialogContentText sx={{ color: "red", textAlign: "center" }} id="alert-dialog-slide-description">
-                                    {props.errorText}
-                                </DialogContentText>
-                            </Grid>
-
 
                         </Grid>
                     }
