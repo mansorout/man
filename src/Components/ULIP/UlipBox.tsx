@@ -314,9 +314,10 @@ const UlipBox = (props:any) => {
        
     }, [])
     const hadleLineChart=(e:any)=>{
-     alert("haldeiuchart")
-     setHandlelinechart(e.target.value)
-     console.log(e.target.value)
+        console.log(e)
+ alert("callopen")
+     setHandlelinechart(handlelinechart + 12)
+   
      
     }
 
@@ -461,7 +462,7 @@ const UlipBox = (props:any) => {
                                                             optionsValues={chartOptions}
                                                           dataValues={chartData}
                                                            onClick={hadleLineChart}
-
+                                        
                                                               />
                                                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                                                                 <Box>
