@@ -304,7 +304,7 @@ const ViewProfileCard = (props: IProps) => {
               }}
               className="RemoveStyle_Style"
             >
-              remove
+              Remove
             </Typography>
             <ListItem
               secondaryAction={
