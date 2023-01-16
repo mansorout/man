@@ -3,6 +3,7 @@ import {
   SET_LOGIN_DATA_ON_FAILED,
   SET_LOGIN_DATA_ON_SUCCESS,
   SET_TOKEN_EXPIRED_STATUS,
+  SET_USER_PROFILE_VALIDATION_KEYS,
   SET_USER_VIEW_PROFILE_DATA
 } from "../constants/auth-constants";
 
@@ -11,7 +12,14 @@ const initialState: any = {
   authUser: { isUserAuthenticated: false },
   login: { data: {}, error: "" },
   profile: { data: {}, error: "" },
-  profileVerification: { data: { isKycCompleted: false, isProfileComplete: false, isBseRegistered: false, isUserProfileFullCompleted: false } }
+  profileValidationData: {
+    data: {
+      isKycCompleted: false,
+      isProfileComplete: false,
+      isBseRegistered: false,
+      isUserProfileFullCompleted: false
+    }
+  }
 }
 
 const authReducer = (state = initialState, action: any) => {
@@ -58,6 +66,13 @@ const authReducer = (state = initialState, action: any) => {
     }
     case SET_TOKEN_EXPIRED_STATUS: {
       state.isTokenExpired = action.payload;
+      break;
+    }
+    case SET_USER_PROFILE_VALIDATION_KEYS: {
+      state.profileValidationData = {
+        ...state.profileValidationData,
+        data: action.payload
+      }
       break;
     }
   }
