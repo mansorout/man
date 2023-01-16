@@ -338,7 +338,7 @@ const SaveTaxAmount = () => {
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value={LUMPSUM} control={<Radio className={investmentType === LUMPSUM ? classes.radioStyle : ''} />} label="Lumpsum" />
+                                                <FormControlLabel value={LUMPSUM} control={<Radio className={investmentType === LUMPSUM ? classes.radioStyle : ''} />} label={<Box sx={{color:"#8787a2"}}>Lumpsum</Box>} />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === LUMPSUM ? false : true,
@@ -367,13 +367,14 @@ const SaveTaxAmount = () => {
 
                                     <TextField
                                         label="Monthly investment"
+                                        
                                         id="outlined-start-adornment"
                                         value={monthlyAmount}
                                         onChange={handleMonthly}
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label="Monthly" />
+                                                <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label={<Box sx={{color:"#8787a2"}}>Monthly</Box>} />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                             readOnly: investmentType === MONTHLY ? false : true,
