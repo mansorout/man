@@ -61,39 +61,41 @@ export const resendOtpThunk = ({ mobilenumber, type }: any) => {
   }
 }
 
-export const getUserProfileDataThunk = () => {
-  return (dispatch: any) => {
-    getData(
-      siteConfig.AUTHENTICATION_PROFILE_VIEW,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
+export const getUserProfileDataThunk = async () => {
+  let res: any;
+  await getData(
+    siteConfig.AUTHENTICATION_PROFILE_VIEW,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => {
+      res = data;
+      // if (checkExpirationOfToken(data?.code)) {
+      //   dispatch(setTokenExpiredStatusAction(true));
+      //   return;
+      // }
 
-        if (data?.error === true) {
-          return;
-        }
-        // console.log(data?.data)
-        const response = data?.data;
-        dispatch(setUserViewProfileDataAction(response));
-        //  localStorage.setItem("accesstoken", response?.accesstoken)
-        // localStorage.setItem("userDetails", response?.userdetails?.emailaddress)
-        // localStorage.setItem("userMobile", response?.userdetails?.mobilenumber)
-        // localStorage.setItem("userGender", response.userdetails?.gender)
-        // localStorage.setItem("userPlaceofbirth", response?.userdetails?.placeofbirth)
-        // localStorage.setItem("userAddress", response?.userdetails?.addressline1)
-        // localStorage.setItem("userIncomeslab", response?.userdetails?.incomeslab)
+      // if (data?.error === true) {
+      //   return;
+      // }
+      // // console.log(data?.data)
+      // const response = data?.data;
+      // dispatch(setUserViewProfileDataAction(response));
+      //  localStorage.setItem("accesstoken", response?.accesstoken)
+      // localStorage.setItem("userDetails", response?.userdetails?.emailaddress)
+      // localStorage.setItem("userMobile", response?.userdetails?.mobilenumber)
+      // localStorage.setItem("userGender", response.userdetails?.gender)
+      // localStorage.setItem("userPlaceofbirth", response?.userdetails?.placeofbirth)
+      // localStorage.setItem("userAddress", response?.userdetails?.addressline1)
+      // localStorage.setItem("userIncomeslab", response?.userdetails?.incomeslab)
 
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+  return res;
 }
 
 

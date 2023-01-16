@@ -75,7 +75,14 @@ import AmountAddSnackBar from './Components/CommonComponents/AmountAddSnackBar';
 // import InitiateSip from './Components/SIPScreen/initiateSip';
 // import ReplaceFunds from './Components/CommonComponents/replaceFunds';
 // import ULIPFound from './Components/Insurance/ULIPFound';
- import ULIPCompare from './Components/Insurance/ULIPCompare';
+import ULIPCompare from './Components/Insurance/ULIPCompare';
+import { useEffect, useState } from 'react';
+import { checkExpirationOfToken, validateProfileCompletion } from './Utils/globalFunctions';
+import { setRegisterUserWithBseThunk } from './Store/Payments/thunk/payments-thunk';
+import { apiResponse, profileValidationKeys } from './Utils/globalTypes';
+import { useDispatch } from 'react-redux';
+import { setTokenExpiredStatusAction, setUserProfileValidationKeys } from './Store/Authentication/actions/auth-actions';
+import { getUserProfileDataThunk } from './Store/Authentication/thunk/auth-thunk';
 // import ProposalForm from './Components/Insurance/ProposalForm';
 // import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 // import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
@@ -157,9 +164,61 @@ function App() {
     };
   */
 
+  const [isTokenExpired, setIsTokenExpired] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    initiate();
+  }, []);
+
+  const initiate = async () => {
+    await handleTokenExpiry();
+    await userVerification();
+  }
+
+  const handleTokenExpiry = async () => {
+    let res: apiResponse = await getUserProfileDataThunk();
+    if (checkExpirationOfToken(res?.code)) {
+      setIsTokenExpired(true);
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+  }
+
+  const userVerification = async () => {
+    let data: profileValidationKeys = validateProfileCompletion();
+
+    dispatch(setUserProfileValidationKeys(data));
+
+    if (!data.isProfileComplete && !data.isKycCompleted) {
+      return;
+    }
+
+    if (data.isBseRegistered) {
+      return;
+    }
+
+    let res: apiResponse = await setRegisterUserWithBseThunk({});
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+    data["isUserProfileFullCompleted"] = true;
+    dispatch(setUserProfileValidationKeys(data));
+  }
+
   return (
     <div>
-      <ExpireTokenDialog />
+      <ExpireTokenDialog
+        isTokenExpired={isTokenExpired}
+        homeAllowed={true}
+        setIsTokenExpired={(val) => setIsTokenExpired(val)}
+      />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="*" element={<Navigate to="/" />} />
@@ -187,8 +246,8 @@ function App() {
         <Route path="/loginsecond" element={<LoginSecond />} />
         <Route path="/verifysec" element={<VerifySec />} />
         <Route path="/setnewpin" element={<Setpin />} />
-        <Route path="/ExpireTokenDialog" element={<ExpireTokenDialog />} />
-     
+        {/* <Route path="/ExpireTokenDialog" element={<ExpireTokenDialog />} /> */}
+
         {/* set to be private */}
         <Route path="/portfolio" element={<PortfolioCompanyCard {...data} />} />
         <Route path="/pf" element={<PortfolioCompanyCard {...data} />} />
@@ -197,10 +256,10 @@ function App() {
         <Route path="/ulip/details" element={<ULIPDetails {...ulipData} />} />
         <Route path="msg" element={<SprintMoneyMessanger btnText={''} btnClick={function (): void {
           throw new Error('Function not implemented.');
-        } } open={false} errorText={''} succesText={''} />} />
-         <Route path="/snackbar" element={<AmountAddSnackBar fundsCount={0} onClick={function (): void {
+        }} open={false} errorText={''} succesText={''} />} />
+        <Route path="/snackbar" element={<AmountAddSnackBar fundsCount={0} onClick={function (): void {
           throw new Error('Function not implemented.');
-        } } buttonText={''} />} />
+        }} buttonText={''} />} />
 
         {/* <Route path="/SprintMoneyLoader" element={<SprintMoneyLoader loadingStatus={true} />} /> */}
         {/*  <Route path='/sip2' element={ <SipCard2 { ...sipData }/> } /> */}
