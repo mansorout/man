@@ -26,7 +26,7 @@ const TextWithSwitch = (props: TextWithSwitchProps) => {
             <div style={{ flex: 1 }}></div>
          
                 <div style={{ display: 'flex' ,alignItems:'center'}}>
-                    <span  onClick={(e) => {  }}>No</span><span><Switch  color="primary" /></span><span  onClick={(e) => { }}>Yes</span>
+                    <span  onClick={(e) => {  }}>No</span><span><Switch  sx={{color:"#b2e7cb"}} /></span><span  onClick={(e) => { }}>Yes</span>
                 </div>
 
         </div>
