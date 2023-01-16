@@ -324,7 +324,7 @@ const SaveTaxAmount = () => {
                 </Grid>
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
-                    <Box className="BoxMarginLeftRight">
+                    <Box className="BoxMarginLeftRight textBoxAmount">
                     <Typography component='h4' sx={{margin: { xs: '5px 0px', sm: '5px 0px' }}} >I Know My Tax Liability</Typography>
                         <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
                             <Box className={classes.blueBoxIconBox}>
