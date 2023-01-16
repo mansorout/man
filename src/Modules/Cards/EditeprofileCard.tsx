@@ -269,6 +269,7 @@ const EditprofileCard = () => {
   const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
   const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
+  const [numberForView,setnumberForview] =useState<string>("")
 
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
@@ -422,6 +423,9 @@ const EditprofileCard = () => {
     if (!g_profileData?.userdetails) {
       return;
     }
+
+    setnumberForview(objUserDetails?.mobilenumber)
+    
     
 
     getCityList(objUserDetails?.state_id, false);
@@ -751,7 +755,7 @@ const EditprofileCard = () => {
                   onBlur={handleBlur}
                   type="text"
                   name="mobilenumber"
-                  value={formData?.mobilenumber}
+                  value={numberForView}
                   onChange={handlechange}
                   fullWidth
                   sx={{
