@@ -148,6 +148,7 @@ export default function InsuranceKeyFeatures() {
                         </div>
                         <div>
                             <img style={{ height: '21px', width: '21px' }} src={signExclamatory} />
+                           
                         </div>
                     </div>
                 </AccordionDetails>

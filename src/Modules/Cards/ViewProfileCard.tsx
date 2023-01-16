@@ -195,7 +195,7 @@ const ViewProfileCard = (props: IProps) => {
   //   console.log(imgSrc)
 
   // }
-   const onSelectFile =(e: React.ChangeEvent<HTMLInputElement>) => {
+   const onSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // alert("jjjj")
     if (e.target.files && e.target.files.length > 0) {
       // alert("h")
@@ -214,19 +214,19 @@ const ViewProfileCard = (props: IProps) => {
     }
     
     
-       //  @ts-ignore
-  //      let res : apiResponse = await setUploadImageThunk(ImageData)
-  // console.log(res)
-  // localStorage.setItem("imgSrc",imgSrc)
-  // console.log(imgSrc)
-  //     // @ts-ignore
-  //   handleApiResponse(res, [setImgSrc]);
+       // @ts-ignore
+       let res : apiResponse = await setUploadImageThunk(ImageData)
+  console.log(res)
+  localStorage.setItem("imgSrc",imgSrc)
+  console.log(imgSrc)
+      // @ts-ignore
+    handleApiResponse(res, [setImgSrc]);
     
   };
 
-  // @ts-ignore
+  //@ts-ignore
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-    alert("eeee");
+  
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
 
