@@ -3,7 +3,8 @@ import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Link, Modal, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, 
+    } from '@mui/material'
 import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
@@ -111,7 +112,7 @@ const SelectedFunds = () => {
 
         // debugger
         if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data?.length) {
-            if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data[0]?.isChecked === false && g_selectedFundsForExploreFunds?.data[0]?.fundSelected && (g_selectedFundsForExploreFunds?.data.length !== 1 || g_selectedFundsForExploreFunds?.data.length > 1)) {
+            if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data[0]?.isChecked === false && g_selectedFundsForExploreFunds?.data[0]?.fundSelected && (g_selectedFundsForExploreFunds?.data.length === 1 || g_selectedFundsForExploreFunds?.data.length > 1)) {
                 // debugger
                  // For Add Fund
                 const addMoreFundTemp: any = [...g_selectedFunds];
@@ -128,13 +129,23 @@ const SelectedFunds = () => {
             } else {
                 // debugger
                  // For replace
-                const removeItem = (g_selectedFunds && g_selectedFunds?.length && g_replaceForExploreFunds) && g_selectedFunds.filter((item: any) => item.secid !== g_replaceForExploreFunds?.secid)
-
-                removeItem && removeItem?.length && removeItem.push(g_selectedFundsForExploreFunds?.data[0])
-                console.log("remove Item :", removeItem)
-                //  setselectedFundsList(removeItem)
-                removeItem && removeItem?.length && dispatch(setMasterFundListForExploreFundsAction(removeItem))
+                // g_selectedFunds.filter((item: any, index) => item.secid !== g_replaceForExploreFunds?.secid)
+                if (g_selectedFunds && g_selectedFunds?.length && g_replaceForExploreFunds) {
+                    const tempReplace = [...g_selectedFunds];
+                    tempReplace.map((item: any, index) => {
+                        if (item?.secid === g_replaceForExploreFunds?.secid) {
+                            tempReplace[index] = g_selectedFundsForExploreFunds?.data[0];
+                            console.log("g_selectedFunds inside:", tempReplace, item, g_selectedFundsForExploreFunds, index)
+                        }
+                    })
+                    
+                dispatch(setMasterFundListForExploreFundsAction(tempReplace))
                 dispatch(setSelectedFundsForExploreFundsAction({}))
+                }
+
+                // removeItem && removeItem?.length && removeItem.push(g_selectedFundsForExploreFunds?.data[0])
+                // console.log("remove Item :", removeItem)
+                //  setselectedFundsList(removeItem)
             }
         }
             
@@ -342,6 +353,7 @@ const SelectedFunds = () => {
 
                 </>
             </Modal>
+
         </Box>
     )
 }

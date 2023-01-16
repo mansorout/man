@@ -148,6 +148,7 @@ const SaveTaxAmount = () => {
         bool: false,
     })
     const [saveTaxUPTO, setSaveTaxUPTO] = useState<number>(0);
+    const [saveTaxUPTOMon, setSaveTaxUPTOMon] = useState<number>(0);
     const [monthlylum, setMonthlyLum] = useState<any>();
 
     let monthCalAmount: any = 0;
@@ -187,7 +188,13 @@ const SaveTaxAmount = () => {
         }
         console.log("moduleDefaultList: ", moduleDefaultList)
         moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => {
+            let afterCalc:any = parseInt(item?.value) / 12
+            let roundup:any =Math.round(afterCalc)
+
             if (item?.key === moduleDefaultListkeys?.taxsaving_percentage) setSaveTaxPercentageAmount(item?.value)
+
+            if (item?.key === moduleDefaultListkeys?.savetax_amount)setLumpsumAmount(item?.value) 
+            if (item?.key === moduleDefaultListkeys?.savetax_amount)setMonthlyAmount(roundup) 
 
             if (item?.key === moduleDefaultListkeys?.savetax_amount) {
                 setLumpsumAmount(item?.value)
@@ -212,7 +219,14 @@ const SaveTaxAmount = () => {
 
     console.log(lumpsumAmount)
 
+  useEffect(()=>{
+    const temp = parseInt(lumpsumAmount) * parseInt(saveTaxPercentageAmount) / 100;
+    const temp2 = parseInt(monthlyAmount) * parseInt(saveTaxPercentageAmount) / 100;
+    setSaveTaxUPTO(temp)
+    setSaveTaxUPTOMon(temp2)
 
+
+  })
 
 
     useEffect(() => {
@@ -354,7 +368,7 @@ const SaveTaxAmount = () => {
                                     <TextField
                                         label="Monthly investment"
                                         id="outlined-start-adornment"
-                                        value={monthlylum}
+                                        value={monthlyAmount}
                                         onChange={handleMonthly}
                                         type='number'
                                         InputProps={{
@@ -383,8 +397,8 @@ const SaveTaxAmount = () => {
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! You`ll save taxes upto'
-                            // boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' :lumpsumAmount }` :  `₹${monthlyAmount === '' ? '0' : monthlyAmount}`}
-                            boxAmount={`₹ ${saveTaxUPTO}`}
+                            boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' :saveTaxUPTO }` :  `₹${monthlyAmount === '' ? '0' : saveTaxUPTOMon}`}
+                            // boxAmount={`₹ ${saveTaxUPTO}`}
                             btnText='Continue'
                             btnClick={handleNavigationFlow}
                             btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
