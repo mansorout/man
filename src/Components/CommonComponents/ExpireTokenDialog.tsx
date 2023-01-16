@@ -20,17 +20,34 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ExpireTokenDialog = () => {
+type IProps = {
+  isTokenExpired: boolean;
+  homeAllowed: boolean;
+  setIsTokenExpired: (val: boolean) => void
+}
+
+const ExpireTokenDialog = (props: IProps) => {
   const navigate: any = useNavigate();
   const dispatch: any = useDispatch();
 
-  const g_isTokenExpired: boolean = useSelector((state: any) => state?.authReducer?.isTokenExpired);
+  let g_isTokenExpired: any = useSelector((state: any) => {
+
+    if (props?.homeAllowed) {
+      return props?.isTokenExpired;
+    }
+
+    return state?.authReducer?.isTokenExpired
+  });
 
   const handleReLogin = () => {
     if (g_isTokenExpired) {
+      if (props?.homeAllowed) {
+        props?.setIsTokenExpired(false);
+      }
       localStorage.clear();
       navigate("/");
       dispatch(setTokenExpiredStatusAction(false));
+
     }
   }
 
