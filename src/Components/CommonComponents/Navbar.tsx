@@ -12,9 +12,10 @@ import { Ad1, Ad1_1, Ad1_2, Ad2, Logo, MonoLogo, Profile, SIP } from '../../Asse
 import { useSelector, useDispatch } from 'react-redux';
 import { NavToggleAction } from '../../Store/Duck/NavToggle'
 import siteConfig from '../../Utils/siteConfig';
-import { modifyName } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, modifyName } from '../../Utils/globalFunctions';
 import ViewProfileCard from '../../Modules/Cards/ViewProfileCard';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
+import { setUploadImageThunk } from '../../Store/Global/thunk/global-thunk';
 // import { any } from '../../Redux/Store';
 
 
@@ -161,6 +162,7 @@ const Navbar = () => {
         userName: localStorage.getItem(siteConfig.USER_NAME),
         userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
     })
+    const [imgSrc,setImgSrc]= useState<any>()
 
 
     useEffect(() => {
@@ -201,18 +203,48 @@ const Navbar = () => {
     const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleClick = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         anchorEl ?
             setAnchorEl(null) :
             setAnchorEl(event.currentTarget)
+                   // @ts-ignore
+           let res : apiResponse = await setUploadImageThunk(ImageData)
+           console.log(res)
+           localStorage.setItem("imgSrc",imgSrc)
+           console.log(imgSrc)
+               // @ts-ignore
+             handleApiResponse(res, [setImgSrc]);
+             
+           };
+         
+           //@ts-ignore
+           const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+          
+             if (checkExpirationOfToken(res?.code)) {
+               dispatch(setTokenExpiredStatusAction(true));
+         
+               return;
+             }
+         
+             if (res?.error === true) {
+               return;
+             }
+         
+             arrFunc.forEach((item: void) => {
+               // @ts-ignore
+               if (res?.data) item(res?.data);
+               console.log(res?.data);
+             });
     };
 
     const handleMenuOpen = () => {
         dispatch(NavToggleAction(!toggleState))
-       
-        let keyImg = localStorage.getItem("imgSrc");
+        dispatch(setTokenExpiredStatusAction(true));
+        let keyImg = localStorage.getItem("onSelectFile");
     }
-   
+   const handelResponeImage= async ()=>{
+    
+   }
 
     return (
         <div>
@@ -225,6 +257,7 @@ const Navbar = () => {
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
                         <img src={"keyImg?keyImg:Profile" } 
+                        onClick={handelResponeImage}
                         
                         alt="image" style={style.profile} />
                         

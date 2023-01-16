@@ -226,7 +226,7 @@ const ViewProfileCard = (props: IProps) => {
 
   //@ts-ignore
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-    alert("eeee");
+  
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
 
