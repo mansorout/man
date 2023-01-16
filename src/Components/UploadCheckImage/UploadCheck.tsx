@@ -216,6 +216,9 @@ function UploadCheck() {
       cheque: imagePreviewToLast,
     }
 
+    console.log(imagePreviewToLast)
+    
+
     console.log(objBody)
 
     setShouldButtonDisable(true)
@@ -230,17 +233,19 @@ function UploadCheck() {
         setShouldButtonDisable(false)
         setShowDialog(true)
         setSuccesMsg("Success")
-
+           console.log(data)
         if (checkExpirationOfToken(data?.code)) {
           dispatchLocal(setTokenExpiredStatusAction(true));
           return;
         }
-
+        
         if (data?.error) {
+          console.log(data?.error);
+          setErrorMsg(data?.error)
           return;
         }
         setErrorMsg(data?.error)
-        console.log(data?.status?.error);
+        
         if (data?.status === false) {
           console.log("error occured")
         }
@@ -669,7 +674,7 @@ function UploadCheck() {
           </Grid>
         </Grid>
       </Box>
-      <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={"Invalid Cheque"} succesText={""} />
+      <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={""} />
     </Box>
   );
 }
