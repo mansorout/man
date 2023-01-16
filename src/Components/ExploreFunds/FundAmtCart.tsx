@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -143,8 +144,50 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '& button': {
             boxShadow: 'none',
         }
-    }
+    },
 
+    button: {
+        height: "48px",
+        borderRadius: "8px",
+        backgroundColor: "var(--typeLightGreyColor) !important",
+        margin: "20px",
+        width: "90%",
+        maxWidth: "400px",
+        "&:hover": {
+          backgroundColor: "var(--primaryColor) !important",
+          "& span": {
+            color: "var(--uiWhite) !important",
+          },
+        },
+        "& span": {
+          color: "var(--typeBlackColor) !important",
+          fontWeight: "unset !important",
+        },
+        manImg: {
+          width: "40px !important",
+          height: "40px !important",
+          // position: "absolute",
+          // right: "0px",
+          // bottom: "-1px"
+        },
+      },
+      replaceBtn: {
+        backgroundColor: "var(--uiLightGreyColor) !important",
+        color: "#7b7b9d !important",
+        "&:hover": {
+          backgroundColor: "rgba(123, 123, 157, 0.05) !important",
+        },
+      },
+      removeBtn: {
+        backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+        color: "#ff5300 !important",
+        "&:hover": {
+          backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+        },
+      },
+      greenColor: {
+        backgroundColor: "var(--primaryColor) !important",
+      },
 }))
 
 interface FundAmtCard {
@@ -163,6 +206,10 @@ export default function FundAmtCard(props: FundAmtCard) {
     const [removeConfirmation, setRemoveConfirmation] = React.useState<boolean>(false);
     const [removeItem, setRemoveItem] = React.useState<any>({})
 
+    useEffect(() => {
+      console.log("props data AMT :", props.data)
+    }, [])
+    
 
     const handleRemoveClick = (strtype: string) => {
         setRemoveConfirmation(false);
@@ -231,7 +278,8 @@ export default function FundAmtCard(props: FundAmtCard) {
                                                 props?.handleOnChangeFun(e, props?.data)
                                                 setAmount(e.target.value)
                                             }}
-                                            value={amount}
+                                            value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount: ''}
+                                            // value={props?.data?.userRecommendedAmount || 0}
                                             sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
                                         </TextField>
                                         <Typography
