@@ -262,7 +262,7 @@ const BankAccountDetails = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '20px',
+                            padding: {xs:"12px", sm:'20px'},
                             borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',

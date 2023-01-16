@@ -73,7 +73,7 @@ const enumActiveScreen = Object.freeze({
 const useStyles: any = makeStyles((theme: any) => ({
   button: {
     height: "48px",
-    borderRadius: "8px",
+    borderRadius: "9px !important",
     backgroundColor: "var(--typeLightGreyColor) !important",
     margin: "20px",
     width: "90%",
@@ -86,6 +86,31 @@ const useStyles: any = makeStyles((theme: any) => ({
     },
     "& span": {
       color: "var(--typeBlackColor) !important",
+      fontWeight: "unset !important",
+    },
+    manImg: {
+      width: "40px !important",
+      height: "40px !important",
+      // position: "absolute",
+      // right: "0px",
+      // bottom: "-1px"
+    },
+  },
+  button2: {
+    height: "48px",
+    borderRadius: "9px !important",
+    backgroundColor: "var(--primaryColor) !important",
+    margin: "20px",
+    width: "90%",
+    maxWidth: "400px",
+    // "&:hover": {
+    //   backgroundColor: "var(--typeLightGreyColor) !important",
+    //   "& span": {
+    //     color: "var(--uiWhite) !important",
+    //   },
+    // },
+    "& span": {
+      color: "var(--uiWhite) !important",
       fontWeight: "unset !important",
     },
     manImg: {
@@ -415,12 +440,13 @@ const MutualFundCard2 = (props: MFProp) => {
                     variant="h2"
                     display="flex"
                     justifyContent={"center"}
+                    style={{fontWeight:"700"}}
                   >
                     Remove Funds
                   </Typography>
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography component="p" style={{ color: "grey" }}>
+                  <Typography component="p" style={{ color: "grey", textAlign:"center" }}>
                     Are you sure you want to remove this fund from the
                     SprintMoney recommended plan?
                   </Typography>
@@ -428,8 +454,9 @@ const MutualFundCard2 = (props: MFProp) => {
                 <Grid item xs={6}>
                   <Button
                     // disabled={showSubmit}
+                    style={{ backgroundColor: "#23db7b !important;" }}
                     variant="contained"
-                    className={classes?.button}
+                    className={classes?.button2}
                     fullWidth
                     onClick={() => handleRemoveClick("no")}
                     sx={{
