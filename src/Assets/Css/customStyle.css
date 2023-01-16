@@ -1,5 +1,8 @@
 .investInsidePading{padding: 15px;
 }
+.BoxMarginLeftRight{
+  margin: 0 24px;
+}
 .downArrow{
   position: absolute;
     right: -9px;
@@ -375,6 +378,9 @@
     }
     .BoxPadding{
         margin:13px;
+    }
+    .BoxMarginLeftRight{
+      margin: 0 13px;
     }
     .BoxProfilePage .css-hyum1k-MuiToolbar-root{
         min-height: 50px;
