@@ -143,7 +143,7 @@ const ProposalFormCard = (props: ProposalFormCardProps) => {
                    <TextField
                 type="text"
                 // onBlur={handleBlur}
-                label="Weight"
+                label="kilogram"
                 name="firstName"
                 value={props.weight}
                 onChange={((e)=>{props.handleChange('weight',e.target.value)})}
