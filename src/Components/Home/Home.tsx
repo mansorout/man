@@ -29,6 +29,7 @@ import { getMasterFundListThunk } from '../../Store/Recommendations/thunk/recomm
 import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -182,7 +183,6 @@ const Home = () => {
 
   useEffect(() => {
     initiate();
-    
   }, []);
 
   // FINANCIAL_YEAR: 'financialyear',
@@ -261,17 +261,35 @@ const Home = () => {
     }
 
     let objLocationData = {};
+    // switch (strNavigationScreenName) {
+    //   case "sipInvestment": {
+    //     objLocationData = {
+    //       cardType: globalConstant.SIP_INVESTMENT
+    //     }
+    //     break;
+    //   }
+    //   case "oneTimeInvestment": {
+    //     objLocationData = {
+    //       cardType: globalConstant.LUMPSUM_INVESTMENT
+    //     }
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
     switch (strNavigationScreenName) {
-      case "sipInvestment": {
-        objLocationData = {
-          cardType: globalConstant.SIP_INVESTMENT
-        }
+      case "startAnSip": {
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT);
+        dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
         break;
       }
-      case "oneTimeInvestment": {
-        objLocationData = {
-          cardType: globalConstant.LUMPSUM_INVESTMENT
-        }
+      case "investNow": {
+        dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+        // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
+        // objLocationData = {
+        //   cardType: globalConstant.LUMPSUM_INVESTMENT
+        // }
         break;
       }
       default:
@@ -299,7 +317,7 @@ const Home = () => {
           <Grid className="HomeBgHead" container sx={{ height: "100vh", overflow: "scroll" }} xs={12} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={7} lg={8}>
               <Toolbar />
-              <Grid container sx={{marginTop:{xs:"-50px", sm:"0px"}}}>
+              <Grid container sx={{ marginTop: { xs: "-50px", sm: "0px" } }}>
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                 </Grid>
