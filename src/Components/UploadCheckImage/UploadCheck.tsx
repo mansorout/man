@@ -65,7 +65,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { postData } from "../../Utils/api";
-import {SprintMoneyMessanger} from "../CommonComponents/SprintMoneyMessanger";
+import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -109,17 +109,18 @@ function UploadCheck() {
   const [canvasDisable, setCanvasDisable] = useState<boolean>(true);
   const [enableShowText, setenableShowText] = useState<boolean>(true);
   const [doneButton, setDoneButton] = useState<boolean>(false);
-  const [rotateButton,setRotateButton] = useState<boolean>(true);
+  const [rotateButton, setRotateButton] = useState<boolean>(true);
   const [succesmsg, setSuccesMsg] = useState<string>("");
-    const [errorMsg, setErrorMsg] = useState("");
-    const [dialog, setShowDialog] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [dialog, setShowDialog] = useState<boolean>(false);
+  const [chequeImg, setChequeImage] = useState<any>("")
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
 
 
     setenableShowText(false);
     setUploadChequeButtonDisable(false);
-    saveAndAddButtonDisable(false);
+    
     setShowSideButton(false);
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined); // Makes crop preview update between images.
@@ -154,13 +155,23 @@ function UploadCheck() {
     [completedCrop]
   );
 
-  const dataURL = previewCanvasRef.current?.toDataURL();
+
+
 
   useEffect(() => {
+    const dataURL = previewCanvasRef.current?.toDataURL();
+    setChequeImage(dataURL)
+   
+  }, [completedCrop])
 
-  }, [])
 
 
+    // if(imagePreviewToLast != 0 || undefined){
+    //   alert("keep hide")
+    // }
+    // else{
+    //   alert("show ")
+    // }
 
 
   //  All Button in components goes here
@@ -186,53 +197,70 @@ function UploadCheck() {
 
   const handleConfirm = () => {
 
-    setImagePreviewToLast(dataURL)
+    setImagePreviewToLast(chequeImg)
     setCanvasDisable(false);
     setPreview(false);
+    saveAndAddButtonDisable(false);
   };
   const handleCancel = () => {
     window.location.reload()
     setShowSideButton(true);
   };
 
+
   const sendToApi = () => {
 
-    setCanvasImageToBase64(dataURL)
+    // setCanvasImageToBase64(chequeImg)
     // store.dispatch(uploadcheque({ chequedata: base64Image }));
-    const objBody ={
-      cheque:base64Image,
+    const objBody = {
+      cheque: imagePreviewToLast,
     }
 
+    console.log(imagePreviewToLast)
+    
+
+    console.log(objBody)
+
     setShouldButtonDisable(true)
-        postData(
-            objBody,
-            siteConfig.AUTHENTICATION_CHEQUE_ADD,
-            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-            siteConfig.AUTHENTICATION_API_ID
-        )
-            .then(res => res.json())
-            .then((data) => {
-                setShouldButtonDisable(false)
-                setShowDialog(true)
-                setSuccesMsg("Success")
+    postData(
+      objBody,
+      siteConfig.AUTHENTICATION_CHEQUE_ADD,
+      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+      siteConfig.AUTHENTICATION_API_ID
+    )
+      .then(res => res.json())
+      .then((data) => {
+        setShouldButtonDisable(false)
+        setShowDialog(true)
+        setSuccesMsg("Success")
+           console.log(data)
+        if (checkExpirationOfToken(data?.code)) {
+          dispatchLocal(setTokenExpiredStatusAction(true));
+          return;
+        }
+        
+        if (data?.error) {
+          console.log(data?.error);
+          setErrorMsg(data?.error)
+          return;
+        }
+        setErrorMsg(data?.error)
+        
+        if (data?.status === false) {
+          console.log("error occured")
+        }
+        else {
+          console.log("no error")
+        }
 
-                if (checkExpirationOfToken(data?.code)) {
-                    dispatchLocal(setTokenExpiredStatusAction(true));
-                    return;
-                }
 
-                if (data?.error) {
-                    return;
-                }
+        navigate('/viewprofile');
+      })
+      .catch(err => {
+        console.log(err)
+        setShowDialog(true)
 
-                console.log("profile saved");
-                navigate('/viewprofile');
-            })
-            .catch(err => {
-                console.log(err)
-                setShowDialog(true)
-                setErrorMsg("error")
-            })
+      })
 
 
   };
@@ -381,272 +409,272 @@ function UploadCheck() {
             xs={13}
             sm={11}
             md={10}>
-              <Grid
-            container>
-            <Grid sx={{ padding:3 }} item xs={12}>
-              <Toolbar />
-              <Box sx={{ mb: "10px" }} className="checkHeadingStack">
-                <Typography
+            <Grid
+              container>
+              <Grid sx={{ padding: 3 }} item xs={12}>
+                <Toolbar />
+                <Box sx={{ mb: "10px" }} className="checkHeadingStack">
+                  <Typography
 
-                  component="span"
-                  className="subTitle5"
-                >
-                  Cancelled cheque is used for KYC procedures and to facilitate an
-                  electronic clearing system (ECS) mandate.
-                </Typography>
-              </Box >
-              <Breadcrumbs sx={{ mb: "10px" }} aria-label="breadcrumb">
-                <Link color="#6495ED" underline="always" href="/home">
-                  <Typography className='burgerText'> Home</Typography>
-                </Link>
-                <Link
-                  underline="always"
-                  color="#6495ED"
-                  href="/vp"
-                >
-                  <Typography className='burgerText'>  View Profile</Typography>
+                    component="span"
+                    className="subTitle5"
+                  >
+                    Cancelled cheque is used for KYC procedures and to facilitate an
+                    electronic clearing system (ECS) mandate.
+                  </Typography>
+                </Box >
+                <Breadcrumbs sx={{ mb: "10px" }} aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href="/home">
+                    <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link
+                    underline="always"
+                    color="#6495ED"
+                    href="/vp"
+                  >
+                    <Typography className='burgerText'>  View Profile</Typography>
 
-                </Link>
-                <Link
-                  underline="none"
-                  color="#8787a2"
-                  aria-current="page"
-                >
+                  </Link>
+                  <Link
+                    underline="none"
+                    color="#8787a2"
+                    aria-current="page"
+                  >
 
-                  <Typography className='burgerText'>  Cancelled Cheque </Typography>
-                </Link>
-              </Breadcrumbs>
+                    <Typography className='burgerText'>  Cancelled Cheque </Typography>
+                  </Link>
+                </Breadcrumbs>
 
-              <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-                {/* <Grid container  spacing={2} >
+                <Box style={{ position: "relative", marginBottom: "20px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+                  {/* <Grid container  spacing={2} >
                   <Grid item   xs={12}>
                   <Typography style={{padding:"15px"}} className="largeHeadingText" sx={{alignItems:"left"}}>
                   Add Cancelled Cheque
                 </Typography>
                   </Grid>
                 </Grid> */}
-                <Grid container >
-                  <Grid xs={12} md={8} sm={10}>
-                    <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
-                      Add Cancelled Cheque
-                    </Typography>
+                  <Grid container >
+                    <Grid xs={12} md={8} sm={10}>
+                      <Typography style={{ padding: "15px", display: "flex" }} className="largeHeadingText" >
+                        Add Cancelled Cheque
+                      </Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
 
-                <Box style={style.dividerBox}></Box>
-                <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}>
-                  {preview ?
-                    <Box className="renderBox">
+                  <Box style={style.dividerBox}></Box>
+                  <Box sx={{ width: "100%", padding: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "40px", flexWrap: 'wrap', flexDirection: { sm: "column", md: "row" } }}>
+                    {preview ?
+                      <Box className="renderBox">
 
-                      {
-                        enableShowText ? <Grid container spacing={3}>
-                          <Grid sx={{ textAlign: "center" }} item xs={12}>
-                            <Typography className="checkWillAppearHere">
-                              Your cheque will appear here…
-                            </Typography>
+                        {
+                          enableShowText ? <Grid container spacing={3}>
+                            <Grid sx={{ textAlign: "center" }} item xs={12}>
+                              <Typography className="checkWillAppearHere">
+                                Your cheque will appear here…
+                              </Typography>
 
-                          </Grid>
-                        </Grid> : ""
-                      }
-                      {
-                        enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
-                          <Grid sx={{ textAlign: "center" }} item xs={12}>
-                            <Typography className="checkWillAppearHere">
-                              Your cheque will appear here…
-                            </Typography>
-
-                          </Grid>
-                        </Grid>
-                      }
-                      {!!imgSrc && (
-                        <ReactCrop
-                          style={{ width: "100%" }}
-                          crop={crop}
-                          onChange={(_, percentCrop) => setCrop(percentCrop)}
-                          onComplete={(c) => setCompletedCrop(c)}
-                          aspect={aspect}
-                        >
-                          <img
-                            ref={imgRef}
-                            alt="Crop me"
-                            src={imgSrc}
-                            style={{
-                              margin: "auto",
-                              width: "100%",
-                              height: "300px",
-                              transform: `rotate(${rotate90}deg)`,
-                            }}
-                            onLoad={onImageLoad}
-                          />
-                        </ReactCrop>
-                      )}
-                    </Box> :
-                    <Box style={{ height: "fit-content", width: "fit-content" }} >
-                      <img
-                        className="previewImg"
-                        src={imagePreviewToLast} />
-                    </Box>
-                  }
-                  {showSideButton ? (
-                    " "
-                  ) : (
-
-                    <Box sx={{ "& > :not(style)": { m: .5 }, display: "flex", gap: "10px", flexWrap: 'wrap', padding: "10px", flexDirection: { sm: "row", md: "column" } }}>
-                         {
-                          rotateButton === true ?  <Box>
-                          <Fab onClick={handleRotate} >
-                            <RotateRightIcon />
-                          </Fab>
-                          <Typography className="textStyling" sx={{padding: "7px 0px 0px 11px"}}> Rotate </Typography>
-                        </Box> :""
-                         }
-                     
-                      <Box>
-                        <Fab onClick={handleToggleAspectClick}>
-                          <CropIcon />
-                        </Fab>
-                        <Typography sx={{padding: "7px 0px 0px 11px"}}> Crop </Typography>
-                      </Box>
-
-                      {
-                        doneButton === true ? <Box >
-                          <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
-                            <DoneIcon />
-                          </Fab>
-                          <Typography sx={{padding: "7px 0px 0px 11px"}}> Done </Typography>
-                        </Box> : ""
-                     }
-
-
-                      <Box>
-                        <Fab onClick={handleCancel} >
-                          <ClearIcon />
-                        </Fab>
-                        <Typography sx={{padding: "7px 0px 0px 11px"}}> Cancel </Typography>
-                      </Box>
-                    </Box>
-
-
-
-                  )}
-                </Box>
-                <Box>
-                  <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px", backgroundColor: "#FFFFFF" }}>
-                    <input
-                      ref={uploadInputRef}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={onSelectFile}
-                    />
-
-                    {uploadChequeButton ? (
-                      <Button
-                        variant="contained"
-                        onClick={() =>
-                          uploadInputRef.current &&
-                          uploadInputRef.current.click()
+                            </Grid>
+                          </Grid> : ""
                         }
-                        sx={{
-                          backgroundColor: "#00b4ff",
+                        {
+                          enableShowText ? "" : <Grid container sx={{ display: "none" }} spacing={3}>
+                            <Grid sx={{ textAlign: "center" }} item xs={12}>
+                              <Typography className="checkWillAppearHere">
+                                Your cheque will appear here…
+                              </Typography>
 
-                          height: "45px",
-                          borderRadius: "32px",
-                          padding: "22px",
-                          ml: 1,
-                          "&.MuiButtonBase-root:hover": {
-                            bgcolor: "#00b4ff"
-                          }
-                        }}
-                      >
-                        <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
-                          UPLOAD CHEQUE
-                        </Typography>
-                      </Button>
+                            </Grid>
+                          </Grid>
+                        }
+                        {!!imgSrc && (
+                          <ReactCrop
+                            style={{ width: "100%" }}
+                            crop={crop}
+                            onChange={(_, percentCrop) => setCrop(percentCrop)}
+                            onComplete={(c) => setCompletedCrop(c)}
+                            aspect={aspect}
+                          >
+                            <img
+                              ref={imgRef}
+                              alt="Crop me"
+                              src={imgSrc}
+                              style={{
+                                margin: "auto",
+                                width: "100%",
+                                height: "300px",
+                                transform: `rotate(${rotate90}deg)`,
+                              }}
+                              onLoad={onImageLoad}
+                            />
+                          </ReactCrop>
+                        )}
+                      </Box> :
+                      <Box style={{ height: "fit-content", width: "fit-content" }} >
+                        <img
+                          className="previewImg"
+                          src={imagePreviewToLast} />
+                      </Box>
+                    }
+                    {showSideButton ? (
+                      " "
                     ) : (
-                      ""
-                    )}
 
-                    {uploadChequeButton ? (
-                      ""
-                    ) : (
-                      <Button
-                        variant="contained"
-                        onClick={() => handleCancel()}
-                        sx={{
-                          backgroundColor: "rgba(0, 0, 0, 0.05)",
-                          padding: "22px",
-                          height: "45px",
-                          borderRadius: "32px",
-                          ml: 1,
-                          "&.MuiButtonBase-root:hover": {
-                            bgcolor: "rgba(0, 0, 0, 0.05)"
-                          }
-                        }}
-                      >
-                        <Typography className="textLink">
-                          CLEAR & TRY AGAIN
-                        </Typography>
-                      </Button>
+                      <Box sx={{ "& > :not(style)": { m: .5 }, display: "flex", gap: "10px", flexWrap: 'wrap', padding: "10px", flexDirection: { sm: "row", md: "column" } }}>
+                        {
+                          rotateButton === true ? <Box>
+                            <Fab onClick={handleRotate} >
+                              <RotateRightIcon />
+                            </Fab>
+                            <Typography className="textStyling" sx={{ padding: "7px 0px 0px 11px" }}> Rotate </Typography>
+                          </Box> : ""
+                        }
+
+                        <Box>
+                          <Fab onClick={handleToggleAspectClick}>
+                            <CropIcon />
+                          </Fab>
+                          <Typography sx={{ padding: "7px 0px 0px 11px" }}> Crop </Typography>
+                        </Box>
+
+                        {
+                          doneButton === true ? <Box >
+                            <Fab sx={{ backgroundColor: "#23db7b" }} onClick={handleConfirm}>
+                              <DoneIcon />
+                            </Fab>
+                            <Typography sx={{ padding: "7px 0px 0px 11px" }}> Done </Typography>
+                          </Box> : ""
+                        }
+
+
+                        <Box>
+                          <Fab onClick={handleCancel} >
+                            <ClearIcon />
+                          </Fab>
+                          <Typography sx={{ padding: "7px 0px 0px 11px" }}> Cancel </Typography>
+                        </Box>
+                      </Box>
+
+
+
                     )}
                   </Box>
+                  <Box>
+                    <Box textAlign="center" sx={{ margin: "30px 0px 2px 0px", backgroundColor: "#FFFFFF" }}>
+                      <input
+                        ref={uploadInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={onSelectFile}
+                      />
+
+                      {uploadChequeButton ? (
+                        <Button
+                          variant="contained"
+                          onClick={() =>
+                            uploadInputRef.current &&
+                            uploadInputRef.current.click()
+                          }
+                          sx={{
+                            backgroundColor: "#00b4ff",
+
+                            height: "45px",
+                            borderRadius: "32px",
+                            padding: "22px",
+                            ml: 1,
+                            "&.MuiButtonBase-root:hover": {
+                              bgcolor: "#00b4ff"
+                            }
+                          }}
+                        >
+                          <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "500" }}>
+                            UPLOAD CHEQUE
+                          </Typography>
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+
+                      {uploadChequeButton ? (
+                        ""
+                      ) : (
+                        <Button
+                          variant="contained"
+                          onClick={() => handleCancel()}
+                          sx={{
+                            backgroundColor: "rgba(0, 0, 0, 0.05)",
+                            padding: "22px",
+                            height: "45px",
+                            borderRadius: "32px",
+                            ml: 1,
+                            "&.MuiButtonBase-root:hover": {
+                              bgcolor: "rgba(0, 0, 0, 0.05)"
+                            }
+                          }}
+                        >
+                          <Typography className="textLink">
+                            CLEAR & TRY AGAIN
+                          </Typography>
+                        </Button>
+                      )}
+                    </Box>
+                  </Box>
+                  {saveAndAddButton ? (
+                    <Box className="saveandaddButton"
+                      textAlign="center"
+                      width="80%"
+                      mb={2}
+                      sx={{ pointerEvents: "none", opacity: "0.7" }}
+                    // onClick={sendToApi}
+                    >
+                      <SaveAndAddButton />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+
+                  {saveAndAddButton ? (
+                    ""
+                  ) : (
+                    <Box mb={2} textAlign="center" width="80%" onClick={sendToApi}>
+                      <SaveAndAddButton />
+                    </Box>
+                  )}
+                  {!!completedCrop && (
+                    <canvas
+                      ref={previewCanvasRef}
+                      style={{
+                        display: "none",
+                        border: '1px solid black',
+                        objectFit: 'unset',
+                        width: "564px",
+                        height: "238px",
+                      }}
+                    />
+                  )}
+
                 </Box>
-                {saveAndAddButton ? (
-                  <Box className="saveandaddButton"
+                <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+                  <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
+                    By submitting these details, you are agree to share your details
+                    to BSE for further transactions <br />
+                  </Typography>
+                  <Typography mb={2}
                     textAlign="center"
-                    width="80%"
-                    mb={2}
-                    sx={{ pointerEvents: "none", opacity: "0.7" }}
-                    onClick={sendToApi}
+                    component="span"
+                    style={{ cursor: "pointer" }}
+                    className="textLink"
+                    sx={{ textDecoration: "underline" }}
                   >
-                    <SaveAndAddButton />
-                  </Box>
-                ) : (
-                  ""
-                )}
-
-                {saveAndAddButton ? (
-                  ""
-                ) : (
-                  <Box mb={2} textAlign="center" width="80%" onClick={sendToApi}>
-                    <SaveAndAddButton />
-                  </Box>
-                )}
-                {!!completedCrop && (
-                  <canvas
-                    ref={previewCanvasRef}
-                    style={{
-                      display: "none",
-                      border: '1px solid black',
-                      objectFit: 'unset',
-                      width: "564px",
-                      height: "238px",
-                    }}
-                  />
-                )}
-
-              </Box>
-              <Box style={{ width: "100%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                <Typography mt={2} textAlign="center" component="span" className="bottomContentText ">
-                  By submitting these details, you are agree to share your details
-                  to BSE for further transactions <br />
-                </Typography>
-                <Typography mb={2}
-                  textAlign="center"
-                  component="span"
-                  style={{ cursor: "pointer" }}
-                  className="textLink"
-                  sx={{ textDecoration: "underline" }}
-                >
-                  Terms and conditions
-                </Typography>
-              </Box>
-            </Grid>
+                    Terms and conditions
+                  </Typography>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Box>
-      <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
+      <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={""} />
     </Box>
   );
 }

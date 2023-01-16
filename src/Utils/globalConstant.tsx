@@ -1,3 +1,5 @@
+import { profileValidationKeys } from "./globalTypes";
+
 export const globalConstant = Object.freeze({
     SIP_INVESTMENT: "SIP Investment",
     LUMPSUM_INVESTMENT: "Lumpsum Investment",
@@ -79,3 +81,15 @@ export const paymentMethods = Object.freeze({
         value: 'neft',
     },
 });
+
+export const objUserProfileValidationData: profileValidationKeys = {
+    isKycCompleted: false,
+    isProfileComplete: false,
+    isBseRegistered: false,
+    isUserProfileFullCompleted: false
+}
+
+export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirth", "incomeslab"];
+export const arrKycCompletionKeys = ["isnomineedetailsavailable", "iscvlverified", "isbankdetailsverifed", "isbankdetailsverifed"];
+
+

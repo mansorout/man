@@ -77,7 +77,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
                             <Grid item xs={2}>
 
-                                <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
+                                <Box  sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
                                     <img style={{ height: "25px", width: "25px", }} src={SuccessLogo} alt="error" />
                                 </Box>
                             </Grid>
@@ -97,7 +97,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
                             </Grid>
                             <Grid item xs={2} sm={1}>
 
-                                <Box sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
+                                <Box onClick={()=>handleClose} sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
                                     <img style={{ height: "25px", width: "25px", }} src={ContactError} alt="error" />
                                 </Box>
                             </Grid>

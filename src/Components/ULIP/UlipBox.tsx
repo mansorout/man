@@ -39,7 +39,7 @@ import {
 import { Terminal } from "@mui/icons-material";
 import { bannerSectionValues, lookUpMasterKeys } from "../../Utils/globalConstant";
 
-
+const funds=["12000", "130000"]
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     main: {
@@ -158,6 +158,8 @@ const UlipBox = (props:any) => {
     const [merror,setMerror] = useState(false)
     const [ulipYears,setUlipYears] = useState<any>([])
     const [handlelinechart,setHandlelinechart]= useState(0)
+    const [greenline,setGreenline] = useState("")
+    const [pinkline,setPinkline] = useState("")
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
@@ -279,10 +281,12 @@ const UlipBox = (props:any) => {
                 data: chartProjectedAmount,
                 fill: true,
                 borderColor: "#742774"
+            
             }
         ]
     };
     
+    console.log(chartData?.datasets)
 
 
     const handleNavigationFlow = () => {
@@ -314,11 +318,31 @@ const UlipBox = (props:any) => {
        
     }, [])
     const hadleLineChart=(e:any)=>{
-     alert("haldeiuchart")
-     setHandlelinechart(e.target.value)
-     console.log(e.target.value)
+    
+        setGreenline(e.value)
+        setPinkline(e.value)
+      
+        console.log(e)
+        // value.datasets.map(( item : any)=> 
+        // {
+        //     return (
+        //         console.log(item.label)
+                
+        //     )
+        // } 
+        // )
+        console.log(greenline)
+        // console.log(pinkline)
+      
+     setHandlelinechart(handlelinechart)
+     
+   
      
     }
+const handleShowhover=(e:any)=>{
+console.log(e)
+}
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
@@ -461,16 +485,17 @@ const UlipBox = (props:any) => {
                                                             optionsValues={chartOptions}
                                                           dataValues={chartData}
                                                            onClick={hadleLineChart}
-
+                                                     
+                                        
                                                               />
                                                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                                                                 <Box>
-                                                                    <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Invested Value</Typography>
-                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{handlelinechart}y</Typography>
+                                                                    <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Invested Value   </Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{greenline}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Projected Value</Typography>
-                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{handlelinechart} y</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{pinkline} </Typography>
                                                                 </Box>
                                                             </Box>
                                                         </Box>

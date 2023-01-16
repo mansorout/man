@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,7 +12,7 @@ import List from '@mui/material/List';
 import { InvestButton } from '../../Modules/Buttons/InvestButton';
 import { maskgroup, RemoveButtonIcon, ReplaceButtonIcon } from '../../Assets';
 import { makeStyles } from '@mui/styles';
-import { Theme, } from '@mui/material'
+import { Theme,  Dialog,} from '@mui/material'
 
 
 const bull = (
@@ -143,8 +144,50 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '& button': {
             boxShadow: 'none',
         }
-    }
+    },
 
+    button: {
+        height: "48px",
+        borderRadius: "8px",
+        backgroundColor: "var(--typeLightGreyColor) !important",
+        margin: "20px",
+        width: "90%",
+        maxWidth: "400px",
+        "&:hover": {
+          backgroundColor: "var(--primaryColor) !important",
+          "& span": {
+            color: "var(--uiWhite) !important",
+          },
+        },
+        "& span": {
+          color: "var(--typeBlackColor) !important",
+          fontWeight: "unset !important",
+        },
+        manImg: {
+          width: "40px !important",
+          height: "40px !important",
+          // position: "absolute",
+          // right: "0px",
+          // bottom: "-1px"
+        },
+      },
+      replaceBtn: {
+        backgroundColor: "var(--uiLightGreyColor) !important",
+        color: "#7b7b9d !important",
+        "&:hover": {
+          backgroundColor: "rgba(123, 123, 157, 0.05) !important",
+        },
+      },
+      removeBtn: {
+        backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+        color: "#ff5300 !important",
+        "&:hover": {
+          backgroundColor: "rgba(255, 83, 0, 0.05) !important",
+        },
+      },
+      greenColor: {
+        backgroundColor: "var(--primaryColor) !important",
+      },
 }))
 
 interface FundAmtCard {
@@ -160,6 +203,20 @@ export default function FundAmtCard(props: FundAmtCard) {
     const [amount, setAmount] = React.useState<any>();
     const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
     const [error, setError] = React.useState<any>("")
+    const [removeConfirmation, setRemoveConfirmation] = React.useState<boolean>(false);
+    const [removeItem, setRemoveItem] = React.useState<any>({})
+
+    useEffect(() => {
+      console.log("props data AMT :", props.data)
+    }, [])
+    
+
+    const handleRemoveClick = (strtype: string) => {
+        setRemoveConfirmation(false);
+        if (strtype === "no") return
+        if (props?.removeBtnAction) props?.removeBtnAction(removeItem);
+      };
+    
 
     function handleChange(e: any) {
         const value = e.target.value;
@@ -221,7 +278,8 @@ export default function FundAmtCard(props: FundAmtCard) {
                                                 props?.handleOnChangeFun(e, props?.data)
                                                 setAmount(e.target.value)
                                             }}
-                                            value={amount}
+                                            value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount: ''}
+                                            // value={props?.data?.userRecommendedAmount || 0}
                                             sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
                                         </TextField>
                                         <Typography
@@ -277,7 +335,11 @@ export default function FundAmtCard(props: FundAmtCard) {
                                 bgcolor: 'rgba(255, 83, 0, 0.05)'
                             }
                         }}
-                        onClick={() => props.removeBtnAction(props?.data)}
+                        onClick={() =>{
+                            setRemoveItem(props?.data) 
+                            setRemoveConfirmation(true)
+                        }}
+                        // props.removeBtnAction(props?.data
                         >
                             <img src={RemoveButtonIcon} />
                             Remove
@@ -286,6 +348,102 @@ export default function FundAmtCard(props: FundAmtCard) {
                 </Box>
             </Card>
 
+            
+            <Dialog
+          open={removeConfirmation}
+          fullWidth
+          style={{ borderRadius: "8px" }}
+        >
+          <Box style={{ margin: "6%", marginBottom: "2%" }}>
+            <List sx={{ pt: 0 }}>
+              <Grid
+                container
+                xs={12}
+                justifyContent="center"
+                display="flex"
+                spacing={4}
+                marginLeft="-14px !important"
+              >
+
+                <Grid item container xs={12} spacing={2}>
+                  <Grid item xs={3} />
+                  <Grid
+                    item
+                    xs={6}
+                    justifyContent="center"
+                    display="flex"
+                    spacing={2}
+                    style={{ marginTop: "25px" }}
+                  >
+                    <img
+                      src="./assets/images/Group_5102.png"
+                      srcSet="./assets/images/Group_5102.png"
+                      alt={"not loaded"}
+                      loading="lazy"
+                      className={classes.manImg}
+                    />
+                  </Grid>
+                  <Grid item xs={3} />
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography
+                    variant="h2"
+                    display="flex"
+                    justifyContent={"center"}
+                  >
+                    Remove Funds
+                  </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography component="p" style={{ color: "grey" }}>
+                    Are you sure you want to remove this fund from the
+                    SprintMoney recommended plan?
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    // disabled={showSubmit}
+                    variant="contained"
+                    className={classes?.button}
+                    fullWidth
+                    onClick={() => handleRemoveClick("no")}
+                    sx={{
+                      pointerEvents: "fill",
+                    }}
+                  >
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      No
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    // disabled={showSubmit}
+                    variant="contained"
+                    className={classes?.button}
+                    fullWidth
+                    onClick={() => handleRemoveClick("yes")}
+                    sx={{
+                      pointerEvents: "fill",
+                    }}
+                  >
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      Yes
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </List>
+          </Box>
+        </Dialog>
         </>
 
 

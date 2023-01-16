@@ -3,7 +3,8 @@ import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Link, Modal, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, 
+    } from '@mui/material'
 import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
@@ -75,11 +76,19 @@ const SelectedFunds = () => {
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
     const [totalAmount, setTotalAmount] = useState(0)
+    const [footerBtn, setFooterBtn] = useState<boolean>(false)
+    const [finalDataBuyNow, setFinalDataBuyNow] = useState<any>({
+        "funds": []
+    })
 
     
     const defaultKeys = Object.freeze({
         userRecommendedAmount: 'userRecommendedAmount'
     })
+
+    const handleNavigation = (selectedFundAction: string) => {
+        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
+    }
 
     useEffect(() => {
         dispatch(InsuranceTermConditionAction(false))
@@ -91,27 +100,52 @@ const SelectedFunds = () => {
 
 
     useEffect(() => {
-        if (!g_selectedFunds?.length) navigate("/explorefunds")
+        if (!g_selectedFunds?.length) handleNavigation(globalConstant.CEF_EXPLORE_FUND)
         setselectedFundsList(g_selectedFunds)
-        
+        const funds = [];
         let amount = 0;
+        let userRecommendedAmountCount = 0
         for (var key in g_selectedFunds) {
             // debugger
-            if (g_selectedFunds[key].hasOwnProperty(defaultKeys.userRecommendedAmount)) {
-                amount += g_selectedFunds[key]?.userRecommendedAmount
+            const validate = selected === 1 ?
+             g_selectedFunds[key].userRecommendedAmount >= g_selectedFunds[key].lumpsumminamount ? true : false
+              :  g_selectedFunds[key].userRecommendedAmount >= g_selectedFunds[key].sipminamount ? true : false;
+
+            if (g_selectedFunds[key].hasOwnProperty(defaultKeys.userRecommendedAmount) && g_selectedFunds[key].userRecommendedAmount && validate) {
+                const temp = { 
+                    "fund_id": g_selectedFunds[key]?.secid,
+                    "amount": `${g_selectedFunds[key]?.userRecommendedAmount}`
+                }
+                funds.push(temp)
+                amount += g_selectedFunds[key]?.userRecommendedAmount;
+                // console.log("use Effect : ", g_selectedFunds[key].userRecommendedAmount)
+                userRecommendedAmountCount++
+            }else{
+                setFooterBtn(true)
             }
         } 
+        if(userRecommendedAmountCount === g_selectedFunds?.length){
+            setFooterBtn(false)
+        }
+        setFinalDataBuyNow({
+            'funds': funds,
+        })
         setTotalAmount(amount)
         console.log("g_selectedFunds : ", g_selectedFunds, amount)
 
     }, [g_selectedFunds])
 
     useEffect(() => {
+        console.log("finalDataBuyNow : ", finalDataBuyNow)
+    }, [finalDataBuyNow])
+    
+
+    useEffect(() => {
         console.log(g_selectedFundsForExploreFunds, "explore fund screen and useEffect of g_selectedFundsForExploreFunds");
 
         // debugger
         if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data?.length) {
-            if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data[0]?.isChecked === false && g_selectedFundsForExploreFunds?.data[0]?.fundSelected && (g_selectedFundsForExploreFunds?.data.length !== 1 || g_selectedFundsForExploreFunds?.data.length > 1)) {
+            if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data[0]?.isChecked === false && g_selectedFundsForExploreFunds?.data[0]?.fundSelected && (g_selectedFundsForExploreFunds?.data.length === 1 || g_selectedFundsForExploreFunds?.data.length > 1)) {
                 // debugger
                  // For Add Fund
                 const addMoreFundTemp: any = [...g_selectedFunds];
@@ -128,13 +162,23 @@ const SelectedFunds = () => {
             } else {
                 // debugger
                  // For replace
-                const removeItem = (g_selectedFunds && g_selectedFunds?.length && g_replaceForExploreFunds) && g_selectedFunds.filter((item: any) => item.secid !== g_replaceForExploreFunds?.secid)
-
-                removeItem && removeItem?.length && removeItem.push(g_selectedFundsForExploreFunds?.data[0])
-                console.log("remove Item :", removeItem)
-                //  setselectedFundsList(removeItem)
-                removeItem && removeItem?.length && dispatch(setMasterFundListForExploreFundsAction(removeItem))
+                // g_selectedFunds.filter((item: any, index) => item.secid !== g_replaceForExploreFunds?.secid)
+                if (g_selectedFunds && g_selectedFunds?.length && g_replaceForExploreFunds) {
+                    const tempReplace = [...g_selectedFunds];
+                    tempReplace.map((item: any, index) => {
+                        if (item?.secid === g_replaceForExploreFunds?.secid) {
+                            tempReplace[index] = g_selectedFundsForExploreFunds?.data[0];
+                            console.log("g_selectedFunds inside:", tempReplace, item, g_selectedFundsForExploreFunds, index)
+                        }
+                    })
+                    
+                dispatch(setMasterFundListForExploreFundsAction(tempReplace))
                 dispatch(setSelectedFundsForExploreFundsAction({}))
+                }
+
+                // removeItem && removeItem?.length && removeItem.push(g_selectedFundsForExploreFunds?.data[0])
+                // console.log("remove Item :", removeItem)
+                //  setselectedFundsList(removeItem)
             }
         }
             
@@ -159,9 +203,6 @@ const SelectedFunds = () => {
     };
     
 
-    const handleNavigation = (selectedFundAction: string) => {
-        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
-    }
    
     const handleRemoveBtn = (selectedFundAction:any) => {
         const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item?.secid !== selectedFundAction?.secid)
@@ -290,24 +331,25 @@ const SelectedFunds = () => {
                         </Grid>
                     </Grid>
                                     </Grid>
-                {
-                                        // onetimeLumpsum ? <FooterWithBtn
-                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                        //     btnClick={handleClick2}
-                                        // /> : <FooterWithBtn
-                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                        //     btnClick={handleClick}
-                                        // />
-                    <Box sx={{position: 'fixed', bottom: '10px',left: '0px', right: '0px', zIndex:'11'}}>
-                        <FooterBtnWithBox
-                            boxIcon={<ThumbUpOffAltIcon />}
-                            boxText={'Great! Your total investment is'}
-                            boxAmount={totalAmount}
-                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                            btnClick={() => console.log("click")}
-                        />
-                    </Box>
-                                    }
+                                            {
+                                                // onetimeLumpsum ? <FooterWithBtn
+                                                //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                //     btnClick={handleClick2}
+                                                // /> : <FooterWithBtn
+                                                //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                //     btnClick={handleClick}
+                                                // />
+                                                <Box sx={{ position: 'fixed', bottom: '10px', left: '0px', right: '0px', zIndex: '11' }}>
+                                                    <FooterBtnWithBox
+                                                        boxIcon={<ThumbUpOffAltIcon />}
+                                                        boxText={'Great! Your total investment is'}
+                                                        boxAmount={totalAmount}
+                                                        btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                        btnClick={() => console.log("click")}
+                                                        btnDisable={footerBtn}
+                                                    />
+                                                </Box>
+                                            }
                                     </Box>
 
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
@@ -342,6 +384,7 @@ const SelectedFunds = () => {
 
                 </>
             </Modal>
+
         </Box>
     )
 }

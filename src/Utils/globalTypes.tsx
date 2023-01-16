@@ -13,3 +13,11 @@ export type apiResponse = {
   data: any
   message: null
 }
+
+
+export type profileValidationKeys = {
+  isKycCompleted: boolean,
+  isProfileComplete: boolean,
+  isBseRegistered: boolean,
+  isUserProfileFullCompleted: boolean
+}

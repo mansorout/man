@@ -24,6 +24,7 @@ import { checkExpirationOfToken, customParseJSON } from '../../Utils/globalFunct
 import siteConfig from '../../Utils/siteConfig';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
+import { apiResponse } from '../../Utils/globalTypes';
 
 type IProps = {
   userDetails: any;
@@ -159,39 +160,59 @@ const ViewProfile = () => {
     getUserProfileData();
   }, [])
 
-  const getUserProfileData = () => {
-    getData(
-      siteConfig.AUTHENTICATION_PROFILE_VIEW,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
+  const getUserProfileData = async () => {
+    // getData(
+    //   siteConfig.AUTHENTICATION_PROFILE_VIEW,
+    //   siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    //   siteConfig.AUTHENTICATION_API_ID
+    // )
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     if (checkExpirationOfToken(data?.code)) {
+    //       dispatch(setTokenExpiredStatusAction(true));
+    //       return;
+    //     }
 
-        if (data?.error === true) {
-          return;
-        }
-        const response = data?.data;
-        let objLSData: any = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
-        console.log(objLSData, "objLSData old")
-        if (objLSData?.userdetails) {
-          objLSData["userdetails"] = response?.userdetails;
-          localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(objLSData));
+    //     if (data?.error === true) {
+    //       return;
+    //     }
+    //     const response = data?.data;
+    //     let objLSData: any = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+    //     console.log(objLSData, "objLSData old")
+    //     if (objLSData?.userdetails) {
+    //       objLSData["userdetails"] = response?.userdetails;
+    //       localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(objLSData));
 
-          console.log(objLSData, "objLSData new ")
-        }
-        setUserDetails(response);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    //       console.log(objLSData, "objLSData new ")
+    //     }
+    //     setUserDetails(response);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
 
-    store.dispatch(getUserProfileDataThunk());
+    // store.dispatch(getUserProfileDataThunk());
 
+    let res: apiResponse = await getUserProfileDataThunk();
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+    const response = res?.data;
+    let objLSData: any = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+    if (objLSData?.userdetails) {
+      objLSData["userdetails"] = response?.userdetails;
+      localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(objLSData));
+    }
+
+    setUserDetails(response);
+    dispatch(setUserViewProfileDataAction(response));
   }
 
   return (
