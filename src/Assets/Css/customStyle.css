@@ -151,7 +151,10 @@
   padding: 2px 0;
   /* background-color: #404040; */
 }
-
+/* html body::-webkit-scrollbar {
+  width: 10px;
+  display: block !important;
+} */
 .large-2::-webkit-scrollbar {
   width: 10px;
   display: block;
@@ -191,6 +194,24 @@
     left: 50%;
     position: absolute;
 }
+.btnAddthisFundToPlan{
+  text-transform: inherit !important;
+}
+.subTitleText{
+  height: 50px !important;
+}
+.textPropName span{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.starProsText img{
+  width: auto;
+    height: auto;
+    margin-left: 0px !important;
+}
+.starProsText span{
+  padding-left: 8px;
+}
 @media (max-width: 1200px){
   .icongenderredius{
     margin: 3px 5px !important;
@@ -200,7 +221,16 @@
         transform: translate(-8%, 12.1%) !important;
     }
 }
+@media (max-width: 950px) {
+  .subTitleText{
+    height:inherit !important;
+  }
+ 
+}
 @media (max-width: 900px) {
+  .HomeBgHead{
+    padding-left: 10px;
+  }
     .verificationStyle {
         transform: translate(-130%, 12.1%) !important;
     }
@@ -263,6 +293,9 @@
    
 }
 @media screen and (max-width: 600px){
+  .HomeBgHead{
+    padding-left:inherit !important;
+  }
     .checkHeadingStack{
         margin-top: -50px !important;
     }

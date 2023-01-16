@@ -296,10 +296,10 @@ const Home = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={7} md={8}>
+          <Grid className="HomeBgHead" container sx={{ height: "100vh", overflow: "scroll" }} xs={12} sm={11} md={10}>
+            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={7} lg={8}>
               <Toolbar />
-              <Grid container>
+              <Grid container sx={{marginTop:{xs:"-50px", sm:"0px"}}}>
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                 </Grid>
@@ -329,7 +329,7 @@ const Home = () => {
                 })
               }
             </Grid>
-            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13} sm={5} md={4}>
+            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={5} lg={4}>
               <Toolbar />
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>

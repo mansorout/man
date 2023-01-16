@@ -92,7 +92,7 @@ export const setUploadImageThunk = async (ImageData:any) => {
     ImageData,
     siteConfig.METADATA_UPLOAD_IMAGE,
     siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-    siteConfig.RECOMENDATION_API_ID
+    siteConfig.METADATA_API_ID
   )
     .then(res => res.json())
     .then((data: any) => {

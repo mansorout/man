@@ -184,7 +184,8 @@ function ExploreFunds(props: any) {
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [initialMFData, setInitialMFData] = useState<boolean>(false);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
-  const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0)
+  const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
+  const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
 
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
@@ -196,32 +197,61 @@ function ExploreFunds(props: any) {
 
   const [masterFundListLength, setMasterFundListLength] = useState<number>(0);
   const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
+  const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds?.data);
+  const g_selectedFundsForInvestment = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForInvestment?.data);
+  const g_mutaulFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
   useEffect(() => {
     getCategoryGroupList();
     return () => {
+      setIsInitialVariableFundListFetched(false);
       console.log("explore fund unmounted");
     }
+
   }, []);
 
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
-      const { data, isFundPurchased } = g_masterFundListForExploreFunds;
-      if (isFundPurchased) {
-        getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-      } else {
-        if (data && data.length) {
-          setMasterFundList(data);
-        } else {
-          getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-        }
-      }
+      getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+      // const { data, isFundPurchased } = g_masterFundListForExploreFunds;
+      // if (isFundPurchased) {
+      //   getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+      // } else {
+      //   if (data && data.length) {
+      //     setMasterFundList(data);
+      //   } else {
+      //   }
+      // }
     }
   }, [categoryGroupList])
 
   useEffect(() => {
     handlingFeatureWiseCard(masterFundList);
   }, [masterFundList]);
+
+  useEffect(() => {
+    // if (status === globalConstant.CEF_EXPLORE_FUND) return;
+
+    // if (isInitialVariableFundListFetched) return;
+
+    // if (status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_REPLACE_FUND) {
+
+    //   let { recommendations }: any = { ...g_mutaulFundListWrtUserAmount };
+    //   if (recommendations && recommendations.length) {
+    //     filteringDataWrtSelectedFunds(recommendations, variableMasterFundList);
+    //     // setIsInitialVariableFundListFetched(true);
+    //   }
+    // }
+
+    // if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+    //   if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds.length) {
+    //     filteringDataWrtSelectedFunds(g_selectedFundsForExploreFunds, variableMasterFundList);
+    //     // setIsInitialVariableFundListFetched(true);
+    //   }
+    // }
+
+
+  }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
@@ -279,9 +309,54 @@ function ExploreFunds(props: any) {
       } else {
         setVariableMasterFundList([]); //setting this variable list state
       }
+
+      // setIsInitialVariableFundListFetched(true);
     }
 
   }
+
+  // const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
+  //   let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
+  //   let arrCategoryGroup: string[] = arrFundSelected.map((item: any) => item?.categorygroup);
+  //   // @ts-ignore
+  //   // let arrFilteredList: any[] = arrVariableMasterFundList && arrVariableMasterFundList.length && arrVariableMasterFundList.filter((item: any) => {
+  //   //   // if (!arrSecIds.includes(item?.secid) && !arrCategoryGroup.includes(item?.categorygroup)) {
+  //   //   if (!arrSecIds.includes(item?.secid)) {
+  //   //     return item;
+  //   //   }
+  //   // });
+  //   let arrFilteredList: any = [];
+  //   for (let i = 0; i < arrVariableMasterFundList.length; i++) {
+  //     let item = arrVariableMasterFundList[i]?.secid;
+  //     for (let j = 0; j < arrSecIds.length; j++) {
+  //       let secidItem = arrSecIds[j];
+  //       if (item !== secidItem) {
+  //         arrFilteredList.push(arrVariableMasterFundList[i]);
+  //         continue;
+  //       } else {
+
+  //       }
+  //     }
+  //     // if (!arrSecIds.includes(item?.secid)) {
+  //     //   arrFilteredList.push(item);
+  //     // }
+  //   }
+
+  //   console.log(arrFilteredList, "filteringDataWrtSelectedFunds()");
+  //   console.log(arrSecIds, "filteringDataWrtSelectedFunds()");
+
+  //   if (arrFilteredList && arrFilteredList.length) {
+  //     setIsInitialVariableFundListFetched(true);
+  //     setVariableMasterFundList(arrFilteredList);
+  //     setMasterFundListLength(arrFilteredList.length);
+  //   } else {
+  //     setIsInitialVariableFundListFetched(false);
+  //     // setVariableMasterFundList([]);
+  //     // setMasterFundListLength(arrFilteredList.length);
+  //   }
+
+  //   // return arrFilteredList && arrFilteredList.length ? arrFilteredList : []
+  // }
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
@@ -317,10 +392,6 @@ function ExploreFunds(props: any) {
     }
   }
 
-  useEffect(() => {
-    console.log(masterFundList, "masterFundList useeefect")
-  }, [masterFundList])
-
   const getTotalFundCound = (categorygroup: string) => {
     // return 
   }
@@ -331,7 +402,6 @@ function ExploreFunds(props: any) {
     let arrMasterFundList: any[] = [...variableMasterFundList];
     if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
       //explore fund and add fund of investment
-
       if (isChecked) {
         if (arrMasterFundList[index]["secid"] === secid) {
           arrMasterFundList[index]["fundSelected"] = isChecked;
@@ -366,7 +436,6 @@ function ExploreFunds(props: any) {
 
       setFundSelecteds([objFundListSelectedItem]);
       setVariableMasterFundList(arrSelectedFundList);
-      // setMasterFundList(arrSelectedFundList);
       setInitialMFData(true);
     } else {
       //replace of explore fund
@@ -374,11 +443,6 @@ function ExploreFunds(props: any) {
 
     }
   }
-
-  useEffect(() => {
-    console.log(fundSelecteds, "fundSelecteds");
-  }, [fundSelecteds])
-
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -478,6 +542,7 @@ function ExploreFunds(props: any) {
                               let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
                               setFundSelecteds([]);
                               setInitialMFData(false);
+                              setIsInitialVariableFundListFetched(false);
                               getMasterFundList(url);
                             }}
                             style={{
