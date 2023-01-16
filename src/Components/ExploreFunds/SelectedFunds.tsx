@@ -76,11 +76,19 @@ const SelectedFunds = () => {
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
     const [totalAmount, setTotalAmount] = useState(0)
+    const [footerBtn, setFooterBtn] = useState<boolean>(false)
+    const [finalDataBuyNow, setFinalDataBuyNow] = useState<any>({
+        "funds": []
+    })
 
     
     const defaultKeys = Object.freeze({
         userRecommendedAmount: 'userRecommendedAmount'
     })
+
+    const handleNavigation = (selectedFundAction: string) => {
+        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
+    }
 
     useEffect(() => {
         dispatch(InsuranceTermConditionAction(false))
@@ -92,20 +100,45 @@ const SelectedFunds = () => {
 
 
     useEffect(() => {
-        if (!g_selectedFunds?.length) navigate("/explorefunds")
+        if (!g_selectedFunds?.length) handleNavigation(globalConstant.CEF_EXPLORE_FUND)
         setselectedFundsList(g_selectedFunds)
-        
+        const funds = [];
         let amount = 0;
+        let userRecommendedAmountCount = 0
         for (var key in g_selectedFunds) {
             // debugger
-            if (g_selectedFunds[key].hasOwnProperty(defaultKeys.userRecommendedAmount)) {
-                amount += g_selectedFunds[key]?.userRecommendedAmount
+            const validate = selected === 1 ?
+             g_selectedFunds[key].userRecommendedAmount >= g_selectedFunds[key].lumpsumminamount ? true : false
+              :  g_selectedFunds[key].userRecommendedAmount >= g_selectedFunds[key].sipminamount ? true : false;
+
+            if (g_selectedFunds[key].hasOwnProperty(defaultKeys.userRecommendedAmount) && g_selectedFunds[key].userRecommendedAmount && validate) {
+                const temp = { 
+                    "fund_id": g_selectedFunds[key]?.secid,
+                    "amount": `${g_selectedFunds[key]?.userRecommendedAmount}`
+                }
+                funds.push(temp)
+                amount += g_selectedFunds[key]?.userRecommendedAmount;
+                // console.log("use Effect : ", g_selectedFunds[key].userRecommendedAmount)
+                userRecommendedAmountCount++
+            }else{
+                setFooterBtn(true)
             }
         } 
+        if(userRecommendedAmountCount === g_selectedFunds?.length){
+            setFooterBtn(false)
+        }
+        setFinalDataBuyNow({
+            'funds': funds,
+        })
         setTotalAmount(amount)
         console.log("g_selectedFunds : ", g_selectedFunds, amount)
 
     }, [g_selectedFunds])
+
+    useEffect(() => {
+        console.log("finalDataBuyNow : ", finalDataBuyNow)
+    }, [finalDataBuyNow])
+    
 
     useEffect(() => {
         console.log(g_selectedFundsForExploreFunds, "explore fund screen and useEffect of g_selectedFundsForExploreFunds");
@@ -170,9 +203,6 @@ const SelectedFunds = () => {
     };
     
 
-    const handleNavigation = (selectedFundAction: string) => {
-        navigate("/explorefunds", { state: { status: selectedFundAction, parentRoute: "/home" } })
-    }
    
     const handleRemoveBtn = (selectedFundAction:any) => {
         const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item?.secid !== selectedFundAction?.secid)
@@ -301,24 +331,25 @@ const SelectedFunds = () => {
                         </Grid>
                     </Grid>
                                     </Grid>
-                {
-                                        // onetimeLumpsum ? <FooterWithBtn
-                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                        //     btnClick={handleClick2}
-                                        // /> : <FooterWithBtn
-                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                        //     btnClick={handleClick}
-                                        // />
-                    <Box sx={{position: 'fixed', bottom: '10px',left: '0px', right: '0px', zIndex:'11'}}>
-                        <FooterBtnWithBox
-                            boxIcon={<ThumbUpOffAltIcon />}
-                            boxText={'Great! Your total investment is'}
-                            boxAmount={totalAmount}
-                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                            btnClick={() => console.log("click")}
-                        />
-                    </Box>
-                                    }
+                                            {
+                                                // onetimeLumpsum ? <FooterWithBtn
+                                                //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                //     btnClick={handleClick2}
+                                                // /> : <FooterWithBtn
+                                                //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                //     btnClick={handleClick}
+                                                // />
+                                                <Box sx={{ position: 'fixed', bottom: '10px', left: '0px', right: '0px', zIndex: '11' }}>
+                                                    <FooterBtnWithBox
+                                                        boxIcon={<ThumbUpOffAltIcon />}
+                                                        boxText={'Great! Your total investment is'}
+                                                        boxAmount={totalAmount}
+                                                        btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                                        btnClick={() => console.log("click")}
+                                                        btnDisable={footerBtn}
+                                                    />
+                                                </Box>
+                                            }
                                     </Box>
 
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
