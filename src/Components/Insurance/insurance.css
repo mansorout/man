@@ -119,6 +119,28 @@
         margin: 0 2px !important
     } */
 }
+@media (max-width: 540px) {
+  /* .genderSelect{
+        width: 185px !important;
+    } */
+  /* .progressContainer {
+  
+    width: 91% !important;
+    margin-left: 1px !important;
+
+  }
+  .genderSelect {
+    width: 305px !important;
+  } */
+
+  .progressContainetwo{
+    width: 105% !important;
+    margin-left: -12px !important;
+  }
+
+}
+
+
 @media (max-width: 480px) {
   /* .genderSelect{
         width: 185px !important;
@@ -167,7 +189,7 @@
     margin: 0 2px !important;
   }
   .progressContainetwo{
-    width: 100% !important;
+    width: 105% !important;
     margin-left: 1px !important;
   }
    .Progress__BarStyle{
@@ -207,5 +229,8 @@
     .progressContainer {
         width: 93% !important;
         margin-left: -9px !important;
+    }
+    .Dublicategender{
+
     }
 }

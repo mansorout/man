@@ -117,7 +117,7 @@ export const LatestAssets = (props: IProps) => {
                     progressData={activeTabData}
                     activeTab={activeTab}
                   />
-                : null
+                : <><Box sx={{padding:"10px", textAlign:"center"}}>No records available</Box></>
             }
 
 

@@ -677,7 +677,7 @@ const MultipleInvestmentHandling = (props: IProps) => {
             <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
             <Typography className='textDescCard' style={{ maxWidth: "70%", display: "flex", flexWrap: "wrap", color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
             <Box className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", margin: "10px" }}>
-              <Button variant="contained" className={classes.button} sx={{ backgroundColor: "#23db7b", height: "30px", }} fullWidth>Invest Now</Button>
+              <Button variant="contained" className={classes.button} sx={{ backgroundColor: "#000", height: "30px", }} fullWidth>Invest Now</Button>
             </Box>
             <ImageListItem className='CardImageinvest' sx={{
               display: { xs: "flex", sm: "block" },

@@ -28,13 +28,13 @@ export const getLookUpIdWRTModule = (arrLookupList: any, value: string) => {
     if (arrLookupList.length) {
       id = arrLookupList.filter((item: any) => item?.value === value)[0] ? arrLookupList.filter((item: any) => item?.value === value)[0]?.lookup_id : null;
     }
-
     return id;
   } catch (err) {
     console.log(err);
     return null;
   }
 }
+
 
 export const customParseJSON = (value: string | null) => {
   try {

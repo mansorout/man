@@ -45,7 +45,7 @@ const StartInvestingCard = ({ BgColor, Heading, Text, Img }: Props) => {
       <Box sx={style.imgContainer1}>
         <img src={Img} height="55px" />
       </Box>
-      <Box style={style.textContainer}>
+      <Box className='subTitleText' style={style.textContainer}>
         <Typography className='subTitle4'>
           {Heading}
         </Typography>

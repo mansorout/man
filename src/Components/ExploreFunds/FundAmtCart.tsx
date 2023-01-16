@@ -11,7 +11,7 @@ import List from '@mui/material/List';
 import { InvestButton } from '../../Modules/Buttons/InvestButton';
 import { maskgroup, RemoveButtonIcon, ReplaceButtonIcon } from '../../Assets';
 import { makeStyles } from '@mui/styles';
-import { Theme, } from '@mui/material'
+import { Theme,  Dialog,} from '@mui/material'
 
 
 const bull = (
@@ -110,8 +110,13 @@ const style = {
 const useStyles: any = makeStyles((theme: Theme) => ({
     cardWrap: {
         boxShadow: 'var(--themeShadow)',
-        padding: '15px 7px',
+        // padding: '15px 7px',
+        paddingBottom: '15px',
         borderRadius: '8px',
+    },
+    cardDeactiveState: {
+        backgroundColor: '#ddd',
+        marginBottom: '10px !important',
     },
     headingWrap: {
         display: 'flex',
@@ -133,7 +138,8 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         fontWeight: 500,
 
     },
-    cardBtn: {
+    cardBtnWrap: {
+        backgroundColor: 'var(--uiWhite)',
         '& button': {
             boxShadow: 'none',
         }
@@ -144,6 +150,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 interface FundAmtCard {
     data: any;
     investmentType: number;
+    handleOnChangeFun: (e:any,param: any) => void;
     replaceBtnAction: (param:any) => void;
     removeBtnAction: (param:any) => void;
 }
@@ -153,6 +160,16 @@ export default function FundAmtCard(props: FundAmtCard) {
     const [amount, setAmount] = React.useState<any>();
     const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
     const [error, setError] = React.useState<any>("")
+    const [removeConfirmation, setRemoveConfirmation] = React.useState<boolean>(false);
+    const [removeItem, setRemoveItem] = React.useState<any>({})
+
+
+    const handleRemoveClick = (strtype: string) => {
+        setRemoveConfirmation(false);
+        if (strtype === "no") return
+        if (props?.removeBtnAction) props?.removeBtnAction(removeItem);
+      };
+    
 
     function handleChange(e: any) {
         const value = e.target.value;
@@ -181,9 +198,17 @@ export default function FundAmtCard(props: FundAmtCard) {
     }
     return (
         <>
-            <Card sx={{ maxWidth: { sm: 600, xs: 350 }, marginBottom: 5 }}>
-                <Box className={classes.cardWrap}>
-                    <Stack m={2} spacing={6}>
+            <Card sx={{ maxWidth: { sm: 600, xs: 350 }, padding: '0px', marginBottom: '15px' }}>
+                <Box className={`${classes.cardWrap}`}>
+                    <Stack m={2} spacing={6}
+                        className={
+                            `${props?.investmentType === 1 ?
+                                props?.data?.islumpsumenabled === 1 ? '' : classes.cardDeactiveState
+                                :
+                                props?.data?.issipenabled === 1 ? '' : classes.cardDeactiveState
+                            }`
+                        }
+                        sx={{ margin: '0px', padding: '15px' }}>
                         <Box className={classes.headingWrap}>
                             <img src={maskgroup} />
                             <Typography className={classes.cardHeading}>
@@ -191,41 +216,56 @@ export default function FundAmtCard(props: FundAmtCard) {
                             </Typography>
                         </Box>
 
-                        <List>
-                            <TextField label="Enter Investment Amount"
-                                type="number"
-                                name="middleName"
-                                fullWidth
-                                placeholder='₹1,00,000'
-                                onBlur={handleOnBlurAmount}
-                                onChange={handleChange}
-                                value={amount}
-                                sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
-                            </TextField>
-                            <Typography
-                                sx={{
+                        {
 
-                                    height: "14px",
-                                    margin: "-8px 135px 0 1px",
+                            (props?.data?.islumpsumenabled === 1 || props?.data?.issipenabled === 1)  ?
+                                    (
+                                    <List>
+                                        <TextField label="Enter Investment Amount"
+                                            type="number"
+                                            name="middleName"
+                                            fullWidth
+                                            placeholder='₹1,00,000'
+                                            onBlur={handleOnBlurAmount}
+                                            onChange={(e) => {
+                                                props?.handleOnChangeFun(e, props?.data)
+                                                setAmount(e.target.value)
+                                            }}
+                                            value={amount}
+                                            sx={{ margin: " -55px 0 20px", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", backgroundColor: " #fff" }} >
+                                        </TextField>
+                                        <Typography
+                                            sx={{
+                                                height: "14px",
+                                                margin: "-8px 135px 0 1px",
 
-                                    fontSize: "12px",
-                                    fontWeight: "normal",
-                                    fontStretch: "normal",
-                                    fontStyle: "normal",
-                                    lineHeight: " 1.33",
-                                    letterSpacing: "normal",
-                                    textAlign: " left",
-                                    color: textColor,
-                                }}
-                            >{props?.investmentType === 1 ? amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` :  amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
-                        </List>
+                                                fontSize: "12px",
+                                                fontWeight: "normal",
+                                                fontStretch: "normal",
+                                                fontStyle: "normal",
+                                                lineHeight: " 1.33",
+                                                letterSpacing: "normal",
+                                                textAlign: " left",
+                                                color: textColor,
+                                            }}
+                                        >{props?.investmentType === 1 ? amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` : amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
+                                    </List>
+                                    ) : (
+                                        <Box sx={{ borderTop: '1px solid #acacac', margin: '0px !important', paddingTop: '10px' }}>
+                                            <Typography component='p'>
+                                                This fund is not accepting Lumpsum investment currently.
+                                            </Typography>
+                                        </Box>
+                                    )
+                                
+                        }
                     </Stack>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'flex-end',
                         gap: '1vw',
                     }}
-                        className={classes.cardBtn}
+                        className={classes.cardBtnWrap}
                     >
                         <Button variant='contained'
                             sx={{
@@ -247,7 +287,11 @@ export default function FundAmtCard(props: FundAmtCard) {
                                 bgcolor: 'rgba(255, 83, 0, 0.05)'
                             }
                         }}
-                        onClick={() => props.removeBtnAction(props?.data)}
+                        onClick={() =>{
+                            setRemoveItem(props?.data) 
+                            setRemoveConfirmation(true)
+                        }}
+                        // props.removeBtnAction(props?.data
                         >
                             <img src={RemoveButtonIcon} />
                             Remove
@@ -256,6 +300,102 @@ export default function FundAmtCard(props: FundAmtCard) {
                 </Box>
             </Card>
 
+            
+            <Dialog
+          open={removeConfirmation}
+          fullWidth
+          style={{ borderRadius: "8px" }}
+        >
+          <Box style={{ margin: "6%", marginBottom: "2%" }}>
+            <List sx={{ pt: 0 }}>
+              <Grid
+                container
+                xs={12}
+                justifyContent="center"
+                display="flex"
+                spacing={4}
+                marginLeft="-14px !important"
+              >
+
+                <Grid item container xs={12} spacing={2}>
+                  <Grid item xs={3} />
+                  <Grid
+                    item
+                    xs={6}
+                    justifyContent="center"
+                    display="flex"
+                    spacing={2}
+                    style={{ marginTop: "25px" }}
+                  >
+                    <img
+                      src="./assets/images/Group_5102.png"
+                      srcSet="./assets/images/Group_5102.png"
+                      alt={"not loaded"}
+                      loading="lazy"
+                      className={classes.manImg}
+                    />
+                  </Grid>
+                  <Grid item xs={3} />
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography
+                    variant="h2"
+                    display="flex"
+                    justifyContent={"center"}
+                  >
+                    Remove Funds
+                  </Typography>
+                </Grid>
+                <Grid item xs={9}>
+                  <Typography component="p" style={{ color: "grey" }}>
+                    Are you sure you want to remove this fund from the
+                    SprintMoney recommended plan?
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    // disabled={showSubmit}
+                    variant="contained"
+                    className={classes?.button}
+                    fullWidth
+                    onClick={() => handleRemoveClick("no")}
+                    sx={{
+                      pointerEvents: "fill",
+                    }}
+                  >
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      No
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    // disabled={showSubmit}
+                    variant="contained"
+                    className={classes?.button}
+                    fullWidth
+                    onClick={() => handleRemoveClick("yes")}
+                    sx={{
+                      pointerEvents: "fill",
+                    }}
+                  >
+                    <Typography
+                      style={{ color: "black !important" }}
+                      component="span"
+                      className="largeButtonText"
+                    >
+                      Yes
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </List>
+          </Box>
+        </Dialog>
         </>
 
 

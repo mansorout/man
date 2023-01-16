@@ -3,7 +3,8 @@ import { Box, styled } from '@mui/system'
 import { Breadcrumbs, Grid, Link, Modal, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, 
+    } from '@mui/material'
 import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
@@ -12,13 +13,14 @@ import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCond
 import BannerSlider from '../CommonComponents/BannerSlider'
 import FundAmtCard from './FundAmtCart';
 import { ExploreFundsList } from '../../Modal/ExploreFunds';
-import FooterWithBtn from '../CommonComponents/FooterWithBtn';
+import FooterBtnWithBox from '../CommonComponents/FooterBtnWithBox';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { tick } from '../../Assets';
 import { globalConstant } from '../../Utils/globalConstant';
-import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action';
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction, setReplaceFundsForExploreFundsAction, setSelectedFundsForExploreFundsAction } from '../../Store/Recommendations/actions/recommendations-action';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -64,16 +66,21 @@ const SelectedFunds = () => {
     const classes = useStyles()
     const [insuranceTermCondition, setInsuranceTermCondition] = useState<boolean>(false)
     const { insuranceTermConditionState } = useSelector((state: any) => state.InsuranceTermConditionReducer);
-    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data)
-    const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds);
-    const [selectedFundsList, setselectedFundsList] = useState([])
+    const g_selectedFunds = useSelector((state:any) => state?.recommendationsReducer?.masterFundListForExploreFunds.data) // select funds
+    const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds); // add & replace 
+    const g_replaceForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.replaceFundActiveIndexForExploreFund?.data);
+    const [selectedFundsList, setselectedFundsList] = useState<any>([])
     const [selected, setSelected] = useState<number>(1)
     const [fundList, setFundList] = useState<any[]>([])
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [onetimeLumpsum, setOnetimeLumpsum] = useState<boolean>(true);
+    const [totalAmount, setTotalAmount] = useState(0)
 
     
+    const defaultKeys = Object.freeze({
+        userRecommendedAmount: 'userRecommendedAmount'
+    })
 
     useEffect(() => {
         dispatch(InsuranceTermConditionAction(false))
@@ -85,14 +92,72 @@ const SelectedFunds = () => {
 
 
     useEffect(() => {
-        if(!g_selectedFunds?.length) navigate("/explorefunds")
-        console.log("g_selectedFunds : ", g_selectedFunds)
+        if (!g_selectedFunds?.length) navigate("/explorefunds")
         setselectedFundsList(g_selectedFunds)
-      }, [g_selectedFunds])
+        
+        let amount = 0;
+        for (var key in g_selectedFunds) {
+            // debugger
+            if (g_selectedFunds[key].hasOwnProperty(defaultKeys.userRecommendedAmount)) {
+                amount += g_selectedFunds[key]?.userRecommendedAmount
+            }
+        } 
+        setTotalAmount(amount)
+        console.log("g_selectedFunds : ", g_selectedFunds, amount)
 
-      useEffect(() => {
-        console.log(g_selectedFundsForExploreFunds, "explore fund screen and useffect of g_selectedFundsForExploreFunds");
+    }, [g_selectedFunds])
+
+    useEffect(() => {
+        console.log(g_selectedFundsForExploreFunds, "explore fund screen and useEffect of g_selectedFundsForExploreFunds");
+
+        // debugger
+        if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data?.length) {
+            if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds?.data && g_selectedFundsForExploreFunds?.data[0]?.isChecked === false && g_selectedFundsForExploreFunds?.data[0]?.fundSelected && (g_selectedFundsForExploreFunds?.data.length === 1 || g_selectedFundsForExploreFunds?.data.length > 1)) {
+                // debugger
+                 // For Add Fund
+                const addMoreFundTemp: any = [...g_selectedFunds];
+                g_selectedFundsForExploreFunds?.data.map((item: any) => {
+                    if (item?.fundSelected === true && item?.isChecked === false) {
+                        // setselectedFundsList((prevState:any) => [...prevState, item])
+                        addMoreFundTemp.push(item)
+                    }
+                })
+                addMoreFundTemp && addMoreFundTemp?.length && dispatch(setMasterFundListForExploreFundsAction(addMoreFundTemp));
+                dispatch(setSelectedFundsForExploreFundsAction({}))
+                console.log("replaceItem.secid : ", addMoreFundTemp);
+
+            } else {
+                // debugger
+                 // For replace
+                // g_selectedFunds.filter((item: any, index) => item.secid !== g_replaceForExploreFunds?.secid)
+                if (g_selectedFunds && g_selectedFunds?.length && g_replaceForExploreFunds) {
+                    const tempReplace = [...g_selectedFunds];
+                    tempReplace.map((item: any, index) => {
+                        if (item?.secid === g_replaceForExploreFunds?.secid) {
+                            tempReplace[index] = g_selectedFundsForExploreFunds?.data[0];
+                            console.log("g_selectedFunds inside:", tempReplace, item, g_selectedFundsForExploreFunds, index)
+                        }
+                    })
+                    
+                dispatch(setMasterFundListForExploreFundsAction(tempReplace))
+                dispatch(setSelectedFundsForExploreFundsAction({}))
+                }
+
+                // removeItem && removeItem?.length && removeItem.push(g_selectedFundsForExploreFunds?.data[0])
+                // console.log("remove Item :", removeItem)
+                //  setselectedFundsList(removeItem)
+            }
+        }
+            
+        // dispatch(setSelectedFundsForInvestmentAction(temp));
     }, [g_selectedFundsForExploreFunds])
+
+    // useEffect(() => {
+    //     if(selectedFundsList && selectedFundsList?.length){
+    //         dispatch(setMasterFundListForExploreFundsAction(selectedFundsList));
+    //     }
+    // }, [selectedFundsList])
+    
 
     const handleClick = () => {
         setOpen(!open)
@@ -110,9 +175,32 @@ const SelectedFunds = () => {
     }
    
     const handleRemoveBtn = (selectedFundAction:any) => {
-        const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item.secid !== selectedFundAction.secid)
+        const temp = selectedFundsList && selectedFundsList?.length && selectedFundsList.filter((item:any) => item?.secid !== selectedFundAction?.secid)
         console.log("temp kp:",temp)
         dispatch(setMasterFundListForExploreFundsAction(temp));
+    }
+
+    // const handleTimer = (cb: any | void, a: any) => {
+    //     clearTimeout(timerRef.current);
+    //     timerRef.current = setTimeout(() => {
+    //         dispatch(cb(a));
+    //     }, 550);
+    // }
+
+    const handleOnChangeFun = (e:any, arg:any,) => {
+        // const temp = arg; 
+        // temp.userRecommendedAmount = parseInt(e.target.value);
+        const temp:any = [];
+        g_selectedFunds && g_selectedFunds?.length && g_selectedFunds.map((item:any) => {
+            if(item?.secid === arg?.secid){
+                item.userRecommendedAmount = parseInt(e.target.value);
+            }
+            temp.push(item)
+        })
+        // const finalTemp = [...filterVal, temp]
+        // setselectedFundsList(finalTemp)
+        dispatch(setMasterFundListForExploreFundsAction(temp));
+        console.log("handleOnChange  Fun:", arg,temp)
     }
 
     return (
@@ -125,7 +213,7 @@ const SelectedFunds = () => {
                         <Sidebar />
                     </Grid>
                     <Grid container xs={13} sm={11} md={10}>
-                        <Grid sx={{ padding: 2 }} item xs={12}>
+                        <Grid sx={{ padding: 2, paddingBottom: '150px' }} item xs={12}>
                             <Toolbar />
                             <Grid container>
                                 <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" }, paddingBottom: '70px', }} item xs={12}>
@@ -153,7 +241,11 @@ const SelectedFunds = () => {
                                                         <FundAmtCard
                                                             data={selectedFund}
                                                             investmentType={selected}
-                                                            replaceBtnAction={(item) => handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)}
+                                                            handleOnChangeFun={handleOnChangeFun}
+                                                            replaceBtnAction={(item) =>{ 
+                                                                handleNavigation(globalConstant.CEF_REPLACE_OF_EXPLORE_FUND)
+                                                                dispatch(setReplaceFundsForExploreFundsAction(item))
+                                                            }}
                                                             removeBtnAction={(item) => handleRemoveBtn(item)}
                                                         />
                                                     ))
@@ -204,25 +296,30 @@ const SelectedFunds = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
-                                    {
-                                        onetimeLumpsum ? <FooterWithBtn
-                                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                            btnClick={handleClick2}
-                                        /> : <FooterWithBtn
-                                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                            btnClick={handleClick}
-                                        />
-                                    }
-
                                 </Grid>
                             </Grid>
                         </Grid>
-
                     </Grid>
-
-                </Grid>
-            </Box>
+                                    </Grid>
+                {
+                                        // onetimeLumpsum ? <FooterWithBtn
+                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                        //     btnClick={handleClick2}
+                                        // /> : <FooterWithBtn
+                                        //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                                        //     btnClick={handleClick}
+                                        // />
+                    <Box sx={{position: 'fixed', bottom: '10px',left: '0px', right: '0px', zIndex:'11'}}>
+                        <FooterBtnWithBox
+                            boxIcon={<ThumbUpOffAltIcon />}
+                            boxText={'Great! Your total investment is'}
+                            boxAmount={totalAmount}
+                            btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
+                            btnClick={() => console.log("click")}
+                        />
+                    </Box>
+                                    }
+                                    </Box>
 
             <Modal sx={{ borderRadius: 8 }} open={open} onClose={() => { setOpen(!open) }}>
                 <Box alignItems='center' justifyContent='center' sx={{ marginLeft: { sm: '35%', xs: '8%', lg: '40%' }, marginTop: { xs: '50%', lg: '20%', md: '30%' } }}>
@@ -256,6 +353,7 @@ const SelectedFunds = () => {
 
                 </>
             </Modal>
+
         </Box>
     )
 }
