@@ -191,14 +191,16 @@ const TaxCanSave = () => {
         taxSavinig: 0,
     })
 
-    // if(alreadyInvesting <=150000){
-    //     console.log("true")
-    // }
-    // else{
-    //     console.log("false")
-    //     setdisableButton(true)
-
-    // }
+    useEffect(()=>{
+        if(alreadyInvesting > 150000){
+            setdisableButton(true)
+            console.log("true")
+        }
+        else{
+            setdisableButton(false)
+        }
+    },[alreadyInvesting])
+    
 
     const [inputFeildInfo, setInputFeildInfo] = useState<moduleDefaultListObjectType>({
         key: '',
