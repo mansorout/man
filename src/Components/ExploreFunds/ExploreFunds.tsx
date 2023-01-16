@@ -278,6 +278,29 @@ function ExploreFunds(props: any) {
     }
 
     arrFunc.forEach((item: void) => {
+
+      // @ts-ignore
+      if (item === setMasterFundList && status !== globalConstant.CEF_EXPLORE_FUND) {
+
+        if (status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_REPLACE_FUND) {
+
+          let { recommendations }: any = { ...g_mutaulFundListWrtUserAmount };
+          if (recommendations && recommendations.length) {
+            filteringDataWrtSelectedFunds(recommendations, res?.data);
+          }
+        }
+
+        if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+          let { data } = g_masterFundListForExploreFunds;
+
+          if (data && data.length) {
+            filteringDataWrtSelectedFunds(data, res?.data);
+          }
+        }
+
+        return;
+      }
+
       // @ts-ignore
       if (res?.data) item(res?.data);
     })
@@ -315,48 +338,23 @@ function ExploreFunds(props: any) {
 
   }
 
-  // const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
-  //   let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
-  //   let arrCategoryGroup: string[] = arrFundSelected.map((item: any) => item?.categorygroup);
-  //   // @ts-ignore
-  //   // let arrFilteredList: any[] = arrVariableMasterFundList && arrVariableMasterFundList.length && arrVariableMasterFundList.filter((item: any) => {
-  //   //   // if (!arrSecIds.includes(item?.secid) && !arrCategoryGroup.includes(item?.categorygroup)) {
-  //   //   if (!arrSecIds.includes(item?.secid)) {
-  //   //     return item;
-  //   //   }
-  //   // });
-  //   let arrFilteredList: any = [];
-  //   for (let i = 0; i < arrVariableMasterFundList.length; i++) {
-  //     let item = arrVariableMasterFundList[i]?.secid;
-  //     for (let j = 0; j < arrSecIds.length; j++) {
-  //       let secidItem = arrSecIds[j];
-  //       if (item !== secidItem) {
-  //         arrFilteredList.push(arrVariableMasterFundList[i]);
-  //         continue;
-  //       } else {
+  const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
+    let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
+    // @ts-ignore
+    let arrFilteredList: any[] = arrVariableMasterFundList && arrVariableMasterFundList.length && arrVariableMasterFundList.filter((item: any) => {
+      if (!arrSecIds.includes(item?.secid)) {
+        return item;
+      }
+    });
 
-  //       }
-  //     }
-  //     // if (!arrSecIds.includes(item?.secid)) {
-  //     //   arrFilteredList.push(item);
-  //     // }
-  //   }
-
-  //   console.log(arrFilteredList, "filteringDataWrtSelectedFunds()");
-  //   console.log(arrSecIds, "filteringDataWrtSelectedFunds()");
-
-  //   if (arrFilteredList && arrFilteredList.length) {
-  //     setIsInitialVariableFundListFetched(true);
-  //     setVariableMasterFundList(arrFilteredList);
-  //     setMasterFundListLength(arrFilteredList.length);
-  //   } else {
-  //     setIsInitialVariableFundListFetched(false);
-  //     // setVariableMasterFundList([]);
-  //     // setMasterFundListLength(arrFilteredList.length);
-  //   }
-
-  //   // return arrFilteredList && arrFilteredList.length ? arrFilteredList : []
-  // }
+    if (arrFilteredList && arrFilteredList.length) {
+      setIsInitialVariableFundListFetched(true);
+      setMasterFundList(arrFilteredList);
+      setMasterFundListLength(arrFilteredList.length);
+    } else {
+      setIsInitialVariableFundListFetched(false);
+    }
+  }
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
@@ -680,43 +678,3 @@ export default ExploreFunds;
                   }
                 </Breadcrumbs> : ""
               } */}
-
-
-
-
-
-
-
-              // const isProfileComplete =
-    // !!userData?.mobilenumber &&
-    // !!userData?.emailaddress &&
-    // !!userData?.dateofbirth &&
-    // !!userData?.gender &&
-    // !!userData?.addressline1 &&
-    // !!userData?.state &&
-    // !!userData?.city &&
-    // !!userData?.pincode &&
-    // !!userData?.placeofbirth &&
-    // !!userData?.incomeslab;
-
-
-    // const isKycComplete =
-    // !!KYC?.isnomineedetailsavailable &&
-    // KYC.iscvlverified &&
-    // KYC.isbankdetailsverifed === 'verified' &&
-    // !!KYC.ispannumberverified &&
-    // !!KYC.issignatureavailable;
-
-    // isbseregistered === true ?
-
-    // isKycComplete && isProfileComplete && !isbseregistered => call BSE api
-
-
-    // [
-    //   'Low',
-    //   'Low to Moderate',
-    //   'Moderate',
-    //   'Moderately High',
-    //   'High',
-    //   'Very High',
-    // ]
