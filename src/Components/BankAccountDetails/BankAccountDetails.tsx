@@ -1,5 +1,5 @@
 import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { store } from '../../Store/Store';
 import { bankuserdetails } from "../../Store/Reducers/action";
 import { submitPostuserdetails } from '../../Store/Reducers/action'
@@ -39,28 +39,37 @@ const BankAccountDetails = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
-    const [disablenomineeButton,setDisablenomineeButton] = useState<boolean>(true);
+    const [disablenomineeButton, setDisablenomineeButton] = useState<boolean>(true);
+    console.log(bankAcNo.length)
+
+    // useEffect(() => {
+    //     if (bankAcNo.length  < 11) {
+    //         setBankAcNoError(true)
+    //         console.log(bankAcNoError)
+    //     }
+        
+    // }, [bankAcNo])
 
 
     function handleSubmit(event: any) {
         //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
 
-        if (accountType === '') {
-            setAccountTypeHelperText('Please select an option');
-            setAccountTypeError(true);
-        } else if (ifscCode === '') {
-            setIfscError(true);
-        } else if (bankAcNo === '') {
-            setBankAcNoError(true);
-        } else if (confirmBankAcNo === '') {
-            setConfirmBankAcNoError(true);
-        } else if (accountHolder === '') {
-            setAccountHolderError(true);
-        }
+        // if (accountType === '') {
+        //     setAccountTypeHelperText('Please select an option');
+        //     setAccountTypeError(true);
+        // } else if (ifscCode === '') {
+        //     setIfscError(true);
+        // } else if (bankAcNo === '') {
+        //     setBankAcNoError(true);
+        // } else if (confirmBankAcNo === '') {
+        //     setConfirmBankAcNoError(true);
+        // } else if (accountHolder === '') {
+        //     setAccountHolderError(true);
+        // }
 
 
 
-        
+
 
         // else {
         //     navigate('/viewprofile');
@@ -119,12 +128,12 @@ const BankAccountDetails = () => {
             backgroundColor: '#23db7b',
             padding: '1rem',
             textTransform: 'capitalize'
-            
-            
-         
-         
-          
-           
+
+
+
+
+
+
         } as React.CSSProperties,
         main: {
             boxSizing: "border-box",
@@ -170,19 +179,33 @@ const BankAccountDetails = () => {
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         setBankAcNo(value);
-        if (!bankAcNoPattern.test(value) && e.target.value.trim().length != 10) {
+        // if () {
+        //     setBankAcNoError(true)
+        //     console.log(bankAcNoError)
+        // }!bankAcNoPattern.test(value) && e.target.value.trim().length != 10 &&
+
+        if (bankAcNo.length  < 10  ) {
             setBankAcNoError(true)
+            console.log("check")
         } else {
             setBankAcNoError(false);
         }
     }
 
+
+
     const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setConfirmBankAcNo(value);
+        // !bankAcNoPattern.test(value)
+        console.log(bankAcNo !== confirmBankAcNo)
+        console.log(bankAcNo.length === confirmBankAcNo.length )
+        console.log(confirmBankAcNo)
+        
 
-        if (!bankAcNoPattern.test(value)) {
+        if (bankAcNo !== value) {
             setConfirmBankAcNoError(true)
+            console.log("not matched")
         } else {
             setConfirmBankAcNoError(false);
         }
@@ -194,6 +217,7 @@ const BankAccountDetails = () => {
         }
     }
 
+   
     const handleAccountHolderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setAccountHolder(value);
@@ -206,34 +230,9 @@ const BankAccountDetails = () => {
         }
     }
 
-
-
-
-
-    /*
-        if (bankformData.EnterIFSCcode?.length === 10) {
-            store.dispatch(bankuserdetails({ 'bankuserdata': bankformData }))
-        }
-        console.log(bankformData.EnterIFSCcode?.length)
     
-        const validate = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const res = event.target.value;
-            setValue(res);
-            const regex = /[A-Za-z]{5}\d{4}[A-Za-z]/;
-            console.log('res', res);
-    
-            if (res.length === 10 && !regex.test(res)) {
-                const text = document.querySelector('.MuiFormHelperText-root');
-                if (text) {
-                    text.innerHTML = 'The PAN number you’ve entered is incorrect, please enter a valid PAN number.';
-                }
-                setError(true);
-            } else if (res.length === 10) {
-                
-                navigate('/completedview');
-            }
-        };
-    */
+
+
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
@@ -248,187 +247,187 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link href="/viewprofile">View Profile</Link>
+                            <Link onClick={()=>navigate('/viewprofile')}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
                             }}>Bank Account</Typography>
                         </Breadcrumbs>
                         <Box className="BoxPadding">
-                        <Box component="form" sx={{
-                            gap: { xs: '15px', sm: '1vw', md: '1vw', lg: '1vw' },
-                            width: '90%',
-                            maxWidth: '488px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-around',
-                            padding: {xs:"12px", sm:'20px'},
-                            borderRadius: '0.5vw',
-                            boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-                            backgroundColor: '#fff',
-                            fontFamily: 'Roboto',
-                            fontSize: '14px',
-                        }}>
-
-                            <Typography sx={{
+                            <Box component="form" sx={{
+                                gap: { xs: '15px', sm: '1vw', md: '1vw', lg: '1vw' },
+                                width: '90%',
+                                maxWidth: '488px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                padding: { xs: "12px", sm: '20px' },
+                                borderRadius: '0.5vw',
+                                boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+                                backgroundColor: '#fff',
+                                fontFamily: 'Roboto',
                                 fontSize: '14px',
-                                fontWeight: 500,
-                                color: '#3c3e42',
+                            }}>
 
-                            }}>Add Bank Account Details</Typography>
-
-                            <FormControl>
-                                <FormLabel id='account_type' sx={{
+                                <Typography sx={{
                                     fontSize: '14px',
                                     fontWeight: 500,
-                                    color: '#6c63ff',
-                                }}>Select your account type</FormLabel>
-                                <RadioGroup
-                                    row
-                                    value={accountType}
-                                    onChange={handleAccountTypeChange}
-                                >
-                                    <FormControlLabel
+                                    color: '#3c3e42',
 
-                                        control={<Radio defaultChecked
-                                            sx={{
-                                                color: "#3D70B2"[800],
-                                                "&.Mui-checked": {
-                                                    color: "#09b85d"
-                                                }
-                                            }} />}
-                                        label="Savings"
-                                        onChange={() => setAccountType('savings')}
-                                        value="savings"
+                                }}>Add Bank Account Details</Typography>
+
+                                <FormControl>
+                                    <FormLabel id='account_type' sx={{
+                                        fontSize: '14px',
+                                        fontWeight: 500,
+                                        color: '#6c63ff',
+                                    }}>Select your account type</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        value={accountType}
+                                        onChange={handleAccountTypeChange}
+                                    >
+                                        <FormControlLabel
+
+                                            control={<Radio defaultChecked
+                                                sx={{
+                                                    color: "#3D70B2"[800],
+                                                    "&.Mui-checked": {
+                                                        color: "#09b85d"
+                                                    }
+                                                }} />}
+                                            label="Savings"
+                                            onChange={() => setAccountType('savings')}
+                                            value="savings"
+                                        />
+                                        <FormControlLabel
+                                            control={<Radio defaultChecked
+                                                sx={{
+                                                    color: "#3D70B2"[800],
+                                                    "&.Mui-checked": {
+                                                        color: "#09b85d"
+                                                    }
+                                                }} />}
+                                            label="Current"
+                                            onChange={() => setAccountType('current')}
+                                            value="current"
+                                        />
+                                    </RadioGroup>
+                                    <FormHelperText sx={{
+                                        color: 'red',
+                                        fontSize: '12px'
+                                    }}>{accountTypeError ? accountTypeHelperText : ''}</FormHelperText>
+                                </FormControl>
+
+                                <FormControl>
+                                    <TextField
+                                        onKeyPress={(e) =>
+                                            /[*|\":<>[\]{}`\\()';@&$]/im.test(e.key) &&
+                                            e.preventDefault()
+                                        }
+                                        // onKeyPress={(e) =>
+                                        //     /([A-Za-z]){4}([0-9]){4}([A-Za-z]){1}$/.test(e.key) &&
+                                        //     e.preventDefault()
+                                        // }
+                                        required
+                                        id="outlined-ifsc-code"
+                                        label="Enter IFSC code"
+                                        value={ifscCode}
+                                        onChange={handleIFSCChange}
+                                        name="EnterIFSCcode"
+                                        error={ifscError}
+                                        helperText={ifscError ? "Please enter a valid IFSC Code" : ""}
+                                        inputProps={{
+                                            maxLength: 11,
+                                        }}
                                     />
-                                    <FormControlLabel
-                                        control={<Radio defaultChecked
-                                            sx={{
-                                                color: "#3D70B2"[800],
-                                                "&.Mui-checked": {
-                                                    color: "#09b85d"
-                                                }
-                                            }} />}
-                                        label="Current"
-                                        onChange={() => setAccountType('current')}
-                                        value="current"
+                                </FormControl>
+
+                                <FormControl >
+                                    <TextField
+                                        type="password"
+                                        id="outlined-bank-acc-no"
+                                        required
+                                        label="Bank Account Number"
+                                        onKeyPress={(e) =>
+                                            /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                            e.preventDefault()
+                                        }
+                                        value={bankAcNo}
+                                        onChange={handleBankAcNoChange}
+                                        error={bankAcNoError}
+                                        helperText={bankAcNoError ? <p>Please enter a valid Account Number</p> : ""}
+                                        InputProps={{
+                                            endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+
+                                        }}
+                                        inputProps={{
+                                            maxLength: 16,
+                                            minLength: 11,
+                                        }}
                                     />
-                                </RadioGroup>
-                                <FormHelperText sx={{
-                                    color: 'red',
-                                    fontSize: '12px'
-                                }}>{accountTypeError ? accountTypeHelperText : ''}</FormHelperText>
-                            </FormControl>
+                                </FormControl>
 
-                            <FormControl>
-                                <TextField
-                                    onKeyPress={(e) =>
-                                        /[*|\":<>[\]{}`\\()';@&$]/im.test(e.key) &&
-                                        e.preventDefault()
-                                    }
-                                    // onKeyPress={(e) =>
-                                    //     /([A-Za-z]){4}([0-9]){4}([A-Za-z]){1}$/.test(e.key) &&
-                                    //     e.preventDefault()
-                                    // }
-                                    required
-                                    id="outlined-ifsc-code"
-                                    label="Enter IFSC code"
-                                    value={ifscCode}
-                                    onChange={handleIFSCChange}
-                                    name="EnterIFSCcode"
-                                    error={ifscError}
-                                    helperText={ifscError ? "Please enter a valid IFSC Code" : ""}
-                                    inputProps={{
-                                        maxLength: 11,
-                                    }}
-                                />
-                            </FormControl>
+                                <FormControl >
+                                    <TextField
+                                        onKeyPress={(e) =>
+                                            /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                            e.preventDefault()
+                                        }
 
-                            <FormControl >
-                                <TextField
-                                    type="password"
-                                    id="outlined-bank-acc-no"
-                                    required
-                                    label="Bank Account Number"
-                                    onKeyPress={(e) =>
-                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
-                                        e.preventDefault()
-                                    }
-                                    value={bankAcNo}
-                                    onChange={handleBankAcNoChange}
-                                    error={bankAcNoError}
-                                    helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
-                                    InputProps={{
-                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
-                                        // helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""},
-                                    }}
-                                    inputProps={{
-                                        maxLength: 16,
-                                        minLength: 11,
-                                    }}
-                                />
-                            </FormControl>
+                                        required
+                                        id="confirmed-bank-acc-no"
+                                        label="Confirm Bank Account Number"
+                                        value={confirmBankAcNo}
+                                        onChange={handleConfirmBankAcNoChange}
+                                        error={confirmBankAcNoError || bankAcNoError}
+                                        helperText={confirmBankAcNoError || bankAcNoError ? "Bank Account Number do not match" : ""}
+                                        InputProps={{
+                                            endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                        }}
+                                        inputProps={{
+                                            maxLength: 16,
+                                        }}
+                                    />
+                                </FormControl>
 
-                            <FormControl >
-                                <TextField
-                                    onKeyPress={(e) =>
-                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
-                                        e.preventDefault()
-                                    }
+                                <FormControl >
+                                    <TextField
+                                        onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
 
-                                    required
-                                    id="confirmed-bank-acc-no"
-                                    label="Confirm Bank Account Number"
-                                    value={confirmBankAcNo}
-                                    onChange={handleConfirmBankAcNoChange}
-                                    error={confirmBankAcNoError}
-                                    helperText={confirmBankAcNoError ? "Bank Account Number do not match" : ""}
-                                    InputProps={{
-                                        endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
-                                    }}
-                                    inputProps={{
-                                        maxLength: 16,
-                                    }}
-                                />
-                            </FormControl>
+                                        required
+                                        label="Account Holder's Name"
+                                        value={accountHolder}
+                                        onChange={handleAccountHolderChange}
+                                        error={accountHolderError}
+                                        helperText={accountHolderError ? "Please enter a valid Name" : ""}
+                                        inputProps={{
+                                            maxLength: 35,
+                                        }}
+                                    />
+                                </FormControl>
 
-                            <FormControl >
-                                <TextField
-                                    onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
-
-                                    required
-                                    label="Account Holder's Name"
-                                    value={accountHolder}
-                                    onChange={handleAccountHolderChange}
-                                    error={accountHolderError}
-                                    helperText={accountHolderError ? "Please enter a valid Name" : ""}
-                                    inputProps={{
-                                        maxLength: 35,
-                                    }}
-                                />
-                            </FormControl>
-
-                            <FormControl>
-                                <Button
-                                disabled={disablenomineeButton}
-                                    variant="contained"
-                                    onClick={handleSubmit}
-                                    // sx={{
-                                    //     ml: 1,
-                                    //     "&.MuiButtonBase-root:hover": {
-                                    //         bgcolor: '#23db7b'
-                                    //     },
-                                    //     borderRadius: '0.5rem',
-                                    //     boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                    //     backgroundColor: '#23db7b',
-                                    //     padding: '1rem',
-                                    //     textTransform: 'capitalize',
-                                    // }}
-                                    style={style.button}
-                                ><Typography sx={{color:"white",size:"16px",fontWeight:"500"}}>
-                                    Continue</Typography></Button>
-                            </FormControl>
-                        </Box>
+                                <FormControl>
+                                    <Button
+                                        disabled={disablenomineeButton}
+                                        variant="contained"
+                                        onClick={handleSubmit}
+                                        // sx={{
+                                        //     ml: 1,
+                                        //     "&.MuiButtonBase-root:hover": {
+                                        //         bgcolor: '#23db7b'
+                                        //     },
+                                        //     borderRadius: '0.5rem',
+                                        //     boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
+                                        //     backgroundColor: '#23db7b',
+                                        //     padding: '1rem',
+                                        //     textTransform: 'capitalize',
+                                        // }}
+                                        style={style.button}
+                                    ><Typography sx={{ color: "white", size: "16px", fontWeight: "500" }}>
+                                            Continue</Typography></Button>
+                                </FormControl>
+                            </Box>
                         </Box>
                     </Grid>
                 </Grid>
