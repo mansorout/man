@@ -26,6 +26,7 @@ import { getListOfPortfolioThunk, getListOfTrasanctionDoneThunk } from '../../St
 import { setPortfolioListDataInHoldingsAction } from '../../Store/Payments/actions/payments-action'
 import { Doughnut } from 'react-chartjs-2'
 import { CircularBar } from '../CommonComponents/Charts/CircularBar'
+import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -182,7 +183,7 @@ type holdingList = {
 const initialHoldingListEquity = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -203,7 +204,7 @@ const initialHoldingListEquity = {
 const initialHoldingListBalanced = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -224,7 +225,7 @@ const initialHoldingListBalanced = {
 const initialHoldingListCommodities = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -245,7 +246,7 @@ const initialHoldingListCommodities = {
 const initialHoldingListDebt = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -266,7 +267,7 @@ const initialHoldingListDebt = {
 const initialHoldingListAlternative = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -275,7 +276,8 @@ const initialHoldingListAlternative = {
   absolutereturn: "absolutereturn",
   absolutereturninpercent: "absolutereturninpercent",
   category: "category",
-  categorygroup: "Alternative",
+  // categorygroup: "Alternative",
+  categorygroup: "Equity",
   fundimage: "fundimage",
   rating: "3",
   navdate: "navdate",
@@ -288,7 +290,7 @@ const initialHoldingListAlternative = {
 const initialHoldingListFixedIncome = {
   fundname: "fundname",
   folio: "folio",
-  fund_id: "fund id",
+  fund_id: "",
   investedvalue: 1000,
   XIRR: "XIRR",
   units: "units",
@@ -307,8 +309,7 @@ const initialHoldingListFixedIncome = {
   maxredemptionamount: "maxredemptionamount"
 }
 
-function Portfolio() {
-
+const Portfolio = () => {
   const classes = useStyles()
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -317,10 +318,11 @@ function Portfolio() {
   const [holding, setHolding] = useState<any>([]);
   const [message, setMessage] = useState<string>("");
   const [fundList, setFundList] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [holdingGraph, setHoldingGraph] = useState<any>({});
   const [variableFundList, setVariableFundList] = useState<any[]>([]);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
-  const [holdingGraph, setHoldingGraph] = useState<any>({})
 
 
   useEffect(() => {
@@ -356,6 +358,7 @@ function Portfolio() {
 
   const getFundList = async (url: string) => {
     // let res: apiResponse = await getListOfTrasanctionDoneThunk(url);
+    setLoading(true);
     let res: apiResponse = await getListOfPortfolioThunk(url);
 
 
@@ -409,6 +412,7 @@ function Portfolio() {
   }
 
   const handleVariableFundList = (fundList: any[] | null) => {
+    setLoading(false);
     if (!fundList) {
       setMessage("You have not started your investment journey yet!");
       return;
@@ -419,13 +423,13 @@ function Portfolio() {
   }
 
   const filterDataWRTCategoryGroup = () => {
-    if (!activeCategoryGroupIndex) {
-      let arrFundList: any[] = [...fundList];
-      setVariableFundList(arrFundList);
-      return;
-    }
-
     if (fundList && fundList.length) {
+      if (!activeCategoryGroupIndex) {
+        let arrFundList: any[] = [...fundList];
+        setVariableFundList(arrFundList);
+        return;
+      }
+
       let arrFilteredFundList: any[] = fundList.filter((item: any) => item?.categorygroup === categoryGroupList[activeCategoryGroupIndex]);
       setVariableFundList(arrFilteredFundList);
     }
@@ -441,6 +445,7 @@ function Portfolio() {
             <Sidebar />
           </Grid>
           <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
               <Toolbar />
               <Grid container>
@@ -456,172 +461,177 @@ function Portfolio() {
                       <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
                     </Box>
                   </Box>
-                  {
-                    message && message.length ?
-                      <>
-                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                          <Typography component="span" sx={{ color: "var(--uiDarkGreyColor)" }}>
-                            {message}
-                          </Typography>
-                        </Box>
-                      </> :
-                      <>
-                        {
-                          // true ?
-                          variableFundList &&
-                            variableFundList.length ?
-                            <>
-                              <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }}>
-                                <Typography padding={2} style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }}>Asset Allocation</Typography>
-                                <Grid container padding={2}>
-                                  <Grid item sm={5} xs={12} style={{ display: "flex", alignItems: "center", gap: "40px", justifyContent: "center" }}>
-                                    <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px" }}>
-                                      {/* <img src={chart} alt="chart" width="240px"></img> */}
-                                      {
-                                        holdingGraph?.assetallocation ?
-                                          <CircularBar
-                                            progressData={holdingGraph?.assetallocation}
-                                          />
-                                          : null
-                                      }
+                  <Box>
+                    {/* <SprintMoneyLoader
+                      loadingStatus={loading}
+                    /> */}
+                    {
+                      message && message.length ?
+                        <>
+                          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Typography component="span" sx={{ color: "var(--uiDarkGreyColor)" }}>
+                              {message}
+                            </Typography>
+                          </Box>
+                        </> :
+                        <>
+                          {
+                            fundList && fundList.length ?
+                              <>
+                                <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }}>
+                                  <Typography padding={2} style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }}>Asset Allocation</Typography>
+                                  <Grid container padding={2}>
+                                    <Grid item sm={5} xs={12} style={{ display: "flex", alignItems: "center", gap: "40px", justifyContent: "center" }}>
+                                      <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px" }}>
+                                        {/* <img src={chart} alt="chart" width="240px"></img> */}
+                                        {
+                                          holdingGraph?.assetallocation ?
+                                            <CircularBar
+                                              progressData={holdingGraph?.assetallocation}
+                                            />
+                                            : null
+                                        }
 
-                                      <Box>
-                                        <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                          <Box style={{ padding: "6px", backgroundColor: "#23db7b", borderRadius: "50%" }}></Box>
-                                          <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>EQUITY</Typography>
-                                        </Box>
-                                        <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                          <Box style={{ padding: "6px", backgroundColor: "#fdc100", borderRadius: "50%" }}></Box>
-                                          <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>DEBT</Typography>
-                                        </Box>
-                                        <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                          <Box style={{ padding: "6px", backgroundColor: "#4979e8", borderRadius: "50%" }}></Box>
-                                          <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>BALANCED</Typography>
+                                        <Box>
+                                          <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                                            <Box style={{ padding: "6px", backgroundColor: "#23db7b", borderRadius: "50%" }}></Box>
+                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>EQUITY</Typography>
+                                          </Box>
+                                          <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                                            <Box style={{ padding: "6px", backgroundColor: "#fdc100", borderRadius: "50%" }}></Box>
+                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>DEBT</Typography>
+                                          </Box>
+                                          <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                                            <Box style={{ padding: "6px", backgroundColor: "#4979e8", borderRadius: "50%" }}></Box>
+                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>BALANCED</Typography>
+                                          </Box>
                                         </Box>
                                       </Box>
-                                    </Box>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                                <Grid container padding={2}>
+                                  <Grid container padding={2}>
 
-                                </Grid>
-                                <Grid padding={2} item sm={1} xs={0}>
-                                  <Divider orientation="vertical" />
-                                </Grid>
-                                <Grid container padding={2} item sm={5} xs={12} m={"auto"} >
-                                  <Box style={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px", justifyContent: "space-between" }}>
-                                    <Box style={{ width: "40%", minWidth: "200px" }}>
-                                      <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalinvestedvalue}</Typography>
-                                    </Box>
-                                    <Box style={{ width: "40%", minWidth: "200px" }}>
-                                      <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalcurrentvalue}</Typography>
-                                    </Box>
-                                    <Box style={{ width: "40%", minWidth: "200px" }}>
-                                      <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.absolutereturn}</Typography>
-                                    </Box>
-                                  </Box>
-                                  <Button variant="contained" style={style.button2} fullWidth>
-                                    <Typography style={style.text} className="largeButtonText">Download Statement</Typography>
-                                  </Button>
-                                </Grid>
-
-                              </Box>
-                              <Typography style={{ marginBottom: "20px", color: "#7b7b9d", fontSize: "21px" }}>Your Holdings</Typography>
-                              <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                {
-                                  categoryGroupList &&
-                                  categoryGroupList.length &&
-                                  categoryGroupList.map((item: any, index: number) => {
-                                    return (
-                                      <Box
-                                        key={index}
-                                        onClick={() => {
-                                          setActiveCategoryGroupIndex(index);
-                                        }}
-                                        style={{
-                                          cursor: "pointer",
-                                          border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                                          borderRadius: "8px",
-                                          backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
-                                          textAlign: "center",
-                                          padding: "12px 14px"
-                                        }}>
-                                        <Typography
-                                          style={{
-                                            fontWeight: "500",
-                                            color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
-                                            fontSize: "14px"
-                                          }}>
-                                          {/* {item}({getTotalFundCound(item)}) */}
-                                          {item}
-                                        </Typography>
+                                  </Grid>
+                                  <Grid padding={2} item sm={1} xs={0}>
+                                    <Divider orientation="vertical" />
+                                  </Grid>
+                                  <Grid container padding={2} item sm={5} xs={12} m={"auto"} >
+                                    <Box style={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px", justifyContent: "space-between" }}>
+                                      <Box style={{ width: "40%", minWidth: "200px" }}>
+                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
+                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalinvestedvalue}</Typography>
                                       </Box>
-                                    )
-                                  })
-                                }
-                              </Box>
-                              <Box>
-                                {
-                                  variableFundList.map((item: any, index: number) => {
-                                    return (
-                                      <HoldingCards
-                                        key={index}
-                                        logo={item?.fundimage}
-                                        name={item?.fundname}
-                                        cap={item?.category}
-                                        type={item?.categorygroup}
-                                        price={item?.units}
-                                        invested={item?.investedvalue}
-                                        current={item?.currentvalue}
-                                        absolute={item?.absolutereturn}
-                                        absoluteReturnInPercent={item?.absolutereturninpercent}
-                                        result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
+                                      <Box style={{ width: "40%", minWidth: "200px" }}>
+                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
+                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalcurrentvalue}</Typography>
+                                      </Box>
+                                      <Box style={{ width: "40%", minWidth: "200px" }}>
+                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
+                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.absolutereturn}</Typography>
+                                      </Box>
+                                    </Box>
+                                    <Button variant="contained" style={style.button2} fullWidth>
+                                      <Typography style={style.text} className="largeButtonText">Download Statement</Typography>
+                                    </Button>
+                                  </Grid>
+
+                                </Box>
+                                <Typography style={{ marginBottom: "20px", color: "#7b7b9d", fontSize: "21px" }}>Your Holdings</Typography>
+                                <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                  {
+                                    categoryGroupList &&
+                                    categoryGroupList.length &&
+                                    categoryGroupList.map((item: any, index: number) => {
+                                      return (
+                                        <Box
+                                          key={index}
+                                          onClick={() => {
+                                            setActiveCategoryGroupIndex(index);
+                                          }}
+                                          style={{
+                                            cursor: "pointer",
+                                            border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                                            borderRadius: "8px",
+                                            backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                                            textAlign: "center",
+                                            padding: "12px 14px"
+                                          }}>
+                                          <Typography
+                                            style={{
+                                              fontWeight: "500",
+                                              color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
+                                              fontSize: "14px"
+                                            }}>
+                                            {/* {item}({getTotalFundCound(item)}) */}
+                                            {item}
+                                          </Typography>
+                                        </Box>
+                                      )
+                                    })
+                                  }
+                                </Box>
+                                <Box>
+                                  {
+                                    variableFundList &&
+                                    variableFundList.length &&
+                                    variableFundList.map((item: any, index: number) => {
+                                      return (
+                                        <HoldingCards
+                                          key={index}
+                                          logo={item?.fundimage}
+                                          name={item?.fundname}
+                                          cap={item?.category}
+                                          type={item?.categorygroup}
+                                          price={item?.units}
+                                          invested={item?.investedvalue}
+                                          current={item?.currentvalue}
+                                          absolute={item?.absolutereturn}
+                                          absoluteReturnInPercent={item?.absolutereturninpercent}
+                                          result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
+                                          fundId={item?.fund_id}
+
+                                        // year3={item?.}
+                                        // year3={""}
+                                        // current={ item?.}
+                                        // absolute={item?.}
+                                        // year5={ item?.}
+                                        // year5={""}
+                                        // margin={ item?.}
+                                        // margin={"03.36"}
+                                        // result={ item?.}
 
 
-                                      // year3={item?.}
-                                      // year3={""}
-                                      // current={ item?.}
-                                      // absolute={item?.}
-                                      // year5={ item?.}
-                                      // year5={""}
-                                      // margin={ item?.}
-                                      // margin={"03.36"}
-                                      // result={ item?.}
+                                        //  fundname: "fundname",
+                                        // folio: "folio",
+                                        //   fund_id: "fund id",
+                                        //     investedvalue: 1000,
+                                        //       XIRR: "XIRR",
+                                        //         units: "units",
+                                        //           nav: "nav",
+                                        //             currentvalue: "currentvalue",
+                                        //               absolutereturn: "absolutereturn",
+                                        //                 absolutereturninpercent: "absolutereturninpercent",
+                                        //                   category: "category",
+                                        //                     categorygroup: "Equity",
+                                        //                       fundimage: "fundimage",
+                                        //                         rating: "3",
+                                        //                           navdate: "navdate",
+                                        //                             minredemptionqty: "minredemptionqty",
+                                        //                               maxredemptionqty: "maxredemptionqty",
+                                        //                                 minredemptionamount: "minredemptionamount",
+                                        //                                   maxredemptionamount: "maxredemptionamount"
 
-
-                                      //  fundname: "fundname",
-                                      // folio: "folio",
-                                      //   fund_id: "fund id",
-                                      //     investedvalue: 1000,
-                                      //       XIRR: "XIRR",
-                                      //         units: "units",
-                                      //           nav: "nav",
-                                      //             currentvalue: "currentvalue",
-                                      //               absolutereturn: "absolutereturn",
-                                      //                 absolutereturninpercent: "absolutereturninpercent",
-                                      //                   category: "category",
-                                      //                     categorygroup: "Equity",
-                                      //                       fundimage: "fundimage",
-                                      //                         rating: "3",
-                                      //                           navdate: "navdate",
-                                      //                             minredemptionqty: "minredemptionqty",
-                                      //                               maxredemptionqty: "maxredemptionqty",
-                                      //                                 minredemptionamount: "minredemptionamount",
-                                      //                                   maxredemptionamount: "maxredemptionamount"
-
-                                      />
-                                    )
-                                  })
-                                }
-                              </Box>
-                            </>
-                            : null
-                        }
-                      </>
-                  }
+                                        />
+                                      )
+                                    })
+                                  }
+                                </Box>
+                              </>
+                              : null
+                          }
+                        </>
+                    }
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>

@@ -41,6 +41,7 @@ interface Prop {
   result: string
 
   absoluteReturnInPercent: string
+  fundId: string
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -161,7 +162,7 @@ const style = {
 }
 
 // function HoldingCards({ name, price, year3, current, absolute, year5, result, margin, cap, type, invested, absoluteReturnInPercent }: Prop) {
-function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent }: Prop) {
+function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent, fundId }: Prop) {
 
 
   const [open, setOpen] = useState<boolean>(false)
@@ -271,7 +272,7 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>Show Transaction History</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>
-                <ListItemButton style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <ListItemButton style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }} onClick={() => { if (fundId) navigate("/funddetails", { state: { secid: fundId, parentRoute: "/holdings" } }) }}>
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>View Fund Details</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>
