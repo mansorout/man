@@ -39,41 +39,11 @@ const BankAccountDetails = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
-    const [disablenomineeButton, setDisablenomineeButton] = useState<boolean>(true);
-    console.log(bankAcNo.length)
 
-    // useEffect(() => {
-    //     if (bankAcNo.length  < 11) {
-    //         setBankAcNoError(true)
-    //         console.log(bankAcNoError)
-    //     }
-        
-    // }, [bankAcNo])
 
 
     function handleSubmit(event: any) {
-        //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
 
-        // if (accountType === '') {
-        //     setAccountTypeHelperText('Please select an option');
-        //     setAccountTypeError(true);
-        // } else if (ifscCode === '') {
-        //     setIfscError(true);
-        // } else if (bankAcNo === '') {
-        //     setBankAcNoError(true);
-        // } else if (confirmBankAcNo === '') {
-        //     setConfirmBankAcNoError(true);
-        // } else if (accountHolder === '') {
-        //     setAccountHolderError(true);
-        // }
-
-
-
-
-
-        // else {
-        //     navigate('/viewprofile');
-        // }
 
         const formData = {
             ifsc: ifscCode,
@@ -157,12 +127,9 @@ const BankAccountDetails = () => {
         const value = e.target.value;
         setIfscCode(value);
         if (value.match(reg)) {
-            console.log("Correct IFSC Code")
-
             setIfscError(false);
         }
         else {
-            console.log("Wront Ifsc");
             setIfscError(true);
 
 
@@ -179,14 +146,9 @@ const BankAccountDetails = () => {
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         setBankAcNo(value);
-        // if () {
-        //     setBankAcNoError(true)
-        //     console.log(bankAcNoError)
-        // }!bankAcNoPattern.test(value) && e.target.value.trim().length != 10 &&
 
-        if (bankAcNo.length  < 10  ) {
+        if (bankAcNo.length < 10) {
             setBankAcNoError(true)
-            console.log("check")
         } else {
             setBankAcNoError(false);
         }
@@ -197,15 +159,9 @@ const BankAccountDetails = () => {
     const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setConfirmBankAcNo(value);
-        // !bankAcNoPattern.test(value)
-        console.log(bankAcNo !== confirmBankAcNo)
-        console.log(bankAcNo.length === confirmBankAcNo.length )
-        console.log(confirmBankAcNo)
-        
 
         if (bankAcNo !== value) {
             setConfirmBankAcNoError(true)
-            console.log("not matched")
         } else {
             setConfirmBankAcNoError(false);
         }
@@ -217,7 +173,7 @@ const BankAccountDetails = () => {
         }
     }
 
-   
+
     const handleAccountHolderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setAccountHolder(value);
@@ -229,8 +185,6 @@ const BankAccountDetails = () => {
 
         }
     }
-
-    
 
 
     return (
@@ -247,7 +201,7 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link onClick={()=>navigate('/viewprofile')}>View Profile</Link>
+                            <Link onClick={() => navigate('/viewprofile')}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
@@ -409,7 +363,7 @@ const BankAccountDetails = () => {
 
                                 <FormControl>
                                     <Button
-                                        disabled={disablenomineeButton}
+                                        disabled={ifscCode != "" && bankAcNo != "" && confirmBankAcNo != "" && accountType != "" && accountHolder != "" ? false : true}
                                         variant="contained"
                                         onClick={handleSubmit}
                                         // sx={{
@@ -438,3 +392,4 @@ const BankAccountDetails = () => {
 };
 
 export default BankAccountDetails;
+
