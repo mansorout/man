@@ -240,368 +240,6 @@ const FundDetails = () => {
     })
   }
 
-  useEffect(() => {
-    console.log(fundDetails, "update fundDetails")
-  }, [fundDetails])
-  useEffect(() => {
-    console.log(fundNavDetails, "update fundNavDetails")
-
-  }, [fundNavDetails])
-
-  //   {
-  //     "secid": "F0GBR06SBC",
-  //     "fundname": "Canara Robeco Flexi Cap Reg Gr",
-  //     "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo12.svg",
-  //     "dayendnav": 230.2,
-  //     "dayendnavdate": "25/11/2022",
-  //     "navchange": 0.25,
-  //     "return5yr": "13.61",
-  //     "category": "Flexi Cap",
-  //     "categorygroup": "Equity",
-  //     "ratingoverall": 4,
-  //     "riskometer": 6,
-  //     "schemedoc": "https://www.canararobeco.com/forms-downloads/forms-and-information-documents/information-document/si",
-  //     "aum": "1000.00 Cr",
-  //     "portfoliodate": "31/01/2022",
-  //     "YTM": null,
-  //     "holdinginfo": {
-  //         "marketcap": {
-  //             "Giant Cap": "64.69",
-  //             "Large Cap": "28.67",
-  //             "Micro Cap": "0.00",
-  //             "Mid Cap": "6.64",
-  //             "Small Cap": "0.00"
-  //         },
-  //         "sectors": {
-  //             "Financial Services": "32.68",
-  //             "Technology": "12.48",
-  //             "Consumer Cyclical": "12.13",
-  //             "Industrials": "10.39",
-  //             "Basic Materials": "8.46",
-  //             "Healthcare": "6.43",
-  //             "Energy": "4.45",
-  //             "Consumer Defensive": "4.17",
-  //             "Communication Service": "1.88",
-  //             "Utilities": "1.25",
-  //             "Real Estate": "1.17"
-  //         },
-  //         "companies": [
-  //             {
-  //                 "company": "ICICI Bank Ltd",
-  //                 "weight": "7.23"
-  //             },
-  //             {
-  //                 "company": "Infosys Ltd",
-  //                 "weight": "6.50"
-  //             },
-  //             {
-  //                 "company": "HDFC Bank Ltd",
-  //                 "weight": "6.24"
-  //             },
-  //             {
-  //                 "company": "Treps",
-  //                 "weight": "4.97"
-  //             },
-  //             {
-  //                 "company": "Reliance Industries Ltd",
-  //                 "weight": "4.45"
-  //             },
-  //             {
-  //                 "company": "State Bank of India",
-  //                 "weight": "4.25"
-  //             },
-  //             {
-  //                 "company": "Bajaj Finance Ltd",
-  //                 "weight": "3.67"
-  //             },
-  //             {
-  //                 "company": "Larsen & Toubro Ltd",
-  //                 "weight": "3.61"
-  //             },
-  //             {
-  //                 "company": "Tata Consultancy Services Ltd",
-  //                 "weight": "3.47"
-  //             },
-  //             {
-  //                 "company": "Axis Bank Ltd",
-  //                 "weight": "3.03"
-  //             },
-  //             {
-  //                 "company": "Tata Motors Ltd",
-  //                 "weight": "2.48"
-  //             },
-  //             {
-  //                 "company": "Housing Development Finance Corp Ltd",
-  //                 "weight": "2.46"
-  //             },
-  //             {
-  //                 "company": "Bharti Airtel Ltd",
-  //                 "weight": "1.83"
-  //             },
-  //             {
-  //                 "company": "UltraTech Cement Ltd",
-  //                 "weight": "1.78"
-  //             },
-  //             {
-  //                 "company": "Maruti Suzuki India Ltd",
-  //                 "weight": "1.74"
-  //             },
-  //             {
-  //                 "company": "Sun Pharmaceuticals Industries Ltd",
-  //                 "weight": "1.73"
-  //             },
-  //             {
-  //                 "company": "Hindustan Unilever Ltd",
-  //                 "weight": "1.61"
-  //             },
-  //             {
-  //                 "company": "Mphasis Ltd",
-  //                 "weight": "1.49"
-  //             },
-  //             {
-  //                 "company": "Minda Industries Ltd",
-  //                 "weight": "1.40"
-  //             },
-  //             {
-  //                 "company": "Avenue Supermarts Ltd",
-  //                 "weight": "1.39"
-  //             },
-  //             {
-  //                 "company": "Max Healthcare Institute Ltd Ordinary Shares",
-  //                 "weight": "1.29"
-  //             },
-  //             {
-  //                 "company": "Kotak Mahindra Bank Ltd",
-  //                 "weight": "1.29"
-  //             },
-  //             {
-  //                 "company": "TCI Express Ltd",
-  //                 "weight": "1.21"
-  //             },
-  //             {
-  //                 "company": "Divi's Laboratories Ltd",
-  //                 "weight": "1.17"
-  //             },
-  //             {
-  //                 "company": "Oberoi Realty Ltd",
-  //                 "weight": "1.17"
-  //             },
-  //             {
-  //                 "company": "Sona BLW Precision Forgings Ltd",
-  //                 "weight": "1.17"
-  //             },
-  //             {
-  //                 "company": "Navin Fluorine International Ltd",
-  //                 "weight": "1.16"
-  //             },
-  //             {
-  //                 "company": "Max Financial Services Ltd",
-  //                 "weight": "1.12"
-  //             },
-  //             {
-  //                 "company": "Bharat Forge Ltd",
-  //                 "weight": "1.11"
-  //             },
-  //             {
-  //                 "company": "Polycab India Ltd",
-  //                 "weight": "1.10"
-  //             },
-  //             {
-  //                 "company": "Voltas Ltd",
-  //                 "weight": "1.08"
-  //             },
-  //             {
-  //                 "company": "ABB India Ltd",
-  //                 "weight": "1.05"
-  //             },
-  //             {
-  //                 "company": "Gujarat Gas Ltd",
-  //                 "weight": "1.04"
-  //             },
-  //             {
-  //                 "company": "Atul Ltd",
-  //                 "weight": "1.02"
-  //             },
-  //             {
-  //                 "company": "HCL Technologies Ltd",
-  //                 "weight": "1.02"
-  //             },
-  //             {
-  //                 "company": "Cholamandalam Investment and Finance Co Ltd",
-  //                 "weight": "1.00"
-  //             },
-  //             {
-  //                 "company": "Tata Consumer Products Ltd",
-  //                 "weight": "0.99"
-  //             },
-  //             {
-  //                 "company": "Vinati Organics Ltd",
-  //                 "weight": "0.99"
-  //             },
-  //             {
-  //                 "company": "Gland Pharma Ltd",
-  //                 "weight": "0.96"
-  //             },
-  //             {
-  //                 "company": "Hindalco Industries Ltd",
-  //                 "weight": "0.96"
-  //             },
-  //             {
-  //                 "company": "Mahindra & Mahindra Ltd",
-  //                 "weight": "0.94"
-  //             },
-  //             {
-  //                 "company": "Ashok Leyland Ltd",
-  //                 "weight": "0.92"
-  //             },
-  //             {
-  //                 "company": "JK Cement Ltd",
-  //                 "weight": "0.87"
-  //             },
-  //             {
-  //                 "company": "HDFC Life Insurance Company Limited",
-  //                 "weight": "0.87"
-  //             },
-  //             {
-  //                 "company": "Asian Paints Ltd",
-  //                 "weight": "0.81"
-  //             },
-  //             {
-  //                 "company": "Can Fin Homes Ltd",
-  //                 "weight": "0.80"
-  //             },
-  //             {
-  //                 "company": "Honeywell Automation India Ltd",
-  //                 "weight": "0.78"
-  //             },
-  //             {
-  //                 "company": "Bata India Ltd",
-  //                 "weight": "0.76"
-  //             },
-  //             {
-  //                 "company": "SBI Cards and Payment Services Ltd Ordinary Shares",
-  //                 "weight": "0.72"
-  //             },
-  //             {
-  //                 "company": "Titan Co Ltd",
-  //                 "weight": "0.69"
-  //             },
-  //             {
-  //                 "company": "Jubilant Foodworks Ltd",
-  //                 "weight": "0.69"
-  //             },
-  //             {
-  //                 "company": "FSN E-Commerce Ventures Ltd",
-  //                 "weight": "0.68"
-  //             },
-  //             {
-  //                 "company": "Havells India Ltd",
-  //                 "weight": "0.64"
-  //             },
-  //             {
-  //                 "company": "Abbott India Ltd",
-  //                 "weight": "0.64"
-  //             },
-  //             {
-  //                 "company": "PI Industries Ltd",
-  //                 "weight": "0.63"
-  //             },
-  //             {
-  //                 "company": "Ipca Laboratories Ltd",
-  //                 "weight": "0.50"
-  //             },
-  //             {
-  //                 "company": "Balkrishna Industries Ltd",
-  //                 "weight": "0.47"
-  //             },
-  //             {
-  //                 "company": "Net Current Assets",
-  //                 "weight": "0.45"
-  //             },
-  //             {
-  //                 "company": "Tata Steel Ltd",
-  //                 "weight": "0.23"
-  //             },
-  //             {
-  //                 "company": "Indraprastha Gas Ltd",
-  //                 "weight": "0.21"
-  //             },
-  //             {
-  //                 "company": "Britannia Industries Ltd",
-  //                 "weight": "0.18"
-  //             },
-  //             {
-  //                 "company": "Cipla Ltd",
-  //                 "weight": "0.14"
-  //             },
-  //             {
-  //                 "company": "Bharti Airtel Ltd (Partly Paid Rs.1.25)",
-  //                 "weight": "0.05"
-  //             }
-  //         ]
-  //     },
-  //     "isnavincrease": true,
-  //     "navchangepercentage": "0.11",
-  //     "sipminamount": 1000,
-  //     "lumpsumminamount": 5000,
-  //     "performance": {
-  //         "1 year": {
-  //             "years": 1,
-  //             "return": "0.68",
-  //             "benchmark": "-",
-  //             "islist": true
-  //         },
-  //         "2 years": {
-  //             "years": 2,
-  //             "return": "19.68",
-  //             "benchmark": "26.10",
-  //             "islist": false
-  //         },
-  //         "3 years": {
-  //             "years": 3,
-  //             "return": "18.06",
-  //             "benchmark": "16.46",
-  //             "islist": true
-  //         },
-  //         "4 years": {
-  //             "years": 4,
-  //             "return": "17.18",
-  //             "benchmark": "15.54",
-  //             "islist": false
-  //         },
-  //         "5 years": {
-  //             "years": 5,
-  //             "return": "13.61",
-  //             "benchmark": "11.18",
-  //             "islist": true
-  //         },
-  //         "7 years": {
-  //             "years": 7,
-  //             "return": "14.00",
-  //             "benchmark": "12.75",
-  //             "islist": false
-  //         },
-  //         "10 years": {
-  //             "years": 10,
-  //             "return": "14.36",
-  //             "benchmark": "14.15",
-  //             "islist": false
-  //         }
-  //     }
-  // }
-  // let options = {
-  //   year:"numeric",
-  //   day:"2-digit",
-  //   month:"short",
-  //   hour:"2-digit",
-  //   minute:"2-digit",
-  //   hour12:true,  
-  // };
-  // let result=(new Date('2/1/2021')).toLocaleString("en-US",options);
-  // result=result.replaceAll(',','');
-  // console.log(fundDetails.dayendnavdate);
-  // let monthNames:any = fundDetails.dayendnavdate.toLocaleString('en-us',{day:'numeric', month:'short'});
-  // console.log(monthNames)
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -696,101 +334,102 @@ const FundDetails = () => {
                     </Breadcrumbs> 
               </Box>
               </Grid> */}
-              <Box className="BoxPadding">
-                <Box sx={{marginTop:"-10px"}}>
-              {
-                fundDetails &&
-                  Object.keys(fundDetails).length ?
-                  <FundDetailCard
-                    logo={fundDetails?.fundimage}
-                    name={fundDetails?.fundname}
-                    cap={fundDetails?.category}
-                    type={fundDetails?.categorygroup}
-                    year5={fundDetails?.return5yr}
-                    rating={fundDetails?.ratingoverall}
-                    aum={fundDetails?.aum}
-                    dayendnav={fundDetails?.dayendnav}
-                    dayendnavdate={fundDetails?.dayendnavdate}
-                  />
-                  : null
-              }
+            <Box className="BoxPadding">
+              <Box sx={{ marginTop: "-10px" }}>
+                {
+                  fundDetails &&
+                    Object.keys(fundDetails).length ?
+                    <FundDetailCard
+                      logo={fundDetails?.fundimage}
+                      name={fundDetails?.fundname}
+                      cap={fundDetails?.category}
+                      type={fundDetails?.categorygroup}
+                      year5={fundDetails?.return5yr}
+                      rating={fundDetails?.ratingoverall}
+                      aum={fundDetails?.aum}
+                      dayendnav={fundDetails?.dayendnav}
+                      dayendnavdate={fundDetails?.dayendnavdate}
+                      parentRoute={parentRoute}
+                    />
+                    : null
+                }
 
-              <Grid xs={12} sx={{
-                marginTop: "2%",
-                borderRadius: "8px",
-                backgroundColor: "white",
-                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-              }}>
-                <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
-                  <Typography component="span" sx={{ color: "black", fontSize:"18px" }}>
-                    {<>
-                      ₹{fundDetails?.dayendnav}
-                    </>}
-                  </Typography>
-                  <Typography component="span" sx={{position:"relative", color: fundDetails?.isnavincrease ? "green" : "red" }}>
-                    {fundDetails?.isnavincrease ? <>&nbsp;{`+${fundDetails?.navchange}(${fundDetails?.navchangepercentage})`}&nbsp;<span className="upArrow"><span></span></span></> : <>&nbsp;{`${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) `} &nbsp;<span className="downArrow"><span></span></span></>}
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
-                  <Typography component="span" sx={{ color: "grey", }}>
-                    {fundDetails?.dayendnavdate} &nbsp;
-                  </Typography>
-                  <Typography component="span" sx={{ color: "grey" }}>
-                    desclaimer
-                  </Typography>
-                </Box>
-                <LineChart
-                  optionsValues={chartOptions}
-                  dataValues={chartDataDetails}
-                  onClick={(val: any) => null}
+                <Grid xs={12} sx={{
+                  marginTop: "2%",
+                  borderRadius: "8px",
+                  backgroundColor: "white",
+                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                }}>
+                  <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
+                    <Typography component="span" sx={{ color: "black", fontSize: "18px" }}>
+                      {<>
+                        ₹{fundDetails?.dayendnav}
+                      </>}
+                    </Typography>
+                    <Typography component="span" sx={{ position: "relative", color: fundDetails?.isnavincrease ? "green" : "red" }}>
+                      {fundDetails?.isnavincrease ? <>&nbsp;{`+${fundDetails?.navchange}(${fundDetails?.navchangepercentage})`}&nbsp;<span className="upArrow"><span></span></span></> : <>&nbsp;{`${fundDetails?.navchange}(${fundDetails?.navchangepercentage}) `} &nbsp;<span className="downArrow"><span></span></span></>}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", flexDirection: "row", padding: "5px 10px" }}>
+                    <Typography component="span" sx={{ color: "grey", }}>
+                      {fundDetails?.dayendnavdate} &nbsp;
+                    </Typography>
+                    <Typography component="span" sx={{ color: "grey" }}>
+                      desclaimer
+                    </Typography>
+                  </Box>
+                  <LineChart
+                    optionsValues={chartOptions}
+                    dataValues={chartDataDetails}
+                    onClick={(val: any) => null}
+                  />
+                </Grid>
+
+                <FundTable
+                  tableData={fundDetails?.performance}
                 />
-              </Grid>
 
-              <FundTable
-                tableData={fundDetails?.performance}
-              />
+                <Grid
+                  container
+                  rowSpacing={1}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                    <MinInvest
+                      sipminamount={fundDetails?.sipminamount}
+                      lumpsumminamount={fundDetails?.lumpsumminamount}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                    <SchemeDoc
+                      openSchemeDocument={() => {
+                        const link = document.createElement('a');
+                        link.href = fundDetails?.schemedoc;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
 
-              <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
-                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                  <MinInvest
-                    sipminamount={fundDetails?.sipminamount}
-                    lumpsumminamount={fundDetails?.lumpsumminamount}
-                  />
+                <Grid
+                  container
+                  rowSpacing={1}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                    <RiskoMeter
+                      holdingInfo={fundDetails}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
+                    <LatestAssets
+                      holdingInfo={fundDetails?.holdinginfo}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                  <SchemeDoc
-                    openSchemeDocument={() => {
-                      const link = document.createElement('a');
-                      link.href = fundDetails?.schemedoc;
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    }}
-                  />
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
-                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                  <RiskoMeter
-                    holdingInfo={fundDetails}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} sx={{ marginTop: "1rem" }}>
-                  <LatestAssets
-                    holdingInfo={fundDetails?.holdinginfo}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
+              </Box>
             </Box>
           </Grid>
         </Grid>

@@ -291,7 +291,7 @@ const MutualFundCard2 = (props: MFProp) => {
         >
           <Box>
             <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>
-              1yrs return
+              1yr return
             </Typography>
             <Typography style={{ color: "#3c3e42", fontSize: "18px" }}>
               ₹{props?.return1yr}

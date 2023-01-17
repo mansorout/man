@@ -18,7 +18,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 //global function and constants imports
 import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions';
-import { globalConstant } from '../../Utils/globalConstant';
+import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
 import { getData, postData } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
@@ -689,7 +689,12 @@ function InvestNowScreen(props: IProps) {
                               saveMutualFundGenerate={(id, path)=> saveMutualFundGenerate(id, path)}
                              />
                             <Grid container spacing={2} textAlign="center">
-                              <Grid item xs={12} md={12}>
+                              <Grid item xs={12} md={12} onClick={()=> {
+                                navigate("/oneTimeInvestment", {state:{cardType: globalConstant.LUMPSUM_INVESTMENT}})
+                                dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+                                // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+                                localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
+                                }}>
 
                                 <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>

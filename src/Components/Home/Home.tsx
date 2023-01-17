@@ -29,6 +29,7 @@ import { getMasterFundListThunk } from '../../Store/Recommendations/thunk/recomm
 import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -182,7 +183,6 @@ const Home = () => {
 
   useEffect(() => {
     initiate();
-    
   }, []);
 
   // FINANCIAL_YEAR: 'financialyear',
@@ -213,7 +213,7 @@ const Home = () => {
   }
 
   const getExploreFundList = async () => {
-    let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST);
+    let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST + "?istop=true");
     if (checkExpirationOfToken(data?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -224,6 +224,51 @@ const Home = () => {
     }
 
     dispatch(setMasterFundListAction(data?.data));
+    let exploreFundData: any[] = data?.data?.data
+    if (exploreFundData && exploreFundData.length) {
+      // let arrFilteredData: any[] = exploreFundData.filter((item: any, index: number) => index < 3);
+
+      //   {
+      //     "fundname": "DSP Midcap Reg Gr",
+      //     "return1yr": "-4.35",
+      //     "return3yr": "15.88",
+      //     "return5yr": "9.42",
+      //     "category": "Mid-Cap",
+      //     "categorygroup": "Equity",
+      //     "ratingoverall": 3,
+      //     "returnytd": "-3.69",
+      //     "secid": "F000000CBK",
+      //     "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo1.svg",
+      //     "aum": "1000.00",
+      //     "providername": "DSP Investment Managers Private Limited",
+      //     "issipenabled": 1,
+      //     "islumpsumenabled": 1,
+      //     "sipminamount": 500,
+      //     "lumpsumminamount": 500
+      // }
+      let arrFilteredData: any[] = []
+      exploreFundData.forEach((item: any, index: number) => {
+        let obj = {};
+        if (index < 3) {
+          obj = {
+            logo: item?.fundimage,
+            name: item?.fundname,
+            cap: item?.category,
+            type: item?.categorygroup,
+            price: item?.aum,
+            year1: item?.return1yr,
+            year3: item?.return3yr,
+            year5: item?.return5yr,
+            rating: item?.ratingoverall,
+            // morning_star_logo?: string,
+          }
+          arrFilteredData.push(obj);
+          // return obj;
+        }
+      });
+      console.log(arrFilteredData, "arrFilteredData home.tsx")
+      setCompanyCardLocal(arrFilteredData);
+    }
   }
 
 
@@ -261,17 +306,35 @@ const Home = () => {
     }
 
     let objLocationData = {};
+    // switch (strNavigationScreenName) {
+    //   case "sipInvestment": {
+    //     objLocationData = {
+    //       cardType: globalConstant.SIP_INVESTMENT
+    //     }
+    //     break;
+    //   }
+    //   case "oneTimeInvestment": {
+    //     objLocationData = {
+    //       cardType: globalConstant.LUMPSUM_INVESTMENT
+    //     }
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
     switch (strNavigationScreenName) {
-      case "sipInvestment": {
-        objLocationData = {
-          cardType: globalConstant.SIP_INVESTMENT
-        }
+      case "startAnSip": {
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT);
+        dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
         break;
       }
-      case "oneTimeInvestment": {
-        objLocationData = {
-          cardType: globalConstant.LUMPSUM_INVESTMENT
-        }
+      case "investNow": {
+        dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
+        // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
+        // objLocationData = {
+        //   cardType: globalConstant.LUMPSUM_INVESTMENT
+        // }
         break;
       }
       default:
@@ -299,7 +362,7 @@ const Home = () => {
           <Grid className="HomeBgHead" container sx={{ height: "100vh", overflow: "scroll" }} xs={12} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={7} lg={8}>
               <Toolbar />
-              <Grid container sx={{marginTop:{xs:"-50px", sm:"0px"}}}>
+              <Grid container sx={{ marginTop: { xs: "-50px", sm: "0px" } }}>
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                 </Grid>
@@ -335,10 +398,13 @@ const Home = () => {
               </Box>
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
-                <Typography onClick={() => navigate('/explorefunds')} style={{ cursor: "pointer" }} className='textLink'>View All</Typography>
+                <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
               </Box>
               {
-                companyCardsLocal.map((item, index) => {
+                companyCardsLocal &&
+                companyCardsLocal.length &&
+                companyCardsLocal.map((item: any, index: number) => {
+                  { console.log(item) }
                   return (
                     <CompanyFundCard
                       key={index}
