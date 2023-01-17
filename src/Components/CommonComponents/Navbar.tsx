@@ -157,6 +157,10 @@ const Navbar = () => {
     // const userEmail: string | null = localStorage.getItem(siteConfig.USER_EMAIL);
 
     const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
+    const [profileImage2,setProfileImage2] = useState<any>("")
+    const g_profileImagge: any = useSelector((state: any) => state?.globalReducer?.profileimage);
+
+    console.log("upload image api response",g_profileImagge)
 
     const [objUserDetail, setObjUserDetail]: any = useState<any>({
         userName: localStorage.getItem(siteConfig.USER_NAME),
@@ -173,6 +177,13 @@ const Navbar = () => {
             })
         };
     }, [g_profileData?.userdetails]);
+
+    // useEffect(()=>{
+    //     let image = localStorage.getItem("imgSrc")
+    //     console.log(image)
+    //     setProfileImage2(image)
+    //   },[])
+    //   console.log("profile image",profileImage2)
 
 
     // useEffect(() => {
@@ -207,13 +218,13 @@ const Navbar = () => {
         anchorEl ?
             setAnchorEl(null) :
             setAnchorEl(event.currentTarget)
-                   // @ts-ignore
-           let res : apiResponse = await setUploadImageThunk(ImageData)
-           console.log(res)
-           localStorage.setItem("imgSrc",imgSrc)
-           console.log(imgSrc)
-               // @ts-ignore
-             handleApiResponse(res, [setImgSrc]);
+        //            // @ts-ignore
+        //    let res : apiResponse = await setUploadImageThunk(ImageData)
+        //    console.log(res)
+        //    localStorage.setItem("imgSrc",imgSrc)
+        //    console.log(imgSrc)
+        //        // @ts-ignore
+        //      handleApiResponse(res, [setImgSrc]);
              
            };
          
@@ -256,7 +267,7 @@ const Navbar = () => {
                         <img onClick={() => navigate("/home")} src={Logo} alt="Sprint Money" style={style.image} />
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
-                        <img src={"keyImg?keyImg:Profile" } 
+                        <img src={g_profileImagge} 
                         onClick={handelResponeImage}
                         
                         alt="image" style={style.profile} />
@@ -274,7 +285,7 @@ const Navbar = () => {
                     >
                         <StyledMenuItem>
                             <Box style={style.menuContainer}>
-                                <img src={"keyImg?keyImg:Profile"} alt="image" style={style.profileInter} />
+                                <img src={g_profileImagge} alt="image" style={style.profileInter} />
                             
                                 <Typography className='mediumButtonText'>{objUserDetail?.userName ? objUserDetail?.userName : ""}</Typography>
                                 <Typography className="caption">{objUserDetail?.userEmail ? objUserDetail?.userEmail : ""}</Typography>
