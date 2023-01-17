@@ -59,6 +59,7 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import Card from "@mui/material/Card";
 import { InsuranceCard } from "../../Modal/InsuranceCard";
 import ModalGotit from "./ModalGotit";
+import "./insurance.css"
 
 const style = {
   main: {
@@ -435,15 +436,19 @@ const HealthInsurance = () => {
           <Grid container sx={{padding:"9px"}}>
             <Grid
               sx={{
-                height: { xs: "auto", sm: "inherit" },
-                padding: 2,
-                boxSizing: "border-box",
+              
+             
+            
                 overflow: { sx: "auto", sm: "scroll" },
                 paddingLeft: {
                   xs: "15px",
                   sm: "105px !important",
                   md: "245px !important",
                 },
+                height: "100vh",
+                 padding: 0,
+                  boxSizing: "border-box"
+                   
               }}
               item
               xs={12}
@@ -481,7 +486,8 @@ const HealthInsurance = () => {
                   container
                   rowSpacing={1}
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  sx={{ paddingLeft: "30px" }}
+                  sx={{ paddingLeft: "30px",marginTop:"-3%" }}
+                  className="healthinsuranceStyle"
                 
                 >
                   <Grid item xs={12} sm={6}>
@@ -490,7 +496,10 @@ const HealthInsurance = () => {
                         padding: "30px -8px",
                         paddingTop: "60px",
                         width: "100%",
+                        marginTop:"-1px"
                       }}
+
+                    
                     >
                       <div className={classes.termInsuranceCard}>
                         <div
@@ -523,6 +532,7 @@ const HealthInsurance = () => {
                             display: "inline-block",
                             fontWeight: 500,
                           }}
+                          className="WhitwSpace_remove"
                         >
                           Term Insurance
                         </b>
@@ -569,7 +579,7 @@ const HealthInsurance = () => {
                       </div>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className="SecHealthStyleBox">
                     <Box
                       sx={{
                         padding: "30px 7px",
