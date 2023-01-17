@@ -460,7 +460,7 @@ function ULIPFound() {
                     />
                   </Grid>
                   <Grid xs={5} md={5}>
-                    <div style={{ marginLeft: "-57%", marginTop: "2%" }}>
+                    <div style={{ marginLeft: "-57%", marginTop: "2%" }} className="Savercombo">
                       <b style={{ color: "#3c3e42", fontSize: "16px" }}>
                         SprintMoney cost saver combo
                         <Typography
@@ -476,7 +476,7 @@ function ULIPFound() {
                     </div>
                   </Grid>
                   <Grid xs={3} md={3}>
-                    <Box style={{ textAlign: "right" }}>
+                    <Box style={{ textAlign: "right" }} className="Amountstyle">
                       <Box
                         style={{
                           display: "flex",
@@ -591,9 +591,11 @@ function ULIPFound() {
                       alt=""
                       src={hdfcErgo}
                       style={style.ca}
+                    
                       sx={{ marginLeft: "25px" }}
                     />
                     <b
+                    className="HdfcStyle"
                       style={{
                         color: "#3c3e42",
                         fontSize: "16px",
@@ -605,8 +607,10 @@ function ULIPFound() {
                     </b>
                   </Box>
 
-                  <div style={{ marginTop: "-2%", marginLeft: "3%" }}>
-                    <Grid container spacing={1} sx={{ paddingLeft: "7%" }}>
+                  <div style={{ marginTop: "-2%", marginLeft: "3%",flexDirection:"row",flexWrap:'wrap' }}
+               
+                  >
+                    <Grid container spacing={1} sx={{ paddingLeft: "7%" }}    className="DonetickStyle">
                       <Grid item xs={2} md={2}>
                         <Box
                           style={{
@@ -620,6 +624,7 @@ function ULIPFound() {
                           />
                           <Typography
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
+                            className="textfontSize"
                           >
                             Renewal Bonus : 50%
                           </Typography>
@@ -636,6 +641,7 @@ function ULIPFound() {
                           />
                           <Typography
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
+                            className="textfontSize"
                           >
                             Coverage for Covid-19 : Yes
                           </Typography>
@@ -670,6 +676,7 @@ function ULIPFound() {
                           />
                           <Typography
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
+                            className="textfontSize"
                           >
                             Cashless Hospitals : 125
                           </Typography>
@@ -686,6 +693,7 @@ function ULIPFound() {
                           />
                           <Typography
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
+                            className="textfontSize"
                           >
                             Organ Donor Expenses : Available
                           </Typography>
@@ -716,7 +724,7 @@ function ULIPFound() {
                                 <Grid item xs={12} md={12}>
                                   <Button
                                     // disabled={showSubmit}
-
+                                      className="KnowMoreButtonStyle"
                                     sx={{
                                       width: "158px",
                                       height: "42px",
@@ -732,6 +740,7 @@ function ULIPFound() {
                                       }}
                                     />
                                     <Typography
+                                   
                                       sx={{
                                         fonSize: "11px",
                                         fontWeight: "500",
@@ -763,11 +772,13 @@ function ULIPFound() {
                             container
                             sx={{ paddingLeft: "50%", marginTop: "-5%" }}
                           >
-                            <Grid item xs={12} md={12} textAlign="right">
+                            <Grid item xs={12} md={6} textAlign="right">
                               <div
                                 style={{ marginLeft: "25%", marginTop: "-5%" }}
+                                className="BasePlanStyle"
                               >
                                 <Box
+                                  className="BasePlanStyle-Style"
                                   sx={{
                                     width: "281px",
                                     height: "113px",
@@ -822,6 +833,7 @@ function ULIPFound() {
                                       marginTop: "-28%",
                                       paddingRight: "8%",
                                     }}
+                                    className="Supertopupstyle"
                                   >
                                     <Box textAlign="right">
                                       <b
