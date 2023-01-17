@@ -644,7 +644,7 @@ function NetBanking() {
               xs={4}
             >
               <Box
-                sx={{ margin: "12px 0px 8px 73px" }}
+                sx={{ margin:{xs:"12px 0px 8px 60px", sm:"12px 0px 8px 73px"} }}
                 onClick={() => setOpenBankAccmodal(false)}
               >
                 <ClearIcon />
