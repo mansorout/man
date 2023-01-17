@@ -1,4 +1,4 @@
-import { SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING,SET_COMMON_MSG,SET_MASTER_FUND_LIST } from "../constants/global-constants";
+import { SET_CITY_LIST, SET_INCOMESLAB_LIST, SET_STATE_LIST, SET__DISABLE_BUTTON, SET__LOADING,SET_COMMON_MSG,SET_MASTER_FUND_LIST,SET_PROFILE_IMAGE } from "../constants/global-constants";
 
 const initialState: any = {
   disableButtonDuringApiFetching: false,
@@ -7,7 +7,8 @@ const initialState: any = {
   cityList: [],
   incomeSlabList: [],
   commonmsg: "",
-  explorefundlist:[]
+  explorefundlist:[],
+  profileimage:""
 
   
 }
@@ -41,6 +42,11 @@ const globalReducer = (state = initialState, action: any) => {
     }
     case SET_MASTER_FUND_LIST  :{
       state.explorefundlist=action.payload
+      break;
+    }
+
+    case SET_PROFILE_IMAGE :{
+      state.profileimage=action.payload
       break;
     }
     default:
