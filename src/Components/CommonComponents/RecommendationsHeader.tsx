@@ -39,7 +39,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         position: 'relative',
     },
     rupeesIcon:{
-        fontSize:"16px",
+        fontSize:"16px !important",
     }, 
     inputWrapper: {
         position: 'absolute',
@@ -94,6 +94,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& svg': {
             color: 'var(--uiWhite)',
+            fontSize:"16px !important"
         },
         '& input': {
             color: 'var(--uiWhite)',
@@ -215,7 +216,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     return (
         <Box className={classes.recommendationsHeaderBox}>
             <Grid container>
-                <Grid xs={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
+                <Grid xs={7} sm={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
                     <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect +" "+ "dropdownSlect"} fullWidth>
                         <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
                         <Select
@@ -234,7 +235,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid xs={6} item sx={{ padding: '15px' }}>
+                <Grid xs={5} sm={6} item sx={{ padding: '15px' }}>
                     <Box>
                         <TextField
                             label={props?.investmentTypeLabel}
