@@ -213,7 +213,7 @@ const Home = () => {
   }
 
   const getExploreFundList = async () => {
-    let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST);
+    let data: apiResponse = await getMasterFundListThunk(siteConfig.RECOMMENDATION_FUND_LIST + "?istop=true");
     if (checkExpirationOfToken(data?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -224,6 +224,51 @@ const Home = () => {
     }
 
     dispatch(setMasterFundListAction(data?.data));
+    let exploreFundData: any[] = data?.data?.data
+    if (exploreFundData && exploreFundData.length) {
+      // let arrFilteredData: any[] = exploreFundData.filter((item: any, index: number) => index < 3);
+
+      //   {
+      //     "fundname": "DSP Midcap Reg Gr",
+      //     "return1yr": "-4.35",
+      //     "return3yr": "15.88",
+      //     "return5yr": "9.42",
+      //     "category": "Mid-Cap",
+      //     "categorygroup": "Equity",
+      //     "ratingoverall": 3,
+      //     "returnytd": "-3.69",
+      //     "secid": "F000000CBK",
+      //     "fundimage": "https://sprintbeans-static-contents.s3.ap-south-1.amazonaws.com/logos/fundlogo1.svg",
+      //     "aum": "1000.00",
+      //     "providername": "DSP Investment Managers Private Limited",
+      //     "issipenabled": 1,
+      //     "islumpsumenabled": 1,
+      //     "sipminamount": 500,
+      //     "lumpsumminamount": 500
+      // }
+      let arrFilteredData: any[] = []
+      exploreFundData.forEach((item: any, index: number) => {
+        let obj = {};
+        if (index < 3) {
+          obj = {
+            logo: item?.fundimage,
+            name: item?.fundname,
+            cap: item?.category,
+            type: item?.categorygroup,
+            price: item?.aum,
+            year1: item?.return1yr,
+            year3: item?.return3yr,
+            year5: item?.return5yr,
+            rating: item?.ratingoverall,
+            // morning_star_logo?: string,
+          }
+          arrFilteredData.push(obj);
+          // return obj;
+        }
+      });
+      console.log(arrFilteredData, "arrFilteredData home.tsx")
+      setCompanyCardLocal(arrFilteredData);
+    }
   }
 
 
@@ -351,10 +396,13 @@ const Home = () => {
               <Toolbar />
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
-                <Typography onClick={() => navigate('/explorefunds')} style={{ cursor: "pointer" }} className='textLink'>View All</Typography>
+                <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
               </Box>
               {
-                companyCardsLocal.map((item, index) => {
+                companyCardsLocal &&
+                companyCardsLocal.length &&
+                companyCardsLocal.map((item: any, index: number) => {
+                  { console.log(item) }
                   return (
                     <CompanyFundCard
                       key={index}
