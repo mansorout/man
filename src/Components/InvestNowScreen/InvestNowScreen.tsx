@@ -516,6 +516,7 @@ console.log(e.target.value)
     if(!amount){
       setError("Please enter amount!");
       return;
+      
     }
 
     if(amount < 5000){
