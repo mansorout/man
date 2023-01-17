@@ -177,6 +177,62 @@ export const getListOfPortfolioThunk = async (strUrl: string) => {
   return res;
 }
 
+export const getReportsPortfolioThunk = async () => {
+  let res: any;
+
+  await getData(
+    siteConfig.PAYMENT_REPORT_PORTFOLIO,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.PAYMENT_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
+
+export const getReportsCapitalgainThunk = async () => {
+  let res: any;
+
+  await getData(
+    siteConfig.PAYMENT_REPORT_CAPITALGAIN,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.PAYMENT_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
+
+export const getReportsTransactionThunk = async () => {
+  let res: any;
+
+  await getData(
+    siteConfig.PAYMENT_REPORT_TRANSACTION,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.PAYMENT_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+      res = data;
+    }).catch(err => {
+      console.log(err)
+      return undefined;
+    })
+
+  return res;
+}
 
 export const setVerifyUpiIDThunk = async (objBody: any) => {
   let objHeaders: any = {
