@@ -40,7 +40,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     rupeesIcon:{
         fontSize:"16px",
-    },
+    }, 
     inputWrapper: {
         position: 'absolute',
         top: '-180%',
@@ -54,6 +54,16 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '& button': {
             fontSize: 'var(--subTitleFontSize)',
             minWidth: '110px',
+            background: "#0e0e0e2b",
+            color: "#0000007d",
+            boxShadow: "none",
+        },
+        '& button:hover': {
+            fontSize: 'var(--subTitleFontSize)',
+            minWidth: '110px',
+            background: "#0e0e0e2b",
+            color: "#0000007d",
+            boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
         }
     },
     inputWrapperActiveState: {
@@ -63,7 +73,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         margin: '0px !important',
         padding: '0px 15px !important',
         '& label': {
-            color: 'var(--uiWhite)',
+            color: 'var(--uiWhite) !important',
         },
         '& svg': {
             color: 'var(--uiWhite)',
@@ -80,7 +90,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     headerInvestmentTypeInput: {
         '& label': {
-            color: 'var(--uiWhite)',
+            color: 'var(--uiWhite) !important',
         },
         '& svg': {
             color: 'var(--uiWhite)',
@@ -206,7 +216,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
         <Box className={classes.recommendationsHeaderBox}>
             <Grid container>
                 <Grid xs={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
-                    <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect} fullWidth>
+                    <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect +" "+ "dropdownSlect"} fullWidth>
                         <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
