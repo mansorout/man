@@ -585,6 +585,7 @@ const HealthInsurance = () => {
                         padding: "30px 7px",
                         paddingTop: "60px",
                         width: "100%",
+                        
                       }}
                     >
                       <div
