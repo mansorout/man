@@ -90,7 +90,7 @@ const objLumSomeInvestmentData = Object.freeze({
     ]
   },
   disadvantages: {
-    heading: "Disadvantage of Lump Sum Investment",
+    heading: "Disadvantage of Lump sum investment",
     features: [
       {
         heading: "Undisciplined Investment",
@@ -104,10 +104,11 @@ const objLumSomeInvestmentData = Object.freeze({
       },
     ],
     cards: [{
-      heading: "Know where to invest,",
+      heading: "Know where to invest",
       subHeading: "Lump sum or SIP",
       className: "lsDisdvantageCardOne",
-      img: "./assets/images/piggy.svg"
+      img: "./assets/images/piggy.svg",
+      button:"see comparison",
       // img:"./assets/images/lumpsum-ad-banner-3.svg"
     }]
   },
@@ -373,7 +374,7 @@ const StartInvestment = () => {
         setActiveButton(enumType.MONTHLY_INCOME);
         dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
         getinvestmentTypeListDataWrtLookupId(investmentTypeValues.SIP);
-        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT)
+        localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT);
       } else if (cardType === globalConstant.LUMPSUM_INVESTMENT) {
         setActiveButton(enumType.ONE_TIME_LUMSOM);
         dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
@@ -677,7 +678,10 @@ const MultipleInvestmentHandling = (props: IProps) => {
             <Typography style={{ color: "white", fontSize: "22px", fontWeight: "500", margin: "10px" }}>{props?.data?.cardDetails?.heading}</Typography>
             <Typography className='textDescCard' style={{ maxWidth: "70%", display: "flex", flexWrap: "wrap", color: "white", fontSize: "16px", margin: "10px" }}>{props?.data?.cardDetails?.description}</Typography>
             <Box className={classes.flex + " " + classes.flexColumn} style={{ alignItems: "flex-start", margin: "10px" }}>
-              <Button variant="contained" className={classes.button} sx={{ backgroundColor: "#000", height: "30px", }} fullWidth>Invest Now</Button>
+            <Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth sx={{ marginTop: { xs: "2%", sm: "unset" } }}>
+            <Typography component="span" className={classes.text} >Invest Now</Typography>
+          </Button>
+              {/* <Button variant="contained" className={classes.button} sx={{ backgroundColor: "#000", height: "30px", }} fullWidth>Invest Now </Button> */}
             </Box>
             <ImageListItem className='CardImageinvest' sx={{
               display: { xs: "flex", sm: "block" },
@@ -728,8 +732,15 @@ const MultipleInvestmentHandling = (props: IProps) => {
                 return (
                   <Box sx={style.container} key={cardIndex} className={cardItem?.className} >
                     <Box sx={{padding: { xs: "20px 10px", sm: "60px 30px" }}}>
-                      <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
+                      {
+                        cardItem?.className ==="lsAdvantageCardTwo"?<>
+                        <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.heading} </Typography>
+                      <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.subHeading}</Typography>
+                        </>:<>
+                        <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading} </Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
+                        </>
+                      }
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
                     </Box>
@@ -786,10 +797,20 @@ const MultipleInvestmentHandling = (props: IProps) => {
                 return (
                   <Box sx={style.container} key={cardIndex} className={cardItem?.className}>
                     <Box sx={{padding: { xs: "20px 10px", sm: "60px 30px" }}}>
+                      {cardItem?.className==="miDisadvantageCardOne"?<>
                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.subHeading}</Typography>
                       <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.heading}</Typography>
+                      </>:
+                      <>
+                       <Typography style={{ color: "white", fontSize: "18px" }}>{cardItem?.heading}</Typography>
+                      <Typography style={{ color: "white", fontSize: "32px", fontWeight: "500" }}>{cardItem?.subHeading}</Typography>
+                      </>
+                      }
                       <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.description}</Typography>
-                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price}</Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.price} </Typography>
+                      <Typography style={{ color: "white", fontSize: "16px" }}>{cardItem?.button?<><Button variant="contained" className={classes.button} style={{ backgroundColor: "#23db7b" }} fullWidth sx={{ marginTop:"10px" }}>
+            <Typography component="span" className={classes.text} >{cardItem?.button}</Typography>
+          </Button></>:null} </Typography>
                     </Box>
                     <Box sx={{
                       // display: { xs: "flex", sm: "none", md: "block" },

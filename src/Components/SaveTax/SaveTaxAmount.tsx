@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Modal, Theme, Typography,Breadcrumbs, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -40,7 +40,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     blueBoxWithoutBorder: {
         backgroundColor: 'var(--ui1Color)',
         padding: '15px',
-        margin: '0px -16px',
+        margin: '0px -25px',
+        '@media(max-width: 500px)': {
+            margin: '0px 0px',
+        }
     },
     blueBoxIconBox: {
         width: '64px',
@@ -69,7 +72,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         backgroundColor: 'var(--uiWhite)',
         // backgroundColor: '#000',
         boxShadow: 'var(--themeShadow)',
-        padding: '15px',
+         paddingTop: '15px',
         borderRadius: '8px',
     },
     investmentField: {
@@ -296,13 +299,36 @@ const SaveTaxAmount = () => {
 
     return (
         <Box style={{ width: "100vw" }}>
-            <Navbar />
-            <Box className={classes.main}>
-                <Toolbar />
-                <Sidebar />
+        <Navbar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={10} md={10}>
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' }, }} item xs={12}>
-                        <h4>I Know My Tax Liability</h4>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                      <Typography className='burgerText'> Save Tax</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Save Tax Amount</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Box className="BoxMarginLeftRight textBoxAmount">
+                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >I Know My Tax Liability</Typography>
                         <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
                             <Box className={classes.blueBoxIconBox}>
                                 <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
@@ -318,7 +344,7 @@ const SaveTaxAmount = () => {
                             </Typography>
                         </Box>
 
-                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '15px' } }}>
+                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '0px' } }}>
 
                             <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
@@ -404,11 +430,12 @@ const SaveTaxAmount = () => {
                             btnClick={handleNavigationFlow}
                             btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
                         />
+                    </Box>
                     </Grid>
                 </Grid>
-            </Box>
-
-
+            </Grid>
+          </Grid>
+          </Box>
             <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>

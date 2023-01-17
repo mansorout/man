@@ -24,7 +24,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Toolbar } from "@mui/material";
-
+import VerticalAlignBottomIcon from '@mui/icons-material/VerticalAlignBottom';
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import { ULIPList } from "../../Modal/ULIP";
@@ -34,6 +34,7 @@ import { hdfclogo } from "../../Assets";
 import InsuranceKeyFeatures from "./InsuranceKeyFeatures";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import InsuranceCoverage from "./InsuranceCoverage";
+import SouthIcon from '@mui/icons-material/South';
 import {
   RadioButtonChecked,
   RadioButtonUncheckedOutlined,
@@ -43,6 +44,8 @@ import HospitalNetwork from "./HospitalNetwork";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 
+
+const permonth= ["₹1,290 P.M"]
 function InsuranceDetails() {
   const style = {
     main: {
@@ -323,10 +326,26 @@ function InsuranceDetails() {
                     >
                       <p style={{ fontWeight: 500 }}>Total Premium</p>
                       <p style={{ fontWeight: 500 }}>₹15,688 P.A</p>
+                  
                     </div>
+                    <div
+                      style={{
+                        justifyContent: "space-between",
+                        display: "flex",
+                        flexDirection: "row",
+                        color: "#544ec8",
+                      }}
+                    >
+                    
+                
+               
+                    </div>
+                    <p style={{ fontWeight: 500 , textAlign:"right",marginTop:"-1.4%", color:"#7b7b9d",fontSize:"12px"}}>  {permonth[0]} </p>
                   </div>
                 </Grid>
+             
               </Grid>
+        
               <Box width={{ sm: "100%", md: "50%",marginTop:"-6%" }}>
                 <InsuranceCoverage />
               </Box>
@@ -460,15 +479,20 @@ function InsuranceDetails() {
                 </Box>
               </Box>
               <Box width={{ sm: "100%", md: "50%" }}>
+            
                 <Button
                   sx={{
                     width: "95%",
                     marginLeft: "16px",
                     marginBottom: "15px",
+                    color:"#23db7b"
                   }}
-                  color="success"
+               
                   variant="outlined"
                 >
+                <Box sx={{ color:"#23db7b",marginLeft:"-2px",marginTop: "10px"}}>
+            <b style={{marginTop:"12px",fontWeight:"bold"}} ><VerticalAlignBottomIcon/></b>
+                    </Box>
                   Download Brochure
                 </Button>
               </Box>

@@ -180,8 +180,8 @@ function Sip() {
                   <Box onClick={()=>{ setSelected(3); setSIPData(SIP.filter((item) => item.status == "Awaited"))}} style={{cursor:"pointer", border:`1px solid ${ selected == 3 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 3 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
                     <Typography style={{fontWeight:"500", color:`${ selected == 3 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Awaited ({SIP.filter((item) => item.status == "Awaited").length})</Typography>
                   </Box>
-                  <Box onClick={()=>{ setSelected(4); setSIPData(SIP.filter((item) => item.status == "Stoped"))}} style={{cursor:"pointer", border:`1px solid ${ selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
-                    <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Stoped ({SIP.filter((item) => item.status == "Stoped").length})</Typography>
+                  <Box onClick={()=>{ setSelected(4); setSIPData(SIP.filter((item) => item.status == "Stopped"))}} style={{cursor:"pointer", border:`1px solid ${ selected == 4 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 4 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
+                    <Typography style={{fontWeight:"500", color:`${ selected == 4 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>Stopped ({SIP.filter((item) => item.status == "Stopped").length})</Typography>
                   </Box>
                 </Box>
                 <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px",backgroundColor: "white"}}>

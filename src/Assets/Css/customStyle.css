@@ -1,5 +1,8 @@
 .investInsidePading{padding: 15px;
 }
+.BoxMarginLeftRight{
+  margin: 0 24px;
+}
 .downArrow{
   position: absolute;
     right: -9px;
@@ -85,6 +88,23 @@
   }
   .lsAdvantageCardOne p:nth-child(2){
     font-weight: 700 !important;
+  }
+  .lsAdvantageCardTwo p:nth-child(1){
+    opacity: 0.87 !important;
+    font-size: 30px !important;
+  }
+  .lsAdvantageCardTwo p:nth-child(2){
+    margin-top: -10px;
+    font-size: 22px !important;
+  }
+  .lsAdvantageCardTwo p:nth-child(3){
+    font-size: 20px !important;
+    opacity: 0.87 !important;
+  }
+  .lsAdvantageCardTwo p:nth-child(4){
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    color: #b3f4df !important;
   }
   .lsDisdvantageCardOne{
     background: #dff7ea !important;
@@ -303,8 +323,17 @@
       max-width:335px;
     }
 }
-
+@media screen and (max-width: 600px){
+  .boxBreadcrumb{
+  margin: -35px 0px 21px 25px !important;
+  position: relative;
+}
+}
 @media screen and (max-width: 480px){
+  .checkWillAppearHere{
+    padding: 10px !important;
+    font-size: 16px !important;
+  }
   .preTextfund{
     font-size: 13px !important;
   }
@@ -355,15 +384,31 @@
     .BoxPadding{
         margin:13px;
     }
+    .BoxMarginLeftRight{
+      margin: 0 13px;
+    }
     .BoxProfilePage .css-hyum1k-MuiToolbar-root{
         min-height: 50px;
     }
     .boxBreadcrumb{
-        margin: -22px 0px 21px 25px !important;
+        margin:-37px 0px 5px 17px !important;
     }
     .BoxStartInvest {
         padding: 5px 15px;
     }
+    .lsAdvantageCardOne p:nth-child(2) {
+      font-size: 18px !important;
+  }
+  .lsAdvantageCardTwo p:nth-child(1){
+    font-size: 18px !important;
+  }
+
+.lsDisdvantageCardOne p:nth-child(2) {
+  font-size: 18px !important;
+}
+.miDisadvantageCardOne  p:nth-child(2) {
+  font-size: 20px !important;
+}
     
 }
 @media screen and (max-width: 360px){
@@ -388,6 +433,13 @@
     padding: 7px 7px !important;
     font-size: 12px !important;
    }
+   .icongenderredius {
+    margin: 2px 2px !important;
+    padding: 4px 2px !important;
+}
+.fontstyle {
+  font-size: 9px !important;
+}
 }
 
 

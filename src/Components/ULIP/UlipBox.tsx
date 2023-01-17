@@ -158,7 +158,8 @@ const UlipBox = (props:any) => {
     const [merror,setMerror] = useState(false)
     const [ulipYears,setUlipYears] = useState<any>([])
     const [handlelinechart,setHandlelinechart]= useState(0)
-    const [selectedyear, setSelectedYear] = useState<any>("")
+    const [greenline,setGreenline] = useState("")
+    const [pinkline,setPinkline] = useState("")
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
@@ -233,7 +234,6 @@ const UlipBox = (props:any) => {
         const labels = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.years + 'Y')
         const investedamount = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.investedamount)
         const projectedamount = ulipReturnApiData?.map((item: getUlipReturnApiTypes) => item.projectedamount)
-        console.log(ulipReturnApiData)
 
         setChartLabels(labels)
         setChartInvestedAmount(investedamount)
@@ -286,7 +286,7 @@ const UlipBox = (props:any) => {
         ]
     };
     
-    
+    console.log(chartData?.datasets)
 
 
     const handleNavigationFlow = () => {
@@ -318,14 +318,31 @@ const UlipBox = (props:any) => {
        
     }, [])
     const hadleLineChart=(e:any)=>{
-      const set =  setSelectedYear(e.label.replace("Y",""))
-    console.log(set)
+    
+        setGreenline(e.value)
+        setPinkline(e.value)
+      
         console.log(e)
- alert("callopen")
-     setHandlelinechart(handlelinechart + 1)
+        // value.datasets.map(( item : any)=> 
+        // {
+        //     return (
+        //         console.log(item.label)
+                
+        //     )
+        // } 
+        // )
+        console.log(greenline)
+        // console.log(pinkline)
+      
+     setHandlelinechart(handlelinechart)
+     
    
      
     }
+const handleShowhover=(e:any)=>{
+console.log(e)
+}
+
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
@@ -468,16 +485,17 @@ const UlipBox = (props:any) => {
                                                             optionsValues={chartOptions}
                                                           dataValues={chartData}
                                                            onClick={hadleLineChart}
+                                                     
                                         
                                                               />
                                                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                                                                 <Box>
                                                                     <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Invested Value   </Typography>
-                                                                    {/* <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹ { console.log(ulipReturnApiData.filter((item :any) =>{ item.years == selectedyear}) ?   ulipReturnApiData.filter((item :any) => item.years == selectedyear)[0].investedamount : 0)} </Typography> */}
+                                                                    <Typography component='span' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{greenline}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography component='p' sx={{ paddingBottom: '10px', color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', }}>Projected Value</Typography>
-                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹</Typography>
+                                                                    <Typography component='span' sx={{ color: 'var(--primaryColor)', fontSize: 'var(--subHeadingFontSize)', }}>₹{pinkline} </Typography>
                                                                 </Box>
                                                             </Box>
                                                         </Box>
