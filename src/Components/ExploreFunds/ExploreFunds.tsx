@@ -384,7 +384,7 @@ function ExploreFunds(props: any) {
 
   const handleNavigationOfFundDetails = (secid: string) => {
     if (secid) {
-      navigate("/funddetails", { state: { secid: secid, parentRoute: "/customizemf" } });
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/explorefunds" } });
     } else {
       console.log(secid, "invalid secid");
     }

@@ -193,7 +193,7 @@ const PanUpdate = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'space-around',
-                            padding: '20px',
+                            padding:{xs:"10px", sm:"20px"},
                             borderRadius: '0.5vw',
                             boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                             backgroundColor: '#fff',
@@ -261,7 +261,7 @@ const PanUpdate = () => {
                         >
                             <Box sx={{
                             margin: "auto",
-                            width: "304px",
+                            // width: "304px",
                           }}>
                             <Typography style={style.footer}>
                                 By submitting these details, you agree to share your details to BSE for
