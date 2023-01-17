@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Modal, Theme, Typography ,Breadcrumbs, Link} from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -136,6 +136,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     ratingBoxImgWrapper: {
         backgroundColor: 'transparent !important',
+        marginTop:"10px"
     },
 
     modalText: {
@@ -240,11 +241,22 @@ const RecommendationsELSS = () => {
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Box className={classes.main}>
-                <Toolbar />
-                <Sidebar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' }, marginTop: '-15px', }} item xs={12}>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12} sx={{ marginTop:{xs:"-50px", sm:"0"} }}>
+                    <Box className="BoxMarginLeftRight">
                         {/* <RecommendationsELSSHeader /> */}
                         <RecommendationsHeader
                             selectTextLabel='Premium Payment Term'
@@ -263,6 +275,19 @@ const RecommendationsELSS = () => {
                             boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
                             boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                         />
+                                                <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                      <Typography className='burgerText'> Save Tax</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Recommendations ELSS</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>{saveTaxListData?.recommendations && saveTaxListData.recommendations.length} ELSS Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
@@ -277,19 +302,19 @@ const RecommendationsELSS = () => {
                                                 <Box className={classes.cardImgWrapper}>
                                                     <img style={{ width: '100%', height: 'auto' }} src={cardData?.fundimage} alt="" />
                                                 </Box>
-                                                <Box sx={{ margin: { sx: '0px', sm: '0px 8px' } }}>
+                                                <Box sx={{ margin: { xs: '10px', sm: '0px 8px' } }}>
                                                     <Typography component='p'>{cardData?.fundname}</Typography>
                                                     <Typography component='div' className={classes.cardBadge}>{cardData?.category}</Typography>
                                                     <Typography component='div' className={classes.cardBadge}>{cardData?.categorygroup}</Typography>
                                                 </Box>
                                             </Box>
                                         </Grid>
-                                        <Grid item xs={12} sm={2}>
+                                        <Grid item xs={4} sm={2}>
                                             <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
                                                 <Typography component='div'>₹{cardData?.recommendedamount}</Typography>
                                             </Box>
                                         </Grid>
-                                        <Grid item xs={12} sm={3}>
+                                        <Grid item xs={4} sm={3}>
                                             <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
                                                 <Box className={classes.cardContent}>
                                                     <Typography component='span'>1 yr return</Typography>
@@ -301,7 +326,7 @@ const RecommendationsELSS = () => {
                                                 </Box>
                                             </Box>
                                         </Grid>
-                                        <Grid item xs={12} sm={2}>
+                                        <Grid item xs={4} sm={2}>
                                             <Box>
                                                 <Box className={classes.cardContent}>
                                                     <Typography component='span'>3 yr return</Typography>
@@ -313,10 +338,11 @@ const RecommendationsELSS = () => {
                                                         <Typography component='span'>{cardData?.ratingoverall}
                                                         </Typography>
                                                     </Typography>
-                                                    <Box className={classes.ratingBoxImgWrapper}>
+                                                   
+                                                </Box>
+                                                <Box className={classes.ratingBoxImgWrapper}>
                                                         <img src={process.env.PUBLIC_URL + '/assets/images/rating-logo.webp'} alt="" />
                                                     </Box>
-                                                </Box>
                                             </Box>
                                         </Grid>
                                     </Grid>
@@ -336,9 +362,12 @@ const RecommendationsELSS = () => {
                             btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ELSS Date'}
                             btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
                         />
+                    </Box>
                     </Grid>
                 </Grid>
-            </Box>
+            </Grid>
+        </Grid>
+        </Box>
 
 
             <Dialog open={open} onClose={() => (!open)}>
