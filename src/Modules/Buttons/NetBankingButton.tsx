@@ -43,8 +43,8 @@ const NetBankingButton = (props: IProps) => {
               &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
               &nbsp;  &nbsp;  &nbsp;  &nbsp;
               <Typography sx={{
-                width: "169px",
-                marginLeft: "25%",
+                width:{xs:"123px", sm:"169px"},
+                marginLeft:{xs:"0px", sm:"25%"},
                 borderRadius: "4px",
                 boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
                 backgroundColor: "#23db7b"

@@ -31,13 +31,19 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     recommendationsHeaderBox: {
         backgroundColor: 'var(--ui1Color)',
         // padding: '15px',
-        margin: '0px -16px',
+        margin: '0px -25px',
+        '@media(max-width: 500px)': {
+            margin: '0px 0px',
+        },
         color: 'var(--uiWhite)',
         position: 'relative',
     },
+    rupeesIcon:{
+        fontSize:"16px",
+    },
     inputWrapper: {
         position: 'absolute',
-        top: '-100%',
+        top: '-180%',
         padding: '15px',
         backgroundColor: 'var(--uiWhite)',
         boxShadow: 'var(--themeShadow)',
