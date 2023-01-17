@@ -160,7 +160,7 @@ const Navbar = () => {
     const [profileImage2,setProfileImage2] = useState<any>("")
     const g_profileImagge: any = useSelector((state: any) => state?.globalReducer?.profileimage);
 
-    console.log("upload image api response",g_profileImagge)
+    // console.log("upload image api response",g_profileImagge)
 
     const [objUserDetail, setObjUserDetail]: any = useState<any>({
         userName: localStorage.getItem(siteConfig.USER_NAME),
