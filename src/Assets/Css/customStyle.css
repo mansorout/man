@@ -3,6 +3,9 @@
 .BoxMarginLeftRight{
   margin: 0 24px;
 }
+.dropdownSlect .MuiInputBase-formControl:after {
+  border-bottom: 2px solid #ffffff !important;
+}
 .downArrow{
   position: absolute;
     right: -9px;

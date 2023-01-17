@@ -56,6 +56,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         }
     },
     investToSaveTax: {
+        marginBottom:"20px",
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
