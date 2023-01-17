@@ -214,7 +214,7 @@ const ViewProfileCard = (props: IProps) => {
     }
     
     
-       //  @ts-ignore
+  //       // @ts-ignore
   //      let res : apiResponse = await setUploadImageThunk(ImageData)
   // console.log(res)
   // localStorage.setItem("imgSrc",imgSrc)
