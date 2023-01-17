@@ -46,7 +46,7 @@ export const SIP = [
         SIPDate: "15th of every month",
         type: "Equity",
         SIPAmount : '₹2,000',
-        status:"Stoped",
+        status:"Stopped",
         stopDate: "12 Nov, 2022",
     },
 ]

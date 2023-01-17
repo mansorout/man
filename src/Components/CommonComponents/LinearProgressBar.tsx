@@ -8,8 +8,8 @@ interface LinearProgressProps {
 
 const LinearProgressBar = (props: LinearProgressProps) => {
     return (
-      <Box display="flex" alignItems="center" >
-        <Box width="100%" mr={3}>
+      <Box display="flex" alignItems="center">
+        <Box width="100%" mr={3}  >
           <LinearProgress variant="determinate" {...props} />
         </Box>
         {/* <Box minWidth={35}>

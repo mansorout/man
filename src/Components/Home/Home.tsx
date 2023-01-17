@@ -393,7 +393,9 @@ const Home = () => {
               }
             </Grid>
             <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={5} lg={4}>
+              <Box sx={{marginTop:{xs:"-50px", sm:"unset"}}}>
               <Toolbar />
+              </Box>
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
                 <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
