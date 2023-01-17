@@ -13,20 +13,27 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     premiumAmountFooter: {
         backgroundColor: 'var(--uiWhite)',
-        boxShadow: 'var(--themeShadow)',
+        boxShadow: '0 0 6px 0 rgb(0 0 0 / 16%) !important',
         padding: '15px',
-        marginBottom: '-16px',
         marginLeft: '-16px',
         marginRight: '-16px',
+        position: 'fixed',
+        bottom: '0px',
+        right: '0px',
+        left: '0px !important',
+        transform:" translateX(7%)",
+        '@media(max-width: 600px)': {
+            transform: 'translateX(0%)'
+        }
     },
     premiumAmountBox: {
         backgroundColor: 'var(--lightGreenColor)',
-        padding: '45px 15px',
+        padding: '24px 15px',
         // paddingTop: '45px',
         position: 'absolute',
-        top: 'calc(-100% - 38px)',
-        zIndex: '-1',
-        borderRadius: '20px',
+        top: 'calc(-100% - 28px)',
+        zIndex: '0',
+        borderRadius: '20px 20px 0px 0px',
         textAlign: 'center',
         justifyContent: 'center',
         display: 'flex',
@@ -66,7 +73,7 @@ const FooterBtnWithBox = (props: FooterBtnWithBoxType) => {
         <Box sx={{
             position: 'relative',
             zIndex: '1',
-            marginTop: '150px',
+            marginTop: '200px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
                 <Button className={`${props?.btnDisable === true ? '': classes.bgGreenColor}`} sx={{ width: { xs: '85%', sm: '40%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props?.btnClick} disabled={props?.btnDisable}>{props?.btnText}</Button>

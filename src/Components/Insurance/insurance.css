@@ -85,6 +85,32 @@
     width: 97% !important;
     margin-left: 18px !important;
   }
+
+    .BasePlanStyle{
+    
+      margin-left: -54px !important;
+      margin-top: 30% !important;
+      }
+      .Savercombo{
+        margin-top: 3% !important;
+        margin-left: -43% !important;
+      }
+      .HdfcStyle{
+        padding-top: 5px !important;
+        padding-left: 7px !important;
+      }
+      .DonetickStyle{
+        width: calc(184% + 8px) !important;
+  
+      }
+      .KnowMoreButtonStyle{
+  
+        margin-top: 20% !important;
+      }
+      .Amountstyle{
+        margin-top: 3% !important;
+      }
+  
   /* .genderContainer{
         margin: 0 2px !important
     } */
@@ -101,6 +127,30 @@
     width: 97% !important;
     margin-left: 21px !important;
   }
+  .BasePlanStyle{
+    
+    margin-left: -54px !important;
+    margin-top: 15% !important;
+    }
+    .Savercombo{
+      margin-top: 3% !important;
+      margin-left: -43% !important;
+    }
+    .HdfcStyle{
+      padding-top: 5px !important;
+      padding-left: 7px !important;
+    }
+    .DonetickStyle{
+      width: calc(184% + 8px) !important;
+
+    }
+    .KnowMoreButtonStyle{
+
+      margin-top: 20% !important;
+    }
+    .Amountstyle{
+      margin-top: 3% !important;
+    }
 }
 @media (width: 768px) {
   /* .genderSelect{
@@ -118,6 +168,32 @@
   /* .genderContainer{
         margin: 0 2px !important
     } */
+    .BasePlanStyle{
+    
+    margin-left: -53px !important;
+    margin-top: 12% !important;
+    }
+    .Savercombo{
+      margin-top: 2% !important;
+      margin-left: -38% !important;
+    }
+    .HdfcStyle{
+      padding-top: 5px !important;
+      padding-left: 7px !important;
+    }
+    .DonetickStyle{
+      width: calc(198% + 8px) !important;
+
+    }
+    .KnowMoreButtonStyle{
+
+      margin-top: 20% !important;
+    
+    }
+    .Amountstyle{
+      margin-top: 3% !important;
+    }
+  
 }
 @media (max-width: 540px) {
   /* .genderSelect{
@@ -137,6 +213,10 @@
     width: 105% !important;
     margin-left: -12px !important;
   }
+  .BasePlanStyle{
+    
+    margin-left: -52% !important;
+    }
 
 }
 
@@ -145,6 +225,9 @@
   /* .genderSelect{
         width: 185px !important;
     } */
+    .textfontSize{
+      font-size: 12px !important;
+    }
   .progressContainer {
   
     width: 91% !important;
@@ -159,6 +242,30 @@
     width: 100% !important;
     margin-left: 2px !important;
   }
+  .KnowMoreButtonStyle{
+
+    margin-top: 40% !important;
+  }
+  .BasePlanStyle{
+    
+    margin-left: -139% !important;
+    margin-top: 10px !important;
+    }
+    .DonetickStyle{
+      margin-top: 16px !important;
+      width: calc(152% + 8px) !important;
+      margin-left: -8px !important;
+      /* padding-left: 7% !important; */
+    }
+    .Savercombo{
+      margin-top: 60% !important;
+    }
+    .Amountstyle{
+      margin-left: -46px;
+    }
+    .HdfcStyle{
+      padding-top: 16px !important;
+    }
   /* .genderContainer{
         margin: 0 2px !important
     } */
@@ -178,6 +285,33 @@
 }
 
 @media (width: 280px) {
+  .DonetickStyle {
+    margin-top: 16px !important;
+    width: calc(21% + 8px) !important;
+    margin-left: -8px !important;
+    /* padding-left: 7% !important; */
+}
+.BasePlanStyle-Style{
+  width: 226px !important;
+  height: 80px !important;
+  margin-left: -16px;
+}
+  .Savercombo{
+    margin-top: 84% !important;
+    margin-left: -38% !important;
+  }
+  .Amountstyle {
+    margin-left: -56px !important;
+    margin-top: 11px !important;
+}
+  .Gender_Logo_Style {
+    margin-left: 8% !important;
+    margin-top: 4px !important;
+}
+.Supertopupstyle{
+  margin-top: -37%;
+    padding-right: 8%;
+}
   .genderSelect {
     width: 185px !important;
   }

@@ -181,8 +181,8 @@ function ExploreFunds(props: any) {
 
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
-  const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [initialMFData, setInitialMFData] = useState<boolean>(false);
+  const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);

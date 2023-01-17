@@ -300,7 +300,7 @@ const AddMoreFundsModal = (props: any) => {
     }
   };
 
-  console.log(TFValue);
+  // console.log(TFValue);
 const handleMonthly=()=>{
     setOpenMonthlyDatePicker(true)
 }
