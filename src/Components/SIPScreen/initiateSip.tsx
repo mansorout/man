@@ -333,7 +333,7 @@ const InitiateSip = (props: IProps) => {
                               > <b style={{ color: "#6c63ff" }}>  +10,000</b>
                               </Button>
                             </Stack>
-                            <InvestButton cardType={props?.cardType} />
+                            <InvestButton cardType={props?.cardType} lumpsumPrice={undefined} />
                             <Grid container spacing={2} textAlign="center">
                               <Grid item xs={12} md={12} onClick={() => {
                                 navigate("/sipInvestment", {

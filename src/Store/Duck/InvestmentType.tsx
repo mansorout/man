@@ -8,6 +8,7 @@ export const ULIP_MONTHLY = 'ULIP_MONTHLY';
 export const ULIP_INSURANCE_AMOUNT = 'ULIP_INSURANCE_AMOUNT';
 export const INVESTMENT_AMOUNT = 'INVESTMENT_AMOUNT';
 export const SAVETAX_PERCENTAGE_AMOUNT = 'SAVETAX_PERCENTAGE_AMOUNT';
+export const ONE_TIME_LUMPSUM_AMOUNT = 'ONE_TIME_LUMPSUM_AMOUNT';
 
 const initialState: any = {
     // saveTax 
@@ -18,6 +19,11 @@ const initialState: any = {
     // insurance ulip
     ulipInsuranceType: '',
     ulipInsuranceAmount: '0',
+
+    //ONETIMELUMPSUM
+     onetimeLumpsumType:'',
+     onetypeLumpsumAmount : '0'
+
 }
 
 export const InvestmentTypeReducers = (state: any = initialState, action: any): any => {
@@ -61,11 +67,17 @@ export const InvestmentTypeReducers = (state: any = initialState, action: any): 
                 ...state,
                 ulipInsuranceAmount: action.payload,
             }
+            case  ONE_TIME_LUMPSUM_AMOUNT :
+                return {
+                    ...state,
+                    onetypeLumpsumAmount: action.payload,
+                }
 
         default:
             return state
             break;
     }
+
 }
 
 // saveTax
@@ -119,4 +131,11 @@ export const insuranceUlipAmount = (props: string) => async (dispatch: Dispatch<
         type: ULIP_INSURANCE_AMOUNT,
         payload: props
     });
+}
+//onetimelumpsum
+export const onetimeLumpsumamount = (props: any) => {
+   return {
+        type: ONE_TIME_LUMPSUM_AMOUNT,
+        payload: props
+    };
 }

@@ -40,7 +40,19 @@ import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, Lis
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
 import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, rightsign, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
 import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
-
+import { onetimeLumpsumamount, ONE_TIME_LUMPSUM_AMOUNT } from '../../Store/Duck/InvestmentType';
+import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
+import { ulipReturnApiParamsTypes } from '../../Store/Insurance/constants/types';
+// const { ulipInsuranceType, onetypeLumpsumAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
+import {
+  SaveTaxInvestmentAmount,
+  ULIP_LUMPSUM,
+  ULIP_MONTHLY,
+  ULIP_INSURANCE_AMOUNT,
+  insuranceUlipLumpsumAction,
+  insuranceUlipMonthlyAction,
+  insuranceUlipAmount,
+} from '../../Store/Duck/InvestmentType';
 type IProps = {
   cardType: string;
   heading: string;
@@ -363,6 +375,14 @@ const enumPriceTag = {
 
 function InvestNowScreen(props: IProps) {
 
+  const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
+
+  const handleTimerLumpsum = (cb: any | void, a: any) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+        dispatch(cb(a));
+    }, 550);
+}
   const classes = useStyles();
   const refContainer = useRef();
   const navigate = useNavigate();
@@ -381,7 +401,7 @@ function InvestNowScreen(props: IProps) {
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
-  
+  const [amountMutipleofH, setAmountMutipleofH] = useState<any>()
   const chartDataDetails: any = useMemo(() => {
     return {
       labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
@@ -417,6 +437,15 @@ function InvestNowScreen(props: IProps) {
     let val = amount + nAmount;
     handleTimer(getExpectedFundReturnList, val);
   }
+//   useEffect(() => {
+//     const urlTemp: ulipReturnApiParamsTypes = {
+//         frequencytype: investmentType === ONE_TIME_LUMPSUM_AMOUNT ? '0' : '1',
+//         amount: onetypeLumpsumAmount,
+//     }
+//     console.log(urlTempreture)
+
+//     dispatch(getUlipReturnApi(urlTempreture))
+// }, [onetypeLumpsumAmount])
 
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
@@ -426,8 +455,12 @@ function InvestNowScreen(props: IProps) {
   }
 
   const handleOnChangeAmount = (e: any) => {
+    setAmountMutipleofH(e.target.value)
+    console.log(amountMutipleofH)
     let { value } = e?.target;
-
+    handleTimerLumpsum(onetimeLumpsumamount, e.target.value)
+console.log(onetimeLumpsumamount)
+console.log(e.target.value)
     setAmount(value && value.length ? parseInt(value) : 0);
 
     // if (amount  > arrPriceList[0] - 1) {
@@ -577,7 +610,7 @@ function InvestNowScreen(props: IProps) {
                               }}
                               placeholder="1,00,000"
                               // name="amount"
-                              value={amount || ""}
+                              value={amount || amountMutipleofH || ""}
                               onChange={handleOnChangeAmount}
                               sx={{
                                 margin: " -55px 0 20px",
@@ -687,6 +720,8 @@ function InvestNowScreen(props: IProps) {
                             <InvestButton 
                               cardType={props?.cardType}
                               saveMutualFundGenerate={(id, path)=> saveMutualFundGenerate(id, path)}
+                              lumpsumPrice={amountMutipleofH}
+                          
                              />
                             <Grid container spacing={2} textAlign="center">
                               <Grid item xs={12} md={12} onClick={()=> {
