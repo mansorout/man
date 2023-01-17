@@ -23,6 +23,9 @@ import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/
 import { useDispatch } from 'react-redux'
 import siteConfig from '../../Utils/siteConfig'
 import { getListOfPortfolioThunk, getListOfTrasanctionDoneThunk } from '../../Store/Payments/thunk/payments-thunk'
+import { setPortfolioListDataInHoldingsAction } from '../../Store/Payments/actions/payments-action'
+import { Doughnut } from 'react-chartjs-2'
+import { CircularBar } from '../CommonComponents/Charts/CircularBar'
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -317,6 +320,8 @@ function Portfolio() {
   const [variableFundList, setVariableFundList] = useState<any[]>([]);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
+  const [holdingGraph, setHoldingGraph] = useState<any>({})
+
 
   useEffect(() => {
     getCategoryGroupList();
@@ -355,10 +360,29 @@ function Portfolio() {
 
 
     // @ts-ignore
-    handleApiResponse(res?.data, [setFundList]);
-    // let data: any[] = [initialHoldingListAlternative, initialHoldingListBalanced, initialHoldingListCommodities, initialHoldingListDebt, initialHoldingListEquity, initialHoldingListFixedIncome]
+    handleApiResponse(res?.data?.holdinglist, [setFundList]);
+
+    // @ts-ignore
+    handleApiResponse(res?.data?.holdings, [setHoldingGraph]);
+    let data: any[] = [initialHoldingListAlternative, initialHoldingListBalanced, initialHoldingListCommodities, initialHoldingListDebt, initialHoldingListEquity, initialHoldingListFixedIncome]
+    let graphData: any = {
+      totalinvestedvalue: 400000,
+      XIRR: "string",
+      absolutereturninpercent: "19",
+      absolutereturn: "19000",
+      totalcurrentvalue: "500000",
+      assetallocation: {
+        equity: "30",
+        debt: "30",
+        balanced: "30",
+        other: "10"
+      }
+    }
+
     // @ts-ignore
     // handleApiResponse(data, [setFundList]);
+    // @ts-ignore
+    // handleApiResponse(graphData, [setHoldingGraph]);
   }
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
@@ -385,11 +409,12 @@ function Portfolio() {
   }
 
   const handleVariableFundList = (fundList: any[] | null) => {
-    if (fundList == null) {
+    if (!fundList) {
       setMessage("You have not started your investment journey yet!");
       return;
     }
 
+    dispatch(setPortfolioListDataInHoldingsAction(fundList));
     setVariableFundList(fundList);
   }
 
@@ -442,6 +467,7 @@ function Portfolio() {
                       </> :
                       <>
                         {
+                          // true ?
                           variableFundList &&
                             variableFundList.length ?
                             <>
@@ -450,7 +476,15 @@ function Portfolio() {
                                 <Grid container padding={2}>
                                   <Grid item sm={5} xs={12} style={{ display: "flex", alignItems: "center", gap: "40px", justifyContent: "center" }}>
                                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px" }}>
-                                      <img src={chart} alt="chart" width="240px"></img>
+                                      {/* <img src={chart} alt="chart" width="240px"></img> */}
+                                      {
+                                        holdingGraph?.assetallocation ?
+                                          <CircularBar
+                                            progressData={holdingGraph?.assetallocation}
+                                          />
+                                          : null
+                                      }
+
                                       <Box>
                                         <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                                           <Box style={{ padding: "6px", backgroundColor: "#23db7b", borderRadius: "50%" }}></Box>
@@ -478,15 +512,15 @@ function Portfolio() {
                                   <Box style={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px", justifyContent: "space-between" }}>
                                     <Box style={{ width: "40%", minWidth: "200px" }}>
                                       <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹5,01,000</Typography>
+                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalinvestedvalue}</Typography>
                                     </Box>
                                     <Box style={{ width: "40%", minWidth: "200px" }}>
                                       <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹5,96,190</Typography>
+                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalcurrentvalue}</Typography>
                                     </Box>
                                     <Box style={{ width: "40%", minWidth: "200px" }}>
                                       <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
-                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹19,190</Typography>
+                                      <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.absolutereturn}</Typography>
                                     </Box>
                                   </Box>
                                   <Button variant="contained" style={style.button2} fullWidth>
@@ -537,22 +571,25 @@ function Portfolio() {
                                         key={index}
                                         logo={item?.fundimage}
                                         name={item?.fundname}
-                                        cap={item?.categorygroup}
-                                        type={item?.category}
-                                        price={item?.currentvalue}
+                                        cap={item?.category}
+                                        type={item?.categorygroup}
+                                        price={item?.units}
                                         invested={item?.investedvalue}
-                                        // year3={item?.}
-                                        year3={""}
-                                        // current={ item?.}
-                                        current={"1,46,232"}
-                                        // year5={ item?.}
-                                        year5={"4,214"}
-                                        // absolute={item?.}
-                                        absolute={""}
-                                        // margin={ item?.}
-                                        margin={"03.36"}
-                                        // result={ item?.}
-                                        result={"loss"}
+                                        current={item?.currentvalue}
+                                        absolute={item?.absolutereturn}
+                                        absoluteReturnInPercent={item?.absolutereturninpercent}
+                                        result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
+
+
+                                      // year3={item?.}
+                                      // year3={""}
+                                      // current={ item?.}
+                                      // absolute={item?.}
+                                      // year5={ item?.}
+                                      // year5={""}
+                                      // margin={ item?.}
+                                      // margin={"03.36"}
+                                      // result={ item?.}
 
 
                                       //  fundname: "fundname",
