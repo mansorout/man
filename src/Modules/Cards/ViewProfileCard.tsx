@@ -36,6 +36,7 @@ import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
 import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
+import { setProfileImage } from "../../Store/Global/actions/global-actions";
 
 const style = {
   containertwo: {
@@ -48,13 +49,13 @@ const style = {
   cameraIcon: {
     borderRadius: "170px 175px 175px 163px",
 
-    width: "53px",
-    height: "53px",
+    width: "76px",
+    height: "76px",
     marginLeft: "auto",
     marginRight: "auto",
-    padding: "15px",
+    padding: "1px",
     boxShadow: "0 0 10px 0 rgb(0 0 0 / 8%)",
-    border: "solid 1px rgba(0, 0, 0, 0.08)",
+    // border: "solid 1px rgba(0, 0, 0, 0.08)",
     display: "block",
     marginTop: "20px",
     marginBottom: "30px",
@@ -128,6 +129,8 @@ const ViewProfileCard = (props: IProps) => {
   /**local states */
   const [imgSrc, setImgSrc] = useState<any>("");
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
+  // const [profileImage,setProfileImage] = useState<any>("")
+  const [profileImage2,setProfileImage2] = useState<any>("")
   const ImageData = {
     filename: "kk",
     image: "wwww.png",
@@ -195,34 +198,59 @@ const ViewProfileCard = (props: IProps) => {
   //   console.log(imgSrc)
 
   // }
-   const onSelectFile =(e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     // alert("jjjj")
     if (e.target.files && e.target.files.length > 0) {
       // alert("h")
-        const reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = (fileLoadedEvent: any) => {
-        let base64 = fileLoadedEvent.target.result;
-        
+        let base64:any = fileLoadedEvent.target.result;
+        // setProfileImage(base64)
+
         console.log(base64)
-        localStorage.setItem("imgSrc",base64)
-       let image =  localStorage.getItem("imgSrc")
+
+        dispatchLocal(setProfileImage(base64));
+
+        
+        localStorage.setItem("imgSrc", base64)
+
+
+
+
+        
+        //  console.log(image)
+       
 
         setImgSrc(base64);
-       
+
       };
       reader.readAsDataURL(e.target.files[0]);
     }
+
+
     
-    
-  //       // @ts-ignore
-  //      let res : apiResponse = await setUploadImageThunk(ImageData)
-  // console.log(res)
-  // localStorage.setItem("imgSrc",imgSrc)
-  // console.log(imgSrc)
-  //     // @ts-ignore
-  //   handleApiResponse(res, [setImgSrc]);
-    
+
+
+    //  @ts-ignore
+    //      let res : apiResponse = await setUploadImageThunk(ImageData)
+    // console.log(res)
+    // localStorage.setItem("imgSrc",imgSrc)
+    // console.log(imgSrc)
+    //     @ts-ignore
+    //   handleApiResponse(res, [setImgSrc]);
+
   };
+
+   
+  // upload image setten in a state
+
+  useEffect(()=>{
+    let image = localStorage.getItem("imgSrc")
+    console.log(image)
+    setProfileImage2(image)
+  },[])
+  console.log("profile image",profileImage2)
+
 
   // @ts-ignore
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
@@ -267,16 +295,16 @@ const ViewProfileCard = (props: IProps) => {
   // };
 
   return (
-    
+
     <>
-   
+
       <Card
         sx={{
           p: 1,
           marginTop: "0px",
           height: " fit-content",
         }}
-        // className="paddingviewprofilestyle"
+      // className="paddingviewprofilestyle"
       >
         {" "}
         <Box>
@@ -296,6 +324,7 @@ const ViewProfileCard = (props: IProps) => {
               />
             </Box>
             <Typography
+            onClick={()=>alert()}
               sx={{
                 color: "#6c63ff",
                 textAlign: "center",
@@ -384,7 +413,7 @@ const ViewProfileCard = (props: IProps) => {
                       fontSize: "14px",
                       color: formData.dateofbirth || "" ? "#7b7b9d" : "#3c3e42",
                     }}
-                    // className="CommonStyle__Classofb_Date"
+                  // className="CommonStyle__Classofb_Date"
                   >
                     Date of Birth
                   </Typography>
@@ -431,7 +460,7 @@ const ViewProfileCard = (props: IProps) => {
                   fontSize: "13px",
                   color: formData.placeofbirth ? "#7b7b9d" : "#3c3e42",
                 }}
-                // className="CommonStyle__Class"
+              // className="CommonStyle__Class"
               >
                 Place of Birth
                 {/* {

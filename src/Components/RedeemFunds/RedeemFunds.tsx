@@ -310,13 +310,13 @@ function RedeemFunds() {
 
 
 
-                                        <Link color="#6495ED" underline="always" href="/portfolio">
+                                        <Link color="#6495ED" underline="always" onClick={()=>navigate('/portfolio')}>
                                             <Typography className='burgerText'> Portfolio</Typography>
                                         </Link>
 
 
 
-                                        <Link underline="always" >
+                                        <Link color="#919eb1" underline="none" >
                                             <Typography className='burgerText'>Redeem Fund</Typography>
 
                                         </Link>
@@ -389,7 +389,7 @@ function RedeemFunds() {
                                                                             textAlign: " left",
                                                                             color: " #3c3e42"
                                                                         }}
-                                                                    >Redemption type</Typography>
+                                                                    >Redemption Type</Typography>
                                                                 </Grid>
                                                                 <Grid item xs={7} sm={3} sx={{
                                                                     textAlign: " center",
@@ -412,7 +412,7 @@ function RedeemFunds() {
                                                                 <Grid item xs={6}>
                                                                     <Typography sx={{
                                                                         height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42"
-                                                                    }}>Redemption by</Typography>
+                                                                    }}>Redemption By</Typography>
                                                                 </Grid>
 
                                                                 <Grid item xs={12} sx={{ display: "flex", marginTop: "8px" }}>

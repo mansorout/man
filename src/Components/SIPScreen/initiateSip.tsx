@@ -22,10 +22,12 @@ import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton';
 import OtpInput from 'react-otp-input'
 import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { globalConstant } from '../../Utils/globalConstant';
+import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
 import ModalInvestNow from '../InvestNowScreen/ModalInvestNow';
 import { InvestButton } from '../../Modules/Buttons/InvestButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
+import siteConfig from '../../Utils/siteConfig';
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -220,27 +222,29 @@ const InitiateSip = (props: IProps) => {
             <Toolbar />
             <Sidebar />
           </Grid>
-            <Grid item xs={12} sm={10} md={10}>
-            <Grid item xs={12} sm={10} md={10} sx={{ height: "100vh",
-            overflow: "scroll",
-            width: "100%",
-            display: "block",
-            justifyContent: "center", }}>
+          <Grid item xs={12} sm={10} md={10}>
+            <Grid item xs={12} sm={10} md={10} sx={{
+              height: "100vh",
+              overflow: "scroll",
+              width: "100%",
+              display: "block",
+              justifyContent: "center",
+            }}>
               <Toolbar />
               <Grid container>
-              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Link color="#6495ED" underline="always" href='Home' >
-                    <Typography className='burgerText'> Home</Typography>
-                  </Link>
-                  <Link underline="always" onClick={() => handleNavigation()}>
-                    <Typography className='burgerText'>Investment</Typography>
-                  </Link>
-                  <Link underline="none" color="#878782"  >
-                    <Typography className='burgerText' >Monthly Investment</Typography>
-                  </Link>
-                </Breadcrumbs>
-              </Box>
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="always" onClick={() => handleNavigation()}>
+                      <Typography className='burgerText'>Investment</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782"  >
+                      <Typography className='burgerText' >Monthly Investment</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
               </Grid>
               <Box className="BoxPadding sss">
                 <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
@@ -249,11 +253,11 @@ const InitiateSip = (props: IProps) => {
                       className="InvestStylepadview">
                       <CardContent>
                         <Stack m={2} spacing={6}>
-                        <b
+                          <b
                             style={{
                               width: "100%",
                               // margin: "-4% 303px 25px 0",
-                              margin:"6px 12px 18px 0px",
+                              margin: "6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}
@@ -331,7 +335,14 @@ const InitiateSip = (props: IProps) => {
                             </Stack>
                             <InvestButton cardType={props?.cardType} />
                             <Grid container spacing={2} textAlign="center">
-                              <Grid item xs={12} md={12}>
+                              <Grid item xs={12} md={12} onClick={() => {
+                                navigate("/sipInvestment", {
+                                  state: { cardType: globalConstant.SIP_INVESTMENT }
+                                })
+                                localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT);
+                                dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+                                // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.SIP);
+                              }}>
 
                                 <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
@@ -399,19 +410,19 @@ const InitiateSip = (props: IProps) => {
                             <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
                           </Grid>
                           <Grid item xs={5} sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize: {xs:"10px", sm:"12px"}, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={6}>
-                              <Grid container>
+                            <Grid container>
                               <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }}>
-                              <Box className="imageRightBox" style={{float: "right"}}>
-                              <Avatar alt="" src={lockinlogo} style={style.ca} />
-                              </Box>
-                          </Grid>
-                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize:{xs:"10px", sm:"12px"}, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
-                          </Grid>
+                                <Box className="imageRightBox" style={{ float: "right" }}>
+                                  <Avatar alt="" src={lockinlogo} style={style.ca} />
+                                </Box>
                               </Grid>
+                              <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
+                                <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
+                              </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </CardContent>
@@ -421,8 +432,8 @@ const InitiateSip = (props: IProps) => {
 
                 </Grid>
               </Box>
-              </Grid>
             </Grid>
+          </Grid>
         </Grid>
 
       </Box>

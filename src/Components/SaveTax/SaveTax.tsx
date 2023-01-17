@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Breadcrumbs, Theme, Typography, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -131,13 +131,33 @@ const SaveTax = () => {
 
     return (
         <Box style={{ width: "100vw" }}>
-            <Navbar />
-            <Box className={classes.main}>
-                <Toolbar />
-                <Sidebar />
+        <Navbar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={10} md={10}>
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
-                        <Banner
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>saveTax</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                    </Grid>
+                </Grid>
+                <Grid container sx={{padingTop:{xs:"-20px", sm:"-40px"}}}>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Box className="BoxMarginLeftRight">
+                    <Banner
                             smText='SprintMoney offers'
                             planText='tax saving Plans'
                             saveUptoText='SAVE Upto ₹1.5 Lacs'
@@ -173,9 +193,12 @@ const SaveTax = () => {
                                 <Button variant="contained" onClick={handleAssitance}>No, I Need Assistance</Button>
                             </Box>
                         </Box>
-
+                    </Box>
                     </Grid>
                 </Grid>
+          </Grid>
+                   
+          </Grid>
             </Box>
         </Box>
     )

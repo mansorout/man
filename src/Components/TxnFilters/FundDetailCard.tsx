@@ -17,6 +17,7 @@ interface Prop {
   aum: string
   dayendnav: number,
   dayendnavdate: string
+  parentRoute: string
 }
 
 const FundDetailCard = (props: Prop) => {
@@ -96,11 +97,15 @@ const FundDetailCard = (props: Prop) => {
               />
             }
           />
-          <Box>
-          <Button className="btnAddthisFundToPlan" variant="contained" style={{ backgroundColor: "#23db7b", marginTop:"10px", boxShadow:"none", }}>
-  Add this Fund to Plan
-        </Button>
-          </Box>
+          {
+            props?.parentRoute === "/explorefunds" ?
+              <Box>
+                <Button  className="btnAddthisFundToPlan" variant="contained" style={{ backgroundColor: "#23db7b", marginTop: "10px", boxShadow: "none", }}>
+                  Add this Fund to Plan
+                </Button>
+              </Box>
+              : null
+          }
         </Box>
       </Box>
 
@@ -123,7 +128,7 @@ const FundDetailCard = (props: Prop) => {
       </Grid>
       <Box
         sx={{
-          width: { xs: "246px", sm: "300px" }, marginTop:{xs:"10px", sm:"15px"}
+          width: { xs: "246px", sm: "300px" }, marginTop: { xs: "10px", sm: "15px" }
         }}
       >
         <Chip
@@ -169,22 +174,22 @@ const FundDetailCard = (props: Prop) => {
                 <TableHead>
                   <TableRow sx={{ color: "red" }}>
                     <TableCell
-                    className="tableThText"
+                      className="tableThText"
                       sx={{
                         borderRight: "1px solid #f9f9f9",
                         size: "14px",
-                        color:"#fafafaad !important", fontWeight:"300",
-                        padding:{xs:"7px 20px", sm:"7px 40px"}
+                        color: "#fafafaad !important", fontWeight: "300",
+                        padding: { xs: "7px 20px", sm: "7px 40px" }
                       }}
                     >
                       NAV - {props?.dayendnavdate}{" "}
                       <p
-                       className="preTextfund"
+                        className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
                           color: "#f9f9f9",
-                          margin:"5px 0px"
+                          margin: "5px 0px"
                         }}
                       >
                         <span style={{}}>₹</span>
@@ -192,32 +197,32 @@ const FundDetailCard = (props: Prop) => {
                       </p>
                     </TableCell>
                     <TableCell
-                    
-                      sx={{ borderRight: "1px solid #f9f9f9", color:"#fafafaad !important", fontWeight:"300", padding:{xs:"7px 20px", sm:"7px 40px"} }}
+
+                      sx={{ borderRight: "1px solid #f9f9f9", color: "#fafafaad !important", fontWeight: "300", padding: { xs: "7px 20px", sm: "7px 40px" } }}
                       className="tableThText table_head"
                     >
                       Returns (5 Yrs){" "}
                       <p
-                       className="preTextfund"
+                        className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
                           color: "#fff",
-                          margin:"5px 0px"
+                          margin: "5px 0px"
                         }}
                       >
                         {props.year5}%
                       </p>
                     </TableCell>
-                    <TableCell sx={{color:"#fafafaad !important", fontWeight:"300", padding:{xs:"7px 20px", sm:"7px 40px"}}} className="tableThText table_head">
+                    <TableCell sx={{ color: "#fafafaad !important", fontWeight: "300", padding: { xs: "7px 20px", sm: "7px 40px" } }} className="tableThText table_head">
                       AUM{" "}
                       <p
-                      className="preTextfund"
+                        className="preTextfund"
                         style={{
                           fontSize: "20px",
                           fontWeight: "500",
                           color: "#f9f9f9",
-                          margin:"5px 0px"
+                          margin: "5px 0px"
                         }}
                       >
                         ₹{props.aum}
