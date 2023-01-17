@@ -1,7 +1,8 @@
-import { SET_INITIAL_PAYMENT_DATA } from "../constants/payments-contant";
+import { SET_INITIAL_PAYMENT_DATA, SET_PORTFOLIO_LIST_DATA_IN_HOLDINGS } from "../constants/payments-contant";
 
 const initialState: any = {
-  initialPaymentData: { data: {} }
+  initialPaymentData: { data: {} },
+  portfolioListDataInHoldings: { data: {} }
 }
 
 const paymentsReducer = (state = initialState, action: any) => {
@@ -10,6 +11,17 @@ const paymentsReducer = (state = initialState, action: any) => {
       state = {
         ...state,
         initialPaymentData: { ...state.initialPaymentData, data: action.payload }
+      }
+
+      break;
+    }
+    case SET_PORTFOLIO_LIST_DATA_IN_HOLDINGS: {
+      state = {
+        ...state,
+        portfolioListDataInHoldings: {
+          ...state.portfolioListDataInHoldings,
+          data: action.payload
+        }
       }
 
       break;
