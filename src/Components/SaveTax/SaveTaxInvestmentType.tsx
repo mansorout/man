@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Breadcrumbs,Link, Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -174,100 +174,126 @@ const SaveTaxInvestmentType = () => {
 
     return (
         <Box style={{ width: "100vw" }}>
-            <Navbar />
-            <Box className={classes.main}>
-                <Toolbar />
-                <Sidebar />
+        <Navbar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' }, }} item xs={12}>
-                        <h4>SprintMoney Recommendation</h4>
-                        <RadioGroup
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={investmentRecommendation}
-                            onChange={handleInvestmentRecommendation}
-                        >
-                            <Box className={`${classes.blueBoxWithoutBorder}`}>
-                                <Box className={`${classes.BlueBoxCustom}`}>
-                                    <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'ulip' ? classes.recommendationsBoxBackgroundHover : ''}`}>
-
-                                        <Badge
-                                            anchorOrigin={{
-                                                vertical: 'bottom',
-                                                horizontal: 'right',
-                                            }}
-                                            badgeContent='Recommended'
-                                            color="primary"
-                                            className={classes.badgeStyle}
-                                        >
-                                            <Box className={classes.blueBoxIconBox}>
-                                                <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
-                                            </Box>
-                                        </Badge>
-                                        <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />
-                                    </Box>
-
-                                    <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'elss' ? classes.recommendationsBoxBackgroundHover : ''}`}>
-                                        <Box className={classes.blueBoxIconBox}>
-                                            <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
-                                        </Box>
-                                        <FormControlLabel value="elss" control={<Radio />} label="ELSS" />
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </RadioGroup>
-
-
-                        <TableContainer component={Paper}>
-                            <Table aria-label="a dense table" className={classes.tableStyle}>
-                                {/* <TableHead>
-                                    <TableRow>
-                                        <TableCell>Dessert (100g serving)</TableCell>
-                                        <TableCell align="right">Calories</TableCell>
-                                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                    </TableRow>
-                                </TableHead> */}
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <TableRow
-                                            key={row?.heading}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row?.heading}
-                                            </TableCell>
-                                            <TableCell
-                                                className={`${investmentRecommendation === 'ulip' ? classes.bgTableHighlightState : ''}`}
-                                                align="right"
-                                                sx={{ width: '130px', boxSizing: 'border-box' }}>
-                                                {row?.ulip}
-                                            </TableCell>
-
-                                            <TableCell
-                                                className={`${investmentRecommendation === 'elss' ? classes.bgTableHighlightState : ''}`}
-                                                align="right"
-                                                sx={{ width: '130px', boxSizing: 'border-box' }}>
-                                                {row?.elss}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-
-
-                        <FooterBtnWithBox
-                            boxIcon={<ThumbUpAltOutlinedIcon />}
-                            boxText='Great! You`ll save taxes upto'
-                            boxAmount={`₹${savetaxPercentageAmount}`}
-                            btnText='Show Me Recommendations'
-                            btnClick={handleShowRecommendation}
-                            btnDisable={false}
-                        />
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                      <Typography className='burgerText'> Save Tax</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Save Tax Investment Type</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
                     </Grid>
                 </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Box className="BoxMarginLeftRight">
+                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >SprintMoney Recommendation</Typography>
+<RadioGroup
+    aria-labelledby="demo-controlled-radio-buttons-group"
+    name="controlled-radio-buttons-group"
+    value={investmentRecommendation}
+    onChange={handleInvestmentRecommendation}
+>
+    <Box className={`${classes.blueBoxWithoutBorder}`}>
+        <Box className={`${classes.BlueBoxCustom}`}>
+            <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'ulip' ? classes.recommendationsBoxBackgroundHover : ''}`}>
+
+                <Badge
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    badgeContent='Recommended'
+                    color="primary"
+                    className={classes.badgeStyle}
+                >
+                    <Box className={classes.blueBoxIconBox}>
+                        <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                    </Box>
+                </Badge>
+                <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />
             </Box>
-        </Box >
+
+            <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'elss' ? classes.recommendationsBoxBackgroundHover : ''}`}>
+                <Box className={classes.blueBoxIconBox}>
+                    <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                </Box>
+                <FormControlLabel value="elss" control={<Radio />} label="ELSS" />
+            </Box>
+        </Box>
+    </Box>
+</RadioGroup>
+
+
+<TableContainer component={Paper}>
+    <Table aria-label="a dense table" className={classes.tableStyle}>
+        {/* <TableHead>
+            <TableRow>
+                <TableCell>Dessert (100g serving)</TableCell>
+                <TableCell align="right">Calories</TableCell>
+                <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            </TableRow>
+        </TableHead> */}
+        <TableBody>
+            {rows.map((row) => (
+                <TableRow
+                    key={row?.heading}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                    <TableCell component="th" scope="row">
+                        {row?.heading}
+                    </TableCell>
+                    <TableCell
+                        className={`${investmentRecommendation === 'ulip' ? classes.bgTableHighlightState : ''}`}
+                        align="right"
+                        sx={{ width: '130px', boxSizing: 'border-box' }}>
+                        {row?.ulip}
+                    </TableCell>
+
+                    <TableCell
+                        className={`${investmentRecommendation === 'elss' ? classes.bgTableHighlightState : ''}`}
+                        align="right"
+                        sx={{ width: '130px', boxSizing: 'border-box' }}>
+                        {row?.elss}
+                    </TableCell>
+                </TableRow>
+            ))}
+        </TableBody>
+    </Table>
+</TableContainer>
+
+
+<FooterBtnWithBox
+    boxIcon={<ThumbUpAltOutlinedIcon />}
+    boxText='Great! You`ll save taxes upto'
+    boxAmount={`₹${savetaxPercentageAmount}`}
+    btnText='Show Me Recommendations'
+    btnClick={handleShowRecommendation}
+    btnDisable={false}
+/>
+                    </Box>
+                    </Grid>
+                </Grid>
+        </Grid>
+        </Grid>
+        </Box>
+        </Box>
     )
 }
 

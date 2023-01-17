@@ -40,7 +40,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     blueBoxWithoutBorder: {
         backgroundColor: 'var(--ui1Color)',
         padding: '15px',
-        margin: '0px -16px',
+        margin: '0px -25px',
+        '@media(max-width: 500px)': {
+            margin: '0px 0px',
+        }
     },
     blueBoxIconBox: {
         width: '64px',
@@ -303,7 +306,7 @@ const SaveTaxAmount = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={10} md={10}>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
                     <Toolbar />
@@ -313,10 +316,10 @@ const SaveTaxAmount = () => {
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
-                      <Typography className='burgerText'> saveTax</Typography>
+                      <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>saveTaxAmount</Typography>
+                      <Typography className='burgerText'>Save Tax Amount</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>
@@ -325,7 +328,7 @@ const SaveTaxAmount = () => {
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
                     <Box className="BoxMarginLeftRight textBoxAmount">
-                    <Typography component='h4' sx={{margin: { xs: '5px 0px', sm: '5px 0px' }}} >I Know My Tax Liability</Typography>
+                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >I Know My Tax Liability</Typography>
                         <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
                             <Box className={classes.blueBoxIconBox}>
                                 <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />

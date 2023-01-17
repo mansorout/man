@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Modal, Theme, Typography, Breadcrumbs, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -357,12 +357,23 @@ const RecommendationsULIP = () => {
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Box className={classes.main}>
-                <Toolbar />
-                <Sidebar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
                 <Grid container>
-                    <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important', marginTop: '-15px', }, }} item xs={12}>
-                        <RecommendationsHeader
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12} sx={{ marginTop:{xs:"-50px", sm:"0"} }}>
+                    <Box className="BoxMarginLeftRight textBoxAmount">
+                    <RecommendationsHeader
                             selectTextLabel='Premium Payment Term'
                             selectArray={recommendationHeaderSelectArr}
                             selectChoosedValue={recommendationHeaderSelectChoosed}
@@ -379,6 +390,19 @@ const RecommendationsULIP = () => {
                             boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
                             boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                         />
+                        <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                      <Typography className='burgerText'> Save Tax</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Recommendations ULIP</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>{ulipListApiData?.length && ulipListApiData.length} ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
@@ -454,9 +478,12 @@ const RecommendationsULIP = () => {
                             btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
                             btnClick={investmentType === LUMPSUM ? handleBuyNow : handleULIPDate}
                         />
+                    </Box>
                     </Grid>
-                </Grid >
-            </Box >
+                </Grid>
+        </Grid>
+    </Grid>
+    </Box>
 
 
 
@@ -522,7 +549,7 @@ const RecommendationsULIP = () => {
                         />
                     </Box>
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className='large-2'>
                     <Box className={classes.chartBox}>
                         <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} >Fund Performance</Typography>
                         <LineChart optionsValues={chartOptions} dataValues={chartData} />

@@ -3,6 +3,9 @@
 .BoxMarginLeftRight{
   margin: 0 24px;
 }
+.dropdownSlect .MuiInputBase-formControl:after {
+  border-bottom: 2px solid #ffffff !important;
+}
 .downArrow{
   position: absolute;
     right: -9px;
@@ -323,7 +326,12 @@
       max-width:335px;
     }
 }
-
+@media screen and (max-width: 600px){
+  .boxBreadcrumb{
+  margin: -35px 0px 21px 25px !important;
+  position: relative;
+}
+}
 @media screen and (max-width: 480px){
   .checkWillAppearHere{
     padding: 10px !important;
@@ -386,7 +394,7 @@
         min-height: 50px;
     }
     .boxBreadcrumb{
-        margin: -22px 0px 21px 25px !important;
+        margin:-37px 0px 5px 17px !important;
     }
     .BoxStartInvest {
         padding: 5px 15px;
