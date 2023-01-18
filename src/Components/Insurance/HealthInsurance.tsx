@@ -436,7 +436,7 @@ const HealthInsurance = () => {
           <Grid container sx={{ padding: "9px" }}>
             <Grid
               sx={{
-                overflow: { sx: "auto", sm: "scroll" },
+             
                 paddingLeft: {
                   xs: "15px",
                   sm: "105px !important",
@@ -445,6 +445,7 @@ const HealthInsurance = () => {
                 height: "100vh",
                 padding: 0,
                 boxSizing: "border-box",
+                overflow: "scroll",
               }}
               item
               xs={12}
@@ -471,13 +472,20 @@ const HealthInsurance = () => {
                     </Link>
                   </Breadcrumbs>
                 </Box>
-                <BannerSlider
+                {/* <BannerSlider
+                  sliderDetails={sliderDetails}
+                  sliderSetting={settings}
+                /> */}
+              </Box>
+              <Box sx={{width:"95", marginLeft:"2%"}} className="bannerslider">
+              <BannerSlider
                   sliderDetails={sliderDetails}
                   sliderSetting={settings}
                 />
               </Box>
+       
 
-              <div>
+              <div className="LeftRightmarginStyle">
                 <Grid
                   container
                   rowSpacing={1}

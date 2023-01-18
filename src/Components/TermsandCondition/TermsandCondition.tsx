@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Button, Divider, Toolbar, Typography } from "@mui/material";
-
+import'./Termsandcondition.css';
 import { SBIcon } from "../../Assets"
 
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
@@ -14,7 +14,7 @@ const style = {
     width: "100vw"
   } as React.CSSProperties,
   container: {
-    width: "90%",
+   
     maxWidth: "850px",
     backgroundColor: "white",
     borderRadius: "8px",
@@ -58,8 +58,10 @@ const TermsandCondition: FC<Props> = (props: Props) => {
     <Box style={style.background}>
       <NavigationBar />
       <Toolbar />
-      <Box style={style.wrapper}>
-        <Box style={style.container}>
+      
+      <Box style={style.wrapper} >
+    
+        <Box style={style.container} className="termAndcodStyle">
           <Typography component="h4" style={{ margin: "10px 0px" }}>Terms and Conditions</Typography>
           <Divider style={{ margin: "10px 0px" }} />
           <Typography className="body1" style={{ margin: "10px 0px" }}>

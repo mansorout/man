@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, styled } from '@mui/system'
-import { Grid, LinearProgress, Modal, Switch, Theme, Typography } from '@mui/material'
+import { Grid, LinearProgress, linearProgressClasses, Modal, Switch, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -63,6 +63,12 @@ import { manicon } from '../../Assets';
 import CardWithImageAndCount from '../CommonComponents/CardWithImageAndCount';
 import ProposalFormCard from '../CommonComponents/ProposalFormCard';
 import TextWithSwitch from '../CommonComponents/TextWithSwitch';
+
+
+
+
+
+
 
 const style = {
     main: {
@@ -431,32 +437,25 @@ const ProposalFormStep2 = () => {
                     <Link color="#6495ED" underline="always" href="Home">
                       <Typography className="burgerText"> Home</Typography>
                     </Link>
-                    <Link underline="always" href="/explorefunds">
-                      <Typography color="#6495ED" className="burgerText">
-                        Get Insured{" "}
-                      </Typography>
-                    </Link>
+                 
                     <Link
                       underline="none"
                       color="#878782"
                       sx={{ fontSize: "12px", width: "100%" }}
                     >
                       <Typography color="#6495ED" className="burgerText">
-                        Health Insurance
+                      Proposal form
                       </Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>
-                <BannerSlider
-                  sliderDetails={sliderDetails}
-                  sliderSetting={settings}
-                />
+             
               </Box>
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 2/4</p>
                                 <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buying transaction</p>
-                                <Box width="100%">
-                                    <LinearProgressBar value={40}/>
+                                <Box width="100%" >
+                                    <LinearProgressBar value={40} />
                                 </Box>
                             </div>
                             <div className='proposalStep2Container'>

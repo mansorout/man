@@ -371,7 +371,16 @@ const FindInsurance = () => {
                     <Toolbar />
                     <Sidebar />
                     <Grid container className="SideBarStyle">
-                        <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
+                        <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', 
+                        
+                          paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' },
+                          height: "100vh",
+                          padding: 0,
+                          boxSizing: "border-box",
+                          overflow: "scroll",
+                         }} item xs={12}
+                          
+                          >
                         <Box role="presentation" className="boxBreadcrumb"sx={{paddingLeft:"2%"}} >
 
                 <Breadcrumbs aria-label="breadcrumb" sx={{paddingTop:"16px"}}>
