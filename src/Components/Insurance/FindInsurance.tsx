@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Box, styled } from '@mui/system'
-import { Grid, LinearProgress, Modal, Switch, Theme, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, LinearProgress, Modal, Link, Switch, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -47,7 +47,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { string } from 'yup';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
 import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 import Card from '@mui/material/Card';
@@ -372,6 +372,29 @@ const FindInsurance = () => {
                     <Sidebar />
                     <Grid container className="SideBarStyle">
                         <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
+                        <Box role="presentation" className="boxBreadcrumb"sx={{paddingLeft:"2%"}} >
+
+                <Breadcrumbs aria-label="breadcrumb" sx={{paddingTop:"16px"}}>
+                  <Link color="#6495ED" underline="always" href='Home' >
+              
+                    <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link color="#6495ED" underline="always" href='Home' >
+              
+              <Typography className='burgerText'>  Health Insurance</Typography>
+            </Link>
+            <Link color="#6495ED" underline="always" href='Home' >
+              
+              <Typography className='burgerText'> Get Insured</Typography>
+            </Link>
+         
+                   <Link underline="none" color="#878782"  >
+                    <Typography className='burgerText' >Let’s find right Insurance</Typography>
+                  </Link>
+                </Breadcrumbs>
+            
+              </Box>
+           
                             <p style={{paddingLeft:"3%"}} >Let’s find right Insurance</p>
                             <div className='Progress__BarStyle'>
                             <div className="progressContainer">

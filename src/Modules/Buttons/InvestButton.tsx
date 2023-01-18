@@ -7,10 +7,12 @@ import { Button, Grid, Typography } from "@mui/material";
 import { setInvestmentCardTypeAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
 import { customParseJSON } from "../../Utils/globalFunctions";
+import { onetimeLumpsumamount } from "../../Store/Duck/InvestmentType";
 
 type IProps = {
   cardType: string;
-  saveMutualFundGenerate?: (id: number, path: string) => void | undefined
+  saveMutualFundGenerate?: (id: number, path: string) => void | undefined;
+  lumpsumPrice: any;
 };
 
 const style = {
@@ -39,6 +41,8 @@ export const InvestButton = (props: IProps) => {
   const [investamount, setInvestAmount] = useState("");
 
   const handleClick = async () => {
+    console.log(props.lumpsumPrice)
+    dispatch(onetimeLumpsumamount(props.lumpsumPrice))
     if (props?.cardType === globalConstant.SIP_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
     } else if (props?.cardType === globalConstant.LUMPSUM_INVESTMENT) {
@@ -55,6 +59,7 @@ export const InvestButton = (props: IProps) => {
             status = true;
           } else {
             status = false
+            
           }
         }
       }

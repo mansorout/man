@@ -39,7 +39,7 @@ import {
 import { Terminal } from "@mui/icons-material";
 import { bannerSectionValues, lookUpMasterKeys } from "../../Utils/globalConstant";
 
-const funds=["12000", "130000"]
+
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     main: {
@@ -227,6 +227,7 @@ const UlipBox = (props:any) => {
             frequencytype: investmentType === ULIP_MONTHLY ? '0' : '1',
             amount: ulipInsuranceAmount,
         }
+        console.log(urlTemp)
         dispatch(getUlipReturnApi(urlTemp))
     }, [ulipInsuranceAmount])
 
