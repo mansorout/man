@@ -3,7 +3,7 @@ import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { Toolbar } from '@mui/material'
+import { Toolbar, Breadcrumbs, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { calendarPickerSkeletonClasses } from '@mui/x-date-pickers';
 import Switch from '@mui/material/Switch';
@@ -173,13 +173,36 @@ const ExplorePlan = () => {
     return (
         <div>
             <Box style={{ width: "100vw" }}>
-                <Navbar />
-                <Box sx={style.main}>
+            <Navbar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
                     <Toolbar />
-                    <Sidebar />
-                    <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: "hidden", paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-                            <Box>
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/insurance')} href='insurance' >
+                      <Typography className='burgerText'> Get Insured</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Explore Plan</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Box className="BoxMarginLeftRight">
+                    <Box>
                                 <Box className={classes.topHeading}>
                                     <span>Explore Plans</span>
                                     <p>Term Insurance Recommendations</p>
@@ -277,9 +300,12 @@ const ExplorePlan = () => {
                                 btnText='Buy Now'
                                 btnClick={handleBuyNow}
                             />
-                        </Grid>
+                    </Box>
                     </Grid>
-                </Box>
+                </Grid>
+            </Grid>
+        </Grid>
+        </Box>
             </Box>
         </div>
     )
