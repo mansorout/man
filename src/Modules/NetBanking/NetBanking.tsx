@@ -5,7 +5,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 //global constant and function imports
 import siteConfig from "../../Utils/siteConfig";
 import { apiResponse } from "../../Utils/globalTypes";
-import { customParseJSON } from "../../Utils/globalFunctions";
+import { customParseJSON, hideNumbersWithStars } from "../../Utils/globalFunctions";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
@@ -254,16 +254,16 @@ function NetBanking() {
     setTimePeriodSelected(arrTimePeriodSelected);
   };
 
-  const hideNumbersWithStars = (str: string) => {
-    if (str && str.length) {
-      let leading = str.slice(0, 4);
-      let trailing = str.slice(-2);
-      str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
-      return str;
-    }
+  // const hideNumbersWithStars = (str: string) => {
+  //   if (str && str.length) {
+  //     let leading = str.slice(0, 4);
+  //     let trailing = str.slice(-2);
+  //     str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
+  //     return str;
+  //   }
 
-    return "";
-  }
+  //   return "";
+  // }
 
   const verifyUPIIdFromApi = async (value: string) => {
 

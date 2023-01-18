@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, styled } from "@mui/system";
-import { FormHelperText, Grid, Modal, Switch, Theme, Typography } from "@mui/material";
+import {
+  FormHelperText,
+  Grid,
+  Modal,
+  Switch,
+  Theme,
+  Typography,
+} from "@mui/material";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import {
@@ -16,7 +23,7 @@ import Slider from "react-slick";
 import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import InsuranceTerms from "./InsuranceTerms";
-import GetInsurance from "../ULIP/GetInsurance";
+
 import { useSelector, useDispatch } from "react-redux";
 import { InsuranceTermConditionAction } from "../../Store/Duck/InsuranceTermCondition";
 import BannerSlider from "../CommonComponents/BannerSlider";
@@ -59,6 +66,7 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import Card from "@mui/material/Card";
 import { InsuranceCard } from "../../Modal/InsuranceCard";
 import ModalGotit from "./ModalGotit";
+import "./insurance.css";
 
 const style = {
   main: {
@@ -289,9 +297,9 @@ const HealthInsurance = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setInsuranceAmount(event.target.value as string);
     console.log(event.target.value);
-    if(event.target.value !== ""){
-      setError(false)
-      setAmountErrorText("")
+    if (event.target.value !== "") {
+      setError(false);
+      setAmountErrorText("");
     }
   };
 
@@ -394,30 +402,23 @@ const HealthInsurance = () => {
   const [error, setError] = React.useState<boolean>(false);
   const [amountErrorText, setAmountErrorText] = React.useState<any>("");
 
-
   const handleGotit = () => {
-    
     if (checked === true) {
       setShowGotit(true);
-    }  
-    if(insuranceAmount === ""){
-      setError(true)
-      setAmountErrorText("please enter valid input")
-     
-  }  else{
-    navigate("/healthInsurance/findInsurance")
-    
-  }
-
+    }
+    if (insuranceAmount === "") {
+      setError(true);
+      setAmountErrorText("please enter valid input");
+    } else {
+      navigate("/healthInsurance/findInsurance");
+    }
   };
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
   console.log(checked);
-  const hanldeClickHealthSinput = () => {
-    
-  };
+  const hanldeClickHealthSinput = () => {};
   return (
     <div
       style={{
@@ -432,24 +433,25 @@ const HealthInsurance = () => {
         <Box sx={style.main}>
           <Toolbar />
           <Sidebar />
-          <Grid container sx={{padding:"9px"}}>
+          <Grid container sx={{ padding: "9px" }}>
             <Grid
               sx={{
-                height: { xs: "auto", sm: "inherit" },
-                padding: 2,
-                boxSizing: "border-box",
-                overflow: { sx: "auto", sm: "scroll" },
+             
                 paddingLeft: {
                   xs: "15px",
                   sm: "105px !important",
                   md: "245px !important",
                 },
+                height: "100vh",
+                padding: 0,
+                boxSizing: "border-box",
+                   overflow: "scroll",
               }}
               item
               xs={12}
             >
               <Box sx={{ paddingLeft: "30px" }}>
-                <Box role="presentation" sx={{ marginTop: "-1%" }}>
+                <Box role="presentation" sx={{ marginTop: "0%" }}>
                   <Breadcrumbs aria-label="breadcrumb">
                     <Link color="#6495ED" underline="always" href="Home">
                       <Typography className="burgerText"> Home</Typography>
@@ -457,7 +459,7 @@ const HealthInsurance = () => {
                     <Link underline="always" href="/explorefunds">
                       <Typography color="#6495ED" className="burgerText">
                         Get Insured{" "}
-                      </Typography> 
+                      </Typography>
                     </Link>
                     <Link
                       underline="none"
@@ -470,19 +472,26 @@ const HealthInsurance = () => {
                     </Link>
                   </Breadcrumbs>
                 </Box>
-                <BannerSlider
+                {/* <BannerSlider
+                  sliderDetails={sliderDetails}
+                  sliderSetting={settings}
+                /> */}
+              </Box>
+              <Box sx={{width:"95", marginLeft:"2%"}} className="bannerslider">
+              <BannerSlider
                   sliderDetails={sliderDetails}
                   sliderSetting={settings}
                 />
               </Box>
+       
 
-              <div>
+              <div className="LeftRightmarginStyle">
                 <Grid
                   container
                   rowSpacing={1}
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                  sx={{ paddingLeft: "30px" }}
-                
+                  sx={{ paddingLeft: "30px", marginTop: "-3%" }}
+                  className="healthinsuranceStyle"
                 >
                   <Grid item xs={12} sm={6}>
                     <Box
@@ -490,6 +499,7 @@ const HealthInsurance = () => {
                         padding: "30px -8px",
                         paddingTop: "60px",
                         width: "100%",
+                        marginTop: "-1px",
                       }}
                     >
                       <div className={classes.termInsuranceCard}>
@@ -523,11 +533,11 @@ const HealthInsurance = () => {
                             display: "inline-block",
                             fontWeight: 500,
                           }}
+                          className="WhitwSpace_remove"
                         >
                           Term Insurance
                         </b>
                         <FormControl fullWidth>
-                          
                           <InputLabel id="demo-simple-select-label">
                             Term Insurance
                           </InputLabel>
@@ -538,13 +548,15 @@ const HealthInsurance = () => {
                             label="insuranceAmount"
                             onChange={handleChange}
                             error={error}
-                           >
+                          >
                             <MenuItem value={300000}>₹ 3,00,000</MenuItem>
                             <MenuItem value={500000}>₹ 5,00,000</MenuItem>
                             <MenuItem value={700000}>₹ 7,00,000</MenuItem>
                             <MenuItem value={1000000}>₹ 10,00,000</MenuItem>
                           </Select>
-                          <FormHelperText sx={{color:'red'}}>{amountErrorText}</FormHelperText>
+                          <FormHelperText sx={{ color: "red" }}>
+                            {amountErrorText}
+                          </FormHelperText>
                         </FormControl>
                         <Box sx={{ paddingTop: "20px" }}>
                           <span
@@ -569,7 +581,7 @@ const HealthInsurance = () => {
                       </div>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className="SecHealthStyleBox">
                     <Box
                       sx={{
                         padding: "30px 7px",
@@ -632,9 +644,7 @@ const HealthInsurance = () => {
       <FooterWithBtn
         btnText="Continue"
         btnClick={handleGotit}
-       // onClick={onSubmit}
-
-        
+        // onClick={onSubmit}
 
         // btnClick={() => { navigate('/healthInsurance/findInsurance')}}
       />

@@ -9,36 +9,56 @@ import { setIsUserAuthenticatedAction, setloginDataOnFailAction, setloginDataOnS
 //   dispatch
 // );
 
-export const verifyOtpThunk = (verifyInput: any) => {
-  const { otp, number, type } = verifyInput;
+// export const verifyOtpThunk = (verifyInput: any) => {
+//   const { otp, number, type } = verifyInput;
 
-  return (dispatch: any) => {
+//   return (dispatch: any) => {
 
-    postDataWithoutToken(
-      { mobilenumber: number, otp: otp, type: type },
-      siteConfig.AUTHENTICATION_OTP_VERIFY,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then((data) => {
-        dispatch(setLoadingAction(false));
-        if (data?.error) {
-          dispatch(setloginDataOnFailAction(data?.error));
-          return;
-        }
-        const response = data?.data;
+//     postDataWithoutToken(
+//       { mobilenumber: number, otp: otp, type: type },
+//       siteConfig.AUTHENTICATION_OTP_VERIFY,
+//       siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+//       siteConfig.AUTHENTICATION_API_ID
+//     )
+//       .then(res => res.json())
+//       .then((data) => {
+//         dispatch(setLoadingAction(false));
+//         if (data?.error) {
+//           dispatch(setloginDataOnFailAction(data?.error));
+//           return;
+//         }
+//         const response = data?.data;
 
-        dispatch(setloginDataOnSuccessAction(response));
-        dispatch(setTokenExpiredStatusAction(false));
-      }).catch(err => {
-        dispatch(setLoadingAction(false));
-        dispatch(setloginDataOnFailAction({}));
-        console.log(err);
-      })
-  }
+//         dispatch(setloginDataOnSuccessAction(response));
+//         dispatch(setUserViewProfileDataAction(response?.userdetails))
+//         dispatch(setTokenExpiredStatusAction(false));
+//       }).catch(err => {
+//         dispatch(setLoadingAction(false));
+//         dispatch(setloginDataOnFailAction({}));
+//         console.log(err);
+//       })
+//   }
+// }
+
+export const setVerifyOtpThunk = async (objBody: any) => {
+  let res: any
+
+  await postDataWithoutToken(
+    objBody,
+    siteConfig.AUTHENTICATION_OTP_VERIFY,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then(data => res = data)
+    .catch(err => {
+      console.log(err);
+      return undefined
+
+    })
+
+  return res;
 }
-
 
 export const resendOtpThunk = ({ mobilenumber, type }: any) => {
   return (dispatch: any) => {

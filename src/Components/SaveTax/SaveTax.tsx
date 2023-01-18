@@ -84,6 +84,19 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 color: 'var(--uiWhite)',
             }
         },
+        '& button:first-child': {
+            fontWeight: '500',
+            transition: 'all 0.3s ease-in-out',
+            backgroundColor: 'var(--primaryColor)',
+            color: 'var(--uiWhite)',
+            border: '1px solid var(--primaryColor)',
+            boxShadow: 'none',
+            margin: '5px 6px',
+            '&:hover': {
+                backgroundColor: 'var(--primaryColor)',
+                color: 'var(--uiWhite)',
+            }
+        },
 
         '@media(max-width: 440px)': {
             '& button': {

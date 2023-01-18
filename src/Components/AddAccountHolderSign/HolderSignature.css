@@ -82,6 +82,11 @@ CSS
     background-color: #6c63ff !important;
 }
 
+@media (width:1280px) {
+.hubwhitwStyae{
+    margin-bottom: 20% !important;
+}    
+}
 .checkWillAppearHere{
    
   font-family: Roboto;
@@ -226,6 +231,9 @@ CSS
         box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
         border-radius: 8px !important;
     }
+    .hubwhitwStyae{
+        margin-bottom: 100% !important;
+    }  
 }
 
 @media only screen and (min-device-width:768px) {
@@ -233,12 +241,11 @@ CSS
         height: 70% !important;
         
     }
+    .hubwhitwStyae{
+        margin-bottom: 100% !important;
+    }  
 
-    .previewImg {
-
-
-        
-        margin-left: 77px !important;
+    .previewImg { margin-left: 77px !important;
         margin-top: 131px !important;
         border: 1px solid black !important;
         width: 564px !important;
@@ -284,7 +291,7 @@ CSS
         margin-top: 50px !important;
     }
     .container {
-        background-color: red;
+       
         height: 100vh !important;
         overflow: scroll !important;
     }

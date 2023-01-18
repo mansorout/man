@@ -366,6 +366,7 @@ const TaxCanSave = () => {
                                 // }
                                 onWheel={event => { event.preventDefault(); }}
                                 fullWidth
+                                placeholder='0'
                                 value={formik.values.employeePF}
                                 onChange={formik.handleChange}
                                 error={formik.touched.employeePF && Boolean(formik.errors.employeePF)}
@@ -388,6 +389,7 @@ const TaxCanSave = () => {
                                 type='number'
                                 fullWidth
                                 value={formik.values.PPF}
+                                placeholder='0'
                                 onChange={formik.handleChange}
                                 error={formik.touched.PPF && Boolean(formik.errors.PPF)}
                                 helperText={formik.touched.PPF && formik.errors.PPF}
@@ -407,6 +409,7 @@ const TaxCanSave = () => {
                                     startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                 }}
                                 type='number'
+                                placeholder='0'
                                 fullWidth
                                 value={formik.values.homeLoan}
                                 onChange={formik.handleChange}
@@ -428,6 +431,7 @@ const TaxCanSave = () => {
                                     startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                 }}
                                 type='number'
+                                placeholder='0'
                                 fullWidth
                                 value={formik.values.nscPost}
                                 onChange={formik.handleChange}
@@ -445,6 +449,7 @@ const TaxCanSave = () => {
                                 label="Enter Amount"
                                 variant="outlined"
                                 name="lifeInsurance"
+                                placeholder='0'
                                 InputProps={{
                                     startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                 }}
@@ -471,6 +476,7 @@ const TaxCanSave = () => {
                                 }}
                                 type='number'
                                 fullWidth
+                                placeholder='0'
                                 value={formik.values.taxSavinig}
                                 onChange={formik.handleChange}
                                 error={formik.touched.taxSavinig && Boolean(formik.errors.taxSavinig)}

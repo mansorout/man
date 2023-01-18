@@ -17,7 +17,7 @@ import Sidebar from '../CommonComponents/Sidebar'
 import HoldingCards from '../../Modules/CustomCard/HoldingCards'
 import { AllHolding } from '../../Modal/AllHoldingCards'
 import { getCategoryGroupListThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
-import { apiResponse } from '../../Utils/globalTypes'
+import { apiResponse, holdingList } from '../../Utils/globalTypes'
 import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { useDispatch } from 'react-redux'
@@ -158,156 +158,134 @@ const style = {
 
 }
 
-type holdingList = {
-  "fundname": "string",
-  "folio": "string",
-  "fund_id": "string",
-  "investedvalue": number,
-  "XIRR": "string",
-  "units": "string",
-  "nav": "string",
-  "currentvalue": "string",
-  "absolutereturn": "string",
-  "absolutereturninpercent": "string",
-  "category": "string",
-  "categorygroup": "string",
-  "fundimage": "string",
-  "rating": "string",
-  "navdate": "string",
-  "minredemptionqty": "string",
-  "maxredemptionqty": "string",
-  "minredemptionamount": "string",
-  "maxredemptionamount": "string"
-}
+// const initialHoldingListEquity: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   categorygroup: "Equity",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
+// const initialHoldingListBalanced: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   categorygroup: "Balanced",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
+// const initialHoldingListCommodities: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   categorygroup: "Commodities",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
+// const initialHoldingListDebt: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   categorygroup: "Debt",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
+// const initialHoldingListAlternative: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   // categorygroup: "Alternative",
+//   categorygroup: "Equity",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
 
-const initialHoldingListEquity = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  categorygroup: "Equity",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
-const initialHoldingListBalanced = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  categorygroup: "Balanced",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
-const initialHoldingListCommodities = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  categorygroup: "Commodities",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
-const initialHoldingListDebt = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  categorygroup: "Debt",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
-const initialHoldingListAlternative = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  // categorygroup: "Alternative",
-  categorygroup: "Equity",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
-
-const initialHoldingListFixedIncome = {
-  fundname: "fundname",
-  folio: "folio",
-  fund_id: "",
-  investedvalue: 1000,
-  XIRR: "XIRR",
-  units: "units",
-  nav: "nav",
-  currentvalue: "currentvalue",
-  absolutereturn: "absolutereturn",
-  absolutereturninpercent: "absolutereturninpercent",
-  category: "category",
-  categorygroup: "Fixed Income",
-  fundimage: "fundimage",
-  rating: "3",
-  navdate: "navdate",
-  minredemptionqty: "minredemptionqty",
-  maxredemptionqty: "maxredemptionqty",
-  minredemptionamount: "minredemptionamount",
-  maxredemptionamount: "maxredemptionamount"
-}
+// const initialHoldingListFixedIncome: holdingList = {
+//   fundname: "fundname",
+//   folio: "folio",
+//   fund_id: "",
+//   investedvalue: 1000,
+//   XIRR: "XIRR",
+//   units: "units",
+//   nav: "nav",
+//   currentvalue: "currentvalue",
+//   absolutereturn: "absolutereturn",
+//   absolutereturninpercent: "absolutereturninpercent",
+//   category: "category",
+//   categorygroup: "Fixed Income",
+//   fundimage: "fundimage",
+//   rating: "3",
+//   navdate: "navdate",
+//   minredemptionqty: "minredemptionqty",
+//   maxredemptionqty: "maxredemptionqty",
+//   minredemptionamount: "minredemptionamount",
+//   maxredemptionamount: "maxredemptionamount"
+// }
 
 const Portfolio = () => {
   const classes = useStyles()
@@ -332,7 +310,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
-      getFundList(siteConfig.PAYMENT_PORTOFOLIO_LIST);
+      getFundList(siteConfig.PAYMENT_PORTOFOLIO_LIST + "?holdinglist=true");
     }
   }, [categoryGroupList])
 
@@ -361,27 +339,29 @@ const Portfolio = () => {
     setLoading(true);
     let res: apiResponse = await getListOfPortfolioThunk(url);
 
+    if (res?.data) dispatch(setPortfolioListDataInHoldingsAction(res?.data));
 
     // @ts-ignore
     handleApiResponse(res?.data?.holdinglist, [setFundList]);
 
     // @ts-ignore
     handleApiResponse(res?.data?.holdings, [setHoldingGraph]);
-    let data: any[] = [initialHoldingListAlternative, initialHoldingListBalanced, initialHoldingListCommodities, initialHoldingListDebt, initialHoldingListEquity, initialHoldingListFixedIncome]
-    let graphData: any = {
-      totalinvestedvalue: 400000,
-      XIRR: "string",
-      absolutereturninpercent: "19",
-      absolutereturn: "19000",
-      totalcurrentvalue: "500000",
-      assetallocation: {
-        equity: "30",
-        debt: "30",
-        balanced: "30",
-        other: "10"
-      }
-    }
 
+
+    // let data: any[] = [initialHoldingListAlternative, initialHoldingListBalanced, initialHoldingListCommodities, initialHoldingListDebt, initialHoldingListEquity, initialHoldingListFixedIncome]
+    // let graphData: any = {
+    //   totalinvestedvalue: 400000,
+    //   XIRR: "string",
+    //   absolutereturninpercent: "19",
+    //   absolutereturn: "19000",
+    //   totalcurrentvalue: "500000",
+    //   assetallocation: {
+    //     equity: "30",
+    //     debt: "30",
+    //     balanced: "30",
+    //     other: "10"
+    //   }
+    // }
     // @ts-ignore
     // handleApiResponse(data, [setFundList]);
     // @ts-ignore
@@ -418,7 +398,7 @@ const Portfolio = () => {
       return;
     }
 
-    dispatch(setPortfolioListDataInHoldingsAction(fundList));
+
     setVariableFundList(fundList);
   }
 
@@ -463,7 +443,7 @@ const Portfolio = () => {
                   </Box>
                   <Box>
                     {/* <SprintMoneyLoader
-                      loadingStatus={loading}
+                      loadingStatus={true}
                     /> */}
                     {
                       message && message.length ?
@@ -589,38 +569,6 @@ const Portfolio = () => {
                                           absoluteReturnInPercent={item?.absolutereturninpercent}
                                           result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
                                           fundId={item?.fund_id}
-
-                                        // year3={item?.}
-                                        // year3={""}
-                                        // current={ item?.}
-                                        // absolute={item?.}
-                                        // year5={ item?.}
-                                        // year5={""}
-                                        // margin={ item?.}
-                                        // margin={"03.36"}
-                                        // result={ item?.}
-
-
-                                        //  fundname: "fundname",
-                                        // folio: "folio",
-                                        //   fund_id: "fund id",
-                                        //     investedvalue: 1000,
-                                        //       XIRR: "XIRR",
-                                        //         units: "units",
-                                        //           nav: "nav",
-                                        //             currentvalue: "currentvalue",
-                                        //               absolutereturn: "absolutereturn",
-                                        //                 absolutereturninpercent: "absolutereturninpercent",
-                                        //                   category: "category",
-                                        //                     categorygroup: "Equity",
-                                        //                       fundimage: "fundimage",
-                                        //                         rating: "3",
-                                        //                           navdate: "navdate",
-                                        //                             minredemptionqty: "minredemptionqty",
-                                        //                               maxredemptionqty: "maxredemptionqty",
-                                        //                                 minredemptionamount: "minredemptionamount",
-                                        //                                   maxredemptionamount: "maxredemptionamount"
-
                                         />
                                       )
                                     })

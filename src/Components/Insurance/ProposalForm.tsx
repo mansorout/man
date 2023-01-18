@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, styled } from '@mui/system'
-import { Grid, LinearProgress, Modal, Switch, Theme, Typography } from '@mui/material'
+import { Breadcrumbs, Grid, LinearProgress, Link, Modal, Switch, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -12,7 +12,7 @@ import Slider from "react-slick";
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import InsuranceTerms from './InsuranceTerms'
-import GetInsurance from './GetInsurance'
+
 import { useSelector, useDispatch } from 'react-redux';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import BannerSlider from '../CommonComponents/BannerSlider'
@@ -423,8 +423,20 @@ const ProposalForm = () => {
                     <Toolbar />
                     <Sidebar />
                     <Grid container>
-                        <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
-
+          
+                        <Grid  className="WhiteSpaceStyle" sx={{marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' } }} item xs={12}>
+              
+                        <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>View Profile</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+             
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 1/4</p>
                                 <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buying transaction</p>

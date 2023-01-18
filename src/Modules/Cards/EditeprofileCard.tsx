@@ -731,7 +731,7 @@ const EditprofileCard = () => {
                   }}
                   // error={validateInputs?.middlename}
                   // helperText={validateInputs?.middlename ? enumErrorMsg.PLEASE_ENTER_MIDDLE_NAME : ""}
-                  required
+              
                 />
                 <TextField
                   type='text'

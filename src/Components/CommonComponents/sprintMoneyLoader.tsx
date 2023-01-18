@@ -1,5 +1,5 @@
 import { Grid, Modal } from '@mui/material';
-import { TailSpin } from 'react-loader-spinner';
+import { Circles, TailSpin } from 'react-loader-spinner';
 type IProps = {
   loadingStatus: boolean
 }
@@ -17,12 +17,13 @@ const SprintMoneyLoader = (props: IProps) => {
           height: "100vh"
         }}>
 
-          <TailSpin
+          {/* <TailSpin */}
+          <Circles
             height="80"
             width="80"
             color="#4fa94d"
             ariaLabel="tail-spin-loading"
-            radius="1"
+            // radius="1"
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}

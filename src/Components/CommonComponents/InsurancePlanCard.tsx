@@ -15,9 +15,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         flexWrap: 'wrap',
     },
     cmpWrap: {
-        margin: '25px 10px',
+        margin: '25px 0px',
         backgroundColor: 'var(--uiWhite)',
-        boxShadow: 'var(--themeShadow)',
+        boxShadow: '0 0 6px 0 rgb(0 0 0 / 16%) !important',
         borderRadius: '8px',
         padding: '6px 12px',
         paddingBottom: '0px',
@@ -104,6 +104,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         }
     },
     planOffer: {
+        borderTop:'1px #a6d7e6 solid',
         backgroundColor: '#64dbff40',
         padding: '7px 15px',
         margin: '15px -12px',

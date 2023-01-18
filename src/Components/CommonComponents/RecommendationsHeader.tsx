@@ -75,6 +75,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         padding: '0px 15px !important',
         '& label': {
             color: 'var(--uiWhite) !important',
+            left: "16px",
         },
         '& svg': {
             color: 'var(--uiWhite)',

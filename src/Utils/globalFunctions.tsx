@@ -106,8 +106,6 @@ export const underAgeValidate = (birthday: string) => {
   }
 }
 
-
-
 export const getMutualFundRecommendationListWRTUserAmount = (arrRecomm: any[], initialMFData: MFFeatures) => {
   try {
     for (let i = 0; i < arrRecomm.length; i++) {
@@ -174,6 +172,37 @@ export const validateProfileCompletion = () => {
     return objUserProfileValidationData;
   }
 }
+
+export const hideNumbersWithStars = (str: string) => {
+  try {
+    if (str && str.length) {
+      let leading = str.slice(0, 4);
+      let trailing = str.slice(-2);
+      str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
+      return str;
+    }
+
+    return "";
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const hideCharacterWithStars = (str: string) => {
+  try {
+    if (str && str.length) {
+      let leading = str.slice(0, 4);
+      let trailing = str.slice(-8);
+      str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
+      return str;
+    }
+
+    return "";
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 
 // {
 //   "userdetails": {

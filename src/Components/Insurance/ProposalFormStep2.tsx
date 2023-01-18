@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, styled } from '@mui/system'
-import { Grid, LinearProgress, Modal, Switch, Theme, Typography } from '@mui/material'
+import { Grid, LinearProgress, linearProgressClasses, Modal, Switch, Theme, Typography } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -18,7 +18,7 @@ import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCond
 import BannerSlider from '../CommonComponents/BannerSlider'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
-
+import { Breadcrumbs, Link } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -63,6 +63,12 @@ import { manicon } from '../../Assets';
 import CardWithImageAndCount from '../CommonComponents/CardWithImageAndCount';
 import ProposalFormCard from '../CommonComponents/ProposalFormCard';
 import TextWithSwitch from '../CommonComponents/TextWithSwitch';
+
+
+
+
+
+
 
 const style = {
     main: {
@@ -425,12 +431,31 @@ const ProposalFormStep2 = () => {
                     <Sidebar />
                     <Grid container>
                         <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-
+                        <Box sx={{ paddingLeft: "30px" }}>
+                <Box role="presentation" sx={{ marginTop: "0%" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href="Home">
+                      <Typography className="burgerText"> Home</Typography>
+                    </Link>
+                 
+                    <Link
+                      underline="none"
+                      color="#878782"
+                      sx={{ fontSize: "12px", width: "100%" }}
+                    >
+                      <Typography color="#6495ED" className="burgerText">
+                      Proposal form
+                      </Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+             
+              </Box>
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 2/4</p>
                                 <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buying transaction</p>
-                                <Box width="100%">
-                                    <LinearProgressBar value={40}/>
+                                <Box width="100%" >
+                                    <LinearProgressBar value={40} />
                                 </Box>
                             </div>
                             <div className='proposalStep2Container'>

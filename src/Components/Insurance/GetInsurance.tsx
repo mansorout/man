@@ -11,6 +11,7 @@ import HorizontalImgIconLongcard from '../CommonComponents/HorizontalImgIconLong
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import'./insurance.css'
 
 
 const GetInsurance = () => {
@@ -22,11 +23,13 @@ const GetInsurance = () => {
     }
     return (
         <div>
-            <Grid container sx={{ paddingTop: '30px' }}>
+            <Grid container sx={{ paddingTop: '30px' }} className="marginleftrightnow">
                 <Grid sx={{}} item xs={12} sm={8}>
-                    {/* <div className={classes.insuranceCardWrapper}></div> */}
+               
                     <Grid container>
-                        <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
+                        <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px',
+                        
+                     }}>
                             <BoxCard
                                 heading='ULIP'
                                 headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
@@ -59,28 +62,7 @@ const GetInsurance = () => {
                     />
                 </Grid>
             </Grid>
-                    {/* <Grid container>
-                        <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
-                            <BoxCard
-                                heading='Vehicle Insurance'
-                                headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
-                                detailText='Get the best car and bike insurance quotes from us'
-                                bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/vehicle-insurance.svg`}
-                                bottomNavigationIcon={<ArrowForwardIcon />}
-                                btnClick={()=>{}}
-                            />
-                        </Grid>
-                        <Grid item xs={12} md={6} sx={{ padding: '0px 14px', margin: '15px 0px' }}>
-                            <BoxCard
-                                heading='Travel Insurance'
-                                headIcon={<ErrorOutlineIcon style={{ color: 'var(--ui1Color)' }} />}
-                                detailText='Get the best travel insurance quotes from us'
-                                bottomImageUrl={`${process.env.PUBLIC_URL}/assets/images/travel-insurance.svg`}
-                                bottomNavigationIcon={<ArrowForwardIcon />}
-                                btnClick={()=>{}}
-                            />
-                        </Grid>
-                    </Grid> */}
+                 
                 </Grid>
                 <Grid sx={{}} item xs={12} sm={4}>
                     <Grid container sx={{ margin: '15px 0px', height: '100%' }}>

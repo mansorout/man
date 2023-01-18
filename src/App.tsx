@@ -81,8 +81,9 @@ import { checkExpirationOfToken, validateProfileCompletion } from './Utils/globa
 import { setRegisterUserWithBseThunk } from './Store/Payments/thunk/payments-thunk';
 import { apiResponse, profileValidationKeys } from './Utils/globalTypes';
 import { useDispatch } from 'react-redux';
-import { setTokenExpiredStatusAction, setUserProfileValidationKeys } from './Store/Authentication/actions/auth-actions';
+import { setTokenExpiredStatusAction, setUserProfileValidationKeys, setUserViewProfileDataAction } from './Store/Authentication/actions/auth-actions';
 import { getUserProfileDataThunk } from './Store/Authentication/thunk/auth-thunk';
+import AddFundtoPlan from './Components/AddFundToplan/AddFundtoPlan';
 // import ProposalForm from './Components/Insurance/ProposalForm';
 // import ProposalFormStep2 from './Components/Insurance/ProposalFormStep2';
 // import ProposalFormStep3 from './Components/Insurance/ProposalFormStep3';
@@ -182,6 +183,10 @@ function App() {
       dispatch(setTokenExpiredStatusAction(true));
       return;
     }
+
+    if (res?.data) {
+      dispatch(setUserViewProfileDataAction(res?.data))
+    }
   }
 
   const userVerification = async () => {
@@ -197,16 +202,17 @@ function App() {
       return;
     }
 
-    let res: apiResponse = await setRegisterUserWithBseThunk({});
+    /**Commenting below code for testing on1 18th Jan 2023 */
+    // let res: apiResponse = await setRegisterUserWithBseThunk({});
 
-    if (checkExpirationOfToken(res?.code)) {
-      dispatch(setTokenExpiredStatusAction(true));
-      return;
-    }
+    // if (checkExpirationOfToken(res?.code)) {
+    //   dispatch(setTokenExpiredStatusAction(true));
+    //   return;
+    // }
 
-    if (res?.error === true) {
-      return;
-    }
+    // if (res?.error === true) {
+    //   return;
+    // }
 
     data["isUserProfileFullCompleted"] = true;
     dispatch(setUserProfileValidationKeys(data));
@@ -246,6 +252,7 @@ function App() {
         <Route path="/loginsecond" element={<LoginSecond />} />
         <Route path="/verifysec" element={<VerifySec />} />
         <Route path="/setnewpin" element={<Setpin />} />
+        <Route path="/addfundtoplan" element={<AddFundtoPlan />} />
         {/* <Route path="/ExpireTokenDialog" element={<ExpireTokenDialog />} /> */}
 
         {/* set to be private */}
