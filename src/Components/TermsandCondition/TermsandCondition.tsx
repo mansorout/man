@@ -24,7 +24,7 @@ const style = {
 
   lowerContainer: {
     gap: "20px",
-    width: "90%",
+    // width: "90%",
     maxWidth: "850px",
     borderRadius: "8px",
     padding: "20px 30px",
@@ -84,13 +84,14 @@ const TermsandCondition: FC<Props> = (props: Props) => {
         </Box>
         {
           number ?
-            <Box style={style.lowerContainer}>
+            <Box style={style.lowerContainer} className="marginTopstyle">
               <Typography className="body1">
                 By continuing, I agreeing to SprintMoney<sup style={{ fontSize: "6px", color: "#7b7b9d" }}>TM</sup>
               </Typography>
               <Button variant="contained" style={style.button} fullWidth onClick={() => {
                 navigate('/otpverify')
               }}
+              
               >
                 <Typography style={style.text} className="largeButtonText">Accept</Typography>
               </Button>

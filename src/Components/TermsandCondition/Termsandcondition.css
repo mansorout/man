@@ -1,5 +1,60 @@
-/* @media (width:480px){
-    .termAndcodStyle{
-        color: red !important;
-    }
-} */
+
+  @media (width:280px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 10% !important;
+  } 
+}
+@media (width:390px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 8% !important;
+  } 
+   }
+   @media (width:360px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 8% !important;
+  } 
+   }
+@media (width:393px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 8% !important;
+  } 
+   }
+   @media (width:412px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 10% !important;
+  } 
+   }
+   @media (width:375px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 8% !important;
+  } 
+   }
+ 
+ @media (width:414px){
+  .marginTopstyle{
+ 
+    padding: 3px 23px !important;
+    margin-left: 9% !important;
+} 
+ }
+ @media (width:540px){
+    .marginTopstyle{
+        padding: 9px 15px !important;
+        margin-left: 19% !important;
+  } 
+   }
+   @media (width:1024px){
+    .marginTopstyle{
+        padding: 0px 15px !important;
+        margin-left: 10% !important;
+        margin-top: -1% !important;
+  } 
+   }
+
+/* https://meet.google.com/mwp-uarq-doq */
