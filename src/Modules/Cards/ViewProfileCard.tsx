@@ -323,7 +323,7 @@ const ViewProfileCard = (props: IProps) => {
               />
             </Box>
             <Typography
-            onClick={()=>alert()}
+            onClick={()=>setImgSrc("")}
               sx={{
                 color: "#6c63ff",
                 textAlign: "center",
