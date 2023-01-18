@@ -245,3 +245,30 @@ h6 {
   font-weight: 500 !important;
   color: var(--typeLightBlackColor) !important;
 }
+@media (max-width:480px) {
+  .error {
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    color: var(--errorColor) !important;
+    margin-left: 16% !important;
+}
+  
+}
+@media (width:540px) {
+  .error {
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    color: var(--errorColor) !important;
+    margin-left: 5% !important;
+}
+  
+}
+@media (width:768px) {
+  .error {
+    font-size: 10px !important;
+    line-height: 1.4 !important;
+    color: var(--errorColor) !important;
+    margin-left: 3% !important;
+}
+  
+}
