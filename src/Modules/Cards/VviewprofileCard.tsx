@@ -64,46 +64,35 @@ function VviewprofileCard(props: IProps) {
             padding: "10px",
         } as React.CSSProperties,
 
-        // ellipse:{
-        //     width:" 40px",
-        //     height:" 40px",
-        //     margin: "0 16px 0 0",
-        //     padding: "10px",
-        //     opacity: "0.3",
-        //     background-color:" #64dbff",
+
     };
 
     const navigate = useNavigate();
     function handleSubmit() {
         navigate("/panUpdate");
-        // navigate('/nominee')
+
     }
 
     function handleSubmits() {
-        // navigate('/pan_update');
+
         navigate("/nominee");
     }
-    function handleSubmitss() {
-        navigate("/uploadsignature");
-    }
+
     function handleSubmitsss() {
         navigate("/bad");
     }
 
     const label = { inputProps: { "aria-label": "Switch demo" } };
 
-    const [panCardNo, setPanCardNo] = useState("");
+
     const [formData, setFormData] = useState<formDataProps>(initialFormData);
-    const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPanCardNo(e.target.value);
+
     const userData: any = useSelector(
         (state: any) => state?.authReducer?.profile
     );
-    console.log(userData.data?.kycdetails?.pannumber);
+    const userProfileKycStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isKycCompleted);
 
     useEffect(() => {
-        // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
-        // if (userdetails) {
         let userdetails: any = { ...props?.kycDetails };
         if (userdetails) {
             setFormData((prev) => ({
@@ -113,17 +102,7 @@ function VviewprofileCard(props: IProps) {
         }
     }, [props?.kycDetails]);
 
-    console.log(formData?.pannumber);
-
-    // const [panCardNo, setPanCardNo] = useState('');
-    // const [formData, setFormData] = useState<formDataProps>(initialFormData);
-    // const handlePanCard = (e: React.ChangeEvent<HTMLInputElement>) => setPanCardNo(e.target.value);
-    // const userData: any = useSelector((state: any) => state?.authReducer?.profile)
-    // console.log(userData.data?.kycdetails?.pannumber)
-
     useEffect(() => {
-        // let { userdetails }: { userdetails: any } = g_viewProfileState?.data;
-        // if (userdetails) {
         let userdetails: any = { ...props?.kycDetails };
         if (userdetails) {
             setFormData((prev) => ({
@@ -133,50 +112,28 @@ function VviewprofileCard(props: IProps) {
         }
     }, [props?.kycDetails]);
 
-    console.log(props?.kycDetails);
-    console.log(props?.kycDetails?.ispannumberverified);
 
-    // const navigate = useNavigate();
-    // function handleSubmit() {
-    //     navigate('/panUpdate');
-    //     // navigate('/nominee')
-    // }
-
-    // function handleSubmits() {
-    //     // navigate('/pan_update');
-    //     navigate('/nominee')
-    // }
-    // function handleSubmitss() {
-    //     navigate('/uploadsignature')
-    // }
-    // function handleSubmitsss() {
-    //     navigate('/bad')
-    // }
-
-    // const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
     return (
         <>
             <Box
                 sx={{
-                    // p: 1,
-
                     width: "100%",
                     bgcolor: "background.paper",
-                    // marginTop: "30px",
                     borderRadius: "4px",
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                // className="thirdboxstyle"
+
 
             >
                 <List>
                     <ListItem
                         secondaryAction={
-                            <Typography
+                            userProfileKycStatus ? <Typography
                                 sx={{
-                                    backgroundColor: "#ffc300",
+
+                                    backgroundColor: "#23db7b",
                                     color: "#000",
                                     fontSize: "12px",
                                     fontWeight: "bold",
@@ -185,8 +142,22 @@ function VviewprofileCard(props: IProps) {
                                 }}
                                 className="IncompleteStyle_View"
                             >
-                                Incomplete
-                            </Typography>
+                                Completed
+                            </Typography> :
+                                <Typography
+                                    sx={{
+
+                                        backgroundColor: "#ffc300",
+                                        color: "#000",
+                                        fontSize: "12px",
+                                        fontWeight: "bold",
+                                        borderRadius: " 20px",
+                                        padding: "2px 21px 2px 23px",
+                                    }}
+                                    className="IncompleteStyle_View"
+                                >
+                                    Incomplete
+                                </Typography>
                         }
                     ></ListItem>
                     <Box sx={{ marginTop: "-3%", marginLeft: "2%" }} className="HeadingStyleKycWhole">
@@ -256,7 +227,7 @@ function VviewprofileCard(props: IProps) {
                                     {formData?.pannumber || ""}</Typography>
 
                             }
-                        // secondary="DUDPS1755G"
+
                         />
 
                         <ListItemText
@@ -410,10 +381,12 @@ function VviewprofileCard(props: IProps) {
                             }
                         />
                     </ListItem>
-                   
-                    <Box className="BoxVerification">
-                    <VerificationpendingButton />
-                    </Box>
+                    {
+                        userProfileKycStatus ? "" : <Box className="BoxVerification">
+                            <VerificationpendingButton />
+                        </Box>
+                    }
+
                 </List>
             </Box>
 
@@ -427,7 +400,7 @@ function VviewprofileCard(props: IProps) {
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                // className="thirdboxstyle"
+
 
             >
                 <List>
@@ -494,18 +467,12 @@ function VviewprofileCard(props: IProps) {
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                 }}
-                // className="thirdboxstyle"
+            // className="thirdboxstyle"
 
 
             >
                 <List>
-                    {/* 
-                    subheader={
-                        <ListSubheader component="div" id="nested-list-subheader">
-                          Security Preferences
-                        </ListSubheader>
-                      }
-                    > */}
+
                     <ListItem
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">
@@ -532,6 +499,3 @@ function VviewprofileCard(props: IProps) {
 }
 
 export default VviewprofileCard;
-// function useEffect(arg0: () => void, arg1: any[]) {
-//   throw new Error("Function not implemented.");
-// }

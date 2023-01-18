@@ -33,12 +33,15 @@ interface Prop {
   type: string,
   price: string,
   invested: string,
-  year3: string,
+  // year3: string,
   current: string,
-  year5: string,
+  // year5: string,
   absolute: string,
-  margin: string,
+  // margin: string,
   result: string
+
+  absoluteReturnInPercent: string
+  fundId: string
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -158,7 +161,8 @@ const style = {
 
 }
 
-function HoldingCards({ name, price, year3, current, absolute, year5, result, margin, cap, type }: Prop) {
+// function HoldingCards({ name, price, year3, current, absolute, year5, result, margin, cap, type, invested, absoluteReturnInPercent }: Prop) {
+function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent, fundId }: Prop) {
 
 
   const [open, setOpen] = useState<boolean>(false)
@@ -168,11 +172,6 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>()
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    anchorEl ?
-      setAnchorEl(null) :
-      setAnchorEl(event.currentTarget)
-  };
 
   const handleMoreIcon = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     moreAnchorEl ?
@@ -180,9 +179,6 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
       setMoreAnchorEl(event.currentTarget)
   }
 
-  const classes = useStyles()
-
-  const refContainer = useRef();
 
   const navigate = useNavigate();
 
@@ -211,9 +207,9 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
         <Box style={{ display: "flex", gap: "30px", flexWrap: 'wrap' }}>
           <Box>
             <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹1,25,000</Typography>
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{invested}</Typography>
           </Box>
-          {
+          {/* {
             type == "Debt" ?
               <Box>
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3 yrs returns</Typography>
@@ -223,8 +219,17 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
                 <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{current}</Typography>
               </Box>
-          }
-          {
+          } */}
+          <Box>
+            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{current}</Typography>
+          </Box>
+          <Box>
+            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
+            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{absolute} <span style={{ color: `${result == 'profit' ? '#23db7b' : '#db2323'}` }}>{`(${result == 'profit' ? '+' : '-'} ${absoluteReturnInPercent})`}</span></Typography>
+          </Box>
+
+          {/* {
             type == "Balanced" ?
               <Box>
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
@@ -234,7 +239,7 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>5 yrs return</Typography>
                 <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{year5} <span style={{ color: `${result == 'profit' ? '#23db7b' : '#db2323'}` }}>{`(${result == 'profit' ? '+' : '-'} ${margin})`}</span></Typography>
               </Box>
-          }
+          } */}
         </Box>
         <Box onClick={handleMoreIcon} style={{ right: '10px', top: '10px', position: "absolute", backgroundColor: "rgba(123, 123, 157, 0.16)", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "2px", width: "28px", height: "28px", borderRadius: "50%" }}>
           <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
@@ -267,7 +272,7 @@ function HoldingCards({ name, price, year3, current, absolute, year5, result, ma
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>Show Transaction History</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>
-                <ListItemButton style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <ListItemButton style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }} onClick={() => { if (fundId) navigate("/funddetails", { state: { secid: fundId, parentRoute: "/holdings" } }) }}>
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>View Fund Details</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>

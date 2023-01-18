@@ -337,7 +337,7 @@ const Nominee = () => {
                                 <FormControl>
                                     <TextField
 
-                                        placeholder="DD-MM-YYYY"
+                                        placeholder="MM-DD-YYYY"
                                         InputLabelProps={{
                                             shrink: true,
                                             sx: {

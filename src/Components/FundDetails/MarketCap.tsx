@@ -21,8 +21,7 @@ type IProps = {
 
 export default function MarketCap(props: IProps) {
 
-
-  // const keys: any[] = useMemo(() => { return props?.progressData ? Object.keys(props?.progressData) : [] }, [props?.progressData, props?.activeTab]);
+   // const keys: any[] = useMemo(() => { return props?.progressData ? Object.keys(props?.progressData) : [] }, [props?.progressData, props?.activeTab]);
   // const values: any[] = useMemo(() => { return props?.progressData ? Object.values(props?.progressData) : [] }, [props?.progressData, props?.activeTab]);
 
   const [keys, setKeys] = useState<any[]>([]);
@@ -70,13 +69,13 @@ export default function MarketCap(props: IProps) {
       display: false,
     },
     elements: {
-      
+
     }
   };
-  
+
   return (
     <>
-    
+
       <Box sx={{ width: '100%' }}>
         {/* <Grid container rowSpacing={0} columnSpacing={20} sx={{ display: "flex", paddingLeft: "40px", paddingTop: "7.5px" }}> */}
         <Grid container rowSpacing={0} columnSpacing={2} >
