@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Box, styled } from '@mui/system'
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Grid, Modal, Theme, Typography, Breadcrumbs, Link } from '@mui/material'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import Slider from "react-slick";
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import InsuranceTerms from './InsuranceTerms'
@@ -29,6 +30,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 const Insurance = () => {
     const dispatch: any = useDispatch();
     const refContainer = useRef();
+    const navigate = useNavigate();
     const classes = useStyles()
     const [insuranceTermCondition, setInsuranceTermCondition] = useState<boolean>(false)
     const { insuranceTermConditionState } = useSelector((state: any) => state.InsuranceTermConditionReducer);
@@ -92,14 +94,37 @@ const Insurance = () => {
 
     return (
         <div>
-            <Box style={{ width: "100vw" }} ref={refContainer}>
-                <Navbar />
-                <Box sx={style.main}>
+            <Box style={{ width: "100vw" }}>
+        <Navbar />
+        <Box sx={{width:"100%"}}>
+        <Grid container spacing={0}>
+          <Grid item xs={0} sm={1} md={2}>
+            <Toolbar />
+            <Sidebar />
+          </Grid>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
                     <Toolbar />
-                    <Sidebar />
-                    <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-                            <BannerSlider
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/insurance')} href='insurance' >
+                      <Typography className='burgerText'> Get Insured</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Term Insurance</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Box className="BoxMarginLeftRight">
+                    <BannerSlider
                                 sliderDetails={sliderDetails}
                                 sliderSetting={settings}
                             />
@@ -110,10 +135,13 @@ const Insurance = () => {
                                 }
 
                             </div>
-                        </Grid>
+                    </Box>
                     </Grid>
-                </Box>
-            </Box>
+                </Grid>
+            </Grid>
+        </Grid>
+        </Box>
+        </Box>
         </div >
     )
 }

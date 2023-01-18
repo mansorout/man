@@ -353,7 +353,7 @@ const RecommendationsELSS = () => {
                         }
 
                         <Box className={classes.exploreOtherOptionsBtn}>
-                            <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                            <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', textTransform:"uppercase !important" } }}>
                                 Explore other options
                             </Button>
                         </Box>

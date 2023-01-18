@@ -81,8 +81,8 @@ const FooterBtnWithBox = (props: FooterBtnWithBoxType) => {
                     <div className={classes.insuranceCardIcon}>
                         {props?.boxIcon}
                     </div>
-                    <b style={{ fontSize: 'var(--titleFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>{props?.boxText}</b>
-                    <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '500', color: 'var(--typeBlackColor)', display: 'block', }}>{props?.boxAmount}</b>
+                    <span style={{ fontSize: 'var(--titleFontSize)',fontWeight: '400',  opacity:"0.7", color: 'var(--typeBlackColor)', display: 'block', marginBottom: '5px' }}>{props?.boxText}</span>
+                    <b style={{ fontSize: 'var(--subHeadingFontSize)', fontWeight: '600', color: 'var(--typeBlackColor)', display: 'block',height:"22px" }}>{props?.boxAmount}</b>
                 </Box>
             </div>
         </Box>
