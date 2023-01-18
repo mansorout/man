@@ -258,7 +258,7 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
           <Box style={style.menuContainer}>
             <Box style={{ display: "flex", justifyContent: "space-between" }}>
               <MenuList style={{ width: "100%", padding: "0px" }}>
-                <ListItemButton onClick={() => navigate('/redeemfund')} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <ListItemButton onClick={() => { if (fundId) navigate('/redeemfund', { state: { selctedFundId: fundId } }) }} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }} >Redeem Funds</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>

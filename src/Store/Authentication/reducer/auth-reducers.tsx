@@ -19,7 +19,8 @@ const initialState: any = {
       isBseRegistered: false,
       isUserProfileFullCompleted: false
     }
-  }
+  },
+  isRedeemVerified: false
 }
 
 const authReducer = (state = initialState, action: any) => {

@@ -1,21 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { store } from "../../Store/Store";
 import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
-import { verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { setVerifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import { Button, Typography } from "@mui/material";
 import _ from "underscore";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import { postDataWithoutToken } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
-import { setloginDataOnFailAction, setloginDataOnSuccessAction, setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setloginDataOnFailAction, setloginDataOnSuccessAction, setTokenExpiredStatusAction, setUserViewProfileDataAction } from "../../Store/Authentication/actions/auth-actions";
+import { apiResponse } from "../../Utils/globalTypes";
 
 type IProps = {
   otp: string;
   number: string | null;
   disabled: boolean;
+  type: string
   loading: (status: boolean) => void
 }
 
@@ -47,7 +49,7 @@ export const OtpVerifyButton = (props: IProps) => {
     }
   }, [props?.otp])
 
-  const validateOTP = (otp: string) => {
+  const validateOTP = async (otp: string, type: string) => {
 
     if (otp.length !== 4) {
       addError("Login_OTP")
@@ -57,35 +59,48 @@ export const OtpVerifyButton = (props: IProps) => {
     removeError("Login_OTP");
     addContactNumber("");
     props?.loading(true);
-    // dispatch(setLoadingAction(true));
+
     let objBody = {
       mobilenumber: props?.number,
       otp: props?.otp,
-      type: "auth"
+      type: type
     }
-    postDataWithoutToken(
-      objBody,
-      siteConfig.AUTHENTICATION_OTP_VERIFY,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.AUTHENTICATION_API_ID
-    )
-      .then(res => res.json())
-      .then((data) => {
-        // dispatch(setLoadingAction(false));
-        props?.loading(false);
-        if (data?.error) {
-          dispatch(setloginDataOnFailAction(data?.error));
-          return;
-        }
-        const response = data?.data;
 
-        dispatch(setloginDataOnSuccessAction(response));
-        dispatch(setTokenExpiredStatusAction(false));
-      }).catch(err => {
-        dispatch(setLoadingAction(false));
-        dispatch(setloginDataOnFailAction({}));
-        console.log(err);
-      })
+    let res: apiResponse = await setVerifyOtpThunk(objBody);
+
+    props?.loading(false);
+
+    if (res?.error) {
+      dispatch(setloginDataOnFailAction(res?.error));
+      return;
+    }
+    const response = res?.data;
+
+    dispatch(setloginDataOnSuccessAction(response));
+    dispatch(setUserViewProfileDataAction(response?.userInfo))
+    dispatch(setTokenExpiredStatusAction(false));
+
+    if (type === "auth") {
+    } else {
+      // Navigate("/redemptiondone")
+    }
+
+
+    // postDataWithoutToken(
+    //   objBody,
+    //   siteConfig.AUTHENTICATION_OTP_VERIFY,
+    //   siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    //   siteConfig.AUTHENTICATION_API_ID
+    // )
+    //   .then(res => res.json())
+    //   .then((data) => {
+    //     // dispatch(setLoadingAction(false));
+
+    //   }).catch(err => {
+    //     dispatch(setLoadingAction(false));
+    //     dispatch(setloginDataOnFailAction({}));
+    //     console.log(err);
+    //   })
 
     // }
     // store.dispatch(verifyOtpThunk({ 'otp': otp, 'number': number, 'type': 'auth' }));
@@ -98,7 +113,7 @@ export const OtpVerifyButton = (props: IProps) => {
 
   return (
     <Button
-      onClick={() => validateOTP(props?.otp)}
+      onClick={() => validateOTP(props?.otp, props?.type)}
       ref={btnRef}
       variant="contained"
       style={style.button}
