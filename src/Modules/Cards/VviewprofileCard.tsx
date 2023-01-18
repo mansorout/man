@@ -91,6 +91,8 @@ function VviewprofileCard(props: IProps) {
         (state: any) => state?.authReducer?.profile
     );
     const userProfileKycStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isKycCompleted);
+    const userProfileDetailStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isUserProfileFullCompleted);
+    console.log(userProfileDetailStatus)
 
     useEffect(() => {
         let userdetails: any = { ...props?.kycDetails };
