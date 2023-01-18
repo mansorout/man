@@ -30,7 +30,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import Paper from "@mui/material/Paper";
 import "./style.css";
 import { height, padding } from "@mui/system";
-import { Console } from "console";
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
@@ -121,7 +120,6 @@ const ViewProfileCard = (props: IProps) => {
 
   /**reducer state */
   const userData: any = useSelector((state: any) => state.userProfileDetails);
-  console.log(userData);
   // const g_viewProfileState: any = useSelector((state: any) => state?.authReducer?.profile);
   // console.log(g_viewProfileState, "g_viewProfileState viewprofilecard() child")
 
@@ -131,6 +129,7 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   // const [profileImage,setProfileImage] = useState<any>("")
   const [profileImage2,setProfileImage2] = useState<any>("")
+  const userProfileStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isProfileComplete);
   const ImageData = {
     filename: "kk",
     image: "wwww.png",
@@ -207,7 +206,7 @@ const ViewProfileCard = (props: IProps) => {
         let base64:any = fileLoadedEvent.target.result;
         // setProfileImage(base64)
 
-        console.log(base64)
+        // console.log(base64)
 
         dispatchLocal(setProfileImage(base64));
 
@@ -246,10 +245,10 @@ const ViewProfileCard = (props: IProps) => {
 
   useEffect(()=>{
     let image = localStorage.getItem("imgSrc")
-    console.log(image)
+    // console.log(image)
     setProfileImage2(image)
   },[])
-  console.log("profile image",profileImage2)
+  // console.log("profile image",profileImage2)
 
 
   // @ts-ignore
@@ -337,7 +336,20 @@ const ViewProfileCard = (props: IProps) => {
             </Typography>
             <ListItem
               secondaryAction={
+                userProfileStatus ? 
                 <Typography
+                  sx={{
+                    backgroundColor: "#23db7b",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                    borderRadius: "20px",
+                    color: "#000",
+                    padding: "2px 21px 3px 23px",
+                  }}
+                  className="IncompleteStyle"
+                >
+                  Completed
+                </Typography> : <Typography
                   sx={{
                     backgroundColor: "#ffc300",
                     fontSize: "12px",
@@ -350,6 +362,7 @@ const ViewProfileCard = (props: IProps) => {
                 >
                   Incomplete
                 </Typography>
+               
               }
             ></ListItem>
             <Typography
