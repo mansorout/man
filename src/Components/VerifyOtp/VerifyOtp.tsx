@@ -20,6 +20,7 @@ import { bindActionCreators } from "redux";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { setUserNameAndEmailInLocalStorage } from "../../Utils/globalFunctions";
+import { relative } from "node:path/win32";
 
 const style = {
   background: {
@@ -48,6 +49,7 @@ const style = {
     left: "50%",
     bottom: "0px",
     position: "absolute"
+    // position:"relative"
   } as React.CSSProperties,
 
   logo: {
