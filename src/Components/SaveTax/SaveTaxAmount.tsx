@@ -245,6 +245,7 @@ const SaveTaxAmount = () => {
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
+        console.log()
 
         const temp = parseInt(event.target.value) * parseInt(saveTaxPercentageAmount) / 100;
         setSaveTaxUPTO(temp)
