@@ -18,7 +18,7 @@ import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCond
 import BannerSlider from '../CommonComponents/BannerSlider'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
-
+import { Breadcrumbs, Link } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -425,7 +425,33 @@ const ProposalFormStep2 = () => {
                     <Sidebar />
                     <Grid container>
                         <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px", sm: '85px !important', md: '245px !important' } }} item xs={12}>
-
+                        <Box sx={{ paddingLeft: "30px" }}>
+                <Box role="presentation" sx={{ marginTop: "0%" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href="Home">
+                      <Typography className="burgerText"> Home</Typography>
+                    </Link>
+                    <Link underline="always" href="/explorefunds">
+                      <Typography color="#6495ED" className="burgerText">
+                        Get Insured{" "}
+                      </Typography>
+                    </Link>
+                    <Link
+                      underline="none"
+                      color="#878782"
+                      sx={{ fontSize: "12px", width: "100%" }}
+                    >
+                      <Typography color="#6495ED" className="burgerText">
+                        Health Insurance
+                      </Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
+                <BannerSlider
+                  sliderDetails={sliderDetails}
+                  sliderSetting={settings}
+                />
+              </Box>
                             <div className="progressContainer">
                                 <p style={{ color: '#f9f9f9' }}>STEP 2/4</p>
                                 <p style={{ color: '#ffffff' }}>Help us with the profile details in order to process the buying transaction</p>

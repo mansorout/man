@@ -333,7 +333,7 @@ const InitiateSip = (props: IProps) => {
                               > <b style={{ color: "#6c63ff" }}>  +10,000</b>
                               </Button>
                             </Stack>
-                            <InvestButton cardType={props?.cardType} />
+                            <InvestButton cardType={props?.cardType} lumpsumPrice={undefined} />
                             <Grid container spacing={2} textAlign="center">
                               <Grid item xs={12} md={12} onClick={() => {
                                 navigate("/sipInvestment", {
@@ -345,7 +345,7 @@ const InitiateSip = (props: IProps) => {
                               }}>
 
                                 <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
-                                  <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
+                                  <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>&nbsp;
                                   KNOW MORE ABOUT INVESTMENT</Typography>
                               </Grid>
                             </Grid>

@@ -381,8 +381,10 @@ function HolderSignature() {
                                     xs={13}
                                     sm={11}
                                     md={10}
+                                    sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }}
                                 >
-                                    <Grid sx={{ padding: 2 }} item xs={12}>
+
+                                    <Grid sx={{ padding: 2 }} item xs={12} >
                                         <Toolbar />
                                         <Box sx={{ mb: "10px" }} className="checkHeadingStack">
                                             <Typography
