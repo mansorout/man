@@ -13,7 +13,7 @@ import { verifycxotp } from "../../Store/Reducers/action";
 import { resendotp } from "../../Store/Reducers/action";
 import { store } from "../../Store/Store"
 import commonLogo from '../../Assets/MainLogo.svg'
-import { resendOtpThunk, verifyOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { resendOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import siteConfig from "../../Utils/siteConfig";
 import { ActionCreators } from "../../Store";
 import { bindActionCreators } from "redux";
@@ -209,6 +209,7 @@ export const VerifyOtp = () => {
             otp={OTP}
             number={number}
             loading={(status: boolean) => setLoading(status)}
+            type="auth"
           />
           {errorLocal ?
             <>
