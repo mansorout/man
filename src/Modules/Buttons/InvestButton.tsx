@@ -59,6 +59,7 @@ export const InvestButton = (props: IProps) => {
             status = true;
           } else {
             status = false
+            
           }
         }
       }
