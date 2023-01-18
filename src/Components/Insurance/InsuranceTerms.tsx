@@ -52,7 +52,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     termInsuranceCard: {
         backgroundColor: 'var(--uiWhite)',
         boxShadow: 'var(--themeShadow)',
-        padding: '20px 15px',
+        // padding: '20px 15px',
         borderRadius: '8px',
     },
     quickSelectWrapper: {
@@ -321,7 +321,7 @@ const InsuranceTerms = () => {
                             onChange={handleChange}
                             className={insuranceAmountError && classes.selectError}
                         >
-                            <MenuItem value={1000000}>₹ 1,00,000</MenuItem>
+                            <MenuItem value={100000}>₹ 1,00,000</MenuItem>
                             <MenuItem value={2500000}>₹ 2500000</MenuItem>
                             <MenuItem value={7500000}>₹ 7500000</MenuItem>
                             <MenuItem value={5000000}>₹ 5000000</MenuItem>
