@@ -5,6 +5,7 @@ import {
   Button,
   Grid,
   Stack,
+  Avatar,
 } from "@mui/material";
 import { SmallStar } from "../../Assets";
 
@@ -26,7 +27,7 @@ interface Prop {
   // aum: string
   // aumPercentage: string
   morning_star_logo?: string;
-  // rating: string
+  rating: string
   absoluteValue: string
   absoluteValueInPercentage: string
 }
@@ -34,13 +35,6 @@ interface Prop {
 
 
 const FullAmountCard = (props: Prop) => {
-  const navigate = useNavigate();
-  const formatter = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  });
-
   return (
     <Box
       id="CoCard"
@@ -63,7 +57,6 @@ const FullAmountCard = (props: Prop) => {
       >
         <img
           src={props.logo}
-
           style={{
             width: "3rem",
             height: "3rem",
@@ -72,47 +65,48 @@ const FullAmountCard = (props: Prop) => {
             backgroundColor: "#ffffff"
           }}
         />
-
-
-
-        {/* <Box>
-
+        <Box>
+          <Chip sx={{ backgroundColor: "#ffc300", marginTop: "-15%" }}
+            avatar={<Avatar alt="star" src={SmallStar}
+              sx={{
+                color: "#ffffff",
+              }}
+            />}
+            label={props?.rating + ".8"}
+          />
+          <img alt="MorningStarlogo" src={MorningStarlogo} style={{
+            width: "76px",
+            height: "22px",
+            margin: "10px 0 10px 8px"
+          }} />
+        </Box>
+        <Box>
           <Button sx={{ width: "108px", height: "34px", padding: "6px 6px 4px", borderRadius: "2px", backgroundColor: "#64dbff" }}>
-            <Typography sx={{ color: "#3f7ad6", fontSize: "20px" }}>₹5,000</Typography>
+            <Typography sx={{ color: "#3f7ad6", fontSize: "20px" }}>₹{props?.investedValue}</Typography>
           </Button>
-
-        </Box> */}
+        </Box>
       </Box>
-
       <Grid container spacing={0}>
         <Grid item xs={6}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-            {/* Axis Small Cap Fund Regular Growth */}
-
             {props?.name}
           </Typography>
         </Grid>
-
-
-
       </Grid>
       <Box
         sx={{
           width: { xs: "246px", sm: "217px" },
         }}
       >
-
         <Chip
           label={props?.cap}
           sx={{
-
             backgroundColor: "rgba(255, 255, 255, 0.54)",
             marginRight: "10px",
           }}
         />
         <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props?.type} />
       </Box>
-
       <Box
         sx={{
           display: "flex",
@@ -129,7 +123,6 @@ const FullAmountCard = (props: Prop) => {
           marginTop={2}
           marginBottom={2}
         >
-
           <Grid container spacing={2} textAlign="center" >
             <Grid item xs={3}>
               <Typography
@@ -150,7 +143,6 @@ const FullAmountCard = (props: Prop) => {
 
               </Typography>
             </Grid>
-
             <Grid item xs={3}>
               <Typography
                 sx={{
@@ -158,9 +150,6 @@ const FullAmountCard = (props: Prop) => {
                   color: "#ffffff",
                   fontSize: "14px"
                 }}
-
-
-
               >   Current Value</Typography>
               <Typography
                 sx={{
@@ -170,7 +159,6 @@ const FullAmountCard = (props: Prop) => {
                 }}
               >₹{props?.currentValue}</Typography>
             </Grid>
-
             <Grid item xs={3}>
               <Typography
                 sx={{
@@ -179,7 +167,7 @@ const FullAmountCard = (props: Prop) => {
                   fontSize: "14px"
 
                 }}
-              >     Total Units</Typography>
+              >Total Units</Typography>
               <Typography
                 sx={{
                   fontSize: "20px",
@@ -188,33 +176,6 @@ const FullAmountCard = (props: Prop) => {
                 }}
               >{props?.units}</Typography>
             </Grid>
-
-            {/* {
-              props?.aum ?
-                <Grid item xs={3} >
-                  <Typography
-                    sx={{
-                      opacity: " 0.74",
-                      color: "#ffffff",
-                      fontSize: "14px"
-
-                    }}
-                  >
-                    AUM
-                  </Typography>
-                  <Typography sx={{
-                    fontSize: "20px",
-                    fontWeight: "500",
-                    color: "#ffffff"
-                    // }}>₹21,625 (18.75%)</Typography>
-                  }}>
-                    ₹21,625 (18.75%)
-
-                    {/* ₹{props?.aum} */}
-            {/* </Typography>
-                </Grid>
-                : null
-            // } */}
 
             <Grid item xs={3} >
               <Typography
@@ -230,7 +191,6 @@ const FullAmountCard = (props: Prop) => {
                 fontWeight: "500",
                 color: "#ffffff"
               }}>
-                {/* ₹21,625 (18.75%) */}
                 ₹{props?.absoluteValue} ({(props?.absoluteValueInPercentage ? props?.absoluteValueInPercentage + "%" : "")})
               </Typography>
             </Grid>
