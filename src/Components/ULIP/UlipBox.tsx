@@ -135,6 +135,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         padding: '15px',
     }
 }))
+
+const enumLabels = {
+    INVESTED_VALUE:'Invested Value',
+    PROJECTED_VALUE:'Projected Value',
+}
+
 const MAX_LENGTH = 10;
 const UlipBox = (props:any) => {
 
@@ -271,14 +277,14 @@ const UlipBox = (props:any) => {
         labels: chartLabels,
         datasets: [
             {
-                label: "Invested Value",
+                label: enumLabels?.INVESTED_VALUE,
                 data: chartInvestedAmount,
                 fill: true,
                 backgroundColor: "rgba(75,192,192,0.2)",
                 borderColor: "rgba(75,192,192,1)"
             },
             {
-                label: "Projected Value",
+                label: enumLabels?.PROJECTED_VALUE,
                 data: chartProjectedAmount,
                 fill: true,
                 borderColor: "#742774"
@@ -320,8 +326,11 @@ const UlipBox = (props:any) => {
     }, [])
     const hadleLineChart=(e:any)=>{
     
-        setGreenline(e.value)
-        setPinkline(e.value)
+        if(e?.lineLabel === enumLabels?.INVESTED_VALUE){
+            setGreenline(e.value)
+        }else{
+            setPinkline(e.value)
+        }
       
         console.log(e)
         // value.datasets.map(( item : any)=> 
