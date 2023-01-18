@@ -463,7 +463,7 @@ const Portfolio = () => {
                   </Box>
                   <Box>
                     {/* <SprintMoneyLoader
-                      loadingStatus={loading}
+                      loadingStatus={true}
                     /> */}
                     {
                       message && message.length ?
