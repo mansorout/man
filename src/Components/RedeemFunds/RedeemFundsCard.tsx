@@ -27,12 +27,15 @@ interface Prop {
   name: string;
   cap: string;
   type: string;
-  year1: number;
-  year3: number;
-  year5: number;
-  year6: string;
-  rating: number;
+  rating: string;
   morning_star_logo?: string;
+  currentValue: string
+  investedValue: number
+  units: string
+  // aum: string
+  // aumPercentage: string
+  absoluteValue: string
+  absoluteValueInPercentage: string
 }
 
 
@@ -87,7 +90,7 @@ const RedeemFundsCard = (props: Prop) => {
 
               }}
             />}
-            label={props.rating + ".8"}
+            label={props?.rating + ".8"}
 
           />
           <img alt="MorningStarlogo" src={MorningStarlogo} style={{
@@ -102,7 +105,9 @@ const RedeemFundsCard = (props: Prop) => {
       <Grid container spacing={0}>
         <Grid item xs={6}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-            Axis Small Cap Fund Regular Growth
+            {/* Axis Small Cap Fund Regular Growth */}
+
+            {props?.name}
           </Typography>
         </Grid>
 
@@ -116,14 +121,14 @@ const RedeemFundsCard = (props: Prop) => {
       >
 
         <Chip
-          label={props.cap}
+          label={props?.cap}
           sx={{
 
             backgroundColor: "rgba(255, 255, 255, 0.54)",
             marginRight: "10px",
           }}
         />
-        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props.type} />
+        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props?.type} />
       </Box>
 
       <Box
@@ -189,7 +194,7 @@ const RedeemFundsCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >₹1,25,000
+              >₹{props?.investedValue}
 
               </Typography>
 
@@ -214,7 +219,7 @@ const RedeemFundsCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >₹1,46,625</Typography>
+              >₹{props?.currentValue}</Typography>
             </Grid>
 
             <Grid item xs={3}>
@@ -232,8 +237,30 @@ const RedeemFundsCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >272750</Typography>
+              >{props?.units}</Typography>
             </Grid>
+
+            {/* {
+              props?.aum ?
+                <Grid item xs={3} >
+                  <Typography
+                    sx={{
+                      opacity: " 0.74",
+                      color: "#ffffff",
+                      fontSize: "14px"
+
+                    }}
+                  >
+                    AUM
+                  </Typography>
+                  <Typography sx={{
+                    fontSize: "20px",
+                    fontWeight: "500",
+                    color: "#ffffff"
+                  }}>₹21,625 (18.75%)</Typography>
+                </Grid>
+                :null
+            } */}
 
             <Grid item xs={3} >
               <Typography
@@ -243,12 +270,15 @@ const RedeemFundsCard = (props: Prop) => {
                   fontSize: "14px"
 
                 }}
-              >    AUM</Typography>
+              >    Absolute Return</Typography>
               <Typography sx={{
                 fontSize: "20px",
                 fontWeight: "500",
                 color: "#ffffff"
-              }}>₹21,625 (18.75%)</Typography>
+              }}>
+                {/* ₹21,625 (18.75%) */}
+                ₹{props?.absoluteValue} ({props?.absoluteValueInPercentage ? (props?.absoluteValueInPercentage + "%") : ""})
+              </Typography>
             </Grid>
 
 
