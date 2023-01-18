@@ -159,6 +159,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         backgroundColor: 'rgba(35, 219, 123, 0.12) !important',
         color: 'var(--primaryColor) !important'
     },
+    
     selectError:{
         color: 'red !important',
         '& fieldset':{
@@ -190,6 +191,9 @@ interface genderProp {
 
 const RadioCmp = (props: genderProp) => {
     const classes = useStyles()
+    useEffect(() => {
+        props.selectoin("no");
+    }, []);
     return (
         <div>
             <Button variant="outlined" style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', border: '1px solid var(--typeLighterGrey)', boxShadow: 'var(--themeShadow)', padding: '6px 5px', lineHeight: '1.4', margin: '0px 6px', borderRadius: '8px', width: '100%' }} className={`${classes.genderBtn} ${props.errorShow && classes.borderAndTextErrorColor} ${props.value === props.selectedItem ? classes.borderAndTextErrorColorRemove : ''}`} onClick={() => {
@@ -233,6 +237,7 @@ const InsuranceTerms = () => {
     const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
     const [genderSelect, setGenderSelect] = useState<string>('')
     const [genderSelectError, setGenderSelectError] = useState<boolean>(false)
+    const [tobaccoSelectTag, setTobaccoSelectTag] = useState<boolean>(true)
     const [tobaccoSelect, setTobaccoSelect] = useState<string>('')
     const [tobaccoSelectError, setTobaccoSelectError] = useState<boolean>(false)
     const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -434,6 +439,7 @@ const InsuranceTerms = () => {
 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
+                                        className='datePickerIcon'
                                         label="Date of Birth"
                                         value={dob}
                                         onChange={(newValue) => {
@@ -452,14 +458,17 @@ const InsuranceTerms = () => {
                                         name="row-radio-buttons-group"
                                         onChange={handleTobaccoSelect}
                                     >
-                                        <FormControlLabel control={<RadioCmp
+                                <FormControlLabel className={`${classes.borderAndTextErrorColor} hhfff`}
+                                            control={<RadioCmp
                                             value="no"
                                             selectoin={setTobaccoSelect}
                                             errorShow={tobaccoSelectError}
                                             errorRemove={setTobaccoSelectError}
                                             prop="No"
                                             selectedItem={tobaccoSelect}
-                                        />} label="" />
+                                        />} label=""
+                                        // className={tobaccoSelectTag===true?'NoButton':null}
+                                         />
                                         <FormControlLabel control={<RadioCmp
                                             value="yes"
                                             selectoin={setTobaccoSelect}
@@ -467,7 +476,8 @@ const InsuranceTerms = () => {
                                             errorRemove={setTobaccoSelectError}
                                             prop="Yes"
                                             selectedItem={tobaccoSelect}
-                                        />} label="" />
+                                        />} label=""
+                                         />
                                     </RadioGroup>
                                 </FormControl>
                             </div> :
