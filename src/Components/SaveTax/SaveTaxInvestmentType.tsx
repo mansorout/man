@@ -84,16 +84,19 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         }
     },
     recommendationsBoxBackgroundHover: {
-        backgroundColor: 'rgb(255 255 255 / 30%) !important'
+        backgroundColor: 'rgb(255 255 255 / 30%) !important',
     },
     bgTableHighlightState: {
         backgroundColor: '#e9f8fe',
         borderLeft: '1px solid var(--ui1Color) !important',
         borderRight: '1px solid var(--ui1Color) !important',
+        fontWeight:"700 !important",
     },
     badgeStyle: {
         '&>span': {
             right: '50% !important',
+            backgroundColor: 'var(--primaryColor)',
+                color: 'var(--uiWhite)',
         }
     },
     tableStyle:{
@@ -232,11 +235,12 @@ const SaveTaxInvestmentType = () => {
 
             <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'elss' ? classes.recommendationsBoxBackgroundHover : ''}`}>
                 <Box className={classes.blueBoxIconBox}>
-                    <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                    <img src={process.env.PUBLIC_URL + '/assets/images/Ells-icon.svg'} alt="" />
                 </Box>
                 <FormControlLabel value="elss" control={<Radio />} label="ELSS" />
             </Box>
         </Box>
+
     </Box>
 </RadioGroup>
 
@@ -277,6 +281,9 @@ const SaveTaxInvestmentType = () => {
         </TableBody>
     </Table>
 </TableContainer>
+<Box sx={{ padding: '10px 0px'}}>
+<Typography sx={{ padding: '10px 0px', color:"#3c3e4299", fontSize:'14px'}} component='p'>*Approximate estimated value at 8% return after tax.</Typography>
+</Box>
 
 
 <FooterBtnWithBox

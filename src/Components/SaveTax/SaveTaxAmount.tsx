@@ -328,7 +328,7 @@ const SaveTaxAmount = () => {
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
                     <Box className="BoxMarginLeftRight textBoxAmount">
-                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >I Know My Tax Liability</Typography>
+                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >My Tax Liability</Typography>
                         <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
                             <Box className={classes.blueBoxIconBox}>
                                 <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
@@ -360,6 +360,7 @@ const SaveTaxAmount = () => {
                                         label="Enter Amount"
                                         id="outlined-start-adornment"
                                         value={lumpsumAmount}
+                                        placeholder="Lumpsum investment"
                                         onChange={handleLumpsum}
                                         type='number'
                                         InputProps={{
@@ -397,6 +398,7 @@ const SaveTaxAmount = () => {
                                         id="outlined-start-adornment"
                                         value={monthlyAmount}
                                         onChange={handleMonthly}
+                                        placeholder="Monthly investment"
                                         type='number'
                                         InputProps={{
                                             endAdornment: <InputAdornment position="start">

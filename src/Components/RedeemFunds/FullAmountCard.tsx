@@ -20,12 +20,15 @@ interface Prop {
   name: string;
   cap: string;
   type: string;
-  year1: number;
-  year3: number;
-  year5: number;
-  year6: string;
-  rating: number;
+  units: string
+  currentValue: string
+  investedValue: number
+  // aum: string
+  // aumPercentage: string
   morning_star_logo?: string;
+  // rating: string
+  absoluteValue: string
+  absoluteValueInPercentage: string
 }
 
 
@@ -72,34 +75,21 @@ const FullAmountCard = (props: Prop) => {
 
 
 
-        <Box>
+        {/* <Box>
 
           <Button sx={{ width: "108px", height: "34px", padding: "6px 6px 4px", borderRadius: "2px", backgroundColor: "#64dbff" }}>
             <Typography sx={{ color: "#3f7ad6", fontSize: "20px" }}>₹5,000</Typography>
           </Button>
-          {/* <Chip sx={{ backgroundColor: "#ffc300", marginTop: "-15%" }}
-              avatar={<Avatar alt="star" src={SmallStar}
-                sx={{
-                  color: "#ffffff",
-  
-                }}
-              />}
-              label={props.rating + ".8"}
-  
-            /> */}
-          {/* <img alt="MorningStarlogo" src={MorningStarlogo} style={{
-              width: "76px",
-              height: "22px",
-              margin: "10px 0 10px 8px"
-            }} /> */}
 
-        </Box>
+        </Box> */}
       </Box>
 
       <Grid container spacing={0}>
         <Grid item xs={6}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
-            Axis Small Cap Fund Regular Growth
+            {/* Axis Small Cap Fund Regular Growth */}
+
+            {props?.name}
           </Typography>
         </Grid>
 
@@ -113,14 +103,14 @@ const FullAmountCard = (props: Prop) => {
       >
 
         <Chip
-          label={props.cap}
+          label={props?.cap}
           sx={{
 
             backgroundColor: "rgba(255, 255, 255, 0.54)",
             marginRight: "10px",
           }}
         />
-        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props.type} />
+        <Chip sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }} label={props?.type} />
       </Box>
 
       <Box
@@ -156,16 +146,10 @@ const FullAmountCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >₹1,25,000
+              >₹{props?.investedValue}
 
               </Typography>
-
-
             </Grid>
-
-            {/* <Grid padding={2} item sm={1} xs={0}>
-                          <Divider orientation="vertical"/>
-                        </Grid> */}
 
             <Grid item xs={3}>
               <Typography
@@ -184,7 +168,7 @@ const FullAmountCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >₹1,46,625</Typography>
+              >₹{props?.currentValue}</Typography>
             </Grid>
 
             <Grid item xs={3}>
@@ -202,8 +186,35 @@ const FullAmountCard = (props: Prop) => {
                   fontWeight: "500",
                   color: "#ffffff"
                 }}
-              >272750</Typography>
+              >{props?.units}</Typography>
             </Grid>
+
+            {/* {
+              props?.aum ?
+                <Grid item xs={3} >
+                  <Typography
+                    sx={{
+                      opacity: " 0.74",
+                      color: "#ffffff",
+                      fontSize: "14px"
+
+                    }}
+                  >
+                    AUM
+                  </Typography>
+                  <Typography sx={{
+                    fontSize: "20px",
+                    fontWeight: "500",
+                    color: "#ffffff"
+                    // }}>₹21,625 (18.75%)</Typography>
+                  }}>
+                    ₹21,625 (18.75%)
+
+                    {/* ₹{props?.aum} */}
+            {/* </Typography>
+                </Grid>
+                : null
+            // } */}
 
             <Grid item xs={3} >
               <Typography
@@ -218,43 +229,12 @@ const FullAmountCard = (props: Prop) => {
                 fontSize: "20px",
                 fontWeight: "500",
                 color: "#ffffff"
-              }}>₹21,625 (18.75%)</Typography>
+              }}>
+                {/* ₹21,625 (18.75%) */}
+                ₹{props?.absoluteValue} ({(props?.absoluteValueInPercentage ? props?.absoluteValueInPercentage + "%" : "")})
+              </Typography>
             </Grid>
-
-
           </Grid>
-          {/* <Grid item xs={4}>
-              <TableContainer>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow sx={{ color: "red" }}>
-                      <TableCell className="table_head">
-                        Invested Value
-                      </TableCell>
-  
-                      <TableCell className="table_head">
-                      
-                        Current Value
-                      </TableCell>
-                      <TableCell className="table_head">
-                        Total Units
-                      </TableCell>
-                      <TableCell className="table_head">AUM</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="table_head2">₹{props.year1}%
-                      </TableCell>
-  
-                      <TableCell className="table_head2">₹{props.year3}</TableCell>
-                      <TableCell className="table_head2">{props.year5}</TableCell>
-                      <TableCell className="table_head2">₹{props.year6}%</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid> */}
         </Grid>
       </Box>
     </Box >

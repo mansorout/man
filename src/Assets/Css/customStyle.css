@@ -1,5 +1,12 @@
 .investInsidePading{padding: 15px;
 }
+.datePickerIcon .MuiIconButton-sizeMedium{
+  color: #6c63ff !important;
+}
+.NoButton button{
+  background-color:rgba(35, 219, 123, 0.12) !important;
+        color: #fff;
+}
 .BoxMarginLeftRight{
   margin: 0 24px;
 }

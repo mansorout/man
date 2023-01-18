@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Button, Divider, Toolbar, Typography } from "@mui/material";
-
+import'./Termsandcondition.css';
 import { SBIcon } from "../../Assets"
 
 import NavigationBar from "../../Modules/NavigationBar/NavigationBar";
@@ -14,7 +14,7 @@ const style = {
     width: "100vw"
   } as React.CSSProperties,
   container: {
-    width: "90%",
+   
     maxWidth: "850px",
     backgroundColor: "white",
     borderRadius: "8px",
@@ -24,7 +24,7 @@ const style = {
 
   lowerContainer: {
     gap: "20px",
-    width: "90%",
+    // width: "90%",
     maxWidth: "850px",
     borderRadius: "8px",
     padding: "20px 30px",
@@ -58,8 +58,10 @@ const TermsandCondition: FC<Props> = (props: Props) => {
     <Box style={style.background}>
       <NavigationBar />
       <Toolbar />
-      <Box style={style.wrapper}>
-        <Box style={style.container}>
+      
+      <Box style={style.wrapper} >
+    
+        <Box style={style.container} className="termAndcodStyle">
           <Typography component="h4" style={{ margin: "10px 0px" }}>Terms and Conditions</Typography>
           <Divider style={{ margin: "10px 0px" }} />
           <Typography className="body1" style={{ margin: "10px 0px" }}>
@@ -82,13 +84,14 @@ const TermsandCondition: FC<Props> = (props: Props) => {
         </Box>
         {
           number ?
-            <Box style={style.lowerContainer}>
+            <Box style={style.lowerContainer} className="marginTopstyle">
               <Typography className="body1">
                 By continuing, I agreeing to SprintMoney<sup style={{ fontSize: "6px", color: "#7b7b9d" }}>TM</sup>
               </Typography>
               <Button variant="contained" style={style.button} fullWidth onClick={() => {
                 navigate('/otpverify')
               }}
+              
               >
                 <Typography style={style.text} className="largeButtonText">Accept</Typography>
               </Button>
