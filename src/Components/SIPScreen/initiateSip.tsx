@@ -1,33 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react'
-import '../InvestNowScreen/InvestNowScreen.css'
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link'
-
-import { Box, styled } from '@mui/system'
-import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typography } from '@mui/material'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
-import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
-import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
-import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import InvestCard from '../../Modules/Cards/InvestCard';
-import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
 import { useNavigate } from 'react-router-dom';
+import OtpInput from 'react-otp-input';
+
+//component imports
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton';
-import OtpInput from 'react-otp-input'
-import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
-import CloseIcon from '@mui/icons-material/Close';
-import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
-import ModalInvestNow from '../InvestNowScreen/ModalInvestNow';
+import InvestCard from '../../Modules/Cards/InvestCard';
 import { InvestButton } from '../../Modules/Buttons/InvestButton';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
+import PINVerifyButton from '../../Modules/Buttons/PINVerifyButton';
+import InvestSecondCard from '../../Modules/Cards/InvestSecondCard';
+import LineChart from "../../Components/CommonComponents/Charts/LineChart";
+import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
+
+//chart imports
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
+
+//global function and constants imports
+import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions';
+import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
+import { getData, postData } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
+
+//style and mui imports
+import '../InvestNowScreen/InvestNowScreen.css'
+import Link from '@mui/material/Link'
+import { makeStyles } from '@mui/styles';
+import Avatar from '@mui/material/Avatar';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, fontSize, styled } from '@mui/system'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { AppBar, Button, Divider, Menu, MenuItem, Theme, useTheme } from '@mui/material';
+import { ExpandLessOutlined, ExpandMoreOutlined, Support, SupportOutlined } from '@mui/icons-material';
+import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search } from '@mui/icons-material'
+import { Breadcrumbs, Card, CardContent, Grid, Modal, Stack, TextField, Typography } from '@mui/material'
+import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions, PopperUnstyled } from '@mui/base';
+import { closelogo, ellipslogo, graphimage, lockinlogo, Logo, MonoLogo, Profile, rightsign, SIP, sipiclogo, withdrawiclogo } from '../../Assets/index'
+import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action';
+
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -41,6 +54,7 @@ const StyledMenuItem = styled(MenuItemUnstyled)(
   }
   `,
 );
+
 const useStyles: any = makeStyles((theme: Theme) => ({
   appbar: {
     backgroundColor: "white",
@@ -49,13 +63,24 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     position: "fixed",
     zIndex: "3000",
   },
+  actibeBtn: {
+    "&:focus": {
+      backgroundColor: "rgb(111 121 239 / 40%) !important",
+    },
+  },
+  btn: {
+    "&:hover": {
+      backgroundColor: "rgb(111 121 239 / 40%) !important",
+    }
+  }
 }));
+
 
 const style = {
   main: {
     boxSizing: "border-box",
     backgroundColor: "#f9f9f9",
-    height: "100vh"
+    // height: "100vh"
   } as React.CSSProperties,
   drawer: {
     zIndex: "500",
@@ -104,6 +129,17 @@ const style = {
     alignItems: "center",
     margin: "10px 0px"
   } as React.CSSProperties,
+  ca: {
+
+    backgroundColor: "#64dbff",
+    width: "32px",
+    height: "32px",
+
+    opacity: "0.5",
+
+
+  } as React.CSSProperties,
+
   menuText: {
     color: "black",
     fontSize: "10px",
@@ -112,6 +148,13 @@ const style = {
     borderRadius: "4px",
     backgroundColor: "#ffc300",
     cursor: "pointer"
+  },
+
+  dividerBox: {
+    width: "100%",
+    height: "1px",
+    backgroundColor: "#acb4bf",
+
   },
   menuText2: {
     padding: "6px 12px",
@@ -123,13 +166,6 @@ const style = {
     color: "#09b85d",
     cursor: "pointer"
   },
-  ca_M: {
-    backgroundColor: "#64dbff",
-    width: "32px",
-    height: "32px",
-
-    opacity: "0.5",
-  } as React.CSSProperties,
   modalContainer: {
     borderRadius: "8px",
     padding: "20px",
@@ -156,57 +192,224 @@ const style = {
     color: "#6c63ff",
     fontSize: "24px"
   },
-  ca: {
-
+  ca_M: {
     backgroundColor: "#64dbff",
     width: "32px",
     height: "32px",
 
     opacity: "0.5",
-
-
   } as React.CSSProperties,
-  logo: {
-    width: "50px",
-    padding: "20px 0px",
-  } as React.CSSProperties,
+
   appBar: {
     backgroundColor: "white",
+  },
+  rupeesIcon: {
+    fontSize: '16px !important',
   }
 }
+
 type IProps = {
   cardType: string;
   heading: string;
 };
+
+type expectedReturnProps = {
+  years: number,
+  investedvalue: string,
+  projectedvalue: number
+}
+
+const initialExpectedReturns = {
+  years: 0,
+  investedvalue: "0",
+  projectedvalue: 0
+}
+
+const enumPriceList = {
+  ZERO: "0",
+  ONE_THOUSAND: "+1000",
+  FIVE_THOUSAND: "+5000",
+  TEN_THOUSAND: "+10,000"
+}
+
+const enumPriceTag = {
+  THOUSAND: 'Thousand',
+  LAC: "Lac",
+  CRORE: "Cr"
+}
+
+const arrPriceList = [1000, 5000, 10000];
+
+const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'bottom' as const,
+      display: true,
+    },
+    title: {
+      display: true,
+      // text: 'Chart.js Line Chart',
+    },
+  },
+};
+
 
 const InitiateSip = (props: IProps) => {
 
   const classes = useStyles();
   const refContainer = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
-  const error: string[] = useSelector((state: any) => state.error)
-  const [mpin, setMpin] = useState<string | null>()
-  const [openModal, setOpenModal] = useState<boolean>(true)
-  const { openPin }: any = useSelector((state: any) => state.PinModalHome)
-  const [OTP, setOTP] = useState<string>("");
+  ChartJS.register(Filler, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-  const handleModalClose = () => {
-    dispatch(PinModalHomeCloseActon())
-  }
+  const timerRef: any = useRef();
 
-  const handleOtpChange = (otp: any) => {
-    setOTP(otp)
-  }
+  const g_investment = useSelector(
+    (state: any) => state?.recommendationsReducer?.investment
+  );
+  
+  const [error, setError] = useState<string>("");
+  const [amount, setAmount] = useState<number>(0);
+  const [projectedValue, setProjectedValue] = useState<number>(0);
+  const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
+  const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
+  
+  const chartDataDetails: any = useMemo(() => {
+    return {
+      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
+      datasets: [
+        {
+          label: "Projected Value",
+          data: expectedReturns.map((item: expectedReturnProps) => item["projectedvalue"]),
+          fill: true,
+          borderColor: "#742774"
+        },
+      ]
+    };
+  }, [expectedReturns]);
+  
+  useEffect(() => {
+    if(!g_investment?.type){
+      let strCardType:string | null = localStorage.getItem(siteConfig.SIP_CARD_TYPE);
+      dispatch(setInvestmentCardTypeAction(strCardType));
+    }  
+  }, []);
 
   const handleNavigation = () => {
-    navigate("/sipInvestment", {
+    navigate("/oneTimeInvestment", {
       state: {
         cardType: globalConstant.SIP_INVESTMENT
       }
-    });
+    })
   }
+
+  const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+    setActivePriceAmount(strAmount);
+    setAmount((prev: number) => prev + nAmount);
+    let val = amount + nAmount;
+    handleTimer(getExpectedFundReturnList, val);
+  }
+
+  const handleTimer = (cb: any | void, a: any) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => { 
+      cb(a);
+    }, 200);
+  }
+
+  const handleOnChangeAmount = (e: any) => {
+    let { value } = e?.target;
+
+    setAmount(value && value.length ? parseInt(value) : 0);
+
+    // if (amount  > arrPriceList[0] - 1) {
+    //   setError("Amount should be more than ₹5000");
+    //   return;
+    // }
+    
+    if (!isMultipleofNumber(value, 100)) { 
+      setError("Amount should be multiple of 100.")
+    }
+    else {
+      setError("");
+      handleTimer(getExpectedFundReturnList, value);
+    }
+  }
+
+  const getExpectedFundReturnList = (amount: number) => {
+    let strUrl: string = siteConfig.RECOMMENDATION_FUND_RETURN + `?investmenttype_id=11&amount=${amount}`;
+    getData(
+      strUrl,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.RECOMENDATION_API_ID
+    ).then(res => res.json())
+      .then((data: any) => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
+
+        if (data?.error === true) return;
+        let arrExpectedReturnList :expectedReturnProps[] = data?.data;
+        if(arrExpectedReturnList && arrExpectedReturnList.length ){
+          setExpectedReturns(arrExpectedReturnList);
+          setProjectedValue(arrExpectedReturnList[0]?.projectedvalue);
+          console.log("arrExpectedReturnList :", arrExpectedReturnList)
+          localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        }
+        })
+      .catch(err => {
+        setExpectedReturns([]);
+        setProjectedValue(0);
+        console.log(err);
+      });
+  }
+
+  const getExactPriceWithTag = (price: number) => {
+    if (!price) return "";
+    if (price > 999 && price < 100000) return price +" "+ enumPriceTag.THOUSAND;
+    else if (price > 100000 && price < 10000000 ) return price +" "+ enumPriceTag.LAC;
+    else if (price > 10000000 && price < 100000000000000) return price +" "+ enumPriceTag.CRORE;
+    else return price;
+  }
+
+  const saveMutualFundGenerate = (id:number, path:string)=>{
+    if(!amount){
+      setError("Please enter amount!");
+      return;
+    }
+
+    if(amount < 5000){
+      setError("Amount should be more than 5000!");
+      return;
+    }
+
+    postData(
+      {investmenttype_id: id, amount: amount},
+      siteConfig.RECOMMENDATION_MUTUALFUND_GENERATE,
+      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+      siteConfig.RECOMENDATION_API_ID
+    ).then(res=>res.json())
+    .then((data:any)=>{
+      if(checkExpirationOfToken(data?.code)){
+        dispatch(setTokenExpiredStatusAction(true));
+        return;
+      }
+
+      if(data?.error === true){
+        return;
+      }
+      // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
+      localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+      navigate(path);
+    }).catch(err=> {
+
+      console.log(err);
+    })
+  }
+
 
 
   return (
@@ -216,37 +419,34 @@ const InitiateSip = (props: IProps) => {
         <Grid
           container
           spacing={0}
-          sx={{ height: "100vh" }}
         >
-          <Grid item xs={0} sm={1} md={2} >
+          <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid item xs={12} sm={10} md={10}>
-            <Grid item xs={12} sm={10} md={10} sx={{
-              height: "100vh",
-              overflow: "scroll",
-              width: "100%",
-              display: "block",
-              justifyContent: "center",
-            }}>
+          <Grid container xs={13} sm={11} md={10} >
+            <Grid item xs={12} sm={10} md={10} sx={{ height: "100vh",
+            overflow: "scroll",
+            width: "100%",
+            display: "block",
+            justifyContent: "center", }} className="ScrollBarStyle22">
               <Toolbar />
               <Grid container>
-                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                  <Breadcrumbs aria-label="breadcrumb">
-                    <Link color="#6495ED" underline="always" href='Home' >
-                      <Typography className='burgerText'> Home</Typography>
-                    </Link>
-                    <Link underline="always" onClick={() => handleNavigation()}>
-                      <Typography className='burgerText'>Investment</Typography>
-                    </Link>
-                    <Link underline="none" color="#878782"  >
-                      <Typography className='burgerText' >Monthly Investment</Typography>
-                    </Link>
-                  </Breadcrumbs>
-                </Box>
+              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link color="#6495ED" underline="always" href='Home' >
+                    <Typography className='burgerText'> Home</Typography>
+                  </Link>
+                  <Link underline="always" onClick={() => handleNavigation()}>
+                    <Typography className='burgerText'>Investment</Typography>
+                  </Link>
+                  <Link underline="none" color="#878782"  >
+                    <Typography className='burgerText' >One-time lumpsum</Typography>
+                  </Link>
+                </Breadcrumbs>
+              </Box>
               </Grid>
-              <Box className="BoxPadding sss">
+              <Box className="BoxPadding" >
                 <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
                   <Grid item md={6} xs={12}>
                     <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
@@ -257,94 +457,145 @@ const InitiateSip = (props: IProps) => {
                             style={{
                               width: "100%",
                               // margin: "-4% 303px 25px 0",
-                              margin: "6px 12px 18px 0px",
+                              margin:"6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}
                           >
-                            Start an SIP
+                            One-time lumpsum
                           </b>
+
                           <List>
                             <TextField
                               label="I want to invest"
                               name="middleName"
                               fullWidth
-                              placeholder="₹1,00,000"
+                              InputProps={{
+                                startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,
+                              }}
+                              placeholder="1,00,000"
+                              // name="amount"
+                              value={amount || ""}
+                              onChange={handleOnChangeAmount}
                               sx={{
                                 margin: " -55px 0 20px",
                                 boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
                                 backgroundColor: " #fff",
                               }}
                             ></TextField>
-                            <Typography
-                              sx={{
-                                width: "304px",
-                                height: "14px",
-                                margin: "-8px 135px 0 1px",
-                                fontSize: "12px",
-                                fontWeight: "normal",
-                                fontStretch: "normal",
-                                fontStyle: "normal",
-                                lineHeight: " 1.33",
-                                letterSpacing: "normal",
-                                textAlign: " left",
-                                color: "#8787a2",
-                              }}
-                            >
-                              You can start small, starting from ₹5,000
-                            </Typography>
+
+                            {
+                              error && error.length ?
+                                <Typography
+                                  sx={{
+                                    width: "304px",
+                                    height: "14px",
+                                    margin: "-8px 135px 0 1px",
+                                    fontSize: "12px",
+                                    fontWeight: "normal",
+                                    fontStretch: "normal",
+                                    fontStyle: "normal",
+                                    lineHeight: " 1.33",
+                                    letterSpacing: "normal",
+                                    textAlign: " left",
+                                    color: "var(--errorColor)",
+                                  }}
+                                >
+                                  {error}
+                                </Typography>
+                                : <Typography
+                                  sx={{
+                                    width: "304px",
+                                    height: "14px",
+                                    margin: "-8px 135px 0 1px",
+                                    fontSize: "12px",
+                                    fontWeight: "normal",
+                                    fontStretch: "normal",
+                                    fontStyle: "normal",
+                                    lineHeight: " 1.33",
+                                    letterSpacing: "normal",
+                                    textAlign: " left",
+                                    color: "#8787a2",
+                                  }}
+                                >
+                                  You can start small, starting from ₹5,000
+                                </Typography>
+                            }
                             <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
                               <Button
                                 variant="contained"
-                                disabled
+                                // disabled
+                                className={activePriceAmount === enumPriceList.ONE_THOUSAND ? classes.actibeBtn : classes.btn}
                                 sx={{
-                                  BackgroundColor: "#6c63ff",
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
+                                  // BackgroundColor: "var(--typeIndigoColor) !important",
                                   borderRadius: "2px",
-
                                   width: "60px",
                                   height: "33px",
                                   margin: " 2.2 12px 0 0",
                                   padding: "10px 12px 9px",
+                                  
                                 }}
+                                onClick={() => (handleActivePriceAmount(enumPriceList.ONE_THOUSAND, arrPriceList[0]))}
                               >
-                                <b style={{ color: "#6c63ff" }}>+1000</b>
+                                <b style={{ color: "#6c63ff" }}>{enumPriceList.ONE_THOUSAND}</b>
                               </Button>
-                              <Button variant="contained" disabled
+                              <Button
+                                variant="contained"
+                                className={activePriceAmount === enumPriceList.FIVE_THOUSAND ? classes.actibeBtn : classes.btn}
+                                // disabled
                                 sx={{
-                                  BackgroundColor: "#6c63ff",
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
                                   borderRadius: "2px",
-                                  color: "#6c63ff",
+                                  // color: "#6c63ff",
                                   width: "64px",
                                   height: "35px",
                                   margin: " 2.2 12px 0 0",
                                   padding: "10px 12px 9px",
                                 }}
+                                onClick={() => (handleActivePriceAmount(enumPriceList.FIVE_THOUSAND, arrPriceList[1]))}
                               >
-                                <b style={{ color: "#6c63ff" }}>+5000</b>
+                                <b style={{ color: "#6c63ff" }}>{enumPriceList.FIVE_THOUSAND}</b>
                               </Button>
-                              <Button variant="contained" href="#contained-buttons" disabled
+                              <Button
+                                variant="contained"
+                                href="#contained-buttons"
+                                className={activePriceAmount === enumPriceList.TEN_THOUSAND ? classes.actibeBtn : classes.btn}
+                                // disabled
                                 sx={{
-                                  BackgroundColor: "#6c63ff",
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
                                   borderRadius: "2px",
-                                  color: "#6c63ff",
+                                  // color: "#6c63ff",
                                   width: "75px",
                                   height: "35px",
                                 }}
-                              > <b style={{ color: "#6c63ff" }}>  +10,000</b>
+                                onClick={() => (handleActivePriceAmount(enumPriceList.TEN_THOUSAND, arrPriceList[2]))}
+                              > <b style={{ color: "#6c63ff" }}>{enumPriceList.TEN_THOUSAND}</b>
                               </Button>
                             </Stack>
-                            <InvestButton cardType={props?.cardType} />
+                            <InvestButton 
+                              // cardType={props?.cardType}
+                              cardType={globalConstant.SIP_INVESTMENT}
+                              saveMutualFundGenerate={(id, path)=> saveMutualFundGenerate(id, path)}
+                             />
                             <Grid container spacing={2} textAlign="center">
-                              <Grid item xs={12} md={12} onClick={() => {
-                                navigate("/sipInvestment", {
-                                  state: { cardType: globalConstant.SIP_INVESTMENT }
-                                })
-                                localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT);
+                              <Grid item xs={12} md={12} onClick={()=> {
+                                navigate("/oneTimeInvestment", {state:{cardType: globalConstant.SIP_INVESTMENT}})
                                 dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
-                                // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.SIP);
-                              }}>
+                                // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
+                                localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT)
+                                }}>
 
-                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
+                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>
                                   KNOW MORE ABOUT INVESTMENT</Typography>
                               </Grid>
@@ -356,19 +607,15 @@ const InitiateSip = (props: IProps) => {
                   </Grid>
                   <Grid item md={6} xs={12}>
                     <Card sx={{ borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff", }}>
-
                       <CardContent >
-
                         <b style={{ color: "#3c3e42", }}>Expected returns</b>
                         <Typography sx={{ marginTop: "-2%" }}>
-                          <img alt="Money Sprint" src={graphimage} style={{ width: " 100%", height: "67px", margin: "0 0 14px", }}></img>
-                          <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "-3%" }}> <Box>1Y</Box><Box>3Y</Box>
-                            <Box sx={{ marginLeft: "11px" }}> <b style={{ color: "#6c63ff" }}>5Y</b>  <img alt="Money Sprint" src={ellipslogo} style={{
-                              width: "14px", marginTop: "-80%", marginRight: "-50%", borderRadius: "30px", position: "relative", top: "-20px", left: "-18px",
-                              fontSize: "12px", boxShadow: "0 3px 6px 0 rgba(75, 123, 236, 0.12)", backgroundColor: "#6c63ff",
-                            }}></img></Box>
-                            <Box sx={{ marginLeft: "-11px" }}>10Y</Box> <Box>15Y</Box> <Box>20Y</Box>
-                          </Box>
+                          {/* <img alt="Money Sprint" src={graphimage} style={{ width: " 100%", height: "67px", margin: "0 0 14px", }}></img> */}
+                          <LineChart
+                            optionsValues={chartOptions}
+                            dataValues={chartDataDetails}
+                            onClick={(data) => setProjectedValue(data?.value ? data?.value : 0)}
+                          />
                         </Typography>
                         <Grid container spacing={1} sx={{}}>
                           <Grid item xs={6} sx={{
@@ -384,66 +631,59 @@ const InitiateSip = (props: IProps) => {
                             Projected Value
                           </Grid>
                         </Grid>
-
                         <Grid container spacing={1} sx={{ paddingTop: "15px", paddingLeft: '2%' }}>
                           <Grid item xs={6} sx={{
                             width: " 57px", height: "24px", fontFamily: " Roboto",
                             fontWeight: "300", textAlign: "left",
                           }}>
-                            <b style={{ color: " #3c3e42", fontSize: "20px" }}>₹1 Lac</b>
+                            <b style={{ color: " #3c3e42", fontSize: "20px" }}>
+                              ₹{amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0}
+                            </b>
                           </Grid>
                           <Grid item xs={6} sx={{
                             width: " 87px", height: "24px", paddingTop: "17px",
                             fontFamily: " Roboto", fontWeight: "500", textAlign: "right",
 
                           }}>
-                            <b style={{ color: " #23db7b", fontSize: "20px", }}>₹2.25 Lac</b>
+                            <b style={{ color: " #23db7b", fontSize: "20px", }}>
+                            ₹{projectedValue ? getExactPriceWithTag(projectedValue) : 0}
+                            </b>
                           </Grid>
                         </Grid>
                         {/* <Box style={style.dividerBox}/> */}
                         <div style={{ paddingTop: "5%" }}>
                           <Divider />
                         </div>
-
                         <Grid container columnSpacing={0} sx={{ paddingTop: '23px' }}>
                           <Grid item xs={1} sx={{ paddingLeft: "0px" }}>
                             <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
                           </Grid>
                           <Grid item xs={5} sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: {xs:"10px", sm:"12px"}, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={6}>
-                            <Grid container>
+                              <Grid container>
                               <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }}>
-                                <Box className="imageRightBox" style={{ float: "right" }}>
-                                  <Avatar alt="" src={lockinlogo} style={style.ca} />
-                                </Box>
+                              <Box className="imageRightBox" style={{float: "right"}}>
+                              <Avatar alt="" src={lockinlogo} style={style.ca} />
+                              </Box>
+                          </Grid>
+                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
+                            <Typography sx={{ fontSize:{xs:"10px", sm:"12px"}, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
+                          </Grid>
                               </Grid>
-                              <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
-                                <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
-                              </Grid>
-                            </Grid>
                           </Grid>
                         </Grid>
                       </CardContent>
-
                     </Card>
                   </Grid>
-
                 </Grid>
               </Box>
             </Grid>
           </Grid>
         </Grid>
-
       </Box>
-
-
-
     </Box>
-
-
-
 
   )
 }

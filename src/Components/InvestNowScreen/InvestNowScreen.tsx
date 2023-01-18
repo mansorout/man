@@ -505,7 +505,7 @@ function InvestNowScreen(props: IProps) {
       if(data?.error === true){
         return;
       }
-
+debugger
       localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
       navigate(path);
     }).catch(err=> {

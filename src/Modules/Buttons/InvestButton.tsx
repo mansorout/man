@@ -41,6 +41,7 @@ export const InvestButton = (props: IProps) => {
   const handleClick = async () => {
     if (props?.cardType === globalConstant.SIP_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+      navigate("/SipComparison", {});
     } else if (props?.cardType === globalConstant.LUMPSUM_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
     }
@@ -65,7 +66,9 @@ export const InvestButton = (props: IProps) => {
     } else {
       if (g_investment.type === globalConstant.SIP_INVESTMENT) {
         // props?.saveMutualFundGenerate(12, "/mflist");
-        navigate("/mflist", {});
+        // navigate("/mflist", {});
+        if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(11, "/SipComparison");
+        // navigate("/SipComparison", {});
       } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
         if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(11, "/onetimemutualfundrecommendation");
         // navigate("/onetimemutualfundrecommendation", {});

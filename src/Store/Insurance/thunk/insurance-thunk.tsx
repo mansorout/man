@@ -105,7 +105,7 @@ export const getUlipReturnApi = (url: ulipReturnApiParamsTypes) => {
 }
 
 
-export const postUlipGenrateApi = (bodyData: sendUlipGenrateApiTypes) => {
+export const postUlipGenrateApi = (bodyData: any) => {
     return (dispatch: any) => {
         postData(
             bodyData,

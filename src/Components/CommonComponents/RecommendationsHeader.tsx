@@ -25,6 +25,7 @@ import {
     insuranceUlipAmount
 } from '../../Store/Duck/InvestmentType'
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
+import siteConfig from '../../Utils/siteConfig';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -132,8 +133,8 @@ interface RecommendationsHeaderPropsType {
     investmentTypeLabel: string;
     // investmentTypeStartIcon: React.ReactElement<any>;
     // investmentTypeEndIcon: React.ReactElement<any>;
-    investmentType: string;
-    investmentAmount: string;
+    investmentType: number;
+    investmentAmount: any;
     // changeInvestmentTypeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
     boxInputLabelText: string;
     boxInputShow:boolean;
@@ -181,35 +182,22 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
             return 
         }
 
-        if (props?.investmentType === LUMPSUM) {
+        if (props?.investmentType === 0) {
             if (isMultipleofNumber(parseInt(amount), 100)) {
-                dispatch(SaveTaxInvestmentAmount(amount))
+                // dispatch(SaveTaxInvestmentAmount(amount))
+                localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
                 props?.boxInputHideHandleChange()
+                console.log("props?.investmentAmount :", props?.investmentAmount)
+                console.log("localStorage.getItem(siteConfig?.SIP_USER_AMOUNT) :", localStorage.getItem(siteConfig?.SIP_USER_AMOUNT))
             }else {
                 setValidationAlertDialog({
                     msg: 'Enter amount multiple of 100!',
                     bool: true,
                 })
             }
-        } else if (props?.investmentType === MONTHLY) {
-            if(parseInt(amount) < 15000){
-                // alert('alert')
-                setValidationAlertDialog({
-                    msg: 'Amount should be more than 15,000',
-                    bool: true,
-                })
-                return 
-            }
-            dispatch(SaveTaxInvestmentAmount(amount))
-        }else if (props?.investmentType === ULIP_LUMPSUM) {
-            if (isMultipleofNumber(parseInt(amount), 100)) {
-                dispatch(insuranceUlipAmount(amount))
-                props?.boxInputHideHandleChange() 
-            }else {
-                alert('Enter amount multiple of 100!')
-            }
-        }else if (props?.investmentType === ULIP_MONTHLY) {
-            dispatch(insuranceUlipAmount(amount))
+        } else if (props?.investmentType === 1) {
+            // dispatch(insuranceUlipAmount(amount))
+        console.log("props?.investmentAmount :", props?.investmentAmount)
         }
     }
 
@@ -260,7 +248,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
                     type='number'
                     InputProps={{
-                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={props?.investmentAmount === '' && true} variant="contained">{props?.boxInputButtonText}</Button>,
+                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={!localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)} variant="contained">{props?.boxInputButtonText}</Button>,
                         startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                         // readOnly: investmentType === 'monthly' ? false : true,
                     }}
