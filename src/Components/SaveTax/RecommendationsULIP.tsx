@@ -131,6 +131,17 @@ const useStyles: any = makeStyles((theme: Theme) => ({
                 backgroundColor: '#e3f6eb !important',
                 color: 'var(--primaryColor)',
             }
+        },
+        '& button:first-child': {
+            fontSize: 'var(--subTitleFontSize) !important',
+            // backgroundColor: 'rgba(123, 123, 157, 0.05) !important',
+            // color: 'var(--typeIndigoColor)',
+            backgroundColor: '#e3f6eb !important',
+            color: 'var(--primaryColor)',
+            '&:hover': {
+                backgroundColor: '#e3f6eb !important',
+                color: 'var(--primaryColor)',
+            }
         }
     },
     exploreOtherOptionsBtn: {
