@@ -375,14 +375,6 @@ const enumPriceTag = {
 
 function InvestNowScreen(props: IProps) {
 
-  const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
-
-  const handleTimerLumpsum = (cb: any | void, a: any) => {
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-        dispatch(cb(a));
-    }, 550);
-}
   const classes = useStyles();
   const refContainer = useRef();
   const navigate = useNavigate();
@@ -437,15 +429,6 @@ function InvestNowScreen(props: IProps) {
     let val = amount + nAmount;
     handleTimer(getExpectedFundReturnList, val);
   }
-//   useEffect(() => {
-//     const urlTemp: ulipReturnApiParamsTypes = {
-//         frequencytype: investmentType === ONE_TIME_LUMPSUM_AMOUNT ? '0' : '1',
-//         amount: onetypeLumpsumAmount,
-//     }
-//     console.log(urlTempreture)
-
-//     dispatch(getUlipReturnApi(urlTempreture))
-// }, [onetypeLumpsumAmount])
 
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
@@ -458,16 +441,9 @@ function InvestNowScreen(props: IProps) {
     setAmountMutipleofH(e.target.value)
     console.log(amountMutipleofH)
     let { value } = e?.target;
-    handleTimerLumpsum(onetimeLumpsumamount, e.target.value)
-console.log(onetimeLumpsumamount)
-console.log(e.target.value)
+    
     setAmount(value && value.length ? parseInt(value) : 0);
 
-    // if (amount  > arrPriceList[0] - 1) {
-    //   setError("Amount should be more than ₹5000");
-    //   return;
-    // }
-    
     if (!isMultipleofNumber(value, 100)) { 
       setError("Amount should be multiple of 100.")
     }
@@ -539,7 +515,6 @@ console.log(e.target.value)
       if(data?.error === true){
         return;
       }
-debugger
       localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
       navigate(path);
     }).catch(err=> {

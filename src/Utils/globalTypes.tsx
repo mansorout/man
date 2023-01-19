@@ -45,3 +45,31 @@ export type holdingList = {
   mobileno: string,
   email: string
 }
+
+export type transactionList = {
+  order_id: string,
+  transactiontype_id: string,
+  transactiontype: string,
+  investmenttype_id: string,
+  investmenttype: number,
+  totalamount: string,
+  orderstatus_id: string,
+  orderstatus: string,
+  orderitem_id: string,
+  fund_id: number,
+  fundname: string,
+  fundimage: string,
+  categorygroup: string,
+  category: string,
+  ordernumber: number,
+  folionumber: string,
+  transactiondate: string,
+  amount: string,
+  units: string,
+  ismandateauthenticated: number,
+  stoprequestdate: string,
+  stopdate: string,
+  sipstatus: number,
+  nav: string,
+  redemptiontype: string
+}
