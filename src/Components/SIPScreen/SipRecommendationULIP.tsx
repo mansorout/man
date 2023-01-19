@@ -251,7 +251,7 @@ const SipRecommendationsULIP = () => {
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
-
+    const strCardType:string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE)
     // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
@@ -383,8 +383,8 @@ const SipRecommendationsULIP = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
-                            investmentType={0}
-                            investmentAmount={localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}
+                            investmentType={`${strCardType}`}
+                            investmentAmount={`${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
                             boxInputButtonText='Update Plans'

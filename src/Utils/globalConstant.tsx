@@ -89,7 +89,8 @@ export const objUserProfileValidationData: profileValidationKeys = {
     isUserProfileFullCompleted: false
 }
 
-export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirth", "incomeslab"];
+// export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirth", "incomeslab"];
+export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirthcity", "incomeslab"];
 export const arrKycCompletionKeys = ["isnomineedetailsavailable", "iscvlverified", "isbankdetailsverifed", "isbankdetailsverifed"];
 
 

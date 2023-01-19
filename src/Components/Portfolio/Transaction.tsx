@@ -2,7 +2,7 @@
 import './Portfolio.css'
 import { Box, styled } from '@mui/system'
 import { Grid, IconButton, InputBase, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Close, ErrorOutline, Filter, FilterAlt, FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
@@ -10,7 +10,7 @@ import { ExpandLessOutlined, ExpandMoreOutlined, Support } from '@mui/icons-mate
 import { AppBar, Button, Divider, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, meria, Profile } from '../../Assets/index'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import { Transactions } from '../../Modal/Transactions'
@@ -20,7 +20,13 @@ import AllTrancationCard from '../../Modules/CustomCard/AllTransactionCard'
 import DropDownFilter from '../TxnFilters/DropDownFilter'
 import { useDispatch } from 'react-redux'
 import { AnchorOpenAction } from '../../Store/Duck/FilterBox'
-import { transactionList } from '../../Utils/globalTypes'
+import { apiResponse, transactionList } from '../../Utils/globalTypes'
+import { checkExpirationOfToken } from '../../Utils/globalFunctions'
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
+import { getListOfTrasanctionDoneThunk } from '../../Store/Payments/thunk/payments-thunk'
+import siteConfig from '../../Utils/siteConfig'
+import { setTransactionListDataForportfolioAction } from '../../Store/Payments/actions/payments-action'
+import { isArray } from 'underscore'
 
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -259,21 +265,107 @@ const enumTransactionTypes = {
 const Transaction = () => {
   const classes = useStyles()
   const refContainer = useRef();
+  const location = useLocation();
   const navigate = useNavigate();
-  const dispatch: any = useDispatch()
+  const dispatch: any = useDispatch();
 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const [transactionList, setTransactionList] = useState<transactionList[]>([]);
+  const [variableTransactionList, setVariableTransactionList] = useState<transactionList[]>([]);
   const [activeTransactionType, setActiveTransactionType] = useState<string>(enumTransactionTypes.ALL);
-  const [transactions, setTransactions] = useState<any[]>([])
-  const [transactionList, setTransactionList] = useState<transactionList[]>([])
-  const [variableTransactionList, setVariableTransactionList] = useState<transactionList[]>([])
+
+  const fund_id: string = useMemo(() => { return location?.state?.fund_id }, [])
+  const investmenttype_id: string = useMemo(() => { return location?.state?.investmenttype_id }, [])
 
   useEffect(() => {
-    setTransactions(Transactions)
+    let url = siteConfig.PAYMENT_TRANSACTION_LIST;
+    if (fund_id && investmenttype_id) {
+      url += `?fund_id=${fund_id}&investmenttype_id=${investmenttype_id}`;
+    } else if (fund_id && !investmenttype_id) {
+      url += `?fund_id=${fund_id}`;
+    } else if (!fund_id && investmenttype_id) {
+      url += `?investmenttype_id=${investmenttype_id}`;
+    }
+
+    getTransactionList(url);
   }, []);
+
+  useEffect(() => {
+    handleVariableTransactionList(transactionList);
+  }, [transactionList]);
+
+  const getTransactionList = async (strUrl: string) => {
+    setLoading(true);
+    let res: apiResponse = await getListOfTrasanctionDoneThunk(strUrl);
+
+    // if (res?.data) dispatch(setTransactionListDataForportfolioAction(res?.data));
+
+    // @ts-ignore
+    handleApiResponse(res);
+
+    // @ts-ignore
+    // handleApiResponse(res?.data?.holdings, [setHoldingGraph]);
+
+
+    // let data: any[] = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
+    // dispatch(setTransactionListDataForportfolioAction(data));
+
+    // let graphData: any = {
+    //   totalinvestedvalue: 400000,
+    //   XIRR: "string",
+    //   absolutereturninpercent: "19",
+    //   absolutereturn: "19000",
+    //   totalcurrentvalue: "500000",
+    //   assetallocation: {
+    //     equity: "30",
+    //     debt: "30",
+    //     balanced: "30",
+    //     other: "10"
+    //   }
+    // }
+    // @ts-ignore
+    // handleApiResponse(data, [setTransactionList]);
+    // @ts-ignore
+    // handleApiResponse(graphData, [setHoldingGraph]);
+  }
+
+  const handleApiResponse = (res: apiResponse) => {
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error === true) {
+      return;
+    }
+
+    if (res?.data) {
+      if (typeof res?.data == "string") {
+        setMessage("You have not started your investment journey yet!");
+        return;
+      }
+
+      if (Array.isArray(res?.data)) {
+        setTransactionList(res?.data);
+        dispatch(setTransactionListDataForportfolioAction(res?.data));
+      }
+    }
+
+  }
+
+  const handleVariableTransactionList = (transactionList: transactionList[]) => {
+    setLoading(false);
+
+    setVariableTransactionList(transactionList);
+  }
+
 
   const handleFilter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     dispatch(AnchorOpenAction(event))
   }
+
   const handleToggling = (type: string) => {
     setActiveTransactionType(type);
 
@@ -340,70 +432,87 @@ const Transaction = () => {
                   </Box>
                 </Grid>
               </Grid>
-              <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
-                <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                  <Box onClick={() => { handleToggling(enumTransactionTypes.ALL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.ALL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.ALL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.ALL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({transactionList.length})</Typography>
-                  </Box>
-                  <Box onClick={() => { handleToggling(enumTransactionTypes.PENDING) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.PENDING ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.PENDING ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.PENDING ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Pending ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING).length})</Typography>
-                  </Box>
-                  <Box onClick={() => { handleToggling(enumTransactionTypes.SUCCESSFUL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Successful ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.SUCCESSFUL).length})</Typography>
-                  </Box>
-                  <Box onClick={() => { handleToggling(enumTransactionTypes.REJECTED) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.REJECTED ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.REJECTED ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.REJECTED ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Rejected ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.REJECTED).length})</Typography>
-                  </Box>
-                </Box>
-
-                {/* Filter Box Goes here */}
-
-                <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", gap: "10px", padding: "5px 14px" }}>
-                  <SearchOutlined style={{ color: "#7b7b9d" }} />
-                  {/* <InputBase placeholder='Search Transactions' onChange={(e) => setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase> */}
-                  <InputBase placeholder='Search Transactions' onChange={handleSearchFunctionality} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
-                  <IconButton onClick={(e) => handleFilter(e)} >
-                    <FilterAltOutlined style={{ color: "#09b85d" }} />
-                  </IconButton>
-                </Box>
-                <DropDownFilter />
-              </Box>
               {
-                transactions.filter((item) => item.month == 'april').length > 0 ?
-                  <Typography style={{ textAlign: "center", color: "#7b7b9d", fontSize: "12px" }}>This Month - April 2021</Typography> : null
+                message && message.length ?
+                  <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <Typography component="span" sx={{ color: "var(--uiDarkGreyColor)" }}>
+                      {message}
+                    </Typography>
+                  </Box>
+                  :
+                  <>
+                    {
+                      variableTransactionList &&
+                        variableTransactionList.length ?
+                        <>
+                          <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                            <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                              <Box onClick={() => { handleToggling(enumTransactionTypes.ALL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.ALL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.ALL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.ALL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({transactionList.length})</Typography>
+                              </Box>
+                              <Box onClick={() => { handleToggling(enumTransactionTypes.PENDING) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.PENDING ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.PENDING ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.PENDING ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Pending ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING).length})</Typography>
+                              </Box>
+                              <Box onClick={() => { handleToggling(enumTransactionTypes.SUCCESSFUL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Successful ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.SUCCESSFUL).length})</Typography>
+                              </Box>
+                              <Box onClick={() => { handleToggling(enumTransactionTypes.REJECTED) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.REJECTED ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.REJECTED ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.REJECTED ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Rejected ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.REJECTED).length})</Typography>
+                              </Box>
+                            </Box>
 
+                            {/* Filter Box Goes here */}
+
+                            <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", gap: "10px", padding: "5px 14px" }}>
+                              <SearchOutlined style={{ color: "#7b7b9d" }} />
+                              {/* <InputBase placeholder='Search Transactions' onChange={(e) => setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase> */}
+                              <InputBase placeholder='Search Transactions' onChange={handleSearchFunctionality} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
+                              <IconButton onClick={(e) => handleFilter(e)} >
+                                <FilterAltOutlined style={{ color: "#09b85d" }} />
+                              </IconButton>
+                            </Box>
+                            <DropDownFilter />
+                          </Box>
+                          {/* {
+                      variableTransactionList.filter((item) => item.month == 'april').length > 0 ?
+                        <Typography style={{ textAlign: "center", color: "#7b7b9d", fontSize: "12px" }}>This Month - April 2021</Typography> : null
+
+                    } */}
+
+                          <Box p={2}>
+                            {
+                              variableTransactionList.map((item: transactionList, index: number) => {
+                                return (
+                                  <AllTrancationCard
+                                    key={index}
+                                    logo={item?.fundimage}
+                                    name={item?.fundname}
+                                    date={item?.stopdate}
+                                    id={item?.folionumber}
+                                    confirm={true}
+                                    mandate={true}
+                                    transaction={false}
+                                    reject={false}
+                                    price={item?.amount}
+                                    SIPDate={item?.transactiondate}
+                                    year3={"20.8%"}
+                                    margin={"(+17.36%)"}
+                                    result={"profit"}
+                                    type={item?.redemptiontype === "redeem" ? "B" : ""}
+                                    SIPAmount={"₹2,000"}
+                                    month={"april"}
+                                  />
+                                )
+                              })
+                            }
+                          </Box>
+                        </>
+                        : null
+                    }
+
+                  </>
               }
 
-              <Box p={2}>
-                {
-                  variableTransactionList.map((item: transactionList, index: number) => {
-                    return (
-                      <AllTrancationCard
-                        key={index}
-                        logo={item?.fundimage}
-                        name={item?.fundname}
-                        date={item?.stopdate}
-                        id={item?.fund_id}
-                        confirm={item?.sipstatus ? true : false}
-                        mandate={item?.ismandateauthenticated ? true : false}
-                        transaction={item?.transactiontype ? true : false}
-                        reject={ }
-                        price={ }
-                        SIPDate={ }
-                        year3={ }
-                        margin={ }
-                        result={ }
-                        type={ }
-                        SIPAmount={ }
-                        month={ }
-
-
-                      // {...item}
-                      />
-                    )
-                  })
-                }
-              </Box>
 
 
               {/* <Box p={2}>

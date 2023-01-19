@@ -78,17 +78,17 @@ const ChoosedPlanDetail = () => {
     const [backHomeCmp, setBackHomeCmp] = useState<boolean>(false)
 
     const handleBuyNow = () => {
-        setLodaingCmpShow(true)
-
-        setTimeout(() => {
-            setLodaingCmpShow(false)
-            setBackHomeCmp(true)
-        }, 1000);
+        // setLodaingCmpShow(true)
+navigate('/netbanking')
+        // setTimeout(() => {
+        //     setLodaingCmpShow(false)
+        //     setBackHomeCmp(true)
+        // }, 1000);
 
     }
 
     const handleGreenBtnAction = () => {
-        navigate('/home')
+        navigate('/home') 
     }
 
     const handleGrayBtnAction = () => {

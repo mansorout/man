@@ -236,6 +236,8 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
           </Box>
         </Box>
       </Box>
+
+
       <Modal open={openMandateModal} onClose={() => setOpenMandateModal(false)}>
         <Box style={{
           width: "90%",
@@ -263,6 +265,7 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
           </Button>
         </Box>
       </Modal>
+      
       <Modal open={openPaymentModal} onClose={() => setOpenPaymentModal(false)}>
         <Box style={{
           width: "90%",
