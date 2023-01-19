@@ -15,11 +15,14 @@ import { bindActionCreators } from "redux";
 import { ActionCreators } from "../../Store";
 import Sidebar from "../../Components/CommonComponents/Sidebar";
 import { VerifySec } from "../../Components/VerifySecOTP/VerifySec";
-import { hideCharacterWithStars, hideNumbersWithStars } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, hideCharacterWithStars, hideNumbersWithStars } from "../../Utils/globalFunctions";
 import { OtpVerifyButton } from "../Buttons/OtpVerifyButton";
 import { store } from "../../Store/Store";
 import { resendOtpThunk } from "../../Store/Authentication/thunk/auth-thunk";
 import SprintMoneyLoader from "../../Components/CommonComponents/sprintMoneyLoader";
+import { setIsRedeemVerifiedAction, setIsRedeemVerifiedErrorAction, setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { apiResponse } from "../../Utils/globalTypes";
+import { setOrderToRedeemFundWrtUserInputThunk } from "../../Store/Payments/thunk/payments-thunk";
 
 const style = {
   main: {
@@ -85,7 +88,7 @@ export const VerifyonCheckout = () => {
   const [errorLocal, setErrorLocal] = useState<string>("");
   const [isShowEnableVerifyBtn, setIsShowEnableVerifyBtn] = useState<boolean>(true);
 
-  const g_loginData: any = useSelector((state: any) => state?.authReducer?.login);
+  const g_redeemVerification: any = useSelector((state: any) => state?.authReducer?.redeemVerification);
 
   const loadingRef = useRef(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -98,33 +101,30 @@ export const VerifyonCheckout = () => {
   const number: string = useSelector((state: any) => state.contact)
 
   const userAuthData: any = useMemo(() => { return location?.state?.userAuthData }, []);
+  const g_orderRedeemData = useSelector((state: any) => state?.paymentReducer?.orderRedeemData?.data);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setIsRedeemVerifiedAction(false));
+      dispatch(setIsRedeemVerifiedErrorAction(""));
+    }
+  }, [])
 
   useEffect(() => {
     setOTP("");
-    let { data, error }: { data: any, error: string } = g_loginData;
+    let { isRedeemVerified, error }: { isRedeemVerified: boolean, error: string } = g_redeemVerification;
     if (error && error.length) {
       setSeconds(0);
       setMinutes(0);
       setErrorLocal(error);
       clearInterval(intervalRef.current);
       return;
-    } else {
     }
-    
-    if (data !== null) {
-      navigate("/redemptiondone");
-      // localStorage.setItem(siteConfig.ACCESS_TOKEN_KEY, data?.accesstoken);
-      // console.log(data?.userInfo, "data?.userInfo")
-      // localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(data?.userInfo));
 
-      // let objUserDetail: any = data?.userInfo?.userdetails;
-
-      // setUserNameAndEmailInLocalStorage(objUserDetail);
-
-    } else {
-
+    if (isRedeemVerified) {
+      handleOrderRedeemFunctionality(g_orderRedeemData);
     }
-  }, [g_loginData]);
+  }, [g_redeemVerification]);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -147,11 +147,26 @@ export const VerifyonCheckout = () => {
     };
   }, [seconds]);
 
+  const handleOrderRedeemFunctionality = async (objBody: any) => {
+    let res: apiResponse = await setOrderToRedeemFundWrtUserInputThunk(objBody);
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatch(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error == true) {
+      return;
+    }
+
+    navigate("/redemptiondone");
+  }
+
   const resendOTP = () => {
     setErrorLocal("");
     setMinutes(0);
     setSeconds(45);
-    store.dispatch(resendOtpThunk({ mobilenumber: userAuthData?.number, type: "auth" }))
+    store.dispatch(resendOtpThunk({ mobilenumber: userAuthData?.number, type: "redeem" }))
   };
 
   const handleOtpChange = async (otp: any) => {

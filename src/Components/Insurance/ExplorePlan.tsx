@@ -1,6 +1,8 @@
 import React,{useEffect, useState} from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar'
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
 import { Grid, Modal, Theme, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Toolbar, Breadcrumbs, Link } from '@mui/material'
@@ -78,11 +80,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }));
 
+
 const ExplorePlan = () => {
     const classes = useStyles();
     const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const { termData, termListApiData, termGenerateApiData } = useSelector((state: any) => state.insuranceReducer)
+    const [seletedTermInsurance, setSeletedTermInsurance] = useState<number>()
+    const [termInsuranceMode, setTermInsuranceMode] = useState<boolean>(true)
     const [filterIndexes, setFilterIndexes] = useState<any>(
         [
             {
@@ -151,24 +156,37 @@ const ExplorePlan = () => {
 
 
     useEffect(() => {
-        dispatch(postTermGenerate(termData))
-    }, [termData])
+        let temp:any = termData; 
+        if(termInsuranceMode == true){
+        console.log("termInsuranceMode : ",  temp.frequencytype)
+         temp = {...temp, frequencytype: 1};
+        }else{
+            // temp && temp?.frequencytype;
+        console.log("termInsuranceMode false : ",  temp.frequencytype)
+        }
+        console.log("termData : ", termData, temp)
+        dispatch(postTermGenerate(temp))
+    }, [termData, termInsuranceMode])
 
 
     useEffect(() => {
-        termGenerateApiData?.recommendation_id && dispatch(getTermListApi(termGenerateApiData?.recommendation_id));
+        termGenerateApiData && termGenerateApiData?.recommendation_id && dispatch(getTermListApi(termGenerateApiData?.recommendation_id));
     }, [termGenerateApiData])
     
     
 
-    const handleBuyNow = () => {
-        navigate('/choosedPlanDetail')
+    const handleBuyNow = () => {console.log("seletedTermInsurance :", seletedTermInsurance)
+    seletedTermInsurance && navigate('/choosedPlanDetail')
     }
 
     const handleFilterCB = (data:any) => {
         console.log("click value :", data,)
     }
 
+    const handleRadioChange = (event: any) => {
+        // console.log("handleRadioChange :",event, (event.target as HTMLInputElement).value)
+        setSeletedTermInsurance((event.target as any).value);
+    };
 
     return (
         <div>
@@ -212,7 +230,11 @@ const ExplorePlan = () => {
                                         <p>Term Insurance Plans</p>
                                         <Box className={classes.payMonthlyAnnually}>
                                             <span>Pay Monthly</span>
-                                            <Switch {...label} defaultChecked />
+                                            <Switch
+                                            checked={termInsuranceMode}
+                                            onClick={() => setTermInsuranceMode(!termInsuranceMode)}
+                                             {...label}
+                                              defaultChecked />
                                             <span>Annually</span>
                                         </Box>
                                         <span>{termListApiData?.length} Plans with annually investment of ₹{termData?.lifecover}</span>
@@ -235,22 +257,33 @@ const ExplorePlan = () => {
                                         }}>Prices inclusive of GST*</Typography>
                                     </Box>
                                 </Box>
-                                {
-                                    termListApiData?.length > 0 && termListApiData.map((cardItem: getTermListApiTypes) => (
-                                        <InsurancePlanCard
-                                            insuranceCompany={cardItem.providername}
-                                            medicalType={cardItem.ismedicalcheckrequire === 0 ? 'No Medical' : 'Medical'}
-                                            // companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
-                                            companyLogo={cardItem.providerlogo}
-                                            lifeCover={cardItem.lifecover}
-                                            coverUpto={`${cardItem.maxage} Years`}
-                                            claimSettled={cardItem.claimsettlementratio}
-                                            planAmount='₹599 pm'
-                                            amountType='Premium Amt.'
-                                            planOffer='Buy online and Save up to 3.75%'
-                                        />
-                                    ))
-                                }
+                                <FormControl sx={{width: '100%'}}>
+                                            <RadioGroup
+                                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                                name="controlled-radio-buttons-group"
+                                                value={seletedTermInsurance}
+                                                onChange={handleRadioChange}
+                                            // style={{ backgroundColor: '#8787a2' }}
+                                            >
+                                                {
+                                                    termListApiData && termListApiData?.length > 0 && termListApiData.map((cardItem: getTermListApiTypes) => (
+                                                        <InsurancePlanCard
+                                                            data={cardItem}
+                                                            insuranceCompany={cardItem.providername}
+                                                            medicalType={cardItem.ismedicalcheckrequire === 0 ? 'No Medical' : 'Medical'}
+                                                            // companyLogo={`${process.env.PUBLIC_URL}/assets/images/insurance-sip-start.png`}
+                                                            companyLogo={cardItem.providerlogo}
+                                                            lifeCover={cardItem.lifecover}
+                                                            coverUpto={`${cardItem.maxage} Years`}
+                                                            claimSettled={cardItem.claimsettlementratio}
+                                                            planAmount={`₹${cardItem.annualpremium}`}
+                                                            amountType='Premium Amt.'
+                                                            planOffer='Buy online and Save up to 3.75%'
+                                                        />
+                                                    ))
+                                                }
+                                            </RadioGroup>
+                                        </FormControl>
                                 {/* <InsurancePlanCard
                                     insuranceCompany='SBI Life Insurance eShield'
                                     medicalType='No Medical'
@@ -297,6 +330,7 @@ const ExplorePlan = () => {
                                 /> */}
                             </Box>
                             <FooterWithBtn
+                                btnDisable={seletedTermInsurance? false: true}
                                 btnText='Buy Now'
                                 btnClick={handleBuyNow}
                             />

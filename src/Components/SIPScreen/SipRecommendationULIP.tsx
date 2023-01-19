@@ -41,6 +41,7 @@ import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstan
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import { getUlipListApi, getUlipSchemeDetailApi, postUlipGenrateApi } from '../../Store/Insurance/thunk/insurance-thunk';
 import { getUlipListApiTypes } from '../../Store/Insurance/constants/types';
+import siteConfig from '../../Utils/siteConfig';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -127,17 +128,6 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             fontSize: 'var(--subTitleFontSize) !important',
             backgroundColor: 'rgba(123, 123, 157, 0.05) !important',
             color: 'var(--typeIndigoColor)',
-            '&:hover': {
-                backgroundColor: '#e3f6eb !important',
-                color: 'var(--primaryColor)',
-            }
-        },
-        '& button:first-child': {
-            fontSize: 'var(--subTitleFontSize) !important',
-            // backgroundColor: 'rgba(123, 123, 157, 0.05) !important',
-            // color: 'var(--typeIndigoColor)',
-            backgroundColor: '#e3f6eb !important',
-            color: 'var(--primaryColor)',
             '&:hover': {
                 backgroundColor: '#e3f6eb !important',
                 color: 'var(--primaryColor)',
@@ -248,11 +238,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }))
 
-const RecommendationsULIP = () => {
+const SipRecommendationsULIP = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
-    const { investmentType,investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
+    // const { investmentType,investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
     const { ulipGenrateApiData, ulipListApiData } = useSelector((state: any) => state.insuranceReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
@@ -261,12 +251,12 @@ const RecommendationsULIP = () => {
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<any[]>([])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('10')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
-
+    const strCardType:string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE)
     // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     useEffect(() => {
-        if(parseInt(investmentAmount) === 0) navigate('/saveTax')
+        // if(parseInt(investmentAmount) === 0) navigate('/saveTax')
         const ulipTerm = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
         const tempArr: any= [];
         ulipTerm.map((item:any) => {
@@ -275,14 +265,13 @@ const RecommendationsULIP = () => {
         setRecommendationHeaderSelectArr(tempArr)
         const term_id = ulipTerm.filter((item:any) => item.value === parseInt(recommendationHeaderSelectChoosed))
         console.log("lookUPId ulipTerm :", ulipTerm, tempArr,term_id)
-        // const lookUPId = getLookUpIdWRTModule(ulipTerm, bannerSectionValues.SAVE_TAX)
         const ulipGenrateBody = {
-            amount: parseInt(investmentAmount),
-            frequencytype: investmentType === MONTHLY ? 0 : 1,
-            term_id: term_id[0].lookup_id //85
+            amount: localStorage.getItem(siteConfig?.SIP_USER_AMOUNT),
+            frequencytype: 0, // 0 for monthly
+            term_id: term_id[0].lookup_id //85 lookUPId giving 2
         }
         dispatch(postUlipGenrateApi(ulipGenrateBody))
-    }, [investmentAmount,recommendationHeaderSelectChoosed])
+    }, [localStorage.getItem(siteConfig?.SIP_USER_AMOUNT), recommendationHeaderSelectChoosed])
     
     useEffect(() => {
         ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
@@ -399,8 +388,8 @@ const RecommendationsULIP = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
-                            investmentType={investmentType}
-                            investmentAmount={investmentAmount}
+                            investmentType={`${strCardType}`}
+                            investmentAmount={`${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
                             boxInputButtonText='Update Plans'
@@ -455,7 +444,7 @@ const RecommendationsULIP = () => {
                                                     </Box>
                                                     <Box className={classes.cardContent}>
                                                         <Typography component='span'>Tax Saving on Investment</Typography>
-                                                        <Typography component='p'>₹{cardItem?.taxsavingoninvestment} {investmentType === LUMPSUM ?'Every Year' : 'Every Month' } </Typography>
+                                                        <Typography component='p'>₹{cardItem?.taxsavingoninvestment} {'Every Month'} </Typography>
                                                     </Box>
                                                 </Box>
                                             </Grid>
@@ -493,8 +482,10 @@ const RecommendationsULIP = () => {
                         </Box> */}
 
                         <FooterWithBtn
-                            btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
-                            btnClick={investmentType === LUMPSUM ? handleBuyNow : handleULIPDate}
+                            // btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
+                            // btnClick={investmentType === LUMPSUM ? handleBuyNow : handleULIPDate}
+                            btnText={'Select ULIP Date'}
+                            btnClick={handleULIPDate}
                         />
                     </Box>
                     </Grid>
@@ -639,4 +630,4 @@ const RecommendationsULIP = () => {
     )
 }
 
-export default RecommendationsULIP
+export default SipRecommendationsULIP

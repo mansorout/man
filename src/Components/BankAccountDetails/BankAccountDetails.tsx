@@ -11,9 +11,51 @@ import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
+
+
+
+type addbankaccountdataprops = {
+    ifsc: any,
+    accounttype: any
+    accountnumber :any
+
+
+
+}
+
+
+const initialbankData: addbankaccountdataprops = {
+    ifsc: "",
+    accounttype: "",
+    accountnumber : ""
+
+}
+
+type addbankaccountdatapropsnonmand = {
+    
+    confirmbankaccount: any
+    accountHolder :any
+
+
+
+}
+
+const initialbankDatanonmand: addbankaccountdatapropsnonmand = {
+   
+    confirmbankaccount: "",
+    accountHolder : ""
+
+}
+
+const activeAccountType = {
+    SAVINGS: 'savings',
+    CURRENT: 'current',
+}
+
+
 
 
 const BankAccountDetails = () => {
@@ -24,7 +66,7 @@ const BankAccountDetails = () => {
     const [ifscCode, setIfscCode] = useState('');
     const [bankAcNo, setBankAcNo] = useState('');
     const [confirmBankAcNo, setConfirmBankAcNo] = useState('');
-    const [accountType, setAccountType] = useState('');
+    // const [accountType, setAccountType] = useState('');
     const [accountHolder, setAccountHolder] = useState('');
 
     const [ifscError, setIfscError] = useState(false);
@@ -39,52 +81,122 @@ const BankAccountDetails = () => {
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [bankdetails, setBankDetails] = useState<addbankaccountdataprops>({ ...initialbankData });
+    const [bankdetailsnonmand, setBankDetailsnonmand] = useState<addbankaccountdatapropsnonmand>({ ...initialbankDatanonmand });
+
+    const [error, setError] = useState<boolean>(false)
+    const [accountType, setAccountType] = useState<any>(activeAccountType);
+
+    // regexpression validation
+
+    let ifscreg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
+    const userData: any = useSelector(
+        (state: any) => state?.authReducer?.profile?.data?.kycdetails?.bankdetails);
+
+    console.log(userData?.accountholdername)
+
+    useEffect(()=>{
+        setBankDetails((prev: addbankaccountdataprops) => ({
+            ...prev,
+            ifsc: userData?.ifsc,
+            accountnumber: userData?.accountnumber,
+            
+        
+    
+        }))
+
+        setBankDetailsnonmand((prev: addbankaccountdatapropsnonmand) => ({
+            ...prev,
+            accountHolder: userData?.accountholdername
+        }))
+        
+    },[])
 
 
+    const handlechange = (e: any) => {
+        e.preventDefault();
+        let { name, value } = e.target;
+
+        setBankDetails({
+            ...bankdetails,
+            [name]: value
+
+        })
+    }
+
+    const handlechangenonmand = (e: any) => {
+        e.preventDefault();
+        let { name, value } = e.target;
+
+        setBankDetailsnonmand({
+            ...bankdetailsnonmand,
+            [name]: value
+
+        })
+    }
+
+
+
+    // console.log(accountType)
+
+    console.log(bankdetails)
+
+    // console.log(bankdetailsnonmand)
 
     function handleSubmit(event: any) {
+        //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
 
 
-        const formData = {
-            ifsc: ifscCode,
-            accountnumber: confirmBankAcNo,
-            accounttype: accountType
+        // bankdetails.confirmbankaccount !== '' &&
+        if (bankdetails.ifsc !== '' && bankdetails.accounttype !== '' && bankdetails.accountnumber !== '') {
+            postData(
+                bankdetails,
+                siteConfig.AUTHENTICATION_BANK_ADD,
+                siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+                siteConfig.AUTHENTICATION_API_ID
+            )
+                .then(res => res.json())
+                .then((data) => {
+                    setShouldButtonDisable(false);
+                    setShowDialog(true)
+                    setSuccesMsg("Bank Details Saved")
+
+                    if (checkExpirationOfToken(data?.code)) {
+                        dispatchLocal(setTokenExpiredStatusAction(true));
+                        return;
+                    }
+
+                    if (data?.error) {
+
+
+                    }
+
+
+                    setErrorMsg(data?.error)
+
+
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            {
+                bankdetails.ifsc !== '' ? setIfscError(false) : setIfscError(true)
+            }
+            {
+                bankdetails.accountnumber  !== '' ? setBankAcNoError(false) : setBankAcNoError(true)
+            }
+            {
+                bankdetails.accounttype !== '' ? setAccountTypeError(false) : setAccountTypeError(true)
+            }
+            {
+                bankdetailsnonmand.accountHolder !== '' ? setAccountHolderError(false) : setAccountHolderError(true)
+            }
+            {
+                bankdetailsnonmand.confirmbankaccount  !== '' ? setConfirmBankAcNoError(false) : setConfirmBankAcNoError(true)
+            }
 
         }
-
-        console.log(formData)
-
-        setShouldButtonDisable(true)
-        postData(
-            formData,
-            siteConfig.AUTHENTICATION_BANK_ADD,
-            siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-            siteConfig.AUTHENTICATION_API_ID
-        )
-            .then(res => res.json())
-            .then((data) => {
-                setShouldButtonDisable(false);
-                setShowDialog(true)
-                setSuccesMsg("hiii")
-
-                if (checkExpirationOfToken(data?.code)) {
-                    dispatchLocal(setTokenExpiredStatusAction(true));
-                    return;
-                }
-
-                if (data?.error) {
-
-
-                }
-
-
-                setErrorMsg(data?.error)
-
-
-            })
-            .catch(err => {
-                console.log(err)
-            })
     }
 
     const style = {
@@ -127,9 +239,12 @@ const BankAccountDetails = () => {
         const value = e.target.value;
         setIfscCode(value);
         if (value.match(reg)) {
+            console.log("Correct IFSC Code")
+
             setIfscError(false);
         }
         else {
+            console.log("Wront Ifsc");
             setIfscError(true);
 
 
@@ -146,21 +261,18 @@ const BankAccountDetails = () => {
     const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         setBankAcNo(value);
-
-        if (bankAcNo.length < 10) {
+        if (!bankAcNoPattern.test(value) && e.target.value.trim().length != 10) {
             setBankAcNoError(true)
         } else {
             setBankAcNoError(false);
         }
     }
 
-
-
     const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setConfirmBankAcNo(value);
 
-        if (bankAcNo !== value) {
+        if (!bankAcNoPattern.test(value)) {
             setConfirmBankAcNoError(true)
         } else {
             setConfirmBankAcNoError(false);
@@ -173,7 +285,6 @@ const BankAccountDetails = () => {
         }
     }
 
-
     const handleAccountHolderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setAccountHolder(value);
@@ -184,6 +295,10 @@ const BankAccountDetails = () => {
             setAccountHolderError(false);
 
         }
+    }
+
+    const handlechange1 = () => {
+        console.log("nooo")
     }
 
 
@@ -201,7 +316,7 @@ const BankAccountDetails = () => {
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
-                            <Link onClick={() => navigate('/viewprofile')}>View Profile</Link>
+                            <Link onClick={() => { navigate('/viewprofile') }}>View Profile</Link>
                             <Typography sx={{
                                 fontSize: '12px',
                                 color: '#373e42'
@@ -209,13 +324,13 @@ const BankAccountDetails = () => {
                         </Breadcrumbs>
                         <Box className="BoxPadding">
                             <Box component="form" sx={{
-                                gap: { xs: '15px', sm: '1vw', md: '1vw', lg: '1vw' },
+                                gap: { xs: '15px', sm: '1.5vw', md: '1vw', lg: '1vw' },
                                 width: '90%',
                                 maxWidth: '488px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'space-around',
-                                padding: { xs: "12px", sm: '20px' },
+                                padding: '20px',
                                 borderRadius: '0.5vw',
                                 boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
                                 backgroundColor: '#fff',
@@ -251,7 +366,10 @@ const BankAccountDetails = () => {
                                                     }
                                                 }} />}
                                             label="Savings"
-                                            onChange={() => setAccountType('savings')}
+                                            onChange={() => {
+                                                setAccountType('savings');
+                                                setBankDetails({ ...bankdetails, accounttype: 'savings' })
+                                            }}
                                             value="savings"
                                         />
                                         <FormControlLabel
@@ -263,18 +381,24 @@ const BankAccountDetails = () => {
                                                     }
                                                 }} />}
                                             label="Current"
-                                            onChange={() => setAccountType('current')}
+                                            onChange={() => {
+                                                setAccountType('current'); setBankDetails({ ...bankdetails, accounttype: 'current' })
+
+                                            }}
                                             value="current"
                                         />
                                     </RadioGroup>
                                     <FormHelperText sx={{
-                                        color: 'red',
-                                        fontSize: '12px'
-                                    }}>{accountTypeError ? accountTypeHelperText : ''}</FormHelperText>
+                                        color: '#d32f2f',
+                                        fontSize: '0.75rem'
+                                    }}>{accountTypeError ? "Select Type" : ''}</FormHelperText>
                                 </FormControl>
 
                                 <FormControl>
                                     <TextField
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                         onKeyPress={(e) =>
                                             /[*|\":<>[\]{}`\\()';@&$]/im.test(e.key) &&
                                             e.preventDefault()
@@ -284,11 +408,11 @@ const BankAccountDetails = () => {
                                         //     e.preventDefault()
                                         // }
                                         required
-                                        id="outlined-ifsc-code"
+                                        // id="outlined-ifsc-code"
                                         label="Enter IFSC code"
-                                        value={ifscCode}
-                                        onChange={handleIFSCChange}
-                                        name="EnterIFSCcode"
+                                        value={bankdetails.ifsc}
+                                        onChange={handlechange}
+                                        name="ifsc"
                                         error={ifscError}
                                         helperText={ifscError ? "Please enter a valid IFSC Code" : ""}
                                         inputProps={{
@@ -299,6 +423,9 @@ const BankAccountDetails = () => {
 
                                 <FormControl >
                                     <TextField
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                         type="password"
                                         id="outlined-bank-acc-no"
                                         required
@@ -307,13 +434,14 @@ const BankAccountDetails = () => {
                                             /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                             e.preventDefault()
                                         }
-                                        value={bankAcNo}
-                                        onChange={handleBankAcNoChange}
+                                        value={bankdetails.accountnumber}
+                                        name="accountnumber"
+                                        onChange={handlechange}
                                         error={bankAcNoError}
-                                        helperText={bankAcNoError ? <p>Please enter a valid Account Number</p> : ""}
+                                        helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
                                         InputProps={{
                                             endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
-
+                                            // helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""},
                                         }}
                                         inputProps={{
                                             maxLength: 16,
@@ -324,18 +452,21 @@ const BankAccountDetails = () => {
 
                                 <FormControl >
                                     <TextField
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                         onKeyPress={(e) =>
                                             /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                             e.preventDefault()
                                         }
 
                                         required
-                                        id="confirmed-bank-acc-no"
+                                        name="confirmbankaccount"
                                         label="Confirm Bank Account Number"
-                                        value={confirmBankAcNo}
-                                        onChange={handleConfirmBankAcNoChange}
-                                        error={confirmBankAcNoError || bankAcNoError}
-                                        helperText={confirmBankAcNoError || bankAcNoError ? "Bank Account Number do not match" : ""}
+                                        value={bankdetails.accountnumber}
+                                        onChange={handlechangenonmand}
+                                        error={confirmBankAcNoError}
+                                        helperText={confirmBankAcNoError ? "Bank Account Number do not match" : ""}
                                         InputProps={{
                                             endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
                                         }}
@@ -347,12 +478,16 @@ const BankAccountDetails = () => {
 
                                 <FormControl >
                                     <TextField
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
                                         onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
 
                                         required
                                         label="Account Holder's Name"
-                                        value={accountHolder}
-                                        onChange={handleAccountHolderChange}
+                                        name="accountholdername"
+                                        value={bankdetailsnonmand.accountHolder}
+                                        onChange={handlechangenonmand}
                                         error={accountHolderError}
                                         helperText={accountHolderError ? "Please enter a valid Name" : ""}
                                         inputProps={{
@@ -363,20 +498,10 @@ const BankAccountDetails = () => {
 
                                 <FormControl>
                                     <Button
-                                        disabled={ifscCode != "" && bankAcNo != "" && confirmBankAcNo != "" && accountType != "" && accountHolder != "" ? false : true}
+
                                         variant="contained"
                                         onClick={handleSubmit}
-                                        // sx={{
-                                        //     ml: 1,
-                                        //     "&.MuiButtonBase-root:hover": {
-                                        //         bgcolor: '#23db7b'
-                                        //     },
-                                        //     borderRadius: '0.5rem',
-                                        //     boxShadow: '0 0.25rem 0.5rem 0 rgba(35, 219, 123, 0.4)',
-                                        //     backgroundColor: '#23db7b',
-                                        //     padding: '1rem',
-                                        //     textTransform: 'capitalize',
-                                        // }}
+
                                         style={style.button}
                                     ><Typography sx={{ color: "white", size: "16px", fontWeight: "500" }}>
                                             Continue</Typography></Button>
@@ -392,4 +517,3 @@ const BankAccountDetails = () => {
 };
 
 export default BankAccountDetails;
-
