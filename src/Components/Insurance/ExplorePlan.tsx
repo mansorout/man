@@ -80,12 +80,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }));
 
+
 const ExplorePlan = () => {
     const classes = useStyles();
     const dispatch: any = useDispatch();
     const navigate = useNavigate();
     const { termData, termListApiData, termGenerateApiData } = useSelector((state: any) => state.insuranceReducer)
     const [seletedTermInsurance, setSeletedTermInsurance] = useState<number>()
+    const [termInsuranceMode, setTermInsuranceMode] = useState<boolean>(true)
     const [filterIndexes, setFilterIndexes] = useState<any>(
         [
             {
@@ -154,18 +156,27 @@ const ExplorePlan = () => {
 
 
     useEffect(() => {
-        dispatch(postTermGenerate(termData))
-    }, [termData])
+        let temp:any = termData; 
+        if(termInsuranceMode == true){
+        console.log("termInsuranceMode : ",  temp.frequencytype)
+         temp = {...temp, frequencytype: 1};
+        }else{
+            // temp && temp?.frequencytype;
+        console.log("termInsuranceMode false : ",  temp.frequencytype)
+        }
+        console.log("termData : ", termData, temp)
+        dispatch(postTermGenerate(temp))
+    }, [termData, termInsuranceMode])
 
 
     useEffect(() => {
-        termGenerateApiData?.recommendation_id && dispatch(getTermListApi(termGenerateApiData?.recommendation_id));
+        termGenerateApiData && termGenerateApiData?.recommendation_id && dispatch(getTermListApi(termGenerateApiData?.recommendation_id));
     }, [termGenerateApiData])
     
     
 
-    const handleBuyNow = () => {
-        navigate('/choosedPlanDetail')
+    const handleBuyNow = () => {console.log("seletedTermInsurance :", seletedTermInsurance)
+    seletedTermInsurance && navigate('/choosedPlanDetail')
     }
 
     const handleFilterCB = (data:any) => {
@@ -219,7 +230,11 @@ const ExplorePlan = () => {
                                         <p>Term Insurance Plans</p>
                                         <Box className={classes.payMonthlyAnnually}>
                                             <span>Pay Monthly</span>
-                                            <Switch {...label} defaultChecked />
+                                            <Switch
+                                            checked={termInsuranceMode}
+                                            onClick={() => setTermInsuranceMode(!termInsuranceMode)}
+                                             {...label}
+                                              defaultChecked />
                                             <span>Annually</span>
                                         </Box>
                                         <span>{termListApiData?.length} Plans with annually investment of ₹{termData?.lifecover}</span>
@@ -315,6 +330,7 @@ const ExplorePlan = () => {
                                 /> */}
                             </Box>
                             <FooterWithBtn
+                                btnDisable={seletedTermInsurance? false: true}
                                 btnText='Buy Now'
                                 btnClick={handleBuyNow}
                             />

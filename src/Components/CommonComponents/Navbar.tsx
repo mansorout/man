@@ -181,7 +181,7 @@ const Navbar = () => {
     useEffect(()=>{
         
         let image = localStorage.getItem("imgSrc")
-        console.log(image)
+        // console.log(image)
         setImgSrc(image)
       },[])
 

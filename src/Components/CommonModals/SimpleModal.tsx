@@ -40,20 +40,32 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Navigate } from 'react-router-dom';
 import siteConfig from '../../Utils/siteConfig';
 
+
+
 function SimpleModal(props: any) {
   const navigate = useNavigate();
   // const bankDetails: any = useMemo(() => { return localStorage.getItem(siteConfig.USER_INFO)?.kycdetails?.bankdetails }, []);
 
-  const g_userProfileData = useSelector((state: any) => state?.authReducer?.profile?.data);
+  // const g_userProfileData = useSelector((state: any) => state?.authReducer?.profile?.data);
+  // const objBankDetails: { bankname: string, accountholdername: string, accountnumber: string, ifsc: string, accounttype: string } = useMemo(() => {
+  //   return {
+  //     bankname: g_userProfileData?.userdetails?.bankname ? g_userProfileData?.userdetails?.bankname : "",
+  //     accountholdername: g_userProfileData?.kycdetails?.bankdetails?.accountholdername ? g_userProfileData?.kycdetails?.bankdetails?.accountholdername : "",
+  //     accountnumber: g_userProfileData?.kycdetails?.bankdetails?.accountnumber ? g_userProfileData?.kycdetails?.bankdetails?.accountnumber : "",
+  //     ifsc: g_userProfileData?.kycdetails?.bankdetails?.ifsc ? g_userProfileData?.kycdetails?.bankdetails?.ifsc : "",
+  //     accounttype: g_userProfileData?.kycdetails?.bankdetails?.accounttype ? g_userProfileData?.kycdetails?.bankdetails?.accounttype : ""
+  //   }
+  // }, [g_userProfileData])
+
   const objBankDetails: { bankname: string, accountholdername: string, accountnumber: string, ifsc: string, accounttype: string } = useMemo(() => {
     return {
-      bankname: g_userProfileData?.userdetails?.bankname ? g_userProfileData?.userdetails?.bankname : "",
-      accountholdername: g_userProfileData?.kycdetails?.bankdetails?.accountholdername ? g_userProfileData?.kycdetails?.bankdetails?.accountholdername : "",
-      accountnumber: g_userProfileData?.kycdetails?.bankdetails?.accountnumber ? g_userProfileData?.kycdetails?.bankdetails?.accountnumber : "",
-      ifsc: g_userProfileData?.kycdetails?.bankdetails?.ifsc ? g_userProfileData?.kycdetails?.bankdetails?.ifsc : "",
-      accounttype: g_userProfileData?.kycdetails?.bankdetails?.accounttype ? g_userProfileData?.kycdetails?.bankdetails?.accounttype : ""
+      bankname: props?.redeemFundDetails.bankname ? props?.redeemFundDetails?.bankname : "",
+      accountholdername: props?.redeemFundDetails?.accountname ? props?.redeemFundDetails?.accountname : "",
+      accountnumber: props?.redeemFundDetails?.accountnumber ? props?.redeemFundDetails?.accountnumber : "",
+      ifsc: props?.redeemFundDetails?.ifsc ? props?.redeemFundDetails?.ifsc : "",
+      accounttype: props?.redeemFundDetails?.accounttype ? props?.redeemFundDetails?.accounttype : ""
     }
-  }, [g_userProfileData])
+  }, [props?.redeemFundDetails])
 
 
   return (
@@ -129,10 +141,10 @@ function SimpleModal(props: any) {
             <Grid item xs={6}><Typography style={{ fontSize: "14px", fontWeight: "500", color: '#7d7d9e', padding: "10px 20px" }}>Account Number</Typography></Grid>
             <Grid item xs={6}><Typography style={{ fontSize: "14px", fontWeight: "500", color: '#3c3e42', padding: "10px 20px" }}>{objBankDetails?.accountnumber}</Typography></Grid>
           </Grid>
-          <Grid container xs={12} style={{ backgroundColor: "white", width: "100%" }}>
+          {/* <Grid container xs={12} style={{ backgroundColor: "white", width: "100%" }}>
             <Grid item xs={6}><Typography style={{ fontSize: "14px", fontWeight: "500", color: '#7d7d9e', padding: "10px 20px" }}>IFSC Code</Typography></Grid>
             <Grid item xs={6}><Typography style={{ fontSize: "14px", fontWeight: "500", color: '#3c3e42', padding: "10px 20px" }}>{objBankDetails?.ifsc}</Typography></Grid>
-          </Grid>
+          </Grid> */}
           <Box style={{
             display: "flex", alignItems: "center", justifyContent: "space-between", gap: "6px",
             padding: "8px 13px"

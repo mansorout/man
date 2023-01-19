@@ -34,10 +34,10 @@ export const lookUpMasterKeys: any = Object.freeze({
     STARTING_YEAR: 'startingyear',
     SUM_INSURED: 'suminsured',
     SUPPORT_TOPIC: 'supporttopic',
-    TERM_LIFE_COVER: 'termlifecover',
+    TERM_LIFE_COVER: 'termlifecover', // term insurance
     ULIP_FREQUENCY: 'ulip-frequency',
     ULIP_PORT: 'ulip-ppt',
-    ULIP_TERM: 'ulip-term',
+    ULIP_TERM: 'ulip-term', // ulip
 });
 
 export const bannerSectionValues = Object.freeze({
@@ -89,7 +89,8 @@ export const objUserProfileValidationData: profileValidationKeys = {
     isUserProfileFullCompleted: false
 }
 
-export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirth", "incomeslab"];
+// export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirth", "incomeslab"];
+export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirthcity", "incomeslab"];
 export const arrKycCompletionKeys = ["isnomineedetailsavailable", "iscvlverified", "isbankdetailsverifed", "isbankdetailsverifed"];
 
 

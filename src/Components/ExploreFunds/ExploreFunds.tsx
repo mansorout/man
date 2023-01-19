@@ -8,6 +8,14 @@ import { FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Sea
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
 import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import TextField from '@mui/material/TextField';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
@@ -22,7 +30,7 @@ import { setMasterFundListAction } from '../../Store/Global/actions/global-actio
 import { lookUpMasterKeys } from '../../Utils/globalConstant'
 import AddToPlanComp from '../CommonComponents/AddToPlanComp'
 import { getCategoryGroupListThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
-import { checkExpirationOfToken } from '../../Utils/globalFunctions'
+import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
 import { Component } from 'react-image-crop'
@@ -32,6 +40,8 @@ import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
 import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
 import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
 import SelectedFunds from './SelectedFunds'
+import AddMoreFunds from './AddMoreFunds';
+
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -180,12 +190,16 @@ function ExploreFunds(props: any) {
   const location = useLocation();
 
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
+  const [addAllFunds, setAddAllFunds] = useState<any[]>([]);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
   const [initialMFData, setInitialMFData] = useState<boolean>(false);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
+  const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
+  const [buttonDisable, setButtonDisable] = useState<boolean>(true);
+  const [errorAmount, setErrorAmount] = React.useState<any>("");
 
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
@@ -411,6 +425,7 @@ function ExploreFunds(props: any) {
       let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
 
       setFundSelecteds(arrNew);
+      setAddAllFunds(arrNew)
       // setMasterFundList(arrMasterFundList);
       setVariableMasterFundList(arrMasterFundList);
     } else if (status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
@@ -433,6 +448,7 @@ function ExploreFunds(props: any) {
 
 
       setFundSelecteds([objFundListSelectedItem]);
+      // setAddAllFunds([objFundListSelectedItem])
       setVariableMasterFundList(arrSelectedFundList);
       setInitialMFData(true);
     } else {
@@ -441,6 +457,48 @@ function ExploreFunds(props: any) {
 
     }
   }
+  const handleClose = () => {
+    setAddFundOpen(false);
+  };
+
+  // let ddd:any =[];
+  const handleRemoveAddFund = (itemKey: any) => {
+    const temp: any = addAllFunds && addAllFunds?.length && addAllFunds.filter((item: any) => item?.secid !== itemKey?.secid);
+    setAddAllFunds(temp)
+  }
+
+  const handleOnChangeFunAddFund = (e: any, key: any,) => {
+    const temp: any = [];
+    addAllFunds && addAllFunds?.length && addAllFunds.map((item: any) => {
+      if (item?.secid === key?.secid) {
+        item.userRecommendedAmount = parseInt(e.target.value);
+        item.ErrorMsg = !isMultipleofNumber(parseInt(e.target.value), 100) ? "Amount should be multiple of 100" : ""
+      }
+      temp.push(item)
+    })
+    // console.log(temp)
+    // temp.map((item: any) => {
+    //   if (item?.userRecommendedAmount === 0) {
+    //     console.log(item?.userRecommendedAmount)
+    //   } else {
+    //     console.log("fff")
+    //   }
+    // })
+    // if(temp){
+    //   setButtonDisable(true)
+    // }
+
+
+
+
+    setAddAllFunds(temp)
+  }
+
+  const buyNow = () => {
+    dispatch(setSelectedFundsForInvestmentAction(addAllFunds));
+    setAddFundOpen(false)
+    navigate("/customizemf");
+  };
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -539,6 +597,7 @@ function ExploreFunds(props: any) {
                               setActiveCategoryGroupIndex(index);
                               let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
                               setFundSelecteds([]);
+                              setAddAllFunds([]);
                               setInitialMFData(false);
                               setIsInitialVariableFundListFetched(false);
                               getMasterFundList(url);
@@ -614,6 +673,8 @@ function ExploreFunds(props: any) {
 
                           // setSelctedFundDialog(true);
                           dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                          // setAddFundOpen(true)
+                          // console.log(addAllFunds)
 
 
                           navigate("/customizemf");
@@ -660,7 +721,61 @@ function ExploreFunds(props: any) {
         */}
 
       </Box>
+      <Box>
+        <Dialog
+          open={addFundOpen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Selected Funds"}
+          </DialogTitle>
+          <DialogContent>
+            <Grid container>
+              {
+                addAllFunds && addAllFunds?.length &&
+                addAllFunds?.map((selectedFund: any, index: any) => (
+                  <AddMoreFunds
+                    data={selectedFund}
+                    handleOnChangeFunAddFund={handleOnChangeFunAddFund}
+                    removeBtnAction={(item) => handleRemoveAddFund(item)}
+                    errorAmount={errorAmount}
+                  />
+                  // <>
+                  //   <Grid xs={12} sm={12}>
+                  //     <p>{selectedFund.fundname}</p>
+                  //     <Box sx={{position:"relative"}}>
+                  //     <TextField sx={{width:"500px", maxWidth:"80%"}} id="outlined-basic" label="Outlined" variant="outlined" />
+                  //     <Button onClick={() => { handleRemoveAddFund(selectedFund) }} sx={{position:"absolute", right:"0", textAlign:"center", justifyContent: "end",height: "55px"}} variant="outlined" startIcon={<DeleteIcon />}>
+
+                  //   </Button>
+                  //     </Box>
+                  //   </Grid>
+                  //   </>
+                ))
+
+              }
+
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            {
+              buttonDisable ? <>
+                <Button>Buy Now hidden</Button></>
+                : <>
+                  <Button onClick={buyNow}>Buy Now</Button>
+                </>
+            }
+            <Button onClick={handleClose} >
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+      </Box>
     </Box >
+
   )
 }
 

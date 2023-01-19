@@ -24,8 +24,9 @@ import {
     insuranceUlipMonthlyAction,
     insuranceUlipAmount
 } from '../../Store/Duck/InvestmentType'
-import {isMultipleofNumber} from '../../Utils/globalFunctions';
+import { isMultipleofNumber } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
+import { globalConstant } from '../../Utils/globalConstant';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -39,9 +40,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         color: 'var(--uiWhite)',
         position: 'relative',
     },
-    rupeesIcon:{
-        fontSize:"16px !important",
-    }, 
+    rupeesIcon: {
+        fontSize: "16px !important",
+    },
     inputWrapper: {
         position: 'absolute',
         top: '-180%',
@@ -96,7 +97,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& svg': {
             color: 'var(--uiWhite)',
-            fontSize:"16px !important"
+            fontSize: "16px !important"
         },
         '& input': {
             color: 'var(--uiWhite)',
@@ -108,37 +109,40 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '& input::-webkit-outer-spin-button': {
             WebkitAppearance: 'none',
             '-webkit-appearance': 'none !important',
-                margin: '0'
+            margin: '0'
         },
-        '& input::-webkit-inner-spin-button':{
+        '& input::-webkit-inner-spin-button': {
             WebkitAppearance: 'none',
             '-webkit-appearance': 'none !important',
-                margin: '0'
+            margin: '0'
         }
     },
-    modalTextButton:{
+    modalTextButton: {
         boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
         backgroundColor: "var(--primaryColor) !important",
         color: 'var(--uiWhite) !important',
     },
-    modalText:{
+    modalText: {
         padding: '20px'
+    },
+    updateBtn: {
+
     }
 }))
 
 interface RecommendationsHeaderPropsType {
     selectTextLabel: string;
-    selectArray: string[];
+    selectArray: any;
     selectChoosedValue: string;
     changeSelectEvent: (event: SelectChangeEvent) => void;
     investmentTypeLabel: string;
     // investmentTypeStartIcon: React.ReactElement<any>;
     // investmentTypeEndIcon: React.ReactElement<any>;
-    investmentType: number;
-    investmentAmount: any;
+    investmentType: string;
+    investmentAmount: string;
     // changeInvestmentTypeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
     boxInputLabelText: string;
-    boxInputShow:boolean;
+    boxInputShow: boolean;
     boxInputShowHandleChange: () => void;
     boxInputHideHandleChange: () => void;
     // boxInputStartIcon: React.ReactElement<any>;
@@ -147,7 +151,7 @@ interface RecommendationsHeaderPropsType {
     // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
+const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     const classes = useStyles();
     const dispatch: any = useDispatch();
     // const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
@@ -173,32 +177,57 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
     // useEffect(() => {
     //     handleInvestmentAmount()
     // }, [amount])
-    
+
     const handleInvestmentAmount = () => {
-        if(parseInt(amount) > 150000){
+        if (parseInt(amount) > 150000) {
             setValidationAlertDialog({
                 msg: 'Amount should be less than 150000',
                 bool: true,
             })
-            return 
+            return
         }
 
-        if (props?.investmentType === 0) {
+        if (props?.investmentType === LUMPSUM) {
             if (isMultipleofNumber(parseInt(amount), 100)) {
-                // dispatch(SaveTaxInvestmentAmount(amount))
-                localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+                dispatch(SaveTaxInvestmentAmount(amount))
                 props?.boxInputHideHandleChange()
-                console.log("props?.investmentAmount :", props?.investmentAmount)
-                console.log("localStorage.getItem(siteConfig?.SIP_USER_AMOUNT) :", localStorage.getItem(siteConfig?.SIP_USER_AMOUNT))
-            }else {
+            } else {
                 setValidationAlertDialog({
                     msg: 'Enter amount multiple of 100!',
                     bool: true,
                 })
             }
-        } else if (props?.investmentType === 1) {
-            // dispatch(insuranceUlipAmount(amount))
-        console.log("props?.investmentAmount :", props?.investmentAmount)
+        } else if (props?.investmentType === MONTHLY) {
+            if (parseInt(amount) < 15000) {
+                // alert('alert')
+                setValidationAlertDialog({
+                    msg: 'Amount should be more than 15,000',
+                    bool: true,
+                })
+                return
+            }
+            dispatch(SaveTaxInvestmentAmount(amount))
+        } else if (props?.investmentType === ULIP_LUMPSUM) {
+            if (isMultipleofNumber(parseInt(amount), 100)) {
+                dispatch(insuranceUlipAmount(amount))
+                props?.boxInputHideHandleChange()
+            } else {
+                alert('Enter amount multiple of 100!')
+            }
+        } else if (props?.investmentType === ULIP_MONTHLY) {
+            dispatch(insuranceUlipAmount(amount))
+        } else {
+            // if (isMultipleofNumber(parseInt(amount), 100)) {
+                localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+                props?.boxInputHideHandleChange()
+                console.log("props?.investmentAmount :", props?.investmentAmount)
+                console.log("localStorage.getItem(siteConfig?.SIP_USER_AMOUNT) :", localStorage.getItem(siteConfig?.SIP_USER_AMOUNT))
+            // } else {
+            //     setValidationAlertDialog({
+            //         msg: 'Enter amount multiple of 100!',
+            //         bool: true,
+            //     })
+            // }
         }
     }
 
@@ -206,7 +235,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
         <Box className={classes.recommendationsHeaderBox}>
             <Grid container>
                 <Grid xs={7} sm={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
-                    <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect +" "+ "dropdownSlect"} fullWidth>
+                    <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect + " " + "dropdownSlect"} fullWidth>
                         <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
@@ -215,7 +244,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                             onChange={props?.changeSelectEvent}
                             label="Age"
                         >
-                            {props?.selectArray.map((item,index) => (
+                            {props?.selectArray.map((item:any, index:number) => (
                                 <MenuItem value={item} key={index}>{item} Years</MenuItem>
                             ))}
                             {/* <MenuItem value={5}>5 Years</MenuItem>
@@ -249,7 +278,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
                     type='number'
                     InputProps={{
-                        endAdornment: <Button onClick={handleInvestmentAmount} disabled={!localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)} variant="contained">{props?.boxInputButtonText}</Button>,
+                        endAdornment: <Button disabled={false} className={classes.modalTextButton} onClick={handleInvestmentAmount} variant="contained">{props?.boxInputButtonText}</Button>,
                         startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                         // readOnly: investmentType === 'monthly' ? false : true,
                     }}
@@ -257,21 +286,21 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                     fullWidth
                 />
             </Box>
-            
-            
-            <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({...validationAlertDialog, bool: false})}>
+
+
+            <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
-                <Button onClick={() => setValidationAlertDialog({...validationAlertDialog, bool: false})} variant='contained' className={classes.modalTextButton} sx={{
+                <Button onClick={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })} variant='contained' className={classes.modalTextButton} sx={{
                     backgroundColor: 'var(--primaryColor)',
                     color: '#7b7b9d'
                 }}>
                     OK
                 </Button>
             </Dialog>
-            
+
         </Box >
     )
 }
 
-export default RecommendationsHeader
+export default RecommendationsHeader;

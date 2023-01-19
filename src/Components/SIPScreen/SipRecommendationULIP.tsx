@@ -248,25 +248,30 @@ const SipRecommendationsULIP = () => {
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
     const [calenderValue, setCalenderValue] = useState(new Date())
-    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
-    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<any[]>([])
+    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('10')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
-
+    const strCardType:string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE)
     // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
 
     useEffect(() => {
         // if(parseInt(investmentAmount) === 0) navigate('/saveTax')
-        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
-        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.INVEST_NOW)
-        console.log("bannersectionArr :", bannersectionArr, lookUPId)
+        const ulipTerm = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
+        const tempArr: any= [];
+        ulipTerm.map((item:any) => {
+            tempArr.push(item.value)
+        })
+        setRecommendationHeaderSelectArr(tempArr)
+        const term_id = ulipTerm.filter((item:any) => item.value === parseInt(recommendationHeaderSelectChoosed))
+        console.log("lookUPId ulipTerm :", ulipTerm, tempArr,term_id)
         const ulipGenrateBody = {
             amount: localStorage.getItem(siteConfig?.SIP_USER_AMOUNT),
             frequencytype: 0, // 0 for monthly
-            term_id: 85 //85 lookUPId giving 2
+            term_id: term_id[0].lookup_id //85 lookUPId giving 2
         }
         dispatch(postUlipGenrateApi(ulipGenrateBody))
-    }, [localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)])
+    }, [localStorage.getItem(siteConfig?.SIP_USER_AMOUNT), recommendationHeaderSelectChoosed])
     
     useEffect(() => {
         ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
@@ -383,8 +388,8 @@ const SipRecommendationsULIP = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
-                            investmentType={0}
-                            investmentAmount={localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}
+                            investmentType={`${strCardType}`}
+                            investmentAmount={`${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
                             boxInputButtonText='Update Plans'
