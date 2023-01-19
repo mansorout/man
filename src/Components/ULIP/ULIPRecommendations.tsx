@@ -498,7 +498,7 @@ const ULIPRecommendations = () => {
                                                     fontSize: '18px',
                                                     fontWeight: 500,
                                                     color: '#3c3e42',
-                                                }}>2 ULIP Plan Found</Typography>
+                                                }}>{ulipListApiData && ulipListApiData.length} ULIP Plan Found</Typography>
                                             </Box>
                                             {/* <Box>
                                                 <SearchCmp
@@ -534,7 +534,7 @@ const ULIPRecommendations = () => {
                                                                     ulipData?.map(data => <ULIPCoFundCard {...data} />)
                                                                 } */}
                                                     {
-                                                        ulipListApiData.length > 0 && ulipListApiData?.map((cardItem: getUlipListApiTypes) => (
+                                                        ulipListApiData && ulipListApiData.length > 0 && ulipListApiData?.map((cardItem: getUlipListApiTypes) => (
                                                             <ULIPRecommendationCard
                                                                 logoUrl={cardItem?.providerlogo}
                                                                 companyName={cardItem?.ulipname}
