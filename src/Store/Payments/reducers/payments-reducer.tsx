@@ -1,8 +1,9 @@
-import { SET_INITIAL_PAYMENT_DATA, SET_PORTFOLIO_LIST_DATA_IN_HOLDINGS } from "../constants/payments-contant";
+import { SET_INITIAL_PAYMENT_DATA, SET_ORDER_REDEEM_DATA, SET_PORTFOLIO_LIST_DATA_IN_HOLDINGS } from "../constants/payments-contant";
 
 const initialState: any = {
   initialPaymentData: { data: {} },
-  portfolioListDataInHoldings: { data: {} }
+  portfolioListDataInHoldings: { data: {} },
+  orderRedeemData: { data: {} }
 }
 
 const paymentsReducer = (state = initialState, action: any) => {
@@ -20,6 +21,17 @@ const paymentsReducer = (state = initialState, action: any) => {
         ...state,
         portfolioListDataInHoldings: {
           ...state.portfolioListDataInHoldings,
+          data: action.payload
+        }
+      }
+
+      break;
+    }
+    case SET_ORDER_REDEEM_DATA: {
+      state = {
+        ...state,
+        orderRedeemData: {
+          ...state.orderRedeemData,
           data: action.payload
         }
       }

@@ -27,6 +27,7 @@ import { apiResponse, holdingList } from '../../Utils/globalTypes';
 import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions';
 import { setOrderToRedeemFundWrtUserInputThunk } from '../../Store/Payments/thunk/payments-thunk';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
+import { setOrderRedeemDataAction } from '../../Store/Payments/actions/payments-action';
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   appbar: {
@@ -217,8 +218,8 @@ const RedeemFunds = () => {
   const [error, setError] = useState<string>("");
   const [redeemUnits, setRedeemUnits] = useState<number>(0);
   const [bankModal, setBankModal] = useState<boolean>(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [redeemAmount, setRedeemAmount] = useState<number>(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [redeemFundDetails, setRedeemFundDetails] = useState<holdingList>(initialReddemFundData);
   const [activeRedeemType, setActiveRedeemType] = useState<number>(enumRedeemPaymentMethod.PARTIAL);
   const [activePartialSubType, setActivePartialSubType] = useState<number>(enumPartialSubType.AMOUNT);
@@ -226,11 +227,13 @@ const RedeemFunds = () => {
   const objRedeemMinMaxData: any = useMemo(() => {
     return {
       minAmount: parseFloat(redeemFundDetails?.minredemptionamount),
-      maxAmount: parseFloat(redeemFundDetails?.maxredemptionamount),
+      // maxAmount: parseFloat(redeemFundDetails?.maxredemptionamount),
+      maxAmount: parseFloat(redeemFundDetails?.currentvalue),
       minUnit: parseFloat(redeemFundDetails?.minredemptionqty),
-      maxUnit: parseFloat(redeemFundDetails?.maxredemptionqty)
+      // maxUnit: parseFloat(redeemFundDetails?.maxredemptionqty)
+      maxUnit: parseFloat(redeemFundDetails?.units)
     }
-  }, [redeemFundDetails])
+  }, [redeemFundDetails]);
 
   useEffect(() => {
     if (!g_portfolioListDataInHoldings) return;
@@ -239,8 +242,11 @@ const RedeemFunds = () => {
 
     if (holdinglist && holdinglist.length) {
       let obj: holdingList = holdinglist.filter((item: holdingList) => item?.fund_id === selectedFundId)[0];
-      if (obj) setRedeemFundDetails(obj);
-      else setRedeemFundDetails(initialReddemFundData);
+      if (obj) {
+        setRedeemFundDetails(obj);
+        setRedeemUnits(obj?.minredemptionqty ? parseFloat(obj?.minredemptionqty) : 0);
+        setRedeemAmount(obj?.minredemptionamount ? parseFloat(obj?.minredemptionamount) : 0);
+      } else setRedeemFundDetails(initialReddemFundData);
     } else {
       setRedeemFundDetails(initialReddemFundData);
     }
@@ -253,7 +259,7 @@ const RedeemFunds = () => {
     } else {
       setIsButtonDisabled(true);
     }
-  }, [activeRedeemType])
+  }, [activeRedeemType]);
 
   useEffect(() => {
     setError("");
@@ -282,7 +288,7 @@ const RedeemFunds = () => {
     //   setIsButtonDisabled(true);
     // }
 
-  }, [error])
+  }, [error]);
 
   const handleOnChangeInputOfPartialSubType = (e: any) => {
     let { value, name } = e?.target;
@@ -299,11 +305,17 @@ const RedeemFunds = () => {
       setRedeemUnits(value);
     }
 
-    if (!isMultipleofNumber(value, 100)) {
-      setError("Amount should be multiple of 100.");
-      setIsButtonDisabled(true)
-      return;
-    }
+    setError("");
+    // if(checkValidationWRTMinMaxValue()){
+
+    // }else{
+
+    // }
+    // if (!isMultipleofNumber(value, 100)) {
+    //   setError("Amount should be multiple of 100.");
+    //   setIsButtonDisabled(true)
+    //   return;
+    // }
     // if (activePartialSubType === enumPartialSubType.AMOUNT) {
     //   if (value < objRedeemMinMaxData?.minAmount && value > objRedeemMinMaxData?.maxAmount) {
     //     setError("Invalid Amount");
@@ -316,28 +328,63 @@ const RedeemFunds = () => {
     //   // setIsButtonDisabled(false);
     // }
 
-    setIsButtonDisabled(false);
-    setError("");
+    // setIsButtonDisabled(false);
+    // setError("");
   }
 
   const checkValidationWRTMinMaxValue = () => {
+    // let bFlag = false;
+    // if (activePartialSubType === enumPartialSubType.AMOUNT) {
+    //   if (redeemAmount < objRedeemMinMaxData?.minAmount && redeemAmount > objRedeemMinMaxData?.maxAmount) {
+    //     setError("Invalid Amount");
+    //     bFlag = true;
+    //   }
+
+    // } else if (activePartialSubType === enumPartialSubType.UNIT) {
+    //   if (redeemUnits < objRedeemMinMaxData?.minUnit && redeemUnits > objRedeemMinMaxData?.maxUnit) {
+    //     setError("Invalid Unit");
+    //     bFlag = true;
+    //   }
+    // } else {
+    //   setIsButtonDisabled(false);
+    //   setError("");
+    //   bFlag = false;
+    // }
+
+    // return bFlag;
+
+
     let bFlag = false;
     if (activePartialSubType === enumPartialSubType.AMOUNT) {
-      if (redeemAmount < objRedeemMinMaxData?.minAmount && redeemAmount > objRedeemMinMaxData?.maxAmount) {
-        setError("Invalid Amount");
+
+      if (redeemAmount < objRedeemMinMaxData?.minAmount) {
+        setError("Amount less than minimum redemption amount can not be redeemed.");
+        bFlag = true;
+      } else if (redeemAmount > objRedeemMinMaxData?.maxAmount) {
+        setError("Amount more than maximum redemption amount can not be redeemed.");
         bFlag = true;
       }
 
+
     } else if (activePartialSubType === enumPartialSubType.UNIT) {
-      if (redeemUnits < objRedeemMinMaxData?.minUnit && redeemUnits > objRedeemMinMaxData?.maxUnit) {
-        setError("Invalid Unit");
+
+      if (redeemUnits < objRedeemMinMaxData?.minUnit) {
+        setError("Unit less than minimum redemption unit can not be redeemed.");
         bFlag = true;
       }
-    } else {
-      setIsButtonDisabled(false);
-      setError("");
-      bFlag = false;
+
+      if (redeemUnits > objRedeemMinMaxData?.maxUnit) {
+        setError("Can not redeem more than invested units.");
+        bFlag = true;
+      }
+
     }
+
+    // else {
+    //   setIsButtonDisabled(false);
+    //   setError("");
+    //   bFlag = false;
+    // }
 
     return bFlag;
   }
@@ -352,9 +399,9 @@ const RedeemFunds = () => {
 
   const initiateRedeemFund = async () => {
     let objBody: any = {
-      folionumber: "",
+      folionumber: redeemFundDetails?.folio,
       allredeem: false,
-      fund_id: ""
+      fund_id: redeemFundDetails?.fund_id
     }
     if (activeRedeemType === enumRedeemPaymentMethod.PARTIAL) {
       if (activePartialSubType === enumPartialSubType.AMOUNT) {
@@ -364,16 +411,18 @@ const RedeemFunds = () => {
       }
     }
 
-    let res: apiResponse = await setOrderToRedeemFundWrtUserInputThunk(objBody);
+    dispatch(setOrderRedeemDataAction(objBody));
 
-    if (checkExpirationOfToken(res?.code)) {
-      dispatch(setTokenExpiredStatusAction(true));
-      return;
-    }
+    // let res: apiResponse = await setOrderToRedeemFundWrtUserInputThunk(objBody);
 
-    if (res?.error == true) {
-      return;
-    }
+    // if (checkExpirationOfToken(res?.code)) {
+    //   dispatch(setTokenExpiredStatusAction(true));
+    //   return;
+    // }
+
+    // if (res?.error == true) {
+    //   return;
+    // }
 
     let objUserAuthData = {
       number: redeemFundDetails?.mobileno,
@@ -411,50 +460,23 @@ const RedeemFunds = () => {
 
                 {/* Large Cards */}
                 {
-                  activeRedeemType === enumRedeemPaymentMethod.PARTIAL ?
-                    <Box>
-                      {
-                        redeemFundDetails &&
-                          Object.keys(redeemFundDetails).length ?
-                          <RedeemFundsCard
-                            logo={redeemFundDetails?.fundimage}
-                            name={redeemFundDetails?.fundname}
-                            cap={redeemFundDetails?.category}
-                            type={redeemFundDetails?.categorygroup}
-                            absoluteValue={redeemFundDetails?.absolutereturn}
-                            absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
-                            // aum={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturn}
-                            // aumPercentage={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturninpercent}
-                            currentValue={redeemFundDetails?.currentvalue}
-                            investedValue={redeemFundDetails?.investedvalue}
-                            units={redeemFundDetails?.units}
-                            rating={redeemFundDetails?.rating}
-                          /> : null
-                      }
-
-                    </Box> :
-                    <Box>
-                      {
-                        redeemFundDetails &&
-                          Object.keys(redeemFundDetails).length ?
-                          <FullAmountCard
-                            logo={redeemFundDetails?.fundimage}
-                            name={redeemFundDetails?.fundname}
-                            cap={redeemFundDetails?.category}
-                            type={redeemFundDetails?.categorygroup}
-                            absoluteValue={redeemFundDetails?.absolutereturn}
-                            absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
-                            // aum={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturn}
-                            // aumPercentage={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturninpercent}
-                            currentValue={redeemFundDetails?.currentvalue}
-                            investedValue={redeemFundDetails?.investedvalue}
-                            units={redeemFundDetails?.units}
-                          // rating={redeemFundDetails?.rating}
-                          />
-                          : null
-                      }
-                    </Box>
+                  redeemFundDetails &&
+                    Object.keys(redeemFundDetails).length ?
+                    <FullAmountCard
+                      logo={redeemFundDetails?.fundimage}
+                      name={redeemFundDetails?.fundname}
+                      cap={redeemFundDetails?.category}
+                      type={redeemFundDetails?.categorygroup}
+                      absoluteValue={redeemFundDetails?.absolutereturn}
+                      absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
+                      currentValue={redeemFundDetails?.currentvalue}
+                      investedValue={redeemFundDetails?.investedvalue}
+                      units={redeemFundDetails?.units}
+                      rating={redeemFundDetails?.rating}
+                    />
+                    : null
                 }
+
 
                 {/* Small Card */}
                 <Box sx={{ width: '100%' }}>
@@ -819,7 +841,8 @@ const RedeemFunds = () => {
               <FooterWithBtn
                 btnText='Redeem Now'
                 btnClick={handleSubmit}
-                btnDisable={isButtonDisabled}
+                // btnDisable={isButtonDisabled}
+                btnDisable={false}
               />
               <SimpleModal
                 open={bankModal}
@@ -837,3 +860,50 @@ const RedeemFunds = () => {
 
 }
 export default RedeemFunds
+
+
+// {
+//   activeRedeemType === enumRedeemPaymentMethod.PARTIAL ?
+//     <Box>
+//       {
+//         redeemFundDetails &&
+//           Object.keys(redeemFundDetails).length ?
+//           <RedeemFundsCard
+//             logo={redeemFundDetails?.fundimage}
+//             name={redeemFundDetails?.fundname}
+//             cap={redeemFundDetails?.category}
+//             type={redeemFundDetails?.categorygroup}
+//             absoluteValue={redeemFundDetails?.absolutereturn}
+//             absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
+//             // aum={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturn}
+//             // aumPercentage={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturninpercent}
+//             currentValue={redeemFundDetails?.currentvalue}
+//             investedValue={redeemFundDetails?.investedvalue}
+//             units={redeemFundDetails?.units}
+//             rating={redeemFundDetails?.rating}
+//           /> : null
+//       }
+
+//     </Box> :
+//     <Box>
+//       {/* {
+//         redeemFundDetails &&
+//           Object.keys(redeemFundDetails).length ?
+//           <FullAmountCard
+//             logo={redeemFundDetails?.fundimage}
+//             name={redeemFundDetails?.fundname}
+//             cap={redeemFundDetails?.category}
+//             type={redeemFundDetails?.categorygroup}
+//             absoluteValue={redeemFundDetails?.absolutereturn}
+//             absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
+//             // aum={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturn}
+//             // aumPercentage={activePartialSubType === enumPartialSubType.UNIT ? redeemFundDetails?.nav : redeemFundDetails?.absolutereturninpercent}
+//             currentValue={redeemFundDetails?.currentvalue}
+//             investedValue={redeemFundDetails?.investedvalue}
+//             units={redeemFundDetails?.units}
+//             rating={redeemFundDetails?.rating}
+//           />
+//           : null
+//       } */}
+//     </Box>
+// }

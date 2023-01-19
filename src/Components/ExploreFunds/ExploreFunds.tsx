@@ -611,7 +611,11 @@ function ExploreFunds(props: any) {
                           dispatch(setMasterFundListForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
                         } else if (status === globalConstant.CEF_ADD_FUND) {
+
+                          // setSelctedFundDialog(true);
                           dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+
+
                           navigate("/customizemf");
                         } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
                           dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
@@ -626,6 +630,35 @@ function ExploreFunds(props: any) {
           }
 
         </Grid>
+
+
+        {/* {
+          let arrNew = []
+          forEach((item)=>{
+          let obj = {
+          ...item,
+          item["userRecommendedAmount"] = 0;}
+            }
+        arrNew.push(obj);
+          })
+
+        setSelectedFunds(arrNew); */}
+
+
+        {/* {
+          selctedFundDialog ?
+          open that component
+          <Comp
+            fundSelected={fundSelected}
+          />
+          :null
+        } */}
+
+        {/*
+         //onChange functiom
+        selctedFund[index]["userRecommendedAmount"] = e.target.value
+        */}
+
       </Box>
     </Box >
   )
