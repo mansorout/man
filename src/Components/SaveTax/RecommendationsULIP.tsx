@@ -258,8 +258,8 @@ const RecommendationsULIP = () => {
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
     const [calenderValue, setCalenderValue] = useState(new Date())
-    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5','10','15','20'])
-    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<any[]>([])
+    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('10')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
 
     // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
@@ -267,15 +267,22 @@ const RecommendationsULIP = () => {
 
     useEffect(() => {
         if(parseInt(investmentAmount) === 0) navigate('/saveTax')
-        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
-        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        const ulipTerm = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
+        const tempArr: any= [];
+        ulipTerm.map((item:any) => {
+            tempArr.push(item.value)
+        })
+        setRecommendationHeaderSelectArr(tempArr)
+        const term_id = ulipTerm.filter((item:any) => item.value === parseInt(recommendationHeaderSelectChoosed))
+        console.log("lookUPId ulipTerm :", ulipTerm, tempArr,term_id)
+        // const lookUPId = getLookUpIdWRTModule(ulipTerm, bannerSectionValues.SAVE_TAX)
         const ulipGenrateBody = {
             amount: parseInt(investmentAmount),
             frequencytype: investmentType === MONTHLY ? 0 : 1,
-            term_id: 85 //85
+            term_id: term_id[0].lookup_id //85
         }
         dispatch(postUlipGenrateApi(ulipGenrateBody))
-    }, [investmentAmount])
+    }, [investmentAmount,recommendationHeaderSelectChoosed])
     
     useEffect(() => {
         ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
