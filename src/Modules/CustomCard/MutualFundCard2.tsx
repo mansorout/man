@@ -29,6 +29,7 @@ import { CheckBoxOutlineBlank, CheckBoxOutlineBlankOutlined, CheckBoxOutlined, R
 import { globalConstant } from "../../Utils/globalConstant";
 import { useDispatch } from "react-redux";
 import { setReplaceFundActiveIndexForInvestmentAction } from "../../Store/Recommendations/actions/recommendations-action";
+import siteConfig from "../../Utils/siteConfig";
 
 export interface MFProp {
   onClick?: (data: any, type: any, element: string, index: number | undefined) => void | undefined;
@@ -173,6 +174,7 @@ const MutualFundCard2 = (props: MFProp) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [removeInvestment, setRemoveInvestment] = useState<boolean>(false);
+  const strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
 
   const handleRemoveClick = (strtype: string) => {
     setRemoveInvestment(false);
@@ -267,7 +269,7 @@ const MutualFundCard2 = (props: MFProp) => {
           <Typography
             style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
           >
-            ₹{props?.recommendedamount}
+            ₹{props?.recommendedamount} {strCardType === globalConstant.SIP_INVESTMENT ? 'pm' : '' }
           </Typography>
         </Box>
         <Chip
@@ -503,6 +505,10 @@ const MutualFundCard2 = (props: MFProp) => {
 
 export default MutualFundCard2;
 
+
+function setRemoveInvestment(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
 // return (
 //   <Box sx={{
 //     padding: '0.625vw 0.625vw 1.5vw 1.5vw',

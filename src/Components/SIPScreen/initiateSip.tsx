@@ -298,7 +298,7 @@ const InitiateSip = (props: IProps) => {
   }, []);
 
   const handleNavigation = () => {
-    navigate("/oneTimeInvestment", {
+    navigate("/sipInvestment", {
       state: {
         cardType: globalConstant.SIP_INVESTMENT
       }
@@ -441,7 +441,7 @@ const InitiateSip = (props: IProps) => {
                     <Typography className='burgerText'>Investment</Typography>
                   </Link>
                   <Link underline="none" color="#878782"  >
-                    <Typography className='burgerText' >One-time lumpsum</Typography>
+                    <Typography className='burgerText' >Start an SIP</Typography>
                   </Link>
                 </Breadcrumbs>
               </Box>
@@ -462,7 +462,7 @@ const InitiateSip = (props: IProps) => {
                               color: "#3c3e42"
                             }}
                           >
-                            One-time lumpsum
+                            Start an SIP
                           </b>
 
                           <List>

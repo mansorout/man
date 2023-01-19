@@ -352,7 +352,7 @@ const SaveTaxAmount = () => {
                                 name="controlled-radio-buttons-group"
                                 value={investmentType}
                                 onChange={handleRadioChange}
-                            // style={{ backgroundColor: '#8787a2' }}
+                            // style={{ backgroundColor: '#8787a2' }} 
                             >
                                 <Box className={classes.investmentField}>
                                     <Typography component='p'>Lumpsum investment</Typography>
