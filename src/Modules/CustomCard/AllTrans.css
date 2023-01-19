@@ -46,7 +46,13 @@
 }
 @media (width:412px){
     .css-19midj6 {
-        padding: 15px !important;
+        padding: 2px !important;
+    }
+   
+}
+@media (width:414px){
+    .css-19midj6 {
+        padding: 2px !important;
     }
    
 }

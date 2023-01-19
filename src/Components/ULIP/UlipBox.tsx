@@ -255,151 +255,10 @@ const UlipBox = (props: any) => {
     dispatch(insuranceUlipLumpsumAction(investmentType));
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     const urlTemp: ulipReturnApiParamsTypes = {
       frequencytype: investmentType === ULIP_MONTHLY ? "0" : "1",
       amount: ulipInsuranceAmount,
-=======
-
-
-const useStyles: any = makeStyles((theme: Theme) => ({
-    main: {
-        boxSizing: "border-box",
-        backgroundColor: "var(--bgLayoutColor)",
-    },
-    blueBoxWithoutBorder: {
-        backgroundColor: 'var(--ui1Color)',
-        padding: '15px',
-        margin: '0px -16px',
-    },
-    blueBoxIconBox: {
-        width: '64px',
-        height: '64px',
-        borderRadius: '50%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'var(--bgColor)',
-        margin: '0px 15px',
-        '@media(max-width: 500px)': {
-            width: '45px',
-            height: '45px',
-        }
-    },
-    BlueBoxCustom: {
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        '& p': {
-            color: 'var(--uiWhite)',
-            fontSize: 'var(--subHeadingFontSize)',
-        }
-    },
-    investmentType: {
-        backgroundColor: 'var(--uiWhite)',
-        // backgroundColor: '#000',
-        padding: '15px',
-        borderRadius: '8px',
-    },
-    investmentFieldSelected: {
-        color: 'var(--ui1Color)',
-        fontSize: 'var(--titleFontSize)',
-        marginBottom: '15px',
-        '& p': {
-            fontweight: 500,
-        },
-        '& span': {
-            color: 'var(--primaryColor)',
-            fontSize: 'var(--fontSize14)',
-        },
-    },
-
-    investmentField: {
-        color: 'var(--ui1Color)',
-        fontSize: 'var(--titleFontSize)',
-        marginBottom: '15px',
-        '& p': {
-            fontweight: 500,
-        },
-        '& span': {
-            color: 'var(--typeIndigoColor)',
-            fontSize: 'var(--fontSize14)',
-        },
-    },
-    textField: {
-        margin: '10px 0px !important',
-        display: 'block',
-        position: 'relative',
-        '& .MuiOutlinedInput-root.MuiInputBase-fullWidth': {
-            '& label': {
-                backgroundColor: 'rgb(135 135 162 / 20%)',
-                position: 'absolute',
-                right: '0px',
-                padding: '7px',
-                margin: '0px !important',
-                '@media(min-width: 600px)': {
-                    width: '140px !important',
-                }
-            }
-        }
-    },
-    rupeesIcon: {
-        fontSize: '16px !important',
-        color: 'var(--typeLightBlackColor)',
-    },
-    performanceGraphCard: {
-        height: '100%',
-        boxSizing: 'border-box',
-        backgroundColor: 'var(--uiWhite)',
-        borderRadius: '8px',
-        boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)',
-        padding: '15px',
-    }
-}))
-
-const enumLabels = {
-    INVESTED_VALUE:'Invested Value',
-    PROJECTED_VALUE:'Projected Value',
-}
-
-const MAX_LENGTH = 10;
-const UlipBox = (props:any) => {
-
-    const classes = useStyles();
-    const navigate = useNavigate();
-    const dispatch: any = useDispatch()
-    const refContainer = useRef();
-    const timerRef: any = useRef();
-    const [years, setYears] = useState('5');
-    const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
-    const [lumpsumAmount, setLumpsumAmount] = useState(0)
-    const [monthlyAmount, setMonthlyAmount] = useState(0)
-    const [chartLabels, setChartLabels] = useState<string[] | null>(null)
-    const [chartInvestedAmount, setChartInvestedAmount] = useState<number[] | null>(null)
-    const [chartProjectedAmount, setChartProjectedAmount] = useState<number[] | null>(null)
-    const { ulipReturnApiData } = useSelector((state: any) => state.insuranceReducer)
-    const { ulipInsuranceType, ulipInsuranceAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
-    const [errorMessage, setErrorMessage] = useState("")
-    const [error,setError] = useState(false)
-    const [monthyshowerror, setMonthlyShowError] = useState("")
-    const [merror,setMerror] = useState(false)
-    const [ulipYears,setUlipYears] = useState<any>([])
-    const [handlelinechart,setHandlelinechart]= useState(0)
-    const [greenline,setGreenline] = useState("")
-    const [pinkline,setPinkline] = useState("")
-
-    const handleTimer = (cb: any | void, a: any) => {
-        clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => {
-            dispatch(cb(a));
-        }, 550);
-    }
-
-    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInvestmentType((event.target as HTMLInputElement).value);
-        investmentType === ULIP_LUMPSUM ? setLumpsumAmount(0) : setMonthlyAmount(0);
->>>>>>> 890e239640f5ff2cb45d549f5ccae5f2c06a32df
     };
     console.log(urlTemp);
     dispatch(getUlipReturnApi(urlTemp));
@@ -505,7 +364,6 @@ const UlipBox = (props:any) => {
     //     return (
     //         console.log(item.label)
 
-<<<<<<< HEAD
     //     )
     // }
     // )
@@ -549,23 +407,6 @@ const UlipBox = (props:any) => {
               xs={12}
               className="PaddingremoveStyle"
             >
-=======
-    const chartData = {
-        labels: chartLabels,
-        datasets: [
-            {
-                label: enumLabels?.INVESTED_VALUE,
-                data: chartInvestedAmount,
-                fill: true,
-                backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "rgba(75,192,192,1)"
-            },
-            {
-                label: enumLabels?.PROJECTED_VALUE,
-                data: chartProjectedAmount,
-                fill: true,
-                borderColor: "#742774"
->>>>>>> 890e239640f5ff2cb45d549f5ccae5f2c06a32df
             
                 <Grid
                   item
@@ -639,7 +480,6 @@ const UlipBox = (props:any) => {
                                 ULIP
                               </Typography>
 
-<<<<<<< HEAD
                               <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                 name="controlled-radio-buttons-group"
@@ -692,64 +532,6 @@ const UlipBox = (props:any) => {
                                     </div>
                                
                                 </Box>
-=======
-    const handleNavigationFlow = () => {
-        // navigate('/ulip/recommendations')
-        if (investmentType === ULIP_LUMPSUM && lumpsumAmount > 0) {
-            if (isMultipleofNumber(lumpsumAmount, 100) === true) {
-                dispatch(insuranceUlipLumpsumAction(ULIP_LUMPSUM));
-                dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
-                navigate('/ulip/recommendations')
-            } else {
-                alert('Enter amount multiple of 100!')
-            }
-        } else if (investmentType === ULIP_MONTHLY && (monthlyAmount) > 0) {
-            dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
-            dispatch(SaveTaxInvestmentAmount(monthlyAmount))
-            navigate('/ulip/recommendations')
-            // navigate('/saveTax/saveTaxInvestmentType')
-        }
-    }
-    const handleYear = (e: { target: { value: SetStateAction<string>; }; })=>{
-         setYears(e.target.value)
-    }
-    useEffect(() => {
-        const lookup__id_Arr = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
-         const ulip:any = customParseJSON(localStorage.getItem("ulip-term"))
-         console.log(typeof(ulip))
-         console.log(ulip)
-         setUlipYears(ulip)
-       
-    }, [])
-    const hadleLineChart=(e:any)=>{
-    
-        if(e?.lineLabel === enumLabels?.INVESTED_VALUE){
-            setGreenline(e.value)
-        }else{
-            setPinkline(e.value)
-        }
-      
-        console.log(e)
-        // value.datasets.map(( item : any)=> 
-        // {
-        //     return (
-        //         console.log(item.label)
-                
-        //     )
-        // } 
-        // )
-        console.log(greenline)
-        // console.log(pinkline)
-      
-     setHandlelinechart(handlelinechart)
-     
-   
-     
-    }
-const handleShowhover=(e:any)=>{
-console.log(e)
-}
->>>>>>> 890e239640f5ff2cb45d549f5ccae5f2c06a32df
 
                                 <Box
                                   sx={{

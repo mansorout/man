@@ -25,12 +25,8 @@ import {
     insuranceUlipAmount
 } from '../../Store/Duck/InvestmentType'
 import {isMultipleofNumber} from '../../Utils/globalFunctions';
-<<<<<<< HEAD
 import './recommandation.css'
-=======
 import siteConfig from '../../Utils/siteConfig';
-
->>>>>>> 890e239640f5ff2cb45d549f5ccae5f2c06a32df
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     recommendationsHeaderBox: {
@@ -192,7 +188,7 @@ const RecommendationsHeader = (props:RecommendationsHeaderPropsType) => {
                 // dispatch(SaveTaxInvestmentAmount(amount))
                 localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
                 props?.boxInputHideHandleChange()
-                console.log("props?.investmentAmount :", props?.investmentAmount)
+                console.log("props?.investmentAmount :", props?.investmentAmount);
                 console.log("localStorage.getItem(siteConfig?.SIP_USER_AMOUNT) :", localStorage.getItem(siteConfig?.SIP_USER_AMOUNT))
             }else {
                 setValidationAlertDialog({
