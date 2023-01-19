@@ -227,9 +227,11 @@ const RedeemFunds = () => {
   const objRedeemMinMaxData: any = useMemo(() => {
     return {
       minAmount: parseFloat(redeemFundDetails?.minredemptionamount),
-      maxAmount: parseFloat(redeemFundDetails?.maxredemptionamount),
+      // maxAmount: parseFloat(redeemFundDetails?.maxredemptionamount),
+      maxAmount: parseFloat(redeemFundDetails?.currentvalue),
       minUnit: parseFloat(redeemFundDetails?.minredemptionqty),
-      maxUnit: parseFloat(redeemFundDetails?.maxredemptionqty)
+      // maxUnit: parseFloat(redeemFundDetails?.maxredemptionqty)
+      maxUnit: parseFloat(redeemFundDetails?.units)
     }
   }, [redeemFundDetails]);
 
@@ -303,11 +305,17 @@ const RedeemFunds = () => {
       setRedeemUnits(value);
     }
 
-    if (!isMultipleofNumber(value, 100)) {
-      setError("Amount should be multiple of 100.");
-      setIsButtonDisabled(true)
-      return;
-    }
+    setError("");
+    // if(checkValidationWRTMinMaxValue()){
+
+    // }else{
+
+    // }
+    // if (!isMultipleofNumber(value, 100)) {
+    //   setError("Amount should be multiple of 100.");
+    //   setIsButtonDisabled(true)
+    //   return;
+    // }
     // if (activePartialSubType === enumPartialSubType.AMOUNT) {
     //   if (value < objRedeemMinMaxData?.minAmount && value > objRedeemMinMaxData?.maxAmount) {
     //     setError("Invalid Amount");
@@ -320,28 +328,63 @@ const RedeemFunds = () => {
     //   // setIsButtonDisabled(false);
     // }
 
-    setIsButtonDisabled(false);
-    setError("");
+    // setIsButtonDisabled(false);
+    // setError("");
   }
 
   const checkValidationWRTMinMaxValue = () => {
+    // let bFlag = false;
+    // if (activePartialSubType === enumPartialSubType.AMOUNT) {
+    //   if (redeemAmount < objRedeemMinMaxData?.minAmount && redeemAmount > objRedeemMinMaxData?.maxAmount) {
+    //     setError("Invalid Amount");
+    //     bFlag = true;
+    //   }
+
+    // } else if (activePartialSubType === enumPartialSubType.UNIT) {
+    //   if (redeemUnits < objRedeemMinMaxData?.minUnit && redeemUnits > objRedeemMinMaxData?.maxUnit) {
+    //     setError("Invalid Unit");
+    //     bFlag = true;
+    //   }
+    // } else {
+    //   setIsButtonDisabled(false);
+    //   setError("");
+    //   bFlag = false;
+    // }
+
+    // return bFlag;
+
+
     let bFlag = false;
     if (activePartialSubType === enumPartialSubType.AMOUNT) {
-      if (redeemAmount < objRedeemMinMaxData?.minAmount && redeemAmount > objRedeemMinMaxData?.maxAmount) {
-        setError("Invalid Amount");
+
+      if (redeemAmount < objRedeemMinMaxData?.minAmount) {
+        setError("Amount less than minimum redemption amount can not be redeemed.");
+        bFlag = true;
+      } else if (redeemAmount > objRedeemMinMaxData?.maxAmount) {
+        setError("Amount more than maximum redemption amount can not be redeemed.");
         bFlag = true;
       }
 
+
     } else if (activePartialSubType === enumPartialSubType.UNIT) {
-      if (redeemUnits < objRedeemMinMaxData?.minUnit && redeemUnits > objRedeemMinMaxData?.maxUnit) {
-        setError("Invalid Unit");
+
+      if (redeemUnits < objRedeemMinMaxData?.minUnit) {
+        setError("Unit less than minimum redemption unit can not be redeemed.");
         bFlag = true;
       }
-    } else {
-      setIsButtonDisabled(false);
-      setError("");
-      bFlag = false;
+
+      if (redeemUnits > objRedeemMinMaxData?.maxUnit) {
+        setError("Can not redeem more than invested units.");
+        bFlag = true;
+      }
+
     }
+
+    // else {
+    //   setIsButtonDisabled(false);
+    //   setError("");
+    //   bFlag = false;
+    // }
 
     return bFlag;
   }
@@ -798,7 +841,8 @@ const RedeemFunds = () => {
               <FooterWithBtn
                 btnText='Redeem Now'
                 btnClick={handleSubmit}
-                btnDisable={isButtonDisabled}
+                // btnDisable={isButtonDisabled}
+                btnDisable={false}
               />
               <SimpleModal
                 open={bankModal}
