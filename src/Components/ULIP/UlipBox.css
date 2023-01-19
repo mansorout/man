@@ -79,7 +79,20 @@
 @media (width: 912px){
     .PaddingremoveStyle{
   padding-left: 149px !important;
+
     }
+    .css-96p97e-MuiGrid-root {
+        padding-left: 156px!important;
+    }
+    .Ulippaddingleft{
+        margin-right: 10px !important;
+        width: 69vw;    }
+        .Ulippaddingright{
+            width: 69vw !important;  
+        }
+    /* .MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 PaddingremoveStyle css-96p97e-MuiGrid-root{
+        padding-left: 149px !important;
+    } */
 }
 @media (width:1280px) {
     .Ulippaddingright{

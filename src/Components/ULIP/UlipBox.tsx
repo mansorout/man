@@ -67,6 +67,7 @@ import {
   lookUpMasterKeys,
 } from "../../Utils/globalConstant";
 import { width } from "@mui/system";
+import './UlipBox.css'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   main: {
@@ -458,7 +459,7 @@ const UlipBox = (props: any) => {
                             alignItems: "flex-start",
                           }}
                         >
-                          <Grid item xs={12} md={6} >
+                          <Grid item xs={12} md={6} className="Ulippaddingleft" >
                             <div className="Ulippaddingleft">
                             <Box
                               className={classes.investmentType}
@@ -634,7 +635,7 @@ const UlipBox = (props: any) => {
                             className="Ulippaddingright"
                           >
                             {/* <UlipPlanPerformanceCard /> */}
-                            <Box className={classes.performanceGraphCard}>
+                            <Box className={classes.performanceGraphCard} >
                               <Typography
                                 component="p"
                                 sx={{

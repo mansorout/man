@@ -228,7 +228,8 @@ const RedeemFunds = () => {
     return {
       minAmount: parseFloat(redeemFundDetails?.minredemptionamount),
       // maxAmount: parseFloat(redeemFundDetails?.maxredemptionamount),
-      maxAmount: parseFloat(redeemFundDetails?.currentvalue),
+      // maxAmount: parseFloat(redeemFundDetails?.currentvalue),
+      maxAmount: redeemFundDetails?.investedvalue,
       minUnit: parseFloat(redeemFundDetails?.minredemptionqty),
       // maxUnit: parseFloat(redeemFundDetails?.maxredemptionqty)
       maxUnit: parseFloat(redeemFundDetails?.units)
@@ -589,7 +590,7 @@ const RedeemFunds = () => {
 
                                       {
                                         error ?
-                                          <Typography component="span" sx={{ color: "red" }}>
+                                          <Typography component="span" sx={{ color: "red", fontSize: "15px" }}>
                                             {error}
                                           </Typography>
                                           : ""
@@ -848,6 +849,8 @@ const RedeemFunds = () => {
                 open={bankModal}
                 close={() => setBankModal(false)}
                 onClickContinue={() => initiateRedeemFund()}
+                redeemFundDetails={redeemFundDetails}
+
               />
             </Grid>
 

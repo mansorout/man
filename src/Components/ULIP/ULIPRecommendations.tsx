@@ -503,9 +503,9 @@ const ULIPRecommendations = () => {
                                                     fontSize: '18px',
                                                     fontWeight: 500,
                                                     color: '#3c3e42',
-                                                }}>2 ULIP Plan Found</Typography>
+                                                }}>{ulipListApiData && ulipListApiData.length} ULIP Plan Found</Typography>
                                             </Box>
-                                            <Box >
+                                            {/* <Box>
                                                 <SearchCmp
                                                     filtersOptions={filterIndexes}
                                                     // sort={customSort}
@@ -521,7 +521,7 @@ const ULIPRecommendations = () => {
                                                 // policyTermCb={handlePolicyTermRadio}
                                                 // lifeCoverCb={handleLifeCoverRadio}
                                                 />
-                                            </Box>
+                                            </Box> */}
                                         </Box>
                                         <Box sx={{
                                             display: 'flex',
@@ -539,7 +539,7 @@ const ULIPRecommendations = () => {
                                                                     ulipData?.map(data => <ULIPCoFundCard {...data} />)
                                                                 } */}
                                                     {
-                                                        ulipListApiData.length > 0 && ulipListApiData?.map((cardItem: getUlipListApiTypes) => (
+                                                        ulipListApiData && ulipListApiData.length > 0 && ulipListApiData?.map((cardItem: getUlipListApiTypes) => (
                                                             <ULIPRecommendationCard
                                                                 logoUrl={cardItem?.providerlogo}
                                                                 companyName={cardItem?.ulipname}
@@ -556,9 +556,7 @@ const ULIPRecommendations = () => {
                                                 </RadioGroup>
                                             </FormControl>
                                         </Box>
-                                        <Grid container spacing={1}>
-                                            <Grid item xs={12} md={12} sm={12} textAlign="center">
-                                                   <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        {/* <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                             <Button variant="outlined" onClick={() => navigate("/ulip/options")}
                                                 style={style.buttons} sx={{
                                                     backgroundColor: '#00b4ff',
@@ -567,10 +565,7 @@ const ULIPRecommendations = () => {
                                                 >
                                                 <Typography sx={{ color: "white" }}>EXPLORE OTHER OPTIONS</Typography>
                                             </Button>
-                                        </Box>
-                                            </Grid>
-                                        </Grid>
-                                     
+                                        </Box> */}
                                         {/*
                                                 <Button onClick={ handleOpen }>Open dialog</Button>
                                                 <ThirdPartyHdfc open={ open } handleClose={ handleClose } />

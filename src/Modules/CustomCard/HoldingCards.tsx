@@ -42,6 +42,7 @@ interface Prop {
 
   absoluteReturnInPercent: string
   fundId: string
+  folioNumber: string
 }
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -162,7 +163,7 @@ const style = {
 }
 
 // function HoldingCards({ name, price, year3, current, absolute, year5, result, margin, cap, type, invested, absoluteReturnInPercent }: Prop) {
-function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent, fundId }: Prop) {
+function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent, fundId, folioNumber }: Prop) {
 
   const navigate = useNavigate();
 
@@ -283,7 +284,13 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
       </MenuUnstyled>
 
 
-      <AddMoreFundsModal open={open} close={() => setOpen(false)} />
+      <AddMoreFundsModal
+        open={open}
+        close={() => setOpen(false)}
+        fundname={name}
+        folionumber={folioNumber}
+        fundId={fundId}
+      />
     </>
   )
 }
