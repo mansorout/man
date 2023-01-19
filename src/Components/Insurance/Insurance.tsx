@@ -102,7 +102,7 @@ const Insurance = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+          <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:"16px" }} xs={12} sm={11} md={10}>
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
                     <Toolbar />
@@ -123,11 +123,12 @@ const Insurance = () => {
                 </Grid>
                 <Grid container>
                     <Grid xs={12} sm={12} md={12}>
-                    <Box className="BoxMarginLeftRight">
+                    <Box className="BoxMarginLeftRight textBoxAmount">
                     <BannerSlider
                                 sliderDetails={sliderDetails}
                                 sliderSetting={settings}
                             />
+                
 
                             <div>
                                 {

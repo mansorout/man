@@ -246,6 +246,9 @@
 
 @media (max-width: 480px) {
   @media (max-width: 480px) {
+    .B_style{
+      color: red !important;
+    }
     .healthinsuranceStyle{
       margin-top: -30px !important;
       width: 119% !important;
@@ -255,6 +258,7 @@
       padding: 45px 4px !important;
       margin-top: -20% !important;
       width: 100% !important;
+      /* color: red !important; */
     }
     
 }
@@ -311,6 +315,8 @@
     } */
 }
 @media (width:414px) {
+
+ 
     .progressContainer {
   
         width: 88% !important;
@@ -376,6 +382,7 @@
 }
 
 @media (width:375px) {
+
     .SideBarStyle{
         padding: 9px !important;
     }

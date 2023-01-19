@@ -21,6 +21,8 @@ import 'react-calendar/dist/Calendar.css';
 import { tick } from '../../Assets';
 import { globalConstant } from '../../Utils/globalConstant';
 import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction, setReplaceFundsForExploreFundsAction, setSelectedFundsForExploreFundsAction } from '../../Store/Recommendations/actions/recommendations-action';
+import { setOrderSipThunk } from '../../Store/Payments/thunk/payments-thunk';
+import { apiResponse } from '../../Utils/globalTypes';
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -233,6 +235,56 @@ const SelectedFunds = () => {
         console.log("handleOnChange  Fun:", arg,temp)
     }
 
+    const handleBuyNow = async () => {
+        debugger
+        if(finalDataBuyNow?.funds?.length){
+            let res: apiResponse = await setOrderSipThunk(finalDataBuyNow);
+            console.log("finalDataBuyNow :", res)
+        }   
+    }
+
+    
+//   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+
+//     if (checkExpirationOfToken(res?.code)) {
+//       dispatch(setTokenExpiredStatusAction(true));
+//       return;
+//     }
+
+//     if (res?.error === true) {
+//       return;
+//     }
+
+//     arrFunc.forEach((item: void) => {
+
+//       // @ts-ignore
+//       if (item === setMasterFundList && status !== globalConstant.CEF_EXPLORE_FUND) {
+
+//         if (status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_REPLACE_FUND) {
+
+//           let { recommendations }: any = { ...g_mutaulFundListWrtUserAmount };
+//           if (recommendations && recommendations.length) {
+//             filteringDataWrtSelectedFunds(recommendations, res?.data);
+//           }
+//         }
+
+//         if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
+//           let { data } = g_masterFundListForExploreFunds;
+
+//           if (data && data.length) {
+//             filteringDataWrtSelectedFunds(data, res?.data);
+//           }
+//         }
+
+//         return;
+//       }
+
+//       // @ts-ignore
+//       if (res?.data) item(res?.data);
+//     })
+
+//   }
+
     return (
         <Box ref={refContainer}>
             <Navbar />
@@ -345,7 +397,7 @@ const SelectedFunds = () => {
                                                         boxText={'Great! Your total investment is'}
                                                         boxAmount={totalAmount}
                                                         btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}
-                                                        btnClick={() => console.log("click")}
+                                                        btnClick={handleBuyNow}
                                                         btnDisable={footerBtn}
                                                     />
                                                 </Box>

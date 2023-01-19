@@ -244,8 +244,16 @@ const OneTimeMutualFund = () => {
 
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
 
-  // @ts-ignore
-  const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
+  const strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
+    // @ts-ignore
+    const userAmount:number = useMemo(() => { 
+      if(strCardType === globalConstant.LUMPSUM_INVESTMENT){
+        return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) || '{}') : 0
+      }else{
+        return localStorage.getItem(siteConfig.SIP_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.SIP_USER_AMOUNT) || '{}') : 0
+      }
+     }, []);
+    
 
   useEffect(() => {
     console.log("onetimemutual.tsx mounted");
@@ -267,10 +275,15 @@ const OneTimeMutualFund = () => {
     }
 
     if (!userAmount) {
-      navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
+      navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/startAnSip");
     } else {
-      let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
-      if (res) handleResponse(res);
+      if(strCardType === globalConstant.LUMPSUM_INVESTMENT ){
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+        if (res) handleResponse(res);
+      }else{
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.SIP_INVESTMENT ? 11 : 12, initialMFData)
+        if (res) handleResponse(res);
+      }
     }
   }
 

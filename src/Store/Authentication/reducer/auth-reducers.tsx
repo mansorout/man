@@ -1,4 +1,6 @@
 import {
+  SET_IS_REDEEM_VERIFIED,
+  SET_IS_REDEEM_VERIFIED_ERROR,
   SET_IS_USER_AUTENTICATED,
   SET_LOGIN_DATA_ON_FAILED,
   SET_LOGIN_DATA_ON_SUCCESS,
@@ -20,7 +22,7 @@ const initialState: any = {
       isUserProfileFullCompleted: false
     }
   },
-  isRedeemVerified: false
+  redeemVerification: { isRedeemVerified: false, error: "" }
 }
 
 const authReducer = (state = initialState, action: any) => {
@@ -73,6 +75,20 @@ const authReducer = (state = initialState, action: any) => {
       state.profileValidationData = {
         ...state.profileValidationData,
         data: action.payload
+      }
+      break;
+    }
+    case SET_IS_REDEEM_VERIFIED: {
+      state.redeemVerification = {
+        ...state.profileValidationData,
+        isRedeemVerified: action.payload
+      }
+      break;
+    }
+    case SET_IS_REDEEM_VERIFIED_ERROR: {
+      state.redeemVerification = {
+        ...state.profileValidationData,
+        error: action.payload
       }
       break;
     }

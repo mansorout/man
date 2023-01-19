@@ -245,6 +245,7 @@ const SaveTaxAmount = () => {
     const handleLumpsum = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(SaveTaxInvestmentLumpsumAction(event.target.value));
         setLumpsumAmount(event.target.value);
+        console.log()
 
         const temp = parseInt(event.target.value) * parseInt(saveTaxPercentageAmount) / 100;
         setSaveTaxUPTO(temp)
@@ -351,7 +352,7 @@ const SaveTaxAmount = () => {
                                 name="controlled-radio-buttons-group"
                                 value={investmentType}
                                 onChange={handleRadioChange}
-                            // style={{ backgroundColor: '#8787a2' }}
+                            // style={{ backgroundColor: '#8787a2' }} 
                             >
                                 <Box className={classes.investmentField}>
                                     <Typography component='p'>Lumpsum investment</Typography>

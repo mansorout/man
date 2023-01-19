@@ -539,7 +539,7 @@ console.log(e.target.value)
       if(data?.error === true){
         return;
       }
-
+debugger
       localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
       navigate(path);
     }).catch(err=> {

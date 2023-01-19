@@ -322,10 +322,6 @@ const Portfolio = () => {
     filterDataWRTCategoryGroup();
   }, [activeCategoryGroupIndex]);
 
-  useEffect(() => {
-    console.log(variableFundList, "variableFundList");
-  }, [variableFundList]);
-
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
     let arrCG: string[] = [...res.data?.categorygroups];
@@ -510,8 +506,9 @@ const Portfolio = () => {
                                         <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.absolutereturn}</Typography>
                                       </Box>
                                     </Box>
-                                    <Button variant="contained" style={style.button2} fullWidth>
-                                      <Typography style={style.text} className="largeButtonText">Download Statement</Typography>
+                                    <Button variant="contained" style={style.button2} fullWidth onClick={() => navigate("/reports")}>
+                                      {/* <Typography style={style.text} className="largeButtonText">Download Statement</Typography> */}
+                                      <Typography style={style.text} className="largeButtonText">Get Reports</Typography>
                                     </Button>
                                   </Grid>
 

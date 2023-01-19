@@ -30,6 +30,8 @@ import SaveTaxAmount from "../Components/SaveTax/SaveTaxAmount"
 import SaveTaxInvestmentType from "../Components/SaveTax/SaveTaxInvestmentType"
 import TaxCanSave from "../Components/SaveTax/TaxCanSave"
 import InitiateSip from "../Components/SIPScreen/initiateSip"
+import SipComparison from "../Components/SIPScreen/SipComparison"
+import SipRecommendationsULIP from "../Components/SIPScreen/SipRecommendationULIP"
 import SipSuccessScreen from "../Components/SIPScreen/SipSuccessScreen"
 import UploadCheck from "../Components/UploadCheckImage/UploadCheck"
 import ViewProfile from "../Components/ViewProfile/ViewProfile"
@@ -151,6 +153,14 @@ export const privateRoutesConstants: prConstant[] = [
   {
     path: "/startAnSip",
     component: <InitiateSip cardType={''} heading={''} />
+  },
+  {
+    path: "/SipComparison",
+    component: <SipComparison />
+  },
+  {
+    path: "/SipRecommendationsULIP",
+    component: <SipRecommendationsULIP />
   },
   {
     path: "/investNow",
