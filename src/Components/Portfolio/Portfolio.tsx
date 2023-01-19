@@ -547,31 +547,42 @@ const Portfolio = () => {
                                     })
                                   }
                                 </Box>
-                                <Box>
-                                  {
-                                    variableFundList &&
-                                    variableFundList.length &&
-                                    variableFundList.map((item: any, index: number) => {
-                                      return (
-                                        <HoldingCards
-                                          key={index}
-                                          logo={item?.fundimage}
-                                          name={item?.fundname}
-                                          cap={item?.category}
-                                          type={item?.categorygroup}
-                                          price={item?.units}
-                                          invested={item?.investedvalue}
-                                          current={item?.currentvalue}
-                                          absolute={item?.absolutereturn}
-                                          absoluteReturnInPercent={item?.absolutereturninpercent}
-                                          result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
-                                          fundId={item?.fund_id}
-                                          folioNumber={item?.folio}
-                                        />
-                                      )
-                                    })
-                                  }
-                                </Box>
+                                {/* <Box> */}
+                                {
+                                  variableFundList &&
+                                    variableFundList.length ?
+                                    <>
+                                      {variableFundList.map((item: any, index: number) => {
+                                        console.log(item);
+                                        return (
+                                          <HoldingCards
+                                            key={index}
+                                            logo={item?.fundimage}
+                                            name={item?.fundname}
+                                            cap={item?.category}
+                                            type={item?.categorygroup}
+                                            price={item?.units}
+                                            invested={item?.investedvalue}
+                                            current={item?.currentvalue}
+                                            absolute={item?.absolutereturn}
+                                            absoluteReturnInPercent={item?.absolutereturninpercent}
+                                            result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
+                                            fundId={item?.fund_id}
+                                            folioNumber={item?.folio}
+                                          />
+                                        )
+                                      })}
+                                    </> :
+                                    // </Box>
+                                    <>
+                                      <Box sx={{ display: "flex", justifyContent: "center" }}>
+                                        <Typography component="h5" sx={{ color: "var(--uiDarkGreyColor)", fontSize: "12px" }}>
+                                          No record found!
+                                        </Typography>
+                                      </Box>
+
+                                    </>
+                                }
                               </>
                               : null
                           }

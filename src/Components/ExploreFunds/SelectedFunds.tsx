@@ -236,7 +236,7 @@ const SelectedFunds = () => {
     }
 
     const handleBuyNow = async () => {
-        debugger
+        // debugger
         if(finalDataBuyNow?.funds?.length){
             let res: apiResponse = await setOrderSipThunk(finalDataBuyNow);
             console.log("finalDataBuyNow :", res)

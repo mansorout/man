@@ -195,7 +195,7 @@ const CustomizeMF = () => {
     if (!data.length) return;
 
     let arrRecomm: any[] = g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS];
-    let recommendedamount: number | null = arrRecomm[0] ? arrRecomm[0]["recommendedamount"] : null;
+    // let recommendedamount: number | null = arrRecomm[0] ? arrRecomm[0]["recommendedamount"] : null;
     let recommendation_id: number | null = g_mutualFundListWrtUserAmount ? g_mutualFundListWrtUserAmount["recommendation_id"] : null;
     let recommendationfund_id: number | null = arrRecomm[g_replaceFundActiveIndexForInvestment] ? arrRecomm[g_replaceFundActiveIndexForInvestment]["recommendationfund_id"] : null;
 
@@ -205,7 +205,8 @@ const CustomizeMF = () => {
         handleAddmutualFundApi({
           recommendation_id: recommendation_id,
           secid: item["secid"],
-          amount: recommendedamount
+          // amount: recommendedamount
+          amount: item?.userRecommendedAmount
         })
       })
 
@@ -257,7 +258,6 @@ const CustomizeMF = () => {
     handleResponse();
   }
 
-
   const handleResponse = async () => {
     let data: apiResponse = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
     if (checkExpirationOfToken(data?.code)) {
@@ -282,6 +282,8 @@ const CustomizeMF = () => {
     if (!g_mutualFundListWrtUserAmount) {
       return;
     }
+    console.log(g_mutualFundListWrtUserAmount, "g_mutualFundListWrtUserAmount");
+    console.log(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], "g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS]");
 
     if (g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS] && g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS].length) {
       let arrRecomm = await getMutualFundRecommendationListWRTUserAmount(g_mutualFundListWrtUserAmount[globalConstant.RECOMMENDATIONS], initialMFData)
@@ -317,10 +319,13 @@ const CustomizeMF = () => {
     }
   }
 
-  const getTotalRecomendedAmount = (amount: number) => {
-    if (mfCards && mfCards.length && amount) {
-      let totalAmount: number = amount * mfCards.length;
-      // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, totalAmount.toString());
+  // const getTotalRecomendedAmount = (amount: number) => {
+  const getTotalRecomendedAmount = () => {
+    let totalAmount = 0;
+    if (mfCards && mfCards.length) {
+      let arrAmount: number[] = mfCards.map((item: any) => item?.recommendedamount);
+      totalAmount = arrAmount.reduce((p, n) => p + n);
+      console.log(totalAmount, "totalAmount")
       return ` ${totalAmount}`;
     }
   }
@@ -369,7 +374,8 @@ const CustomizeMF = () => {
                     {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                   </Link>
                   <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                    // onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")}
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/onetimemutualfundrecommendation" : "/onetimemutualfundrecommendation")}
                   >
                     Mutual Fund Recommendation
                   </Link>
@@ -420,7 +426,8 @@ const CustomizeMF = () => {
                     }}
                   >
                     {/* Monthly investment of ₹5,000 */}
-                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? getTotalRecomendedAmount(mfCards[0]?.recommendedamount) : " " + 0}
+                    {/* {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{mfCards[0]?.recommendedamount ? getTotalRecomendedAmount(mfCards[0]?.recommendedamount) : " " + 0} */}
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{getTotalRecomendedAmount()}
                   </Typography>
                 </Box>
                 <Box
@@ -460,6 +467,8 @@ const CustomizeMF = () => {
                         activeIndex={index}
                         onCardClick={handleNavigationOfFundDetails}
                         onRemoveCardClick={handleRemoveCard}
+                        cefType={true}
+                        isShowRemoveButton={mfCards && mfCards.length > 1 ? true : false}
                       />
                     </Box>
                   ))}
