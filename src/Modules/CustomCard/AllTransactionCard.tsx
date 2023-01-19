@@ -7,7 +7,7 @@ import { Divider,} from '@mui/material';
 import { Close, ErrorOutline, InfoRounded, TaskAltOutlined, Warning } from '@mui/icons-material';
 import {warning} from '../../Assets/index'
 import { useNavigate } from 'react-router-dom';
-
+import './AllTrans.css'
   interface Prop {
     logo: string,
     name: string,
@@ -150,93 +150,98 @@ function AllTrancationCard({name,price,SIPDate, SIPAmount, year3, result, margin
 
   return (
     <>
-    <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}>
-      <Box>
-      <Box style={{display:"flex", gap:"15px"}}>
-        <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-          <img src={logo} width="100%" alt='mirae'></img>
-        </Box>
-        <Box>
-          <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>{name}</Typography>
-          <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}}>
-            <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>{date}</Typography>
-            <Divider />
-            <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>{id}</Typography>
-          </Box>
-          <Box style={{display:"flex", gap:"10px"}}>
-            {
-              confirm ? 
-                <Box style={{display:"flex", cursor:"pointer"}}>
-                  <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
-                    <TaskAltOutlined style={{color:"white", width:"15px"}}/>
-                  </Box>
-                  <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
-                    <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
-                  </Box>
-                </Box>
-               : null
-            }
-            {
-              mandate ? 
-              <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
-                <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
-                    <ErrorOutline style={{color:"white", width:"15px"}}/>
-                  </Box>
-                <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
-                  <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
-                </Box>
-              </Box> : null
-            }
-            {
-              transaction ? 
-              <Box style={{display:"flex", cursor:"pointer"}}>
-                <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
-                    <TaskAltOutlined style={{color:"white", width:"15px"}}/>
-                  </Box>
-                <Box style={{padding:"4px 5px", backgroundColor:"#d2f8e3"}}>
-                  <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Successful Transaction</Typography>
-                </Box>
-              </Box> : null
-            }
-            {
-              reject ? 
-              <Box style={{display:"flex", cursor:"pointer"}}>
-                <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
-                    <Close style={{color:"white", width:"15px"}}/>
-                  </Box>
-                <Box style={{padding:"4px 5px", backgroundColor:"#fedbcc"}}>
-                  <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Rejected</Typography>
-                </Box>
-              </Box> : null
-            }
-          </Box>
-        </Box>
-      </Box>
-      </Box>
-      <Box>
-        <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
-          <Typography style={{color:"#6c63ff", fontSize:"16px", fontWeight:"500"}}>{price}</Typography>
-        </Box>
-      </Box>
-      <Box>
-        <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>SIP Date</Typography>
-        <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{SIPDate}</Typography>
-      </Box>
-      <Box>
-        <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>SIP Amount</Typography>
-        <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{SIPAmount}</Typography>
-      </Box>
-      <Box>
-        <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>3 yrs return</Typography>
-        <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{year3} <span style={{color: result='profil' ?'#23db7b': "#ff5300"}}>{margin}</span></Typography>
-      </Box>
-      <Box>
-        <Box style={{display:"flex", alignItems:"center", justifyContent:"center", gap:"8px"}}>
-          <Box style={{backgroundColor: type=='B' ?'#23db7b': "#ff5300", width:"8px", height:"8px", borderRadius:"50%"}}></Box>
-          <Typography style={{color: type=='B' ?'#23db7b': "#ff5300", fontSize:"12px"}}>{type=='B' ? 'Buy' : 'Redeem'}</Typography>
-        </Box>
-      </Box>
+    <Box sx={{padding:"16px"}}  className="sssssssssssss">
+    <Box style={{gap:"20px", flexWrap:"wrap", overflowX:"scroll", marginBottom:"15px",display:"flex", backgroundColor:"white", borderRadius:"8px", justifyContent:"space-between", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding:"10px 20px"}}
+
+ >
+   <Box  sx={{}}    className='paddindLeftright'>
+   <Box style={{display:"flex", gap:"15px"}}>
+     <Box style={{overflow:"hidden",height:"32px", width:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
+       <img src={logo} width="100%" alt='mirae'></img>
+     </Box>
+     <Box>
+       <Typography style={{marginBottom:"10px", color:"#3c3e42", fontSize:"16px", fontWeight:"500", lineHeight:"1.19"}}>{name}</Typography>
+       <Box style={{marginBottom:"10px", display:"flex", gap:"10px", alignItems:"center"}} >
+         <Typography style={{color:"#7b7b9d", fontSize:"14px"}}>{date}</Typography>
+         <Divider />
+         <Typography style={{color:"#7b7b9d", fontSize:"14px", fontWeight:"500"}}>{id}</Typography>
+       </Box>
+       <Box style={{display:"flex", gap:"10px"}}>
+         {
+           confirm ? 
+             <Box style={{display:"flex", cursor:"pointer"}}>
+               <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ffc300"}}>
+                 <TaskAltOutlined style={{color:"white", width:"15px"}}/>
+               </Box>
+               <Box style={{padding:"4px 5px", backgroundColor:"#fff2cc"}}>
+                 <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Pending Confirmation</Typography>
+               </Box>
+             </Box>
+            : null
+         }
+         {
+           mandate ? 
+           <Box onClick={()=>setOpenMandateModal(true)} style={{display:"flex", cursor:"pointer"}}>
+             <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#6c63ff"}}>
+                 <ErrorOutline style={{color:"white", width:"15px"}}/>
+               </Box>
+             <Box style={{padding:"4px 5px", backgroundColor:"#e1e0ff"}}>
+               <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Mandate Pending</Typography>
+             </Box>
+           </Box> : null
+         }
+         {
+           transaction ? 
+           <Box style={{display:"flex", cursor:"pointer"}}>
+             <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#23db7b"}}>
+                 <TaskAltOutlined style={{color:"white", width:"15px"}}/>
+               </Box>
+             <Box style={{padding:"4px 5px", backgroundColor:"#d2f8e3"}}>
+               <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Successful Transaction</Typography>
+             </Box>
+           </Box> : null
+         }
+         {
+           reject ? 
+           <Box style={{display:"flex", cursor:"pointer"}}>
+             <Box style={{width:"25px", display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:"#ff5300"}}>
+                 <Close style={{color:"white", width:"15px"}}/>
+               </Box>
+             <Box style={{padding:"4px 5px", backgroundColor:"#fedbcc"}}>
+               <Typography style={{color:"black", fontSize:"12px", fontWeight:"500"}}>Rejected</Typography>
+             </Box>
+           </Box> : null
+         }
+       </Box>
+     </Box>
+   </Box>
+   </Box>
+   <Box>
+     <Box style={{padding:"4px 8px", backgroundColor:"#d6d5ef", borderRadius:"2px"}}>
+       <Typography style={{color:"#6c63ff", fontSize:"16px", fontWeight:"500"}}>{price}</Typography>
+     </Box>
+   </Box>
+   <Box>
+     <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>SIP Date</Typography>
+     <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{SIPDate}</Typography>
+   </Box>
+   <Box>
+     <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>SIP Amount</Typography>
+     <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{SIPAmount}</Typography>
+   </Box>
+   <Box>
+     <Typography style={{color:'#7b7b9d', fontSize:"14px"}}>3 yrs return</Typography>
+     <Typography style={{color:'#3c3e42', fontSize:"18px"}}>{year3} <span style={{color: result='profil' ?'#23db7b': "#ff5300"}}>{margin}</span></Typography>
+   </Box>
+   <Box>
+     <Box style={{display:"flex", alignItems:"center", justifyContent:"center", gap:"8px"}}>
+       <Box style={{backgroundColor: type=='B' ?'#23db7b': "#ff5300", width:"8px", height:"8px", borderRadius:"50%"}}></Box>
+       <Typography style={{color: type=='B' ?'#23db7b': "#ff5300", fontSize:"12px"}}>{type=='B' ? 'Buy' : 'Redeem'}</Typography>
+     </Box>
+   </Box>
+ </Box>
     </Box>
+    
     <Modal open={openMandateModal} onClose={()=>setOpenMandateModal(false)}>
       <Box style={{
         width:"90%",

@@ -15,7 +15,7 @@ import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
 import { Transactions } from '../../Modal/Transactions'
 import AllTrancationCard from '../../Modules/CustomCard/AllTransactionCard'
-
+import './Portfolio.css'
 // import FilterModal from '../TxnFilters/FilterModal'
 import DropDownFilter from '../TxnFilters/DropDownFilter'
 import { useDispatch } from 'react-redux'
@@ -195,7 +195,7 @@ function Transaction() {
             <Grid container sx={{height:"100vh", overflow:"scroll"}} xs={13} sm={11} md={10}>
               <Grid sx={{height: { xs: "auto", sm: "inherit"}, padding:0, boxSizing:"border-box", overflow:{ sx: "auto", sm: "scroll"}}} item xs={13}>
                 <Toolbar/>
-                <Grid container>
+                <Grid container className="transtabStyle">
                   <Grid item xs={12} sx={{padding:2}}>
                   <Box style={{marginBottom:"20px", padding:"15px", borderRadius:"8px", boxShadow:"0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor:"white", display:"flex", alignItems:"center", justifyContent:"center"}}>
                       <Box style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"90%", maxWidth:"600px", flexWrap:"wrap", gap:"20px"}}>
@@ -212,7 +212,7 @@ function Transaction() {
                   </Grid>
               </Grid>
               <Box padding={2} style={{display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:'wrap'}}>
-                <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}}>
+                <Box style={{marginBottom:"20px", display:"flex", gap:"15px", alignItems:"center"}} className="DowngapStyle">
                   <Box onClick={()=>{ setSelected(1); setTransactions(Transactions)}} style={{cursor:"pointer", border:`1px solid ${ selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius:"8px", backgroundColor:`${ selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign:"center", padding:"12px 14px"}}>
                     <Typography style={{fontWeight:"500", color:`${ selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize:"14px"}}>All Funds ({Transactions.length})</Typography>
                   </Box>
@@ -229,7 +229,7 @@ function Transaction() {
 
                      {/* Filter Box Goes here */}
 
-                <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px"}}>
+                <Box style={{border:"1px solid #dddfe2", boxShadow:"0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius:"4px", display:"flex", alignItems:"center", gap:"10px", padding:"5px 14px"}} className="SerachStyle">
                   <SearchOutlined style={{color:"#7b7b9d"}}/>
                   <InputBase placeholder='Search Transactions' onChange={(e)=>setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{color:"#7b7b9d", minWidth:"250px"}}></InputBase>
                   <IconButton onClick={(e)=>handleFilter(e)} >

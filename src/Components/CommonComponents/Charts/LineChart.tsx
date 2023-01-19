@@ -15,6 +15,7 @@ import { CategoryScale, Chart as ChartJS, InteractionItem, Legend, LinearScale, 
 import { Box } from '@mui/system'
 import {  Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import './chart.css'
 // import faker from 'faker';
 //   import { faker } from '@faker-js/faker';
 
@@ -111,6 +112,7 @@ const LineChart = (props: LineChartProps) => {
 
   return (
     <Box>
+      
       <Line
         ref={chartRef}
         options={props.optionsValues}

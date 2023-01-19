@@ -1,0 +1,36 @@
+@media (max-width:480px) {
+    .heading_main{
+        padding-left: 34px !important;
+    padding-top: 21px !important;
+    }
+    .KnowWhyStyle{
+       
+    
+        padding-top: 22px !important;
+        
+    }
+    .breadcrumStyle{
+        margin-top: -6% !important;
+    }
+    
+}
+@media (width:280px) {
+    .KnowWhyStyle{
+       
+    
+        padding-top: 22px !important;
+        padding-left: 52px !important;
+    }
+    .breadcrumStyle{
+        margin-top: -7% !important;
+    }
+    
+}
+@media (width:540px) {
+    .heading_main{
+        padding-left: 27px !important;
+    
+        margin-top: -2px !important;
+    }
+    
+}

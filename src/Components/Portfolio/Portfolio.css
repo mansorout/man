@@ -11,7 +11,24 @@
   font-size: 14px !important;
   color: #3c3e42 !important;
 }
-
+@media (width:375px){
+  .transtabStyle{
+    margin-left: -4px !important;
+    max-width: 385px !important;
+  }
+}
+@media (width:390px){
+  .transtabStyle{
+    margin-left: -13px !important;
+   
+  }
+}
+@media (width:393px){
+  .transtabStyle{
+    margin-left: -8px !important;
+   
+  }
+}
 
 /* <DrawerList sx={{
     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",

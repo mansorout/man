@@ -46,6 +46,7 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import './insurance.css'
 
 const enumActiveScreen = Object.freeze({
     CLOSE_MODAL: 0,
@@ -432,8 +433,12 @@ const ULIPRecommendations = () => {
                 <Box sx={style.main}>
                     <Toolbar />
                     <Sidebar />
-                    <Grid container>
-                        <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
+                    <Grid container  className="sxtowel">
+                        <Grid
+                          sx={{     height: "100vh",
+                padding: 0,
+                boxSizing: "border-box",
+                   overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
                             {/* <Grid container >
                                     <Grid container spacing={0} > */}
                             <Grid container item sx={{ overflow: "hidden" }} xs={12}>
@@ -500,7 +505,7 @@ const ULIPRecommendations = () => {
                                                     color: '#3c3e42',
                                                 }}>2 ULIP Plan Found</Typography>
                                             </Box>
-                                            <Box>
+                                            <Box >
                                                 <SearchCmp
                                                     filtersOptions={filterIndexes}
                                                     // sort={customSort}
@@ -551,14 +556,21 @@ const ULIPRecommendations = () => {
                                                 </RadioGroup>
                                             </FormControl>
                                         </Box>
-                                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <Grid container spacing={1}>
+                                            <Grid item xs={12} md={12} sm={12} textAlign="center">
+                                                   <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                             <Button variant="outlined" onClick={() => navigate("/ulip/options")}
                                                 style={style.buttons} sx={{
                                                     backgroundColor: '#00b4ff',
-                                                }}>
+                                                }}
+                                            
+                                                >
                                                 <Typography sx={{ color: "white" }}>EXPLORE OTHER OPTIONS</Typography>
                                             </Button>
                                         </Box>
+                                            </Grid>
+                                        </Grid>
+                                     
                                         {/*
                                                 <Button onClick={ handleOpen }>Open dialog</Button>
                                                 <ThirdPartyHdfc open={ open } handleClose={ handleClose } />

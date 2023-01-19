@@ -7,6 +7,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import LineChart from '../../../Components/CommonComponents/Charts/LineChart';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import Radio from '@mui/material/Radio';
+import './Uliprecom.css'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -113,8 +114,9 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
 
 
     return (
-        <Box className={classes.cardWrapper}>
-            <Grid container>
+        <div className='cardWrapperstyle'>
+              <Box className={classes.cardWrapper}>
+            <Grid container >
                 <Grid item sm={6} xs={12}>
                     <Box className={classes.logoWrapper}>
                         <Box className={classes.imgWrapper}>
@@ -166,6 +168,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
             </Box>
 
         </Box>
+        </div>
+      
     )
 }
 

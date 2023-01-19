@@ -104,9 +104,9 @@ const Insurance = () => {
           </Grid>
           <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:"16px" }} xs={12} sm={11} md={10}>
                 <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
+                    <Grid xs={12} sm={12} md={12} className="B_style">
                     <Toolbar />
-                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }} >
                   <Breadcrumbs aria-label="breadcrumb">
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>

@@ -32,7 +32,7 @@ import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } fro
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
 import { store } from "../../Store/Store";
 import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
-
+import './OnetimeM.css'
 // const data = [
 //   {
 //     logo: "/Miraelogo.svg",
@@ -343,7 +343,9 @@ const OneTimeMutualFund = () => {
           >
             <Toolbar />
               <Grid container>
-              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} md={12} sm={12} className="breadcrumStyle">
+                  <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                   <Breadcrumbs
                     sx={{
                       fontSize: "12px",
@@ -372,6 +374,9 @@ const OneTimeMutualFund = () => {
                     </Typography>
                   </Breadcrumbs>
               </Box>
+                  </Grid>
+                </Grid>
+            
               </Grid>
               <Box className="BoxPadding">
                       <Box
@@ -409,11 +414,13 @@ const OneTimeMutualFund = () => {
                     {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {userAmount ? userAmount : 0}
                   </Typography>
                 </Box>
+
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "flex-end",
                   }}
+                  className="KnowWhyStyle"
                 >
                   <img
                     src={HelpOutline}
