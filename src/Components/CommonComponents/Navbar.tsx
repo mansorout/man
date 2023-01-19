@@ -178,11 +178,14 @@ const Navbar = () => {
         };
     }, [g_profileData?.userdetails]);
 
-    // useEffect(()=>{
-    //     let image = localStorage.getItem("imgSrc")
-    //     console.log(image)
-    //     setProfileImage2(image)
-    //   },[])
+    useEffect(()=>{
+        
+        let image = localStorage.getItem("imgSrc")
+        console.log(image)
+        setImgSrc(image)
+      },[])
+
+      let image:any = localStorage.getItem("imgSrc")
     //   console.log("profile image",profileImage2)
 
 
@@ -267,7 +270,7 @@ const Navbar = () => {
                         <img onClick={() => navigate("/home")} src={Logo} alt="Sprint Money" style={style.image} />
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
-                        <img src={g_profileImagge} 
+                        <img src={g_profileImagge || image} 
                         onClick={handelResponeImage}
                         
                         alt="image" style={style.profile} />
@@ -285,7 +288,7 @@ const Navbar = () => {
                     >
                         <StyledMenuItem>
                             <Box style={style.menuContainer}>
-                                <img src={g_profileImagge} alt="image" style={style.profileInter} />
+                                <img src={g_profileImagge || image} alt="image" style={style.profileInter} />
                             
                                 <Typography className='mediumButtonText'>{objUserDetail?.userName ? objUserDetail?.userName : ""}</Typography>
                                 <Typography className="caption">{objUserDetail?.userEmail ? objUserDetail?.userEmail : ""}</Typography>
