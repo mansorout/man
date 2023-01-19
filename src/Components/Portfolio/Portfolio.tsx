@@ -566,6 +566,7 @@ const Portfolio = () => {
                                           absoluteReturnInPercent={item?.absolutereturninpercent}
                                           result={item?.absolutereturninpercent ? (parseFloat(item?.absolutereturninpercent) > 0 ? "profit" : "loss") : ""}
                                           fundId={item?.fund_id}
+                                          folioNumber={item?.folio}
                                         />
                                       )
                                     })
