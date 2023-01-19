@@ -300,6 +300,7 @@ const InsuranceTerms = () => {
                 issmoker : tobaccoSelect === 'yes' ? 1 : 0,
             }
             dispatch(setTermDataSuccessAction(data))
+            // TermInsuranceUserValues
             // dispatch(postTermPurchase(data)) 
             setTimeout(() => {
                 navigate('/explorePlan')
@@ -442,6 +443,8 @@ const InsuranceTerms = () => {
                                         className='datePickerIcon'
                                         label="Date of Birth"
                                         value={dob}
+                                        // minDate={moment().subtract(500, "years")}
+                                        // maxDate={moment().subtract(18, "years")}
                                         onChange={(newValue) => {
                                             setDob(newValue);
                                             setDobError(false)
