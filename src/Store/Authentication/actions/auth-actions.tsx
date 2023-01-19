@@ -1,5 +1,7 @@
 import { profileValidationKeys } from "../../../Utils/globalTypes"
 import {
+  SET_IS_REDEEM_VERIFIED,
+  SET_IS_REDEEM_VERIFIED_ERROR,
   SET_IS_USER_AUTENTICATED,
   SET_LOGIN_DATA_ON_FAILED,
   SET_LOGIN_DATA_ON_SUCCESS,
@@ -30,4 +32,12 @@ export const setTokenExpiredStatusAction = (payload: any) => {
 
 export const setUserProfileValidationKeys = (data: profileValidationKeys) => {
   return { type: SET_USER_PROFILE_VALIDATION_KEYS, payload: data }
+}
+
+export const setIsRedeemVerifiedAction = (data: any) => {
+  return { type: SET_IS_REDEEM_VERIFIED, payload: data }
+}
+
+export const setIsRedeemVerifiedErrorAction = (data: any) => {
+  return { type: SET_IS_REDEEM_VERIFIED_ERROR, payload: data }
 }

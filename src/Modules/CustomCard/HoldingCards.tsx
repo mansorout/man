@@ -164,6 +164,7 @@ const style = {
 // function HoldingCards({ name, price, year3, current, absolute, year5, result, margin, cap, type, invested, absoluteReturnInPercent }: Prop) {
 function HoldingCards({ name, price, current, absolute, result, cap, type, invested, absoluteReturnInPercent, fundId }: Prop) {
 
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -180,7 +181,6 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
   }
 
 
-  const navigate = useNavigate();
 
   return (
     <>
@@ -201,9 +201,9 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
             </Box>
           </Box>
         </Box>
-        <Box sx={{ mx: { xs: "auto", sm: "30px" }, padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
+        {/* <Box sx={{ mx: { xs: "auto", sm: "30px" }, padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
           <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{price}</Typography>
-        </Box>
+        </Box> */}
         <Box style={{ display: "flex", gap: "30px", flexWrap: 'wrap' }}>
           <Box>
             <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>

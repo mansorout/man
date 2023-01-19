@@ -97,9 +97,9 @@ const LineChart = (props: LineChartProps) => {
 
     const { datasetIndex, index } = element[0];
 
-    console.log(props.dataValues.labels[index], props.dataValues.datasets[datasetIndex].data[index]);
+    console.log(props.dataValues.labels[index], props.dataValues.datasets[datasetIndex].data[index], props.dataValues.datasets[datasetIndex].label);
 
-    if (props?.onClick) props?.onClick({ label: props?.dataValues?.labels[index], value: props?.dataValues?.datasets[datasetIndex]?.data[index] })
+    if (props?.onClick) props?.onClick({ label: props?.dataValues?.labels[index], value: props?.dataValues?.datasets[datasetIndex]?.data[index], lineLabel: props?.dataValues?.datasets[datasetIndex]?.label })
   };
 
   const handleOnClick = (event: MouseEvent<HTMLCanvasElement>) => {

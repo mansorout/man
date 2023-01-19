@@ -303,7 +303,7 @@ const InsuranceTerms = () => {
             // dispatch(postTermPurchase(data)) 
             setTimeout(() => {
                 navigate('/explorePlan')
-            }, 1000);
+            }, 700);
         } else {
             !feildValidation(dob) && setDobError(true)
             !feildValidation(genderSelect) && setGenderSelectError(true)

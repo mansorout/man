@@ -10,7 +10,7 @@ import _ from "underscore";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import { postDataWithoutToken } from "../../Utils/api";
 import siteConfig from "../../Utils/siteConfig";
-import { setloginDataOnFailAction, setloginDataOnSuccessAction, setTokenExpiredStatusAction, setUserViewProfileDataAction } from "../../Store/Authentication/actions/auth-actions";
+import { setIsRedeemVerifiedAction, setIsRedeemVerifiedErrorAction, setloginDataOnFailAction, setloginDataOnSuccessAction, setTokenExpiredStatusAction, setUserViewProfileDataAction } from "../../Store/Authentication/actions/auth-actions";
 import { apiResponse } from "../../Utils/globalTypes";
 
 type IProps = {
@@ -72,17 +72,18 @@ export const OtpVerifyButton = (props: IProps) => {
 
     if (res?.error) {
       dispatch(setloginDataOnFailAction(res?.error));
+      dispatch(setIsRedeemVerifiedErrorAction(res?.error));
       return;
     }
-    const response = res?.data;
-
-    dispatch(setloginDataOnSuccessAction(response));
-    dispatch(setUserViewProfileDataAction(response?.userInfo))
-    dispatch(setTokenExpiredStatusAction(false));
 
     if (type === "auth") {
+      const response = res?.data;
+      dispatch(setloginDataOnSuccessAction(response));
+      dispatch(setUserViewProfileDataAction(response?.userInfo))
+      dispatch(setTokenExpiredStatusAction(false));
     } else {
       // Navigate("/redemptiondone")
+      dispatch(setIsRedeemVerifiedAction(true));
     }
 
 
