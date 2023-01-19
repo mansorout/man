@@ -6,6 +6,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Padding } from '@mui/icons-material';
+import Radio from '@mui/material/Radio';
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     flexCommon: {
@@ -118,6 +119,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }))
 
 interface InsurancePlanCardPropsType {
+    data:any;
     insuranceCompany: string;
     medicalType: string;
     companyLogo: string;
@@ -169,9 +171,11 @@ const InsurancePlanCard = (props: InsurancePlanCardPropsType) => {
                             </Box>
                             <p>{props.amountType}</p>
                         </Box>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="" />
-                        </FormGroup>
+                        {/* <FormGroup> */}
+                            {/* <FormControlLabel control={<Checkbox defaultChecked />} label="" /> */}
+                            <FormControlLabel value={props?.data?.recommendation_id} control={<Radio />} label="" />
+                            {/* <FormControlLabel value="female" control={<Radio />} label="Female" /> */}
+                        {/* </FormGroup> */}
                     </Box>
                 </Box>
                 <Box className={classes.planOffer}>

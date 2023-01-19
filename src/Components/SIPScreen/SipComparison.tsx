@@ -28,7 +28,7 @@ import {
     postSaveTaxGenrateApi
 } from '../../Store/Save Tax/thunk/save-tax-thunk'
 import siteConfig from '../../Utils/siteConfig'
-import { bannerSectionValues, lookUpMasterKeys } from '../../Utils/globalConstant';
+import { bannerSectionValues, globalConstant, lookUpMasterKeys } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import { config } from 'process';
 import { getComparisonBetweenMutualFundThunkAndUlip } from '../../Store/Recommendations/thunk/recommendations-thunk';
@@ -208,11 +208,18 @@ const SipComparison = () => {
                                         <Link color="#6495ED" underline="always" href='Home' >
                                             <Typography className='burgerText'> Home</Typography>
                                         </Link>
-                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
-                                            <Typography className='burgerText'> Save Tax</Typography>
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/sipInvestment',{
+                                            state: {
+                                                cardType: globalConstant.SIP_INVESTMENT
+                                            }
+                                            })} href='sipInvestment' >
+                                            <Typography className='burgerText'> Investment</Typography>
+                                        </Link>
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/startAnSip')} href='startAnSip' >
+                                            <Typography className='burgerText'> Start an SIP</Typography>
                                         </Link>
                                         <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                                            <Typography className='burgerText'>Save Tax Investment Type</Typography>
+                                            <Typography className='burgerText'>Recommendation</Typography>
                                         </Link>
                                     </Breadcrumbs>
                                 </Box>
@@ -237,7 +244,7 @@ const SipComparison = () => {
                                                             vertical: 'bottom',
                                                             horizontal: 'right',
                                                         }}
-                                                        badgeContent='Recommended'
+                                                        // badgeContent='Recommended'
                                                         color="primary"
                                                         className={classes.badgeStyle}
                                                     >
@@ -299,7 +306,7 @@ const SipComparison = () => {
 
                                     <FooterBtnWithBox
                                         boxIcon={<ThumbUpAltOutlinedIcon />}
-                                        boxText='Great! You`ll save taxes upto'
+                                        boxText='Great! Your SIP is'
                                         boxAmount={`₹${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                                         btnText='Show Me Recommendations'
                                         btnClick={handleShowRecommendation}
