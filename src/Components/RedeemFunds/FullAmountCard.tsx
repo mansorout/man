@@ -66,7 +66,7 @@ const FullAmountCard = (props: Prop) => {
           }}
         />
         <Box>
-          <Chip sx={{ backgroundColor: "#ffc300", marginTop: "-15%" }}
+          <Chip sx={{ backgroundColor: "#ffc300", marginLeft:{xs:"10px", sm:"0px"} }}
             avatar={<Avatar alt="star" src={SmallStar}
               sx={{
                 color: "#ffffff",
@@ -74,20 +74,19 @@ const FullAmountCard = (props: Prop) => {
             />}
             label={props?.rating + ".8"}
           />
-          <img alt="MorningStarlogo" src={MorningStarlogo} style={{
+          <img className="imageratingRedeem" alt="MorningStarlogo"  src={MorningStarlogo} style={{
             width: "76px",
             height: "22px",
-            margin: "10px 0 10px 8px"
           }} />
         </Box>
         <Box>
-          <Button sx={{ width: "108px", height: "34px", padding: "6px 6px 4px", borderRadius: "2px", backgroundColor: "#64dbff" }}>
+          <Button className="buttonPriceRedeemFund" sx={{ width: "108px", height: "34px", padding: "6px 6px 4px", borderRadius: "2px", backgroundColor: "#64dbff" }}>
             <Typography sx={{ color: "#3f7ad6", fontSize: "20px" }}>₹{props?.investedValue}</Typography>
           </Button>
         </Box>
       </Box>
       <Grid container spacing={0}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography sx={{ display: "contents" }} className="FundDetails_Heading">
             {props?.name}
           </Typography>
@@ -95,7 +94,7 @@ const FullAmountCard = (props: Prop) => {
       </Grid>
       <Box
         sx={{
-          width: { xs: "246px", sm: "217px" },
+          width: { xs: "246px", sm: "217px" }, marginTop:{xs:"10px", sm:"15px"}
         }}
       >
         <Chip
@@ -124,7 +123,8 @@ const FullAmountCard = (props: Prop) => {
           marginBottom={2}
         >
           <Grid container spacing={2} textAlign="center" >
-            <Grid item xs={3}>
+            <Grid item  xs={6} sm={3}>
+              <Box className="borderrightColorText">
               <Typography
                 sx={{
                   opacity: " 0.74",
@@ -142,8 +142,10 @@ const FullAmountCard = (props: Prop) => {
               >₹{props?.investedValue}
 
               </Typography>
+              </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item  xs={6} sm={3}>
+            <Box className="borderrightColorText">
               <Typography
                 sx={{
                   opacity: " 0.74",
@@ -158,8 +160,10 @@ const FullAmountCard = (props: Prop) => {
                   color: "#ffffff"
                 }}
               >₹{props?.currentValue}</Typography>
+              </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item  xs={6} sm={3}>
+            <Box className="borderrightColorText">
               <Typography
                 sx={{
                   opacity: " 0.74",
@@ -175,9 +179,10 @@ const FullAmountCard = (props: Prop) => {
                   color: "#ffffff"
                 }}
               >{props?.units}</Typography>
+              </Box>
             </Grid>
 
-            <Grid item xs={3} >
+            <Grid item xs={6} sm={3} >
               <Typography
                 sx={{
                   opacity: " 0.74",

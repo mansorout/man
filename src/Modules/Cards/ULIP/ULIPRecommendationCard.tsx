@@ -7,6 +7,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import LineChart from '../../../Components/CommonComponents/Charts/LineChart';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import Radio from '@mui/material/Radio';
+import './Uliprecom.css'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -62,10 +63,15 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& li': {
             listStyleType: 'none',
-            margin: '10px 20px',
+            margin: '10px 50px',
             '@media(max-width: 700px)':{
                 width: '40%'
             },
+            '@media(width: 820px)':{
+                 flexWrap:"wrap-reverse",
+                justifyContent: 'flex-start',
+            },
+
         }
     },
     btnGroup: {
@@ -114,14 +120,15 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
 
 
     return (
-        <Box className={classes.cardWrapper}>
-            <Grid container>
-                <Grid item sm={6} xs={12}>
+        <div className='cardWrapperstyle'>
+              <Box className={classes.cardWrapper}>
+            <Grid container >
+                <Grid item sm={6} xs={12} className="paddingLeft">
                     <Box className={classes.logoWrapper}>
                         <Box className={classes.imgWrapper}>
                             <img src={props.logoUrl} alt="" />
                         </Box>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)' }} component='p'>{props.companyName}</Typography>
+                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)',fontWeight:"500" }} component='p'>{props.companyName}</Typography>
                     </Box>
                 </Grid>
                 <Grid item sm={6} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
@@ -135,7 +142,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                 </Grid>
             </Grid>
 
-            <Box>
+            <Box >
                 <ul className={classes.listStyle}>
                     <li>
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Top Performing Fund (10 Years)*</Typography>
@@ -145,6 +152,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Life Cover</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
                     </li>
+             
                     <li>
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Invested Value</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.investedVlaue}</Typography>
@@ -153,6 +161,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Tax Saving on Investment</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.taxSavingOnInvestment} {/*Every Year */}</Typography>
                     </li>
+                  
+                
                 </ul>
             </Box>
             <Box>
@@ -167,6 +177,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
             </Box>
 
         </Box>
+        </div>
+      
     )
 }
 

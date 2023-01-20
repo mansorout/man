@@ -437,19 +437,17 @@ const RedeemFunds = () => {
     <>
       <Box style={{ width: "100vw" }} ref={refContainer}>
         <Navbar />
-        <Box sx={style.main}>
-          <Grid container spacing={0} sx={{ height: "100vh" }}>
+        <Box sx={{ width: "100%" }}>
+          <Grid container spacing={0}>
             <Grid item xs={0} sm={1} md={2}>
               <Toolbar />
               <Sidebar />
             </Grid>
-            <Grid container xs={13} sm={11} md={10}>
-              <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-                <Toolbar />
-
-                {/* Breadcrumbs */}
-                <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}>
-                  <Breadcrumbs aria-label="breadcrumb">
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+              <Grid container>
+                <Grid xs={12} sm={12} md={12}>
+                  <Toolbar />
+                  <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/portfolio')}>
                       <Typography className='burgerText'> Portfolio</Typography>
                     </Link>
@@ -457,403 +455,415 @@ const RedeemFunds = () => {
                       <Typography className='burgerText'>Redeem Fund</Typography>
                     </Link>
                   </Breadcrumbs>
-                </Box>
 
-                {/* Large Cards */}
-                {
-                  redeemFundDetails &&
-                    Object.keys(redeemFundDetails).length ?
-                    <FullAmountCard
-                      logo={redeemFundDetails?.fundimage}
-                      name={redeemFundDetails?.fundname}
-                      cap={redeemFundDetails?.category}
-                      type={redeemFundDetails?.categorygroup}
-                      absoluteValue={redeemFundDetails?.absolutereturn}
-                      absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
-                      currentValue={redeemFundDetails?.currentvalue}
-                      investedValue={redeemFundDetails?.investedvalue}
-                      units={redeemFundDetails?.units}
-                      rating={redeemFundDetails?.rating}
-                    />
-                    : null
-                }
-
-
-                {/* Small Card */}
-                <Box sx={{ width: '100%' }}>
-                  <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item md={6} xs={12}>
-                      {
-                        activeRedeemType === enumRedeemPaymentMethod.PARTIAL ?
-                          <Card>
-                            <CardContent>
-                              <Box>
-                                <Grid container spacing={0}>
-                                  <Grid item xs={5} sm={9}>
-                                    <Typography
-                                      sx={{
-                                        fontSize: "16px",
-                                        fontWeight: "500",
-                                        marginTop: "10px",
-                                        height: " 19px",
-                                        fontFamily: "Roboto",
-                                        textAlign: " left",
-                                        color: " #3c3e42"
-                                      }}
-                                    >Redemption Type</Typography>
-                                  </Grid>
-                                  <Grid item xs={7} sm={3}
-                                    sx={{
-                                      textAlign: " center",
-                                      justifyContent: "flex-start",
-                                      alignItems: "flex-start",
-                                      flexWrap: "wrap"
-                                    }}
-                                    className="twinButton"
-                                  >
-                                    <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                      <Box onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.PARTIAL) }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
-                                        <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
-                                      </Box>
-                                      <Box onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.FULL); }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
-                                        <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
-                                      </Box>
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <Typography sx={{
-                                      height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42"
-                                    }}>Redemption By</Typography>
-                                  </Grid>
-                                  <Grid item xs={12} sx={{ display: "flex", marginTop: "8px" }}>
-                                    <Box sx={{
-                                      justifyContent: "center", alignItems: "center",
-                                    }}>
-                                      <FormControlLabel
-                                        control={<Checkbox onChange={() => setActivePartialSubType(enumPartialSubType.AMOUNT)} checked={activePartialSubType === enumPartialSubType.AMOUNT ? true : false} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                        label={<Box><span style={{ fontSize: "14px", color: `${activePartialSubType === enumPartialSubType.AMOUNT ? '#3c3e42' : "#7b7b9d"}` }}>Amount:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${activePartialSubType === enumPartialSubType.AMOUNT ? '#7b7b9d' : "#3c3e42"}` }}>₹{redeemFundDetails?.currentvalue}</span>  </Box>} />
-
-                                      <FormControlLabel
-                                        control={<Checkbox onChange={() => setActivePartialSubType(enumPartialSubType.UNIT)} checked={activePartialSubType === enumPartialSubType.UNIT ? true : false} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
-                                        label={<Box><span style={{ fontSize: "14px", color: `${activePartialSubType === enumPartialSubType.UNIT ? '#3c3e42' : "#7b7b9d"}` }}>Units:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${activePartialSubType === enumPartialSubType.UNIT ? '#3c3e42' : "#7b7b9d"}` }}>{redeemFundDetails?.units}</span>  </Box>} />
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <Box>
-                                      {
-                                        activePartialSubType === enumPartialSubType.UNIT ?
-                                          <TextField
-                                            label="No. of Units"
-                                            name="Unit"
-                                            value={redeemUnits}
-                                            type="number"
-                                            onKeyPress={(e) =>
-                                              /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
-                                              e.preventDefault()
-                                            }
-                                            onChange={handleOnChangeInputOfPartialSubType}
-                                            sx={{
-                                              width: "100%",
-                                              borderRadius: "4px",
-                                              boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                              backgroundColor: "#fff",
-                                              marginTop: "5%"
-                                            }}
-                                            inputProps={{
-                                              maxLength: 11,
-                                            }}
-                                          >
-                                          </TextField> :
-                                          <TextField
-                                            label="Amount"
-                                            name="Amount"
-                                            value={redeemAmount}
-                                            type="number"
-                                            onKeyPress={(e) =>
-                                              /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
-                                              e.preventDefault()
-                                            }
-                                            sx={{
-                                              width: "100%",
-                                              borderRadius: "4px",
-                                              boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
-                                              backgroundColor: "#fff",
-                                              marginTop: "5%"
-                                            }}
-                                            inputProps={{
-                                              maxLength: 11,
-                                            }}
-                                            onChange={handleOnChangeInputOfPartialSubType}
-                                          >
-                                          </TextField>
-                                      }
-
-                                      {
-                                        error ?
-                                          <Typography component="span" sx={{ color: "red", fontSize: "15px" }}>
-                                            {error}
-                                          </Typography>
-                                          : ""
-                                      }
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs={12} sx={{ paddingTop: "5px" }}>
-                                    {
-                                      activePartialSubType === enumPartialSubType.AMOUNT ?
-                                        <Box >
-                                          <Typography
-                                            sx={{
-                                              width: "304px",
-                                              height: "30px",
-                                              fontSize: " 12px",
-                                              textAlign: "left",
-                                              color: "#8787a2"
-                                            }}
-                                          >Minimum redemption amount ₹{redeemFundDetails.minredemptionamount} </Typography>
-                                          <Typography
-                                            sx={{
-                                              width: "304px",
-                                              height: "30px",
-                                              marginTop: "-8px",
-                                              fontSize: " 12px",
-                                              textAlign: "left",
-                                              color: "#8787a2"
-                                            }}
-                                          >Maximum  redemption amount ₹{redeemFundDetails.maxredemptionamount}</Typography>
-                                        </Box> : <Box >
-                                          <Typography
-                                            sx={{
-                                              width: "304px",
-                                              height: "30px",
-                                              fontSize: " 12px",
-                                              textAlign: "left",
-                                              color: "#8787a2"
-                                            }}
-                                          >Minimum redemption Unit {redeemFundDetails.minredemptionqty} </Typography>
-                                          <Typography
-                                            sx={{
-                                              width: "304px",
-                                              height: "30px",
-                                              marginTop: "-8px",
-                                              fontSize: " 12px",
-                                              textAlign: "left",
-                                              color: "#8787a2"
-                                            }}
-                                          >Maximum  redemption Units {redeemFundDetails.maxredemptionamount}</Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid xs={12} sm={12} md={12}>
+                  <Box className="BoxMarginLeftRight">
+                    {/* Large Cards */}
+                    {
+                      redeemFundDetails &&
+                        Object.keys(redeemFundDetails).length ?
+                        <FullAmountCard
+                          logo={redeemFundDetails?.fundimage}
+                          name={redeemFundDetails?.fundname}
+                          cap={redeemFundDetails?.category}
+                          type={redeemFundDetails?.categorygroup}
+                          absoluteValue={redeemFundDetails?.absolutereturn}
+                          absoluteValueInPercentage={redeemFundDetails?.absolutereturninpercent}
+                          currentValue={redeemFundDetails?.currentvalue}
+                          investedValue={redeemFundDetails?.investedvalue}
+                          units={redeemFundDetails?.units}
+                          rating={redeemFundDetails?.rating}
+                        />
+                        : null
+                    }
+                    {/* Small Card */}
+                    <Box sx={{ width: '100%' }}>
+                      <Grid sx={{ padding: "0px 9px !important" }} container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                        <Grid item md={6} xs={12}>
+                          {
+                            activeRedeemType === enumRedeemPaymentMethod.PARTIAL ?
+                              <Card>
+                                <CardContent>
+                                  <Box>
+                                    <Grid container spacing={0}>
+                                      <Grid item xs={5} sm={4}>
+                                        <Typography
+                                          sx={{
+                                            fontSize:{xs:"10px", sm:"16px"},
+                                            fontWeight: "500",
+                                            marginTop: "10px",
+                                            height: " 19px",
+                                            fontFamily: "Roboto",
+                                            textAlign: " left",
+                                            color: " #3c3e42"
+                                          }}
+                                        >Redemption Type</Typography>
+                                      </Grid>
+                                      <Grid item xs={7} sm={8}
+                                        sx={{
+                                          textAlign: " center",
+                                          justifyContent: "flex-end",
+                                          alignItems: "flex-start",
+                                          flexWrap: "wrap",
+                                          flexDirection:"row"
+                                        }}
+                                        className="twinButton"
+                                      >
+                                        <Box sx={{textAlign: " center",
+                                          justifyContent: "flex-end",
+                                          alignItems: "flex-start",
+                                          flexWrap: "wrap",
+                                          flexDirection:"row"}} style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                          <Box className="tabClickFont" onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.PARTIAL) }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
+                                            <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
+                                          </Box>
+                                          <Box className="tabClickFont" onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.FULL); }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
+                                            <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
+                                          </Box>
                                         </Box>
-                                    }
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <Typography sx={{
+                                          height: " 16px", fontSize: " 14px", textAlign: " left", color: "#3c3e42"
+                                        }}>Redemption By</Typography>
+                                      </Grid>
+                                      <Grid item xs={12} sx={{ display: "flex", marginTop: "8px" }}>
+                                        <Box sx={{
+                                          justifyContent: "center", alignItems: "center",
+                                        }}>
+                                          <FormControlLabel
+                                            control={<Checkbox onChange={() => setActivePartialSubType(enumPartialSubType.AMOUNT)} checked={activePartialSubType === enumPartialSubType.AMOUNT ? true : false} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            label={<Box><span style={{ fontSize: "14px", color: `${activePartialSubType === enumPartialSubType.AMOUNT ? '#3c3e42' : "#7b7b9d"}` }}>Amount:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${activePartialSubType === enumPartialSubType.AMOUNT ? '#7b7b9d' : "#3c3e42"}` }}>₹{redeemFundDetails?.currentvalue}</span>  </Box>} />
+
+                                          <FormControlLabel
+                                            control={<Checkbox onChange={() => setActivePartialSubType(enumPartialSubType.UNIT)} checked={activePartialSubType === enumPartialSubType.UNIT ? true : false} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            label={<Box><span style={{ fontSize: "14px", color: `${activePartialSubType === enumPartialSubType.UNIT ? '#3c3e42' : "#7b7b9d"}` }}>Units:</span> <span style={{ fontSize: "14px", fontWeight: "bold", color: `${activePartialSubType === enumPartialSubType.UNIT ? '#3c3e42' : "#7b7b9d"}` }}>{redeemFundDetails?.units}</span>  </Box>} />
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <Box>
+                                          {
+                                            activePartialSubType === enumPartialSubType.UNIT ?
+                                              <TextField
+                                                label="No. of Units"
+                                                name="Unit"
+                                                value={redeemUnits}
+                                                type="number"
+                                                onKeyPress={(e) =>
+                                                  /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                                  e.preventDefault()
+                                                }
+                                                onChange={handleOnChangeInputOfPartialSubType}
+                                                sx={{
+                                                  width: "100%",
+                                                  borderRadius: "4px",
+                                                  boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                                  backgroundColor: "#fff",
+                                                  marginTop: "5%"
+                                                }}
+                                                inputProps={{
+                                                  maxLength: 11,
+                                                }}
+                                              >
+                                              </TextField> :
+                                              <TextField
+                                                label="Amount"
+                                                name="Amount"
+                                                value={redeemAmount}
+                                                type="number"
+                                                onKeyPress={(e) =>
+                                                  /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                                  e.preventDefault()
+                                                }
+                                                sx={{
+                                                  width: "100%",
+                                                  borderRadius: "4px",
+                                                  boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)",
+                                                  backgroundColor: "#fff",
+                                                  marginTop: "5%"
+                                                }}
+                                                inputProps={{
+                                                  maxLength: 11,
+                                                }}
+                                                onChange={handleOnChangeInputOfPartialSubType}
+                                              >
+                                              </TextField>
+                                          }
+
+                                          {
+                                            error ?
+                                              <Typography component="span" sx={{ color: "red", fontSize: "15px" }}>
+                                                {error}
+                                              </Typography>
+                                              : ""
+                                          }
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sx={{ paddingTop: "5px" }}>
+                                        {
+                                          activePartialSubType === enumPartialSubType.AMOUNT ?
+                                            <Box >
+                                              <Typography
+                                                sx={{
+                                                  width: "304px",
+                                                  height: "30px",
+                                                  fontSize: " 12px",
+                                                  textAlign: "left",
+                                                  color: "#8787a2"
+                                                }}
+                                              >Minimum redemption amount ₹{redeemFundDetails.minredemptionamount} </Typography>
+                                              <Typography
+                                                sx={{
+                                                  width: "304px",
+                                                  height: "30px",
+                                                  marginTop: "-8px",
+                                                  fontSize: " 12px",
+                                                  textAlign: "left",
+                                                  color: "#8787a2"
+                                                }}
+                                              >Maximum  redemption amount ₹{redeemFundDetails.maxredemptionamount}</Typography>
+                                            </Box> : <Box >
+                                              <Typography
+                                                sx={{
+                                                  width: "304px",
+                                                  height: "30px",
+                                                  fontSize: " 12px",
+                                                  textAlign: "left",
+                                                  color: "#8787a2"
+                                                }}
+                                              >Minimum redemption Unit {redeemFundDetails.minredemptionqty} </Typography>
+                                              <Typography
+                                                sx={{
+                                                  width: "304px",
+                                                  height: "30px",
+                                                  marginTop: "-8px",
+                                                  fontSize: " 12px",
+                                                  textAlign: "left",
+                                                  color: "#8787a2"
+                                                }}
+                                              >Maximum  redemption Units {redeemFundDetails.maxredemptionamount}</Typography>
+                                            </Box>
+                                        }
+                                      </Grid>
+                                    </Grid>
+                                  </Box>
+                                </CardContent>
+                              </Card> :
+                              <Card >
+                                <CardContent>
+                                  <Grid container spacing={0}>
+                                    <Grid item xs={5} sm={4}>
+                                      <Typography
+                                        sx={{
+                                          fontSize:{xs:"10px", sm:"16px"},
+                                          fontWeight: "500",
+                                          marginTop: "10px",
+                                          height: " 19px",
+                                          fontFamily: "Roboto",
+                                          textAlign: " left",
+                                          color: " #3c3e42"
+                                        }}
+                                      >Redemption Type</Typography>
+                                    </Grid>
+                                    <Grid item xs={7} sm={8} className="twinButton">
+                                      <Box
+                                      sx={{textAlign: " center",
+                                      justifyContent: "flex-end",
+                                      alignItems: "flex-start",
+                                      flexWrap: "wrap",
+                                      flexDirection:"row"}}
+                                      style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                        <Box className="tabClickFont" onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.PARTIAL) }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
+                                          <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
+                                        </Box>
+                                        <Box className="tabClickFont" onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.FULL); }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
+                                          <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
+                                        </Box>
+                                      </Box>
+                                    </Grid>
+                                    <Grid container spacing={3}>
+                                      <Grid item xs={6}>
+                                        <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal", }}>Invested Value</Typography>
+                                      </Grid>
+                                      <Grid item xs={6}>
+                                        <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
+                                      </Grid>
+                                      <Grid item xs={6} >
+                                        <Typography className='amountValue' sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹{redeemFundDetails.investedvalue}</Typography>
+                                      </Grid>
+                                      <Grid item xs={6} >
+                                        <Typography className='amountValue' sx={{}}>₹{redeemFundDetails.currentvalue}</Typography>
+                                      </Grid>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              </Box>
-                            </CardContent>
-                          </Card> :
-                          <Card >
+                                  <Box>
+                                  </Box>
+                                </CardContent>
+                              </Card>
+                          }
+                        </Grid>
+
+                        {/* lumpsum card */}
+                        <Grid item md={6} xs={12}>
+                          <Card sx={{ borderRadius: "8px", marginBottom: "5px" }}>
+
                             <CardContent>
-                              <Grid container spacing={0}>
-                                <Grid item xs={5} sm={9}>
-                                  <Typography
-                                    sx={{
-                                      fontSize: "16px",
-                                      fontWeight: "500",
-                                      marginTop: "10px",
-                                      height: " 19px",
-                                      fontFamily: "Roboto",
-                                      textAlign: " left",
-                                      color: " #3c3e42"
-                                    }}
-                                  >Redemption Type</Typography>
-                                </Grid>
-                                <Grid item xs={7} sm={3} className="twinButton">
-                                  <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                                    <Box onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.PARTIAL) }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: " 10px 16px 9px" }}>
-                                      <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.PARTIAL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Partial </Typography>
-                                    </Box>
-                                    <Box onClick={() => { setActiveRedeemType(enumRedeemPaymentMethod.FULL); }} style={{ cursor: "pointer", border: `1px solid ${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "10px 16px 9px" }}>
-                                      <Typography style={{ fontWeight: "500", color: `${activeRedeemType == enumRedeemPaymentMethod.FULL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Full </Typography>
-                                    </Box>
+                              <Box sx={{ padding: "14px 0px 16px 0px" }}>
+                                <Typography sx={{
+
+                                  fontFamily: "Roboto",
+                                  fontSize: "18px",
+                                  fontWeight: "500",
+                                  fontStretch: "normal",
+                                  fontStyle: "normal",
+                                  lineHeight: "normal",
+                                  letterSpacing: "normal",
+                                  textAlign: "left",
+                                  color: " #3c3e42"
+                                }}>Advantages of Lump sum investment</Typography>
+                              </Box>
+
+
+                              <Grid container>
+                                <Grid xs={2} sm={1}>
+                                  <Box>
+                                    <img src={rupconvie} alt="image" style={style.RupConviestyle} />
                                   </Box>
                                 </Grid>
-                                <Grid container spacing={3}>
-                                  <Grid item xs={6}>
-                                    <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal", }}>Invested Value</Typography>
-                                  </Grid>
-                                  <Grid item xs={6}>
-                                    <Typography sx={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "normal" }}>Current Value</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} >
-                                    <Typography className='amountValue' sx={{ color: "#3c3e42", fontSizeL: "18px" }}>₹{redeemFundDetails.investedvalue}</Typography>
-                                  </Grid>
-                                  <Grid item xs={6} >
-                                    <Typography className='amountValue' sx={{}}>₹{redeemFundDetails.currentvalue}</Typography>
-                                  </Grid>
+                                <Grid xs={10} sm={11} sx={{ paddingLeft: {xs:"13px", sm:"13px"} }}>
+                                  <Box>
+                                    <Typography sx={{
+                                      fontSize: "16px",
+                                      fontWeight: 500
+
+
+                                    }}>Exit Load</Typography>
+                                    <Typography sx={{
+                                      width: "100%",
+                                      margin: " 4px 0 0 ",
+                                      fontSize: "14px",
+                                      fontWeight: "normal",
+                                      lineHeight: "1.21",
+                                      textAlign: " left",
+                                      color: "#7b7b9d"
+                                    }}>Exit load will be applicable if you are redeeming a fund within
+                                      365 days from the date of purchase. Exit load
+                                      is a percentage of the NAV of the fund.</Typography>
+                                  </Box>
                                 </Grid>
                               </Grid>
-                              <Box>
-                              </Box>
+                              <Grid container sx={{ marginTop: {xs:"10px", sm:"10px"} }}>
+                                <Grid xs={2} sm={1}>
+                                  <Box>
+                                    <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
+                                  </Box>
+                                </Grid>
+                                <Grid xs={10} sm={11} sx={{ paddingLeft: {xs:"13px", sm:"13px"} }}>
+                                  <Box >
+                                    <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>Tax Implications</Typography>
+                                    <Typography
+                                      sx={{
+                                        width: "100%",
+                                        fontFamily: " Roboto",
+                                        fontSize: "14px",
+                                        textAlign: " left",
+                                        color: "#7b7b9d"
+                                      }}
+                                    >Investors earn dividends and capital gains from liquid funds.
+                                      Investors do not pay any tax on dividend income from mutual funds.</Typography>
+                                  </Box>
+
+                                </Grid>
+
+                              </Grid>
+
+                              <Grid container rowSpacing={2} sx={{
+                                paddingLeft: "25px",
+                                maxWidth: "fit-content",
+                                margin: "1rem", display: "flex", flexDirection: "column"
+                              }}>
+                                <Grid item xs={12} sx={{
+
+                                  padding: "15px 0px 0px 0px"
+                                }}>
+                                  <Box sx={{ textAlign: " center", paddingTop: "15px" }}>
+                                    <Typography sx={{
+                                      texAlign: " center",
+                                      fontSize: " 12px",
+                                      fontWeight: "normal",
+                                      fontStyle: " normal",
+                                      lineHeight: "1.42",
+                                      letterSpacing: "normal",
+
+                                      color: "#7b7b9d"
+
+
+                                    }}>  Final units or amount will depend on NAV
+                                      applicable at the time of actual redemption request.</Typography>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <Box sx={{ textAlign: " center" }}>
+                                    <Typography sx={{
+
+
+
+                                      fontSize: " 12px",
+                                      fontWeight: "normal",
+                                      fontStyle: " normal",
+                                      lineHeight: "1.42",
+                                      letterSpacing: "normal",
+
+                                      color: "#7b7b9d",
+                                    }}>
+                                      By continuing, you’re agreeing to SprintMoneyTM
+
+                                    </Typography>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <Box sx={{ textAlign: " center" }}>
+                                    <Typography sx={{
+
+                                      textDecoration: 'underline',
+                                      cursor: "pointer",
+                                      fontSize: " 12px",
+                                      fontWeight: "normal",
+                                      fontStyle: " normal",
+                                      lineHeight: "1.42",
+                                      letterSpacing: "normal",
+
+                                      color: "#6c63ff",
+                                    }}>     Terms and conditions</Typography>
+                                  </Box>
+                                </Grid>
+                              </Grid>
                             </CardContent>
                           </Card>
-                      }
-                    </Grid>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                    <FooterWithBtn
+                      btnText='Redeem Now'
+                      btnClick={handleSubmit}
+                      // btnDisable={isButtonDisabled}
+                      btnDisable={false}
+                    />
+                    <SimpleModal
+                      open={bankModal}
+                      close={() => setBankModal(false)}
+                      onClickContinue={() => initiateRedeemFund()}
+                      redeemFundDetails={redeemFundDetails}
 
-                    {/* lumpsum card */}
-                    <Grid item md={6} xs={12}>
-                      <Card sx={{ borderRadius: "8px", marginBottom: "5px" }}>
-
-                        <CardContent>
-                          <Box sx={{ padding: "14px 0px 16px 0px" }}>
-                            <Typography sx={{
-
-                              fontFamily: "Roboto",
-                              fontSize: "18px",
-                              fontWeight: "500",
-                              fontStretch: "normal",
-                              fontStyle: "normal",
-                              lineHeight: "normal",
-                              letterSpacing: "normal",
-                              textAlign: "left",
-                              color: " #3c3e42"
-                            }}>Advantages of Lump sum investment</Typography>
-                          </Box>
-
-
-                          <Grid container columnSpacing={0} sx={{ paddingBottom: "16px" }}>
-                            <Grid xs={2} sx={{ display: "contents" }}>
-                              <Box>
-                                <img src={rupconvie} alt="image" style={style.RupConviestyle} />
-                              </Box>
-                            </Grid>
-                            <Grid xs={10} sx={{ paddingLeft: "13px" }}>
-                              <Box>
-                                <Typography sx={{
-                                  fontSize: "16px",
-                                  fontWeight: 500
-
-
-                                }}>Exit Load</Typography>
-                                <Typography sx={{
-                                  width: "100%",
-                                  height: " 50px",
-                                  margin: " 4px 0 0 ",
-                                  fontSize: "14px",
-                                  fontWeight: "normal",
-                                  lineHeight: "1.21",
-                                  textAlign: " left",
-                                  color: "#7b7b9d"
-                                }}>Exit load will be applicable if you are redeeming a fund within
-                                  365 days from the date of purchase. Exit load
-                                  is a percentage of the NAV of the fund.</Typography>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={0} className="taximp">
-                            <Grid xs={2} sx={{ display: "contents" }}>
-                              <Box>
-                                <img src={rupreturnlogo} alt="image" style={style.RupConviestyle} />
-                              </Box>
-                            </Grid>
-                            <Grid xs={10} sx={{ paddingLeft: "13px" }}>
-                              <Box >
-                                <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>Tax Implications</Typography>
-                                <Typography
-                                  sx={{
-                                    width: "100%",
-                                    height: " 50px",
-
-                                    fontFamily: " Roboto",
-                                    fontSize: "14px",
-                                    textAlign: " left",
-                                    color: "#7b7b9d"
-                                  }}
-                                >Investors earn dividends and capital gains from liquid funds.
-                                  Investors do not pay any tax on dividend income from mutual funds.</Typography>
-                              </Box>
-
-                            </Grid>
-
-                          </Grid>
-
-                          <Grid container rowSpacing={2} sx={{
-                            paddingLeft: "25px",
-                            maxWidth: "fit-content",
-                            margin: "1rem", display: "flex", flexDirection: "column"
-                          }}>
-                            <Grid item xs={12} sx={{
-
-                              padding: "15px 0px 0px 0px"
-                            }}>
-                              <Box sx={{ textAlign: " center", paddingTop: "15px" }}>
-                                <Typography sx={{
-                                  texAlign: " center",
-                                  fontSize: " 12px",
-                                  fontWeight: "normal",
-                                  fontStyle: " normal",
-                                  lineHeight: "1.42",
-                                  letterSpacing: "normal",
-
-                                  color: "#7b7b9d"
-
-
-                                }}>  Final units or amount will depend on NAV
-                                  applicable at the time of actual redemption request.</Typography>
-                              </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Box sx={{ textAlign: " center" }}>
-                                <Typography sx={{
-
-
-
-                                  fontSize: " 12px",
-                                  fontWeight: "normal",
-                                  fontStyle: " normal",
-                                  lineHeight: "1.42",
-                                  letterSpacing: "normal",
-
-                                  color: "#7b7b9d",
-                                }}>
-                                  By continuing, you’re agreeing to SprintMoneyTM
-
-                                </Typography>
-                              </Box>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Box sx={{ textAlign: " center" }}>
-                                <Typography sx={{
-
-                                  textDecoration: 'underline',
-                                  cursor: "pointer",
-                                  fontSize: " 12px",
-                                  fontWeight: "normal",
-                                  fontStyle: " normal",
-                                  lineHeight: "1.42",
-                                  letterSpacing: "normal",
-
-                                  color: "#6c63ff",
-                                }}>     Terms and conditions</Typography>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Box>
+                    />
+                  </Box>
+                </Grid>
               </Grid>
-              <FooterWithBtn
-                btnText='Redeem Now'
-                btnClick={handleSubmit}
-                // btnDisable={isButtonDisabled}
-                btnDisable={false}
-              />
-              <SimpleModal
-                open={bankModal}
-                close={() => setBankModal(false)}
-                onClickContinue={() => initiateRedeemFund()}
-                redeemFundDetails={redeemFundDetails}
-
-              />
             </Grid>
-
           </Grid>
         </Box>
       </Box >

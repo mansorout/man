@@ -183,6 +183,13 @@ const initialMFDataForExploreFund = {
   isChecked: false
 }
 
+const enumFilterIndexes ={
+  SORT: 'Sort',
+  FUND_TYPE: 'Fund Type',
+  FUND_HOUSE:'Fund House'
+
+}
+
 function ExploreFunds(props: any) {
 
   const classes = useStyles();
@@ -201,81 +208,81 @@ function ExploreFunds(props: any) {
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
   const [filterValues, setFilterValues] = useState<any>({})
   const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
-  
+
   const [filterIndexes, setFilterIndexes] = useState<any>(
     [
-        {
-            key: 'Sort',
-            selectType:'radio',
-            keyValues: [
-                {
-                    value: 'return',
-                    label: 'Return - High to Low',
-                },
-                {
-                    value: 'rating',
-                    label: 'Rating - High to Low',
-                },
-                {
-                    value: 'size',
-                    label: 'Fund Size - High to Low',
-                }
-            ]
-        },
-        {
-            key: 'Fund Type',
-            selectType:'radio',
-            keyValues: [
-                {
-                    value: 'all',
-                    label: 'All (20)',
-                },
-                {
-                    value: 'growth',
-                    label: 'Growth (12)',
-                },
-                {
-                    value: 'dividend',
-                    label: 'Dividend (8)',
-                },
-            ]
-        },
-        {
-            key: 'Fund House',
-            selectType:'checked',
-            keyValues: [
-                {
-                    value: 'all',
-                    label: 'All (148)',
-                },
-                {
-                    value: 'axis',
-                    label: 'Axis (21)',
-                },
-                {
-                    value: 'sbi',
-                    label: 'SBI Funds (37)',
-                },
-                {
-                    value: 'invesco',
-                    label: 'Invesco (7)',
-                },
-                {
-                    value: 'pgim',
-                    label: 'PGIM (2)',
-                },
-                {
-                    value: 'quant',
-                    label: 'Quant (4)',
-                },
-                {
-                    value: 'dividend',
-                    label: 'Dividend',
-                },
-            ]
-        }
+      {
+        key: 'Sort',
+        selectType: 'radio',
+        keyValues: [
+          {
+            value: 'return',
+            label: 'Return - High to Low',
+          },
+          {
+            value: 'rating',
+            label: 'Rating - High to Low',
+          },
+          {
+            value: 'size',
+            label: 'Fund Size - High to Low',
+          }
+        ]
+      },
+      {
+        key: 'Fund Type',
+        selectType: 'radio',
+        keyValues: [
+          {
+            value: 'all',
+            label: 'All (20)',
+          },
+          {
+            value: 'growth',
+            label: 'Growth (12)',
+          },
+          {
+            value: 'dividend',
+            label: 'Dividend (8)',
+          },
+        ]
+      },
+      {
+        key: 'Fund House',
+        selectType: 'checked',
+        keyValues: [
+          {
+            value: 'all',
+            label: 'All (148)',
+          },
+          {
+            value: 'axis',
+            label: 'Axis (21)',
+          },
+          {
+            value: 'sbi',
+            label: 'SBI Funds (37)',
+          },
+          {
+            value: 'invesco',
+            label: 'Invesco (7)',
+          },
+          {
+            value: 'pgim',
+            label: 'PGIM (2)',
+          },
+          {
+            value: 'quant',
+            label: 'Quant (4)',
+          },
+          {
+            value: 'dividend',
+            label: 'Dividend',
+          },
+        ]
+      }
     ]
-)
+  )
 
 
 
@@ -314,6 +321,15 @@ function ExploreFunds(props: any) {
       //   } else {
       //   }
       // }
+
+      console.log("categoryGroupList : ", categoryGroupList)
+      const temp = [...filterIndexes]
+      temp && temp?.length &&
+      temp.map((item, index) => {
+        if(item?.key === enumFilterIndexes?.FUND_TYPE){
+          console.log("temp filter :", temp[index])
+        }
+      })
     }
   }, [categoryGroupList])
 
@@ -345,6 +361,10 @@ function ExploreFunds(props: any) {
 
   }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
 
+// useEffect(() => {
+// }, [categoryGroupList])
+
+
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
     res.data = [...res.data?.categorygroups];
@@ -365,7 +385,7 @@ function ExploreFunds(props: any) {
   };
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-// debugger
+    // debugger
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -434,7 +454,7 @@ function ExploreFunds(props: any) {
       // setIsInitialVariableFundListFetched(true);
     }
 
-  }; 
+  };
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
@@ -455,12 +475,10 @@ function ExploreFunds(props: any) {
   };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
-    debugger
     dispatch(AnchorOpenAction(event));
   };
 
   const handleSearchFunctionality = (e: any) => {
-    debugger
     if (masterFundList && masterFundList.length) {
       const { value } = e?.target;
       let arrMasterFundList: any[] = [...masterFundList];
@@ -549,13 +567,13 @@ function ExploreFunds(props: any) {
 
 
 
-  
-  const handleFilterCB = (data:any) => {
+
+  const handleFilterCB = (data: any) => {
     console.log("click value :", data,)
     // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
     // getMasterFundList(url);
     setFilterValues(data)
-}
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -569,8 +587,8 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "hidden" }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "hidden" } }} item xs={12}>
+          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={13} sm={11} md={10}>
+            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll", overflowX: 'hidden' } }} item xs={12}>
               <Toolbar />
 
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
@@ -647,7 +665,7 @@ function ExploreFunds(props: any) {
 
                   <Box sx={{marginBottom:'15px'}}>
                       <SearchCmp
-                        filtersOptions={filterIndexes}
+                        filtersOptions={[...filterIndexes]}
                         // sort={customSort}
                         // policyTerm={policyTerm}
                         // lifeCover={lifeCover}
@@ -829,12 +847,16 @@ const SelectedFundsDialog = (props: any) => {
     return () => {
       setError("");
     }
-  })
+  }, [])
 
   useEffect(() => {
     let arrFundSelecteds: any[] = [...props?.fundSelecteds]
     if (arrFundSelecteds && arrFundSelecteds.length) {
-      let arrNew: any[] = arrFundSelecteds.map((item: any) => {
+      let arrNew: any[] = [];
+      // if (bFlag) {
+      //   arrNew = [...arrFundSelecteds];
+      // }
+      arrNew = arrFundSelecteds.map((item: any) => {
         return {
           ...item,
           ["userRecommendedAmount"]: 0,
@@ -843,6 +865,7 @@ const SelectedFundsDialog = (props: any) => {
       })
 
       console.log(arrNew, "arrNew");
+      // setBFlag(true);
       setAddAllFunds(arrNew);
     }
   }, [props?.fundSelecteds])
@@ -858,14 +881,16 @@ const SelectedFundsDialog = (props: any) => {
 
     value = parseInt(value);
 
-    if (!value) return;
+    if (value < 0) return;
 
     arrAddAllFunds[index]["userRecommendedAmount"] = value;
 
 
     if (!isMultipleofNumber(parseInt(value), 100)) {
-      arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100"
+      arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100";
+      // setIsShouldBuyFundEnable(false);
     } else {
+      // setIsShouldBuyFundEnable(true);
       arrAddAllFunds[index]["ErrorMsg"] = "";
     }
 
@@ -874,9 +899,16 @@ const SelectedFundsDialog = (props: any) => {
 
   const buyNow = () => {
     let arrFiltered: any[] = addAllFunds.filter((item: any) => item?.userRecommendedAmount === 0);
+    let arrError: any[] = addAllFunds.filter((item: any) => item.ErrorMsg !== "");
 
     if (arrFiltered && arrFiltered.length) {
       setError("Please fill all the investment amount fields!");
+      return;
+    }
+
+    // if (!isShouldBuyFundEnable) {
+    if (arrError && arrError.length) {
+      // setError("Please fill the amount which is multiple of 100!");
       return;
     }
 

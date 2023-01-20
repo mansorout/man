@@ -255,7 +255,7 @@ const initialTransactionListRejected: transactionList = {
   redemptiontype: "redemptiontype"
 }
 
-const enumTransactionTypes = {
+export const enumTransactionTypes = {
   ALL: "All",
   PENDING: "Pending",
   SUCCESSFUL: "Successful",
@@ -304,30 +304,8 @@ const Transaction = () => {
     // @ts-ignore
     handleApiResponse(res);
 
-    // @ts-ignore
-    // handleApiResponse(res?.data?.holdings, [setHoldingGraph]);
 
-
-    // let data: any[] = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
-    // dispatch(setTransactionListDataForportfolioAction(data));
-
-    // let graphData: any = {
-    //   totalinvestedvalue: 400000,
-    //   XIRR: "string",
-    //   absolutereturninpercent: "19",
-    //   absolutereturn: "19000",
-    //   totalcurrentvalue: "500000",
-    //   assetallocation: {
-    //     equity: "30",
-    //     debt: "30",
-    //     balanced: "30",
-    //     other: "10"
-    //   }
-    // }
-    // @ts-ignore
-    // handleApiResponse(data, [setTransactionList]);
-    // @ts-ignore
-    // handleApiResponse(graphData, [setHoldingGraph]);
+    // let data = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
   }
 
   const handleApiResponse = (res: apiResponse) => {
@@ -366,7 +344,7 @@ const Transaction = () => {
     dispatch(AnchorOpenAction(event))
   }
 
-  const handleToggling = (type: string) => {
+  const handleToggling = (type: string,) => {
     setActiveTransactionType(type);
 
     let arrTransactionList: transactionList[] = [...transactionList];
@@ -378,7 +356,8 @@ const Transaction = () => {
       return;
     }
 
-    setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING) : [])
+    // setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING) : [])
+    setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === type) : [])
   }
 
   const handleSearchFunctionality = (e: any) => {
@@ -432,96 +411,100 @@ const Transaction = () => {
                   <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
 
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
+                        <Typography className='taxtTabMedia' style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
                         <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
                       </Box>
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/sips')}>SIPs</Typography>
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => { navigate('/sips', { state: { investmenttype_id: 12 } }) }}>SIPs</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
                     </Box>
                   </Box>
-              {
-                message && message.length ?
-                  <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Typography component="span" sx={{ color: "var(--uiDarkGreyColor)" }}>
-                      {message}
-                    </Typography>
-                  </Box>
-                  :
-                  <>
-                    {
-                      variableTransactionList &&
-                        variableTransactionList.length ?
-                        <>
-                          <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
-                            <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                              <Box onClick={() => { handleToggling(enumTransactionTypes.ALL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.ALL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.ALL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.ALL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({transactionList.length})</Typography>
-                              </Box>
-                              <Box onClick={() => { handleToggling(enumTransactionTypes.PENDING) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.PENDING ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.PENDING ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.PENDING ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Pending ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING).length})</Typography>
-                              </Box>
-                              <Box onClick={() => { handleToggling(enumTransactionTypes.SUCCESSFUL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Successful ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.SUCCESSFUL).length})</Typography>
-                              </Box>
-                              <Box onClick={() => { handleToggling(enumTransactionTypes.REJECTED) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.REJECTED ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.REJECTED ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
-                                <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.REJECTED ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Rejected ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.REJECTED).length})</Typography>
-                              </Box>
-                            </Box>
+                  {
+                    message && message.length ?
+                      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Typography component="span" sx={{ color: "var(--uiDarkGreyColor)" }}>
+                          {message}
+                        </Typography>
+                      </Box>
+                      :
+                      <>
+                        {
+                          variableTransactionList &&
+                            variableTransactionList.length ?
+                            <>
+                              <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                                <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                  <Box onClick={() => { handleToggling(enumTransactionTypes.ALL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.ALL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.ALL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.ALL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>All Funds ({transactionList.length})</Typography>
+                                  </Box>
+                                  <Box onClick={() => { handleToggling(enumTransactionTypes.PENDING) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.PENDING ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.PENDING ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.PENDING ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Pending ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING).length})</Typography>
+                                  </Box>
+                                  <Box onClick={() => { handleToggling(enumTransactionTypes.SUCCESSFUL) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.SUCCESSFUL ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Successful ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.SUCCESSFUL).length})</Typography>
+                                  </Box>
+                                  <Box onClick={() => { handleToggling(enumTransactionTypes.REJECTED) }} style={{ cursor: "pointer", border: `1px solid ${activeTransactionType == enumTransactionTypes.REJECTED ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${activeTransactionType == enumTransactionTypes.REJECTED ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
+                                    <Typography style={{ fontWeight: "500", color: `${activeTransactionType == enumTransactionTypes.REJECTED ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>Rejected ({transactionList.filter((item) => item?.orderstatus === enumTransactionTypes.REJECTED).length})</Typography>
+                                  </Box>
+                                </Box>
 
-                            {/* Filter Box Goes here */}
+                                {/* Filter Box Goes here */}
 
-                            <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", gap: "10px", padding: "5px 14px" }}>
-                              <SearchOutlined style={{ color: "#7b7b9d" }} />
-                              {/* <InputBase placeholder='Search Transactions' onChange={(e) => setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase> */}
-                              <InputBase placeholder='Search Transactions' onChange={handleSearchFunctionality} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
-                              <IconButton onClick={(e) => handleFilter(e)} >
-                                <FilterAltOutlined style={{ color: "#09b85d" }} />
-                              </IconButton>
-                            </Box>
-                            <DropDownFilter />
-                          </Box>
-                          {/* {
+                                <Box style={{ border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", gap: "10px", padding: "5px 14px" }}>
+                                  <SearchOutlined style={{ color: "#7b7b9d" }} />
+                                  {/* <InputBase placeholder='Search Transactions' onChange={(e) => setTransactions(Transactions.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase())))} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase> */}
+                                  <InputBase placeholder='Search Transactions' onChange={handleSearchFunctionality} style={{ color: "#7b7b9d", minWidth: "250px" }}></InputBase>
+                                  <IconButton onClick={(e) => handleFilter(e)} >
+                                    <FilterAltOutlined style={{ color: "#09b85d" }} />
+                                  </IconButton>
+                                </Box>
+                                <DropDownFilter />
+                              </Box>
+                              {/* {
                       variableTransactionList.filter((item) => item.month == 'april').length > 0 ?
                         <Typography style={{ textAlign: "center", color: "#7b7b9d", fontSize: "12px" }}>This Month - April 2021</Typography> : null
 
                     } */}
 
-                          <Box p={2}>
-                            {
-                              variableTransactionList.map((item: transactionList, index: number) => {
-                                return (
-                                  <AllTrancationCard
-                                    key={index}
-                                    logo={item?.fundimage}
-                                    name={item?.fundname}
-                                    date={item?.stopdate}
-                                    id={item?.folionumber}
-                                    confirm={true}
-                                    mandate={true}
-                                    transaction={false}
-                                    reject={false}
-                                    price={item?.amount}
-                                    SIPDate={item?.transactiondate}
-                                    year3={"20.8%"}
-                                    margin={"(+17.36%)"}
-                                    result={"profit"}
-                                    type={item?.redemptiontype === "redeem" ? "B" : ""}
-                                    SIPAmount={"₹2,000"}
-                                    month={"april"}
-                                  />
-                                )
-                              })
-                            }
-                          </Box>
-                        </>
-                        : null
-                    }
+                              <Box p={2}>
+                                {
+                                  variableTransactionList.map((item: transactionList, index: number) => {
+                                    return (
+                                      <Box key={index}>
+                                        <AllTrancationCard
+                                          {...item}
+                                        // key={index}
+                                        // logo={item?.fundimage}
+                                        // name={item?.fundname}
+                                        // date={item?.transactiondate}
+                                        // id={item?.order_id}
+                                        // confirm={item?.orderstatus === "Pending" ? true : false}
+                                        // mandate={item?.ismandateauthenticated ? false : true}
+                                        // investmenttype_id={item?.investmenttype_id}
+                                        // transaction={false}
+                                        // reject={false}
+                                        // price={item?.amount}
+                                        // SIPDate={item?.transactiondate}
+                                        // year3={"20.8%"}
+                                        // margin={"(+17.36%)"}
+                                        // result={"profit"}
+                                        // type={item?.redemptiontype === "redeem" ? "B" : ""}
+                                        // SIPAmount={"₹2,000"}
+                                        // month={"april"}
+                                        />
+                                      </Box>
+                                    )
+                                  })
+                                }
+                              </Box>
+                            </>
+                            : null
+                        }
 
-                  </>
-              }
-               {/* <Box p={2}>
+                      </>
+                  }
+                  {/* <Box p={2}>
                 {
                   transactions.filter((item) => item.month == 'april').map((item, index) => {
                     return (
@@ -531,13 +514,13 @@ const Transaction = () => {
                 }
               </Box> */}
 
-              {/* {
+                  {/* {
                 transactions.filter((item) => item.month == 'march').length > 0 ?
                   <Typography style={{ textAlign: "center", color: "#7b7b9d", fontSize: "12px" }}>Previous Month - March 2021</Typography> : null
 
               } */}
 
-              {/* <Box p={2}>
+                  {/* <Box p={2}>
                 {
                   transactions.filter((item) => item.month == 'march').map((item, index) => {
                     return (

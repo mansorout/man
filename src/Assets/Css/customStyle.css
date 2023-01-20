@@ -1,5 +1,25 @@
 .investInsidePading{padding: 15px;
 }
+.buttonPriceRedeemFund:hover{
+  background-color: #64dbff !important;
+}
+.btnGroupMoreFund button{
+  width: 120px;
+  margin-right: 10px!important;
+}
+.btnGroupMoreFund{
+  display: flex !important;
+    flex-direction: row !important;
+}
+.btnHoverNone:hover{
+  background-color: #23db7b !important;
+}
+.imageratingRedeem{
+  margin:0px 0px 0px 10px;
+}
+.borderrightColorText{
+  border-right: 1px #bcb8ff4a solid;
+}
 .datePickerIcon .MuiIconButton-sizeMedium{
   color: #6c63ff !important;
 }
@@ -331,6 +351,9 @@
     }
 }
 @media screen and (max-width: 600px){
+  .borderrightColorText{
+    border-right: none;
+  }
   .categoryScrollMobile{
     overflow-x:scroll;
     white-space: nowrap;
@@ -367,6 +390,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .twinButton{
+    padding-left: 0px !important;
+  }
   .dropdownSlect label{
     font-size: 14px !important;
   }
@@ -452,6 +478,24 @@
     
 }
 @media screen and (max-width: 360px){
+  .btnReportmedia{
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+  .quickSelectWrapperMobile li{
+    padding: 5px !important;
+    font-size: 14px !important;
+    margin: 0px 3px 0px 0px !important;
+  }
+  .btnGroupMoreFund button{
+    padding: 6px 8px !important;
+  }
+  .btnGroupMoreFund button p{
+    font-size: 12px !important;
+  }
+  .imageratingRedeem {
+    margin: 1px 10px 0px 4px;
+}
     
     .tabBoxSize{
         font-size: 11px !important;
@@ -462,7 +506,29 @@
     }
 }
 @media screen and (max-width: 280px){
-    
+  .imgSprintMoneyModal{
+    padding-left: 80px !important;
+  }
+  .closeBtnSimpleModal{
+    margin: 12px 0px 8px 50px !important;
+  }
+  .tabClickFont P{
+    font-size: 12px !important;
+  }
+  .tabClickFont{
+    padding: 5px !important;
+  }
+  .buttonPriceRedeemFund{
+    font-size: 14px !important;
+    width: 100% !important;
+  }
+  .buttonPriceRedeemFund p{
+    font-size: 14px;
+  }
+    .taxtTabMedia{
+      font-size: 10px !important;
+      gap:12px !important;
+    }
    .css-4g6ai3 img{
      width: 108px !important;
    }

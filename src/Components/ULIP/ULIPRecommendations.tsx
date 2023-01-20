@@ -50,6 +50,7 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import './insurance.css'
 
 const enumActiveScreen = Object.freeze({
     CLOSE_MODAL: 0,
@@ -340,6 +341,7 @@ const ULIPRecommendations = () => {
             borderColor: '#fff',
         },
         button: {
+        
             height: "48px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
@@ -509,13 +511,13 @@ const ULIPRecommendations = () => {
                                         justifyContent: 'center',
                                         gap: '1vw',
                                     }}>
-
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                             <Box>
                                                 <Typography sx={{
                                                     fontSize: '12px',
                                                     color: '#8787a2',
                                                 }}>This plan provide tax benefit of 80C</Typography>
+                                              
                                                 <Typography sx={{
                                                     fontSize: '18px',
                                                     fontWeight: 500,
@@ -568,8 +570,10 @@ const ULIPRecommendations = () => {
                                                                 knowMoreAction={() => handleKnowMoreDialog()}
                                                                 downloadBrochuraAction={() => console.log("downloadBrochuraAction Acrion")}
                                                             />
+                                                            
                                                         ))
                                                     }
+                                                   
                                                 </RadioGroup>
                                             </FormControl>
                                         </Box>
@@ -577,7 +581,9 @@ const ULIPRecommendations = () => {
                                             <Button variant="outlined" onClick={() => navigate("/ulip/options")}
                                                 style={style.buttons} sx={{
                                                     backgroundColor: '#00b4ff',
-                                                }}>
+                                                }}
+                                            
+                                                >
                                                 <Typography sx={{ color: "white" }}>EXPLORE OTHER OPTIONS</Typography>
                                             </Button>
                                         </Box> */}
@@ -774,8 +780,7 @@ const ULIPRecommendations = () => {
                             </Box>
                             <Box>
                                 <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>Features</Typography>
-                                <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>A value for money investment option that
-                                    match tax saving requirements!</Typography>
+                                <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>A value for money investment option that match tax saving requirements!</Typography>
                             </Box>
                         </Box>
                         <Box>

@@ -381,11 +381,12 @@ const AddMoreFundsModal = (props: any) => {
                   paddingBottom: "0px",
                   paddingTop: "6px",
                   paddingRight: "0px",
+                  position:"relative"
                 }}
                 id="draggable-dialog-title"
               >
                 <Button
-                  style={{ color: "var(--typeIndigoColor)" }}
+                  style={{ color: "var(--typeIndigoColor)", position:"absolute", top:"0", right:"-10px" }}
                   autoFocus
                   onClick={props?.close}
                 >
@@ -396,9 +397,10 @@ const AddMoreFundsModal = (props: any) => {
 
                 <div className={classes.showPlanDialogWrapper}>
                   <Grid container spacing={0}>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                       <Box
                         sx={{
+                          marginTop:"10px",
                           height: "45px",
                           border: "solid 1px #d1d6dd",
                           width: "46px",
@@ -412,7 +414,7 @@ const AddMoreFundsModal = (props: any) => {
                       </Box>
                     </Grid>
 
-                    <Grid item xs={8}>
+                    <Grid item xs={9}>
                       <div className={classes.popHeading}>
                         <b
                           style={{
@@ -444,7 +446,7 @@ const AddMoreFundsModal = (props: any) => {
                   <Divider sx={{ marginTop: "10px" }} />
                   <FormControl
                     sx={{ marginTop: "10px" }}
-                    className={classes.radioGroup}
+                    className={classes.radioGroup+" "+"btnGroupMoreFund"}
                     fullWidth
                   >
                     <Button
@@ -533,7 +535,7 @@ const AddMoreFundsModal = (props: any) => {
                     activeInvestmentType === globalConstant.SIP_INVESTMENT ?
                       <>
                         <Box sx={{ paddingTop: "0px" }}>
-                          <ul className={classes.quickSelectWrapper}>
+                          <ul className={classes.quickSelectWrapper+" "+"quickSelectWrapperMobile"}>
                             {quickPickAmount.map((item, index) => (
                               <li key={index} onClick={() => handleActivePriceAmount(item)} style={{ marginTop: "-7%" }}>
                                 +{item}
@@ -543,6 +545,7 @@ const AddMoreFundsModal = (props: any) => {
                         </Box>&nbsp;
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
+                          className='datePickerIcon'
                             label="SIP Installment Date"
                             value={sid}
                             onChange={(newValue) => {
