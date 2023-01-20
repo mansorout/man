@@ -503,6 +503,7 @@ const ULIPRecommendations = () => {
                                                     fontSize: '12px',
                                                     color: '#8787a2',
                                                 }}>This plan provide tax benefit of 80C</Typography>
+                                              
                                                 <Typography sx={{
                                                     fontSize: '18px',
                                                     fontWeight: 500,
