@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, Stack, TextField, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { store } from '../../Store/Store';
 import { bankuserdetails } from "../../Store/Reducers/action";
@@ -20,20 +20,20 @@ import { RadioButtonChecked, RadioButtonUncheckedOutlined } from "@mui/icons-mat
 const enumErrorMsg = {
     PLEASE_ENTER_VALID_IFSC: "Please enter a valid IFSC Code",
     INVALID_ACC_NUMBER: "Please enter a valid Account Number",
-    ACC_NOT_MATCHED :"Account Number Not Matched",
-    ACC_MATCHED :"Account Number Not Matched",
-    ACC_HOLDER_NAME_REQUIRED :"Account Holder Name Required"
+    ACC_NOT_MATCHED: "Account Number Not Matched",
+    ACC_MATCHED: "Account Number Not Matched",
+    ACC_HOLDER_NAME_REQUIRED: "Account Holder Name Required"
 
 }
 
 
 type addbankaccountdataprops = {
     ifsc: any,
-    accounttype:any
+    accounttype: any
     accountnumber: any
     confirmbankaccount: any
     accountHolder: any
-   
+
 
 
 
@@ -73,16 +73,16 @@ const initialbankData: addbankaccountdataprops = {
 type validateInputsProps = {
     ifsc: boolean,
     accountnumber: boolean,
-    confirmbankaccount:boolean
-    accountHolder:boolean
+    confirmbankaccount: boolean
+    accountHolder: boolean
 
-    
+
 }
 const initialValidateinputsData: validateInputsProps = Object.freeze({
     ifsc: false,
     accountnumber: false,
-    confirmbankaccount:false,
-    accountHolder:false
+    confirmbankaccount: false,
+    accountHolder: false
 })
 
 
@@ -98,7 +98,7 @@ const BankAccountDetails = () => {
     const [confirmBankAcNo, setConfirmBankAcNo] = useState('');
     // const [accountType, setAccountType] = useState('');
     const [accountHolder, setAccountHolder] = useState('');
-    const [greenCheck,setGreenCheck] =useState<boolean>(true);
+
 
     const [ifscError, setIfscError] = useState(false);
     const [bankAcNoError, setBankAcNoError] = useState(false);
@@ -120,14 +120,18 @@ const BankAccountDetails = () => {
     // const [accountType, setAccountType] = useState<any>(activeAccountType);
     const [savingCheck, setSavingCheck] = useState(false)
     const [currentCheck, setCurrentCheck] = useState(false)
-    const [disablecontinueButton,setdisablecontinueButton] =useState<boolean>(false)
+    const [disablecontinueButton, setdisablecontinueButton] = useState<boolean>(false)
     const [timePeriodSelected, setTimePeriodSelected] = React.useState<boolean[]>([true, false, false, false])
+    const [adressFromApi, setadressFromApi] = useState("")
+    const [bankNameFromApi, setbankNameFromApi] = useState("")
+    const [hideBankDetails, sethideBankDetails] = useState(false)
+    const [greenCheck, setGreenCheck] = useState<boolean>(false);
 
     // regexpression validation
     let ifscreg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     let accRegex = /^(\d{10,16})$/
     const handleRegex = (regex: any, value: string) => regex.test(value);
-   
+
     // let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     const userData: any = useSelector(
         (state: any) => state?.authReducer?.profile?.data?.kycdetails?.bankdetails);
@@ -164,19 +168,19 @@ const BankAccountDetails = () => {
 
 
         }))
-   }, [])
+    }, [])
 
-   useEffect(() => {
-    if (bankdetails?.accountnumber && bankdetails?.accountnumber.length) {
-        regexValidate(accRegex, 'accountnumber', bankdetails.accountnumber);
-    }
-  }, [bankdetails?.accountnumber]);
-  useEffect(() => {
-    if (bankdetails?.confirmbankaccount && bankdetails?.confirmbankaccount.length) {
-        confirmAcValidate( 'confirmbankaccount', bankdetails?.confirmbankaccount);
-    }
-  }, [bankdetails?.confirmbankaccount]);
-  
+    useEffect(() => {
+        if (bankdetails?.accountnumber && bankdetails?.accountnumber.length) {
+            regexValidate(accRegex, 'accountnumber', bankdetails.accountnumber);
+        }
+    }, [bankdetails?.accountnumber]);
+    useEffect(() => {
+        if (bankdetails?.confirmbankaccount && bankdetails?.confirmbankaccount.length) {
+            confirmAcValidate('confirmbankaccount', bankdetails?.confirmbankaccount);
+        }
+    }, [bankdetails?.confirmbankaccount]);
+
     console.log(validateInputs.accountnumber)
 
     const regexValidate = (regexType: any, name: string, value: string) => {
@@ -187,13 +191,13 @@ const BankAccountDetails = () => {
         } else {
             bFlag = false;
         }
-       
-       
+
+
 
         setValidateInputs(prev => ({ ...prev, [name]: bFlag }));
         return bFlag;
     }
-    
+
     const confirmAcValidate = (name: string, value: string) => {
         let bFlag: boolean = false;
 
@@ -202,133 +206,136 @@ const BankAccountDetails = () => {
         } else {
             bFlag = false;
         }
-       
-       
+
+
 
         setValidateInputs(prev => ({ ...prev, [name]: bFlag }));
         return bFlag;
     }
-   
+
     const handlechange = (e: any) => {
         e.preventDefault();
-       
+
         let { name, value } = e.target;
         // if (Object.keys(validateInputs).includes(name)){
-            let isValid:boolean = false
-               if (name === "ifsc") {
-                    regexValidate(ifscreg, name, value);
-                }else if(name === "accountnumber"){
-                    regexValidate(accRegex, name, value);
-                } else if(name === "confirmbankaccount"){
-                    confirmAcValidate(name, value);
-                }else {
-                    setValidateInputs((prev: validateInputsProps) => ({
-                        ...prev,
-                        [name]: !value ? true : false
-                    }))
-                }
-    
+        let isValid: boolean = false
+        if (name === "ifsc") {
+            regexValidate(ifscreg, name, value);
+        } else if (name === "accountnumber") {
+            regexValidate(accRegex, name, value);
+        } else if (name === "confirmbankaccount") {
+            confirmAcValidate(name, value);
+        } else {
+            setValidateInputs((prev: validateInputsProps) => ({
+                ...prev,
+                [name]: !value ? true : false
+            }))
+        }
+
         if (name === "accountHolder") {
             value = value.replace(/[^a-z]/gi, '');
-          }
+        }
 
-         
-         
+
+
         setBankDetails({
             ...bankdetails,
             [name]: value
- 
+
 
         })
-   
+
         console.log(name)
         console.log(validateInputs.accountnumber)
-   
+
 
     }
-  // console.log(accountType)
-   const handleBlur = (e:any)=>{
-    
-   }
+    const handleBlur = (e: any) => {
+
+    }
     console.log(bankdetails)
 
     // console.log(bankdetailsnonmand)
 
     // get account detail with ifsc number
 
-    useEffect(()=>{
-        if(validateInputs?.ifsc === false){
+    useEffect(() => {
+        if (validateInputs?.ifsc === false) {
             getifscdetail(bankdetails.ifsc)
         }
-        
-    },[bankdetails.ifsc])
+
+    }, [bankdetails.ifsc])
 
 
     const getifscdetail = async (value: string) => {
 
         // let ifscnumber: number = await bankdetails.ifsc;
-    
+
         getDataWithoutToken(
-          siteConfig.AUTHENTICATION_IFSC_DETAILS + `?ifsc=${value}`,
-          siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-          siteConfig.AUTHENTICATION_API_ID
+            siteConfig.AUTHENTICATION_IFSC_DETAILS + `?ifsc=${value}`,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.AUTHENTICATION_API_ID
         )
-          .then(res => res.json())
-          .then((data: any) => {
-            if (data?.error === true) {
-              return;
-            }
-    
-            console.log(data?.data);
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }
-      const throwErrorOnWrongField = async () => {
+            .then(res => res.json())
+            .then((data: any) => {
+                if (data?.error === true) {
+                    return;
+                }
+
+                sethideBankDetails(true)
+                setadressFromApi(data?.data?.address)
+
+                setbankNameFromApi(data?.data?.bank)
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+    const throwErrorOnWrongField = async () => {
         let throwError: boolean = true;
         let arrFormDataKeys: any[] = [...Object.keys(validateInputs)];
-    
+
         let objValidateInputs: validateInputsProps = { ...validateInputs };
         for (let i = 0; i < arrFormDataKeys.length; i++) {
-          let key = arrFormDataKeys[i];
-         
+            let key = arrFormDataKeys[i];
+
             // @ts-ignore
             if (!bankdetails[key]) {
-              throwError = true;
+                throwError = true;
             } else {
-              throwError = false
+                throwError = false
             }
-         
-         
-          //@ts-ignore
-          objValidateInputs[key] = throwError;
+
+
+            //@ts-ignore
+            objValidateInputs[key] = throwError;
         }
-    
+
         await setValidateInputs((prev: validateInputsProps) => ({
-          ...prev,
-          ...objValidateInputs
+            ...prev,
+            ...objValidateInputs
         }));
         return objValidateInputs;
-      }
+    }
 
-      const isAllFieldsValidated = async (func: () => void) => {
+    const isAllFieldsValidated = async (func: () => void) => {
         // @ts-ignore
         let obj: validateInputsProps = await func();
         let arr: boolean[] = Object.values(obj).filter((item: boolean) => item === true);
         return arr ? arr.length : 0;
-      }
+    }
 
 
     async function handleSubmit(event: any) {
         console.log(validateInputs.accountnumber)
         // if (bankdetails.ifsc !== null && "" && bankdetails.accounttype !== null && "" && bankdetails.accountnumber !== null && "") {
-            await isAllFieldsValidated(throwErrorOnWrongField) 
-              .then(res => {
+        await isAllFieldsValidated(throwErrorOnWrongField)
+            .then(res => {
                 if (res) return;
                 setShouldButtonDisable(true)
                 postData(
-                
+
                     bankdetails,
                     siteConfig.AUTHENTICATION_BANK_ADD,
                     siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
@@ -339,28 +346,28 @@ const BankAccountDetails = () => {
                         setShouldButtonDisable(false);
                         setShowDialog(true)
                         setSuccesMsg("Bank Details Saved")
-    
+
                         if (checkExpirationOfToken(data?.code)) {
                             dispatchLocal(setTokenExpiredStatusAction(true));
                             return;
                         }
-    
+
                         if (data?.error) {
-    
-    
+
+
                         }
-    
-    
+
+
                         setErrorMsg(data?.error)
-    
-    
+
+
                     })
-              })
-         
-                .catch(err => {
-                    console.log(err)
-                })
-        
+            })
+
+            .catch(err => {
+                console.log(err)
+            })
+
     }
 
     // useEffect(() => {
@@ -400,6 +407,16 @@ const BankAccountDetails = () => {
     //     setAccountTypeHelperText('');
     //     setAccountTypeError(false);
     // }
+
+    // useEffect(() => {
+    //     if (validateInputs?.confirmbankaccount === true) {
+
+    //         setGreenCheck(true)
+    //     }
+    //     else {
+    //         setGreenCheck(false)
+    //     }
+    // }, [validateInputs?.confirmbankaccount])
 
 
 
@@ -460,15 +477,15 @@ const BankAccountDetails = () => {
                                     >
                                         <FormControlLabel
 
-                                            control={<Checkbox onChange={() => {handleTimePeriodChange(0);setBankDetails({ ...bankdetails, accounttype: 'savings' })}} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            control={<Checkbox onChange={() => { handleTimePeriodChange(0); setBankDetails({ ...bankdetails, accounttype: 'savings' }) }} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                             label="Savings"
-                                           
+
                                         // value="savings"
                                         />
                                         <FormControlLabel
-                                            control={<Checkbox onChange={() => {handleTimePeriodChange(1);setBankDetails({ ...bankdetails, accounttype: 'current' })}} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
+                                            control={<Checkbox onChange={() => { handleTimePeriodChange(1); setBankDetails({ ...bankdetails, accounttype: 'current' }) }} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                             label="Current"
-                                            
+
                                         // value="current"
                                         />
                                     </RadioGroup>
@@ -503,7 +520,18 @@ const BankAccountDetails = () => {
                                         error={validateInputs?.ifsc}
                                         helperText={validateInputs?.ifsc ? "Please enter a valid IFSC Code" : ""}
                                     />
+                                    {hideBankDetails ?
+                                        <Box sx={{ backgroundColor: "#dff7ea", borderRadius: { xs: "4px", sm: "4px" }, margin: " 10px 0px", padding: "10px" }}>
+                                            <Typography sx={{ fontSize: "14px", fontWeight: "500" }} >
+                                                {bankNameFromApi}
+                                            </Typography>
+                                            <Typography sx={{ fontSize: "12px" }}>
+                                                {adressFromApi}
+                                            </Typography>
+                                        </Box> : ""
+                                    }
                                 </FormControl>
+
 
                                 <FormControl >
                                     <TextField
@@ -525,7 +553,7 @@ const BankAccountDetails = () => {
                                         error={validateInputs?.accountnumber}
                                         helperText={validateInputs?.accountnumber ? "Please enter a valid Account Number" : ""}
                                         InputProps={{
-                                            endAdornment: greenCheck ?  "" :  <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment>,
+                                            endAdornment: greenCheck ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : "",
                                             // helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""},
                                         }}
                                         inputProps={{
@@ -537,17 +565,20 @@ const BankAccountDetails = () => {
 
                                 <FormControl >
                                     <TextField
-                                        
+
                                         // .css-1t7imh1-MuiFormControl-root-MuiTextField-root .MuiOutlinedInput-root {
                                         //     box-shadow: 0 1px 4px 0 rgb(35 219 123 / 74%);
                                         // }
-                                     
-                                       sx={{"& .MuiOutlinedInput-root": {
-                                        "& > fieldset": {
-                                          borderColor: !greenCheck
-                                            ? "#23db7b"
-                                            : "",
-                                        },}}}
+
+                                        sx={{
+                                            "& .MuiOutlinedInput-root": {
+                                                "& > fieldset": {
+                                                    borderColor: greenCheck
+                                                        ? "#23db7b"
+                                                        : "",
+                                                },
+                                            }
+                                        }}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -564,8 +595,8 @@ const BankAccountDetails = () => {
                                         error={validateInputs?.confirmbankaccount}
                                         helperText={validateInputs?.confirmbankaccount ? "Account Number Not Matched" : ""}
                                         InputProps={{
-                                            
-                                            endAdornment: validateInputs?.confirmbankaccount ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : ""  ,
+
+                                            endAdornment: greenCheck ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : "",
                                         }}
                                         inputProps={{
                                             maxLength: 16,
@@ -614,5 +645,5 @@ const BankAccountDetails = () => {
 };
 
 export default BankAccountDetails;
- 
+
 
