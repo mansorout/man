@@ -179,7 +179,8 @@ export default function FundAmtCard(props: AddFundAmtCard) {
               lineHeight: " 1.33",
               letterSpacing: "normal",
               textAlign: " left",
-              color: textColor,
+              // color: textColor,
+              color: "red",
             }}
           >{props?.data?.ErrorMsg != "" ? props?.data?.ErrorMsg || amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` : amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
           {/* <Button

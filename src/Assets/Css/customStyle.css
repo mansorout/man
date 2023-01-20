@@ -1,5 +1,14 @@
 .investInsidePading{padding: 15px;
 }
+.buttonPriceRedeemFund:hover{
+  background-color: #64dbff !important;
+}
+.imageratingRedeem{
+  margin:0px 0px 0px 10px;
+}
+.borderrightColorText{
+  border-right: 1px #bcb8ff4a solid;
+}
 .datePickerIcon .MuiIconButton-sizeMedium{
   color: #6c63ff !important;
 }
@@ -331,6 +340,9 @@
     }
 }
 @media screen and (max-width: 600px){
+  .borderrightColorText{
+    border-right: none;
+  }
   .categoryScrollMobile{
     overflow-x:scroll;
     white-space: nowrap;
@@ -367,6 +379,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .twinButton{
+    padding-left: 0px !important;
+  }
   .dropdownSlect label{
     font-size: 14px !important;
   }
@@ -452,6 +467,9 @@
     
 }
 @media screen and (max-width: 360px){
+  .imageratingRedeem {
+    margin: 1px 10px 0px 4px;
+}
     
     .tabBoxSize{
         font-size: 11px !important;
@@ -462,7 +480,23 @@
     }
 }
 @media screen and (max-width: 280px){
-    
+  .tabClickFont P{
+    font-size: 12px !important;
+  }
+  .tabClickFont{
+    padding: 5px !important;
+  }
+  .buttonPriceRedeemFund{
+    font-size: 14px !important;
+    width: 100% !important;
+  }
+  .buttonPriceRedeemFund p{
+    font-size: 14px;
+  }
+    .taxtTabMedia{
+      font-size: 10px !important;
+      gap:12px !important;
+    }
    .css-4g6ai3 img{
      width: 108px !important;
    }

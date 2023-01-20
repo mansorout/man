@@ -425,10 +425,10 @@ const Portfolio = () => {
               <Grid xs={12} sm={12} md={12}>
                 <Toolbar />
                 <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
-                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Portfolio</Typography>
-                    </Link>
-                  </Breadcrumbs>
+                  <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                    <Typography className='burgerText'>Portfolio</Typography>
+                  </Link>
+                </Breadcrumbs>
 
                 </Box>
               </Grid>
@@ -436,15 +436,17 @@ const Portfolio = () => {
             <Grid container>
               <Grid xs={12} sm={12} md={12}>
                 <Box className="BoxMarginLeftRight">
-                <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
+                        <Typography className='taxtTabMedia' style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
                         <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
                       </Box>
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/sips')}>SIPs</Typography>
-                      <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => { navigate('/sips', { state: { investmenttype_id: 12 } }) }}>SIPs</Typography>
+                      {/* <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => { navigate('/sips', { state: { investmenttype_id: 12 } }) }}>SIPs</Typography> */}
+                      
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
                     </Box>
                   </Box>
                   <Box>
@@ -469,16 +471,17 @@ const Portfolio = () => {
                                   <Grid container padding={2}>
                                     <Grid item sm={6} xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                                       <Grid container>
-                                          <Grid xs={8} sm={8}>
+                                        <Grid xs={8} sm={8}>
                                           <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", }}>
-                                        {/* <img src={chart} alt="chart" width="240px"></img> */}
-                                        {
-                                          holdingGraph?.assetallocation ?
-                                            <CircularBar
-                                              progressData={holdingGraph?.assetallocation}
-                                            />
-                                            : null
-                                        }
+                                            {/* <img src={chart} alt="chart" width="240px"></img> */}
+                                            {
+                                              holdingGraph?.assetallocation ?
+                                                <CircularBar
+                                                  progressData={holdingGraph?.assetallocation}
+                                                />
+                                                : null
+                                            }
+
 
                                        
                                       </Box>
@@ -487,34 +490,34 @@ const Portfolio = () => {
                                           <Box sx={{marginTop:{xs:"0px", sm:"30px"}}}>
                                           <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                                             <Box style={{ padding: "6px", backgroundColor: "#23db7b", borderRadius: "50%" }}></Box>
-                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>EQUITY</Typography>
+                                            <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>EQUITY</Typography>
                                           </Box>
                                           <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                                             <Box style={{ padding: "6px", backgroundColor: "#fdc100", borderRadius: "50%" }}></Box>
-                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>DEBT</Typography>
+                                            <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>DEBT</Typography>
                                           </Box>
                                           <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                                             <Box style={{ padding: "6px", backgroundColor: "#4979e8", borderRadius: "50%" }}></Box>
-                                            <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>BALANCED</Typography>
+                                            <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>BALANCED</Typography>
                                           </Box>
                                         </Box>
                                           </Grid>
                                       </Grid>
-                                     
+
                                     </Grid>
                                     <Grid item sm={6} xs={12} m={"auto"} >
-                                    <Box style={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px", justifyContent: "space-between" }}>
-                                      <Box style={{ width: "40%", minWidth: "200px" }}>
-                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
-                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalinvestedvalue}</Typography>
+                                    <Box sx={{gap:{xs:"5px", sm:"20px"}, marginTop:{xs:"10px", sm:"0"}}} style={{ display: "flex", flexWrap: "wrap", width: "100%",justifyContent: "space-between" }}>
+                                      <Box sx={{width:{xs:"40%", sm:"40%"}, minWidth:{xs:"70px", sm:"200px"}}}>
+                                        <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}} >Invested Value</Typography>
+                                        <Typography sx={{fontSize:{xs:"14px", sm:"18px"},color: '#3c3e42'}}>₹{holdingGraph?.totalinvestedvalue}</Typography>
                                       </Box>
-                                      <Box style={{ width: "40%", minWidth: "200px" }}>
-                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
-                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.totalcurrentvalue}</Typography>
+                                      <Box sx={{width:{xs:"40%", sm:"40%"}, minWidth:{xs:"70px", sm:"200px"}}}>
+                                        <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>Current Value</Typography>
+                                        <Typography sx={{fontSize:{xs:"14px", sm:"18px"},color: '#3c3e42'}}>₹{holdingGraph?.totalcurrentvalue}</Typography>
                                       </Box>
-                                      <Box style={{ width: "40%", minWidth: "200px" }}>
-                                        <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
-                                        <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{holdingGraph?.absolutereturn}</Typography>
+                                      <Box sx={{width:{xs:"40%", sm:"40%"}, minWidth:{xs:"70px", sm:"200px"}}}>
+                                        <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>Absolute Return</Typography>
+                                        <Typography sx={{fontSize:{xs:"14px", sm:"18px"},color: '#3c3e42'}}>₹{holdingGraph?.absolutereturn}</Typography>
                                       </Box>
                                     </Box>
                                     <Button variant="contained" style={style.button2} fullWidth onClick={() => navigate("/reports")}>
@@ -564,7 +567,6 @@ const Portfolio = () => {
                                     variableFundList.length ?
                                     <>
                                       {variableFundList.map((item: any, index: number) => {
-                                        console.log(item);
                                         return (
                                           <HoldingCards
                                             key={index}
