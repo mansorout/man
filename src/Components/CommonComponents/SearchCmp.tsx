@@ -5,7 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import { Grid, Modal, Theme, Typography } from '@mui/material'
+import { Checkbox, FormGroup, FormHelperText, Grid, Modal, Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import Tabs from '@mui/material/Tabs';
@@ -39,7 +39,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         top: '100%',
         minWidth: '100%',
         width: '360px',
-        right: '-400px',
+        right: '-300%',
         zIndex: '11',
         transition: 'all 0.3s ease-in-out',
         '@media(max-width: 400px)': {
@@ -126,6 +126,11 @@ type sortTypes = {
     label: string;
 }
 
+const enumSelectedType = {
+    RADIO: 'radio',
+    CHECKED: 'checked',
+}
+
 interface SearchCmpProps {
     // sort: sortTypes[];
     // policyTerm: radioTypes[];
@@ -151,6 +156,14 @@ const SearchCmp = (props: SearchCmpProps) => {
         setValue(newValue);
     };
 
+    const handleCheckedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // setState({
+        //   ...state,
+        //   [event.target.name]: event.target.checked,
+        // });
+        console.log('checked :', event)
+      };
+    
 
     return (
         <Box className={classes.searchCmp}>
@@ -215,31 +228,67 @@ const SearchCmp = (props: SearchCmpProps) => {
                         {
                             props?.filtersOptions && props?.filtersOptions.length && props?.filtersOptions?.map((parentItem: any, parentIndex: number) => (
                                 <TabPanel value={value} index={parentIndex}>
-                                    <FormControl>
-                                        <RadioGroup
-                                            aria-labelledby="demo-radio-buttons-group-label"
-                                            defaultValue="highToLowReturn"
-                                            name="radio-buttons-group"
-                                            // value={props.sortValue}
-                                            // onChange={(e) => props.sortCb(e)}
-                                            // onChange={(e) => props.handleCB({parentItem,e})}
-                                            className={classes.radioStyle}
-                                        >
-                                            {
-                                                parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
-                                                    <FormControlLabel
-                                                        className={classes.radioStyle}
-                                                        value={nestedItem?.value}
-                                                        control={<Radio />}
-                                                        label={nestedItem?.label}
-                                                        onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
-                                                    />
-                                                    // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
-                                                    // ))
-                                                ))
-                                            }
-                                        </RadioGroup>
-                                    </FormControl>
+                                    {
+                                        parentItem && parentItem?.selectType === enumSelectedType.RADIO ?
+                                         (
+                                            <FormControl>
+                                                <RadioGroup
+                                                    aria-labelledby="demo-radio-buttons-group-label"
+                                                    defaultValue="highToLowReturn"
+                                                    name="radio-buttons-group"
+                                                    // value={props.sortValue}
+                                                    // onChange={(e) => props.sortCb(e)}
+                                                    // onChange={(e) => props.handleCB({parentItem,e})}
+                                                    className={classes.radioStyle}
+                                                >
+                                                    {
+                                                        console.log("parentItem :", parentItem)
+                                                    }
+                                                    {
+                                                        parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                            <FormControlLabel
+                                                                className={classes.radioStyle}
+                                                                value={nestedItem?.value}
+                                                                control={<Radio />}
+                                                                label={nestedItem?.label}
+                                                                onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
+                                                            />
+                                                            // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
+                                                            // ))
+                                                        ))
+                                                    }
+                                                </RadioGroup>
+                                            </FormControl>
+                                         ) : (
+                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                                {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
+                                                <FormGroup>
+                                                    
+                                                {
+                                                        parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                            <FormControlLabel
+                                                                className={classes.radioStyle}
+                                                                value={nestedItem?.value}
+                                                                control={<Checkbox />}
+                                                                label={nestedItem?.label}
+                                                                onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
+                                                            />
+                                                            // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
+                                                            // ))
+                                                        ))
+                                                    }
+                                                    {/* <FormControlLabel
+                                                        control={
+                                                            <Checkbox checked={true} onChange={handleCheckedChange} name="gilad" />
+                                                        }
+                                                        label="Gilad Gray"
+                                                    /> */}
+        
+                                                </FormGroup>
+                                            </FormControl>
+                                         )
+                                    }
+
                                 </TabPanel>
                             ))
                         }

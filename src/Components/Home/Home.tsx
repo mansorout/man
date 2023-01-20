@@ -393,8 +393,8 @@ const Home = () => {
               }
             </Grid>
             <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={5} lg={4}>
-              <Box sx={{marginTop:{xs:"-50px", sm:"unset"}}}>
-              <Toolbar />
+              <Box sx={{ marginTop: { xs: "-50px", sm: "unset" } }}>
+                <Toolbar />
               </Box>
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
@@ -424,7 +424,7 @@ const Home = () => {
                 })
               }
               <Grid spacing={1} container sx={{ px: "1rem" }}>
-                <Grid item xs={12} sm={12} md={6}>
+                <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad1} alt="Ad1" />
                   </Box>
@@ -432,7 +432,7 @@ const Home = () => {
                     <img width="100%" src={Ad1_1} alt="Ad1" />
                   </Box>
                 </Grid>
-                <Grid onClick={() => navigate("/investnowscreen")} item xs={12} sm={12} md={6}>
+                <Grid onClick={() => navigate("/startAnSip")} item xs={12} sm={12} md={6}>
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad1" />
                   </Box>

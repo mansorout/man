@@ -104,9 +104,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 interface AddFundAmtCard {
   data: any;
-  handleOnChangeFunAddFund: (e: any, param: any) => void;
+  handleOnChangeFunAddFund: (e: any, param: any, index: number) => void;
   removeBtnAction: (param: any) => void;
   errorAmount: any;
+  index: number
 }
 
 export default function FundAmtCard(props: AddFundAmtCard) {
@@ -125,6 +126,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
     if (strtype === "no") return
     if (props?.removeBtnAction) props?.removeBtnAction(removeItem);
   };
+
   function handleOnBlurAmount(e: any) {
     if (amount < props.data.lumpsumminamount) {
       setError(true)
@@ -137,12 +139,14 @@ export default function FundAmtCard(props: AddFundAmtCard) {
     }
 
   }
+
   let textColor = "#8787a2"
   if (amount === "" || !amount || amount?.length == 0) {
     textColor = "#8787a2"
   } else if (amount < props?.data?.sipminamount || amount < props?.data?.lumpsumminamount) {
     textColor = 'red'
   }
+
   return (
     <>
       <Grid xs={12} sm={12}>
@@ -155,11 +159,14 @@ export default function FundAmtCard(props: AddFundAmtCard) {
             placeholder='₹1,00,000'
             onBlur={handleOnBlurAmount}
             onChange={(e) => {
-              props?.handleOnChangeFunAddFund(e, props?.data)
+              props?.handleOnChangeFunAddFund(e, props?.data, props?.index)
               setAmount(e.target.value)
             }}
             value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount : ''}
-            sx={{ width: "500px", maxWidth: "80%" }} ></TextField>
+            sx={{ width: "500px", maxWidth: "100%" }}
+          >
+
+          </TextField>
           <Typography
             sx={{
               height: "14px",
@@ -175,12 +182,14 @@ export default function FundAmtCard(props: AddFundAmtCard) {
               color: textColor,
             }}
           >{props?.data?.ErrorMsg != "" ? props?.data?.ErrorMsg || amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` : amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
-          <Button onClick={() => {
-            setRemoveItem(props?.data)
-            setRemoveConfirmation(true)
-          }} sx={{ position: "absolute", right: "0", textAlign: "center", top: "0", justifyContent: "end", height: "55px" }} variant="outlined" startIcon={<DeleteIcon />}>
+          {/* <Button
+            onClick={() => {
+              setRemoveItem(props?.data)
+              setRemoveConfirmation(true)
+            }}
+            sx={{ position: "absolute", right: "0", textAlign: "center", top: "0", justifyContent: "end", height: "55px" }} variant="outlined" startIcon={<DeleteIcon />}>
 
-          </Button>
+          </Button> */}
         </Box>
       </Grid>
       <Dialog

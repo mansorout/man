@@ -131,6 +131,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
                         </Box>
+                        &nbsp;
                             <FormControlLabel sx={{margin:'0px 5px'}} value="female" control={<Radio />} label="" />
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)' }} component='p'>Projected Amt.</Typography>
                     </Box>
