@@ -443,15 +443,9 @@ const ULIPRecommendations = () => {
                     <Sidebar />
                     <Grid container  className="sxtowel">
                         <Grid
-                          sx={{     height: "100vh",
-                padding: 0,
-                boxSizing: "border-box",
-                   overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
-                            {/* <Grid container >
-                                    <Grid container spacing={0} > */}
-                            <Grid container item sx={{ overflow: "hidden" }} xs={12}>
-
-                                <Box sx={{
+                          sx={{height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
+                               <Grid container item sx={{ overflow: "hidden" }} xs={12}>
+                                  <Box sx={{
                                     backgroundColor: "#f9f9f9",
                                     paddingBottom: "50px",
 
@@ -493,13 +487,13 @@ const ULIPRecommendations = () => {
                                             color: '#6c63ff',
                                             marginBottom: '1vw',
                                         }}>
-                                            <Link href="/home">Home</Link>
-                                            <Link href="/insurance">Get Insured</Link>
-                                            <Link href="/ulip/investoptions">ULIP</Link>
+                                          
+                                            <Link onClick={()=>navigate("/insurance")} sx={{cursor:"pointer"}}>Get Insured</Link>
+                                            <Link onClick={()=>navigate("/ulip/investoptions")} sx={{cursor:"pointer"}}>ULIP</Link>
                                             <Typography sx={{
                                                 fontSize: '12px',
                                                 color: '#373e42'
-                                            }}>SprintMoney Recommendation</Typography>
+                                            }} >SprintMoney Recommendation</Typography>
                                         </Breadcrumbs>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                             <Box>
@@ -559,8 +553,10 @@ const ULIPRecommendations = () => {
                                                                 knowMoreAction={() => handleKnowMoreDialog()}
                                                                 downloadBrochuraAction={() => console.log("downloadBrochuraAction Acrion")}
                                                             />
+                                                            
                                                         ))
                                                     }
+                                                   
                                                 </RadioGroup>
                                             </FormControl>
                                         </Box>

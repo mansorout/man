@@ -67,6 +67,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             '@media(max-width: 700px)':{
                 width: '40%'
             },
+            '@media(width: 820px)':{
+                 flexWrap:"wrap-reverse",
+                justifyContent: 'flex-start',
+            },
+
         }
     },
     btnGroup: {
@@ -118,12 +123,12 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
         <div className='cardWrapperstyle'>
               <Box className={classes.cardWrapper}>
             <Grid container >
-                <Grid item sm={6} xs={12}>
+                <Grid item sm={6} xs={12} className="paddingLeft">
                     <Box className={classes.logoWrapper}>
                         <Box className={classes.imgWrapper}>
                             <img src={props.logoUrl} alt="" />
                         </Box>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)' }} component='p'>{props.companyName}</Typography>
+                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)',fontWeight:"500" }} component='p'>{props.companyName}</Typography>
                     </Box>
                 </Grid>
                 <Grid item sm={6} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
@@ -131,14 +136,13 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
                         </Box>
-                        &nbsp;
                             <FormControlLabel sx={{margin:'0px 5px'}} value="female" control={<Radio />} label="" />
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)' }} component='p'>Projected Amt.</Typography>
                     </Box>
                 </Grid>
             </Grid>
 
-            <Box>
+<Box>
                 <ul className={classes.listStyle}>
                     <li>
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Top Performing Fund (10 Years)*</Typography>
@@ -158,6 +162,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                     </li>
                 </ul>
             </Box>
+
+         
             <Box>
                 <Box className={classes.btnGroup}>
                     <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}>
