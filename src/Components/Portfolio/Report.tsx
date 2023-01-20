@@ -20,7 +20,7 @@ import { getReportsCapitalgainThunk, getReportsPortfolioThunk, getReportsTransac
 import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { useDispatch } from 'react-redux'
-
+import './Portfolio.css'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -355,8 +355,8 @@ const Report = () => {
                                 OpenPickerIcon: CalendarTodayIcon,
                               }}
                             />
-                            <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
-                              <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
+                            <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}  className="buttonStyeReport">
+                              <Typography component="span" style={style.text} className="largeButtonText">Get Reporthhh</Typography>
                             </Button>
                           </Box> :
                           optSelected[enumReportTypes.TRANSACTION_HISTORY] ?
@@ -381,7 +381,7 @@ const Report = () => {
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
                               />
-                              <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
+                              <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports} className="ButtReportStyle">
                                 <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
                               </Button>
                             </Box> :
@@ -435,7 +435,7 @@ const Report = () => {
                                     }}
                                   />
                                   <Button variant="contained" style={style.button3} fullWidth onClick={handleGetReports}>
-                                    <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
+                                    <Typography component="span" style={style.text} className="largeButtonText">wwwwwww</Typography>
                                   </Button>
                                 </Box>
                               </Box>
