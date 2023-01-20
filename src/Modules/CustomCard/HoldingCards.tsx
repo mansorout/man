@@ -185,32 +185,50 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
 
   return (
     <>
-      <Box style={{ position: "relative", gap: "20px", flexWrap: "wrap", overflowX: "scroll", marginBottom: "15px", display: "flex", backgroundColor: "white", borderRadius: "8px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding: "10px 40px 10px 20px" }}>
-        <Box style={{ display: "flex", flexWrap: "wrap", gap: "10px", width: "100%", maxWidth: "300px" }}>
-          <Box style={{ overflow: "hidden", height: "32px", width: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
-            <img src={meria} width="100%" alt='mirae'></img>
-          </Box>
-          <Box>
-            <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{name}</Typography>
-            <Box style={{ display: "flex", gap: "10px" }}>
-              <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{cap}</Typography>
+      <Box sx={{padding:{xs:"10px 9px 10px 8px", sm:"10px 40px 10px 20px"}}} style={{ position: "relative", gap: "20px", flexWrap: "wrap", overflowX: "scroll", marginBottom: "15px", display: "flex", backgroundColor: "white", borderRadius: "8px", justifyContent: "space-between", alignItems: "center", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",}}>
+        <Grid container>
+          <Grid xs={12} sm={6}>
+            <Box style={{ display: "flex", flexWrap: "wrap", gap: "10px", width: "100%", }}>
+              <Box style={{ overflow: "hidden", height: "32px", width: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
+                <img src={meria} width="100%" alt='mirae'></img>
               </Box>
-              <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{type}</Typography>
+              <Box>
+                <Typography sx={{fontSize:{xs:"12px", sm:"16px", paddingRight:"27px"}}} style={{ marginBottom: "10px", color: "#3c3e42", fontWeight: "500", lineHeight: "1.19" }}>{name}</Typography>
+                <Box style={{ display: "flex", gap: "10px" }}>
+                  <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
+                    <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{cap}</Typography>
+                  </Box>
+                  <Box style={{ padding: "4px 5px", backgroundColor: "rgba(123, 123, 157, 0.16)" }}>
+                    <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>{type}</Typography>
+                  </Box>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Box>
-        {/* <Box sx={{ mx: { xs: "auto", sm: "30px" }, padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
-          <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{price}</Typography>
-        </Box> */}
-        <Box style={{ display: "flex", gap: "30px", flexWrap: 'wrap' }}>
-          <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{invested}</Typography>
-          </Box>
-          {/* {
+          </Grid>
+          <Grid xs={12} sm={6}>
+            <Grid container>
+                <Grid xs={4} sm={3}>
+                <Box sx={{margin:{xs:"10px 0", sm:"0px"}}}>
+                <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>Invested Value</Typography>
+                <Typography sx={{fontSize:{xs:"12px", sm:"18px"},color: '#3c3e42'}}>₹{invested}</Typography>
+              </Box>
+                </Grid>
+                <Grid xs={4} sm={4}>
+                <Box sx={{margin:{xs:"10px 0", sm:"0px"}}}>
+                <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>Current Value</Typography>
+                <Typography sx={{fontSize:{xs:"12px", sm:"18px"},color: '#3c3e42'}}>₹{current}</Typography>
+              </Box>
+                </Grid>
+                <Grid xs={4} sm={5}>
+                <Box sx={{margin:{xs:"10px 0", sm:"0px"}}}>
+                <Typography sx={{fontSize:{xs:"11px", sm:"14px"},color: '#7b7b9d'}}>Absolute Return</Typography>
+                <Typography sx={{fontSize:{xs:"12px", sm:"18px"},color: '#3c3e42'}}>₹{absolute} <span style={{ color: `${result == 'profit' ? '#23db7b' : '#db2323'}` }}>{`(${result == 'profit' ? '+' : '-'} ${absoluteReturnInPercent})`}</span></Typography>
+              </Box>
+                </Grid>
+            </Grid>
+            <Box style={{ display: "flex", gap: "30px", flexWrap: 'wrap' }}>
+             
+              {/* {
             type == "Debt" ?
               <Box>
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3 yrs returns</Typography>
@@ -221,16 +239,10 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
                 <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{current}</Typography>
               </Box>
           } */}
-          <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Current Value</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{current}</Typography>
-          </Box>
-          <Box>
-            <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
-            <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{absolute} <span style={{ color: `${result == 'profit' ? '#23db7b' : '#db2323'}` }}>{`(${result == 'profit' ? '+' : '-'} ${absoluteReturnInPercent})`}</span></Typography>
-          </Box>
+            
+             
 
-          {/* {
+              {/* {
             type == "Balanced" ?
               <Box>
                 <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Absolute Return</Typography>
@@ -241,12 +253,19 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
                 <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>₹{year5} <span style={{ color: `${result == 'profit' ? '#23db7b' : '#db2323'}` }}>{`(${result == 'profit' ? '+' : '-'} ${margin})`}</span></Typography>
               </Box>
           } */}
-        </Box>
-        <Box onClick={handleMoreIcon} style={{ right: '10px', top: '10px', position: "absolute", backgroundColor: "rgba(123, 123, 157, 0.16)", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "2px", width: "28px", height: "28px", borderRadius: "50%" }}>
-          <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
-          <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
-          <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
-        </Box>
+            </Box>
+            <Box onClick={handleMoreIcon} style={{ right: '10px', top: '10px', position: "absolute", backgroundColor: "rgba(123, 123, 157, 0.16)", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "2px", width: "28px", height: "28px", borderRadius: "50%" }}>
+              <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
+              <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
+              <Box style={{ backgroundColor: "#6c63ff", width: "4px", height: "4px", borderRadius: "50%" }}></Box>
+            </Box>
+          </Grid>
+        </Grid>
+
+        {/* <Box sx={{ mx: { xs: "auto", sm: "30px" }, padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
+          <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>₹{price}</Typography>
+        </Box> */}
+
       </Box>
       <MenuUnstyled
         style={{ zIndex: 5000 }}
