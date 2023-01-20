@@ -153,7 +153,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
                     </li>
              
-                    <li >
+                    <li>
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Invested Value</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.investedVlaue}</Typography>
                     </li>
