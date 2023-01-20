@@ -337,6 +337,7 @@ const ULIPRecommendations = () => {
             borderColor: '#fff',
         },
         button: {
+        
             height: "48px",
             boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
             backgroundColor: "#23db7b",
@@ -441,6 +442,7 @@ const ULIPRecommendations = () => {
                 <Box sx={style.main}>
                     <Toolbar />
                     <Sidebar />
+                    <Typography></Typography>
                     <Grid container  className="sxtowel">
                         <Grid
                           sx={{height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
