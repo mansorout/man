@@ -234,12 +234,18 @@ const FundDetails = () => {
 
           if (item === siteConfig.RECOMMENDATION_FUND_DETAIL) {
             setFundDetails(data?.data ? data?.data : {})
-            setLoading(false);
+
+            setTimeout(() => {
+              setLoading(false);
+            }, 500);
           } else {
             setFundNavDetails(data?.data ? data?.data : []);
           }
         })
         .catch(err => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
           console.log(err)
         })
     })

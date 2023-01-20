@@ -41,6 +41,7 @@ import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/global
 import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
 import SelectedFunds from './SelectedFunds'
 import AddMoreFunds from './AddMoreFunds';
+import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
 
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
@@ -189,8 +190,8 @@ function ExploreFunds(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
-  const [addAllFunds, setAddAllFunds] = useState<any[]>([]);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
   const [initialMFData, setInitialMFData] = useState<boolean>(false);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
@@ -198,8 +199,8 @@ function ExploreFunds(props: any) {
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
   const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
-  const [buttonDisable, setButtonDisable] = useState<boolean>(true);
-  const [errorAmount, setErrorAmount] = React.useState<any>("");
+
+
 
   const g_investment: any = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
@@ -275,10 +276,16 @@ function ExploreFunds(props: any) {
   }
 
   const getMasterFundList = async (url: string) => {
+    setLoading(true);
     let res: apiResponse = await getMasterFundListThunk(url);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
     // @ts-ignore
     handleApiResponse(res?.data, [setMasterFundList]);
-  }
+  };
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
 
@@ -319,7 +326,7 @@ function ExploreFunds(props: any) {
       if (res?.data) item(res?.data);
     })
 
-  }
+  };
 
   const handlingFeatureWiseCard = async (arrRecom: any[]) => {
     if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
@@ -350,7 +357,7 @@ function ExploreFunds(props: any) {
       // setIsInitialVariableFundListFetched(true);
     }
 
-  }
+  }; 
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
@@ -368,7 +375,7 @@ function ExploreFunds(props: any) {
     } else {
       setIsInitialVariableFundListFetched(false);
     }
-  }
+  };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
     dispatch(AnchorOpenAction(event));
@@ -394,7 +401,7 @@ function ExploreFunds(props: any) {
     } else {
       console.log("master fund list is empty");
     }
-  }
+  };
 
   const handleNavigationOfFundDetails = (secid: string) => {
     if (secid) {
@@ -402,11 +409,11 @@ function ExploreFunds(props: any) {
     } else {
       console.log(secid, "invalid secid");
     }
-  }
+  };
 
   const getTotalFundCound = (categorygroup: string) => {
     // return 
-  }
+  };
 
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
 
@@ -425,7 +432,6 @@ function ExploreFunds(props: any) {
       let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
 
       setFundSelecteds(arrNew);
-      setAddAllFunds(arrNew)
       // setMasterFundList(arrMasterFundList);
       setVariableMasterFundList(arrMasterFundList);
     } else if (status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
@@ -456,49 +462,13 @@ function ExploreFunds(props: any) {
 
 
     }
-  }
+  };
+
   const handleClose = () => {
     setAddFundOpen(false);
   };
 
-  // let ddd:any =[];
-  const handleRemoveAddFund = (itemKey: any) => {
-    const temp: any = addAllFunds && addAllFunds?.length && addAllFunds.filter((item: any) => item?.secid !== itemKey?.secid);
-    setAddAllFunds(temp)
-  }
 
-  const handleOnChangeFunAddFund = (e: any, key: any,) => {
-    const temp: any = [];
-    addAllFunds && addAllFunds?.length && addAllFunds.map((item: any) => {
-      if (item?.secid === key?.secid) {
-        item.userRecommendedAmount = parseInt(e.target.value);
-        item.ErrorMsg = !isMultipleofNumber(parseInt(e.target.value), 100) ? "Amount should be multiple of 100" : ""
-      }
-      temp.push(item)
-    })
-    // console.log(temp)
-    // temp.map((item: any) => {
-    //   if (item?.userRecommendedAmount === 0) {
-    //     console.log(item?.userRecommendedAmount)
-    //   } else {
-    //     console.log("fff")
-    //   }
-    // })
-    // if(temp){
-    //   setButtonDisable(true)
-    // }
-
-
-
-
-    setAddAllFunds(temp)
-  }
-
-  const buyNow = () => {
-    dispatch(setSelectedFundsForInvestmentAction(addAllFunds));
-    setAddFundOpen(false)
-    navigate("/customizemf");
-  };
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -509,6 +479,9 @@ function ExploreFunds(props: any) {
             <Toolbar />
             <Sidebar />
           </Grid>
+          <SprintMoneyLoader
+            loadingStatus={loading}
+          />
           <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll" } }} item xs={12}>
               <Toolbar />
@@ -597,7 +570,6 @@ function ExploreFunds(props: any) {
                               setActiveCategoryGroupIndex(index);
                               let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
                               setFundSelecteds([]);
-                              setAddAllFunds([]);
                               setInitialMFData(false);
                               setIsInitialVariableFundListFetched(false);
                               getMasterFundList(url);
@@ -637,6 +609,7 @@ function ExploreFunds(props: any) {
                         activeIndex={index}
                         onCardClick={handleNavigationOfFundDetails}
                         onClick={handleAddFundsSelection}
+                        cefType={false}
                       />
                     </Box>
                   )
@@ -672,12 +645,12 @@ function ExploreFunds(props: any) {
                         } else if (status === globalConstant.CEF_ADD_FUND) {
 
                           // setSelctedFundDialog(true);
-                          dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
-                          // setAddFundOpen(true)
+                          // dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
+                          setAddFundOpen(true)
                           // console.log(addAllFunds)
 
 
-                          navigate("/customizemf");
+                          // navigate("/customizemf");
                         } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
                           dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
@@ -722,57 +695,12 @@ function ExploreFunds(props: any) {
 
       </Box>
       <Box>
-        <Dialog
-          open={addFundOpen}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Selected Funds"}
-          </DialogTitle>
-          <DialogContent>
-            <Grid container>
-              {
-                addAllFunds && addAllFunds?.length &&
-                addAllFunds?.map((selectedFund: any, index: any) => (
-                  <AddMoreFunds
-                    data={selectedFund}
-                    handleOnChangeFunAddFund={handleOnChangeFunAddFund}
-                    removeBtnAction={(item) => handleRemoveAddFund(item)}
-                    errorAmount={errorAmount}
-                  />
-                  // <>
-                  //   <Grid xs={12} sm={12}>
-                  //     <p>{selectedFund.fundname}</p>
-                  //     <Box sx={{position:"relative"}}>
-                  //     <TextField sx={{width:"500px", maxWidth:"80%"}} id="outlined-basic" label="Outlined" variant="outlined" />
-                  //     <Button onClick={() => { handleRemoveAddFund(selectedFund) }} sx={{position:"absolute", right:"0", textAlign:"center", justifyContent: "end",height: "55px"}} variant="outlined" startIcon={<DeleteIcon />}>
 
-                  //   </Button>
-                  //     </Box>
-                  //   </Grid>
-                  //   </>
-                ))
-
-              }
-
-            </Grid>
-          </DialogContent>
-          <DialogActions>
-            {
-              buttonDisable ? <>
-                <Button>Buy Now hidden</Button></>
-                : <>
-                  <Button onClick={buyNow}>Buy Now</Button>
-                </>
-            }
-            <Button onClick={handleClose} >
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-
+        <SelectedFundsDialog
+          addFundOpen={addFundOpen}
+          handleClose={handleClose}
+          fundSelecteds={fundSelecteds}
+        />
       </Box>
     </Box >
 
@@ -780,6 +708,144 @@ function ExploreFunds(props: any) {
 }
 
 export default ExploreFunds;
+
+
+const SelectedFundsDialog = (props: any) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [error, setError] = React.useState<any>("");
+  const [addAllFunds, setAddAllFunds] = useState<any[]>([]);
+  const [errorAmount, setErrorAmount] = React.useState<any>("");
+  const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+
+  useEffect(() => {
+    return () => {
+      setError("");
+    }
+  })
+
+  useEffect(() => {
+    let arrFundSelecteds: any[] = [...props?.fundSelecteds]
+    if (arrFundSelecteds && arrFundSelecteds.length) {
+      let arrNew: any[] = arrFundSelecteds.map((item: any) => {
+        return {
+          ...item,
+          ["userRecommendedAmount"]: 0,
+          ["ErrorMsg"]: ""
+        }
+      })
+
+      console.log(arrNew, "arrNew");
+      setAddAllFunds(arrNew);
+    }
+  }, [props?.fundSelecteds])
+
+
+  const handleOnChangeFunAddFund = (e: any, key: any, index: number) => {
+    let arrAddAllFunds: any[] = [...addAllFunds];
+
+    arrAddAllFunds[index]["ErrorMsg"] = "";
+    setError("");
+
+    let { value } = e?.target
+
+    value = parseInt(value);
+
+    if (!value) return;
+
+    arrAddAllFunds[index]["userRecommendedAmount"] = value;
+
+
+    if (!isMultipleofNumber(parseInt(value), 100)) {
+      arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100"
+    } else {
+      arrAddAllFunds[index]["ErrorMsg"] = "";
+    }
+
+    setAddAllFunds(arrAddAllFunds);
+  }
+
+  const buyNow = () => {
+    let arrFiltered: any[] = addAllFunds.filter((item: any) => item?.userRecommendedAmount === 0);
+
+    if (arrFiltered && arrFiltered.length) {
+      setError("Please fill all the investment amount fields!");
+      return;
+    }
+
+    dispatch(setSelectedFundsForInvestmentAction(addAllFunds));
+    props?.handleClose();
+    navigate("/customizemf");
+  };
+
+  return (
+    <Dialog
+      open={props?.addFundOpen}
+      onClose={props?.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Selected Funds"}
+      </DialogTitle>
+      <DialogContent>
+        <Grid container>
+          {
+            addAllFunds &&
+            addAllFunds?.length &&
+            addAllFunds?.map((item: any, index: number) => {
+              return (
+                <Box key={index}>
+                  <AddMoreFunds
+                    data={item}
+                    index={index}
+                    handleOnChangeFunAddFund={handleOnChangeFunAddFund}
+                    // removeBtnAction={(data) => handleRemoveAddFund(data)}
+                    removeBtnAction={(data) => null}
+                    errorAmount={errorAmount}
+                  />
+                </Box>
+              )
+            })
+
+          }
+
+        </Grid>
+        {
+          error && error.length ?
+            <Box>
+              <Typography sx={{ color: "red", fontSize: "12px" }}>
+                {error}
+              </Typography>
+            </Box>
+            : null
+        }
+      </DialogContent>
+      <DialogActions>
+
+        <Button onClick={buyNow} disabled={buttonDisable}>Buy Now</Button>
+
+        <Button onClick={props?.handleClose} >
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
+
+
+// <>
+//   <Grid xs={12} sm={12}>
+//     <p>{selectedFund.fundname}</p>
+//     <Box sx={{position:"relative"}}>
+//     <TextField sx={{width:"500px", maxWidth:"80%"}} id="outlined-basic" label="Outlined" variant="outlined" />
+//     <Button onClick={() => { handleRemoveAddFund(selectedFund) }} sx={{position:"absolute", right:"0", textAlign:"center", justifyContent: "end",height: "55px"}} variant="outlined" startIcon={<DeleteIcon />}>
+
+//   </Button>
+//     </Box>
+//   </Grid>
+//   </>
 
 
 // Breadcrumbs code 
