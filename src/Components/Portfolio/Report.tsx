@@ -7,7 +7,7 @@ import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, Lis
 import { Assessment, Home as HomeIcon, MenuRounded, PowerSettingsNew, RadioButtonChecked, RadioButtonUncheckedOutlined, Search } from '@mui/icons-material'
 import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
 import { ExpandLessOutlined, ExpandMoreOutlined, Support } from '@mui/icons-material';
-import { AppBar, Button, Divider, Theme } from '@mui/material';
+import { AppBar, Button, Divider, Theme, Breadcrumbs, Link } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Logo, Profile } from '../../Assets/index'
 import { useNavigate } from 'react-router-dom'
@@ -279,21 +279,30 @@ const Report = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Box style={{ width: "100vw" }} ref={refContainer}>
         <Navbar />
-        <Box sx={style.main}>
-          <Grid container spacing={0} >
+        <Box sx={{ width: "100%" }}>
+          <Grid container spacing={0}>
             <Grid item xs={0} sm={1} md={2}>
               <Toolbar />
               <Sidebar />
             </Grid>
-            <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={12} sm={11} md={10}>
-              <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-                <Toolbar />
-                <Grid container>
-                  <Grid item xs={12} sx={{ padding: 2 }}>
+            <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+              <Grid container>
+                <Grid xs={12} sm={12} md={12}>
+                  <Toolbar />
+                  <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Portfolio</Typography>
+                    </Link>
+                  </Breadcrumbs>
 
-
+                  </Box>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid xs={12} sm={12} md={12}>
+                  <Box className="BoxMarginLeftRight">
                     <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
+                      <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                         <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
 
                         <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
@@ -432,12 +441,13 @@ const Report = () => {
                               </Box>
                       }
                     </Box>
-                  </Grid>
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Box>
+
       </Box>
     </LocalizationProvider>
   )

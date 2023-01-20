@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Box, styled } from "@mui/system";
 import {
@@ -240,6 +240,10 @@ const AddMoreFundsModal = (props: any) => {
   const [quickPickAmount, setQuickPickAmount] = useState<number[]>([1000, 5000, 10000]);
   const [activeInvestmentType, setActiveInvestmentType] = useState<string>(globalConstant.LUMPSUM_INVESTMENT);
 
+  useEffect(() => {
+    setError("")
+  }, [activeInvestmentType])
+
 
   const handleAmount = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     let { value, name } = e.target
@@ -325,7 +329,11 @@ const AddMoreFundsModal = (props: any) => {
   }
 
   const handleApiResponse = (res: apiResponse) => {
-    setLoading(false);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return true;

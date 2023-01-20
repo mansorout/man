@@ -85,7 +85,7 @@ export const CircularBar = (props: IProps) => {
 
       <Box sx={{ width: '100%' }}>
         <Grid container rowSpacing={0} columnSpacing={2} >
-          <Grid item xs={8} sm={8}>
+          <Grid item xs={12} sm={8}>
             <Doughnut
               data={data}
               options={options}

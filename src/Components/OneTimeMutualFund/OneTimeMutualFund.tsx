@@ -245,15 +245,15 @@ const OneTimeMutualFund = () => {
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
 
   const strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
-    // @ts-ignore
-    const userAmount:number = useMemo(() => { 
-      if(strCardType === globalConstant.LUMPSUM_INVESTMENT){
-        return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) || '{}') : 0
-      }else{
-        return localStorage.getItem(siteConfig.SIP_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.SIP_USER_AMOUNT) || '{}') : 0
-      }
-     }, []);
-    
+  // @ts-ignore
+  const userAmount: number = useMemo(() => {
+    if (strCardType === globalConstant.LUMPSUM_INVESTMENT) {
+      return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) || '{}') : 0
+    } else {
+      return localStorage.getItem(siteConfig.SIP_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.SIP_USER_AMOUNT) || '{}') : 0
+    }
+  }, []);
+
 
   useEffect(() => {
     console.log("onetimemutual.tsx mounted");
@@ -277,11 +277,13 @@ const OneTimeMutualFund = () => {
     if (!userAmount) {
       navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/startAnSip");
     } else {
-      if(strCardType === globalConstant.LUMPSUM_INVESTMENT ){
-        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+      if (strCardType === globalConstant.LUMPSUM_INVESTMENT) {
+        // let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 11, initialMFData)
         if (res) handleResponse(res);
-      }else{
-        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.SIP_INVESTMENT ? 11 : 12, initialMFData)
+      } else {
+        // let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 12, initialMFData) //Its not working from backend!!
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 11, initialMFData)
         if (res) handleResponse(res);
       }
     }
@@ -332,8 +334,19 @@ const OneTimeMutualFund = () => {
     }
   }
 
+  const getTotalRecomendedAmount = () => {
+    let totalAmount = 0;
+    if (mfCards && mfCards.length) {
+      let arrAmount: number[] = mfCards.map((item: any) => item?.recommendedamount);
+      console.log(arrAmount, "arrAmount");
+      totalAmount = arrAmount.reduce((p, n) => p + n);
+      console.log(totalAmount, "totalAmount");
+      return ` ${totalAmount}`;
+    }
+  }
+
   return (
-    <Box style={{ width: "100vw",}}>
+    <Box style={{ width: "100vw", }}>
       <Navbar />
       <Box sx={style.main}>
         <Grid container spacing={0}>
@@ -355,39 +368,39 @@ const OneTimeMutualFund = () => {
             md={10}
           >
             <Toolbar />
-              <Grid container>
+            <Grid container>
               <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                  <Breadcrumbs
+                <Breadcrumbs
+                  sx={{
+                    fontSize: "12px",
+                    color: "#6c63ff",
+                  }}
+                >
+                  <Link href="/home">Home</Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                  >
+                    Investment
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+                  >
+                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                  </Link>
+                  <Typography
                     sx={{
                       fontSize: "12px",
-                      color: "#6c63ff",
+                      color: "#373e42",
                     }}
                   >
-                    <Link href="/home">Home</Link>
-                    <Link
-                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
-                    >
-                      Investment
-                    </Link>
-                    <Link
-                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
-
-                    >
-                      {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                    </Link>
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "#373e42",
-                      }}
-                    >
-                      Mutual Fund Recommendation
-                    </Typography>
-                  </Breadcrumbs>
+                    Mutual Fund Recommendation
+                  </Typography>
+                </Breadcrumbs>
               </Box>
-              </Grid>
-              <Box className="BoxPadding">
-                      <Box
+            </Grid>
+            <Box className="BoxPadding">
+              <Box
                 className="header"
                 sx={{
                   display: "flex",
@@ -419,7 +432,9 @@ const OneTimeMutualFund = () => {
                       color: "#7b7b9d",
                     }}
                   >
-                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {userAmount ? userAmount : 0}
+                    {/* {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of {userAmount ? userAmount : 0} */}
+                    {g_investment?.type === globalConstant.LUMPSUM_INVESTMENT ? "One-time Lumpsum" : "Monthly Investment"} of ₹{getTotalRecomendedAmount()}
+
                   </Typography>
                 </Box>
                 <Box
@@ -464,12 +479,15 @@ const OneTimeMutualFund = () => {
 
                 {mfCards &&
                   mfCards.length &&
-                  mfCards.map((mfCard) => (
+                  mfCards.map((mfCard, index: number) => (
                     <Box
+                      key={index}
                       sx={{ marginTop: "1.25vw" }}
                     >
-                      <MutualFundCard2 {...mfCard}
+                      <MutualFundCard2
+                        {...mfCard}
                         onCardClick={handleNavigationOfFundDetails}
+                        cefType={true}
                       />
                     </Box>
                   ))}
@@ -479,7 +497,7 @@ const OneTimeMutualFund = () => {
                   display: "flex",
                   justifyContent: "center",
                   marginTop: "3vw",
-                  marginBottom:"80px",
+                  marginBottom: "80px",
                 }}
               >
                 <Button
@@ -526,7 +544,7 @@ const OneTimeMutualFund = () => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </Box >
   );
 };
 
