@@ -314,7 +314,7 @@ const Report = () => {
                       </Box>
                     </Box>
 
-                    <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }} className="containerReportStyle">
+                    <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", marginBottom:"10px" }}>
                       <Typography style={{ marginBottom: "20px", color: "#3c3e42", fontSize: "16px", fontWeight: "500" }}>Download Reports</Typography>
                       <Box style={{ flexWrap: "wrap", marginBottom: "20px", maxWidth: "800px", display: "flex", alignItems: "center", gap: "20px", justifyContent: "space-between" }}>
                         <FormControlLabel
@@ -340,7 +340,7 @@ const Report = () => {
                               inputFormat="mm/dd/yyyy"
                               value={value}
                               onChange={handleChange}
-                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param}  className="texfieldStyle"/>}
+                              renderInput={(param: any) => <TextField sx={{ width:{xs:"100%", sm:"300px"} }} {...param} />}
                               components={{
                                 OpenPickerIcon: CalendarTodayIcon,
                               }}
@@ -350,7 +350,7 @@ const Report = () => {
                               inputFormat="mm/dd/yyyy"
                               value={value}
                               onChange={handleChange}
-                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param}  className="texfieldStyle" />}
+                              renderInput={(param: any) => <TextField sx={{ width:{xs:"100%", sm:"300px"} }} {...param} />}
                               components={{
                                 OpenPickerIcon: CalendarTodayIcon,
                               }}
@@ -366,7 +366,7 @@ const Report = () => {
                                 inputFormat="mm/dd/yyyy"
                                 value={value}
                                 onChange={handleChange}
-                                renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param} />}
+                                renderInput={(param: any) => <TextField sx={{ width:{xs:"100%", sm:"300px"} }} {...param} />}
                                 components={{
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
@@ -376,7 +376,7 @@ const Report = () => {
                                 inputFormat="mm/dd/yyyy"
                                 value={value}
                                 onChange={handleChange}
-                                renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param} />}
+                                renderInput={(param: any) => <TextField sx={{ width:{xs:"100%", sm:"300px"} }} {...param} />}
                                 components={{
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
@@ -386,7 +386,7 @@ const Report = () => {
                               </Button>
                             </Box> :
                             optSelected[enumReportTypes.SYSTEMATIC_PLANS] ?
-                              <Box style={{ display: "flex", alignItems: "center", justifyContent: 'center', padding: "20px", flexDirection: "column", gap: "30px" }}>
+                              <Box style={{ display: "flex", alignItems: "center", justifyContent: 'center', padding: "20px", flexDirection: "column", gap: "20px" }}>
                                 <Box>
                                   <Typography style={{ marginBottom: "20px", color: "#3c3e42", fontSize: "16px", fontWeight: "500" }}>Select a Time Period</Typography>
                                   <Box style={{ display: "flex", flexDirection: "column", marginBottom: "10px" }}>
@@ -404,8 +404,8 @@ const Report = () => {
                                       control={<Checkbox onChange={() => handleTimePeriodChange(3)} checked={timePeriodSelected[3]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                       label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[3] ? '#3c3e42' : "#7b7b9d"}` }}> Mandate Pending </Box>} />
                                   </Box>
-                                  <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
-                                    <Typography component="span" style={style.text}className="largeButtonText" >Get Report</Typography>
+                                  <Button className='btnReportmedia' variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
+                                    <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
                                   </Button>
                                 </Box>
                               </Box> :
@@ -429,7 +429,7 @@ const Report = () => {
                                     inputFormat="yyyy - yyyy"
                                     value={value}
                                     onChange={handleChange}
-                                    renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param} />}
+                                    renderInput={(param: any) => <TextField sx={{ width:{xs:"100%", sm:"300px"} }} {...param} />}
                                     components={{
                                       OpenPickerIcon: CalendarTodayIcon,
                                     }}
