@@ -169,13 +169,15 @@ const SearchCmp = (props: SearchCmpProps) => {
 
     useEffect(() => {
         let temp = [...props.filtersOptions]
-        const sortVal:string = temp[0].keyValues[0].value
-        const fundTypeVal:string = temp[1].keyValues[0]
-        const checkedTemp = {...chackedValuesArr}
-        checkedTemp[enumTabsKey.SORT] = sortVal;
-        checkedTemp[enumTabsKey.FUND_TYPE] = fundTypeVal;
-        console.log("chackedValuesArr temp:", temp,checkedTemp)
-        setChackedValuesArr(checkedTemp)
+        if(temp && temp?.length ){
+            const sortVal:string = temp[0].keyValues[0].value;
+            const fundTypeVal:string = temp[1]?.keyValues[0];
+            const checkedTemp = {...chackedValuesArr}
+            checkedTemp[enumTabsKey.SORT] = sortVal;
+            checkedTemp[enumTabsKey.FUND_TYPE] = fundTypeVal;
+            console.log("chackedValuesArr temp:", temp,checkedTemp,temp[1].keyValues[0])
+            setChackedValuesArr(checkedTemp)
+        }
     }, [])
     
     
