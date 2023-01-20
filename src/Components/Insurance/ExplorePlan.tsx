@@ -162,6 +162,7 @@ const ExplorePlan = () => {
          temp = {...temp, frequencytype: 1};
         }else{
             // temp && temp?.frequencytype;
+         temp = {...temp, frequencytype: 0};
         console.log("termInsuranceMode false : ",  temp.frequencytype)
         }
         console.log("termData : ", termData, temp)
@@ -239,12 +240,8 @@ const ExplorePlan = () => {
                                         </Box>
                                         <span>{termListApiData?.length} Plans with annually investment of ₹{termData?.lifecover}</span>
                                     </Box>
-                                    <Box className={classes.filterIconBox} sx={{ alignItems: { xs: 'flex-start', sm: 'flex-end', } }}>
-                                        {/* <IconWithBgColor
-                                            icon={<FilterAltOutlinedIcon />}
-                                            bgColor='var(--primaryColor)'
-                                            iconColor='var(--uiWhite)'
-                                        /> */}
+                                    {/* <Box className={classes.filterIconBox} sx={{ alignItems: { xs: 'flex-start', sm: 'flex-end', } }}>
+
                                         <SearchCmp
                                             filtersOptions={filterIndexes}
                                             handleCB={handleFilterCB}
@@ -255,7 +252,7 @@ const ExplorePlan = () => {
                                             display: 'inline-block',
                                             marginTop: '15px',
                                         }}>Prices inclusive of GST*</Typography>
-                                    </Box>
+                                    </Box> */}
                                 </Box>
                                 <FormControl sx={{width: '100%'}}>
                                             <RadioGroup
