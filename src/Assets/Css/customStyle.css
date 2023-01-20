@@ -478,8 +478,9 @@
     
 }
 @media screen and (max-width: 360px){
-  .quickSelectWrapperMobile{
-
+  .btnReportmedia{
+    max-width: 100% !important;
+    min-width: 100% !important;
   }
   .quickSelectWrapperMobile li{
     padding: 5px !important;

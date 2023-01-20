@@ -12,7 +12,11 @@ import ThirdPartyRedirection from "./ThirdPartyRedirection";
 import TransactionsDone from "./TransactionsDone";
 import ThirdPartyHdfc from "./ThirdPartyHdfc";
 import SelectUlipDateButton from "../../Modules/Buttons/ULIP/SelectUlipDateButton";
+import CloseIcon from '@mui/icons-material/Close';
+
 import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+import '../../Assets/Css/Calendar.css'
 import { tick } from "../../Assets";
 import { useNavigate } from "react-router-dom";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
@@ -283,15 +287,15 @@ const ULIPRecommendations = () => {
 
     useEffect(() => {
         if (parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
-        console.log("recommendationHeaderSelectChoosed :",recommendationHeaderSelectChoosed)
+        console.log("recommendationHeaderSelectChoosed :", recommendationHeaderSelectChoosed)
         const ulipTerm = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
-        const tempArr: any= [];
-        ulipTerm.map((item:any) => {
+        const tempArr: any = [];
+        ulipTerm.map((item: any) => {
             tempArr.push(item.value)
         })
         setRecommendationHeaderSelectArr(tempArr)
-        const term_id = ulipTerm.filter((item:any) => item.value === parseInt(recommendationHeaderSelectChoosed))
-        console.log("lookUPId ulipTerm :", ulipTerm, tempArr,term_id)
+        const term_id = ulipTerm.filter((item: any) => item.value === parseInt(recommendationHeaderSelectChoosed))
+        console.log("lookUPId ulipTerm :", ulipTerm, tempArr, term_id)
         // const lookUPId = getLookUpIdWRTModule(ulipTerm, bannerSectionValues.SAVE_TAX)
         const ulipGenrateBody = {
             amount: parseInt(ulipInsuranceAmount),
@@ -396,7 +400,7 @@ const ULIPRecommendations = () => {
     //     console.log("Life cover :", event.target.value)
     // }
 
-    const handleFilterCB = (data:any) => {
+    const handleFilterCB = (data: any) => {
         console.log("click value :", data,)
     }
 
@@ -436,27 +440,24 @@ const ULIPRecommendations = () => {
 
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
-            <Box style={{ width: "100vw" }} ref={refContainer}>
-                <Navbar />
-                <Box sx={style.main}>
-                    <Toolbar />
-                    <Sidebar />
-                 
-                    <Grid container  className="sxtowel">
-                        <Grid
-                          sx={{height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
-                               <Grid container item sx={{ overflow: "hidden" }} xs={12}>
-                                  <Box sx={{
-                                    backgroundColor: "#f9f9f9",
-                                    paddingBottom: "50px",
+        // <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100vh' }}>
+        <Box style={{ width: "100vw" }} ref={refContainer}>
+            <Navbar />
+            <Box sx={{ width: "100%" }}>
+                <Grid container spacing={0}>
+                    <Grid item xs={0} sm={1} md={2}>
+                        <Toolbar />
+                        <Sidebar />
+                    </Grid>
+                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
 
-                                    width: "100%",
-                                    fontFamily: 'Roboto',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center'
-                                }}>
+                        <Toolbar />
+
+
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12}>
+                                <Box className="BoxMarginLeftRight">
+
                                     {/* <ULIPHeader /> */}
                                     <RecommendationsHeader
                                         selectTextLabel='Premium Payment Term'
@@ -475,6 +476,32 @@ const ULIPRecommendations = () => {
                                         boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
                                         boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                                     />
+                                    {/* <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
+                                            <Link href="/home">Home</Link>
+                                            <Link href="/insurance">Get Insured</Link>
+                                            <Link href="/ulip/investoptions">ULIP</Link>
+                                            <Typography sx={{
+                                                fontSize: '12px',
+                                                color: '#373e42'
+                                            }}>SprintMoney Recommendation</Typography>
+                                        </Breadcrumbs>
+
+                                        </Box> */}
+                                    <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
+                                        <Breadcrumbs aria-label="breadcrumb">
+
+                                            <Link color="#6c63ff" underline="always" onClick={() => navigate('/insurance')} href='saveTax' >
+                                                <Typography className='burgerText'>Get Insured</Typography>
+                                            </Link>
+                                            <Link onClick={() => navigate('/ulip/investoptions')} underline="always" color="#6c63ff" sx={{ fontSize: "12px", width: "100%" }}>
+                                                <Typography className='burgerText'>ULIP</Typography>
+                                            </Link>
+                                            <Link underline="none" color="#8d8d8d" sx={{ fontSize: "12px", width: "100%" }}>
+                                                <Typography className='burgerText'>SprintMoney Recommendation</Typography>
+                                            </Link>
+                                        </Breadcrumbs>
+                                    </Box>
+
                                     <Box sx={{
                                         padding: 0,
                                         margin: '2.5vw',
@@ -484,19 +511,6 @@ const ULIPRecommendations = () => {
                                         justifyContent: 'center',
                                         gap: '1vw',
                                     }}>
-                                        <Breadcrumbs sx={{
-                                            fontSize: '12px',
-                                            color: '#6c63ff',
-                                            marginBottom: '1vw',
-                                        }}>
-                                          
-                                            <Link onClick={()=>navigate("/insurance")} sx={{cursor:"pointer"}}>Get Insured</Link>
-                                            <Link onClick={()=>navigate("/ulip/investoptions")} sx={{cursor:"pointer"}}>ULIP</Link>
-                                            <Typography sx={{
-                                                fontSize: '12px',
-                                                color: '#373e42'
-                                            }} >SprintMoney Recommendation</Typography>
-                                        </Breadcrumbs>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                             <Box>
                                                 <Typography sx={{
@@ -579,16 +593,12 @@ const ULIPRecommendations = () => {
                                             */}
                                     </Box>
 
+
                                 </Box>
                             </Grid>
-
-                            {/* </Grid>
-                                </Grid> */}
                         </Grid>
                     </Grid>
-                </Box>
-
-
+                </Grid>
             </Box>
             <FooterWithBtn
                 // btnText='Select ULIP Date'
@@ -598,35 +608,9 @@ const ULIPRecommendations = () => {
             />
 
 
-            <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
-                <Typography className={classes.modalText}>Set backup account</Typography>
-                <Calendar onChange={(value: any) => setCalenderValue(value)} value={calenderValue} />
-                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
-                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                    color: '#7b7b9d'
-                }}>
-                    Confirm SIP Date
-                </Button>
-            </Dialog>
 
-            <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
-                <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
-                    <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
-                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
-                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
-                </Box>
-                <Button onClick={() => {
-                    setOpenConfirmation(!openConfirmation);
-                    navigate('/payusingnetbanking');
-                }} variant='contained' className={classes.modalTextButton} sx={{
-                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
-                    color: '#7b7b9d'
-                }}>
-                    Continue to Payment
-                </Button>
-            </Dialog>
+
+
 
 
             {/* <Modal sx={{ borderRadius: 8 }} open={activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL ? true : false} onClose={() => { setActiveScreen(enumActiveScreen.CLOSE_MODAL) }}>
@@ -670,9 +654,61 @@ const ULIPRecommendations = () => {
                 </>
             </Modal> */}
 
+// date  modalTextButton
+
+            < Dialog onClose={() => setOpenConfirmation(!open)} open={open} >
+                <CloseIcon className="closeIconulip" onClick={() => setOpen(false)} />
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography sx={{ textAlign: "center", color: "#1d2634", fontWeight: "500", fontSize: "16px", padding: "7px 0px 5px 0px" }}>Select Monthly Instalment Date</Typography>
+                {/* <div className="react-calendar__navigation">
+<h1>hiii</h1>
+</div> */}
+                <Calendar onChange={(value: any) => setCalenderValue(value)} value={calenderValue} />
+
+                <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Confirm ULIP Date
+                </Button>
+            </Dialog >
 
 
-            <Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog}>
+
+// continue to payment dialog:::
+
+
+            <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
+                    <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
+                    <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
+                    <Typography sx={{ marginTop: 1, color: '#8787a2' }} >Your Monthly SIP Date is 8th of every month</Typography>
+                </Box>
+                <Button onClick={() => {
+                    setOpenConfirmation(!openConfirmation);
+                    navigate('/payusingnetbanking');
+                }} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'rgba(123, 123, 157, 0.05)',
+                    color: '#7b7b9d'
+                }}>
+                    Continue to Payment
+                </Button>
+            </Dialog>
+
+
+
+
+
+
+// know more dialog
+
+
+
+
+
+
+            < Dialog onClose={() => setKnowMoreDialog(false)} open={knowMoreDialog} >
                 <DialogTitle sx={{ boxShadow: '0 1px 5px 0 rgba(0, 0, 0, 0.12)' }}>
                     <Box className={classes.knowMoreDialog}>
                         <Box className={classes.knowMoreDialogImageWrapper}>
@@ -753,8 +789,11 @@ const ULIPRecommendations = () => {
                     </Box>
 
                 </DialogContent>
-            </Dialog>
-        </div >
+            </Dialog >
+
+
+        </Box>
+
     )
 };
 
