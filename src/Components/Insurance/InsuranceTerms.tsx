@@ -401,7 +401,7 @@ const InsuranceTerms = () => {
                 aria-labelledby="draggable-dialog-title"
                 fullScreen={fullScreen}
                 sx={{ width: { xs: '100%', sm: '480px', margin: 'auto' } }}
-                disableEscapeKeyDown
+                // disableEscapeKeyDown
                 className={`${showPlanDetailSubmit && classes.noClickBackdrop}`}
             // disableBackdropClick
             >
