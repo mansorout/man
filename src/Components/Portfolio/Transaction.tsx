@@ -255,7 +255,7 @@ const initialTransactionListRejected: transactionList = {
   redemptiontype: "redemptiontype"
 }
 
-const enumTransactionTypes = {
+export const enumTransactionTypes = {
   ALL: "All",
   PENDING: "Pending",
   SUCCESSFUL: "Successful",
@@ -304,30 +304,8 @@ const Transaction = () => {
     // @ts-ignore
     handleApiResponse(res);
 
-    // @ts-ignore
-    // handleApiResponse(res?.data?.holdings, [setHoldingGraph]);
 
-
-    // let data: any[] = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
-    // dispatch(setTransactionListDataForportfolioAction(data));
-
-    // let graphData: any = {
-    //   totalinvestedvalue: 400000,
-    //   XIRR: "string",
-    //   absolutereturninpercent: "19",
-    //   absolutereturn: "19000",
-    //   totalcurrentvalue: "500000",
-    //   assetallocation: {
-    //     equity: "30",
-    //     debt: "30",
-    //     balanced: "30",
-    //     other: "10"
-    //   }
-    // }
-    // @ts-ignore
-    // handleApiResponse(data, [setTransactionList]);
-    // @ts-ignore
-    // handleApiResponse(graphData, [setHoldingGraph]);
+    // let data = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
   }
 
   const handleApiResponse = (res: apiResponse) => {
@@ -366,7 +344,7 @@ const Transaction = () => {
     dispatch(AnchorOpenAction(event))
   }
 
-  const handleToggling = (type: string) => {
+  const handleToggling = (type: string,) => {
     setActiveTransactionType(type);
 
     let arrTransactionList: transactionList[] = [...transactionList];
@@ -378,7 +356,8 @@ const Transaction = () => {
       return;
     }
 
-    setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING) : [])
+    // setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === enumTransactionTypes.PENDING) : [])
+    setVariableTransactionList(arrTransactionList.length ? arrTransactionList.filter((item) => item?.orderstatus === type) : [])
   }
 
   const handleSearchFunctionality = (e: any) => {
@@ -492,25 +471,29 @@ const Transaction = () => {
                                 {
                                   variableTransactionList.map((item: transactionList, index: number) => {
                                     return (
-                                      <AllTrancationCard
-                                        key={index}
-                                        logo={item?.fundimage}
-                                        name={item?.fundname}
-                                        date={item?.stopdate}
-                                        id={item?.folionumber}
-                                        confirm={true}
-                                        mandate={true}
-                                        transaction={false}
-                                        reject={false}
-                                        price={item?.amount}
-                                        SIPDate={item?.transactiondate}
-                                        year3={"20.8%"}
-                                        margin={"(+17.36%)"}
-                                        result={"profit"}
-                                        type={item?.redemptiontype === "redeem" ? "B" : ""}
-                                        SIPAmount={"₹2,000"}
-                                        month={"april"}
-                                      />
+                                      <Box key={index}>
+                                        <AllTrancationCard
+                                          {...item}
+                                        // key={index}
+                                        // logo={item?.fundimage}
+                                        // name={item?.fundname}
+                                        // date={item?.transactiondate}
+                                        // id={item?.order_id}
+                                        // confirm={item?.orderstatus === "Pending" ? true : false}
+                                        // mandate={item?.ismandateauthenticated ? false : true}
+                                        // investmenttype_id={item?.investmenttype_id}
+                                        // transaction={false}
+                                        // reject={false}
+                                        // price={item?.amount}
+                                        // SIPDate={item?.transactiondate}
+                                        // year3={"20.8%"}
+                                        // margin={"(+17.36%)"}
+                                        // result={"profit"}
+                                        // type={item?.redemptiontype === "redeem" ? "B" : ""}
+                                        // SIPAmount={"₹2,000"}
+                                        // month={"april"}
+                                        />
+                                      </Box>
                                     )
                                   })
                                 }

@@ -7,25 +7,30 @@ import { Divider, } from '@mui/material';
 import { Close, ErrorOutline, InfoRounded, TaskAltOutlined, Warning } from '@mui/icons-material';
 import { warning } from '../../Assets/index'
 import { useNavigate } from 'react-router-dom';
+import { transactionList } from '../../Utils/globalTypes';
+import { enumTransactionTypes } from '../../Components/Portfolio/Transaction';
+import { investmenttypeId } from '../../Utils/globalConstant';
 
-interface Prop {
-  logo: string,
-  name: string,
-  date: string,
-  id: string,
-  confirm: true,
-  mandate: true,
-  transaction: false,
-  reject: false,
-  price: string,
-  SIPDate: string,
-  year3: string,
-  margin: string,
-  result: string,
-  type: string,
-  SIPAmount: string,
-  month: string
-}
+// interface Prop {
+//   logo: string,
+//   name: string,
+//   date: string,
+//   id: string,
+//   confirm: true,
+//   mandate: true,
+//   transaction: false,
+//   reject: false,
+//   price: string,
+//   SIPDate: string,
+//   year3: string,
+//   margin: string,
+//   result: string,
+//   type: string,
+//   SIPAmount: string,
+//   month: string
+// }
+
+
 
 
 const style = {
@@ -140,7 +145,8 @@ const style = {
   } as React.CSSProperties,
 }
 
-function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, margin, type, logo, date, id, confirm, mandate, transaction, reject, }: Prop) {
+// function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, margin, type, logo, date, id, confirm, mandate, transaction, reject, }: Prop) {
+function AllTrancationCard(props: transactionList) {
 
   const navigate = useNavigate()
 
@@ -153,18 +159,18 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
         <Box>
           <Box style={{ display: "flex", gap: "15px" }}>
             <Box style={{ overflow: "hidden", height: "32px", width: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
-              <img src={logo} width="100%" alt='mirae'></img>
+              <img src={props?.fundimage} width="100%" alt='mirae'></img>
             </Box>
             <Box>
-              <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{name}</Typography>
+              <Typography style={{ marginBottom: "10px", color: "#3c3e42", fontSize: "16px", fontWeight: "500", lineHeight: "1.19" }}>{props?.fundname}</Typography>
               <Box style={{ marginBottom: "10px", display: "flex", gap: "10px", alignItems: "center" }}>
-                <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>{date}</Typography>
+                <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>{props?.transactiondate}</Typography>
                 <Divider />
-                <Typography style={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}>{id}</Typography>
+                <Typography style={{ color: "#7b7b9d", fontSize: "14px", fontWeight: "500" }}>{props?.order_id}</Typography>
               </Box>
               <Box style={{ display: "flex", gap: "10px" }}>
                 {
-                  confirm ?
+                  props?.orderstatus === enumTransactionTypes.PENDING ?
                     <Box style={{ display: "flex", cursor: "pointer" }}>
                       <Box style={{ width: "25px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ffc300" }}>
                         <TaskAltOutlined style={{ color: "white", width: "15px" }} />
@@ -176,7 +182,7 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
                     : null
                 }
                 {
-                  mandate ?
+                  props?.ismandateauthenticated ?
                     <Box onClick={() => setOpenMandateModal(true)} style={{ display: "flex", cursor: "pointer" }}>
                       <Box style={{ width: "25px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#6c63ff" }}>
                         <ErrorOutline style={{ color: "white", width: "15px" }} />
@@ -187,7 +193,7 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
                     </Box> : null
                 }
                 {
-                  transaction ?
+                  props?.orderstatus === enumTransactionTypes.SUCCESSFUL ?
                     <Box style={{ display: "flex", cursor: "pointer" }}>
                       <Box style={{ width: "25px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#23db7b" }}>
                         <TaskAltOutlined style={{ color: "white", width: "15px" }} />
@@ -198,7 +204,7 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
                     </Box> : null
                 }
                 {
-                  reject ?
+                  props?.orderstatus === enumTransactionTypes.REJECTED ?
                     <Box style={{ display: "flex", cursor: "pointer" }}>
                       <Box style={{ width: "25px", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#ff5300" }}>
                         <Close style={{ color: "white", width: "15px" }} />
@@ -214,25 +220,70 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
         </Box>
         <Box>
           <Box style={{ padding: "4px 8px", backgroundColor: "#d6d5ef", borderRadius: "2px" }}>
-            <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>{price}</Typography>
+            {/* <Typography style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}>{price}</Typography> */}
           </Box>
         </Box>
+
+
+        {
+          props?.redemptiontype === "partial" || props?.redemptiontype === "redeem" ?
+            <>
+              <Box>
+                <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Redemtion Type</Typography>
+                <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.redemptiontype}</Typography>
+              </Box>
+              <Box>
+                <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Amount</Typography>
+                <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.amount}</Typography>
+              </Box>
+            </>
+            :
+
+            (props?.investmenttype_id === investmenttypeId.SIP_ID.toString() ?
+              <>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>SIP Date</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.investmenttype_id === investmenttypeId.SIP_ID.toString() ? `${props?.transactiondate} of every month!` : props?.transactiondate} </Typography>
+                </Box>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>SIP Amount</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.amount}</Typography>
+                </Box>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>NAV</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.nav}</Typography>
+                </Box>
+              </> :
+              <>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Units</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.units ? props?.units : "Not Alloted"} </Typography>
+                </Box>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>NAV</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.nav}</Typography>
+                </Box>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Amount</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.amount}</Typography>
+                </Box>
+                <Box>
+                  <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Investment Type</Typography>
+                  <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.investmenttype}</Typography>
+                </Box>
+              </>)
+        }
         <Box>
-          <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>SIP Date</Typography>
-          <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{SIPDate}</Typography>
-        </Box>
-        <Box>
-          <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>SIP Amount</Typography>
-          <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{SIPAmount}</Typography>
-        </Box>
-        <Box>
-          <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3 yrs return</Typography>
-          <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{year3} <span style={{ color: result = 'profil' ? '#23db7b' : "#ff5300" }}>{margin}</span></Typography>
+          {/* <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>3 yrs return</Typography> */}
+          {/* <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>NAV</Typography> */}
+          {/* <Typography style={{ color: '#3c3e42', fontSize: "18px" }}>{props?.nav} */}
+          {/* <span style={{ color: result = 'profil' ? '#23db7b' : "#ff5300" }}>{margin}</span> */}
+          {/* </Typography> */}
         </Box>
         <Box>
           <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-            <Box style={{ backgroundColor: type == 'B' ? '#23db7b' : "#ff5300", width: "8px", height: "8px", borderRadius: "50%" }}></Box>
-            <Typography style={{ color: type == 'B' ? '#23db7b' : "#ff5300", fontSize: "12px" }}>{type == 'B' ? 'Buy' : 'Redeem'}</Typography>
+            <Box style={{ backgroundColor: props?.transactiontype === "Buy" ? '#23db7b' : "#ff5300", width: "8px", height: "8px", borderRadius: "50%" }}></Box>
+            <Typography style={{ color: props?.transactiontype === "Buy" ? '#23db7b' : "#ff5300", fontSize: "12px" }}>{props?.transactiontype === "Buy" ? 'Buy' : 'Redeem'}</Typography>
           </Box>
         </Box>
       </Box>
@@ -260,12 +311,13 @@ function AllTrancationCard({ name, price, SIPDate, SIPAmount, year3, result, mar
           </Box>
           <Typography style={{ fontSize: "24px", color: "#3c3e42", fontWeight: "500" }}>Mandate Pending</Typography>
           <Typography mx={2} mb={4} style={{ fontSize: "12px", color: "#7b7b9d", textAlign: "center", fontWeight: "500" }}>Mandate Registration is important to auto debit the investment amount for every month.</Typography>
-          <Button variant="contained" style={style.button3} fullWidth onClick={() => { setOpenPaymentModal(true); setOpenMandateModal(false) }} >
+          {/* <Button variant="contained" style={style.button3} fullWidth onClick={() => { setOpenPaymentModal(true); setOpenMandateModal(false) }} > */}
+          <Button variant="contained" style={style.button3} fullWidth onClick={() => { setOpenMandateModal(false) }} >
             <Typography style={style.text} className="largeButtonText">Register Now</Typography>
           </Button>
         </Box>
       </Modal>
-      
+
       <Modal open={openPaymentModal} onClose={() => setOpenPaymentModal(false)}>
         <Box style={{
           width: "90%",
