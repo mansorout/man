@@ -170,7 +170,7 @@ interface RecommendationsHeaderPropsType {
     // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
+const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     const classes = useStyles();
     const dispatch: any = useDispatch(); 
     const wrapperRef = useRef(null);
