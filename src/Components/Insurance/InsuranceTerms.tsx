@@ -41,6 +41,10 @@ import { useDispatch } from 'react-redux';
 import {postTermPurchase} from '../../Store/Insurance/thunk/insurance-thunk'
 import FormHelperText from '@mui/material/FormHelperText';
 import { setTermDataSuccessAction } from '../../Store/Insurance/actions/insurance-actions';
+import { lookUpMasterKeys, bannerSectionValues } from "../../Utils/globalConstant";
+// import { lookUpMasterKeys, bannerSectionValues } from "../../globalConstant";
+import { customParseJSON, getLookUpIdWRTModule } from "../../Utils/globalFunctions";
+import { json } from 'stream/consumers';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -233,6 +237,7 @@ const InsuranceTerms = () => {
     const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
     const [dob, setDob] = React.useState<Dayjs | null>(null);
     const [dobError, setDobError] = useState<boolean>(false)
+    const [termInsuranceSelecct, setTermInsuranceSelecct] = useState<number[]>()
     const [quickPickAmount, setQuickPickAmount] = useState<number[]>([2500000, 7500000, 5000000, 10000000, 50000000, 100000000])
     const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
     const [genderSelect, setGenderSelect] = useState<string>('')
@@ -241,11 +246,25 @@ const InsuranceTerms = () => {
     const [tobaccoSelect, setTobaccoSelect] = useState<string>('')
     const [tobaccoSelectError, setTobaccoSelectError] = useState<boolean>(false)
     const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const quickPickCondition = "{\"isquickaccessenabled\": 1}"
 
     const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
-        console.log('useEffect insuranceAmount :',insuranceAmount)
+        const termlifecover = customParseJSON(localStorage.getItem(lookUpMasterKeys.TERM_LIFE_COVER))
+        const tempArr: any= [];
+        const tempQuickPick:any = [];
+        termlifecover && termlifecover.length && termlifecover.map((item:any) => {
+            tempArr.push(item.value)
+            if(JSON.parse(termlifecover[0]?.metadata).isquickaccessenabled === 1){
+                tempQuickPick.push(item.value)
+            }
+        })
+        console.log('useEffect insuranceAmount :',tempQuickPick, termlifecover, termlifecover[0].metadata, tempArr)
+        console.log("termlifecover[0].metadata :", JSON.parse(termlifecover[0].metadata))
+        setTermInsuranceSelecct(tempArr)
+        setQuickPickAmount(tempQuickPick)
+        // setQuickPickAmount
     }, [insuranceAmount])
     
 
@@ -296,7 +315,7 @@ const InsuranceTerms = () => {
             setShowPlanDetailSubmit(true)
             const data = {
                 lifecover : insuranceAmount,
-                frequencytype: 0,
+                frequencytype: 1,
                 issmoker : tobaccoSelect === 'yes' ? 1 : 0,
             }
             dispatch(setTermDataSuccessAction(data))
@@ -327,13 +346,20 @@ const InsuranceTerms = () => {
                             onChange={handleChange}
                             className={insuranceAmountError && classes.selectError}
                         >
-                            <MenuItem value={100000}>₹ 1,00,000</MenuItem>
-                            <MenuItem value={2500000}>₹ 2500000</MenuItem>
+                            {/* {
+                            console.log("termInsuranceSelecct :", termInsuranceSelecct)
+                            } */}
+                            {
+                                 termInsuranceSelecct && termInsuranceSelecct?.length && termInsuranceSelecct.map((item, index) => (
+                                    <MenuItem value={item} key={index}>₹ {item}</MenuItem>
+                                )) 
+                            }
+                            {/* <MenuItem value={2500000}>₹ 2500000</MenuItem>
                             <MenuItem value={7500000}>₹ 7500000</MenuItem>
                             <MenuItem value={5000000}>₹ 5000000</MenuItem>
                             <MenuItem value={10000000}>₹ 10000000</MenuItem>
                             <MenuItem value={50000000}>₹ 50000000</MenuItem>
-                            <MenuItem value={100000000}>₹ 100000000</MenuItem>
+                            <MenuItem value={100000000}>₹ 100000000</MenuItem> */}
                         </Select>
                         {insuranceAmountError && <FormHelperText style={{color: 'red'}}>This is required!</FormHelperText>}
                     </FormControl>
@@ -341,7 +367,7 @@ const InsuranceTerms = () => {
                         <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>You can quickly choose from below cover option</span>
                         <ul className={classes.quickSelectWrapper}>
                             {
-                                quickPickAmount.map((item, index) => (
+                                quickPickAmount && quickPickAmount.length && quickPickAmount.map((item, index) => (
                                     <li 
                                     key={index}
                                      onClick={() =>{
