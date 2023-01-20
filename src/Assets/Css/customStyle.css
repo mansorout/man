@@ -7,6 +7,7 @@
   background-color:rgba(35, 219, 123, 0.12) !important;
         color: #fff;
 }
+
 .BoxMarginLeftRight{
   margin: 0 24px;
 }
@@ -182,10 +183,6 @@
   padding: 2px 0;
   /* background-color: #404040; */
 }
-/* html body::-webkit-scrollbar {
-  width: 10px;
-  display: block !important;
-} */
 .large-2::-webkit-scrollbar {
   width: 10px;
   display: block;
@@ -193,7 +190,6 @@
 
 .large-2::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  /* box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
   background-color: #2cc27494;
   border: 1px solid #2cc274d9;
 }
@@ -335,6 +331,25 @@
     }
 }
 @media screen and (max-width: 600px){
+  .categoryScrollMobile{
+    overflow-x:scroll;
+    white-space: nowrap;
+  }
+  .categoryScrollMobile::-webkit-scrollbar-track {
+    border: 1px solid rgb(231, 228, 228);
+    /* padding: 2px 0; */
+    /* background-color: #404040; */
+  }
+  .categoryScrollMobile::-webkit-scrollbar {
+    /* width: 10px; */
+    display: none;
+   
+  }
+  
+  .categoryScrollMobile::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: transparent;
+  }
   .boxBreadcrumb{
   margin: -35px 0px 21px 25px !important;
   position: relative;

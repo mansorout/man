@@ -1,7 +1,7 @@
 
 import './Portfolio.css'
 import { Box, styled } from '@mui/system'
-import { Grid, MenuList, Typography } from '@mui/material'
+import { Grid, MenuList, Typography, Breadcrumbs, Link } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import { Assessment, Home as HomeIcon, MenuRounded, NavigateNext, PowerSettingsNew, Search } from '@mui/icons-material'
@@ -412,25 +412,35 @@ const Portfolio = () => {
   }
 
   return (
-    <Box style={{ width: "100vw" }} >
+    <Box style={{ width: "100vw" }}>
       <Navbar />
-      <Box sx={style.main}>
+      <Box sx={{ width: "100%" }}>
         <Grid container spacing={0}>
           <Grid item xs={0} sm={1} md={2}>
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid container sx={{ height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
+          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+            <Grid container>
+              <Grid xs={12} sm={12} md={12}>
+                <Toolbar />
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Portfolio</Typography>
+                    </Link>
+                  </Breadcrumbs>
 
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={13}>
-              <Toolbar />
-              <Grid container>
-                <Grid item xs={12} sx={{ padding: 2 }}>
-                  <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid xs={12} sm={12} md={12}>
+                <Box className="BoxMarginLeftRight">
+                <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <Typography style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
-                        <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "106%" }}></Box>
+                        <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
                       </Box>
                       <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
                       <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/sips')}>SIPs</Typography>
@@ -457,8 +467,10 @@ const Portfolio = () => {
                                 <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }}>
                                   <Typography padding={2} style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }}>Asset Allocation</Typography>
                                   <Grid container padding={2}>
-                                    <Grid item sm={5} xs={12} style={{ display: "flex", alignItems: "center", gap: "40px", justifyContent: "center" }}>
-                                      <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: "20px" }}>
+                                    <Grid item sm={6} xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                      <Grid container>
+                                          <Grid xs={8} sm={8}>
+                                          <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", }}>
                                         {/* <img src={chart} alt="chart" width="240px"></img> */}
                                         {
                                           holdingGraph?.assetallocation ?
@@ -468,7 +480,11 @@ const Portfolio = () => {
                                             : null
                                         }
 
-                                        <Box>
+                                       
+                                      </Box>
+                                          </Grid>
+                                          <Grid xs={4} sm={4}>
+                                          <Box sx={{marginTop:{xs:"0px", sm:"30px"}}}>
                                           <Box my={1} style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                                             <Box style={{ padding: "6px", backgroundColor: "#23db7b", borderRadius: "50%" }}></Box>
                                             <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>EQUITY</Typography>
@@ -482,16 +498,11 @@ const Portfolio = () => {
                                             <Typography style={{ color: "#7b7b9d", fontSize: "14px" }}>BALANCED</Typography>
                                           </Box>
                                         </Box>
-                                      </Box>
+                                          </Grid>
+                                      </Grid>
+                                     
                                     </Grid>
-                                  </Grid>
-                                  <Grid container padding={2}>
-
-                                  </Grid>
-                                  <Grid padding={2} item sm={1} xs={0}>
-                                    <Divider orientation="vertical" />
-                                  </Grid>
-                                  <Grid container padding={2} item sm={5} xs={12} m={"auto"} >
+                                    <Grid item sm={6} xs={12} m={"auto"} >
                                     <Box style={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px", justifyContent: "space-between" }}>
                                       <Box style={{ width: "40%", minWidth: "200px" }}>
                                         <Typography style={{ color: '#7b7b9d', fontSize: "14px" }}>Invested Value</Typography>
@@ -511,10 +522,10 @@ const Portfolio = () => {
                                       <Typography style={style.text} className="largeButtonText">Get Reports</Typography>
                                     </Button>
                                   </Grid>
-
+                                  </Grid>
                                 </Box>
                                 <Typography style={{ marginBottom: "20px", color: "#7b7b9d", fontSize: "21px" }}>Your Holdings</Typography>
-                                <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                                <Box className="categoryScrollMobile" style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                                   {
                                     categoryGroupList &&
                                     categoryGroupList.length &&
@@ -578,12 +589,13 @@ const Portfolio = () => {
                         </>
                     }
                   </Box>
-                </Grid>
+                </Box>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Box>
+
     </Box>
   )
 }
