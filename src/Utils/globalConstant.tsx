@@ -93,4 +93,8 @@ export const objUserProfileValidationData: profileValidationKeys = {
 export const arrProfileCompletion = ["mobilenumber", "emailaddress", "dateofbirth", "gender", "addressline1", "state", "city", "pincode", "placeofbirthcity", "incomeslab"];
 export const arrKycCompletionKeys = ["isnomineedetailsavailable", "iscvlverified", "isbankdetailsverifed", "isbankdetailsverifed"];
 
+export const investmenttypeId = {
+    LUMPSUM_ID: 11,
+    SIP_ID: 12
+}
 

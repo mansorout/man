@@ -628,7 +628,7 @@ const Sip = () => {
                   <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
 
-                      <Typography  className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
                       <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <Typography className='taxtTabMedia' style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/sips')}>SIPs</Typography>
@@ -688,25 +688,29 @@ const Sip = () => {
                                 {
                                   variableTransactionList.map((item: transactionList, index: number) => {
                                     return (
-                                      <AllTrancationCard
-                                        key={index}
-                                        logo={item?.fundimage}
-                                        name={item?.fundname}
-                                        date={item?.stopdate}
-                                        id={item?.folionumber}
-                                        confirm={true}
-                                        mandate={true}
-                                        transaction={false}
-                                        reject={false}
-                                        price={item?.amount}
-                                        SIPDate={item?.transactiondate}
-                                        year3={"20.8%"}
-                                        margin={"(+17.36%)"}
-                                        result={"profit"}
-                                        type={item?.redemptiontype === "redeem" ? "B" : ""}
-                                        SIPAmount={"₹2,000"}
-                                        month={"april"}
-                                      />
+                                      <Box key={index}>
+                                        <AllTrancationCard
+                                          {...item}
+                                        // key={index}
+                                        // logo={item?.fundimage}
+                                        // name={item?.fundname}
+                                        // date={item?.transactiondate}
+                                        // id={item?.order_id}
+                                        // confirm={item?.orderstatus === "Pending" ? true : false}
+                                        // mandate={item?.ismandateauthenticated ? false : true}
+                                        // investmenttype_id={item?.investmenttype_id}
+                                        // transaction={false}
+                                        // reject={false}
+                                        // price={item?.amount}
+                                        // SIPDate={item?.transactiondate}
+                                        // year3={"20.8%"}
+                                        // margin={"(+17.36%)"}
+                                        // result={"profit"}
+                                        // type={item?.redemptiontype === "redeem" ? "B" : ""}
+                                        // SIPAmount={"₹2,000"}
+                                        // month={"april"}
+                                        />
+                                      </Box>
                                     )
                                   })
                                 }

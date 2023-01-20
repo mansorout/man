@@ -32,7 +32,7 @@ import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } fro
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
 import { store } from "../../Store/Store";
 import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
-
+import './OnetimeM.css'
 // const data = [
 //   {
 //     logo: "/Miraelogo.svg",
@@ -275,7 +275,7 @@ const OneTimeMutualFund = () => {
     }
 
     if (!userAmount) {
-      navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/startAnSip");
+      navigate(strCardType === globalConstant.LUMPSUM_INVESTMENT ? "/investNow" : "/initiateSip");
     } else {
       if (strCardType === globalConstant.LUMPSUM_INVESTMENT) {
         // let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
@@ -437,11 +437,13 @@ const OneTimeMutualFund = () => {
 
                   </Typography>
                 </Box>
+
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "flex-end",
                   }}
+              
                 >
                   <img
                     src={HelpOutline}

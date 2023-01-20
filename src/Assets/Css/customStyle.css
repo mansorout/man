@@ -3,6 +3,17 @@
 .buttonPriceRedeemFund:hover{
   background-color: #64dbff !important;
 }
+.btnGroupMoreFund button{
+  width: 120px;
+  margin-right: 10px!important;
+}
+.btnGroupMoreFund{
+  display: flex !important;
+    flex-direction: row !important;
+}
+.btnHoverNone:hover{
+  background-color: #23db7b !important;
+}
 .imageratingRedeem{
   margin:0px 0px 0px 10px;
 }
@@ -467,6 +478,21 @@
     
 }
 @media screen and (max-width: 360px){
+  .btnReportmedia{
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+  .quickSelectWrapperMobile li{
+    padding: 5px !important;
+    font-size: 14px !important;
+    margin: 0px 3px 0px 0px !important;
+  }
+  .btnGroupMoreFund button{
+    padding: 6px 8px !important;
+  }
+  .btnGroupMoreFund button p{
+    font-size: 12px !important;
+  }
   .imageratingRedeem {
     margin: 1px 10px 0px 4px;
 }
@@ -480,6 +506,12 @@
     }
 }
 @media screen and (max-width: 280px){
+  .imgSprintMoneyModal{
+    padding-left: 80px !important;
+  }
+  .closeBtnSimpleModal{
+    margin: 12px 0px 8px 50px !important;
+  }
   .tabClickFont P{
     font-size: 12px !important;
   }
