@@ -164,8 +164,8 @@ const UlipBox = (props:any) => {
     const [merror,setMerror] = useState(false)
     const [ulipYears,setUlipYears] = useState<any>([])
     const [handlelinechart,setHandlelinechart]= useState(0)
-    const [greenline,setGreenline] = useState("")
-    const [pinkline,setPinkline] = useState("")
+    const [greenline,setGreenline] = useState<any>("")
+    const [pinkline,setPinkline] = useState<any>("")
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
@@ -187,6 +187,8 @@ const UlipBox = (props:any) => {
         setLumpsumAmount(conNumber);
         console.log(Number(conNumber))
         console.log(typeof(conNumber))
+        setPinkline(conNumber)
+        setGreenline(conNumber)
         if(conNumber < 5000)
         {
           setErrorMessage("please fill min. 5000 amount")
@@ -204,6 +206,8 @@ const UlipBox = (props:any) => {
         setMonthlyAmount(monNumber);
         console.log(Number(monNumber))
         console.log(typeof(monNumber))
+        setPinkline(monNumber)
+        setGreenline(monNumber)
       if(monNumber < 1000){
         setMonthlyShowError("please fill min. 1000 amount")
         setMerror(true)

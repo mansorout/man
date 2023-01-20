@@ -656,7 +656,7 @@ const RedeemFunds = () => {
                               <Card >
                                 <CardContent>
                                   <Grid container spacing={0}>
-                                    <Grid item xs={5} sm={9}>
+                                    <Grid item xs={5} sm={4}>
                                       <Typography
                                         sx={{
                                           fontSize:{xs:"10px", sm:"16px"},
@@ -669,7 +669,7 @@ const RedeemFunds = () => {
                                         }}
                                       >Redemption Type</Typography>
                                     </Grid>
-                                    <Grid item xs={7} sm={3} className="twinButton">
+                                    <Grid item xs={7} sm={8} className="twinButton">
                                       <Box
                                       sx={{textAlign: " center",
                                       justifyContent: "flex-end",

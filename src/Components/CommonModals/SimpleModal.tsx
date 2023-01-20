@@ -71,9 +71,7 @@ function SimpleModal(props: any) {
   return (
     <div>
       <Modal open={props.open} >
-        <Box style={{
-          width: "90%",
-          maxWidth: "330px",
+        <Box sx={{width:{xs:"100%", sm:"100%"}, maxWidth:{xs:"330px",sm:"330px"}}} style={{
           borderRadius: " 8px 8px 0px 0px",
           boxShadow: "0 24px 24px 0 rgba(0, 0, 0, 0.2)",
           backgroundColor: "white",
@@ -83,7 +81,7 @@ function SimpleModal(props: any) {
           justifyContent: "space-between",
           overflow: "hidden",
           position: "absolute",
-          top: "50%",
+          top: "60%",
           left: "50%",
           transform: "translate(-50%,-50%)"
         }}>
@@ -92,7 +90,7 @@ function SimpleModal(props: any) {
               <CardHeader
                 avatar={
                   <Box >
-                    <img src={GroupSaf} alt="sprint-money" style={{
+                    <img className='imgSprintMoneyModal' src={GroupSaf} alt="sprint-money" style={{
                       width: "80px",
                       height: "80px",
                       paddingLeft: "114px"
@@ -110,7 +108,7 @@ function SimpleModal(props: any) {
               display: "contents",
               position: " absolute"
             }} item xs={4}>
-              <Box onClick={props.close} sx={{ margin: "12px 0px 8px 73px", opacity: " 0.54 " }}  >
+              <Box className="closeBtnSimpleModal" onClick={props.close} sx={{ margin: "12px 0px 8px 73px", opacity: " 0.54 " }}  >
                 <ClearIcon />
               </Box>
             </Grid>
@@ -154,6 +152,7 @@ function SimpleModal(props: any) {
           </Box>
           <Box>
             <Button
+            className='btnHoverNone'
               onClick={() => {
                 props?.onClickContinue();
 
