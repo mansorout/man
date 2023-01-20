@@ -269,7 +269,7 @@ function HoldingCards({ name, price, current, absolute, result, cap, type, inves
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>Buy More Funds</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>
-                <ListItemButton style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <ListItemButton onClick={() => { if (fundId) navigate('/transactions', { state: { fund_id: fundId } }) }} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <Typography style={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.87)" }}>Show Transaction History</Typography>
                   <NavigateNext style={{ color: "#93a0b2" }} />
                 </ListItemButton>

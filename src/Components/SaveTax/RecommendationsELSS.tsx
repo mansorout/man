@@ -277,7 +277,8 @@ const RecommendationsELSS = () => {
                         />
                                                 <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
                   <Breadcrumbs aria-label="breadcrumb">
-                    <Link color="#6495ED" underline="always" href='Home' >
+                    {/* <Link color="#6495ED" underline="always" href='home ' onClick={() => navigate('/home')} > */}
+                    <Link color="#6495ED" underline="always"  onClick={() => navigate('/home')} >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
