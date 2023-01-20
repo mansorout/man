@@ -357,7 +357,7 @@ function ExploreFunds(props: any) {
       // setIsInitialVariableFundListFetched(true);
     }
 
-  }; 
+  };
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
@@ -718,17 +718,23 @@ const SelectedFundsDialog = (props: any) => {
   const [addAllFunds, setAddAllFunds] = useState<any[]>([]);
   const [errorAmount, setErrorAmount] = React.useState<any>("");
   const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+  const [bFlag, setBFlag] = useState<boolean>(false);
+  const [isShouldBuyFundEnable, setIsShouldBuyFundEnable] = useState<boolean>(false);
 
   useEffect(() => {
     return () => {
       setError("");
     }
-  })
+  }, [])
 
   useEffect(() => {
     let arrFundSelecteds: any[] = [...props?.fundSelecteds]
     if (arrFundSelecteds && arrFundSelecteds.length) {
-      let arrNew: any[] = arrFundSelecteds.map((item: any) => {
+      let arrNew: any[] = [];
+      // if (bFlag) {
+      //   arrNew = [...arrFundSelecteds];
+      // }
+      arrNew = arrFundSelecteds.map((item: any) => {
         return {
           ...item,
           ["userRecommendedAmount"]: 0,
@@ -737,6 +743,7 @@ const SelectedFundsDialog = (props: any) => {
       })
 
       console.log(arrNew, "arrNew");
+      // setBFlag(true);
       setAddAllFunds(arrNew);
     }
   }, [props?.fundSelecteds])
@@ -752,14 +759,16 @@ const SelectedFundsDialog = (props: any) => {
 
     value = parseInt(value);
 
-    if (!value) return;
+    if (value < 0) return;
 
     arrAddAllFunds[index]["userRecommendedAmount"] = value;
 
 
     if (!isMultipleofNumber(parseInt(value), 100)) {
-      arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100"
+      arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100";
+      setIsShouldBuyFundEnable(false);
     } else {
+      setIsShouldBuyFundEnable(true);
       arrAddAllFunds[index]["ErrorMsg"] = "";
     }
 
@@ -768,9 +777,16 @@ const SelectedFundsDialog = (props: any) => {
 
   const buyNow = () => {
     let arrFiltered: any[] = addAllFunds.filter((item: any) => item?.userRecommendedAmount === 0);
+    let arrError: any[] = addAllFunds.filter((item: any) => item.ErrorMsg !== "");
 
     if (arrFiltered && arrFiltered.length) {
       setError("Please fill all the investment amount fields!");
+      return;
+    }
+
+    // if (!isShouldBuyFundEnable) {
+    if (arrError && arrError.length) {
+      // setError("Please fill the amount which is multiple of 100!");
       return;
     }
 
