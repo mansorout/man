@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Box } from '@mui/system'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -152,6 +152,7 @@ const SearchCmp = (props: SearchCmpProps) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [filterBoxShowHide, setFilterBoxShowHide] = useState(false)
+    const [chackedValuesArr, setChackedValuesArr] = useState<any>([])
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
@@ -164,6 +165,37 @@ const SearchCmp = (props: SearchCmpProps) => {
         console.log('checked :', event)
       };
     
+      useEffect(() => {
+        console.log("chackedValuesArr :", chackedValuesArr)
+        props.handleCB(chackedValuesArr)
+      }, [chackedValuesArr])
+      
+      useEffect(() => {
+        setChackedValuesArr([])
+      }, [value])
+      
+      const checkVerify = (index:number) => {
+        if(chackedValuesArr && chackedValuesArr?.length){
+            chackedValuesArr?.map((item:any) => {
+               return item?.chackedValuesArr === index ? true : false; 
+           })
+        }else{
+            return false;
+        }
+      }
+
+      const isExit = (index:number) => {
+        if(chackedValuesArr && chackedValuesArr?.length){
+            let tempFilter = [];
+            chackedValuesArr?.map((item:any) => {
+                if(item?.chackedValuesArr === index){
+                    const tempFilter = chackedValuesArr.filter((item:any) => item  )
+                }else{
+                    tempFilter.push(item)
+                }
+           })
+        }
+      }
 
     return (
         <Box className={classes.searchCmp}>
@@ -242,16 +274,15 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                     className={classes.radioStyle}
                                                 >
                                                     {
-                                                        console.log("parentItem :", parentItem)
-                                                    }
-                                                    {
                                                         parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
                                                             <FormControlLabel
                                                                 className={classes.radioStyle}
                                                                 value={nestedItem?.value}
                                                                 control={<Radio />}
                                                                 label={nestedItem?.label}
-                                                                onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
+                                                                onChange={(e) => {
+                                                                    props.handleCB({ parentIndex, nestedItem, childIndex });
+                                                            }}
                                                             />
                                                             // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
                                                             // ))
@@ -269,9 +300,18 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                             <FormControlLabel
                                                                 className={classes.radioStyle}
                                                                 value={nestedItem?.value}
-                                                                control={<Checkbox />}
+                                                                control={<Checkbox
+                                                                />}
                                                                 label={nestedItem?.label}
-                                                                onChange={(e) => props.handleCB({ parentIndex, nestedItem, childIndex })}
+                                                                onChange={(event) => {
+                                                                    console.log("checked event :", event)
+                                                                    // setChackedValuesArr({
+                                                                    //     ...chackedValuesArr,
+                                                                    //     [event.target.name]: event.target.checked,
+                                                                    //   });
+                                                                      setChackedValuesArr((prevState:any) =>[...prevState, { parentIndex, nestedItem, childIndex }])
+                                                                    // props.handleCB({ parentIndex, nestedItem, childIndex })
+                                                                }}
                                                             />
                                                             // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
                                                             // ))

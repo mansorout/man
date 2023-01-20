@@ -442,7 +442,7 @@ const ULIPRecommendations = () => {
                 <Box sx={style.main}>
                     <Toolbar />
                     <Sidebar />
-                    <Typography></Typography>
+                 
                     <Grid container  className="sxtowel">
                         <Grid
                           sx={{height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll", paddingLeft: { xs: "0px", sm: '90px !important', md: '230px !important', } }} item xs={12}>
