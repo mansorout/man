@@ -63,7 +63,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& li': {
             listStyleType: 'none',
-            margin: '10px 20px',
+            margin: '10px 50px',
             '@media(max-width: 700px)':{
                 width: '40%'
             },
@@ -142,7 +142,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                 </Grid>
             </Grid>
 
-<Box>
+            <Box >
                 <ul className={classes.listStyle}>
                     <li>
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Top Performing Fund (10 Years)*</Typography>
@@ -152,7 +152,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Life Cover</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
                     </li>
-                    <li>
+             
+                    <li >
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Invested Value</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.investedVlaue}</Typography>
                     </li>
@@ -160,10 +161,10 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Tax Saving on Investment</Typography>
                         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.taxSavingOnInvestment} {/*Every Year */}</Typography>
                     </li>
+                  
+                
                 </ul>
             </Box>
-
-         
             <Box>
                 <Box className={classes.btnGroup}>
                     <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}>
