@@ -40,6 +40,7 @@ import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
 import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
 import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
 import SelectedFunds from './SelectedFunds'
+import SearchCmp from '../CommonComponents/SearchCmp'
 import AddMoreFunds from './AddMoreFunds';
 import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
 
@@ -198,7 +199,83 @@ function ExploreFunds(props: any) {
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
+  const [filterValues, setFilterValues] = useState<any>({})
   const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
+  
+  const [filterIndexes, setFilterIndexes] = useState<any>(
+    [
+        {
+            key: 'Sort',
+            selectType:'radio',
+            keyValues: [
+                {
+                    value: 'return',
+                    label: 'Return - High to Low',
+                },
+                {
+                    value: 'rating',
+                    label: 'Rating - High to Low',
+                },
+                {
+                    value: 'size',
+                    label: 'Fund Size - High to Low',
+                }
+            ]
+        },
+        {
+            key: 'Fund Type',
+            selectType:'radio',
+            keyValues: [
+                {
+                    value: 'all',
+                    label: 'All (20)',
+                },
+                {
+                    value: 'growth',
+                    label: 'Growth (12)',
+                },
+                {
+                    value: 'dividend',
+                    label: 'Dividend (8)',
+                },
+            ]
+        },
+        {
+            key: 'Fund House',
+            selectType:'checked',
+            keyValues: [
+                {
+                    value: 'all',
+                    label: 'All (148)',
+                },
+                {
+                    value: 'axis',
+                    label: 'Axis (21)',
+                },
+                {
+                    value: 'sbi',
+                    label: 'SBI Funds (37)',
+                },
+                {
+                    value: 'invesco',
+                    label: 'Invesco (7)',
+                },
+                {
+                    value: 'pgim',
+                    label: 'PGIM (2)',
+                },
+                {
+                    value: 'quant',
+                    label: 'Quant (4)',
+                },
+                {
+                    value: 'dividend',
+                    label: 'Dividend',
+                },
+            ]
+        }
+    ]
+)
 
 
 
@@ -288,7 +365,7 @@ function ExploreFunds(props: any) {
   };
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-
+// debugger
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -378,10 +455,12 @@ function ExploreFunds(props: any) {
   };
 
   const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
+    debugger
     dispatch(AnchorOpenAction(event));
   };
 
   const handleSearchFunctionality = (e: any) => {
+    debugger
     if (masterFundList && masterFundList.length) {
       const { value } = e?.target;
       let arrMasterFundList: any[] = [...masterFundList];
@@ -470,6 +549,14 @@ function ExploreFunds(props: any) {
 
 
 
+  
+  const handleFilterCB = (data:any) => {
+    console.log("click value :", data,)
+    // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+    // getMasterFundList(url);
+    setFilterValues(data)
+}
+
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
       <Navbar />
@@ -482,8 +569,8 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll" }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll" } }} item xs={12}>
+          <Grid container sx={{ width: "100%", height: "100vh", overflow: "hidden" }} xs={13} sm={11} md={10}>
+            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "hidden" } }} item xs={12}>
               <Toolbar />
 
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
@@ -536,16 +623,14 @@ function ExploreFunds(props: any) {
 
                 </Box>
                 <Box padding={2} >
-                  <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
+                  {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
                     <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
                       <InputBase
                         onChange={handleSearchFunctionality}
                         placeholder='Search funds...'
                         style={{ color: "#7b7b9d", minWidth: "250px" }}
-                      />
-
-                      {/* </InputBase> */}
+                      /> 
                     </Box>
 
                     <Box onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
@@ -556,7 +641,28 @@ function ExploreFunds(props: any) {
                       </IconButton>
                     </Box>
                     <DropDownFilterInvestment />
-                  </Box>
+                  </Box> */}
+
+
+
+                  <Box sx={{marginBottom:'15px'}}>
+                      <SearchCmp
+                        filtersOptions={filterIndexes}
+                        // sort={customSort}
+                        // policyTerm={policyTerm}
+                        // lifeCover={lifeCover}
+                        // sortValue={customSortValue}
+                        // policyTermValue={policyTermValue}
+                        // lifeCoverValue={lifeCoverValue}
+                        searchKeysFun={handleSearchFunctionality}
+                        searchBox={true}
+                        handleCB={handleFilterCB}
+                      // sortCb={handleSortRadio}
+                      // policyTermCb={handlePolicyTermRadio}
+                      // lifeCoverCb={handleLifeCoverRadio}
+                      />
+                    </Box>
+
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
 
                     {
