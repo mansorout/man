@@ -183,6 +183,13 @@ const initialMFDataForExploreFund = {
   isChecked: false
 }
 
+const enumFilterIndexes ={
+  SORT: 'Sort',
+  FUND_TYPE: 'Fund Type',
+  FUND_HOUSE:'Fund House'
+
+}
+
 function ExploreFunds(props: any) {
 
   const classes = useStyles();
@@ -314,6 +321,15 @@ function ExploreFunds(props: any) {
       //   } else {
       //   }
       // }
+
+      console.log("categoryGroupList : ", categoryGroupList)
+      const temp = [...filterIndexes]
+      temp && temp?.length &&
+      temp.map((item, index) => {
+        if(item?.key === enumFilterIndexes?.FUND_TYPE){
+          console.log("temp filter :", temp[index])
+        }
+      })
     }
   }, [categoryGroupList])
 
@@ -344,6 +360,10 @@ function ExploreFunds(props: any) {
 
 
   }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
+
+// useEffect(() => {
+// }, [categoryGroupList])
+
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
@@ -567,8 +587,8 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "hidden" }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "hidden" } }} item xs={12}>
+          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={13} sm={11} md={10}>
+            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll", overflowX: 'hidden' } }} item xs={12}>
               <Toolbar />
 
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
@@ -643,23 +663,23 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{ marginBottom: '15px' }}>
-                    <SearchCmp
-                      filtersOptions={filterIndexes}
-                      // sort={customSort}
-                      // policyTerm={policyTerm}
-                      // lifeCover={lifeCover}
-                      // sortValue={customSortValue}
-                      // policyTermValue={policyTermValue}
-                      // lifeCoverValue={lifeCoverValue}
-                      searchKeysFun={handleSearchFunctionality}
-                      searchBox={true}
-                      handleCB={handleFilterCB}
-                    // sortCb={handleSortRadio}
-                    // policyTermCb={handlePolicyTermRadio}
-                    // lifeCoverCb={handleLifeCoverRadio}
-                    />
-                  </Box>
+                  <Box sx={{marginBottom:'15px'}}>
+                      <SearchCmp
+                        filtersOptions={[...filterIndexes]}
+                        // sort={customSort}
+                        // policyTerm={policyTerm}
+                        // lifeCover={lifeCover}
+                        // sortValue={customSortValue}
+                        // policyTermValue={policyTermValue}
+                        // lifeCoverValue={lifeCoverValue}
+                        searchKeysFun={handleSearchFunctionality}
+                        searchBox={true}
+                        handleCB={handleFilterCB}
+                      // sortCb={handleSortRadio}
+                      // policyTermCb={handlePolicyTermRadio}
+                      // lifeCoverCb={handleLifeCoverRadio}
+                      />
+                    </Box>
 
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
 

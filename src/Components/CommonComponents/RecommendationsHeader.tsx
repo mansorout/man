@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Dialog, Grid, Modal, Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
@@ -130,6 +130,25 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     }
 }))
 
+
+function useOutsideAlerter(ref:any) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event:any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          alert("You clicked outside of me!");
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 interface RecommendationsHeaderPropsType {
     selectTextLabel: string;
     selectArray: any;
@@ -151,20 +170,50 @@ interface RecommendationsHeaderPropsType {
     // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
+const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     const classes = useStyles();
-    const dispatch: any = useDispatch();
+    const dispatch: any = useDispatch(); 
+    const wrapperRef = useRef(null);
     // const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
 
     // const [premiumPaymentTerm, setPremiumPaymentTerm] = useState<string>('5')
     // const [investmentAmount, setInvestmentAmount] = useState<string>('')
     const [amount, setAmount] = useState<string>('')
+    const [boxHideShow, setBoxHideShow] = useState(true)
     const [validationAlertDialog, setValidationAlertDialog] = useState({
         msg: '',
         bool: false,
     })
     // const [inputFeildShow, setInputFeildShow] = useState<boolean>(false)
 
+    
+    function handleClickOutside(event:any) {
+        // @ts-ignore
+            if (wrapperRef?.current && !wrapperRef?.current?.contains(event.target)) {
+            //   alert("You clicked outside of me!");
+            //   setBoxHideShow(false)
+              props?.boxInputHideHandleChange()
+            }
+    }
+
+    // useEffect(() => {
+    //     /**
+    //      * Alert if clicked on outside of element
+    //      */
+            
+    //     function handleClickOutside(event:any) {
+    //         // @ts-ignore
+    //             if (wrapperRef?.current && !wrapperRef?.current?.contains(event.target)) {
+    //               alert("You clicked outside of me!");
+    //             }
+    //     }
+    //     // Bind the event listener
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //       // Unbind the event listener on clean up
+    //       document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    //   }, [wrapperRef]);
 
     // const handleChange = (event: SelectChangeEvent) => {
     //     setPremiumPaymentTerm(event.target.value);
@@ -262,7 +311,14 @@ const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <CreateOutlinedIcon sx={{ cursor: 'pointer' }} onClick={props?.boxInputShowHandleChange} />,
+                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center'}}>
+                                    
+                            {props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'}
+                                     <CreateOutlinedIcon sx={{ cursor: 'pointer', marginLeft: '10px' }} onClick={() => {
+                                    props?.boxInputShowHandleChange()
+                                    document.addEventListener("mousedown", handleClickOutside);
+                                }} />
+                                </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
                             className={classes.headerInvestmentTypeInput}
@@ -270,15 +326,19 @@ const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                     </Box>
                 </Grid>
             </Grid>
-            <Box className={`${classes.inputWrapper} ${props?.boxInputShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
+            <Box ref={wrapperRef} className={`${classes.inputWrapper} ${props?.boxInputShow ? classes.inputWrapperActiveState : ''}`} sx={{ width: { xs: '90%', sm: '35%' } }}>
                 <TextField
                     label="Amount I want to invest monthly"
                     id="outlined-start-adornment"
                     value={amount}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>{
+                        setAmount(event.target.value)
+                    }
+                    }
                     type='number'
                     InputProps={{
-                        endAdornment: <Button disabled={false} className={classes.modalTextButton} onClick={handleInvestmentAmount} variant="contained">{props?.boxInputButtonText}</Button>,
+                        endAdornment: <Button disabled={false} className={classes.modalTextButton} onClick={handleInvestmentAmount} variant="contained">
+                            {props?.boxInputButtonText} </Button>,
                         startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                         // readOnly: investmentType === 'monthly' ? false : true,
                     }}
