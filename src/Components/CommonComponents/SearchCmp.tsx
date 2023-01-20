@@ -131,6 +131,12 @@ const enumSelectedType = {
     CHECKED: 'checked',
 }
 
+const enumTabsKey = {
+    SORT: 'Sort',
+    FUND_TYPE: 'Fund Type',
+    FUND_HOUSE:'Fund House'
+} 
+
 interface SearchCmpProps {
     // sort: sortTypes[];
     // policyTerm: radioTypes[];
@@ -152,48 +158,87 @@ const SearchCmp = (props: SearchCmpProps) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [filterBoxShowHide, setFilterBoxShowHide] = useState(false)
-    const [chackedValuesArr, setChackedValuesArr] = useState<any>([])
+    const [chackedValuesArr, setChackedValuesArr] = useState<any>({
+        'Sort' : '',
+        'Fund Type' : '',
+        'Fund House' : []
+    })
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
-    const handleCheckedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // setState({
-        //   ...state,
-        //   [event.target.name]: event.target.checked,
-        // });
-        console.log('checked :', event)
-      };
+    useEffect(() => {
+        let temp = [...props.filtersOptions]
+        const sortVal:string = temp[0].keyValues[0].value
+        const fundTypeVal:string = temp[1].keyValues[0]
+        const checkedTemp = {...chackedValuesArr}
+        checkedTemp[enumTabsKey.SORT] = sortVal;
+        checkedTemp[enumTabsKey.FUND_TYPE] = fundTypeVal;
+        console.log("chackedValuesArr temp:", temp,checkedTemp)
+        setChackedValuesArr(checkedTemp)
+    }, [])
+    
     
       useEffect(() => {
         console.log("chackedValuesArr :", chackedValuesArr)
-        props.handleCB(chackedValuesArr)
+        if(chackedValuesArr[enumTabsKey.SORT] && chackedValuesArr[enumTabsKey.SORT] !== '' && chackedValuesArr[enumTabsKey.FUND_TYPE] &&chackedValuesArr[enumTabsKey.FUND_TYPE] !== ''){
+            props.handleCB(chackedValuesArr)
+        }
       }, [chackedValuesArr])
       
-      useEffect(() => {
-        setChackedValuesArr([])
-      }, [value])
-      
-      const checkVerify = (index:number) => {
-        if(chackedValuesArr && chackedValuesArr?.length){
-            chackedValuesArr?.map((item:any) => {
-               return item?.chackedValuesArr === index ? true : false; 
-           })
-        }else{
-            return false;
-        }
-      }
 
-      const isExit = (index:number) => {
-        if(chackedValuesArr && chackedValuesArr?.length){
-            let tempFilter = [];
-            chackedValuesArr?.map((item:any) => {
-                if(item?.chackedValuesArr === index){
-                    const tempFilter = chackedValuesArr.filter((item:any) => item  )
+    const isExit = (data: any, changeType: any) => {
+        // if (chackedValuesArr) {
+            if (changeType === enumTabsKey.SORT) {
+               return chackedValuesArr[enumTabsKey.SORT] === data ? true : false;
+            } else if (changeType === enumTabsKey.FUND_TYPE) {
+                return chackedValuesArr[enumTabsKey.FUND_TYPE] === data ? true : false;
+            } else if (changeType === enumTabsKey.FUND_HOUSE) {
+                // console.log("chackedValuesArr[enumTabsKey.FUND_HOUSE] :", chackedValuesArr[enumTabsKey.FUND_HOUSE], data)
+                return chackedValuesArr[enumTabsKey.FUND_HOUSE].includes(data);
+                // if (e.target.checked === true) {
+                //     chackedValuesArr[enumTabsKey.FUND_HOUSE].push(data);
+                //     setChackedValuesArr(chackedValuesArr)
+                // } else {
+                //     chackedValuesArr[enumTabsKey.FUND_HOUSE] = chackedValuesArr[enumTabsKey.FUND_HOUSE].filter((item: string) => item !== data)
+                //     setChackedValuesArr(chackedValuesArr)
+                // }
+            }
+
+        // }
+    }
+
+      const handleCheckedAndRadioChange = (e:any, data:any, changeType: any, index?:number) => {
+          const temp = {...chackedValuesArr}
+        //   console.log("data :", e.target.checked, data,changeType, temp, chackedValuesArr)
+        if(changeType === enumTabsKey.SORT){
+            temp[enumTabsKey.SORT] = data;
+            setChackedValuesArr(temp)
+        } else if(changeType === enumTabsKey.FUND_TYPE){
+            temp[enumTabsKey.FUND_TYPE] = data;
+            setChackedValuesArr(temp)
+        }else if(changeType === enumTabsKey.FUND_HOUSE){
+            if(e.target.checked === true){
+                if(e.target.checked === true && index === 0){
+                    const ids = props.filtersOptions[2].keyValues.map((item:any) => item !== 0 && item.providerid)
+                    // ids.shift({
+                    //     providerid:"0",
+                    //     providername:"All"
+                    //   })
+                    temp[enumTabsKey.FUND_HOUSE] = ids;
+                    setChackedValuesArr(temp)
                 }else{
-                    tempFilter.push(item)
+                        temp[enumTabsKey.FUND_HOUSE].push(data)
+                        setChackedValuesArr(temp)
+                    
                 }
-           })
+            }else if(e.target.checked === false && index === 0){
+                temp[enumTabsKey.FUND_HOUSE] = [];
+              setChackedValuesArr(temp)
+            }else{
+                temp[enumTabsKey.FUND_HOUSE] = temp[enumTabsKey.FUND_HOUSE].filter((item:string) => item !== data) 
+                setChackedValuesArr(temp)
+            }
         }
       }
 
@@ -273,20 +318,36 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                     // onChange={(e) => props.handleCB({parentItem,e})}
                                                     className={classes.radioStyle}
                                                 >
+                                                    
                                                     {
-                                                        parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                        parentItem && parentItem?.key === enumTabsKey?.SORT ?
+                                                        
+                                                        parentItem && parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                            
                                                             <FormControlLabel
                                                                 className={classes.radioStyle}
                                                                 value={nestedItem?.value}
-                                                                control={<Radio />}
+                                                                control={<Radio checked={isExit(nestedItem?.value,enumTabsKey?.SORT )} />}
                                                                 label={nestedItem?.label}
                                                                 onChange={(e) => {
-                                                                    props.handleCB({ parentIndex, nestedItem, childIndex });
+                                                                    handleCheckedAndRadioChange(e, nestedItem?.value, enumTabsKey?.SORT)
                                                             }}
                                                             />
-                                                            // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
-                                                            // ))
-                                                        ))
+                                                           
+
+                                                        )) :
+                                                        parentItem && parentItem?.key === enumTabsKey?.FUND_TYPE ?
+                                                        parentItem && parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
+                                                            <FormControlLabel
+                                                                className={classes.radioStyle}
+                                                                value={nestedItem}
+                                                                control={<Radio checked={isExit(nestedItem,enumTabsKey?.FUND_TYPE )}/>}
+                                                                label={nestedItem}
+                                                                onChange={(e) => {
+                                                                    handleCheckedAndRadioChange(e, nestedItem, enumTabsKey?.FUND_TYPE)
+                                                            }}
+                                                            />
+                                                        )) : null
                                                     }
                                                 </RadioGroup>
                                             </FormControl>
@@ -299,22 +360,12 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                         parentItem?.keyValues && parentItem?.keyValues?.length && parentItem?.keyValues?.map((nestedItem: any, childIndex: number) => (
                                                             <FormControlLabel
                                                                 className={classes.radioStyle}
-                                                                value={nestedItem?.value}
-                                                                control={<Checkbox
+                                                                value={nestedItem?.providerid}
+                                                                control={<Checkbox checked={isExit(nestedItem?.providerid,enumTabsKey?.FUND_HOUSE )}
                                                                 />}
-                                                                label={nestedItem?.label}
-                                                                onChange={(event) => {
-                                                                    console.log("checked event :", event)
-                                                                    // setChackedValuesArr({
-                                                                    //     ...chackedValuesArr,
-                                                                    //     [event.target.name]: event.target.checked,
-                                                                    //   });
-                                                                      setChackedValuesArr((prevState:any) =>[...prevState, { parentIndex, nestedItem, childIndex }])
-                                                                    // props.handleCB({ parentIndex, nestedItem, childIndex })
-                                                                }}
+                                                                label={nestedItem?.providername}
+                                                                onChange={(e) => handleCheckedAndRadioChange(e, nestedItem?.providerid, enumTabsKey?.FUND_HOUSE, childIndex)}
                                                             />
-                                                            // props?.sort && props?.sort?.length && props?.sort?.map((sortItem: sortTypes) => (
-                                                            // ))
                                                         ))
                                                     }
                                                     {/* <FormControlLabel

@@ -29,7 +29,7 @@ import siteConfig from '../../Utils/siteConfig'
 import { setMasterFundListAction } from '../../Store/Global/actions/global-actions'
 import { lookUpMasterKeys } from '../../Utils/globalConstant'
 import AddToPlanComp from '../CommonComponents/AddToPlanComp'
-import { getCategoryGroupListThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
+import { getCategoryGroupListThunk, getListOfMutualFundProviderCoThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
 import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
@@ -208,6 +208,7 @@ function ExploreFunds(props: any) {
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
   const [filterValues, setFilterValues] = useState<any>({})
   const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
+  const [fundProviderList, setFundProviderList] = useState<any[]>([])
 
   const [filterIndexes, setFilterIndexes] = useState<any>(
     [
@@ -232,54 +233,12 @@ function ExploreFunds(props: any) {
       {
         key: 'Fund Type',
         selectType: 'radio',
-        keyValues: [
-          {
-            value: 'all',
-            label: 'All (20)',
-          },
-          {
-            value: 'growth',
-            label: 'Growth (12)',
-          },
-          {
-            value: 'dividend',
-            label: 'Dividend (8)',
-          },
-        ]
+        keyValues: [],
       },
       {
         key: 'Fund House',
         selectType: 'checked',
-        keyValues: [
-          {
-            value: 'all',
-            label: 'All (148)',
-          },
-          {
-            value: 'axis',
-            label: 'Axis (21)',
-          },
-          {
-            value: 'sbi',
-            label: 'SBI Funds (37)',
-          },
-          {
-            value: 'invesco',
-            label: 'Invesco (7)',
-          },
-          {
-            value: 'pgim',
-            label: 'PGIM (2)',
-          },
-          {
-            value: 'quant',
-            label: 'Quant (4)',
-          },
-          {
-            value: 'dividend',
-            label: 'Dividend',
-          },
-        ]
+        keyValues: []
       }
     ]
   )
@@ -327,9 +286,11 @@ function ExploreFunds(props: any) {
       temp && temp?.length &&
       temp.map((item, index) => {
         if(item?.key === enumFilterIndexes?.FUND_TYPE){
-          console.log("temp filter :", temp[index])
+          console.log("temp filter :", temp[index]?.keyValues)
+          temp[index].keyValues = categoryGroupList;
         }
       })
+      console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList])
 
@@ -361,9 +322,47 @@ function ExploreFunds(props: any) {
 
   }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
 
-// useEffect(() => {
-// }, [categoryGroupList])
+useEffect(() => {
+ getFundProviderList();
+  // console.log("response :", res)
+}, [])
 
+useEffect(() => {
+  console.log("fundProviderList :", fundProviderList)
+  
+  const temp = [...filterIndexes]
+  temp && temp?.length &&
+  temp.map((item, index) => {
+    if(item?.key === enumFilterIndexes?.FUND_HOUSE){
+      temp[index].keyValues = fundProviderList;
+      temp[index].keyValues.unshift({
+        providerid:"0",
+        providername:"All"
+      })
+      console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
+    }
+  })
+  console.log("temp filter changed :", temp)
+}, [fundProviderList])
+
+
+const getFundProviderList = async () => { 
+  let response: apiResponse = await getListOfMutualFundProviderCoThunk();
+  console.log("fundProviderList response :", response)
+  
+  response.data = [...response.data];
+  // @ts-ignore
+  handleApiResponse(response, [setFundProviderList]);
+  // .then((data) => {
+  //   console.log("getFundProviderList :", data)
+  //   return data.data;
+  // }).catch((error) => {
+  //   console.log("getFundProviderList :", error)
+  //   return error.error;
+  // })
+
+  return response;
+}
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
@@ -569,9 +568,15 @@ function ExploreFunds(props: any) {
 
 
   const handleFilterCB = (data: any) => {
-    console.log("click value :", data,)
-    // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
-    // getMasterFundList(url);
+    const tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
+    setActiveCategoryGroupIndex(tempIndex);
+    var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+    data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+      url += item + ',' 
+    })
+    console.log("click value :", data, url, tempIndex)
+
+    getMasterFundList(url);
     setFilterValues(data)
   }
 
@@ -666,18 +671,9 @@ function ExploreFunds(props: any) {
                   <Box sx={{marginBottom:'15px'}}>
                       <SearchCmp
                         filtersOptions={[...filterIndexes]}
-                        // sort={customSort}
-                        // policyTerm={policyTerm}
-                        // lifeCover={lifeCover}
-                        // sortValue={customSortValue}
-                        // policyTermValue={policyTermValue}
-                        // lifeCoverValue={lifeCoverValue}
                         searchKeysFun={handleSearchFunctionality}
                         searchBox={true}
                         handleCB={handleFilterCB}
-                      // sortCb={handleSortRadio}
-                      // policyTermCb={handlePolicyTermRadio}
-                      // lifeCoverCb={handleLifeCoverRadio}
                       />
                     </Box>
 
