@@ -420,7 +420,7 @@ const OneTimeMutualFund = () => {
                     display: "flex",
                     justifyContent: "flex-end",
                   }}
-                  className="KnowWhyStyle"
+              
                 >
                   <img
                     src={HelpOutline}

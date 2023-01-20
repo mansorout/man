@@ -137,6 +137,7 @@ export const validateProfileCompletion = () => {
 
     //profile completion
     for (let i = 0; i < arrProfileCompletion.length; i++) {
+      console.log(arrProfileCompletion[i], " " + objUserDetail?.userdetails[arrProfileCompletion[i]]);
       if (!objUserDetail?.userdetails[arrProfileCompletion[i]]) {
         objUserProfileValidationData.isProfileComplete = false;
         break;
@@ -165,7 +166,7 @@ export const validateProfileCompletion = () => {
       }
     }
 
-
+    console.log(objUserProfileValidationData, "user profile completion");
     return objUserProfileValidationData;
   } catch (err) {
     console.log(err);

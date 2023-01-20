@@ -131,7 +131,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
 interface RecommendationsHeaderPropsType {
     selectTextLabel: string;
-    selectArray: string[];
+    selectArray: any;
     selectChoosedValue: string;
     changeSelectEvent: (event: SelectChangeEvent) => void;
     investmentTypeLabel: string;
@@ -150,7 +150,7 @@ interface RecommendationsHeaderPropsType {
     // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
+const   RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     const classes = useStyles();
     const dispatch: any = useDispatch();
     // const { investmentType, investmentAmount } = useSelector((state: any) => state.SaveTaxInvestmentType)
@@ -216,17 +216,17 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
         } else if (props?.investmentType === ULIP_MONTHLY) {
             dispatch(insuranceUlipAmount(amount))
         } else {
-            if (isMultipleofNumber(parseInt(amount), 100)) {
+            // if (isMultipleofNumber(parseInt(amount), 100)) {
                 localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
                 props?.boxInputHideHandleChange()
                 console.log("props?.investmentAmount :", props?.investmentAmount)
                 console.log("localStorage.getItem(siteConfig?.SIP_USER_AMOUNT) :", localStorage.getItem(siteConfig?.SIP_USER_AMOUNT))
-            } else {
-                setValidationAlertDialog({
-                    msg: 'Enter amount multiple of 100!',
-                    bool: true,
-                })
-            }
+            // } else {
+            //     setValidationAlertDialog({
+            //         msg: 'Enter amount multiple of 100!',
+            //         bool: true,
+            //     })
+            // }
         }
     }
 
@@ -245,7 +245,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             onChange={props?.changeSelectEvent}
                             label="Age"
                         >
-                            {props?.selectArray.map((item, index) => (
+                            {props?.selectArray.map((item:any, index:number) => (
                                 <MenuItem value={item} key={index}>{item} Years</MenuItem>
                             ))}
                             {/* <MenuItem value={5}>5 Years</MenuItem>

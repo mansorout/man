@@ -173,8 +173,8 @@ const ULIPRecommendations = () => {
     const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
     const [value, setValue] = useState(new Date());
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
-    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5', '10', '15', '20'])
-    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
+    const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<any>([])
+    const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('10')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
     const [recommendationHeaderInvestmentAmount, setRecommendationHeaderInvestmentAmount] = useState<string>('')
     const [customSortValue, setCustomSortValue] = useState<string>('second')
@@ -283,15 +283,23 @@ const ULIPRecommendations = () => {
 
     useEffect(() => {
         if (parseInt(ulipInsuranceAmount) === 0) navigate('/ulip/investoptions')
-        const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
-        const lookUPId = getLookUpIdWRTModule(bannersectionArr, bannerSectionValues.SAVE_TAX)
+        console.log("recommendationHeaderSelectChoosed :",recommendationHeaderSelectChoosed)
+        const ulipTerm = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM))
+        const tempArr: any= [];
+        ulipTerm.map((item:any) => {
+            tempArr.push(item.value)
+        })
+        setRecommendationHeaderSelectArr(tempArr)
+        const term_id = ulipTerm.filter((item:any) => item.value === parseInt(recommendationHeaderSelectChoosed))
+        console.log("lookUPId ulipTerm :", ulipTerm, tempArr,term_id)
+        // const lookUPId = getLookUpIdWRTModule(ulipTerm, bannerSectionValues.SAVE_TAX)
         const ulipGenrateBody = {
             amount: parseInt(ulipInsuranceAmount),
             frequencytype: ulipInsuranceType === ULIP_LUMPSUM ? 1 : 0,
-            term_id: 85 //85
+            term_id: term_id[0].lookup_id //85
         }
         dispatch(postUlipGenrateApi(ulipGenrateBody))
-    }, [ulipInsuranceAmount])
+    }, [ulipInsuranceAmount, recommendationHeaderSelectChoosed])
 
     useEffect(() => {
         ulipGenrateApiData?.recommendation_id && dispatch(getUlipListApi(ulipGenrateApiData?.recommendation_id))
@@ -737,8 +745,7 @@ const ULIPRecommendations = () => {
                             </Box>
                             <Box>
                                 <Typography component='p' sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500, }}>Features</Typography>
-                                <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>A value for money investment option that
-                                    match tax saving requirements!</Typography>
+                                <Typography component='span' sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>A value for money investment option that match tax saving requirements!</Typography>
                             </Box>
                         </Box>
                         <Box>

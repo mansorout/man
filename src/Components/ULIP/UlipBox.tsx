@@ -632,7 +632,7 @@ const UlipBox = (props: any) => {
                             xs={12}
                             md={6}
                             style={{}}
-                            className="Ulippaddingright"
+                         
                           >
                             {/* <UlipPlanPerformanceCard /> */}
                             <Box className={classes.performanceGraphCard} >

@@ -20,12 +20,7 @@
     padding: 2px !important;
   
   }
-  .BoxHTSR{
-    color:  red !important;
-  }
-  .containerReportStyle{
-    color: red !important;
-  }
+
 
 }
 @media (width:390px){
@@ -37,12 +32,7 @@
     padding: 2px !important;
   
   }
-  .BoxHTSR{
-    color:  red !important;
-  }
-  .containerReportStyle{
-    color: red !important;
-  }
+
 }
 @media (width:393px){
   .transtabStyle{

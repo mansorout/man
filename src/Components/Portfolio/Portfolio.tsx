@@ -365,7 +365,7 @@ const Portfolio = () => {
   }
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-
+    setLoading(false);
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -388,7 +388,7 @@ const Portfolio = () => {
   }
 
   const handleVariableFundList = (fundList: any[] | null) => {
-    setLoading(false);
+    // setLoading(false);
     if (!fundList) {
       setMessage("You have not started your investment journey yet!");
       return;
@@ -438,9 +438,9 @@ const Portfolio = () => {
                     </Box>
                   </Box>
                   <Box>
-                    {/* <SprintMoneyLoader
-                      loadingStatus={true}
-                    /> */}
+                    <SprintMoneyLoader
+                      loadingStatus={loading}
+                    />
                     {
                       message && message.length ?
                         <>
