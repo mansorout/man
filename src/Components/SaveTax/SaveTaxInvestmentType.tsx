@@ -288,7 +288,7 @@ const SaveTaxInvestmentType = () => {
 
 <FooterBtnWithBox
     boxIcon={<ThumbUpAltOutlinedIcon />}
-    boxText='Great! You`ll save taxes upto'
+    boxText={`Great! You'll save taxes upto`}
     boxAmount={`₹${savetaxPercentageAmount}`}
     btnText='Show Me Recommendations'
     btnClick={handleShowRecommendation}
