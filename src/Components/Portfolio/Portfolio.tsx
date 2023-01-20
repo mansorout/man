@@ -425,10 +425,10 @@ const Portfolio = () => {
               <Grid xs={12} sm={12} md={12}>
                 <Toolbar />
                 <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
-                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Portfolio</Typography>
-                    </Link>
-                  </Breadcrumbs>
+                  <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                    <Typography className='burgerText'>Portfolio</Typography>
+                  </Link>
+                </Breadcrumbs>
 
                 </Box>
               </Grid>
@@ -436,14 +436,16 @@ const Portfolio = () => {
             <Grid container>
               <Grid xs={12} sm={12} md={12}>
                 <Box className="BoxMarginLeftRight">
-                <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Box style={{ marginBottom: "20px", padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", maxWidth: "600px", flexWrap: "wrap", gap: "20px" }}>
                       <Box style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <Typography className='taxtTabMedia' style={{ color: "#3c3e42", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/holdings')}>Holdings</Typography>
                         <Box style={{ position: "absolute", bottom: "0px", padding: "1px", backgroundColor: "#23db7b", width: "100%" }}></Box>
                       </Box>
                       <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/transactions')}>Transactions</Typography>
-                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/sips')}>SIPs</Typography>
+                      <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => { navigate('/sips', { state: { investmenttype_id: 12 } }) }}>SIPs</Typography>
+                      {/* <Typography style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => { navigate('/sips', { state: { investmenttype_id: 12 } }) }}>SIPs</Typography> */}
+                      
                       <Typography className='taxtTabMedia' style={{ color: "#919eb1", fontWeight: "500", fontSize: "16px", cursor: "pointer" }} onClick={() => navigate('/reports')}>Reports</Typography>
                     </Box>
                   </Box>
@@ -469,16 +471,17 @@ const Portfolio = () => {
                                   <Grid container padding={2}>
                                     <Grid item sm={6} xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                                       <Grid container>
-                                          <Grid xs={8} sm={8}>
+                                        <Grid xs={8} sm={8}>
                                           <Box style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", }}>
-                                        {/* <img src={chart} alt="chart" width="240px"></img> */}
-                                        {
-                                          holdingGraph?.assetallocation ?
-                                            <CircularBar
-                                              progressData={holdingGraph?.assetallocation}
-                                            />
-                                            : null
-                                        }
+                                            {/* <img src={chart} alt="chart" width="240px"></img> */}
+                                            {
+                                              holdingGraph?.assetallocation ?
+                                                <CircularBar
+                                                  progressData={holdingGraph?.assetallocation}
+                                                />
+                                                : null
+                                            }
+
 
                                        
                                       </Box>
@@ -500,7 +503,7 @@ const Portfolio = () => {
                                         </Box>
                                           </Grid>
                                       </Grid>
-                                     
+
                                     </Grid>
                                     <Grid item sm={6} xs={12} m={"auto"} >
                                     <Box sx={{gap:{xs:"5px", sm:"20px"}, marginTop:{xs:"10px", sm:"0"}}} style={{ display: "flex", flexWrap: "wrap", width: "100%",justifyContent: "space-between" }}>
