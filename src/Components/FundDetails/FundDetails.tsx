@@ -38,6 +38,7 @@ import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledAc
 import "./FundTable.css";
 import LineChart from "../CommonComponents/Charts/LineChart";
 import moment from "moment";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   appbar: {
@@ -179,6 +180,7 @@ const FundDetails = () => {
 
   const refContainer = useRef();
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [fundDetails, setFundDetails] = useState<any>({});
   const [fundNavDetails, setFundNavDetails] = useState<any[]>([]);
 
@@ -213,6 +215,8 @@ const FundDetails = () => {
 
   const getFundDetails = async () => {
     let strParam: string = `?fund_id=${secId}`;
+    setLoading(true);
+
     [siteConfig.RECOMMENDATION_FUND_DETAIL, siteConfig.RECOMMENDTAION_FUND_NAV_DETAIL].map(async (item: string) => {
       getDataWithoutToken(
         item + strParam,
@@ -230,14 +234,22 @@ const FundDetails = () => {
 
           if (item === siteConfig.RECOMMENDATION_FUND_DETAIL) {
             setFundDetails(data?.data ? data?.data : {})
+
+            setTimeout(() => {
+              setLoading(false);
+            }, 500);
           } else {
             setFundNavDetails(data?.data ? data?.data : []);
           }
         })
         .catch(err => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
           console.log(err)
         })
     })
+
   }
 
   return (
@@ -249,6 +261,9 @@ const FundDetails = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
+          <SprintMoneyLoader
+            loadingStatus={loading}
+          />
           <Grid container xs={12} sm={11} md={10} sx={{
             height: "100vh",
             overflow: "scroll",

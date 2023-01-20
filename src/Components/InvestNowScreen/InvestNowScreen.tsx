@@ -264,125 +264,16 @@ const chartOptions = {
   },
 };
 
-const dummyExpectedReturns = [
-  {
-    "years": 1,
-    "investedvalue": "10000",
-    "projectedvalue": 11100
-  },
-  {
-    "years": 2,
-    "investedvalue": "10000",
-    "projectedvalue": 12321
-  },
-  {
-    "years": 3,
-    "investedvalue": "10000",
-    "projectedvalue": 13676
-  },
-  {
-    "years": 4,
-    "investedvalue": "10000",
-    "projectedvalue": 15181
-  },
-  {
-    "years": 5,
-    "investedvalue": "10000",
-    "projectedvalue": 16851
-  },
-  {
-    "years": 6,
-    "investedvalue": "10000",
-    "projectedvalue": 18704
-  },
-  {
-    "years": 7,
-    "investedvalue": "10000",
-    "projectedvalue": 20762
-  },
-  {
-    "years": 8,
-    "investedvalue": "10000",
-    "projectedvalue": 23045
-  },
-  {
-    "years": 9,
-    "investedvalue": "10000",
-    "projectedvalue": 25580
-  },
-  {
-    "years": 10,
-    "investedvalue": "10000",
-    "projectedvalue": 28394
-  },
-  {
-    "years": 11,
-    "investedvalue": "10000",
-    "projectedvalue": 31518
-  },
-  {
-    "years": 12,
-    "investedvalue": "10000",
-    "projectedvalue": 34985
-  },
-  {
-    "years": 13,
-    "investedvalue": "10000",
-    "projectedvalue": 38833
-  },
-  {
-    "years": 14,
-    "investedvalue": "10000",
-    "projectedvalue": 43104
-  },
-  {
-    "years": 15,
-    "investedvalue": "10000",
-    "projectedvalue": 47846
-  },
-  {
-    "years": 16,
-    "investedvalue": "10000",
-    "projectedvalue": 53109
-  },
-  {
-    "years": 17,
-    "investedvalue": "10000",
-    "projectedvalue": 58951
-  },
-  {
-    "years": 18,
-    "investedvalue": "10000",
-    "projectedvalue": 65436
-  },
-  {
-    "years": 19,
-    "investedvalue": "10000",
-    "projectedvalue": 72633
-  },
-  {
-    "years": 20,
-    "investedvalue": "10000",
-    "projectedvalue": 80623
-  }
-]
 
 const enumPriceTag = {
-  THOUSAND: 'Thousand',
+  // THOUSAND: 'Thousand',
+  THOUSAND: '',
   LAC: "Lac",
   CRORE: "Cr"
 }
 
 function InvestNowScreen(props: IProps) {
 
-  const [investmentType, setInvestmentType] = useState<string>(ULIP_LUMPSUM)
-
-  const handleTimerLumpsum = (cb: any | void, a: any) => {
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-        dispatch(cb(a));
-    }, 550);
-}
   const classes = useStyles();
   const refContainer = useRef();
   const navigate = useNavigate();
@@ -437,15 +328,6 @@ function InvestNowScreen(props: IProps) {
     let val = amount + nAmount;
     handleTimer(getExpectedFundReturnList, val);
   }
-//   useEffect(() => {
-//     const urlTemp: ulipReturnApiParamsTypes = {
-//         frequencytype: investmentType === ONE_TIME_LUMPSUM_AMOUNT ? '0' : '1',
-//         amount: onetypeLumpsumAmount,
-//     }
-//     console.log(urlTempreture)
-
-//     dispatch(getUlipReturnApi(urlTempreture))
-// }, [onetypeLumpsumAmount])
 
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
@@ -458,16 +340,9 @@ function InvestNowScreen(props: IProps) {
     setAmountMutipleofH(e.target.value)
     console.log(amountMutipleofH)
     let { value } = e?.target;
-    handleTimerLumpsum(onetimeLumpsumamount, e.target.value)
-console.log(onetimeLumpsumamount)
-console.log(e.target.value)
+    
     setAmount(value && value.length ? parseInt(value) : 0);
 
-    // if (amount  > arrPriceList[0] - 1) {
-    //   setError("Amount should be more than ₹5000");
-    //   return;
-    // }
-    
     if (!isMultipleofNumber(value, 100)) { 
       setError("Amount should be multiple of 100.")
     }
@@ -539,7 +414,6 @@ console.log(e.target.value)
       if(data?.error === true){
         return;
       }
-debugger
       localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
       navigate(path);
     }).catch(err=> {

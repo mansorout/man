@@ -63,6 +63,8 @@ export interface MFProp {
   showButtons: boolean;
   showCheckbox: boolean;
   isMutualFundScreen: boolean;
+  cefType: string
+  isShowRemoveButton?: boolean
 }
 
 const enumActiveScreen = Object.freeze({
@@ -259,19 +261,25 @@ const MutualFundCard2 = (props: MFProp) => {
             </Box>
           </Box>
         </Box>
-        <Box
-          style={{
-            padding: "4px 8px",
-            backgroundColor: "#d6d5ef",
-            borderRadius: "2px",
-          }}
-        >
-          <Typography
-            style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
-          >
-            ₹{props?.recommendedamount} {strCardType === globalConstant.SIP_INVESTMENT ? 'pm' : '' }
-          </Typography>
-        </Box>
+        {
+          props?.cefType ?
+            <Box
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "#d6d5ef",
+                borderRadius: "2px",
+              }}
+            >
+              <Typography
+                style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
+              >
+
+                ₹{props?.recommendedamount} {strCardType === globalConstant.SIP_INVESTMENT ? 'pm' : ''}
+
+              </Typography>
+            </Box>
+            : null
+        }
         <Chip
           style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }}
           avatar={<Avatar alt="star" src={Star} />}
@@ -345,17 +353,23 @@ const MutualFundCard2 = (props: MFProp) => {
                         <img src={ReplaceButtonIcon} />
                         Replace
                       </Button>
-                      <Button
-                        variant="contained"
-                        style={style.buttons}
-                        className={classes.removeBtn}
-                        onClick={() => {
-                          setRemoveInvestment(true);
-                        }}
-                      >
-                        <img src={RemoveButtonIcon} />
-                        Remove
-                      </Button>
+                      {
+                        props?.isShowRemoveButton ?
+                          <>
+                            <Button
+                              variant="contained"
+                              style={style.buttons}
+                              className={classes.removeBtn}
+                              onClick={() => {
+                                setRemoveInvestment(true);
+                              }}
+                            >
+                              <img src={RemoveButtonIcon} />
+                              Remove
+                            </Button>
+                          </>
+                          : null
+                      }
                     </Grid>
                   </Grid>
                 </>
@@ -389,7 +403,7 @@ const MutualFundCard2 = (props: MFProp) => {
               >
                 {
                   props?.isChecked === true ?
-                    <>``
+                    <>
                       <RadioButtonChecked sx={{ color: "var(--primaryColor)" }} />
                     </>
                     : <>
@@ -442,13 +456,13 @@ const MutualFundCard2 = (props: MFProp) => {
                     variant="h2"
                     display="flex"
                     justifyContent={"center"}
-                    style={{fontWeight:"700"}}
+                    style={{ fontWeight: "700" }}
                   >
                     Remove Funds
                   </Typography>
                 </Grid>
                 <Grid item xs={9}>
-                  <Typography component="p" style={{ color: "grey", textAlign:"center" }}>
+                  <Typography component="p" style={{ color: "grey", textAlign: "center" }}>
                     Are you sure you want to remove this fund from the
                     SprintMoney recommended plan?
                   </Typography>

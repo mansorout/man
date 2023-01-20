@@ -50,10 +50,10 @@ type formDataProps = {
   uniqueid?: string, //extra
   countryofbirth_id: number,
   countryofbirth: string,
-  placeofbirth_id: number,
-  placeofbirth: string,
-  stateofbirth: string,
-  stateofbirth_id: number,
+  placeofbirthstate_id: number,
+  placeofbirthstate: string,
+  placeofbirthcity: string,
+  placeofbirthcity_id: number,
   incomeslab: string,
   incomecode: number,
   incomeslab_id: number,
@@ -73,7 +73,8 @@ type validateInputsProps = {
   pincode: boolean,
   city_id: boolean,
   state_id: boolean,
-  placeofbirth_id: boolean,
+  placeofbirthstate_id: boolean,
+  placeofbirthcity_id: boolean,
   countryofbirth_id: boolean,
   incomeslab_id: boolean,
   country_id: boolean,
@@ -103,8 +104,14 @@ const initialFormData: formDataProps = {
   country_id: 0,
   country: "",
   uniqueid: "", //extra
-  placeofbirth_id: 0,
-  placeofbirth: "",
+  // placeofbirth_id: 0,
+  // placeofbirth: "",
+  // stateofbirth: "",
+  // stateofbirth_id: 0,
+  placeofbirthcity_id: 0,
+  placeofbirthcity: "",
+  placeofbirthstate: "",
+  placeofbirthstate_id: 0,
   incomeslab: "",
   incomecode: 0,
   incomeslab_id: 0,
@@ -113,8 +120,7 @@ const initialFormData: formDataProps = {
   bankname: "",//extra
   countryofbirth_id: 0,
   countryofbirth: "",
-  stateofbirth: "",
-  stateofbirth_id: 0,
+
 }
 
 const initialValidateinputsData: validateInputsProps = Object.freeze({
@@ -128,7 +134,8 @@ const initialValidateinputsData: validateInputsProps = Object.freeze({
   pincode: false,
   city_id: false,
   state_id: false,
-  placeofbirth_id: false,
+  placeofbirthstate_id: false,
+  placeofbirthcity_id: false,
   countryofbirth_id: false,
   incomeslab_id: false,
   country_id: false,
@@ -269,7 +276,7 @@ const EditprofileCard = () => {
   const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
   const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
-  const [numberForView,setnumberForview] =useState<string>("")
+  const [numberForView, setnumberForview] = useState<string>("")
 
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
@@ -425,11 +432,11 @@ const EditprofileCard = () => {
     }
 
     setnumberForview(objUserDetails?.mobilenumber)
-    
-    
+
+
 
     getCityList(objUserDetails?.state_id, false);
-    getCityList(objUserDetails?.stateofbirth_id, true);
+    getCityList(objUserDetails?.placeofbirthstate_id, true);
 
     let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
     // let date = objUserDetails?.dateofbirth;
@@ -448,7 +455,8 @@ const EditprofileCard = () => {
       city_id: objUserDetails?.city_id,
       state_id: objUserDetails?.state_id,
       country_id: objUserDetails?.country_id,
-      placeofbirth_id: objUserDetails?.placeofbirth_id,
+      placeofbirthcity_id: objUserDetails?.placeofbirthcity_id,
+      placeofbirthstate_id: objUserDetails?.placeofbirthstate_id,
       incomeslab_id: objUserDetails?.incomeslab_id,
       countryofbirth_id: 1,
       dateofbirth: date
@@ -671,7 +679,7 @@ const EditprofileCard = () => {
   return (
     <>
       <Box sx={{
-        padding: {xs:"10px", sm:"29px"},
+        padding: { xs: "10px", sm: "29px" },
         borderRadius: "8px",
         marginBottom: "-15px",
       }}
@@ -681,8 +689,8 @@ const EditprofileCard = () => {
           <Grid item xs={12} md={6} >
             <Paper className=''
               sx={{
-                p:{xs:"5px", sm:"2"},
-                 bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
+                p: { xs: "5px", sm: "2" },
+                bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
               }}
@@ -729,9 +737,9 @@ const EditprofileCard = () => {
                     width: "100%", fontSize: "15px", fontWeight: "normal",
 
                   }}
-                  // error={validateInputs?.middlename}
-                  // helperText={validateInputs?.middlename ? enumErrorMsg.PLEASE_ENTER_MIDDLE_NAME : ""}
-              
+                // error={validateInputs?.middlename}
+                // helperText={validateInputs?.middlename ? enumErrorMsg.PLEASE_ENTER_MIDDLE_NAME : ""}
+
                 />
                 <TextField
                   type='text'
@@ -822,7 +830,7 @@ const EditprofileCard = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <CustomSelectBox
-                        name={"stateofbirth_id"}
+                        name={"placeofbirthstate_id"}
                         labelKey={'state'}
                         valueKey={'state_id'}
                         options={stateList}
@@ -837,20 +845,20 @@ const EditprofileCard = () => {
                         // selectSX={{
                         //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
                         // }}
-                        value={formData?.stateofbirth_id}
+                        value={formData?.placeofbirthstate_id}
                         onChange={(val: any) => {
                           getCityList(val, true);
-                          customSelectBoxOnChange("stateofbirth_id", val)
+                          customSelectBoxOnChange("placeofbirthstate_id", val)
                         }}
                         onBlur={handleBlur}
-                      // error={!formData?.stateofbirth_id ? validateInputs?.stateofbirth_id : false}
-                      // formHelperText={!formData?.stateofbirth_id ? (validateInputs?.stateofbirth_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
+                        error={!formData?.placeofbirthstate_id ? validateInputs?.placeofbirthstate_id : false}
+                        formHelperText={!formData?.placeofbirthstate_id ? (validateInputs?.placeofbirthstate_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <CustomSelectBox
                         // pagination={true}
-                        name={"placeofbirth_id"}
+                        name={"placeofbirthcity_id"}
                         labelKey={'city'}
                         valueKey={'city_id'}
                         options={allCityList}
@@ -866,13 +874,13 @@ const EditprofileCard = () => {
                         // selectSX={{
                         //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
                         // }}
-                        value={formData?.placeofbirth_id}
+                        value={formData?.placeofbirthcity_id}
                         onChange={(val: any) => {
-                          customSelectBoxOnChange("placeofbirth_id", val)
+                          customSelectBoxOnChange("placeofbirthcity_id", val)
                         }}
                         onBlur={handleBlur}
-                      // error={!formData.placeofbirth_id ? validateInputs?.placeofbirth_id : false}
-                      // formHelperText={!formData.placeofbirth_id ? (validateInputs?.placeofbirth_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
+                        error={!formData.placeofbirthcity_id ? validateInputs?.placeofbirthcity_id : false}
+                        formHelperText={!formData.placeofbirthcity_id ? (validateInputs?.placeofbirthcity_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
                       />
                     </Grid>
                   </Grid>
@@ -883,7 +891,7 @@ const EditprofileCard = () => {
           <Grid item xs={12} md={6} className="gridMarginBottom20">
             <Paper className=''
               sx={{
-                p:{xs:"5px", sm:"2"},
+                p: { xs: "5px", sm: "2" },
                 bgcolor: 'background.paper',
                 marginTop: "-23px",
                 borderRadius: "8px",
@@ -898,11 +906,11 @@ const EditprofileCard = () => {
                 }}>
                   <Grid item xs={12} >
                     <Box
-                      // sx={{
-                      //   '& button': { m: "3px 5px" },
-                      //   textAlign: "left"
-                      // }}
-                      // className='wholedivbuttons'
+                    // sx={{
+                    //   '& button': { m: "3px 5px" },
+                    //   textAlign: "left"
+                    // }}
+                    // className='wholedivbuttons'
                     >
                       <Button
                         id={"male"}
@@ -931,13 +939,13 @@ const EditprofileCard = () => {
                           padding: "12px 14px"
                         }}
                       >
-                         <img
+                        <img
                           src={manicon}
                           alt="smallarrow Logo"
-                          style={{ width: "24px", height: "24px", borderRadius: "12px",}}
+                          style={{ width: "24px", height: "24px", borderRadius: "12px", }}
                         />
-                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle"> 
-                       Male</Typography>
+                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">
+                          Male</Typography>
                       </Button>
                       <Button
                         name="gender"
@@ -960,7 +968,7 @@ const EditprofileCard = () => {
                         size="medium"
                         sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}
                       >
-                         <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
+                        <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
                         <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
                       </Button>
                       <Button
@@ -997,8 +1005,8 @@ const EditprofileCard = () => {
                         fontSize: "17px",
                         marginTop: "4%",
                         marginRight: "6%",
-                      }}    
-                      
+                      }}
+
                       fullWidth
                       label="Date of Birth"
                       onBlur={handleBlur}
@@ -1030,7 +1038,7 @@ const EditprofileCard = () => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="end">
-                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", right: "1px", padding:"10px", width:"20px", background:"#fff", cursor: "pointer" }} />
+                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", right: "1px", padding: "10px", width: "20px", background: "#fff", cursor: "pointer" }} />
                           </InputAdornment>),
                       }}>
                     </TextField>

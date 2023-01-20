@@ -46,7 +46,7 @@ const style = {
   },
 
   cameraIcon: {
-    borderRadius: "170px 175px 175px 163px",
+    borderRadius: "50%",
 
     width: "76px",
     height: "76px",
@@ -129,6 +129,7 @@ const ViewProfileCard = (props: IProps) => {
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   // const [profileImage,setProfileImage] = useState<any>("")
   const [profileImage2,setProfileImage2] = useState<any>("")
+  const[showImage,setShowImage] = useState(false)
   const userProfileStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isProfileComplete);
   const ImageData = {
     filename: "kk",
@@ -168,7 +169,8 @@ const ViewProfileCard = (props: IProps) => {
         emailaddress: userdetails?.emailaddress || "",
         dateofbirth: checkDOB(userdetails?.dateofbirth),
         gender: userdetails?.gender || "",
-        placeofbirth: userdetails?.placeofbirth || "",
+        // placeofbirth: userdetails?.placeofbirth || "",
+        placeofbirth: userdetails?.placeofbirthcity || "",
         addressline1: strAddress || "",
         incomeslab: userdetails?.incomeslab || "",
       }));
@@ -203,30 +205,33 @@ const ViewProfileCard = (props: IProps) => {
       // alert("h")
       const reader = new FileReader();
       reader.onload = (fileLoadedEvent: any) => {
-        let base64:any = fileLoadedEvent.target.result;
+        let base64: any = fileLoadedEvent.target.result;
         // setProfileImage(base64)
 
         // console.log(base64)
 
         dispatchLocal(setProfileImage(base64));
 
-        
+
         localStorage.setItem("imgSrc", base64)
 
 
 
 
-        
+
         //  console.log(image)
-       
+
 
         setImgSrc(base64);
+
+        
+        setShowImage(true)
 
       };
       reader.readAsDataURL(e.target.files[0]);
     }
 
-
+   
     
 
 
@@ -240,13 +245,14 @@ const ViewProfileCard = (props: IProps) => {
 
   };
 
-   
+
   // upload image setten in a state
 
-  useEffect(()=>{
+  useEffect(() => {
     let image = localStorage.getItem("imgSrc")
     // console.log(image)
-    setProfileImage2(image)
+    setImgSrc(image)
+
   },[])
   // console.log("profile image",profileImage2)
 
@@ -323,12 +329,13 @@ const ViewProfileCard = (props: IProps) => {
               />
             </Box>
             <Typography
-            onClick={()=>setImgSrc("")}
+              onClick={() => setImgSrc("")}
               sx={{
+                textDecoration:"underline",
                 color: "#6c63ff",
                 textAlign: "center",
                 fontWeight: "500",
-                marginTop: "-6%",
+                marginTop: "-4%",
               }}
               className="RemoveStyle_Style"
             >
@@ -336,33 +343,33 @@ const ViewProfileCard = (props: IProps) => {
             </Typography>
             <ListItem
               secondaryAction={
-                userProfileStatus ? 
-                <Typography
-                  sx={{
-                    backgroundColor: "#23db7b",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    borderRadius: "20px",
-                    color: "#000",
-                    padding: "2px 21px 3px 23px",
-                  }}
-                  className="IncompleteStyle"
-                >
-                  Completed
-                </Typography> : <Typography
-                  sx={{
-                    backgroundColor: "#ffc300",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    borderRadius: "20px",
-                    color: "#000",
-                    padding: "2px 21px 3px 23px",
-                  }}
-                  className="IncompleteStyle"
-                >
-                  Incomplete
-                </Typography>
-               
+                userProfileStatus ?
+                  <Typography
+                    sx={{
+                      backgroundColor: "#23db7b",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      borderRadius: "20px",
+                      color: "#000",
+                      padding: "2px 21px 3px 23px",
+                    }}
+                    className="IncompleteStyle"
+                  >
+                    Completed
+                  </Typography> : <Typography
+                    sx={{
+                      backgroundColor: "#ffc300",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      borderRadius: "20px",
+                      color: "#000",
+                      padding: "2px 21px 3px 23px",
+                    }}
+                    className="IncompleteStyle"
+                  >
+                    Incomplete
+                  </Typography>
+
               }
             ></ListItem>
             <Typography

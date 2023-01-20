@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Button, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, InputAdornment, Link, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { store } from '../../Store/Store';
 import { bankuserdetails } from "../../Store/Reducers/action";
@@ -14,13 +14,17 @@ import { postData } from "../../Utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
+import { RadioButtonChecked, RadioButtonUncheckedOutlined } from "@mui/icons-material";
 
 
 
 type addbankaccountdataprops = {
     ifsc: any,
-    accounttype: any
-    accountnumber :any
+    accounttype:any
+    accountnumber: any
+    confirmbankaccount: any
+    accountHolder: any
+   
 
 
 
@@ -30,35 +34,50 @@ type addbankaccountdataprops = {
 const initialbankData: addbankaccountdataprops = {
     ifsc: "",
     accounttype: "",
-    accountnumber : ""
-
-}
-
-type addbankaccountdatapropsnonmand = {
-    
-    confirmbankaccount: any
-    accountHolder :any
-
-
-
-}
-
-const initialbankDatanonmand: addbankaccountdatapropsnonmand = {
-   
+    accountnumber: "",
     confirmbankaccount: "",
-    accountHolder : ""
+    accountHolder: "",
 
 }
 
-const activeAccountType = {
-    SAVINGS: 'savings',
-    CURRENT: 'current',
-}
+// type addbankaccountdatapropsnonmand = {
 
+//     confirmbankaccount: any
+//     accountHolder: any
+
+
+
+// }
+
+// const initialbankDatanonmand: addbankaccountdatapropsnonmand = {
+
+//     confirmbankaccount: "",
+//     accountHolder: ""
+
+// }
+
+// const activeAccountType = {
+//     SAVINGS: 'savings',
+//     CURRENT: 'current',
+// }
+
+type validateInputsProps = {
+    ifsc: boolean,
+    accNumber: boolean,
+    confirmAcc:boolean,
+
+    
+}
+const initialValidateinputsData: validateInputsProps = Object.freeze({
+    ifsc: false,
+    accNumber: false,
+    confirmAcc:false
+})
 
 
 
 const BankAccountDetails = () => {
+
 
     const navigate = useNavigate();
     const dispatchLocal = useDispatch();
@@ -68,6 +87,7 @@ const BankAccountDetails = () => {
     const [confirmBankAcNo, setConfirmBankAcNo] = useState('');
     // const [accountType, setAccountType] = useState('');
     const [accountHolder, setAccountHolder] = useState('');
+    const [greenCheck,setGreenCheck] =useState<boolean>(true);
 
     const [ifscError, setIfscError] = useState(false);
     const [bankAcNoError, setBankAcNoError] = useState(false);
@@ -76,64 +96,166 @@ const BankAccountDetails = () => {
     const [accountTypeError, setAccountTypeError] = useState(false);
 
     const [accountTypeHelperText, setAccountTypeHelperText] = useState('');
-    const [passwordsMatch, setPasswordsMatch] = useState(false);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
     const [shouldButtonDisable, setShouldButtonDisable] = useState<boolean>(false);
     const [dialog, setShowDialog] = useState<boolean>(false);
     const [succesmsg, setSuccesMsg] = useState<string>("");
     const [errorMsg, setErrorMsg] = useState("");
     const [bankdetails, setBankDetails] = useState<addbankaccountdataprops>({ ...initialbankData });
-    const [bankdetailsnonmand, setBankDetailsnonmand] = useState<addbankaccountdatapropsnonmand>({ ...initialbankDatanonmand });
-
-    const [error, setError] = useState<boolean>(false)
-    const [accountType, setAccountType] = useState<any>(activeAccountType);
+    // const [bankdetailsnonmand, setBankDetailsnonmand] = useState<addbankaccountdatapropsnonmand>({ ...initialbankDatanonmand });
+    const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
+    const [errorAcc, setErrorAcc] = useState<boolean>(false)
+    const [cnfErrorAcc, setCnfErrorAcc] = useState<boolean>(false)
+    // const [accountType, setAccountType] = useState<any>(activeAccountType);
+    const [savingCheck, setSavingCheck] = useState(false)
+    const [currentCheck, setCurrentCheck] = useState(false)
+    const [disablecontinueButton,setdisablecontinueButton] =useState<boolean>(false)
+    const [timePeriodSelected, setTimePeriodSelected] = React.useState<boolean[]>([true, false, false, false])
 
     // regexpression validation
-
+    const handleRegex = (regex: any, value: string) => regex.test(value);
     let ifscreg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
+    // let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     const userData: any = useSelector(
         (state: any) => state?.authReducer?.profile?.data?.kycdetails?.bankdetails);
 
-    console.log(userData?.accountholdername)
+    console.log(userData)
 
-    useEffect(()=>{
+    useEffect(() => {
+        if (userData) {
+            setdisablecontinueButton(true)
+            console.log("disable button")
+        }
+        else {
+            console.log("enable disable button")
+            setdisablecontinueButton(false)
+        }
+    }, [])
+
+    const handleTimePeriodChange = (index: number) => {
+        index === 0 ?
+            setTimePeriodSelected([true, false])
+            : index === 1 ? setTimePeriodSelected([false, true])
+                : index === 2 ? setTimePeriodSelected([false, false, true, false])
+                    : setTimePeriodSelected([false, false, false, true])
+    }
+
+    useEffect(() => {
         setBankDetails((prev: addbankaccountdataprops) => ({
             ...prev,
             ifsc: userData?.ifsc,
             accountnumber: userData?.accountnumber,
-            
-        
-    
-        }))
-
-        setBankDetailsnonmand((prev: addbankaccountdatapropsnonmand) => ({
-            ...prev,
+            accounttype: userData?.accounttype,
             accountHolder: userData?.accountholdername
+
+
+
         }))
-        
-    },[])
 
+        // if (userData.accounttype === "savings") {
+        //     setSavingCheck(true)
+        // } else if (userData.accounttype === "current") {
+        //     setCurrentCheck(true)
+        // }
+        // setBankDetailsnonmand((prev: addbankaccountdatapropsnonmand) => ({
+        //     ...prev,
+        //     accountHolder: userData?.accountholdername
+        // }))
 
+    }, [])
+
+    
+
+    const regexValidate = (regexType: any, name: string, value: string) => {
+        let bFlag: boolean = false;
+
+        if (!handleRegex(regexType, value)) {
+            bFlag = true;
+        } else {
+            bFlag = false;
+        }
+
+        setValidateInputs(prev => ({ ...prev, [name]: bFlag }));
+        return bFlag;
+    }
+    const validateFirstAcc = (name:string,value:any)=>{
+        let eror:boolean= false;
+        console.log(name,value)
+           if(value.length <11){
+            eror = true
+            setErrorAcc(eror)
+            console.log("eror")
+            }else{
+                eror = false
+                setErrorAcc(eror)   
+            }
+    }
+    const validateAcc=(name:string,value:any)=>{
+        let eror:boolean= false;
+        console.log(name,value)
+           if(bankdetails.accountnumber !== value ){
+            eror = true
+            setGreenCheck(true)
+            setCnfErrorAcc(eror)
+            console.log("eror")
+            }else{
+                eror = false
+                setCnfErrorAcc(eror) 
+                setGreenCheck(false)  
+            }
+           setValidateInputs(prev => ({ ...prev, [name]: eror }));
+         return eror;
+          
+    }
+    
+   
     const handlechange = (e: any) => {
         e.preventDefault();
+       
         let { name, value } = e.target;
 
         setBankDetails({
             ...bankdetails,
             [name]: value
+ 
 
         })
+
+
+
+        console.log(bankdetails.confirmbankaccount)
+        console.log(name)
+       if(name==="accountnumber"){
+        validateFirstAcc(name,value)
+       }else  if(name==="confirmbankaccount"){
+        console.log("conAcc")
+        validateAcc(name,value) 
+       } else if (name === "ifsc") {
+            regexValidate(ifscreg, name, value);
+        } else {
+            setValidateInputs((prev: validateInputsProps) => ({
+                ...prev,
+                [name]: !value ? true : false
+            }))
+        }
+
     }
 
-    const handlechangenonmand = (e: any) => {
-        e.preventDefault();
-        let { name, value } = e.target;
+    // useEffect(()=>{
+    //       console.log(bankdetails.accountnumber)
+         
+    // },[])
 
-        setBankDetailsnonmand({
-            ...bankdetailsnonmand,
-            [name]: value
+    // const handlechangenonmand = (e: any) => {
+    //     e.preventDefault();
+    //     let { name, value } = e.target;
 
-        })
-    }
+    //     setBankDetailsnonmand({
+    //         ...bankdetailsnonmand,
+    //         [name]: value
+
+    //     })
+    // }
 
 
 
@@ -144,12 +266,10 @@ const BankAccountDetails = () => {
     // console.log(bankdetailsnonmand)
 
     function handleSubmit(event: any) {
-        //store.dispatch(submitPostuserdetails({ 'userdata': bankformData }));
-
-
-        // bankdetails.confirmbankaccount !== '' &&
-        if (bankdetails.ifsc !== '' && bankdetails.accounttype !== '' && bankdetails.accountnumber !== '') {
+        // if (bankdetails.ifsc !== null && "" && bankdetails.accounttype !== null && "" && bankdetails.accountnumber !== null && "") {
+            setShouldButtonDisable(true);
             postData(
+                // AUTHENTICATION_IFSC_DETAILS
                 bankdetails,
                 siteConfig.AUTHENTICATION_BANK_ADD,
                 siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
@@ -179,25 +299,31 @@ const BankAccountDetails = () => {
                 .catch(err => {
                     console.log(err)
                 })
-        } else {
-            {
-                bankdetails.ifsc !== '' ? setIfscError(false) : setIfscError(true)
-            }
-            {
-                bankdetails.accountnumber  !== '' ? setBankAcNoError(false) : setBankAcNoError(true)
-            }
-            {
-                bankdetails.accounttype !== '' ? setAccountTypeError(false) : setAccountTypeError(true)
-            }
-            {
-                bankdetailsnonmand.accountHolder !== '' ? setAccountHolderError(false) : setAccountHolderError(true)
-            }
-            {
-                bankdetailsnonmand.confirmbankaccount  !== '' ? setConfirmBankAcNoError(false) : setConfirmBankAcNoError(true)
-            }
+        // } else {
+        //     {
+        //         bankdetails.ifsc !== '' ? setIfscError(false) : setIfscError(true)
+        //     }
+        //     {
+        //         bankdetails.accountnumber !== '' ? setBankAcNoError(false) : setBankAcNoError(true)
+        //     }
+        //     {
+        //         bankdetails.accounttype !== '' ? setAccountTypeError(false) : setAccountTypeError(true)
+        //     }
+        //     {
+        //         bankdetails.accountHolder !== '' ? setAccountHolderError(false) : setAccountHolderError(true)
+        //     }
+        //     {
+        //         bankdetails.confirmbankaccount !== '' ? setConfirmBankAcNoError(false) : setConfirmBankAcNoError(true)
+        //     }
 
-        }
+        // }
     }
+
+    // useEffect(() => {
+    //     if (bankdetails.ifsc && bankdetails.ifsc.length) {
+    //       regexValidate(emailRegex, 'emailaddress', formData.emailaddress);
+    //     }
+    //   }, [formData.emailaddress])
 
     const style = {
         button: {
@@ -225,81 +351,12 @@ const BankAccountDetails = () => {
     };
 
 
-    const handleAccountTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAccountType((event.target as HTMLInputElement).value);
-        setAccountTypeHelperText('');
-        setAccountTypeError(false);
-    }
+    // const handleAccountTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setAccountType((event.target as HTMLInputElement).value);
+    //     setAccountTypeHelperText('');
+    //     setAccountTypeError(false);
+    // }
 
-
-
-
-    const handleIFSCChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
-        const value = e.target.value;
-        setIfscCode(value);
-        if (value.match(reg)) {
-            console.log("Correct IFSC Code")
-
-            setIfscError(false);
-        }
-        else {
-            console.log("Wront Ifsc");
-            setIfscError(true);
-
-
-
-        }
-
-    }
-
-
-
-
-    const bankAcNoPattern = /^[A-Z0-9]+$/;
-
-    const handleBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.trim();
-        setBankAcNo(value);
-        if (!bankAcNoPattern.test(value) && e.target.value.trim().length != 10) {
-            setBankAcNoError(true)
-        } else {
-            setBankAcNoError(false);
-        }
-    }
-
-    const handleConfirmBankAcNoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setConfirmBankAcNo(value);
-
-        if (!bankAcNoPattern.test(value)) {
-            setConfirmBankAcNoError(true)
-        } else {
-            setConfirmBankAcNoError(false);
-        }
-
-        if (value === bankAcNo) {
-            setPasswordsMatch(true);
-        } else {
-            setPasswordsMatch(false);
-        }
-    }
-
-    const handleAccountHolderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setAccountHolder(value);
-        const pattern = /[A-Za-z]+/;
-        if (!pattern.test(value)) {
-            setAccountHolderError(true);
-        } else {
-            setAccountHolderError(false);
-
-        }
-    }
-
-    const handlechange1 = () => {
-        console.log("nooo")
-    }
 
 
     return (
@@ -353,39 +410,22 @@ const BankAccountDetails = () => {
                                     }}>Select your account type</FormLabel>
                                     <RadioGroup
                                         row
-                                        value={accountType}
-                                        onChange={handleAccountTypeChange}
+                                        name="accounttype"
+                                        // value={accountType}
+                                        onChange={handlechange}
                                     >
                                         <FormControlLabel
 
-                                            control={<Radio defaultChecked
-                                                sx={{
-                                                    color: "#3D70B2"[800],
-                                                    "&.Mui-checked": {
-                                                        color: "#09b85d"
-                                                    }
-                                                }} />}
+                                            control={<Checkbox onChange={() => {handleTimePeriodChange(0);setBankDetails({ ...bankdetails, accounttype: 'savings' })}} checked={timePeriodSelected[0]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                             label="Savings"
-                                            onChange={() => {
-                                                setAccountType('savings');
-                                                setBankDetails({ ...bankdetails, accounttype: 'savings' })
-                                            }}
-                                            value="savings"
+                                           
+                                        // value="savings"
                                         />
                                         <FormControlLabel
-                                            control={<Radio defaultChecked
-                                                sx={{
-                                                    color: "#3D70B2"[800],
-                                                    "&.Mui-checked": {
-                                                        color: "#09b85d"
-                                                    }
-                                                }} />}
+                                            control={<Checkbox onChange={() => {handleTimePeriodChange(1);setBankDetails({ ...bankdetails, accounttype: 'current' })}} checked={timePeriodSelected[1]} icon={<RadioButtonUncheckedOutlined style={{ color: "#a5a5b9" }} />} checkedIcon={<RadioButtonChecked style={{ color: "#23db7b" }} />} />}
                                             label="Current"
-                                            onChange={() => {
-                                                setAccountType('current'); setBankDetails({ ...bankdetails, accounttype: 'current' })
-
-                                            }}
-                                            value="current"
+                                            
+                                        // value="current"
                                         />
                                     </RadioGroup>
                                     <FormHelperText sx={{
@@ -396,6 +436,9 @@ const BankAccountDetails = () => {
 
                                 <FormControl>
                                     <TextField
+                                        inputProps={{
+                                            maxLength: 11,
+                                        }}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -407,17 +450,13 @@ const BankAccountDetails = () => {
                                         //     /([A-Za-z]){4}([0-9]){4}([A-Za-z]){1}$/.test(e.key) &&
                                         //     e.preventDefault()
                                         // }
-                                        required
-                                        // id="outlined-ifsc-code"
+
                                         label="Enter IFSC code"
-                                        value={bankdetails.ifsc}
+                                        value={bankdetails.ifsc === "null" ? "" : bankdetails.ifsc}
                                         onChange={handlechange}
                                         name="ifsc"
-                                        error={ifscError}
-                                        helperText={ifscError ? "Please enter a valid IFSC Code" : ""}
-                                        inputProps={{
-                                            maxLength: 11,
-                                        }}
+                                        error={validateInputs?.ifsc}
+                                        helperText={validateInputs?.ifsc ? "Please enter a valid IFSC Code" : ""}
                                     />
                                 </FormControl>
 
@@ -428,19 +467,19 @@ const BankAccountDetails = () => {
                                         }}
                                         type="password"
                                         id="outlined-bank-acc-no"
-                                        required
+
                                         label="Bank Account Number"
                                         onKeyPress={(e) =>
                                             /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
                                             e.preventDefault()
                                         }
-                                        value={bankdetails.accountnumber}
+                                        value={bankdetails.accountnumber === "null" ? "" : bankdetails.accountnumber}
                                         name="accountnumber"
                                         onChange={handlechange}
-                                        error={bankAcNoError}
-                                        helperText={bankAcNoError ? "Please enter a valid Account Number" : ""}
+                                        error={errorAcc}
+                                        helperText={errorAcc ? "Please enter a valid Account Number" : ""}
                                         InputProps={{
-                                            endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                            endAdornment: greenCheck ?  "" :  <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment>,
                                             // helperText={  bankAcNoError ? "Please enter a valid Account Number" : ""},
                                         }}
                                         inputProps={{
@@ -460,18 +499,18 @@ const BankAccountDetails = () => {
                                             e.preventDefault()
                                         }
 
-                                        required
                                         name="confirmbankaccount"
                                         label="Confirm Bank Account Number"
-                                        value={bankdetails.accountnumber}
-                                        onChange={handlechangenonmand}
-                                        error={confirmBankAcNoError}
-                                        helperText={confirmBankAcNoError ? "Bank Account Number do not match" : ""}
+                                        value={bankdetails.confirmbankaccount === "null" ? "" : bankdetails.confirmbankaccount}
+                                        onChange={handlechange}
+                                        error={cnfErrorAcc}
+                                        helperText={cnfErrorAcc ? "Account Number Not Matched" : ""}
                                         InputProps={{
-                                            endAdornment: passwordsMatch ? <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment> : '',
+                                            endAdornment: greenCheck ?  "" : <InputAdornment position="end"><img src={ContactTick} width="22px" alt="Tick" /></InputAdornment>  ,
                                         }}
                                         inputProps={{
                                             maxLength: 16,
+                                            minLength: 11,
                                         }}
                                     />
                                 </FormControl>
@@ -482,12 +521,10 @@ const BankAccountDetails = () => {
                                             shrink: true,
                                         }}
                                         onKeyPress={e => !/^[a-zA-Z_ ]*$/.test(e.key) && e.preventDefault()}
-
-                                        required
                                         label="Account Holder's Name"
-                                        name="accountholdername"
-                                        value={bankdetailsnonmand.accountHolder}
-                                        onChange={handlechangenonmand}
+                                        name="accountHolder"
+                                        value={bankdetails.accountHolder}
+                                        onChange={handlechange}
                                         error={accountHolderError}
                                         helperText={accountHolderError ? "Please enter a valid Name" : ""}
                                         inputProps={{
@@ -498,7 +535,7 @@ const BankAccountDetails = () => {
 
                                 <FormControl>
                                     <Button
-
+                                        disabled={disablecontinueButton}
                                         variant="contained"
                                         onClick={handleSubmit}
 
