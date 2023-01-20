@@ -1,3 +1,109 @@
 .ulip-box .MuiPaper-root {
     margin-top: 0;
 }
+
+
+@media (width:280px){
+    .header{
+        margin-left: -4.42% !important;
+        margin-top: -35px !important;
+    }
+    .M_style_textfield{
+        margin-top: -7% !important;
+    }
+    .OR_style{
+        color: red !important;
+        margin-top: -8% !important;
+    }
+    .upperStyle{
+        margin-top: -2% !important;
+    }
+    .MultiUpperStyle{
+        margin-top: -8% !important;
+    }
+    .Ulippaddingright{
+        margin-top: -1% !important;
+    }
+}
+
+@media (width:375px){
+  
+    .M_style_textfield{
+        margin-top: -7% !important;
+    }
+    .OR_style{
+        color: red !important;
+        margin-top: -8% !important;
+    }
+    .upperStyle{
+        margin-top: -3% !important;
+    }
+    .MultiUpperStyle{
+        margin-top: -12% !important;
+    }
+}
+@media (max-width:480px){
+    .header{
+        margin-left: -23px !important;
+        margin-top: -35px !important;
+    }
+}
+
+@media (width:540px){
+    .header{
+        margin-left: -4.42% !important;
+        margin-top: -35px !important;
+    }
+    .M_style_textfield{
+        margin-top: -7% !important;
+    }
+    .OR_style{
+        color: red !important;
+        margin-top: -8% !important;
+    }
+    .upperStyle{
+        margin-top: -2% !important;
+    }
+    .MultiUpperStyle{
+        margin-top: -8% !important;
+    }
+    .Ulippaddingright{
+        margin-top: -1% !important;
+    }
+}
+@media (width:768px){
+    .header{
+        padding: -4px !important;
+    }
+}
+@media (width: 912px){
+    .PaddingremoveStyle{
+  padding-left: 149px !important;
+
+    }
+    .css-96p97e-MuiGrid-root {
+        padding-left: 156px!important;
+    }
+    .Ulippaddingleft{
+        margin-right: 10px !important;
+        width: 69vw;    }
+        .Ulippaddingright{
+            width: 69vw !important;  
+        }
+    /* .MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 PaddingremoveStyle css-96p97e-MuiGrid-root{
+        padding-left: 149px !important;
+    } */
+}
+@media (width:1280px) {
+    .Ulippaddingright{
+        color: red !important;
+    }
+    .Ulippaddingleft{
+        color: red !important;
+        padding-left: 60px !important;
+    }
+    .BreadcrumRightstyle{
+        margin-left: 5% !important;
+    }
+    
+}

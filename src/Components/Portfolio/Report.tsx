@@ -20,7 +20,7 @@ import { getReportsCapitalgainThunk, getReportsPortfolioThunk, getReportsTransac
 import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { useDispatch } from 'react-redux'
-
+import './Portfolio.css'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -314,7 +314,7 @@ const Report = () => {
                       </Box>
                     </Box>
 
-                    <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }}>
+                    <Box style={{ padding: "15px", borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "white" }} className="containerReportStyle">
                       <Typography style={{ marginBottom: "20px", color: "#3c3e42", fontSize: "16px", fontWeight: "500" }}>Download Reports</Typography>
                       <Box style={{ flexWrap: "wrap", marginBottom: "20px", maxWidth: "800px", display: "flex", alignItems: "center", gap: "20px", justifyContent: "space-between" }}>
                         <FormControlLabel
@@ -340,7 +340,7 @@ const Report = () => {
                               inputFormat="mm/dd/yyyy"
                               value={value}
                               onChange={handleChange}
-                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param} />}
+                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param}  className="texfieldStyle"/>}
                               components={{
                                 OpenPickerIcon: CalendarTodayIcon,
                               }}
@@ -350,13 +350,13 @@ const Report = () => {
                               inputFormat="mm/dd/yyyy"
                               value={value}
                               onChange={handleChange}
-                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param} />}
+                              renderInput={(param: any) => <TextField sx={{ width: "300px" }} {...param}  className="texfieldStyle" />}
                               components={{
                                 OpenPickerIcon: CalendarTodayIcon,
                               }}
                             />
-                            <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
-                              <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
+                            <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}  className="buttonStyeReport">
+                              <Typography component="span" style={style.text} className="largeButtonText">Get Reporthhh</Typography>
                             </Button>
                           </Box> :
                           optSelected[enumReportTypes.TRANSACTION_HISTORY] ?
@@ -381,7 +381,7 @@ const Report = () => {
                                   OpenPickerIcon: CalendarTodayIcon,
                                 }}
                               />
-                              <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
+                              <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports} className="ButtReportStyle">
                                 <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
                               </Button>
                             </Box> :
@@ -405,7 +405,7 @@ const Report = () => {
                                       label={<Box style={{ fontSize: "14px", color: `${timePeriodSelected[3] ? '#3c3e42' : "#7b7b9d"}` }}> Mandate Pending </Box>} />
                                   </Box>
                                   <Button variant="contained" style={style.button2} fullWidth onClick={handleGetReports}>
-                                    <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
+                                    <Typography component="span" style={style.text}className="largeButtonText" >Get Report</Typography>
                                   </Button>
                                 </Box>
                               </Box> :
@@ -435,7 +435,7 @@ const Report = () => {
                                     }}
                                   />
                                   <Button variant="contained" style={style.button3} fullWidth onClick={handleGetReports}>
-                                    <Typography component="span" style={style.text} className="largeButtonText">Get Report</Typography>
+                                    <Typography component="span" style={style.text} className="largeButtonText">wwwwwww</Typography>
                                   </Button>
                                 </Box>
                               </Box>

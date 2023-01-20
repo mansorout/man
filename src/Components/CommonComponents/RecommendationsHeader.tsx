@@ -28,7 +28,6 @@ import { isMultipleofNumber } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { globalConstant } from '../../Utils/globalConstant';
 
-
 const useStyles: any = makeStyles((theme: Theme) => ({
     recommendationsHeaderBox: {
         backgroundColor: 'var(--ui1Color)',
@@ -281,8 +280,10 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     }
 
     return (
-        <Box className={classes.recommendationsHeaderBox}>
+        <div  className='Bannerside'>
+              <Box className={classes.recommendationsHeaderBox}>
             <Grid container>
+                
                 <Grid xs={7} sm={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
                     <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect + " " + "dropdownSlect"} fullWidth>
                         <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
@@ -360,6 +361,8 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
             </Dialog>
 
         </Box >
+        </div>
+      
     )
 }
 

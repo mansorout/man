@@ -11,8 +11,82 @@
   font-size: 14px !important;
   color: #3c3e42 !important;
 }
+@media (width:375px){
+  .transtabStyle{
+    margin-left: -4px !important;
+    max-width: 385px !important;
+  }
+  .padMarLeftRight{
+    padding: 2px !important;
+  
+  }
 
 
+}
+@media (width:390px){
+  .transtabStyle{
+    margin-left: -13px !important;
+   
+  }
+  .padMarLeftRight{
+    padding: 2px !important;
+  
+  }
+
+}
+@media (width:393px){
+  .transtabStyle{
+    margin-left: -8px !important;
+   
+  }
+  .padMarLeftRight{
+    padding: 2px !important;
+  
+  }
+  .BoxHTSR{
+    color:  red !important;
+  }
+  .containerReportStyle{
+    color: red !important;
+  }
+}
+
+@media (width:360px) {
+  .padMarLeftRight{
+    padding: 2px !important;
+  
+  }
+  .BoxHTSR{
+    color:  red !important;
+  }
+  .containerReportStyle{
+    padding: 4px !important;
+  }
+  
+}
+
+@media (width:280px) {
+  .padMarLeftRight{
+    padding: 30px !important;
+  
+  }
+  .buttonStyeReport{
+    color: red !important
+  }
+  .BoxHTSR{
+    color:  red !important;
+  }
+  .containerReportStyle{
+    padding: 4px !important;
+  }
+  .texfieldStyle{
+    width: 200px !important;
+  }
+  .SerachStyle{
+    width: 20px !important;
+    color: red !important;
+  }
+}
 /* <DrawerList sx={{
     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
     "& .MuiBackdrop-root" : {
