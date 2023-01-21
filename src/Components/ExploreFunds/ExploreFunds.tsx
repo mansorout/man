@@ -233,6 +233,7 @@ function ExploreFunds(props: any) {
       {
         key: 'Fund Type',
         selectType: 'radio',
+        activeCategoryIndex:0,
         keyValues: [],
       },
       {
@@ -288,11 +289,26 @@ function ExploreFunds(props: any) {
         if(item?.key === enumFilterIndexes?.FUND_TYPE){
           console.log("temp filter :", temp[index]?.keyValues)
           temp[index].keyValues = categoryGroupList;
+          temp[index].activeCategoryIndex = activeCategoryGroupIndex;
         }
       })
+      setFilterIndexes(temp)
       console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList])
+
+  useEffect(() => {
+    
+    const temp = [...filterIndexes]
+    temp && temp?.length &&
+    temp.map((item, index) => {
+      if(item?.key === enumFilterIndexes?.FUND_TYPE){
+        temp[index].activeCategoryIndex = activeCategoryGroupIndex;
+      }
+    })
+    setFilterIndexes(temp)
+  }, [activeCategoryGroupIndex])
+  
 
   useEffect(() => {
     handlingFeatureWiseCard(masterFundList);
@@ -339,6 +355,7 @@ useEffect(() => {
         providerid:"0",
         providername:"All"
       })
+      setFilterIndexes(temp)
       console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
     }
   })
@@ -353,13 +370,6 @@ const getFundProviderList = async () => {
   response.data = [...response.data];
   // @ts-ignore
   handleApiResponse(response, [setFundProviderList]);
-  // .then((data) => {
-  //   console.log("getFundProviderList :", data)
-  //   return data.data;
-  // }).catch((error) => {
-  //   console.log("getFundProviderList :", error)
-  //   return error.error;
-  // })
 
   return response;
 }
@@ -384,7 +394,6 @@ const getFundProviderList = async () => {
   };
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-    // debugger
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -451,8 +460,9 @@ const getFundProviderList = async () => {
       }
 
       // setIsInitialVariableFundListFetched(true);
+    }else{
+      setVariableMasterFundList([]);
     }
-
   };
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
@@ -564,20 +574,36 @@ const getFundProviderList = async () => {
     setAddFundOpen(false);
   };
 
+  const urlWithFilter = (data:any, categoryIndex?:number) => {
+
+    if(data && data[enumFilterIndexes.FUND_TYPE] || data[enumFilterIndexes.SORT] || (data[enumFilterIndexes.FUND_HOUSE] && data[enumFilterIndexes.FUND_HOUSE]?.length)){
+      var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+      data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+        url += item + ',' 
+      })
+      return url;
+    }else if(categoryIndex) {
+        const urlWithoutFilter = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
+        return urlWithoutFilter;
+    }else{
+      return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[activeCategoryGroupIndex]}`
+    }
+  }
 
 
 
   const handleFilterCB = (data: any) => {
     const tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
     setActiveCategoryGroupIndex(tempIndex);
-    var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
-    data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
-      url += item + ',' 
-    })
-    console.log("click value :", data, url, tempIndex)
-
-    getMasterFundList(url);
     setFilterValues(data)
+    // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+    // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+    //   url += item + ',' 
+    // })
+    const tempUrl = urlWithFilter(data)
+    console.log("click value :", data,tempUrl, tempIndex)
+
+    getMasterFundList(tempUrl);
   }
 
   return (
@@ -670,15 +696,15 @@ const getFundProviderList = async () => {
 
                   <Box sx={{marginBottom:'15px'}}>
                       <SearchCmp
-                        filtersOptions={[...filterIndexes]}
+                        filtersOptions={filterIndexes}
                         searchKeysFun={handleSearchFunctionality}
                         searchBox={true}
                         handleCB={handleFilterCB}
                       />
                     </Box>
 
+                  
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-
                     {
                       categoryGroupList &&
                       categoryGroupList.length &&
@@ -688,7 +714,8 @@ const getFundProviderList = async () => {
                             key={index}
                             onClick={() => {
                               setActiveCategoryGroupIndex(index);
-                              let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              let url = urlWithFilter(filterValues, index)
                               setFundSelecteds([]);
                               setInitialMFData(false);
                               setIsInitialVariableFundListFetched(false);
@@ -718,6 +745,8 @@ const getFundProviderList = async () => {
                   </Box>
                 </Box>
               </Box>
+              
+              {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
               {
                 variableMasterFundList &&
                 variableMasterFundList.length &&
