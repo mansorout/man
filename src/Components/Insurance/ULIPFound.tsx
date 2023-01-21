@@ -693,7 +693,7 @@ function ULIPFound() {
                           />
                           <Typography
                             style={{ color: "#7b7b9d", fontSize: "14px" }}
-                            className="textfontSize"
+                              className="textfontSize"
                           >
                             Organ Donor Expenses : Available
                           </Typography>
