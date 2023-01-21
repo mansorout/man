@@ -522,7 +522,7 @@ const Portfolio = () => {
                                     </Box>
                                     <Button variant="contained" style={style.button2} fullWidth onClick={() => navigate("/reports")}>
                                       {/* <Typography style={style.text} className="largeButtonText">Download Statement</Typography> */}
-                                      <Typography style={style.text} className="largeButtonText">Get Reports</Typography>
+                                      <Typography style={style.text} className="largeButtonText">Get Report</Typography>
                                     </Button>
                                   </Grid>
                                   </Grid>

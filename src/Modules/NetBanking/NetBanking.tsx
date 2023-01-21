@@ -604,6 +604,7 @@ const NetBanking = () => {
                       }
                       return;
                     }
+
                     setOpenBankAccmodal(true);
 
                     handleMakePayment();
@@ -647,15 +648,15 @@ const NetBanking = () => {
                 avatar={
                   <Box
                     onClick={() => {
-                      if (timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]] === true) {
-                        navigate("/sipsuccessscreen")
+                      if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
+                        // navigate("/processingpayments", {
+                        //   state: { cardType: cardType },
+                        //   replace: true,
+                        // })
                         return;
                       }
 
-                      navigate("/processingpayments", {
-                        state: { cardType: cardType },
-                        replace: true,
-                      })
+                      navigate("/sipsuccessscreen")
                     }
                     }
                   >
@@ -875,15 +876,15 @@ const NetBanking = () => {
                 fullWidth
                 onClick={() => {
 
-                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]] === true) {
-                    navigate("/sipsuccessscreen")
+                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
+                    navigate("/processingpayments", {
+                      state: { cardType: cardType },
+                      replace: true,
+                    })
                     return;
                   }
 
-                  navigate("/processingpayments", {
-                    state: { cardType: cardType },
-                    replace: true,
-                  })
+                  navigate("/sipsuccessscreen")
                 }
                 }
                 sx={{

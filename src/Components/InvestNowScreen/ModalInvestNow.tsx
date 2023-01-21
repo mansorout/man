@@ -48,6 +48,9 @@ import {
   customParseJSON,
 } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
+import { setEditProfileDataThunk } from "../../Store/Authentication/thunk/auth-thunk";
+import { apiResponse } from "../../Utils/globalTypes";
+import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 
 //  const emailRegex =
 //    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -96,7 +99,7 @@ const ModalInvestNow = (props: any) => {
   const [errorMessageLN, setErrorMessageLN] = React.useState<any>("");
   const [errorMessageEM, setErrorMessageEM] = React.useState<any>("");
   const [errorMessageDOB, setErrorMessageDOB] = React.useState<any>("");
-  const [showSubmit, setShowSubmit] = useState(true);
+  const [showSubmit, setShowSubmit] = useState<boolean>(true);
   const [error, setError] = useState(false);
 
   function handleOnBlurFirstname(e: any) {
@@ -131,10 +134,30 @@ const ModalInvestNow = (props: any) => {
       [e.target.name]: value,
     });
   }
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const handleClick = async (e: any) => {
+    e.stopPropagation();
+
+    setLoading(true);
+    let res: apiResponse = await setEditProfileDataThunk({
+      firstName: formData?.firstname || "",
+      lastName: formData?.lastname || "",
+      email: formData?.emailaddress || "",
+      // DOB: moment(objUserDetails?.userdetails?.dateofbirth, 'DD/MM/YYYY').format('DD-MM-YYYY'),
+      DOB: formData?.dateofbirth,
+    })
+    setLoading(false);
+
+    if (checkExpirationOfToken(res?.code)) {
+      dispatchLocal(setTokenExpiredStatusAction(true));
+      return;
+    }
+
+    if (res?.error) {
+      return;
+    }
+
     if (g_investment.type === globalConstant.SIP_INVESTMENT) {
-      navigate("/mflist", {});
+      navigate("/onetimemutualfundrecommendation", {});
     } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
       navigate("/onetimemutualfundrecommendation", {});
     }
@@ -142,9 +165,9 @@ const ModalInvestNow = (props: any) => {
   useEffect(() => {
     console.log(
       formData.firstName.length > 3 &&
-        formData.lastName.length > 3 &&
-        emailRegex.test(formData.email) &&
-        regexDOB.test(formData.DOB)
+      formData.lastName.length > 3 &&
+      emailRegex.test(formData.email) &&
+      regexDOB.test(formData.DOB)
     );
     setShowSubmit(true);
 
@@ -160,6 +183,9 @@ const ModalInvestNow = (props: any) => {
 
   return (
     <div>
+      <SprintMoneyLoader
+        loadingStatus={loading}
+      />
       <Modal open={props.open}>
         <Box
           style={{
@@ -181,150 +207,150 @@ const ModalInvestNow = (props: any) => {
           }}
           className="smallmodal"
         >
-         <div className="investInsidePading">
-         <Grid container style={{ backgroundColor: "white", display: "flex" }}>
-            <Grid item className="investModal" xs={12}>
-              <CardHeader
-                avatar={
-                  <Box sx={{ paddingTop: "0%", }} textAlign="center">
-                    <img
-                      src={sipiclogo}
-                      alt="sprint-money"
-                      style={{
-                        width: "38px",
-                        height: "38px",
-                        paddingLeft: "0",
-                      }}
-                      className=""
-                    />
-                  </Box>
-                }
-                action={""}
-                title=""
-                subheader=""
-                sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }}
-              />
+          <div className="investInsidePading">
+            <Grid container style={{ backgroundColor: "white", display: "flex" }}>
+              <Grid item className="investModal" xs={12}>
+                <CardHeader
+                  avatar={
+                    <Box sx={{ paddingTop: "0%", }} textAlign="center">
+                      <img
+                        src={sipiclogo}
+                        alt="sprint-money"
+                        style={{
+                          width: "38px",
+                          height: "38px",
+                          paddingLeft: "0",
+                        }}
+                        className=""
+                      />
+                    </Box>
+                  }
+                  action={""}
+                  title=""
+                  subheader=""
+                  sx={{ fontSize: "14px", fontWeight: "500", color: "#3c3e42" }}
+                />
+              </Grid>
+
+
+              <Box textAlign="center" sx={{ padding: "3px 16px", width: "100%" }}>
+                <b
+                  style={{
+                    textAlign: "center",
+                    paddingBottom: "1%",
+                  }}
+                >
+                  Help us know you better.
+                </b>
+                <Typography
+                  textAlign="center"
+                  sx={{ fontSize: "14px", paddingLeft: "0", color: "#7b7b9d" }}
+                >
+                  Share details below to view recommendations
+                </Typography>
+              </Box>
             </Grid>
 
-            
-            <Box textAlign="center" sx={{padding:"3px 16px", width:"100%"}}>
-            <b
-              style={{
-                textAlign: "center",
-                paddingBottom: "1%",
-              }}
-            >
-              Help us know you better.
-            </b>
-            <Typography
-              textAlign="center"
-              sx={{ fontSize: "14px", paddingLeft: "0", color: "#7b7b9d" }}
-            >
-              Share details below to view recommendations
-            </Typography>
-            </Box>
-          </Grid>
+            <Grid container spacing={2} sx={{ paddingTop: "5%" }}>
+              <Grid item xs={12} md={6} sm={12}>
+                <TextField
+                  fullWidth
+                  label="FirstName"
+                  sx={{
+                    color: "#ffffff",
+                    background: "#ffffff",
+                    fontSize: "17px",
+                  }}
+                  onBlur={handleOnBlurFirstname}
+                  onChange={handleChange}
+                  name="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  helperText={
+                    formData.firstName.length < 3 ? (
+                      <label style={{ color: "red" }}>{errorMessageFN}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} md={6} sm={12}>
+                <TextField
+                  fullWidth
+                  sx={{ color: "#919eb1", fontSize: "17px" }}
+                  label="LastName*"
+                  onBlur={handleOnBlurLastname}
+                  onChange={handleChange}
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  helperText={
+                    formData.lastName.length < 3 ? (
+                      <label style={{ color: "red" }}>{errorMessageLN}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
+            </Grid>
 
-          <Grid container spacing={2} sx={{ paddingTop: "5%" }}>
-            <Grid item xs={12} md={6} sm={12}>
-              <TextField
-                fullWidth
-                label="FirstName"
-                sx={{
-                  color: "#ffffff",
-                  background: "#ffffff",
-                  fontSize: "17px",
-                }}
-                onBlur={handleOnBlurFirstname}
-                onChange={handleChange}
-                name="firstName"
-                type="text"
-                value={formData.firstName}
-                helperText={
-                  formData.firstName.length < 3 ? (
-                    <label style={{ color: "red" }}>{errorMessageFN}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
+            <Grid container spacing={2} sx={{ marginTop: "-5px" }}>
+              <Grid item xs={12} md={12}>
+                <TextField
+                  fullWidth
+                  sx={{
+                    color: "#919eb1",
+                    fontSize: "17px",
+                    marginTop: "2%",
+                    marginRight: "6%",
+                  }}
+                  label="Email Address"
+                  id="fullWidth"
+                  onBlur={handleOnBlurEamil}
+                  onChange={handleChange}
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  helperText={
+                    !emailRegex.test(formData.email) ? (
+                      <label style={{ color: "red" }}>{errorMessageEM}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6} sm={12}>
-              <TextField
-                fullWidth
-                sx={{ color: "#919eb1", fontSize: "17px" }}
-                label="LastName*"
-                onBlur={handleOnBlurLastname}
-                onChange={handleChange}
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                helperText={
-                  formData.lastName.length < 3 ? (
-                    <label style={{ color: "red" }}>{errorMessageLN}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={12}>
+                <TextField
+                  type="date"
+                  placeholder="DD/MM/YY"
+                  sx={{
+                    color: "#919eb1",
+                    fontSize: "17px",
+                    marginTop: "4%",
+                    marginRight: "6%",
+                  }}
+                  fullWidth
+                  label="Date of Birth"
+                  onBlur={handleOnBlurDOB}
+                  onChange={handleChange}
+                  name="DOB"
+                  value={formData.DOB || "dd/mm/yyyy"}
+                  helperText={
+                    !regexDOB.test(formData.DOB) ? (
+                      <label style={{ color: "red" }}>{errorMessageDOB}</label>
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+              </Grid>
             </Grid>
-          </Grid>
-
-          <Grid container spacing={2} sx={{ marginTop: "-5px" }}>
-            <Grid item xs={12} md={12}>
-              <TextField
-                fullWidth
-                sx={{
-                  color: "#919eb1",
-                  fontSize: "17px",
-                  marginTop: "2%",
-                  marginRight: "6%",
-                }}
-                label="Email Address"
-                id="fullWidth"
-                onBlur={handleOnBlurEamil}
-                onChange={handleChange}
-                type="text"
-                name="email"
-                value={formData.email}
-                helperText={
-                  !emailRegex.test(formData.email) ? (
-                    <label style={{ color: "red" }}>{errorMessageEM}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={12}>
-              <TextField
-                type="date"
-                placeholder="DD/MM/YY"
-                sx={{
-                  color: "#919eb1",
-                  fontSize: "17px",
-                  marginTop: "4%",
-                  marginRight: "6%",
-                }}
-                fullWidth
-                label="Date of Birth"
-                onBlur={handleOnBlurDOB}
-                onChange={handleChange}
-                name="DOB"
-                value={formData.DOB || "dd/mm/yyyy"}
-                helperText={
-                  !regexDOB.test(formData.DOB) ? (
-                    <label style={{ color: "red" }}>{errorMessageDOB}</label>
-                  ) : (
-                    ""
-                  )
-                }
-              />
-            </Grid>
-          </Grid>
-         </div>
+          </div>
           <Button
             disabled={showSubmit}
             fullWidth
@@ -333,7 +359,7 @@ const ModalInvestNow = (props: any) => {
               padding: " 15px",
               backgroundColor: "#23db7b",
               marginTop: " 15px",
-              borderRadius:"0px 0px 10px 10px",
+              borderRadius: "0px 0px 10px 10px",
               "&.MuiButtonBase-root:hover": {
                 bgcolor: "#23db7b",
               },
@@ -345,30 +371,30 @@ const ModalInvestNow = (props: any) => {
             </Typography>
           </Button>
           <Grid
+            sx={{
+              // display: "contents",
+              // position: " absolute",
+            }}
+            item
+            xs={2}
+          >
+            <Box
+              onClick={props.close}
               sx={{
-                // display: "contents",
-                // position: " absolute",
+                margin: "12px 0px 8px 81px",
+                opacity: " 0.54 ",
+                position: "absolute",
+                top: "1px",
+                right: "15px",
               }}
-              item
-              xs={2}
+              className="closeIconStyle"
             >
-              <Box
-                onClick={props.close}
-                sx={{
-                  margin: "12px 0px 8px 81px",
-                  opacity: " 0.54 ",
-                  position: "absolute",
-                  top: "1px",
-                  right: "15px",
-                }}
-                className="closeIconStyle"
-              >
-                <ClearIcon />
-              </Box>
-              
-            </Grid>
+              <ClearIcon />
+            </Box>
+
+          </Grid>
         </Box>
-        
+
       </Modal>
     </div>
   );

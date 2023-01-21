@@ -36,6 +36,7 @@ import { setOrderSipThunk, setPlaceLumpsumOrderThunk } from "../../Store/Payment
 import { setInitialPaymentDataAction } from "../../Store/Payments/actions/payments-action";
 import moment from "moment";
 
+import './OnetimeM.css'
 // const data = [
 //   {
 //     logo: "/Miraelogo.svg",
@@ -576,11 +577,13 @@ const OneTimeMutualFund = () => {
 
                   </Typography>
                 </Box>
+
                 <Box
                   sx={{
                     display: "flex",
                     justifyContent: "flex-end",
                   }}
+
                 >
                   <img
                     src={HelpOutline}
