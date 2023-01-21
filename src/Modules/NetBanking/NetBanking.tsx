@@ -7,7 +7,7 @@ import siteConfig from "../../Utils/siteConfig";
 import { apiResponse } from "../../Utils/globalTypes";
 import { customParseJSON, hideNumbersWithStars } from "../../Utils/globalFunctions";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
-import { paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
+import { enumPaymentModes, paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { setMakePaymentThunk, setVerifyUpiIDThunk } from "../../Store/Payments/thunk/payments-thunk";
 
@@ -36,8 +36,6 @@ import { Assessment, ErrorOutline, Home as HomeIcon, InfoRounded, RadioButtonChe
 import Sidebar from "../../Components/CommonComponents/Sidebar";
 import Navbar from "../../Components/CommonComponents/Navbar";
 import ClearIcon from "@mui/icons-material/Clear";
-
-
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
@@ -158,11 +156,9 @@ const style = {
   },
 };
 
-const enumBankType = {
+const initialPaymentModeStructure = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT, enumPaymentModes.UPI];
 
-}
-
-function NetBanking() {
+const NetBanking = () => {
   const classes = useStyles();
   const refContainer = useRef();
   const location: any = useLocation();
@@ -176,14 +172,35 @@ function NetBanking() {
   const g_initialPaymentData = useSelector((state: any) => state?.paymentsReducer?.initialPaymentData?.data);
 
   const [upiId, setUpiId] = useState<string>("");
-  const [paymentMode, setPaymentMode] = useState<number>(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
   const [opneBankAccmodal, setOpenBankAccmodal] = useState<boolean>(false);
   const [shouldUPIVerified, setShouldUPIVerified] = useState<boolean>(false);
+  const [activePaymentModes, setActivePaymentMode] = useState<number[]>(initialPaymentModeStructure);
   const [timePeriodSelected, setTimePeriodSelected] = useState<boolean[]>([true, false, false]);
+  const [paymentMode, setPaymentMode] = useState<number>(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
+
+  // const bankDetails: any = useMemo(() => { return localStorage.getItem(siteConfig.USER_INFO)?.kycdetails?.bankdetails }, []);
+
+  const g_userProfileData = useSelector((state: any) => state?.authReducer?.profile?.data);
+  const objBankDetails: { bankname: string, accountholdername: string, accountnumber: string, ifsc: string, accounttype: string } = useMemo(() => {
+    return {
+      bankname: g_userProfileData?.userdetails?.bankname ? g_userProfileData?.userdetails?.bankname : "",
+      accountholdername: g_userProfileData?.kycdetails?.bankdetails?.accountholdername ? g_userProfileData?.kycdetails?.bankdetails?.accountholdername : "",
+      accountnumber: g_userProfileData?.kycdetails?.bankdetails?.accountnumber ? g_userProfileData?.kycdetails?.bankdetails?.accountnumber : "",
+      ifsc: g_userProfileData?.kycdetails?.bankdetails?.ifsc ? g_userProfileData?.kycdetails?.bankdetails?.ifsc : "",
+      accounttype: g_userProfileData?.kycdetails?.bankdetails?.accounttype ? g_userProfileData?.kycdetails?.bankdetails?.accounttype : ""
+    }
+  }, [g_userProfileData])
 
   useEffect(() => {
     console.log(g_initialPaymentData, "netbankng.tsx :: useeffect of g_initialPaymentData");
-
+    if (g_initialPaymentData) {
+      let { paymentModes } = g_initialPaymentData;
+      if (paymentModes && paymentModes.length) {
+        setActivePaymentMode(paymentModes);
+      } else {
+        setActivePaymentMode(initialPaymentModeStructure);
+      }
+    }
   }, [g_initialPaymentData]);
 
   useEffect(() => {
@@ -234,17 +251,17 @@ function NetBanking() {
     let arrTimePeriodSelected: boolean[] = [...timePeriodSelected];
 
     switch (item) {
-      case paymentMethods[paymentMethodKeys.NET_BANKING]["id"]: {
+      case enumPaymentModes.NETBANKING: {
         arrTimePeriodSelected = [true, false, false];
         setPaymentMode(paymentMethods[paymentMethodKeys.NET_BANKING]["id"]);
         break;
       }
-      case paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]: {
+      case enumPaymentModes.NEFT: {
         arrTimePeriodSelected = [false, true, false];
         setPaymentMode(paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"]);
         break;
       }
-      case paymentMethods[paymentMethodKeys.UPI]["id"]: {
+      case enumPaymentModes.UPI: {
         arrTimePeriodSelected = [false, false, true];
         setPaymentMode(paymentMethods[paymentMethodKeys.UPI]["id"]);
         break;
@@ -253,17 +270,6 @@ function NetBanking() {
 
     setTimePeriodSelected(arrTimePeriodSelected);
   };
-
-  // const hideNumbersWithStars = (str: string) => {
-  //   if (str && str.length) {
-  //     let leading = str.slice(0, 4);
-  //     let trailing = str.slice(-2);
-  //     str = leading + new Array(str.length - 4 + 1).join('x') + trailing;
-  //     return str;
-  //   }
-
-  //   return "";
-  // }
 
   const verifyUPIIdFromApi = async (value: string) => {
 
@@ -369,210 +375,239 @@ function NetBanking() {
                     marginBottom: "10px",
                   }}
                 >
-                  <CardHeader
-                    avatar={
-                      <FormControlLabel
-                        sx={{}}
-                        control={
-                          <Checkbox
-                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.NET_BANKING]["id"])}
-                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]]}
-                            icon={
-                              <RadioButtonUncheckedOutlined
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                            checkedIcon={
-                              <RadioButtonChecked
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                          />
-                        }
-
-                        label={paymentMethods[paymentMethodKeys.NET_BANKING]["title"]}
-                      />
-                    }
-                    action={
-                      <Box onClick={() => navigate("/vp")}>
-                        <img
-                          src={hdfclogo}
-                          alt="sprint-money"
-                          style={{
-                            width: "29.1px",
-                            height: "29.4px",
-                            marginTop: "15px",
-                          }}
-                        />
-                      </Box>
-                    }
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#3c3e42",
-                    }}
-                  />
-                  <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                    {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
-                  </p>
-                  <Box style={style.divider}></Box>
-
-                  {/* <Box style={{ paddingLeft: "16px" }}> */}
-                  <CardHeader
-                    avatar={
-                      <FormControlLabel
-                        sx={{}}
-                        control={
-                          <Checkbox
-                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"])}
-                            // checked={timePeriodSelected[2]}
-                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NEFT_RTGS]["index"]]}
-                            icon={
-                              <RadioButtonUncheckedOutlined
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                            checkedIcon={
-                              <RadioButtonChecked
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                          />
-                        }
-                        // label="NEFT/RTGS"
-                        label={paymentMethods[paymentMethodKeys.NEFT_RTGS]["title"]}
-                      />
-                    }
-                    action={
-                      <Box>
-                        <img
-                          src={hdfclogo}
-                          alt="sprint-money"
-                          style={{
-                            width: "29.1px",
-                            height: "29.4px",
-                            marginTop: "15px",
-                          }}
-                        />
-                      </Box>
-                    }
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#3c3e42",
-                    }}
-                  />
-                  <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                    {/* 4825 ********** 25 */}
-                    {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
-                  </p>
-                  <Box style={style.divider}></Box>
-
-                  <Box style={style.divider}></Box>
-
-                  <CardHeader
-                    avatar={
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={() => handleTimePeriodChange(paymentMethods[paymentMethodKeys.UPI]["id"])}
-                            checked={timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]]}
-                            icon={
-                              <RadioButtonUncheckedOutlined
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                            checkedIcon={
-                              <RadioButtonChecked
-                                style={{ color: "#23db7b" }}
-                              />
-                            }
-                          />
-                        }
-                        // label="UPI"
-                        label={paymentMethods[paymentMethodKeys.UPI]["title"]}
-                      />
-                    }
-                    action={
-                      <IconButton
-                        aria-label="UPILOGO"
-                        sx={{
-                          width: "44.1px",
-                          height: " 35px",
-                        }}
-                      >
-                        <img
-                          src={Active_Upi}
-                          alt="S__M"
-                          style={{
-                            width: "44px",
-                            height: "35px",
-                            marginTop: "15px",
-                          }}
-                        />
-                      </IconButton>
-                    }
-                    sx={{
-                      color: "#7b7b9d",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                    }}
-                  />
                   {
-                    timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true ?
+                    activePaymentModes &&
+                      activePaymentModes.length ?
                       <>
-                        <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
-                          Saved UPI Options
-                        </p>
+                        {activePaymentModes[0] === enumPaymentModes.NETBANKING ?
+                          <>
+                            <CardHeader
+                              avatar={
+                                <FormControlLabel
+                                  sx={{}}
+                                  control={
+                                    <Checkbox
+                                      onChange={() => handleTimePeriodChange(enumPaymentModes.NETBANKING)}
+                                      checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]]}
+                                      icon={
+                                        <RadioButtonUncheckedOutlined
+                                          style={{ color: "#23db7b" }}
+                                        />
+                                      }
+                                      checkedIcon={
+                                        <RadioButtonChecked
+                                          style={{ color: "#23db7b" }}
+                                        />
+                                      }
+                                    />
+                                  }
 
-                        <TextField
-                          value={upiId}
-                          onChange={(e: any) => {
-                            setUpiId(e.target.value);
-                            handleTimer(verifyUPIIdFromApi, e.target.value)
-                          }}
-                          InputProps={{
-                            endAdornment: shouldUPIVerified ? (
-                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
-                                {" "}
-                                <img src={validMobile} width="22px" alt="Cross" />{" "}
-                              </InputAdornment>
-                            ) : (
-                              <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
-                                {" "}
-                                <img src={ContactError} width="22px" alt="Cross" />{" "}
-                              </InputAdornment>
-                            ),
-                            // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
-                          }}
+                                  label={paymentMethods[paymentMethodKeys.NET_BANKING]["title"]}
+                                />
+                              }
+                              action={
+                                <Box onClick={() => navigate("/vp")}>
+                                  <img
+                                    src={hdfclogo}
+                                    alt="sprint-money"
+                                    style={{
+                                      width: "29.1px",
+                                      height: "29.4px",
+                                      marginTop: "15px",
+                                    }}
+                                  />
+                                </Box>
+                              }
+                              sx={{
+                                fontSize: "14px",
+                                fontWeight: "500",
+                                color: "#3c3e42",
+                              }}
+                            />
+                            <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
+                              {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
+                            </p>
+                            <Box style={style.divider}></Box>
+                          </>
+                          : null}
 
-                          sx={{ width: "80%", margin: "5%" }}
-                        />
-                        {/* <Box sx={{ marginLeft: "20px" }}>
+                        {
+
+                          activePaymentModes[1] === enumPaymentModes.NEFT ?
+                            <>
+                              <CardHeader
+                                avatar={
+                                  <FormControlLabel
+                                    sx={{}}
+                                    control={
+                                      <Checkbox
+                                        onChange={() => handleTimePeriodChange(enumPaymentModes.NEFT)}
+                                        // checked={timePeriodSelected[2]}
+                                        checked={timePeriodSelected[paymentMethods[paymentMethodKeys.NEFT_RTGS]["index"]]}
+                                        icon={
+                                          <RadioButtonUncheckedOutlined
+                                            style={{ color: "#23db7b" }}
+                                          />
+                                        }
+                                        checkedIcon={
+                                          <RadioButtonChecked
+                                            style={{ color: "#23db7b" }}
+                                          />
+                                        }
+                                      />
+                                    }
+                                    // label="NEFT/RTGS"
+                                    label={paymentMethods[paymentMethodKeys.NEFT_RTGS]["title"]}
+                                  />
+                                }
+                                action={
+                                  <Box>
+                                    <img
+                                      src={hdfclogo}
+                                      alt="sprint-money"
+                                      style={{
+                                        width: "29.1px",
+                                        height: "29.4px",
+                                        marginTop: "15px",
+                                      }}
+                                    />
+                                  </Box>
+                                }
+                                sx={{
+                                  fontSize: "14px",
+                                  fontWeight: "500",
+                                  color: "#3c3e42",
+                                }}
+                              />
+                              <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
+                                {/* 4825 ********** 25 */}
+                                {hideNumbersWithStars(userInfo ? userInfo?.kycdetails?.bankdetails?.accountnumber : "")}
+                              </p>
+                              <Box style={style.divider}></Box>
+
+                              <Box style={style.divider}></Box>
+                            </>
+                            : null
+                        }
+
+                        {
+
+                          activePaymentModes[2] === enumPaymentModes.UPI ?
+                            <>
+                              <CardHeader
+                                avatar={
+                                  <FormControlLabel
+                                    control={
+                                      <Checkbox
+                                        onChange={() => handleTimePeriodChange(enumPaymentModes.UPI)}
+                                        checked={timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]]}
+                                        icon={
+                                          <RadioButtonUncheckedOutlined
+                                            style={{ color: "#23db7b" }}
+                                          />
+                                        }
+                                        checkedIcon={
+                                          <RadioButtonChecked
+                                            style={{ color: "#23db7b" }}
+                                          />
+                                        }
+                                      />
+                                    }
+                                    // label="UPI"
+                                    label={paymentMethods[paymentMethodKeys.UPI]["title"]}
+                                  />
+                                }
+                                action={
+                                  <IconButton
+                                    aria-label="UPILOGO"
+                                    sx={{
+                                      width: "44.1px",
+                                      height: " 35px",
+                                    }}
+                                  >
+                                    <img
+                                      src={Active_Upi}
+                                      alt="S__M"
+                                      style={{
+                                        width: "44px",
+                                        height: "35px",
+                                        marginTop: "15px",
+                                      }}
+                                    />
+                                  </IconButton>
+                                }
+                                sx={{
+                                  color: "#7b7b9d",
+                                  fontSize: "14px",
+                                  fontWeight: "500",
+                                }}
+                              />
+                              {
+                                timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true ?
+                                  <>
+                                    <p style={{ marginLeft: "10%", marginTop: "-5.5%" }}>
+                                      Saved UPI Options
+                                    </p>
+
+                                    <TextField
+                                      value={upiId}
+                                      onChange={(e: any) => {
+                                        setUpiId(e.target.value);
+                                        handleTimer(verifyUPIIdFromApi, e.target.value)
+                                      }}
+                                      InputProps={{
+                                        endAdornment: shouldUPIVerified ? (
+                                          <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                            {" "}
+                                            <img src={validMobile} width="22px" alt="Cross" />{" "}
+                                          </InputAdornment>
+                                        ) : (
+                                          <InputAdornment sx={{ paddingRight: "8px ! important" }} position="end">
+                                            {" "}
+                                            <img src={ContactError} width="22px" alt="Cross" />{" "}
+                                          </InputAdornment>
+                                        ),
+                                        // endAdornmentt :  error?.includes("Login_Contact") ? <InputAdornment position="end"> <img src={validMobile} width="22px" alt="Cross"/> </InputAdornment> : ""
+                                      }}
+
+                                      sx={{ width: "80%", margin: "5%" }}
+                                    />
+                                    {/* <Box sx={{ marginLeft: "20px" }}>
                           <UpiMainCom />
                         </Box> */}
 
-                      </>
-                      : null
+                                  </>
+                                  : null
+                              }
+                            </>
+                            : null
+                        }
+
+                      </> : null
                   }
+                  {/* <Box style={{ paddingLeft: "16px" }}> */}
+
+
+
                 </Box>
               </Card>
-              <Box
-                onClick={() => {
-                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
-                    navigate("/processingpayments", {
-                      state: { cardType: cardType },
-                      replace: true,
-                    });
-                    return;
-                  }
-
-                  setOpenBankAccmodal(true);
-                }}
-              >
+              <Box>
                 <NetBankingButton
                   totalAmount={g_initialPaymentData?.totalAmount ? g_initialPaymentData?.totalAmount : ""}
-                  onClick={handleMakePayment}
+                  onClick={() => {
+                    if (timePeriodSelected[paymentMethods[paymentMethodKeys.UPI]["index"]] === true) {
+                      if (upiId && upiId.length && shouldUPIVerified) {
+                        navigate("/processingpayments", {
+                          state: { cardType: cardType },
+                          replace: true,
+                        });
+                      }
+                      return;
+                    }
+                    setOpenBankAccmodal(true);
+
+                    handleMakePayment();
+                  }}
                 />
               </Box>
             </Box>
@@ -611,11 +646,17 @@ function NetBanking() {
               <CardHeader
                 avatar={
                   <Box
-                    onClick={() =>
+                    onClick={() => {
+                      if (timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]] === true) {
+                        navigate("/sipsuccessscreen")
+                        return;
+                      }
+
                       navigate("/processingpayments", {
                         state: { cardType: cardType },
                         replace: true,
                       })
+                    }
                     }
                   >
                     <img
@@ -644,7 +685,7 @@ function NetBanking() {
               xs={4}
             >
               <Box
-                sx={{ margin:{xs:"12px 0px 8px 60px", sm:"12px 0px 8px 73px"} }}
+                sx={{ margin: { xs: "12px 0px 8px 60px", sm: "12px 0px 8px 73px" } }}
                 onClick={() => setOpenBankAccmodal(false)}
               >
                 <ClearIcon />
@@ -656,7 +697,7 @@ function NetBanking() {
             <Typography
               style={{ fontSize: "14px", color: "white", padding: "10px 20px" }}
             >
-              Transfer ₹40,000 to below account
+              Transfer ₹{g_initialPaymentData?.totalAmount ? g_initialPaymentData?.totalAmount : ""} to below account
             </Typography>
           </Box>
           <Grid
@@ -685,7 +726,7 @@ function NetBanking() {
                   padding: "10px 20px",
                 }}
               >
-                ICICI Bank
+                {objBankDetails.bankname}
               </Typography>
             </Grid>
           </Grid>
@@ -715,7 +756,7 @@ function NetBanking() {
                   padding: "10px 20px",
                 }}
               >
-                ICICI Ltd.
+                {objBankDetails.accountholdername}
               </Typography>
             </Grid>
           </Grid>
@@ -745,7 +786,7 @@ function NetBanking() {
                   padding: "10px 20px",
                 }}
               >
-                Current Account
+                {objBankDetails.accounttype} Account
               </Typography>
             </Grid>
           </Grid>
@@ -775,7 +816,7 @@ function NetBanking() {
                   padding: "10px 20px",
                 }}
               >
-                000405103922
+                {objBankDetails.accountnumber}
               </Typography>
             </Grid>
           </Grid>
@@ -805,7 +846,7 @@ function NetBanking() {
                   padding: "10px 20px",
                 }}
               >
-                ICICI0000104
+                {objBankDetails.ifsc}
               </Typography>
             </Grid>
           </Grid>
@@ -829,22 +870,21 @@ function NetBanking() {
           </Box>
 
           <Grid container spacing={0}>
-            {/* <Grid item xs={6}>
-
-                            <Typography>
-                                Pay ₹5,000
-                            </Typography>
-
-                        </Grid> */}
-
             <Grid xs={12} sx={{ textAlign: "center" }}>
               <Button
                 fullWidth
-                onClick={() =>
+                onClick={() => {
+
+                  if (timePeriodSelected[paymentMethods[paymentMethodKeys.NET_BANKING]["index"]] === true) {
+                    navigate("/sipsuccessscreen")
+                    return;
+                  }
+
                   navigate("/processingpayments", {
                     state: { cardType: cardType },
                     replace: true,
                   })
+                }
                 }
                 sx={{
                   backgroundColor: " #23db7b",

@@ -22,7 +22,7 @@ import { makeStyles } from "@mui/styles";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
 import FooterWithButton2 from "../CommonComponents/FooterWithButton2";
-import { globalConstant } from "../../Utils/globalConstant";
+import { enumPaymentModes, enumSpecificPurchaseAmount, globalConstant, paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
@@ -32,6 +32,9 @@ import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } fro
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
 import { store } from "../../Store/Store";
 import { getMutualFundListWrtUserAmountThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
+import { setOrderSipThunk, setPlaceLumpsumOrderThunk } from "../../Store/Payments/thunk/payments-thunk";
+import { setInitialPaymentDataAction } from "../../Store/Payments/actions/payments-action";
+import moment from "moment";
 
 // const data = [
 //   {
@@ -242,7 +245,9 @@ const OneTimeMutualFund = () => {
   const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
   const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data, shallowEqual);
 
+  const [sipStartDay, setSipStartDay] = useState<any>();
   const [mfCards, setMfCards] = useState<any[]>([initialMFData]);
+  const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
 
   const strCardType: string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
   // @ts-ignore
@@ -344,6 +349,140 @@ const OneTimeMutualFund = () => {
       return ` ${totalAmount}`;
     }
   }
+
+  // const handleOrderInvestment = async () => {
+
+  //   let arrMappedMfCards: any[] = [];
+
+  //   if (mfCards && mfCards.length) {
+  //     arrMappedMfCards = mfCards.map((item: any) => {
+  //       return { fund_id: item?.secid, amount: item?.recommendedamount }
+  //     })
+  //   }
+
+  //   if (!arrMappedMfCards || !arrMappedMfCards.length) {
+  //     return;
+  //   }
+
+  //   let objBody: any = {
+  //     funds: arrMappedMfCards
+  //   };
+
+  //   let objDataForPaymentGateway: any = {};
+
+  //   /** Setting total amount  */
+  //   //@ts-ignore
+  //   let totalAmount: number | undefined = parseInt(getTotalRecomendedAmount());
+  //   objDataForPaymentGateway["totalAmount"] = totalAmount;
+
+  //   /**Set payment modes according to this condition*/
+  //   if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
+  //     objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
+  //   } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
+  //     objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING]
+  //   } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
+  //     objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+
+  //   }
+
+  //   /**call Order api according to investment type */
+  //   if (strCardType === globalConstant.SIP_INVESTMENT) {
+  //     objBody["sipstartday"] = 0
+  //     let res: apiResponse = await setOrderSipThunk(objBody);
+
+  //   } else {
+
+  //     objDataForPaymentGateway["orderId"] = "0000";
+  //     dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+
+  //     let res: apiResponse = await setPlaceLumpsumOrderThunk(objBody);
+  //     // if (res?.error) return;
+  //     // objDataForPaymentGateway["orderId"]= res?.data?.order_id
+  //     // dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+  //     // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [[paymentMethods[paymentMethodKeys.NET_BANKING]["id"], paymentMethods[paymentMethodKeys.NEFT_RTGS]]["id"]], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+  //     // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [1, 2], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+  //     // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+  //     // navigate("/netbanking", {
+  //     //   state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+  //     //   replace: true,
+  //     // })
+
+  //   }
+
+  //   navigate("/netbanking", {
+  //     state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+  //     replace: true,
+  //   })
+  // }
+
+
+  const handleOrderInvestment = async () => {
+
+    let arrMappedMfCards: any[] = [];
+
+    if (mfCards && mfCards.length) {
+      arrMappedMfCards = mfCards.map((item: any) => {
+        return { fund_id: item?.secid, amount: item?.recommendedamount }
+      })
+    }
+
+    if (!arrMappedMfCards || !arrMappedMfCards.length) {
+      return;
+    }
+
+    let objBody: any = {
+      funds: arrMappedMfCards
+    };
+
+    let objDataForPaymentGateway: any = {};
+
+    /** Setting total amount  */
+    //@ts-ignore
+    let totalAmount: number | undefined = parseInt(getTotalRecomendedAmount());
+    objDataForPaymentGateway["totalAmount"] = totalAmount;
+
+    /**Set payment modes according to this condition*/
+    if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+
+    }
+
+    /**call Order api according to investment type */
+    if (strCardType === globalConstant.SIP_INVESTMENT) {
+      objBody["sipstartday"] = parseInt(sipStartDay);
+      objDataForPaymentGateway["orderId"] = "0000";
+      dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+      let res: apiResponse = await setOrderSipThunk(objBody);
+
+    } else {
+
+      objDataForPaymentGateway["orderId"] = "0000";
+      dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+
+      let res: apiResponse = await setPlaceLumpsumOrderThunk(objBody);
+      // if (res?.error) return;
+      // objDataForPaymentGateway["orderId"]= res?.data?.order_id
+      // dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [[paymentMethods[paymentMethodKeys.NET_BANKING]["id"], paymentMethods[paymentMethodKeys.NEFT_RTGS]]["id"]], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [1, 2], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // navigate("/netbanking", {
+      //   state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+      //   replace: true,
+      // })
+
+    }
+
+    navigate("/netbanking", {
+      state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+      replace: true,
+    });
+  }
+
 
   return (
     <Box style={{ width: "100vw", }}>
@@ -532,17 +671,129 @@ const OneTimeMutualFund = () => {
             >
 
               <FooterWithButton2
-                btnText="BUY NOW"
-                btnClick={() =>
-                  navigate("/netbanking", {
-                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                    replace: true,
-                  })
+                // btnText="BUY NOW"
+                btnText={
+                  g_investment?.type === globalConstant.SIP_INVESTMENT
+                    ? "Select SIP Date"
+                    : "Buy Now"
+                }
+                btnClick={async () => {
+                  if (g_investment?.type === globalConstant.SIP_INVESTMENT) {
+                    setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+                  } else {
+                    handleOrderInvestment();
+                  }
+                }
                 }
               />
             </Box>
           </Grid>
         </Grid>
+
+        <Modal
+          sx={{ borderRadius: 8 }}
+          open={
+            activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
+              ? true
+              : false
+          }
+          onClose={() => {
+            setActiveScreen(enumActiveScreen.CLOSE_MODAL);
+          }}
+        >
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            sx={{
+              marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
+              marginTop: { xs: "50%", lg: "13%", md: "30%" },
+            }}
+          >
+            <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+            <Calendar
+              showNeighboringMonth={false}
+              showNavigation={false}
+              // @ts-ignore
+              onChange={(val, e) => {
+                let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
+                setSipStartDay(date);
+              }}
+            />
+            <Button
+              onClick={() => {
+                if (sipStartDay) {
+                  setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+                }
+              }}
+              variant="contained"
+              style={style.button}
+              sx={{
+                backgroundColor: "rgba(123, 123, 157, 0.05)",
+                color: "#7b7b9d",
+              }}
+            >
+              Confirm SIP Date
+            </Button>
+          </Box>
+        </Modal>
+        <Modal
+          sx={{ borderRadius: 8 }}
+          open={
+            activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL
+              ? true
+              : false
+          }
+          onClose={() => {
+            setActiveScreen(enumActiveScreen.CLOSE_MODAL);
+          }}
+        >
+          <>
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              sx={{
+                marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
+                marginTop: { xs: "50%", lg: "13%", md: "30%" },
+              }}
+            >
+              <Box
+                sx={{
+                  backgroundColor: "#fff",
+                  width: 300,
+                  alignItems: "center",
+                  padding: 3,
+                  textAlign: "center",
+                }}
+              >
+                <Box>
+                  <img style={{ height: 120, width: 120 }} src={tick} />
+                </Box>
+                <Typography sx={{ marginTop: 1, fontWeight: "600" }}>
+                  Date confirmed!
+                </Typography>
+                <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
+                  Your Monthly SIP Date is {sipStartDay}th of every month
+                </Typography>
+              </Box>
+              {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
+              <Button
+                onClick={() => {
+                  handleOrderInvestment()
+                }}
+                variant="contained"
+                style={style.button}
+                sx={{
+                  backgroundColor: "rgba(123, 123, 157, 0.05)",
+                  color: "#7b7b9d",
+                  marginLeft: 8,
+                }}
+              >
+                Continue to Payment
+              </Button>
+            </Box>
+          </>
+        </Modal>
+
       </Box>
     </Box >
   );
