@@ -137,6 +137,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                 </Grid>
                 <Grid item sm={6} xs={6} md={6} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
                     <Box>
+                        
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
                         </Box >
