@@ -183,10 +183,10 @@ const initialMFDataForExploreFund = {
   isChecked: false
 }
 
-const enumFilterIndexes ={
+const enumFilterIndexes = {
   SORT: 'Sort',
   FUND_TYPE: 'Fund Type',
-  FUND_HOUSE:'Fund House'
+  FUND_HOUSE: 'Fund House'
 
 }
 
@@ -284,12 +284,12 @@ function ExploreFunds(props: any) {
       console.log("categoryGroupList : ", categoryGroupList)
       const temp = [...filterIndexes]
       temp && temp?.length &&
-      temp.map((item, index) => {
-        if(item?.key === enumFilterIndexes?.FUND_TYPE){
-          console.log("temp filter :", temp[index]?.keyValues)
-          temp[index].keyValues = categoryGroupList;
-        }
-      })
+        temp.map((item, index) => {
+          if (item?.key === enumFilterIndexes?.FUND_TYPE) {
+            console.log("temp filter :", temp[index]?.keyValues)
+            temp[index].keyValues = categoryGroupList;
+          }
+        })
       console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList])
@@ -322,47 +322,39 @@ function ExploreFunds(props: any) {
 
   }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
 
-useEffect(() => {
- getFundProviderList();
-  // console.log("response :", res)
-}, [])
+  useEffect(() => {
+    getFundProviderList();
+    // console.log("response :", res)
+  }, [])
 
-useEffect(() => {
-  console.log("fundProviderList :", fundProviderList)
-  
-  const temp = [...filterIndexes]
-  temp && temp?.length &&
-  temp.map((item, index) => {
-    if(item?.key === enumFilterIndexes?.FUND_HOUSE){
-      temp[index].keyValues = fundProviderList;
-      temp[index].keyValues.unshift({
-        providerid:"0",
-        providername:"All"
+  useEffect(() => {
+    console.log("fundProviderList :", fundProviderList)
+
+    const temp = [...filterIndexes]
+    temp && temp?.length &&
+      temp.map((item, index) => {
+        if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
+          temp[index].keyValues = fundProviderList;
+          temp[index].keyValues.unshift({
+            providerid: "0",
+            providername: "All"
+          })
+          console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
+        }
       })
-      console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
-    }
-  })
-  console.log("temp filter changed :", temp)
-}, [fundProviderList])
+    console.log("temp filter changed :", temp)
+  }, [fundProviderList])
 
 
-const getFundProviderList = async () => { 
-  let response: apiResponse = await getListOfMutualFundProviderCoThunk();
-  console.log("fundProviderList response :", response)
-  
-  response.data = [...response.data];
-  // @ts-ignore
-  handleApiResponse(response, [setFundProviderList]);
-  // .then((data) => {
-  //   console.log("getFundProviderList :", data)
-  //   return data.data;
-  // }).catch((error) => {
-  //   console.log("getFundProviderList :", error)
-  //   return error.error;
-  // })
+  const getFundProviderList = async () => {
+    let response: apiResponse = await getListOfMutualFundProviderCoThunk();
+    console.log("fundProviderList response :", response)
 
-  return response;
-}
+    response.data = [...response.data];
+    // @ts-ignore
+    handleApiResponse(response, [setFundProviderList]);
+    return response;
+  }
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
@@ -451,23 +443,28 @@ const getFundProviderList = async () => {
       }
 
       // setIsInitialVariableFundListFetched(true);
+    } else {
+      setVariableMasterFundList([]); //setting this variable list state
     }
 
   };
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
-    // @ts-ignore
-    let arrFilteredList: any[] = arrVariableMasterFundList && arrVariableMasterFundList.length && arrVariableMasterFundList.filter((item: any) => {
-      if (!arrSecIds.includes(item?.secid)) {
-        return item;
-      }
-    });
+    let arrFilteredList: any[] = [];
+    if (arrVariableMasterFundList && arrVariableMasterFundList.length) {
+      arrFilteredList = arrVariableMasterFundList.filter((item: any) => {
+        if (!arrSecIds.includes(item?.secid)) {
+          return item;
+        }
+      });
+    }
+
+    setMasterFundList(arrFilteredList);
+    setMasterFundListLength(arrFilteredList.length);
 
     if (arrFilteredList && arrFilteredList.length) {
       setIsInitialVariableFundListFetched(true);
-      setMasterFundList(arrFilteredList);
-      setMasterFundListLength(arrFilteredList.length);
     } else {
       setIsInitialVariableFundListFetched(false);
     }
@@ -572,7 +569,7 @@ const getFundProviderList = async () => {
     setActiveCategoryGroupIndex(tempIndex);
     var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
     data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
-      url += item + ',' 
+      url += item + ','
     })
     console.log("click value :", data, url, tempIndex)
 
@@ -668,14 +665,14 @@ const getFundProviderList = async () => {
 
 
 
-                  <Box sx={{marginBottom:'15px'}}>
-                      <SearchCmp
-                        filtersOptions={[...filterIndexes]}
-                        searchKeysFun={handleSearchFunctionality}
-                        searchBox={true}
-                        handleCB={handleFilterCB}
-                      />
-                    </Box>
+                  <Box sx={{ marginBottom: '15px' }}>
+                    <SearchCmp
+                      filtersOptions={[...filterIndexes]}
+                      searchKeysFun={handleSearchFunctionality}
+                      searchBox={true}
+                      handleCB={handleFilterCB}
+                    />
+                  </Box>
 
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
 
@@ -720,20 +717,31 @@ const getFundProviderList = async () => {
               </Box>
               {
                 variableMasterFundList &&
-                variableMasterFundList.length &&
-                variableMasterFundList.map((item: any, index: number) => {
-                  return (
-                    <Box key={index}>
-                      <MutualFundCard2
-                        {...item}
-                        activeIndex={index}
-                        onCardClick={handleNavigationOfFundDetails}
-                        onClick={handleAddFundsSelection}
-                        cefType={false}
-                      />
-                    </Box>
-                  )
-                })
+                  variableMasterFundList.length ?
+
+                  <>
+                    {
+                      variableMasterFundList.map((item: any, index: number) => {
+                        return (
+                          <Box key={index}>
+                            <MutualFundCard2
+                              {...item}
+                              activeIndex={index}
+                              onCardClick={handleNavigationOfFundDetails}
+                              onClick={handleAddFundsSelection}
+                              cefType={false}
+                            />
+                          </Box>
+                        )
+                      })
+                    }
+                  </>
+                  :
+                  <>
+                    <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                      <Typography component="h6" sx={{ color: "var(--uiDarkGreyColor) !important" }}>No record found!</Typography>
+                    </Grid>
+                  </>
               }
 
             </Grid>

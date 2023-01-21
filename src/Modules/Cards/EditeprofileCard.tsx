@@ -25,6 +25,8 @@ import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage, underAgeVali
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
+import { apiResponse } from '../../Utils/globalTypes';
+import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 
 type formDataProps = {
   customer_id?: number,
@@ -628,8 +630,8 @@ const EditprofileCard = () => {
     e.stopPropagation();
 
     await isAllFieldsValidated(throwErrorOnWrongField)
-      .then(res => {
-        if (res) return;
+      .then(async (r: any) => {
+        if (r) return;
         let objBody: formDataProps = { ...formData };
         if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
           return;
@@ -643,36 +645,29 @@ const EditprofileCard = () => {
         objBody["dateofbirth"] = date;
 
         setLoading(true);
-        postData(
-          objBody,
-          siteConfig.AUTHENTICATION_PROFILE_EDIT,
-          siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-          siteConfig.AUTHENTICATION_API_ID
-        )
-          .then(res => res.json())
-          .then((data) => {
-            setLoading(false);
 
-            if (checkExpirationOfToken(data?.code)) {
-              dispatchLocal(setTokenExpiredStatusAction(true));
-              return;
-            }
+        let res: apiResponse = await setEditProfileDataThunk(objBody);
+        setLoading(false);
 
-            if (data?.error) {
-              return;
-            }
+        if (checkExpirationOfToken(res?.code)) {
+          dispatchLocal(setTokenExpiredStatusAction(true));
+          return;
+        }
 
-            console.log("profile saved");
-            let objUserDetail: any = data?.data?.userdetails;
-            setUserNameAndEmailInLocalStorage(objUserDetail);
-            navigate('/viewprofile');
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        if (res?.error) {
+          return;
+        }
+
+        console.log("profile saved");
+        let objUserDetail: any = res?.data?.userdetails;
+        setUserNameAndEmailInLocalStorage(objUserDetail);
+        navigate('/viewprofile');
+
       }).catch(err => {
         console.log(err);
       })
+
+
 
   }
 

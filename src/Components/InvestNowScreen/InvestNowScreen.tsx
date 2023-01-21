@@ -314,6 +314,10 @@ function InvestNowScreen(props: IProps) {
     }  
   }, []);
 
+  useEffect(()=>{
+    localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
+  },[amount])
+
   const handleNavigation = () => {
     navigate("/oneTimeInvestment", {
       state: {
