@@ -206,7 +206,7 @@ const FundDetails = () => {
 
   useEffect(() => {
     if (!secId) {
-      navigate(parentRoute ? parentRoute : "/startInvestment");
+      navigate(parentRoute ? parentRoute : "/home");
       return;
     }
 
