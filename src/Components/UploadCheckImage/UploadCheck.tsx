@@ -503,7 +503,14 @@ function UploadCheck() {
                 md={10}>
                 <Grid
                   container>
-                  <Grid sx={{ padding: 3 }} item xs={12}>
+                  <Grid sx={{ 
+                     height: "100vh",
+                     padding: 3,
+                     boxSizing: "border-box",
+                        overflow: "scroll",
+                   }} item xs={12} 
+
+                  >
                     <Toolbar />
                     <Box sx={{ mb: "10px" }} className="checkHeadingStack">
                       <Typography
