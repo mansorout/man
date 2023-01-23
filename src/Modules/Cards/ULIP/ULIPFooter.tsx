@@ -18,6 +18,7 @@ const ULIPFooter = (props: ULIPButtonProp) => {
             justifyContent: 'center',
             alignItems: 'center',
         }}>
+            
             <ULIPButton 
                 text={ props.text } 
                 navigateTo={ props.navigateTo } 

@@ -269,13 +269,13 @@ const InitiateSip = (props: IProps) => {
   const g_investment = useSelector(
     (state: any) => state?.recommendationsReducer?.investment
   );
-  
+
   const [error, setError] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
-  
+
   const chartDataDetails: any = useMemo(() => {
     return {
       labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
@@ -289,12 +289,12 @@ const InitiateSip = (props: IProps) => {
       ]
     };
   }, [expectedReturns]);
-  
+
   useEffect(() => {
-    if(!g_investment?.type){
-      let strCardType:string | null = localStorage.getItem(siteConfig.SIP_CARD_TYPE);
+    if (!g_investment?.type) {
+      let strCardType: string | null = localStorage.getItem(siteConfig.SIP_CARD_TYPE);
       dispatch(setInvestmentCardTypeAction(strCardType));
-    }  
+    }
   }, []);
 
   const handleNavigation = () => {
@@ -314,7 +314,7 @@ const InitiateSip = (props: IProps) => {
 
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => { 
+    timerRef.current = setTimeout(() => {
       cb(a);
     }, 200);
   }
@@ -328,8 +328,8 @@ const InitiateSip = (props: IProps) => {
     //   setError("Amount should be more than ₹5000");
     //   return;
     // }
-    
-    if (!isMultipleofNumber(value, 100)) { 
+
+    if (!isMultipleofNumber(value, 100)) {
       setError("Amount should be multiple of 100.")
     }
     else {
@@ -352,14 +352,14 @@ const InitiateSip = (props: IProps) => {
         }
 
         if (data?.error === true) return;
-        let arrExpectedReturnList :expectedReturnProps[] = data?.data;
-        if(arrExpectedReturnList && arrExpectedReturnList.length ){
+        let arrExpectedReturnList: expectedReturnProps[] = data?.data;
+        if (arrExpectedReturnList && arrExpectedReturnList.length) {
           setExpectedReturns(arrExpectedReturnList);
           setProjectedValue(arrExpectedReturnList[0]?.projectedvalue);
           console.log("arrExpectedReturnList :", arrExpectedReturnList)
           localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
         }
-        })
+      })
       .catch(err => {
         setExpectedReturns([]);
         setProjectedValue(0);
@@ -369,45 +369,49 @@ const InitiateSip = (props: IProps) => {
 
   const getExactPriceWithTag = (price: number) => {
     if (!price) return "";
-    if (price > 999 && price < 100000) return price +" "+ enumPriceTag.THOUSAND;
-    else if (price > 100000 && price < 10000000 ) return price +" "+ enumPriceTag.LAC;
-    else if (price > 10000000 && price < 100000000000000) return price +" "+ enumPriceTag.CRORE;
+    if (price > 999 && price < 100000) return price + " " + enumPriceTag.THOUSAND;
+    else if (price > 100000 && price < 10000000) return price + " " + enumPriceTag.LAC;
+    else if (price > 10000000 && price < 100000000000000) return price + " " + enumPriceTag.CRORE;
     else return price;
   }
 
-  const saveMutualFundGenerate = (id:number, path:string)=>{
-    if(!amount){
+  const saveMutualFundGenerate = (id: number, path: string) => {
+    if (!amount) {
       setError("Please enter amount!");
       return;
     }
 
-    if(amount < 5000){
+    if (amount < 5000) {
       setError("Amount should be more than 5000!");
       return;
     }
 
+    if (error && error.length) {
+      return;
+    }
+
     postData(
-      {investmenttype_id: id, amount: amount},
+      { investmenttype_id: id, amount: amount },
       siteConfig.RECOMMENDATION_MUTUALFUND_GENERATE,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.RECOMENDATION_API_ID
-    ).then(res=>res.json())
-    .then((data:any)=>{
-      if(checkExpirationOfToken(data?.code)){
-        dispatch(setTokenExpiredStatusAction(true));
-        return;
-      }
+    ).then(res => res.json())
+      .then((data: any) => {
+        if (checkExpirationOfToken(data?.code)) {
+          dispatch(setTokenExpiredStatusAction(true));
+          return;
+        }
 
-      if(data?.error === true){
-        return;
-      }
-      // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
-      localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
-      navigate(path);
-    }).catch(err=> {
+        if (data?.error === true) {
+          return;
+        }
+        // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
+        localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        navigate(path);
+      }).catch(err => {
 
-      console.log(err);
-    })
+        console.log(err);
+      })
   }
 
 
@@ -425,26 +429,28 @@ const InitiateSip = (props: IProps) => {
             <Sidebar />
           </Grid>
           <Grid container xs={13} sm={11} md={10} >
-            <Grid item xs={12} sm={10} md={10} sx={{ height: "100vh",
-            overflow: "scroll",
-            width: "100%",
-            display: "block",
-            justifyContent: "center", }} className="ScrollBarStyle22">
+            <Grid item xs={12} sm={10} md={10} sx={{
+              height: "100vh",
+              overflow: "scroll",
+              width: "100%",
+              display: "block",
+              justifyContent: "center",
+            }} className="ScrollBarStyle22">
               <Toolbar />
               <Grid container>
-              <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Link color="#6495ED" underline="always" href='Home' >
-                    <Typography className='burgerText'> Home</Typography>
-                  </Link>
-                  <Link underline="always" onClick={() => handleNavigation()}>
-                    <Typography className='burgerText'>Investment</Typography>
-                  </Link>
-                  <Link underline="none" color="#878782"  >
-                    <Typography className='burgerText' >Start an SIP</Typography>
-                  </Link>
-                </Breadcrumbs>
-              </Box>
+                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                  <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
+                    <Link underline="always" onClick={() => handleNavigation()}>
+                      <Typography className='burgerText'>Investment</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782"  >
+                      <Typography className='burgerText' >Start an SIP</Typography>
+                    </Link>
+                  </Breadcrumbs>
+                </Box>
               </Grid>
               <Box className="BoxPadding" >
                 <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
@@ -457,7 +463,7 @@ const InitiateSip = (props: IProps) => {
                             style={{
                               width: "100%",
                               // margin: "-4% 303px 25px 0",
-                              margin:"6px 12px 18px 0px",
+                              margin: "6px 12px 18px 0px",
                               textAlign: "left",
                               color: "#3c3e42"
                             }}
@@ -537,7 +543,7 @@ const InitiateSip = (props: IProps) => {
                                   height: "33px",
                                   margin: " 2.2 12px 0 0",
                                   padding: "10px 12px 9px",
-                                  
+
                                 }}
                                 onClick={() => (handleActivePriceAmount(enumPriceList.ONE_THOUSAND, arrPriceList[0]))}
                               >
@@ -582,18 +588,18 @@ const InitiateSip = (props: IProps) => {
                               > <b style={{ color: "#6c63ff" }}>{enumPriceList.TEN_THOUSAND}</b>
                               </Button>
                             </Stack>
-                            <InvestButton 
+                            <InvestButton
                               // cardType={props?.cardType}
                               cardType={globalConstant.SIP_INVESTMENT}
-                              saveMutualFundGenerate={(id, path)=> saveMutualFundGenerate(id, path)}
-                             />
+                              saveMutualFundGenerate={(id, path) => saveMutualFundGenerate(id, path)}
+                            />
                             <Grid container spacing={2} textAlign="center">
-                              <Grid item xs={12} md={12} onClick={()=> {
-                                navigate("/oneTimeInvestment", {state:{cardType: globalConstant.SIP_INVESTMENT}})
+                              <Grid item xs={12} md={12} onClick={() => {
+                                navigate("/oneTimeInvestment", { state: { cardType: globalConstant.SIP_INVESTMENT } })
                                 dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
                                 // getinvestmentTypeListDataWrtLookupId(investmentTypeValues.LUMPSUM);
                                 localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.SIP_INVESTMENT)
-                                }}>
+                              }}>
 
                                 <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }}>
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>&nbsp;
@@ -646,7 +652,7 @@ const InitiateSip = (props: IProps) => {
 
                           }}>
                             <b style={{ color: " #23db7b", fontSize: "20px", }}>
-                            ₹{projectedValue ? getExactPriceWithTag(projectedValue) : 0}
+                              ₹{projectedValue ? getExactPriceWithTag(projectedValue) : 0}
                             </b>
                           </Grid>
                         </Grid>
@@ -659,19 +665,19 @@ const InitiateSip = (props: IProps) => {
                             <Avatar alt="" src={withdrawiclogo} style={style.ca_M} />
                           </Grid>
                           <Grid item xs={5} sx={{ paddingTop: "10px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize: {xs:"10px", sm:"12px"}, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
+                            <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}  > *Anytime Withdraw</Typography>
                           </Grid>
                           <Grid item xs={6}>
-                              <Grid container>
+                            <Grid container>
                               <Grid item xs={4} sm={5} sx={{ paddingLeft: "0px" }}>
-                              <Box className="imageRightBox" style={{float: "right"}}>
-                              <Avatar alt="" src={lockinlogo} style={style.ca} />
-                              </Box>
-                          </Grid>
-                          <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
-                            <Typography sx={{ fontSize:{xs:"10px", sm:"12px"}, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
-                          </Grid>
+                                <Box className="imageRightBox" style={{ float: "right" }}>
+                                  <Avatar alt="" src={lockinlogo} style={style.ca} />
+                                </Box>
                               </Grid>
+                              <Grid item xs={8} sm={7} sx={{ paddingTop: "9px", paddingLeft: "5px" }}>
+                                <Typography sx={{ fontSize: { xs: "10px", sm: "12px" }, color: "#7b7b9d" }}> *No Lock-in Period</Typography>
+                              </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </CardContent>

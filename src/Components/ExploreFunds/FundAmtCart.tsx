@@ -13,6 +13,7 @@ import { InvestButton } from '../../Modules/Buttons/InvestButton';
 import { maskgroup, RemoveButtonIcon, ReplaceButtonIcon } from '../../Assets';
 import { makeStyles } from '@mui/styles';
 import { Theme, Dialog, } from '@mui/material'
+import './Portfolio.css'
 
 
 const bull = (
@@ -140,10 +141,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
   },
   cardBtnWrap: {
+    marginLeft:"-12%",
     backgroundColor: 'var(--uiWhite)',
     '& button': {
       boxShadow: 'none',
     }
+    
   },
 
   button: {
@@ -245,7 +248,7 @@ export default function FundAmtCard(props: FundAmtCard) {
   }
   return (
     <>
-      <Card sx={{ maxWidth: { sm: 600, xs: 350 }, padding: '0px', marginBottom: '15px' }}>
+      <Card sx={{ maxWidth: { sm: 600, xs: 350 }, padding: '0px', marginBottom: '15px' }} className="CardManageStyleSlected">
         <Box className={`${classes.cardWrap}`}>
           <Stack m={2} spacing={6}
             className={
@@ -261,6 +264,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               <Typography className={classes.cardHeading}>
                 {`${props?.data?.fundname}`}
               </Typography>
+          
             </Box>
 
             {
@@ -311,9 +315,10 @@ export default function FundAmtCard(props: FundAmtCard) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            gap: '1vw',
+            gap: '0vw',
+            marginRight:"3%"
           }}
-            className={classes.cardBtnWrap}
+            className={classes.cardBtnWrap + " " + classes.ReplaceStyle}
           >
             <Button variant='contained'
               sx={{

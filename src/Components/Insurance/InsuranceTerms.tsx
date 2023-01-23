@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@mui/styles';
 import { Box, styled } from '@mui/system'
 import { Grid, Modal, Theme, Typography } from '@mui/material'
@@ -37,14 +37,19 @@ import { useTheme } from '@mui/material/styles';
 import { string } from 'yup';
 import { useNavigate } from 'react-router-dom';
 import LoopIcon from '@mui/icons-material/Loop';
-import { useDispatch } from 'react-redux';
-import {postTermPurchase} from '../../Store/Insurance/thunk/insurance-thunk'
+import { useDispatch, useSelector } from 'react-redux';
+import { postTermPurchase } from '../../Store/Insurance/thunk/insurance-thunk'
 import FormHelperText from '@mui/material/FormHelperText';
 import { setTermDataSuccessAction } from '../../Store/Insurance/actions/insurance-actions';
 import { lookUpMasterKeys, bannerSectionValues } from "../../Utils/globalConstant";
 // import { lookUpMasterKeys, bannerSectionValues } from "../../globalConstant";
-import { customParseJSON, getLookUpIdWRTModule } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, customParseJSON, getLookUpIdWRTModule, numDifferentiation } from "../../Utils/globalFunctions";
 import { json } from 'stream/consumers';
+import siteConfig from '../../Utils/siteConfig';
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
+import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
+import { apiResponse } from '../../Utils/globalTypes';
+import moment from 'moment';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -79,7 +84,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
             }
         }
     },
-    quickSelectedAmount:{
+    quickSelectedAmount: {
         backgroundColor: 'var(--ui1Color) !important',
         color: 'var(--uiWhite) !important',
     },
@@ -163,10 +168,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         backgroundColor: 'rgba(35, 219, 123, 0.12) !important',
         color: 'var(--primaryColor) !important'
     },
-    
-    selectError:{
+
+    selectError: {
         color: 'red !important',
-        '& fieldset':{
+        '& fieldset': {
             borderColor: 'red',
         },
     }
@@ -195,9 +200,9 @@ interface genderProp {
 
 const RadioCmp = (props: genderProp) => {
     const classes = useStyles()
-    useEffect(() => {
-        props.selectoin("no");
-    }, []);
+    // useEffect(() => {
+    //     props.selectoin("no");
+    // }, []);
     return (
         <div>
             <Button variant="outlined" style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', border: '1px solid var(--typeLighterGrey)', boxShadow: 'var(--themeShadow)', padding: '6px 5px', lineHeight: '1.4', margin: '0px 6px', borderRadius: '8px', width: '100%' }} className={`${classes.genderBtn} ${props.errorShow && classes.borderAndTextErrorColor} ${props.value === props.selectedItem ? classes.borderAndTextErrorColorRemove : ''}`} onClick={() => {
@@ -227,54 +232,96 @@ function PaperComponent(props: PaperProps) {
     );
 }
 
+const addDate = (dt: any, amount: any, dateType: any) => {
+    switch (dateType) {
+        case 'days':
+            return dt.setDate(dt.getDate() + amount) && dt;
+        case 'weeks':
+            return dt.setDate(dt.getDate() + (7 * amount)) && dt;
+        case 'months':
+            return dt.setMonth(dt.getMonth() + amount) && dt;
+        case 'years':
+            return dt.setFullYear(dt.getFullYear() + amount) && dt;
+    }
+}
+
 
 const InsuranceTerms = () => {
     const classes = useStyles()
     const theme = useTheme();
-    const dispatch:any = useDispatch();
+    const dispatch: any = useDispatch();
     const navigate = useNavigate();
-    const [insuranceAmount, setInsuranceAmount] = useState<number | null>(null)
+    const [insuranceAmount, setInsuranceAmount] = useState<number>(0)
     const [insuranceAmountError, setInsuranceAmountError] = useState<boolean>(false)
-    const [dob, setDob] = React.useState<Dayjs | null>(null);
+    const [dob, setDob] = React.useState<any>(addDate(new Date(), -18, 'years'));
     const [dobError, setDobError] = useState<boolean>(false)
     const [termInsuranceSelecct, setTermInsuranceSelecct] = useState<number[]>()
-    const [quickPickAmount, setQuickPickAmount] = useState<number[]>([2500000, 7500000, 5000000, 10000000, 50000000, 100000000])
+    const [quickPickAmount, setQuickPickAmount] = useState<number[]>([])
     const [showPlanDetailSubmit, setShowPlanDetailSubmit] = useState<boolean>(false)
     const [genderSelect, setGenderSelect] = useState<string>('')
     const [genderSelectError, setGenderSelectError] = useState<boolean>(false)
     const [tobaccoSelectTag, setTobaccoSelectTag] = useState<boolean>(true)
     const [tobaccoSelect, setTobaccoSelect] = useState<string>('')
     const [tobaccoSelectError, setTobaccoSelectError] = useState<boolean>(false)
+    const [profileValidationStatus, setProfileValidationStatus] = useState(false);
     const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
-    const quickPickCondition = "{\"isquickaccessenabled\": 1}"
+    // const {  termGenerateApiData } = useSelector((state: any) => state.insuranceReducer)
 
     const [open, setOpen] = React.useState(false);
 
     useEffect(() => {
+        profileValidate();
+    }, [localStorage.getItem(siteConfig.USER_INFO)])
+
+
+    // useEffect(() => {
+
+    // }, [termGenerateApiData])
+    useEffect(() => {
         const termlifecover = customParseJSON(localStorage.getItem(lookUpMasterKeys.TERM_LIFE_COVER))
-        const tempArr: any= [];
-        const tempQuickPick:any = [];
-        termlifecover && termlifecover.length && termlifecover.map((item:any) => {
+        const tempArr: any = [];
+        const tempQuickPick: any = [];
+        termlifecover && termlifecover.length && termlifecover.map((item: any) => {
             tempArr.push(item.value)
-            if(JSON.parse(termlifecover[0]?.metadata).isquickaccessenabled === 1){
+            if (JSON.parse(termlifecover[0]?.metadata).isquickaccessenabled === 1) {
                 tempQuickPick.push(item.value)
             }
         })
-        console.log('useEffect insuranceAmount :',tempQuickPick, termlifecover, termlifecover[0].metadata, tempArr)
+        console.log('useEffect insuranceAmount :', tempQuickPick, termlifecover, termlifecover[0].metadata, tempArr)
         console.log("termlifecover[0].metadata :", JSON.parse(termlifecover[0].metadata))
         setTermInsuranceSelecct(tempArr)
         setQuickPickAmount(tempQuickPick)
         // setQuickPickAmount
     }, [insuranceAmount])
-    
+
+    const profileValidate = async () => {
+        let status: boolean = false;
+        let objUserInfo: any = await customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
+        await ['gender', 'dateofbirth'].forEach((key: string) => {
+            if (!objUserInfo?.userdetails[key]) {
+                status = false;
+            }
+            if (key === "dateofbirth" || key === "gender") {
+                if (!parseInt(objUserInfo?.userdetails[key])) {
+                    status = false;
+                } else {
+                    status = true
+
+                }
+            }
+        })
+        setProfileValidationStatus(status);
+        console.log("is validate term insurance :", status)
+    }
 
     const handleClickOpen = () => {
+        profileValidate()
         setDob(null)
         setGenderSelect('');
         setTobaccoSelect('')
-        if(insuranceAmount){
+        if (insuranceAmount) {
             setOpen(true);
-        }else{
+        } else {
             setInsuranceAmountError(true)
         }
     };
@@ -310,26 +357,63 @@ const InsuranceTerms = () => {
         }
     }
 
-    const handlesubmitDetail = () => {
-        if (feildValidation(dob) && feildValidation(genderSelect) && feildValidation(tobaccoSelect)) {
-            setShowPlanDetailSubmit(true)
+    const handlesubmitDetail = async () => {
+
+        if (!profileValidationStatus) {
+
+            if (feildValidation(dob) && feildValidation(genderSelect) && feildValidation(tobaccoSelect)) {
+                setShowPlanDetailSubmit(true)
+
+                let res: apiResponse = await setEditProfileDataThunk({
+                    gender: genderSelect || "",
+                    // DOB: moment(objUserDetails?.userdetails?.dateofbirth, 'DD/MM/YYYY').format('DD-MM-YYYY'),
+                    dateofbirth: moment(dob).format('DD-MM-YYYY') || '',
+                })
+
+                if (checkExpirationOfToken(res?.code)) {
+                    dispatch(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (res?.error) {
+                    return;
+                }
+
+                console.log("res :", res)
+
+                if (res?.data) {
+                    localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(res?.data))
+                }
+                const data = {
+                    lifecover: insuranceAmount,
+                    frequencytype: 1,
+                    issmoker: tobaccoSelect === 'yes' ? 1 : 0,
+                }
+                dispatch(setTermDataSuccessAction(data))
+                navigate('/explorePlan')
+            } else {
+                !feildValidation(dob) && setDobError(true)
+                !feildValidation(genderSelect) && setGenderSelectError(true)
+                !feildValidation(tobaccoSelect) && setTobaccoSelectError(true)
+            }
+
+        } else if (feildValidation(tobaccoSelect)) {
             const data = {
-                lifecover : insuranceAmount,
+                lifecover: insuranceAmount,
                 frequencytype: 1,
-                issmoker : tobaccoSelect === 'yes' ? 1 : 0,
+                issmoker: tobaccoSelect === 'yes' ? 1 : 0,
             }
             dispatch(setTermDataSuccessAction(data))
-            // TermInsuranceUserValues
-            // dispatch(postTermPurchase(data)) 
-            setTimeout(() => {
-                navigate('/explorePlan')
-            }, 700);
+            navigate('/explorePlan')
         } else {
             !feildValidation(dob) && setDobError(true)
             !feildValidation(genderSelect) && setGenderSelectError(true)
             !feildValidation(tobaccoSelect) && setTobaccoSelectError(true)
         }
+
     }
+
+
 
     return (
         <div>
@@ -350,9 +434,9 @@ const InsuranceTerms = () => {
                             console.log("termInsuranceSelecct :", termInsuranceSelecct)
                             } */}
                             {
-                                 termInsuranceSelecct && termInsuranceSelecct?.length && termInsuranceSelecct.map((item, index) => (
+                                termInsuranceSelecct && termInsuranceSelecct?.length && termInsuranceSelecct.map((item, index) => (
                                     <MenuItem value={item} key={index}>₹ {item}</MenuItem>
-                                )) 
+                                ))
                             }
                             {/* <MenuItem value={2500000}>₹ 2500000</MenuItem>
                             <MenuItem value={7500000}>₹ 7500000</MenuItem>
@@ -361,23 +445,23 @@ const InsuranceTerms = () => {
                             <MenuItem value={50000000}>₹ 50000000</MenuItem>
                             <MenuItem value={100000000}>₹ 100000000</MenuItem> */}
                         </Select>
-                        {insuranceAmountError && <FormHelperText style={{color: 'red'}}>This is required!</FormHelperText>}
+                        {insuranceAmountError && <FormHelperText style={{ color: 'red' }}>This is required!</FormHelperText>}
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }}>
                         <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>You can quickly choose from below cover option</span>
                         <ul className={classes.quickSelectWrapper}>
                             {
                                 quickPickAmount && quickPickAmount.length && quickPickAmount.map((item, index) => (
-                                    <li 
-                                    key={index}
-                                     onClick={() =>{
-                                         setInsuranceAmount(item); 
-                                        setInsuranceAmountError(false);
-                                    }}
-                                     className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
-                                     >
-                                        {`₹${item}`}
-                                     </li>
+                                    <li
+                                        key={index}
+                                        onClick={() => {
+                                            setInsuranceAmount(item);
+                                            setInsuranceAmountError(false);
+                                        }}
+                                        className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
+                                    >
+                                        {`₹${numDifferentiation(item)}`}
+                                    </li>
                                 ))
                             }
                         </ul>
@@ -388,7 +472,7 @@ const InsuranceTerms = () => {
             <FooterBtnWithBox
                 boxIcon={<ThumbUpOffAltIcon />}
                 boxText='Monthly Premium'
-                boxAmount={insuranceAmount}
+                boxAmount={`${numDifferentiation(insuranceAmount)}`}
                 btnText='Show Me Exact Quote'
                 btnClick={handleClickOpen}
             />
@@ -418,77 +502,88 @@ const InsuranceTerms = () => {
                 </DialogActions> */}
                 <DialogContent>
                     {
-                        !showPlanDetailSubmit ?
-                            <div className={classes.showPlanDialogWrapper}>
-                                <div className={classes.popHeading}>
-                                    <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
-                                    <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
-                                        your exact quote</p>
-                                </div>
-                                <FormControl className={classes.radioGroup} fullWidth>
-                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)' }}>Gender</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        style={{ justifyContent: 'center' }}
-                                        onChange={handleGenderSelect}
-                                    >
-                                        <FormControlLabel control={<RadioCmp
-                                            value="male"
-                                            selectoin={setGenderSelect}
-                                            errorShow={genderSelectError}
-                                            errorRemove={setGenderSelectError}
-                                            prop="Male"
-                                            selectedItem={genderSelect}
-                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/male-icon.svg`}
-                                        />} label="" />
-                                        <FormControlLabel control={<RadioCmp
-                                            value="female"
-                                            selectoin={setGenderSelect}
-                                            errorShow={genderSelectError}
-                                            errorRemove={setGenderSelectError}
-                                            prop="Female"
-                                            selectedItem={genderSelect}
-                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/female-icon.svg`}
-                                        />} label="" />
-                                        <FormControlLabel control={<RadioCmp
-                                            value="other"
-                                            selectoin={setGenderSelect}
-                                            errorShow={genderSelectError}
-                                            errorRemove={setGenderSelectError}
-                                            prop="Transgender"
-                                            selectedItem={genderSelect}
-                                            imgUrl={`${process.env.PUBLIC_URL}/assets/images/transgender-icon.svg`}
-                                        />} label="" />
-                                    </RadioGroup>
-                                </FormControl>
+                        <div className={classes.showPlanDialogWrapper}>
+                            <div className={classes.popHeading}>
+                                <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
+                                <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
+                                    your exact quote</p>
+                            </div>
+                            {
+                                !profileValidationStatus ? (
+                                    <Box>
+                                        <FormControl className={classes.radioGroup} fullWidth>
+                                            <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)' }}
+                                            >Gender</FormLabel>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                                style={{ justifyContent: 'center' }}
+                                                onChange={handleGenderSelect}
+                                            >
+                                                <FormControlLabel control={<RadioCmp
+                                                    value="male"
+                                                    selectoin={setGenderSelect}
+                                                    errorShow={genderSelectError}
+                                                    errorRemove={setGenderSelectError}
+                                                    prop="Male"
+                                                    selectedItem={genderSelect}
+                                                    imgUrl={`${process.env.PUBLIC_URL}/assets/images/male-icon.svg`}
+                                                />} label=""
+                                                />
+                                                <FormControlLabel control={<RadioCmp
+                                                    value="female"
+                                                    selectoin={setGenderSelect}
+                                                    errorShow={genderSelectError}
+                                                    errorRemove={setGenderSelectError}
+                                                    prop="Female"
+                                                    selectedItem={genderSelect}
+                                                    imgUrl={`${process.env.PUBLIC_URL}/assets/images/female-icon.svg`}
+                                                />} label=""
+                                                />
+                                                <FormControlLabel control={<RadioCmp
+                                                    value="other"
+                                                    selectoin={setGenderSelect}
+                                                    errorShow={genderSelectError}
+                                                    errorRemove={setGenderSelectError}
+                                                    prop="Transgender"
+                                                    selectedItem={genderSelect}
+                                                    imgUrl={`${process.env.PUBLIC_URL}/assets/images/transgender-icon.svg`}
+                                                />} label=""
+                                                />
+                                            </RadioGroup>
+                                        </FormControl>
 
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        className='datePickerIcon'
-                                        label="Date of Birth"
-                                        value={dob}
-                                        // minDate={moment().subtract(500, "years")}
-                                        // maxDate={moment().subtract(18, "years")}
-                                        onChange={(newValue) => {
-                                            setDob(newValue);
-                                            setDobError(false)
-                                        }}
-                                        renderInput={(params) => <TextField {...params} style={{ marginBottom: '20px' }} error={dobError} fullWidth />}
-                                    />
-                                </LocalizationProvider>
-
-                                <FormControl className={classes.radioGroup} fullWidth>
-                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)', marginBottom: '5px' }}>Do you smoke or chew tobacco?</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        onChange={handleTobaccoSelect}
-                                    >
-                                <FormControlLabel className={`${classes.borderAndTextErrorColor} hhfff`}
-                                            control={<RadioCmp
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DatePicker
+                                                className='datePickerIcon'
+                                                label="Date of Birth"
+                                                value={dob || addDate(new Date(), -18, 'years')}
+                                                inputFormat="DD-MM-YYYY"
+                                                // minDate={moment().subtract(500, "years")}
+                                                // maxDate={moment().subtract(18, "years")}
+                                                maxDate={addDate(new Date(), -18, 'years')}
+                                                onChange={(newValue) => {
+                                                    setDob(newValue);
+                                                    setDobError(false)
+                                                }}
+                                                renderInput={(params) => <TextField {...params} style={{ marginBottom: '20px' }} error={dobError} fullWidth
+                                                />}
+                                            />
+                                        </LocalizationProvider>
+                                    </Box>
+                                ) : null
+                            }
+                            <FormControl className={classes.radioGroup} fullWidth>
+                                <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'var(--ui1Color)', fontSize: 'var(--subTitleFontSize)', marginBottom: '5px' }}>Do you smoke or chew tobacco?</FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                    name="row-radio-buttons-group"
+                                    onChange={handleTobaccoSelect}
+                                >
+                                    <FormControlLabel className={`${classes.borderAndTextErrorColor}`}
+                                        control={<RadioCmp
                                             value="no"
                                             selectoin={setTobaccoSelect}
                                             errorShow={tobaccoSelectError}
@@ -496,26 +591,20 @@ const InsuranceTerms = () => {
                                             prop="No"
                                             selectedItem={tobaccoSelect}
                                         />} label=""
-                                        // className={tobaccoSelectTag===true?'NoButton':null}
-                                         />
-                                        <FormControlLabel control={<RadioCmp
-                                            value="yes"
-                                            selectoin={setTobaccoSelect}
-                                            errorShow={tobaccoSelectError}
-                                            errorRemove={setTobaccoSelectError}
-                                            prop="Yes"
-                                            selectedItem={tobaccoSelect}
-                                        />} label=""
-                                         />
-                                    </RadioGroup>
-                                </FormControl>
-                            </div> :
-                            <div className={classes.showPlanThankuDetail}>
-                                <ThumbUpOffAltIcon style={{ color: 'var(--primaryColor)', fontSize: 'var(--headingFontSize)' }} />
-                                <p style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)' }}>Thank you for the details</p>
-                                <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }}>Please wait while we bring together best recommendations for you.</p>
-                                <LoopIcon style={{ marginTop: '15px', color: 'var(--ui1Color)' }} />
-                            </div>
+                                    // className={tobaccoSelectTag===true?'NoButton':null}
+                                    />
+                                    <FormControlLabel control={<RadioCmp
+                                        value="yes"
+                                        selectoin={setTobaccoSelect}
+                                        errorShow={tobaccoSelectError}
+                                        errorRemove={setTobaccoSelectError}
+                                        prop="Yes"
+                                        selectedItem={tobaccoSelect}
+                                    />} label=""
+                                    />
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
                     }
                 </DialogContent>
                 {

@@ -27,7 +27,7 @@ import { enumPaymentModes, enumSpecificPurchaseAmount, globalConstant, paymentMe
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
-import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount, validatePaymentModeWRTRules } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
@@ -442,14 +442,16 @@ const OneTimeMutualFund = () => {
     objDataForPaymentGateway["totalAmount"] = totalAmount;
 
     /**Set payment modes according to this condition*/
-    if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
-      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
-    } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
-      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING]
-    } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
-      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+    objDataForPaymentGateway["paymentModes"] = validatePaymentModeWRTRules(totalAmount);
 
-    }
+    // if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
+    //   objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.UPI]
+    // } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
+    //   objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING]
+    // } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
+    //   objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+
+    // }
 
     /**call Order api according to investment type */
     if (strCardType === globalConstant.SIP_INVESTMENT) {

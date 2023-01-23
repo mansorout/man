@@ -16,6 +16,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import LineChart from '../../../Components/CommonComponents/Charts/LineChart';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import Radio from '@mui/material/Radio';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './Uliprecom.css'
 import {
     Chart as ChartJS,
@@ -83,6 +84,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         marginTop:'15px',
         '& button': {
             fontSize: 'var(--subTitleFontSize) !important',
+            
             // backgroundColor: 'rgba(123, 123, 157, 0.05) !important',
             color: 'var(--typeIndigoColor)',
             // '&:hover': {
@@ -104,8 +106,15 @@ interface ULIPRecommendationCardProps {
     knowMoreAction: () => void;
     downloadBrochuraAction: () => void;
 }
+const { palette } = createTheme();
+const theme = createTheme({
+  palette: {
+
+  },
+});
 
 const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
+    const [value, setValue] = React.useState(true);
     const classes = useStyles();
     const [knowMoreDialog, setKnowMoreDialog] = useState<boolean>(false)
 
@@ -120,7 +129,10 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
         Tooltip,
         Legend
     );
-
+    const radiosvarible = {
+        checked: value,
+        onClick: () => setValue((v) => !v),
+      };
 
 
     return (
@@ -128,7 +140,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
               <Box className={classes.cardWrapper} style={{boxShadow:" 0 1px 5px 0 rgba(0, 0, 0, 0.12)"}}>
             <Grid container >
                 <Grid item sm={6} xs={6} md={6}>
-                    <Box  style={{display:"flex", alignItems:"center",marginRight:"20px"}}>
+                    <Box  style={{display:"flex", alignItems:"center",marginRight:"20px"}} className="ImgwithtexStyle">
                         <Box className={classes.imgWrapper}>
                             <img src={props.logoUrl} alt="" />
                         </Box>
@@ -136,18 +148,33 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                     </Box>
                 </Grid>
                 <Grid item sm={6} xs={6} md={6} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
-                    <Box>
+                    <Box className='RadioButtonStyle'>
+                        
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
                         </Box >
-                        <FormControlLabel sx={{margin:'0px 5px'}} value="female" control={<Radio />} label="" />
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop:"-4px" }} component='p'>Projected Amt.</Typography>
+                        <ThemeProvider theme={theme}>
+      {/* pre-defined color */}
+     
+      <Radio
+        {...radiosvarible}
+        sx={{
+          '&, &.Mui-checked': {
+            color: '#70df70;',
+            paddingLeft:" 23px "
+          },
+        }}
+        className="radioSpace"
+      
+      />
+    </ThemeProvider>
+                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop:"-4px" }} component='p' className='ProjectedAmount'>Projected Amt.</Typography>
                     </Box>
                   
                
                 </Grid>
             </Grid>
-    <Grid container  sx={{padding:{xs:"20px 20px", sm:"20px", md:"20px 80px"}}} spacing={5}  className="TLITStyle">
+    <Grid container  sx={{padding:{xs:"20px 20px", sm:"20px", md:"20px 137px"}}} spacing={5}  className="TLITStyle">
         <Grid item xs={6} sm={6} md={3} >
         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Top Performing Fund (10 Years)*</Typography>
         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>{props.topPerformingFund}% Return</Typography>
@@ -171,10 +198,10 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
         
             <Box >
                 <Box className={classes.btnGroup+ " " + "ButtonKnowStyle"} >
-                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}>
+                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}   className="BoxShadowNone">
                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} /> <Typography className="BROCHURESTYLE"> KNOW MORE</Typography> 
                     </Button>
-                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}>
+                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}  className="BoxShadowNone2">
                         <FileDownloadIcon sx={{ margin: '0px 2px' }} /><Typography className="BROCHURESTYLE">DOWNLOAD BROCHURE</Typography>
                     </Button>
                 </Box>

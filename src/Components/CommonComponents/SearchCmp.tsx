@@ -138,19 +138,10 @@ const enumTabsKey = {
 } 
 
 interface SearchCmpProps {
-    // sort: sortTypes[];
-    // policyTerm: radioTypes[];
-    // lifeCover: radioTypes[];
     filtersOptions: any;
     searchBox?: boolean;
     searchKeysFun?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // sortValue: string;
-    // policyTermValue: number | null;
-    // lifeCoverValue: number | null;
     handleCB: (e: any) => void;
-    // sortCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // policyTermCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // lifeCoverCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 
@@ -168,22 +159,24 @@ const SearchCmp = (props: SearchCmpProps) => {
     };
 
     useEffect(() => {
-        let temp = [...props.filtersOptions]
-        if(temp && temp?.length ){
+        // let temp = [...props.filtersOptions]
+        let temp = JSON.parse(JSON.stringify(props.filtersOptions))
+        if(temp && temp?.length){
+            // const sortVal:string = temp[0].keyValues[temp[0].activeSortIndex].value;
             const sortVal:string = temp[0].keyValues[0].value;
-            const fundTypeVal:string = temp[1]?.keyValues[0];
+            const fundTypeVal:string = temp[1].keyValues[temp[1].activeCategoryIndex];
             const checkedTemp = {...chackedValuesArr}
             checkedTemp[enumTabsKey.SORT] = sortVal;
             checkedTemp[enumTabsKey.FUND_TYPE] = fundTypeVal;
-            console.log("chackedValuesArr temp:", temp,checkedTemp,temp[1].keyValues[0])
+            console.log("chackedValuesArr temp:", temp,checkedTemp,temp[1].keyValues)
             setChackedValuesArr(checkedTemp)
         }
-    }, [])
+    }, [props.filtersOptions])
     
     
       useEffect(() => {
         console.log("chackedValuesArr :", chackedValuesArr)
-        if(chackedValuesArr[enumTabsKey.SORT] && chackedValuesArr[enumTabsKey.SORT] !== '' && chackedValuesArr[enumTabsKey.FUND_TYPE] &&chackedValuesArr[enumTabsKey.FUND_TYPE] !== ''){
+        if(chackedValuesArr[enumTabsKey.SORT] && chackedValuesArr[enumTabsKey.SORT] !== '' && chackedValuesArr[enumTabsKey.FUND_TYPE] && chackedValuesArr[enumTabsKey.FUND_TYPE] !== ''){
             props.handleCB(chackedValuesArr)
         }
       }, [chackedValuesArr])

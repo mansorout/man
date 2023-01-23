@@ -147,7 +147,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 }));
 
 const initialTransactionListAll: transactionList = {
-  order_id: "order_id",
+  order_id: "123ORDER0987",
   transactiontype_id: "transactiontype_id",
   transactiontype: "transactiontype",
   investmenttype_id: "investmenttype_id",
@@ -166,7 +166,7 @@ const initialTransactionListAll: transactionList = {
   transactiondate: "transactiondate",
   amount: "1000",
   units: "units",
-  ismandateauthenticated: 0,
+  ismandateauthenticated: 1,
   stoprequestdate: "stoprequestdate",
   stopdate: "stopdate",
   sipstatus: 0,
@@ -306,6 +306,8 @@ const Transaction = () => {
 
 
     // let data = [initialTransactionListAll, initialTransactionListPending, initialTransactionListRejected, initialTransactionListSuccessful, initialTransactionListAll, initialTransactionListAll]
+    // setTransactionList(data);
+
   }
 
   const handleApiResponse = (res: apiResponse) => {
