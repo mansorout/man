@@ -198,10 +198,10 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
         
             <Box >
                 <Box className={classes.btnGroup+ " " + "ButtonKnowStyle"} >
-                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}>
+                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}   className="BoxShadowNone">
                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} /> <Typography className="BROCHURESTYLE"> KNOW MORE</Typography> 
                     </Button>
-                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}>
+                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}  className="BoxShadowNone2">
                         <FileDownloadIcon sx={{ margin: '0px 2px' }} /><Typography className="BROCHURESTYLE">DOWNLOAD BROCHURE</Typography>
                     </Button>
                 </Box>

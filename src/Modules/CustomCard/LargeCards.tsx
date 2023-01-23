@@ -35,7 +35,8 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
 
 
     return (
-        <Box style={style.container}>
+        <Box style={style.container}  onClick={() => iconNavigation(navigationKey)}>
+            
             <Box sx={style.imgContainer}>
                 <img src={Img} height="62px" />
             </Box>
@@ -50,7 +51,7 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
                     {Text}
                 </Typography>
             </Box>
-            <IconButton onClick={() => iconNavigation(navigationKey)} style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
+            <IconButton style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
                 <ArrowForward style={{ color: "white" }} />
             </IconButton>
         </Box>

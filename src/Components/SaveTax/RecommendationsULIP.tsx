@@ -479,7 +479,7 @@ const RecommendationsULIP = () => {
                                                 <Button variant="contained" onClick={() => handleKnowMoreDialog(cardItem?.ulip_id)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
                                                     <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
                                                 </Button>
-                                                <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
+                                                <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }}}>
                                                     <LoopOutlinedIcon sx={{ margin: '0px 2px' }} />DOWNLOAD BROCHURE
                                                 </Button>
                                             </Box>
