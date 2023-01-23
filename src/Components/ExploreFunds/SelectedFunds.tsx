@@ -24,6 +24,7 @@ import { globalConstant } from '../../Utils/globalConstant';
 import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAction, setReplaceFundsForExploreFundsAction, setSelectedFundsForExploreFundsAction } from '../../Store/Recommendations/actions/recommendations-action';
 import { setOrderSipThunk } from '../../Store/Payments/thunk/payments-thunk';
 import { apiResponse } from '../../Utils/globalTypes';
+import './Portfolio.css'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -291,20 +292,28 @@ const SelectedFunds = () => {
     //   }
 
     return (
-        <Box ref={refContainer}>
+        <Box ref={refContainer} style={{ width: "100vw" }}>
             <Navbar />
-            <Box className={classes.cmpWrapper}>
+            <Box  sx={{width:"100%"}}>
                 <Grid container spacing={0}>
-                    <Grid item xs={0} sm={1} md={2}>
+                <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid container xs={13} sm={11} md={10}>
-                        <Grid sx={{ padding: 2, paddingBottom: '150px' }} item xs={12}>
-                            <Toolbar />
+                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll",backgroundColor: "var(--bgLayoutColor)"  }} xs={12} sm={11} md={10}>
+                  
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12}>
+                                <Toolbar />
+
+                            </Grid>
+                        </Grid>
+
+                            
                             <Grid container>
-                                <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll", }, paddingLeft: { xs: "15px" }, paddingBottom: '70px', }} item xs={12}>
-                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }} >
+                            <Grid xs={12} sm={12} md={12} >
+                            <Box className="BoxMarginLeftRight">
+                                    <Box role="presentation" sx={{ margin: "27px 0px 21px 25px" }}  className="B_Selected">
                                         <Breadcrumbs aria-label="breadcrumb">
                                             <Link color="#6495ED" underline="always" onClick={() => navigate("/explorefunds", { state: { status: globalConstant.CEF_EXPLORE_FUND, parentRoute: "/home" } })}>
                                                 <Typography className='burgerText'>Explore Funds</Typography>
@@ -314,13 +323,13 @@ const SelectedFunds = () => {
                                             </Link>
                                         </Breadcrumbs>
                                     </Box>
-                                    <Box sx={{ margin: "27px 0px 21px 25px" }}>
+                                    <Box sx={{ margin: "27px 0px 21px 25px" }} className="FundsSelected">
                                         <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>{selectedFundsList && selectedFundsList?.length} Funds Selected</Typography>
                                     </Box>
 
-                                    <Grid container sx={{ display: "flex" }} >
+                                    <Grid container >
 
-                                        <Grid item xs={12} md={6} >
+                                        <Grid item xs={12}  md={6}   className="GridManageWidthright">
                                             <Box>
                                                 {
                                                     selectedFundsList && selectedFundsList?.length &&
@@ -366,10 +375,12 @@ const SelectedFunds = () => {
 
                                         </Grid>
 
-                                        <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
 
-                                            <Grid item >
-                                                <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '400px' }}>
+
+                                        <Grid item xs={12} md={6} sx={{ textAlign: "center" }} >
+
+                                            
+                                                <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '565px',   boxShadow: 'var(--themeShadow)', }}  className="GridManageWidth" >
                                                     <Typography style={{ color: 'rgb(79, 70, 222)', marginBottom: 8, fontWeight: '500' }} >How would you like to invest ?</Typography>
                                                     <Box style={{ display: "flex", gap: "15px", alignItems: "center" }}>
                                                         <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
@@ -380,12 +391,13 @@ const SelectedFunds = () => {
                                                         </Box>
                                                     </Box>
                                                 </Box>
-                                            </Grid>
+                                            
                                         </Grid>
                                     </Grid>
+                                </Box>
                                 </Grid>
                             </Grid>
-                        </Grid>
+                    
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpOffAltIcon />}
                             boxText={'Great! Your total investment is'}
