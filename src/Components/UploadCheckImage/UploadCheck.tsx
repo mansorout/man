@@ -471,6 +471,7 @@ function UploadCheck() {
                   }}>
                     Your Cheque in Record
                   </Typography>
+                
                   <Box sx={{ padding: "6px 0px 0px 27px" }}> <img src={getCheque} className="getApiimg" /> </Box>
                 </Grid>
               </Grid>
