@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
 import Sidebar from "../CommonComponents/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { globalConstant } from "../../Utils/globalConstant";
+import { enumActiveScreen, enumPaymentModes, enumSpecificPurchaseAmount, globalConstant, paymentMethodKeys, paymentMethods } from "../../Utils/globalConstant";
 import Calendar from "react-calendar";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction, setSelectedFundsForInvestmentAction } from "../../Store/Recommendations/actions/recommendations-action";
@@ -29,6 +29,9 @@ import { apiResponse } from "../../Utils/globalTypes";
 import { getMutualFundListWrtUserAmountThunk, setAddMutualFundThunk, setUpdateMutualFundThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { postData } from "../../Utils/api";
+import { setOrderSipThunk, setPlaceLumpsumOrderThunk } from "../../Store/Payments/thunk/payments-thunk";
+import { setInitialPaymentDataAction } from "../../Store/Payments/actions/payments-action";
+import moment from "moment";
 
 const data = [
   {
@@ -108,12 +111,6 @@ const data = [
   },
 ];
 
-const enumActiveScreen = Object.freeze({
-  CLOSE_MODAL: 0,
-  OPEN_DATE_PICKER_MODAL: 1,
-  OPEN_CONFIRMATION_MODAL: 2,
-  OPEN_NET_BANKING: 3,
-});
 
 const style = {
   main: {
@@ -154,12 +151,14 @@ const CustomizeMF = () => {
   const navigate: any = useNavigate();
   const dispatch = useDispatch();
 
-  const [mfCards, setMfCards] = useState<any[]>([]);
-  const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
   const g_investment = useSelector((state: any) => state?.recommendationsReducer?.investment);
   const g_selectedFundsForInvestment = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForInvestment);
   const g_mutualFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
   const g_replaceFundActiveIndexForInvestment = useSelector((state: any) => state?.recommendationsReducer?.replaceFundActiveIndexForInvestment);
+
+  const [mfCards, setMfCards] = useState<any[]>([]);
+  const [sipStartDay, setSipStartDay] = useState<string>("");
+  const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
 
 
   //@ts-ignore
@@ -328,6 +327,73 @@ const CustomizeMF = () => {
       console.log(totalAmount, "totalAmount")
       return ` ${totalAmount}`;
     }
+  }
+
+  const handleOrderInvestment = async () => {
+
+    let arrMappedMfCards: any[] = [];
+
+    if (mfCards && mfCards.length) {
+      arrMappedMfCards = mfCards.map((item: any) => {
+        return { fund_id: item?.secid, amount: item?.recommendedamount }
+      })
+    }
+
+    if (!arrMappedMfCards || !arrMappedMfCards.length) {
+      return;
+    }
+
+    let objBody: any = {
+      funds: arrMappedMfCards
+    };
+
+    let objDataForPaymentGateway: any = {};
+
+    /** Setting total amount  */
+    //@ts-ignore
+    let totalAmount: number | undefined = parseInt(getTotalRecomendedAmount());
+    objDataForPaymentGateway["totalAmount"] = totalAmount;
+
+    /**Set payment modes according to this condition*/
+    if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
+      objDataForPaymentGateway["paymentModes"] = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+
+    }
+
+    /**call Order api according to investment type */
+    if (strCardType === globalConstant.SIP_INVESTMENT) {
+      objBody["sipstartday"] = sipStartDay;
+      objDataForPaymentGateway["orderId"] = "0000";
+      dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+      let res: apiResponse = await setOrderSipThunk(objBody);
+
+    } else {
+
+      objDataForPaymentGateway["orderId"] = "0000";
+      dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+
+      let res: apiResponse = await setPlaceLumpsumOrderThunk(objBody);
+      // if (res?.error) return;
+      // objDataForPaymentGateway["orderId"]= res?.data?.order_id
+      // dispatch(setInitialPaymentDataAction(objDataForPaymentGateway));
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [[paymentMethods[paymentMethodKeys.NET_BANKING]["id"], paymentMethods[paymentMethodKeys.NEFT_RTGS]]["id"]], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [1, 2], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // dispatch(setInitialPaymentDataAction({ orderId: res?.data?.order_id, paymentModes: [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT], totalAmount: siteConfig.INVESTMENT_USER_AMOUNT, }))
+      // navigate("/netbanking", {
+      //   state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+      //   replace: true,
+      // })
+
+    }
+
+    navigate("/netbanking", {
+      state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+      replace: true,
+    });
   }
 
   return (
@@ -504,16 +570,19 @@ const CustomizeMF = () => {
                       : "Buy Now"
                   }
                   btnClick={() => {
-                    if (
-                      g_investment?.type === globalConstant.LUMPSUM_INVESTMENT
-                    ) {
-                      navigate("/netbanking", {
-                        state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                        replace: true,
-                      });
-                      return;
+                    if (g_investment?.type === globalConstant.SIP_INVESTMENT) {
+                      setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+                    } else {
+                      handleOrderInvestment();
                     }
-                    setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL);
+                    // if (g_investment?.type === globalConstant.LUMPSUM_INVESTMENT) {
+                    //   navigate("/netbanking", {
+                    //     state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                    //     replace: true,
+                    //   });
+
+                    //   return;
+                    // }
                   }}
                 />
               </Box>
@@ -540,15 +609,27 @@ const CustomizeMF = () => {
             }}
           >
             <Typography sx={style.modalText}>Monthly SIP Date</Typography>
-            <Calendar />
+            <Calendar
+              showNeighboringMonth={false}
+              showNavigation={false}
+              // @ts-ignore
+              onChange={(val, e) => {
+                let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
+                setSipStartDay(date);
+              }}
+            />
             <Button
               onClick={() => {
-                setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+                if (sipStartDay) {
+                  setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+                }
               }}
+              disabled={sipStartDay ? false : true}
               variant="contained"
               style={style.button}
               sx={{
-                backgroundColor: "rgba(123, 123, 157, 0.05)",
+                // backgroundColor: (sipStartDay ? "rgba(123, 123, 157, 0.05) " : "var(--uiDarkGreyColor) !important"),
+                backgroundColor: "rgba(123, 123, 157, 0.05) ",
                 color: "#7b7b9d",
               }}
             >
@@ -592,16 +673,17 @@ const CustomizeMF = () => {
                   Date confirmed!
                 </Typography>
                 <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
-                  Your Monthly SIP Date is 8th of every month
+                  Your Monthly SIP Date is {sipStartDay}th of every month
                 </Typography>
               </Box>
               {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
               <Button
                 onClick={() => {
-                  navigate("/netbanking", {
-                    state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
-                    replace: true,
-                  });
+                  handleOrderInvestment()
+                  // navigate("/netbanking", {
+                  //   state: { cardType: globalConstant.LUMPSUM_INVESTMENT },
+                  //   replace: true,
+                  // });
                 }}
                 variant="contained"
                 style={style.button}
@@ -619,6 +701,7 @@ const CustomizeMF = () => {
       </Box>
     </Box>
   );
-};
+}
+
 
 export default CustomizeMF;

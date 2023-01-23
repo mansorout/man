@@ -81,6 +81,7 @@ const SelectedFunds = () => {
     const [totalAmount, setTotalAmount] = useState(0)
     const [footerBtn, setFooterBtn] = useState<boolean>(false)
     const [finalDataBuyNow, setFinalDataBuyNow] = useState<any>({
+        'sipstartday': 0,
         "funds": []
     })
 
@@ -131,6 +132,7 @@ const SelectedFunds = () => {
             setFooterBtn(false)
         }
         setFinalDataBuyNow({
+            'setFinalDataBuyNow' : 0,
             'funds': funds,
         })
         setTotalAmount(amount)
@@ -238,9 +240,11 @@ const SelectedFunds = () => {
 
     const handleBuyNow = async () => {
         // debugger
+        console.log("finalDataBuyNow data:", finalDataBuyNow)
         if(finalDataBuyNow?.funds?.length){
             let res: apiResponse = await setOrderSipThunk(finalDataBuyNow);
-            console.log("finalDataBuyNow :", res)
+            console.log("finalDataBuyNow :", res);
+            navigate('/payusingnetbanking')
         }
     }
 

@@ -118,6 +118,23 @@ export const getUserProfileDataThunk = async () => {
   return res;
 }
 
+export const setEditProfileDataThunk = async (objBody: any) => {
+  let res: any = {};
+  await postData(
+    objBody,
+    siteConfig.AUTHENTICATION_PROFILE_EDIT,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.AUTHENTICATION_API_ID
+  )
+    .then(res => res.json())
+    .then((data) => {
+      res = data;
+    }).catch(err => {
+      console.log(err);
+    })
+
+  return res;
+}
 
 export const getListOfOnboardingIntroThunk = async () => {
   let res: any
@@ -152,6 +169,7 @@ export const getBankDetailsWrtIFSCThunk = async (strUrl: string) => {
     })
   return res;
 }
+
 export const getCanceledChequeViewThunk = async () => {
   let res: any
   await getData(
@@ -168,6 +186,7 @@ export const getCanceledChequeViewThunk = async () => {
     })
   return res;
 }
+
 export const getCvlStatusThunk = async () => {
   let res: any
   await getData(
@@ -203,7 +222,6 @@ export const setAddUsersFamilyMemebrThunk = async (objBody: any) => {
     })
   return res;
 }
-
 
 export const getListOfFamilyMemebrsThunk = async () => {
   let res: any

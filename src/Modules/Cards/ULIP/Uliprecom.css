@@ -1,3 +1,19 @@
+@media (width:280px) {
+    .ButtonKnowStyle{
+        display: flex !important;
+    }
+
+ .BROCHURESTYLE{
+    font-size: 10.5px !important;
+   
+ }
+ .companyNameStyle{
+    margin-left: -15px !important;
+    margin-top: 5px !important;
+ }
+}
+
+
 @media (width:768px){
     .cardWrapperstyle{
         margin-left: -17px;
@@ -13,4 +29,156 @@
         color: red !important;
         
     }
+    .ButtonKnowStyle{
+        display: flex !important;
+    }
+    .BROCHURESTYLE{
+        font-size: 9px !important;
+       
+     }
+      .companyNameStyle{
+    margin-left: -15px !important;
+    margin-top: 4px !important;
+ }
+ .FontSizeTLIT{
+    font-size: 8px !important;
+ }
+ .TaxSavingStyle{
+    padding-top: 6px !important;
 }
+ 
+}
+@media (width:414px) {
+    .ButtonKnowStyle{
+        display: flex !important;
+    }
+    .FontSizeTLIT{
+        font-size: 8px !important;
+     }
+     .TaxSavingStyle{
+        padding-top: 6px !important;
+    }
+
+ .BROCHURESTYLE{
+    font-size: 10.5px !important;
+   
+ }
+ .companyNameStyle{
+    margin-left: -15px !important;
+    margin-top: 5px !important;
+ }
+    
+    }
+    @media (width:390px) {
+        .ButtonKnowStyle{
+            display: flex !important;
+        }
+        .FontSizeTLIT{
+            font-size: 8px !important;
+         }
+         .TaxSavingStyle{
+            padding-top: 6px !important;
+        }
+    
+     .BROCHURESTYLE{
+        font-size: 10.5px !important;
+       
+     }
+     .companyNameStyle{
+        margin-left: -15px !important;
+        margin-top: 5px !important;
+     }
+        
+        }
+        @media (width:393px) {
+            .ButtonKnowStyle{
+                display: flex !important;
+            }
+        
+            .FontSizeTLIT{
+                font-size: 8px !important;
+             }
+             .TaxSavingStyle{
+                padding-top: 6px !important;
+            }
+         .BROCHURESTYLE{
+            font-size: 10.5px !important;
+           
+         }
+         .companyNameStyle{
+            margin-left: -15px !important;
+            margin-top: 5px !important;
+         }
+            
+            }
+            @media (width:360px) {
+                .ButtonKnowStyle{
+                    display: flex !important;
+                }
+                .FontSizeTLIT{
+                    font-size: 8px !important;
+                 }
+                 .TaxSavingStyle{
+                    padding-top: 6px !important;
+                }
+            
+             .BROCHURESTYLE{
+                font-size: 10.5px !important;
+               
+             }
+             .companyNameStyle{
+                margin-left: -15px !important;
+                margin-top: 5px !important;
+             }
+                
+                }
+                @media (width:412px) {
+                    .ButtonKnowStyle{
+                        display: flex !important;
+                    }
+                    .FontSizeTLIT{
+                        font-size: 8px !important;
+                     }
+                     .TaxSavingStyle{
+                        padding-top: 6px !important;
+                    }
+                
+                 .BROCHURESTYLE{
+                    font-size: 10.5px !important;
+                   
+                 }
+                 .companyNameStyle{
+                    margin-left: -15px !important;
+                    margin-top: 5px !important;
+                 }
+                    
+                    }
+                    @media (width:768px){
+                        .TaxSavingStyle{
+                            padding-top: 10px !important;
+                        }
+                    }
+                    @media (width:820px){
+                        .TaxSavingStyle{
+                            padding-top: 10px !important;
+                        }
+                    }
+                    @media (width:912px){
+                        .TLITStyle{
+                            padding-left: 27px !important;
+                        }
+                        .FontSizeTLIT{
+                            font-size: 8px !important;
+                         }
+                    }
+                    @media (width:540px){
+                        .TaxSavingStyle{
+                            padding-top: 10px !important;
+                        }
+                        .FontSizeTLIT{
+                            font-size: 8px !important;
+                         }
+                         .ButtonKnowStyle{
+                            display: flex !important;
+                        }
+                    }

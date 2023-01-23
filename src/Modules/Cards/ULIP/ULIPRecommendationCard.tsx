@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 import React,{useState} from 'react'
 import { Box, Breadcrumbs, Button, Grid, Link, Modal, Toolbar, Typography, Theme, FormControl, FormControlLabel, RadioGroup, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { makeStyles } from '@mui/styles';
@@ -46,10 +55,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     projectedAmount: {
         listStyleType: 'none',
-        padding: '8px 10px',
+        padding: '4px 9px',
         backgroundColor: 'var(--blueColorOpacity)',
         margin: '5px 0px',
-        borderRadius: '2px',
+        borderRadius: '3px',
         color: 'var(--ui1Color)',
         fontWeight: 500,
         display: 'inline-block',
@@ -63,15 +72,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         },
         '& li': {
             listStyleType: 'none',
-            margin: '10px 50px',
+            margin: '10px 20px',
             '@media(max-width: 700px)':{
                 width: '40%'
             },
-            '@media(width: 820px)':{
-                 flexWrap:"wrap-reverse",
-                justifyContent: 'flex-start',
-            },
-
         }
     },
     btnGroup: {
@@ -120,58 +124,58 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
 
 
     return (
-        <div className='cardWrapperstyle'>
-              <Box className={classes.cardWrapper}>
+        <div className='cardWrapperstyle' >
+              <Box className={classes.cardWrapper} style={{boxShadow:" 0 1px 5px 0 rgba(0, 0, 0, 0.12)"}}>
             <Grid container >
-                <Grid item sm={6} xs={12} className="paddingLeft">
-                    <Box className={classes.logoWrapper}>
+                <Grid item sm={6} xs={6} md={6}>
+                    <Box  style={{display:"flex", alignItems:"center",marginRight:"20px"}}>
                         <Box className={classes.imgWrapper}>
                             <img src={props.logoUrl} alt="" />
                         </Box>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)',fontWeight:"500" }} component='p'>{props.companyName}</Typography>
+                        <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize) 10px'}} className="companyNameStyle">{props.companyName}</b>
                     </Box>
                 </Grid>
-                <Grid item sm={6} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
+                <Grid item sm={6} xs={6} md={6} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
                     <Box>
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
-                        </Box>
-                            <FormControlLabel sx={{margin:'0px 5px'}} value="female" control={<Radio />} label="" />
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)' }} component='p'>Projected Amt.</Typography>
+                        </Box >
+                        <FormControlLabel sx={{margin:'0px 5px'}} value="female" control={<Radio />} label="" />
+                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop:"-4px" }} component='p'>Projected Amt.</Typography>
                     </Box>
+                  
+               
                 </Grid>
             </Grid>
+    <Grid container  sx={{padding:{xs:"20px 20px", sm:"20px", md:"20px 80px"}}} spacing={5}  className="TLITStyle">
+        <Grid item xs={6} sm={6} md={3} >
+        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Top Performing Fund (10 Years)*</Typography>
+        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>{props.topPerformingFund}% Return</Typography>
+        </Grid>
+             <Grid item xs={6} sm={6} md={3}>
+         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Life Cover</Typography>
+        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
+            </Grid>
+            <Grid item xs={6} sm={6} md={3} className="TaxSavingStyle">
+            <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'className="FontSizeTLIT">Invested Value</Typography>
+          <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.investedVlaue}</Typography>
 
+            </Grid>
+            <Grid item xs={6} sm={6} md={3} className="TaxSavingStyle">
+            <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'className="FontSizeTLIT">Tax Saving on Investment</Typography>
+            <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.taxSavingOnInvestment} {/*Every Year */}</Typography>
+
+            </Grid>
+    </Grid>
+
+        
             <Box >
-                <ul className={classes.listStyle}>
-                    <li>
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Top Performing Fund (10 Years)*</Typography>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>{props.topPerformingFund}% Return</Typography>
-                    </li>
-                    <li>
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Life Cover</Typography>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
-                    </li>
-             
-                    <li>
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Invested Value</Typography>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.investedVlaue}</Typography>
-                    </li>
-                    <li>
-                        <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p'>Tax Saving on Investment</Typography>
-                        <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.taxSavingOnInvestment} {/*Every Year */}</Typography>
-                    </li>
-                  
-                
-                </ul>
-            </Box>
-            <Box>
-                <Box className={classes.btnGroup}>
+                <Box className={classes.btnGroup+ " " + "ButtonKnowStyle"} >
                     <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}>
-                        <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
+                        <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} /> <Typography className="BROCHURESTYLE"> KNOW MORE</Typography> 
                     </Button>
                     <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}>
-                        <FileDownloadIcon sx={{ margin: '0px 2px' }} />DOWNLOAD BROCHURE
+                        <FileDownloadIcon sx={{ margin: '0px 2px' }} /><Typography className="BROCHURESTYLE">DOWNLOAD BROCHURE</Typography>
                     </Button>
                 </Box>
             </Box>

@@ -202,7 +202,7 @@ function SipSuccessScreen() {
   };
 
   const classes = useStyles()
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const refContainer = useRef();
 
   return (
@@ -239,29 +239,29 @@ const navigate=useNavigate()
 
 
               </Grid>
-             <Box className="SipSuccessBox">
+              <Box className="SipSuccessBox">
                 <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
                 <Typography mb={1} variant="h1" align="center" className="SipSucessScreen">
-                Your investment is in progress!
+                  Your investment is in progress!
                 </Typography>
                 <Typography mb={2} style={{ maxWidth: "90%" }} className="VerificationOtp" align="center">
                   We will notify you via email in 1 or 2 working days once the confirmation
                   received. You can track status under <b style={{ color: "#6c63ff" }}>transactions</b> tab of your portfolio.
-                  
+
                 </Typography>
                 <Grid container direction="column" textAlign="center" >
                   <Grid item xs={6} md={6}>
-                  <SipSuccessButton/>
+                    <SipSuccessButton />
                   </Grid>
                   <Grid item xs={6} md={6} >
-                  <TrackTransButton/> 
-                    </Grid>
+                    <TrackTransButton />
+                  </Grid>
                 </Grid>
 
-           
-       
+
+
               </Box>
-             </Grid>
+            </Grid>
           </Grid>
         </Grid>
 

@@ -363,13 +363,13 @@ const UlipBox = (props: any) => {
 
         <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Box sx={{ width: "100%", backgroundColor: "var(--bgLayoutColor)" }}>
+            <Box sx={{ width: "100%", }}>
                 <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll",backgroundColor: "var(--bgLayoutColor)"  }} xs={12} sm={11} md={10}>
                         <Grid container>
                             <Grid xs={12} sm={12} md={12}>
                                 <Toolbar />
