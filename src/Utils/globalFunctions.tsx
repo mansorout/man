@@ -218,7 +218,7 @@ export const validatePaymentModeWRTRules = (totalAmount: number) => {
   try {
     let arr: any[] = [];
     if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
-      arr = [enumPaymentModes.NETBANKING, enumPaymentModes.UPI]
+      arr = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
     } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
       arr = [enumPaymentModes.NETBANKING]
     } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {

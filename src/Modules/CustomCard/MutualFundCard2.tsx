@@ -38,7 +38,7 @@ export interface MFProp {
   onCardClick?: (id: string) => void | undefined//from mutual fund screen
   onRemoveCardClick?: (recommendationfund_id: number, secid: string) => void | undefined //for removing card on click 
 
-  fundselected?: boolean
+  fundSelected?: boolean
 
   activeIndex?: number
 
@@ -384,15 +384,22 @@ const MutualFundCard2 = (props: MFProp) => {
           <>
             {props?.showCheckbox === true ? (
               // for add funds
-              <Box component="span" >
-                <Checkbox
-                  onClick={(e: any) => {
-                    if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
-                  }}
-                // checked={props?.fundselected ? props?.fundselected : false}
-                />
+              <>
+                {console.log(props?.fundSelected, "props?.fundselected")}
+                <Box component="span" >
+                  <Checkbox
+                    onClick={(e: any) => {
+                      if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
+                    }}
+                    // checked={props?.fundselected ? props?.fundselected : false}
 
-              </Box>
+                    checked={props?.fundSelected ? true : false}
+                  />
+
+
+
+                </Box>
+              </>
             ) : (
               // for replace funds
               <Box
