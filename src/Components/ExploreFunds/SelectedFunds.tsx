@@ -381,7 +381,7 @@ const SelectedFunds = () => {
 
                                             
                                                 <Box sx={{ backgroundColor: '#fff', padding: 2, marginLeft: 2, borderRadius: 3, alignItems: 'start', width: '565px',   boxShadow: 'var(--themeShadow)', }}  className="GridManageWidth" >
-                                                    <Typography style={{ color: 'rgb(79, 70, 222)', marginBottom: 8, fontWeight: '500' }} >How would you like to invest ?</Typography>
+                                                    <Typography style={{ color: 'rgb(79, 70, 222)', marginBottom: 8, fontWeight: '500', textAlign:"left" }} >How would you like to invest ?</Typography>
                                                     <Box style={{ display: "flex", gap: "15px", alignItems: "center" }}>
                                                         <Box onClick={() => { setSelected(1); setFundList(ExploreFundsList) }} style={{ cursor: "pointer", border: `1px solid ${selected == 1 ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`, borderRadius: "8px", backgroundColor: `${selected == 1 ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px" }}>
                                                             <Typography style={{ fontWeight: "500", color: `${selected == 1 ? "#09b85d" : "#7b7b9d"}`, fontSize: "14px" }}>One-Time Lump Sum</Typography>

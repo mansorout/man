@@ -315,7 +315,8 @@ export default function FundAmtCard(props: FundAmtCard) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            gap: '1vw',
+            gap: '0vw',
+            marginRight:"3%"
           }}
             className={classes.cardBtnWrap + " " + classes.ReplaceStyle}
           >
