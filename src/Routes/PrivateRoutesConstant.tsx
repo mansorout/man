@@ -71,6 +71,7 @@ import SipLastScreen from "../Components/CommonComponents/sipLastscreen"
 import UlipDropDownFilter from "../Components/ULIP/UlipDropDownFilter"
 import DropDownFilter from "../Components/TxnFilters/DropDownFilter"
 import { OtpSuccess } from "../Components/OtpSuccess/OtpSuccess"
+import InitializePaymentGateway from "../Components/Payment Gateway/InitializePaymentGateway"
 
 type prConstant = {
   path: string,
@@ -391,5 +392,9 @@ export const privateRoutesConstants: prConstant[] = [
   {
     path: "/panUpdate",
     component: <PanUpdate />
+  },
+  {
+    path: "/initializepaymentgateway",
+    component: <InitializePaymentGateway />
   },
 ]
