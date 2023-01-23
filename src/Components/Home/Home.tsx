@@ -260,6 +260,7 @@ const Home = () => {
             year3: item?.return3yr,
             year5: item?.return5yr,
             rating: item?.ratingoverall,
+            secid: item?.secid
             // morning_star_logo?: string,
           }
           arrFilteredData.push(obj);
@@ -402,27 +403,46 @@ const Home = () => {
               </Box>
               {
                 companyCardsLocal &&
-                companyCardsLocal.length &&
-                companyCardsLocal.map((item: any, index: number) => {
-                  { console.log(item) }
-                  return (
-                    <CompanyFundCard
-                      key={index}
-                      {...item}
-                    // logo={item?.logo}
-                    // name={item?.name}
-                    // cap={item?.cap}
-                    // type={item?.type}
-                    // price={item?.price}
-                    // year1={item?.year1}
-                    // year3={item?.year3}
-                    // year5={item?.year5}
-                    // rating={item?.rating}
-                    // morning_star_logo={item?.morning_star_logo}
-                    />
-                  )
-                })
+                  companyCardsLocal.length ?
+                  <>
+                    {
+                      companyCardsLocal.map((item: any, index: number) => {
+                        { console.log(item) }
+
+                        return (
+                          <Grid
+                            onClick={() => {
+                              // navigate("/funddetails")
+                              // console.log(item, "home")
+                              navigate("/funddetails", { state: { secid: item?.secid, parentRoute: "/home" } });
+                            }}
+                          >
+                            <CompanyFundCard
+                              key={index}
+                              {...item}
+                            // logo={item?.logo}
+                            // name={item?.name}
+                            // cap={item?.cap}
+                            // type={item?.type}
+                            // price={item?.price}
+                            // year1={item?.year1}
+                            // year3={item?.year3}
+                            // year5={item?.year5}
+                            // rating={item?.rating}
+                            // morning_star_logo={item?.morning_star_logo}
+                            />
+                          </Grid>
+                        )
+                      })
+                    }
+                  </>
+                  :
+                  <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                    <Typography component="h4" sx={{ color: "var(--uiDarkGreyColor)", fontSize: "12px" }}>No record found!</Typography>
+                  </Grid>
               }
+
+
               <Grid spacing={1} container sx={{ px: "1rem" }}>
                 <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
