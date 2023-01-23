@@ -82,6 +82,17 @@ export const paymentMethods = Object.freeze({
     },
 });
 
+export const enumPaymentModes = Object.freeze({
+    NETBANKING: paymentMethods[paymentMethodKeys.NET_BANKING]["id"],
+    NEFT: paymentMethods[paymentMethodKeys.NEFT_RTGS]["id"],
+    UPI: paymentMethods[paymentMethodKeys.UPI]["id"],
+});
+
+export const enumSpecificPurchaseAmount = Object.freeze({
+    TEN_THOUSAND: 10000,
+    TWO_LACS: 200000
+})
+
 export const objUserProfileValidationData: profileValidationKeys = {
     isKycCompleted: false,
     isProfileComplete: false,
@@ -97,4 +108,12 @@ export const investmenttypeId = {
     LUMPSUM_ID: 11,
     SIP_ID: 12
 }
+
+export const enumActiveScreen = Object.freeze({
+    CLOSE_MODAL: 0,
+    OPEN_DATE_PICKER_MODAL: 1,
+    OPEN_CONFIRMATION_MODAL: 2,
+    OPEN_NET_BANKING: 3,
+});
+
 

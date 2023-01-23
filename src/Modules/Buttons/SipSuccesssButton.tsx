@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
     const navigate = useNavigate()
 
     return (
-        <Button onClick={()=>navigate("/choosepin")} variant="contained" style={style.button} fullWidth>
+        <Button onClick={()=>navigate("/home")} variant="contained" style={style.button} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Back to Home</Typography>
         </Button> 
     

@@ -19,8 +19,10 @@ import { ActionCreators } from "../../Store";
 import { bindActionCreators } from "redux";
 import { setLoadingAction } from "../../Store/Global/actions/global-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
-import { setUserNameAndEmailInLocalStorage } from "../../Utils/globalFunctions";
+import { setUserNameAndEmailInLocalStorage, validateProfileCompletion } from "../../Utils/globalFunctions";
 import { relative } from "node:path/win32";
+import { setUserProfileValidationKeys } from "../../Store/Authentication/actions/auth-actions";
+import { profileValidationKeys } from "../../Utils/globalTypes";
 
 const style = {
   background: {
@@ -61,6 +63,7 @@ const style = {
 export const VerifyOtp = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const error: string[] = useSelector((state: any) => state.error);
   // const number: string = useSelector((state: any) => state.contact);
@@ -108,6 +111,8 @@ export const VerifyOtp = () => {
 
       setUserNameAndEmailInLocalStorage(objUserDetail);
 
+      userVerification();
+
       navigate("/otpverified");
     } else {
       if (error) {
@@ -154,6 +159,35 @@ export const VerifyOtp = () => {
     if (otp.length === 4) {
       setIsShowEnableVerifyBtn(false);
     }
+  }
+
+  const userVerification = async () => {
+    let data: profileValidationKeys = validateProfileCompletion();
+
+    dispatch(setUserProfileValidationKeys(data));
+
+    if (!data.isProfileComplete && !data.isKycCompleted) {
+      return;
+    }
+
+    if (data.isBseRegistered) {
+      return;
+    }
+
+    /**Commenting below code for testing on1 18th Jan 2023 */
+    // let res: apiResponse = await setRegisterUserWithBseThunk({});
+
+    // if (checkExpirationOfToken(res?.code)) {
+    //   dispatch(setTokenExpiredStatusAction(true));
+    //   return;
+    // }
+
+    // if (res?.error === true) {
+    //   return;
+    // }
+
+    data["isUserProfileFullCompleted"] = true;
+    dispatch(setUserProfileValidationKeys(data));
   }
 
   return (
