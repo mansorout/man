@@ -1,112 +1,129 @@
-import React, { useEffect } from 'react'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
-import { Box, Grid, Typography } from '@mui/material';
-import { ContactError, SuccessLogo } from '../../Assets';
-import { useSelector } from 'react-redux';
-
+import React, { useEffect } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
+import { Box, Grid, Typography } from "@mui/material";
+import { ContactError, SuccessLogo } from "../../Assets";
+import { useSelector } from "react-redux";
+import './recommandation.css'
 
 interface SprintMoneyMessanger {
-
-    btnText: string;
-    btnClick: () => void
-    open: boolean
-    errorText: string;
-    succesText: string;
-
+  btnText: string;
+  btnClick: () => void;
+  open: boolean;
+  errorText: string;
+  succesText: string;
 }
 
 const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>,
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
 ) {
-    return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
-    const [open, setOpen] = React.useState(false);
-    const [succesmsg, setSuccesMsg] = React.useState("");
-    const [errorMsg, setErrorMsg] = React.useState("");
-    const [showmsg, setShowmsg] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [succesmsg, setSuccesMsg] = React.useState("");
+  const [errorMsg, setErrorMsg] = React.useState("");
+  const [showmsg, setShowmsg] = React.useState(false);
 
+  const panmsg: any = useSelector(
+    (state: any) => state?.globalReducer.commonmsg
+  );
 
-    const panmsg: any = useSelector((state: any) => state?.globalReducer.commonmsg)
+  // console.log(panmsg?.error)
+  // useEffect(() => {
+  //     setErrorMsg(panmsg)
+  // }, [errorMsg])
 
-    // console.log(panmsg?.error)
-    // useEffect(() => {
-    //     setErrorMsg(panmsg)
-    // }, [errorMsg])
+  // console.log(errorMsg)
 
-    // console.log(errorMsg)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    return (
-        <div>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
+  return (
+    <div>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Slide in alert dialog
             </Button> */}
-            <Dialog
-                open={props.open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle></DialogTitle>
+      <Dialog
+        open={props.open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogContent
+          sx={{
+            width: { xs: "100%", sm: "100%" },
+            minWidth: { xs: "100%", sm: "300px" },
+            padding: { xs: "10px 4px", sm: "0px 0px" },
+          }}
+        >&nbsp;
+          {!props.errorText ? (
+            <Grid container>
+              <Grid item xs={2}>
+                <Box
+                  sx={{ borderRadius: "50%", height: "50px", width: "50px" }}
 
-                <DialogContent sx={{width:{xs:"100%", sm:"100%"}, minWidth:{xs:"100%", sm:"300px"},
-            padding:{xs:"10px 4px", sm:"0px 0px"} }}>
-                    {
-                        !props.errorText ? <Grid container>
+                >
+                  <img
+                    style={{ height: "25px", width: "25px",position:"relative", left :"20%" }}
+                    src={SuccessLogo}
+                    alt="error"
+                  />
+                </Box>
+              </Grid>
 
-                            <Grid item xs={2}>
+              <Grid item xs={10}>
+                <DialogContentText
+                  sx={{ color: "green" }}
+                  id="alert-dialog-slide-description"
+                >
+                  {props.succesText}
+                </DialogContentText>
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid container>
+              <Grid item xs={10} sm={11}>
+                &nbsp;
+                <DialogContentText
+                  sx={{ color: "red", textAlign: "center" }}
+                  id="alert-dialog-slide-description"
+                >
+                  {props.errorText}
+                </DialogContentText>
+              </Grid>
+              <Grid item xs={2} sm={1}>
+                <Box
+                  onClick={() => handleClose}
+                  sx={{ borderRadius: "50%", height: "50px", width: "50px",position:"relative", left:"-5px", top:"8px"}}
+                >
+                  <img
+                    style={{ height: "25px", width: "25px" }}
+                    src={ContactError}
+                    alt="error"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          )}
 
-                                <Box  sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
-                                    <img style={{ height: "25px", width: "25px", }} src={SuccessLogo} alt="error" />
-                                </Box>
-                            </Grid>
-
-                            <Grid item xs={10}>
-                                <DialogContentText sx={{ color: "green" }} id="alert-dialog-slide-description">
-                                    {props.succesText}
-                                </DialogContentText>
-                            </Grid>
-
-
-                        </Grid> : <Grid container>
-                            <Grid item xs={10} sm={11}>
-                                <DialogContentText sx={{ color: "red", textAlign: "center" }} id="alert-dialog-slide-description">
-                                    {props.errorText}
-                                </DialogContentText>
-                            </Grid>
-                            <Grid item xs={2} sm={1}>
-
-                                <Box onClick={()=>handleClose} sx={{ borderRadius: "50%", height: "50px", width: "50px" }}>
-                                    <img style={{ height: "25px", width: "25px", }} src={ContactError} alt="error" />
-                                </Box>
-                            </Grid>
-
-                        </Grid>
-                    }
-
-
-                    {/* <Grid container sx={{
+          {/* <Grid container sx={{
                         display: "flex",
                         flexDirection: "column"
                     }} >
@@ -131,30 +148,24 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
                         </Grid>
                     </Grid> */}
+        </DialogContent>
+        <DialogActions sx={{ paddingRight: "10px" }}>
+          <Button
+            sx={{ width: "100%" }}
+            variant="contained"
+            style={{
+              backgroundColor: "var(--primaryColor)",
+              color: "var(--uiWhite)",
+              fontWeight: "500",
+            }}
+            onClick={props.btnClick}
+          >
+            <Typography sx={{ size: "12px" }}>{props.btnText}</Typography>
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
 
-
-
-
-
-                </DialogContent>
-                <DialogActions sx={{ paddingRight: "10px" }}>
-
-                    <Button sx={{ width: "100%" }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick}><Typography sx={{ size: "12px" }}>{props.btnText}</Typography></Button>
-                </DialogActions>
-            </Dialog>
-        </div>
-    );
-}
-
-
-
-
-
-
-
-
-
-
-export default function AlertDialogSlide() {
-
-}
+export default function AlertDialogSlide() {}
