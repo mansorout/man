@@ -84,6 +84,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         marginTop:'15px',
         '& button': {
             fontSize: 'var(--subTitleFontSize) !important',
+            
             // backgroundColor: 'rgba(123, 123, 157, 0.05) !important',
             color: 'var(--typeIndigoColor)',
             // '&:hover': {
