@@ -7,6 +7,25 @@
   width: 120px;
   margin-right: 10px!important;
 }
+.addMoreFundScroll{
+  max-height: 400px;
+  overflow: auto;
+}
+.addMoreFundScroll::-webkit-scrollbar-track {
+  border: 1px solid rgb(231, 228, 228);
+  padding: 2px 0;
+  /* background-color: #404040; */
+}
+.addMoreFundScroll::-webkit-scrollbar {
+  width: 10px;
+  display: block;
+}
+
+.addMoreFundScroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #2cc27494;
+  border: 1px solid #2cc274d9;
+}
 .btnGroupMoreFund{
   display: flex !important;
     flex-direction: row !important;
@@ -390,6 +409,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .textFundname{
+    font-size: 14px !important;
+  }
   .twinButton{
     padding-left: 0px !important;
   }

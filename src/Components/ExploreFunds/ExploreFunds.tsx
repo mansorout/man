@@ -43,6 +43,7 @@ import SelectedFunds from './SelectedFunds'
 import SearchCmp from '../CommonComponents/SearchCmp'
 import AddMoreFunds from './AddMoreFunds';
 import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
+import ClearIcon from "@mui/icons-material/Clear";
 
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
@@ -927,31 +928,38 @@ const SelectedFundsDialog = (props: any) => {
       onClose={props?.handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      fullWidth
+  maxWidth="sm"
+      style={{
+        width: "100%",
+      }}
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Selected Funds"}
+      <DialogTitle sx={{fontSize:{xs:"18px !important", sm:"25px !important"}, textAlign:"left"}} id="alert-dialog-title">
+        {"Add Funds"}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className='addMoreFundScroll'>
         <Grid container>
-          {
-            addAllFunds &&
-            addAllFunds?.length &&
-            addAllFunds?.map((item: any, index: number) => {
-              return (
-                <Box key={index}>
-                  <AddMoreFunds
-                    data={item}
-                    index={index}
-                    handleOnChangeFunAddFund={handleOnChangeFunAddFund}
-                    // removeBtnAction={(data) => handleRemoveAddFund(data)}
-                    removeBtnAction={(data) => null}
-                    errorAmount={errorAmount}
-                  />
-                </Box>
-              )
-            })
+          <Grid xs={12} sm={12}>
+            {
+              addAllFunds &&
+              addAllFunds?.length &&
+              addAllFunds?.map((item: any, index: number) => {
+                return (
+                  <Box key={index}>
+                    <AddMoreFunds
+                      data={item}
+                      index={index}
+                      handleOnChangeFunAddFund={handleOnChangeFunAddFund}
+                      // removeBtnAction={(data) => handleRemoveAddFund(data)}
+                      removeBtnAction={(data) => null}
+                      errorAmount={errorAmount}
+                    />
+                  </Box>
+                )
+              })
 
-          }
+            }
+          </Grid>
 
         </Grid>
         {
@@ -966,10 +974,28 @@ const SelectedFundsDialog = (props: any) => {
       </DialogContent>
       <DialogActions>
 
-        <Button onClick={buyNow} disabled={buttonDisable}>Buy Now</Button>
+        <Button fullWidth
+          sx={{
+            backgroundColor: " #23db7b",
+            ml: 1,
+            "&.MuiButtonBase-root:hover": {
+              bgcolor: "#23db7b",
+            },
+            padding: "10px 32px 9px",
+            borderRadius: " 4px",
+            marginLeft: "0px"
 
-        <Button onClick={props?.handleClose} >
-          Close
+          }} onClick={buyNow} disabled={buttonDisable}><Typography
+            sx={{
+              color: "white",
+
+            }}
+          >
+            Buy Now
+          </Typography></Button>
+
+        <Button onClick={props?.handleClose} sx={{position:"absolute", right:"0", top:"12px"}} >
+          <ClearIcon />
         </Button>
       </DialogActions>
     </Dialog>
