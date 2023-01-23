@@ -477,6 +477,62 @@
 }
     
 }
+@media screen and (width: 375px){
+  .BoxMarginLeftRight{
+    
+    margin: -59px 0px;
+
+}
+}
+@media (width:280px) {
+  .BoxMarginLeftRight{
+    
+        margin: -57px 1px;
+
+}
+
+  
+}
+@media screen and (width: 390px){
+  .BoxMarginLeftRight{
+    
+    margin: -59px 1px;
+
+}
+}
+
+@media screen and (width: 414px){
+  .BoxMarginLeftRight{
+  
+    margin: -58px 1px;
+  }
+}
+@media screen and (width: 393px){
+  .BoxMarginLeftRight{
+  
+    margin: -58px 0.9px;
+  }
+}
+@media screen and (width: 360px){
+  .BoxMarginLeftRight{
+  
+    margin: -58px 1px;
+  }
+}
+@media screen and (width: 412px){
+  .BoxMarginLeftRight{
+  
+    margin: -58px 0.99px;
+  }
+}
+@media screen and (width: 540px){
+  .BoxMarginLeftRight{
+  
+    margin: -55px 26px;
+  }
+}
+
+
 @media screen and (max-width: 360px){
   .btnReportmedia{
     max-width: 100% !important;

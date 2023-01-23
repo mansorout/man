@@ -3,3 +3,8 @@
         color: red !important;
     }
 }
+@media (width:280px){
+.AnnullyStyle{
+    margin-left: -28px !important;
+}
+}

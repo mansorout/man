@@ -2,6 +2,14 @@
     .ButtonKnowStyle{
         display: flex !important;
     }
+    .ProjectedAmount{
+        font-size: 12px !important;
+    }
+    .RadiorightpaddingStyle{
+        color: red !important;
+        margin-left: 42px !important;
+    
+    }
 
  .BROCHURESTYLE{
     font-size: 10.5px !important;
@@ -10,6 +18,18 @@
  .companyNameStyle{
     margin-left: -15px !important;
     margin-top: 5px !important;
+ }
+ .ImgwithtexStyle{
+    margin-left: -31px !important;
+ }
+ .RadioButtonStyle{
+    margin-left: 34px !important;
+ }
+ .TLITStyle{
+  
+   
+    width: calc(211% + 40px) !important;
+    display: block !important;
  }
 }
 
@@ -46,6 +66,9 @@
  .TaxSavingStyle{
     padding-top: 6px !important;
 }
+.radioSpace{
+    padding-left: 23px !important;
+}
  
 }
 @media (width:414px) {
@@ -58,9 +81,11 @@
      .TaxSavingStyle{
         padding-top: 6px !important;
     }
-
+.radioSpace{
+    padding-left: 23px !important;
+}
  .BROCHURESTYLE{
-    font-size: 10.5px !important;
+    font-size: 9px !important;
    
  }
  .companyNameStyle{
@@ -123,7 +148,7 @@
                 }
             
              .BROCHURESTYLE{
-                font-size: 10.5px !important;
+                font-size: 8px !important;
                
              }
              .companyNameStyle{
@@ -180,5 +205,17 @@
                          }
                          .ButtonKnowStyle{
                             display: flex !important;
+                        }
+                    }
+                    @media (width:1024px){
+                        .TLITStyle{
+                         
+                            padding: 20px 21px !important;
+                        }
+                    }
+                    @media (width:1280px){
+                        .TLITStyle{
+                    
+                            padding: 20px 42px !important;
                         }
                     }
