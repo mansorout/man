@@ -403,6 +403,10 @@ function InvestNowScreen(props: IProps) {
       return;
     }
 
+    if(error && error.length){
+      return;
+    }
+
     postData(
       {investmenttype_id: id, amount: amount},
       siteConfig.RECOMMENDATION_MUTUALFUND_GENERATE,
@@ -421,7 +425,6 @@ function InvestNowScreen(props: IProps) {
       localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
       navigate(path);
     }).catch(err=> {
-
       console.log(err);
     })
   }

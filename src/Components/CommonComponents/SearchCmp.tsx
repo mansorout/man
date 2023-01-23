@@ -138,19 +138,10 @@ const enumTabsKey = {
 } 
 
 interface SearchCmpProps {
-    // sort: sortTypes[];
-    // policyTerm: radioTypes[];
-    // lifeCover: radioTypes[];
     filtersOptions: any;
     searchBox?: boolean;
     searchKeysFun?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // sortValue: string;
-    // policyTermValue: number | null;
-    // lifeCoverValue: number | null;
     handleCB: (e: any) => void;
-    // sortCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // policyTermCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    // lifeCoverCb: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 
@@ -168,10 +159,10 @@ const SearchCmp = (props: SearchCmpProps) => {
     };
 
     useEffect(() => {
-        console.log("props.filtersOptions:", props.filtersOptions)
         // let temp = [...props.filtersOptions]
         let temp = JSON.parse(JSON.stringify(props.filtersOptions))
         if(temp && temp?.length){
+            // const sortVal:string = temp[0].keyValues[temp[0].activeSortIndex].value;
             const sortVal:string = temp[0].keyValues[0].value;
             const fundTypeVal:string = temp[1].keyValues[temp[1].activeCategoryIndex];
             const checkedTemp = {...chackedValuesArr}
