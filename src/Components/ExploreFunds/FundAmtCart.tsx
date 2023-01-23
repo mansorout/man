@@ -264,6 +264,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               <Typography className={classes.cardHeading}>
                 {`${props?.data?.fundname}`}
               </Typography>
+          
             </Box>
 
             {
