@@ -4,6 +4,7 @@ import {
   Box,
   Breadcrumbs,
   Button,
+  Dialog,
   Grid,
   Link,
   Modal,
@@ -218,17 +219,15 @@ const style = {
     height: "48px",
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
-    transform: "translate(8px, -23px)",
     color: "#fff",
-    width: 350,
-    marginTop: 21,
-    marginLeft: -8,
+    width: "100%",
+    // marginTop: 21,
+    // marginLeft: -8,
   } as React.CSSProperties,
   modalText: {
     backgroundColor: "#FFF",
-    width: 338,
+    width: "100%",
     textAlign: "center",
-    marginLeft: "1px",
     padding: "5px",
     borderTopRightRadius: 4,
     borderTopLeftRadius: 4,
@@ -695,7 +694,7 @@ const OneTimeMutualFund = () => {
           </Grid>
         </Grid>
 
-        <Modal
+        <Dialog
           sx={{ borderRadius: 8 }}
           open={
             activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
@@ -706,15 +705,7 @@ const OneTimeMutualFund = () => {
             setActiveScreen(enumActiveScreen.CLOSE_MODAL);
           }}
         >
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-              marginTop: { xs: "50%", lg: "13%", md: "30%" },
-            }}
-          >
-            <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+            <Typography sx={style.modalText}>Monthly SIP Date </Typography>
             <Calendar
               showNeighboringMonth={false}
               showNavigation={false}
@@ -739,8 +730,7 @@ const OneTimeMutualFund = () => {
             >
               Confirm SIP Date
             </Button>
-          </Box>
-        </Modal>
+        </Dialog>
         <Modal
           sx={{ borderRadius: 8 }}
           open={

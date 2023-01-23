@@ -461,7 +461,7 @@ const MutualFundsList = () => {
                   marginTop: { xs: "50%", lg: "13%", md: "30%" },
                 }}
               >
-                <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+                <Typography sx={style.modalText}>Monthly SIP sss Date</Typography>
                 <Calendar />
                 <Button
                   onClick={() => {
