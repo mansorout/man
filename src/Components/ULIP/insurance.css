@@ -24,3 +24,9 @@
     font-weight: 500;
 }
 
+@media (max-width:480px){
+    .boxBreadcrumb2{
+       
+        padding-left: 10px !important;
+    }
+}

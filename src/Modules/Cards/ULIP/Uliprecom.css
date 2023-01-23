@@ -2,6 +2,14 @@
     .ButtonKnowStyle{
         display: flex !important;
     }
+    .ProjectedAmount{
+        font-size: 12px !important;
+    }
+    .RadiorightpaddingStyle{
+        color: red !important;
+        margin-left: 42px !important;
+    
+    }
 
  .BROCHURESTYLE{
     font-size: 10.5px !important;
@@ -10,6 +18,18 @@
  .companyNameStyle{
     margin-left: -15px !important;
     margin-top: 5px !important;
+ }
+ .ImgwithtexStyle{
+    margin-left: -31px !important;
+ }
+ .RadioButtonStyle{
+    margin-left: 34px !important;
+ }
+ .TLITStyle{
+  
+   
+    width: calc(211% + 40px) !important;
+    display: block !important;
  }
 }
 
@@ -24,18 +44,27 @@
     }
 }
 @media (width:375px){
-  
-    .ListStyle{
-        color: red !important;
-        
+    .BoxShadowNone{
+        box-shadow: none !important;
+        padding: 12px !important;
+        border-radius: 1px !important;
+        width: 72% !important;
     }
-    .ButtonKnowStyle{
-        display: flex !important;
+    .BoxShadowNone2{
+        box-shadow: none !important;
+        padding: 12px !important;
+        border-radius: 1px !important;
     }
     .BROCHURESTYLE{
-        font-size: 9px !important;
+        font-size: 12px !important;
        
      }
+   
+    .ButtonKnowStyle{
+        display: flex !important;
+        margin-top: -6% !important;
+    }
+   
       .companyNameStyle{
     margin-left: -15px !important;
     margin-top: 4px !important;
@@ -46,44 +75,84 @@
  .TaxSavingStyle{
     padding-top: 6px !important;
 }
+.radioSpace{
+    padding-left: 23px !important;
+}
  
 }
 @media (width:414px) {
+
+
+    
+    .BoxShadowNone{
+        box-shadow: none !important;
+        padding: 13px !important;
+        border-radius: 1px !important;
+        width: 72% !important;
+    }
+    .BoxShadowNone2{
+        box-shadow: none !important;
+        padding: 13px !important;
+        border-radius: 1px !important;
+    }
+    .BROCHURESTYLE{
+        font-size: 14px !important;
+       
+     }
+   
     .ButtonKnowStyle{
         display: flex !important;
+        margin-top: -4% !important;
     }
+
+
     .FontSizeTLIT{
         font-size: 8px !important;
      }
      .TaxSavingStyle{
         padding-top: 6px !important;
     }
+.radioSpace{
+    padding-left: 23px !important;
+}
 
- .BROCHURESTYLE{
-    font-size: 10.5px !important;
-   
- }
  .companyNameStyle{
     margin-left: -15px !important;
     margin-top: 5px !important;
  }
     
     }
+
+
     @media (width:390px) {
-        .ButtonKnowStyle{
-            display: flex !important;
-        }
+      
         .FontSizeTLIT{
             font-size: 8px !important;
          }
          .TaxSavingStyle{
             padding-top: 6px !important;
         }
-    
-     .BROCHURESTYLE{
-        font-size: 10.5px !important;
+        .BoxShadowNone{
+            box-shadow: none !important;
+            padding: 13px !important;
+            border-radius: 1px !important;
+            width: 72% !important;
+        }
+        .BoxShadowNone2{
+            box-shadow: none !important;
+            padding: 13px !important;
+            border-radius: 1px !important;
+        }
+        .BROCHURESTYLE{
+            font-size: 12px !important;
+           
+         }
        
-     }
+        .ButtonKnowStyle{
+            display: flex !important;
+            margin-top: -4% !important;
+        }
+   
      .companyNameStyle{
         margin-left: -15px !important;
         margin-top: 5px !important;
@@ -91,9 +160,28 @@
         
         }
         @media (width:393px) {
+
+            .BoxShadowNone{
+                box-shadow: none !important;
+                padding: 13px !important;
+                border-radius: 1px !important;
+                width: 72% !important;
+            }
+            .BoxShadowNone2{
+                box-shadow: none !important;
+                padding: 13px !important;
+                border-radius: 1px !important;
+            }
+            .BROCHURESTYLE{
+                font-size: 13px !important;
+               
+             }
+           
             .ButtonKnowStyle{
                 display: flex !important;
+                margin-top: -6% !important;
             }
+       
         
             .FontSizeTLIT{
                 font-size: 8px !important;
@@ -101,19 +189,35 @@
              .TaxSavingStyle{
                 padding-top: 6px !important;
             }
-         .BROCHURESTYLE{
-            font-size: 10.5px !important;
-           
-         }
+     
          .companyNameStyle{
             margin-left: -15px !important;
             margin-top: 5px !important;
          }
             
             }
+
+
             @media (width:360px) {
+                .BoxShadowNone{
+                    box-shadow: none !important;
+                    padding: 13px !important;
+                    border-radius: 1px !important;
+                    width: 72% !important;
+                }
+                .BoxShadowNone2{
+                    box-shadow: none !important;
+                    padding: 13px !important;
+                    border-radius: 1px !important;
+                }
+                .BROCHURESTYLE{
+                    font-size: 11px !important;
+                   
+                 }
+               
                 .ButtonKnowStyle{
                     display: flex !important;
+                    margin-top: -4% !important;
                 }
                 .FontSizeTLIT{
                     font-size: 8px !important;
@@ -122,19 +226,35 @@
                     padding-top: 6px !important;
                 }
             
-             .BROCHURESTYLE{
-                font-size: 10.5px !important;
-               
-             }
+       
              .companyNameStyle{
                 margin-left: -15px !important;
                 margin-top: 5px !important;
              }
                 
                 }
+
+
                 @media (width:412px) {
+                    .BoxShadowNone{
+                        box-shadow: none !important;
+                        padding: 13px !important;
+                        border-radius: 1px !important;
+                        width: 72% !important;
+                    }
+                    .BoxShadowNone2{
+                        box-shadow: none !important;
+                        padding: 13px !important;
+                        border-radius: 1px !important;
+                    }
+                    .BROCHURESTYLE{
+                        font-size: 13px !important;
+                       
+                     }
+                   
                     .ButtonKnowStyle{
                         display: flex !important;
+                        margin-top: -4% !important;
                     }
                     .FontSizeTLIT{
                         font-size: 8px !important;
@@ -143,16 +263,14 @@
                         padding-top: 6px !important;
                     }
                 
-                 .BROCHURESTYLE{
-                    font-size: 10.5px !important;
-                   
-                 }
+          
                  .companyNameStyle{
                     margin-left: -15px !important;
                     margin-top: 5px !important;
                  }
                     
                     }
+
                     @media (width:768px){
                         .TaxSavingStyle{
                             padding-top: 10px !important;
@@ -178,7 +296,36 @@
                         .FontSizeTLIT{
                             font-size: 8px !important;
                          }
-                         .ButtonKnowStyle{
+                         .BoxShadowNone{
+                            box-shadow: none !important;
+                            padding: 13px !important;
+                            border-radius: 1px !important;
+                            width: 70% !important;
+                        }
+                        .BoxShadowNone2{
+                            box-shadow: none !important;
+                            padding: 13px !important;
+                            border-radius: 1px !important;
+                        }
+                        .BROCHURESTYLE{
+                            font-size: 15px !important;
+                           
+                         }
+                       
+                        .ButtonKnowStyle{
                             display: flex !important;
+                            margin-top: -2% !important;
+                        }
+                    }
+                    @media (width:1024px){
+                        .TLITStyle{
+                         
+                            padding: 20px 21px !important;
+                        }
+                    }
+                    @media (width:1280px){
+                        .TLITStyle{
+                    
+                            padding: 20px 42px !important;
                         }
                     }

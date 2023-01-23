@@ -27,6 +27,7 @@ import {
 import { isMultipleofNumber } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { globalConstant } from '../../Utils/globalConstant';
+import './recommandation.css'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     recommendationsHeaderBox: {
@@ -322,7 +323,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                                 </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
-                            className={classes.headerInvestmentTypeInput}
+                            className={classes.headerInvestmentTypeInput + " " + "AnnullyStyle"}
                         />
                     </Box>
                 </Grid>

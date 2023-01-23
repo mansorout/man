@@ -161,7 +161,7 @@ function UploadCheck() {
   // console.log(getCheque)
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-    alert("hiii")
+  
 
 
     setenableShowText(false);

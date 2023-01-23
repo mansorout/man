@@ -381,12 +381,16 @@ const Home = () => {
                 largeCardsLocal.map((item, index) => {
                   return (
                     <Grid key={index} item xs={12} sx={{ padding: 2 }}>
+                    
                       <LargeCards
+            
                         Heading={item.Heading}
                         Text={item.Text}
                         Img={item.Img}
                         navigationKey={item.navigationKey}
+                    
                         iconNavigation={(naviagtion: string) => handleNavigationLargeCards(naviagtion)}
+                      
                       />
                     </Grid>
                   )
@@ -397,6 +401,7 @@ const Home = () => {
               <Box sx={{ marginTop: { xs: "-50px", sm: "unset" } }}>
                 <Toolbar />
               </Box>
+              
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
                 <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
@@ -444,6 +449,7 @@ const Home = () => {
 
 
               <Grid spacing={1} container sx={{ px: "1rem" }}>
+                
                 <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad1} alt="Ad1" />
@@ -456,6 +462,7 @@ const Home = () => {
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad1" />
                   </Box>
+                  
                   <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
                     <img width="100%" src={Ad1_2} alt="Ad1" />
                   </Box>
