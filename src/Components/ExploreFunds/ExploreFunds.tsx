@@ -342,6 +342,15 @@ function ExploreFunds(props: any) {
 
   }, [fundProviderList]);
 
+  useEffect(() => {
+    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
+      let { data } = g_masterFundListForExploreFunds;
+      // setFundSelecteds(p => [...p, data]);
+      // filteringDataWrtSelectedFunds(data, variableMasterFundList);
+
+    }
+  }, [g_masterFundListForExploreFunds, activeCategoryGroupIndex])
+
   const getFundProviderList = async () => {
     let response: apiResponse = await getListOfMutualFundProviderCoThunk();
     console.log("fundProviderList response :", response)
@@ -436,6 +445,7 @@ function ExploreFunds(props: any) {
       }
 
       if (arrNew && arrNew.length) {
+        // let a = arrNew.map((item)=> {return {...item, }})
         setVariableMasterFundList(arrNew); //setting this variable list state
       } else {
         setVariableMasterFundList([]); //setting this variable list state
@@ -515,6 +525,14 @@ function ExploreFunds(props: any) {
       }
 
       let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
+
+      if (status === globalConstant.CEF_EXPLORE_FUND) {
+        dispatch(setMasterFundListForExploreFundsAction(arrNew));
+      } else if (status === globalConstant.CEF_ADD_FUND) {
+        dispatch(setSelectedFundsForInvestmentAction(arrNew));
+      } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
+        dispatch(setSelectedFundsForExploreFundsAction(arrNew));
+      }
 
       setFundSelecteds(arrNew);
       // setMasterFundList(arrMasterFundList);
@@ -820,6 +838,7 @@ function ExploreFunds(props: any) {
               {
                 variableMasterFundList &&
                   variableMasterFundList.length ?
+
                   <>
                     {
                       variableMasterFundList.map((item: any, index: number) => {
@@ -891,40 +910,9 @@ function ExploreFunds(props: any) {
                   : null
               )
           }
-
         </Grid>
-
-
-        {/* {
-          let arrNew = []
-          forEach((item)=>{
-          let obj = {
-          ...item,
-          item["userRecommendedAmount"] = 0;}
-            }
-        arrNew.push(obj);
-          })
-
-        setSelectedFunds(arrNew); */}
-
-
-        {/* {
-          selctedFundDialog ?
-          open that component
-          <Comp
-            fundSelected={fundSelected}
-          />
-          :null
-        } */}
-
-        {/*
-         //onChange functiom
-        selctedFund[index]["userRecommendedAmount"] = e.target.value
-        */}
-
       </Box>
       <Box>
-
         <SelectedFundsDialog
           addFundOpen={addFundOpen}
           handleClose={handleClose}
