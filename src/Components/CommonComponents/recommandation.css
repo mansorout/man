@@ -1,3 +1,29 @@
+@media (max-width:480px){
+    .errorlogo{
+    
+        margin-left: -6px !important;
+    }
+}
+@media (width:540px){
+    .errorlogo{
+     
+        margin-left: -5px !important;
+    }
+}
+@media (width:1024px){
+    .errorlogo{
+       
+        margin-left: -5px !important;
+    }
+}
+@media (width:1280px){
+    .errorlogo{
+       
+        margin-left: -5px !important;
+    }
+}
+
+
 @media (width:768px){
     .Bannerside{
         color: red !important;
@@ -8,6 +34,7 @@
     margin-left: -28px !important;
 
 }
+
 .RightStytelogo{
     color: red !important;
 }

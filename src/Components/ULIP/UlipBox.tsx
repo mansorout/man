@@ -680,3 +680,7 @@ const UlipBox = (props: any) => {
 };
 
 export default UlipBox;
+// div#myRedDIV {order: 2;}
+// div#myBlueDIV {order: 4;}
+// div#myGreenDIV {order: 3;}
+// div#myPinkDIV {order: 1;}
