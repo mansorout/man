@@ -370,7 +370,7 @@ const FindInsurance = () => {
                 <Box sx={style.main}>
                     <Toolbar />
                     <Sidebar />
-                    <Grid container className="SideBarStyle" sx={{padding:"30%"}}>
+                    <Grid container className="SideBarStyle">
                         <Grid sx={{ marginBottom: '60px', backgroundColor: '#f9f9f9', 
                         
                           paddingLeft: { xs: "15px", sm: '105px !important', md: '245px !important' },

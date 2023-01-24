@@ -331,7 +331,10 @@ const DropDownFilterInvestment = () => {
                 </Typography>
               </Grid>
               <Grid item xs={4} sx={{ textAlign: "end" }}>
-             
+                <ClearIcon
+                  onClick={(e) => handleClose(e)}
+                  sx={{ marginRight: "13px", opacity: 0.54 }}
+                />
               </Grid>
               <Grid item xs={4}>
                 <Box
