@@ -1,49 +1,47 @@
-
-import './Portfolio.css'
-import { Box, styled } from '@mui/system'
-import { Avatar, Breadcrumbs, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
-import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
-import { FilterAltOutlined, Home as HomeIcon, MenuRounded, PowerSettingsNew, Search, SearchOutlined, TaskAltOutlined, WrongLocationOutlined } from '@mui/icons-material'
-import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
-import { Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import TextField from '@mui/material/TextField';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+
+//Components imports
 import Navbar from '../CommonComponents/Navbar'
 import Sidebar from '../CommonComponents/Sidebar'
-import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
-import { ExploreFundsList } from '../../Modal/ExploreFunds'
-import { useDispatch, useSelector } from 'react-redux'
-import DropDownFilterInvestment from '../Investment/dropDownFilterInvestment'
-import { AnchorOpenAction } from '../../Store/Duck/FilterBox'
-import { getDataWithoutToken } from '../../Utils/api'
-import siteConfig from '../../Utils/siteConfig'
-import { setMasterFundListAction } from '../../Store/Global/actions/global-actions'
-import { lookUpMasterKeys } from '../../Utils/globalConstant'
-import AddToPlanComp from '../CommonComponents/AddToPlanComp'
-import { getCategoryGroupListThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
-import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions'
-import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
-import { apiResponse } from '../../Utils/globalTypes'
-import { Component } from 'react-image-crop'
-import { globalConstant } from '../../Utils/globalConstant'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import MutualFundCard2 from '../../Modules/CustomCard/MutualFundCard2'
-import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
-import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
-import SelectedFunds from './SelectedFunds'
-import SearchCmp from '../CommonComponents/SearchCmp'
-import AddMoreFunds from './AddMoreFunds';
-import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
 
+//redux actions imports
+import AddMoreFunds from './AddMoreFunds';
+import { apiResponse } from '../../Utils/globalTypes'
+import SearchCmp from '../CommonComponents/SearchCmp'
+import { globalConstant } from '../../Utils/globalConstant'
+import SprintMoneyLoader from '../CommonComponents/sprintMoneyLoader'
+import { getCategoryGroupListThunk, getListOfMutualFundProviderCoThunk, getMasterFundListThunk } from '../../Store/Recommendations/thunk/recommendations-thunk'
+import { setMasterFundListForExploreFundsAction, setSelectedFundsForExploreFundsAction, setSelectedFundsForInvestmentAction } from '../../Store/Recommendations/actions/recommendations-action'
+
+//Global constant and functions imports
+import siteConfig from '../../Utils/siteConfig';
+import AddToPlanComp from '../CommonComponents/AddToPlanComp'
+import { lookUpMasterKeys } from '../../Utils/globalConstant'
+import AllExploreFundCard from '../../Modules/CustomCard/AllExploreFundCard'
+import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions'
+import { getMutualFundRecommendationListWRTUserAmount } from '../../Utils/globalFunctions'
+import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
+import ClearIcon from "@mui/icons-material/Clear";
+
+//MUI imports
+import { Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
+import { Box, styled } from '@mui/system'
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import { Avatar, Breadcrumbs, Chip, Grid, IconButton, InputBase, Typography, Link } from '@mui/material'
+import { MenuItemUnstyled, menuItemUnstyledClasses, MenuUnstyled, MenuUnstyledActions } from '@mui/base';
+import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+
+//Style imports
+import './Portfolio.css'
 // import { AnchorOpenAction } from "../../Store/Duck/FilterBox";
 
 const StyledMenuItem = styled(MenuItemUnstyled)(
@@ -183,12 +181,51 @@ const initialMFDataForExploreFund = {
   isChecked: false
 }
 
-const enumFilterIndexes ={
+const enumFilterIndexes = {
   SORT: 'Sort',
   FUND_TYPE: 'Fund Type',
-  FUND_HOUSE:'Fund House'
+  FUND_HOUSE: 'Fund House'
 
 }
+
+const enumIndexesOfFilterType = {
+  SORT: 0,
+  FUND_TYPE: 1,
+  FUND_HOUSE: 2
+}
+
+const initialFilterIndexes: any[] = [
+  {
+    key: 'Sort',
+    selectType: 'radio',
+    // activeSortIndex:0,
+    keyValues: [
+      {
+        value: 'return',
+        label: 'Return - High to Low',
+      },
+      {
+        value: 'rating',
+        label: 'Rating - High to Low',
+      },
+      {
+        value: 'size',
+        label: 'Fund Size - High to Low',
+      }
+    ]
+  },
+  {
+    key: 'Fund Type',
+    selectType: 'radio',
+    activeCategoryIndex: 0,
+    keyValues: [],
+  },
+  {
+    key: 'Fund House',
+    selectType: 'checked',
+    keyValues: []
+  }
+]
 
 function ExploreFunds(props: any) {
 
@@ -198,110 +235,30 @@ function ExploreFunds(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
+  const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
+  const g_mutaulFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [filterValues, setFilterValues] = useState<any>({});
   const [fundSelecteds, setFundSelecteds] = useState<any[]>([]);
+  const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
   const [masterFundList, setMasterFundList] = useState<any[]>([]);
   const [initialMFData, setInitialMFData] = useState<boolean>(false);
+  const [fundProviderList, setFundProviderList] = useState<any[]>([]);
   const [categoryGroupList, setCategoryGroupList] = useState<any[]>([]);
+  const [masterFundListLength, setMasterFundListLength] = useState<number>(0);
+  const [filterIndexes, setFilterIndexes] = useState<any>(initialFilterIndexes);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
-  const [filterValues, setFilterValues] = useState<any>({})
-  const [addFundOpen, setAddFundOpen] = useState<boolean>(false);
-
-  const [filterIndexes, setFilterIndexes] = useState<any>(
-    [
-      {
-        key: 'Sort',
-        selectType: 'radio',
-        keyValues: [
-          {
-            value: 'return',
-            label: 'Return - High to Low',
-          },
-          {
-            value: 'rating',
-            label: 'Rating - High to Low',
-          },
-          {
-            value: 'size',
-            label: 'Fund Size - High to Low',
-          }
-        ]
-      },
-      {
-        key: 'Fund Type',
-        selectType: 'radio',
-        keyValues: [
-          {
-            value: 'all',
-            label: 'All (20)',
-          },
-          {
-            value: 'growth',
-            label: 'Growth (12)',
-          },
-          {
-            value: 'dividend',
-            label: 'Dividend (8)',
-          },
-        ]
-      },
-      {
-        key: 'Fund House',
-        selectType: 'checked',
-        keyValues: [
-          {
-            value: 'all',
-            label: 'All (148)',
-          },
-          {
-            value: 'axis',
-            label: 'Axis (21)',
-          },
-          {
-            value: 'sbi',
-            label: 'SBI Funds (37)',
-          },
-          {
-            value: 'invesco',
-            label: 'Invesco (7)',
-          },
-          {
-            value: 'pgim',
-            label: 'PGIM (2)',
-          },
-          {
-            value: 'quant',
-            label: 'Quant (4)',
-          },
-          {
-            value: 'dividend',
-            label: 'Dividend',
-          },
-        ]
-      }
-    ]
-  )
-
-
-
-  const g_investment: any = useSelector(
-    (state: any) => state?.recommendationsReducer?.investment
-  );
 
   const status: any = useMemo(() => { return location?.state?.status }, []);
   const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
-  // const masterFundListLength: number = useMemo(() => { return masterFundList && masterFundList.length ? masterFundList.length : 0 }, [masterFundList]);
-
-  const [masterFundListLength, setMasterFundListLength] = useState<number>(0);
-  const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
-  const g_selectedFundsForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForExploreFunds?.data);
-  const g_selectedFundsForInvestment = useSelector((state: any) => state?.recommendationsReducer?.selectedFundsForInvestment?.data);
-  const g_mutaulFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
   useEffect(() => {
     getCategoryGroupList();
+    getFundProviderList();
     return () => {
       setIsInitialVariableFundListFetched(false);
       console.log("explore fund unmounted");
@@ -323,54 +280,103 @@ function ExploreFunds(props: any) {
       // }
 
       console.log("categoryGroupList : ", categoryGroupList)
-      const temp = [...filterIndexes]
-      temp && temp?.length &&
-      temp.map((item, index) => {
-        if(item?.key === enumFilterIndexes?.FUND_TYPE){
-          console.log("temp filter :", temp[index])
-        }
-      })
+      let temp: any[] = [...filterIndexes];
+      if (temp && temp?.length) {
+        // temp.map((item, index) => {
+        //   // if(item?.key === enumFilterIndexes?.SORT){
+        //   //   console.log("temp filter SORT :", temp[index])
+        //   //   temp[index].activeSortIndex = activeSortIndex;
+        //   // }
+
+        //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
+        //     console.log("temp filter :", temp[index]?.keyValues)
+        //     temp[index].keyValues = categoryGroupList;
+        //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
+        //   }
+        // })
+
+        temp[enumIndexesOfFilterType.FUND_TYPE]["keyValues"] = categoryGroupList;
+        temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
+      }
+
+      setFilterIndexes(temp)
+      console.log("temp filter changed :", temp)
     }
-  }, [categoryGroupList])
+  }, [categoryGroupList]);
+
+  useEffect(() => {
+    const temp = [...filterIndexes]
+    if (temp && temp?.length) {
+      // temp.map((item, index) => {
+      //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
+      //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
+      //   }
+      // })
+
+      temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
+
+    }
+
+    setFilterIndexes(temp);
+  }, [activeCategoryGroupIndex]);
 
   useEffect(() => {
     handlingFeatureWiseCard(masterFundList);
   }, [masterFundList]);
 
   useEffect(() => {
-    // if (status === globalConstant.CEF_EXPLORE_FUND) return;
+    console.log("fundProviderList :", fundProviderList)
 
-    // if (isInitialVariableFundListFetched) return;
-
-    // if (status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_REPLACE_FUND) {
-
-    //   let { recommendations }: any = { ...g_mutaulFundListWrtUserAmount };
-    //   if (recommendations && recommendations.length) {
-    //     filteringDataWrtSelectedFunds(recommendations, variableMasterFundList);
-    //     // setIsInitialVariableFundListFetched(true);
-    //   }
-    // }
-
-    // if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
-    //   if (g_selectedFundsForExploreFunds && g_selectedFundsForExploreFunds.length) {
-    //     filteringDataWrtSelectedFunds(g_selectedFundsForExploreFunds, variableMasterFundList);
-    //     // setIsInitialVariableFundListFetched(true);
-    //   }
-    // }
+    const temp = [...filterIndexes]
+    temp && temp?.length &&
+      temp.map((item, index) => {
+        if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
+          temp[index].keyValues = fundProviderList;
+          temp[index].keyValues.unshift({
+            providerid: "0",
+            providername: "All"
+          })
+          setFilterIndexes(temp)
+          console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
+        }
+      })
 
 
-  }, [variableMasterFundList, g_mutaulFundListWrtUserAmount, isInitialVariableFundListFetched])
+    console.log("temp filter changed :", temp);
 
-// useEffect(() => {
-// }, [categoryGroupList])
 
+
+  }, [fundProviderList]);
+
+  useEffect(() => {
+    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
+      let { data } = g_masterFundListForExploreFunds;
+      // setFundSelecteds(p => [...p, data]);
+      // filteringDataWrtSelectedFunds(data, variableMasterFundList);
+
+    }
+  }, [g_masterFundListForExploreFunds, activeCategoryGroupIndex])
+
+  const getFundProviderList = async () => {
+    let response: apiResponse = await getListOfMutualFundProviderCoThunk();
+    console.log("fundProviderList response :", response)
+
+    response.data = [...response.data];
+    // @ts-ignore
+    handleApiResponse(response, [setFundProviderList]);
+
+    response.data = [...response.data];
+    // @ts-ignore
+    handleApiResponse(response, [setFundProviderList]);
+    return response;
+  };
 
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
     res.data = [...res.data?.categorygroups];
     // @ts-ignore
     handleApiResponse(res, [setCategoryGroupList]);
-  }
+  };
 
   const getMasterFundList = async (url: string) => {
     setLoading(true);
@@ -385,7 +391,6 @@ function ExploreFunds(props: any) {
   };
 
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-    // debugger
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
       return;
@@ -446,37 +451,40 @@ function ExploreFunds(props: any) {
       }
 
       if (arrNew && arrNew.length) {
+        // let a = arrNew.map((item)=> {return {...item, }})
         setVariableMasterFundList(arrNew); //setting this variable list state
       } else {
         setVariableMasterFundList([]); //setting this variable list state
       }
 
       // setIsInitialVariableFundListFetched(true);
+    } else {
+      setVariableMasterFundList([]); //setting this variable list state
+      setMasterFundListLength(0)
     }
-
   };
 
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
-    // @ts-ignore
-    let arrFilteredList: any[] = arrVariableMasterFundList && arrVariableMasterFundList.length && arrVariableMasterFundList.filter((item: any) => {
-      if (!arrSecIds.includes(item?.secid)) {
-        return item;
-      }
-    });
+    let arrFilteredList: any[] = [];
+    if (arrVariableMasterFundList && arrVariableMasterFundList.length) {
+      arrFilteredList = arrVariableMasterFundList.filter((item: any) => {
+        if (!arrSecIds.includes(item?.secid)) {
+          return item;
+        }
+      });
+    }
+
+    setMasterFundList(arrFilteredList);
+    setMasterFundListLength(arrFilteredList.length);
 
     if (arrFilteredList && arrFilteredList.length) {
       setIsInitialVariableFundListFetched(true);
-      setMasterFundList(arrFilteredList);
-      setMasterFundListLength(arrFilteredList.length);
     } else {
       setIsInitialVariableFundListFetched(false);
     }
   };
 
-  const handleFilter = (event: React.MouseEvent<Element, MouseEvent>) => {
-    dispatch(AnchorOpenAction(event));
-  };
 
   const handleSearchFunctionality = (e: any) => {
     if (masterFundList && masterFundList.length) {
@@ -508,10 +516,6 @@ function ExploreFunds(props: any) {
     }
   };
 
-  const getTotalFundCound = (categorygroup: string) => {
-    // return 
-  };
-
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
 
     // let arrMasterFundList: any[] = [...masterFundList];
@@ -527,6 +531,14 @@ function ExploreFunds(props: any) {
       }
 
       let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
+
+      if (status === globalConstant.CEF_EXPLORE_FUND) {
+        dispatch(setMasterFundListForExploreFundsAction(arrNew));
+      } else if (status === globalConstant.CEF_ADD_FUND) {
+        dispatch(setSelectedFundsForInvestmentAction(arrNew));
+      } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
+        dispatch(setSelectedFundsForExploreFundsAction(arrNew));
+      }
 
       setFundSelecteds(arrNew);
       // setMasterFundList(arrMasterFundList);
@@ -565,15 +577,49 @@ function ExploreFunds(props: any) {
     setAddFundOpen(false);
   };
 
+  const urlWithFilter = (data: any, categoryIndex?: number) => {
+    if (data && data[enumFilterIndexes.FUND_TYPE] || data[enumFilterIndexes.SORT] || (data[enumFilterIndexes.FUND_HOUSE] && data[enumFilterIndexes.FUND_HOUSE]?.length)) {
+      var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}`;
 
-
+      if (data[enumFilterIndexes.FUND_HOUSE].length > 0) {
+        url += `&providerids=`;
+        data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+          url += item + ','
+        })
+      }
+      return url;
+    } else if (categoryIndex) {
+      const urlWithoutFilter = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
+      return urlWithoutFilter;
+    } else {
+      return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[activeCategoryGroupIndex]}`
+    }
+  };
 
   const handleFilterCB = (data: any) => {
-    console.log("click value :", data,)
-    // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
-    // getMasterFundList(url);
+    const tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
+    // const sortedItem = filterIndexes[0].keyValues.filter((item:any) =>{
+    //   if(item.value === data[enumFilterIndexes.SORT]){
+    //   return filterIndexes[0].keyValues
+    //   }
+    // })  
+    // const tempSortIndex = filterIndexes[0].keyValues.findIndex((x:any) => x.value === data[enumFilterIndexes.SORT])
+    setActiveCategoryGroupIndex(tempIndex);
     setFilterValues(data)
-  }
+    // setActiveSortIndex(tempSortIndex);
+    // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+    // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+    //   url += item + ',' 
+    // })
+    const tempUrl = urlWithFilter(data)
+    console.log("click value :", data, tempUrl, tempIndex)
+
+    getMasterFundList(tempUrl);
+  };
+
+  const handleNavigation = (strRoute: string) => {
+    navigate(strRoute);
+  };
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -591,11 +637,89 @@ function ExploreFunds(props: any) {
             <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll", overflowX: 'hidden' } }} item xs={12}>
               <Toolbar />
 
+              {
+                status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
+                  <Box>
+                    <Breadcrumbs
+                      sx={{
+                        fontSize: "12px",
+                        color: "#6c63ff",
+                      }}
+                    >
+                      <Link onClick={() => handleNavigation("/home")}>Home</Link>
+                      <Link
+                        onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                      >
+                        Investment
+                      </Link>
+                      <Link
+                        onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+
+                      >
+                        {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                      </Link>
+                      <Link
+                        onClick={() => handleNavigation("/onetimemutualfundrecommendation")}
+                      >
+                        Mutual Fund Recommendation
+                      </Link>
+                      <Link
+                        onClick={() => handleNavigation("/customizemf")}
+                      >
+                        Customize Plan</Link>
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          color: "#373e42",
+                        }}
+                      >
+                        {
+                          status === globalConstant.CEF_REPLACE_FUND ?
+                            "Choose fund to Replace" : "Choose fund to Add"
+                        }
+                      </Typography>
+                    </Breadcrumbs>
+                  </Box>
+                  : null
+
+              }
+
+              {
+                status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                  <Box>
+                    <Breadcrumbs
+                      sx={{
+                        fontSize: "12px",
+                        color: "#6c63ff",
+                      }}
+                    >
+                      <Link onClick={() => handleNavigation("/explorefunds")}>Explore Funds</Link>
+                      <Link
+                        onClick={() => handleNavigation("/selectedfunds")}
+                      >
+                        Selected Funds
+                      </Link>
+
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          color: "#373e42",
+                        }}
+                      >
+                        {
+                          status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                            "Choose fund to Replace" : "Choose fund to Add"
+                        }
+                      </Typography>
+                    </Breadcrumbs>
+                  </Box>
+                  : null
+
+              }
+
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
 
                 <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
-
-
                   {
                     status === globalConstant.CEF_REPLACE_FUND ? <Box>
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
@@ -663,26 +787,18 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{marginBottom:'15px'}}>
-                      <SearchCmp
-                        filtersOptions={[...filterIndexes]}
-                        // sort={customSort}
-                        // policyTerm={policyTerm}
-                        // lifeCover={lifeCover}
-                        // sortValue={customSortValue}
-                        // policyTermValue={policyTermValue}
-                        // lifeCoverValue={lifeCoverValue}
-                        searchKeysFun={handleSearchFunctionality}
-                        searchBox={true}
-                        handleCB={handleFilterCB}
-                      // sortCb={handleSortRadio}
-                      // policyTermCb={handlePolicyTermRadio}
-                      // lifeCoverCb={handleLifeCoverRadio}
-                      />
-                    </Box>
+                  <Box sx={{ marginBottom: '15px' }}>
+                    <SearchCmp
+                      // filtersOptions={structuredClone(filterIndexes)}
+                      filtersOptions={filterIndexes}
+                      searchKeysFun={handleSearchFunctionality}
+                      searchBox={true}
+                      handleCB={handleFilterCB}
+                    />
+                  </Box>
+
 
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-
                     {
                       categoryGroupList &&
                       categoryGroupList.length &&
@@ -692,7 +808,8 @@ function ExploreFunds(props: any) {
                             key={index}
                             onClick={() => {
                               setActiveCategoryGroupIndex(index);
-                              let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                              let url = urlWithFilter(filterValues, index)
                               setFundSelecteds([]);
                               setInitialMFData(false);
                               setIsInitialVariableFundListFetched(false);
@@ -722,22 +839,35 @@ function ExploreFunds(props: any) {
                   </Box>
                 </Box>
               </Box>
+
+              {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
               {
                 variableMasterFundList &&
-                variableMasterFundList.length &&
-                variableMasterFundList.map((item: any, index: number) => {
-                  return (
-                    <Box key={index}>
-                      <MutualFundCard2
-                        {...item}
-                        activeIndex={index}
-                        onCardClick={handleNavigationOfFundDetails}
-                        onClick={handleAddFundsSelection}
-                        cefType={false}
-                      />
-                    </Box>
-                  )
-                })
+                  variableMasterFundList.length ?
+
+                  <>
+                    {
+                      variableMasterFundList.map((item: any, index: number) => {
+                        return (
+                          <Box key={index}>
+                            <MutualFundCard2
+                              {...item}
+                              activeIndex={index}
+                              onCardClick={handleNavigationOfFundDetails}
+                              onClick={handleAddFundsSelection}
+                              cefType={false}
+                            />
+                          </Box>
+                        )
+                      })
+                    }
+                  </>
+                  :
+                  <>
+                    <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                      <Typography component="h6" sx={{ color: "var(--uiDarkGreyColor) !important" }}>No record found!</Typography>
+                    </Grid>
+                  </>
               }
 
             </Grid>
@@ -786,40 +916,9 @@ function ExploreFunds(props: any) {
                   : null
               )
           }
-
         </Grid>
-
-
-        {/* {
-          let arrNew = []
-          forEach((item)=>{
-          let obj = {
-          ...item,
-          item["userRecommendedAmount"] = 0;}
-            }
-        arrNew.push(obj);
-          })
-
-        setSelectedFunds(arrNew); */}
-
-
-        {/* {
-          selctedFundDialog ?
-          open that component
-          <Comp
-            fundSelected={fundSelected}
-          />
-          :null
-        } */}
-
-        {/*
-         //onChange functiom
-        selctedFund[index]["userRecommendedAmount"] = e.target.value
-        */}
-
       </Box>
       <Box>
-
         <SelectedFundsDialog
           addFundOpen={addFundOpen}
           handleClose={handleClose}
@@ -923,31 +1022,38 @@ const SelectedFundsDialog = (props: any) => {
       onClose={props?.handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      fullWidth
+  maxWidth="sm"
+      style={{
+        width: "100%",
+      }}
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Selected Funds"}
+      <DialogTitle sx={{fontSize:{xs:"18px !important", sm:"25px !important"}, textAlign:"left"}} id="alert-dialog-title">
+        {"Add Funds"}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className='addMoreFundScroll'>
         <Grid container>
-          {
-            addAllFunds &&
-            addAllFunds?.length &&
-            addAllFunds?.map((item: any, index: number) => {
-              return (
-                <Box key={index}>
-                  <AddMoreFunds
-                    data={item}
-                    index={index}
-                    handleOnChangeFunAddFund={handleOnChangeFunAddFund}
-                    // removeBtnAction={(data) => handleRemoveAddFund(data)}
-                    removeBtnAction={(data) => null}
-                    errorAmount={errorAmount}
-                  />
-                </Box>
-              )
-            })
+          <Grid xs={12} sm={12}>
+            {
+              addAllFunds &&
+              addAllFunds?.length &&
+              addAllFunds?.map((item: any, index: number) => {
+                return (
+                  <Box key={index}>
+                    <AddMoreFunds
+                      data={item}
+                      index={index}
+                      handleOnChangeFunAddFund={handleOnChangeFunAddFund}
+                      // removeBtnAction={(data) => handleRemoveAddFund(data)}
+                      removeBtnAction={(data) => null}
+                      errorAmount={errorAmount}
+                    />
+                  </Box>
+                )
+              })
 
-          }
+            }
+          </Grid>
 
         </Grid>
         {
@@ -962,10 +1068,28 @@ const SelectedFundsDialog = (props: any) => {
       </DialogContent>
       <DialogActions>
 
-        <Button onClick={buyNow} disabled={buttonDisable}>Buy Now</Button>
+        <Button fullWidth
+          sx={{
+            backgroundColor: " #23db7b",
+            ml: 1,
+            "&.MuiButtonBase-root:hover": {
+              bgcolor: "#23db7b",
+            },
+            padding: "10px 32px 9px",
+            borderRadius: " 4px",
+            marginLeft: "0px"
 
-        <Button onClick={props?.handleClose} >
-          Close
+          }} onClick={buyNow} disabled={buttonDisable}><Typography
+            sx={{
+              color: "white",
+
+            }}
+          >
+            Buy Now
+          </Typography></Button>
+
+        <Button onClick={props?.handleClose} sx={{position:"absolute", right:"0", top:"12px"}} >
+          <ClearIcon />
         </Button>
       </DialogActions>
     </Dialog>

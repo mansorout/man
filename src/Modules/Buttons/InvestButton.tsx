@@ -45,7 +45,7 @@ export const InvestButton = (props: IProps) => {
     dispatch(onetimeLumpsumamount(props.lumpsumPrice))
     if (props?.cardType === globalConstant.SIP_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
-      navigate("/SipComparison", {});
+      // navigate("/SipComparison", {});
     } else if (props?.cardType === globalConstant.LUMPSUM_INVESTMENT) {
       dispatch(setInvestmentCardTypeAction(globalConstant.LUMPSUM_INVESTMENT));
     }
@@ -55,13 +55,13 @@ export const InvestButton = (props: IProps) => {
     await ['firstname', 'lastname', 'emailaddress', 'dateofbirth'].forEach((key: string) => {
       if (!objUserInfo?.userdetails[key]) {
         status = true;
-        if (key === "dateofbirth") {
-          if (!parseInt(objUserInfo?.userdetails[key])) {
-            status = true;
-          } else {
-            status = false
-            
-          }
+      }
+      if (key === "dateofbirth") {
+        if (!parseInt(objUserInfo?.userdetails[key])) {
+          status = true;
+        } else {
+          status = false
+
         }
       }
     })
@@ -92,7 +92,7 @@ export const InvestButton = (props: IProps) => {
         variant="contained"
         style={style.button}
         fullWidth
-   
+
         onClick={() => {
           handleClick();
         }}
@@ -111,7 +111,10 @@ export const InvestButton = (props: IProps) => {
           </Grid>
         </Grid>
       </Button>
-      <ModalInvestNow open={showLogin} close={() => setShowLogin(false)} />
+      <ModalInvestNow
+        open={showLogin}
+        close={() => setShowLogin(false)}
+      />
     </>
   );
 };

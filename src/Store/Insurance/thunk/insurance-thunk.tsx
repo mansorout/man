@@ -37,9 +37,11 @@ export const postTermGenerate = (bodyData: postTermPurchaseProps) => {
                 dispatch(setTokenExpiredStatusAction(true));
                 return;
             }
+            if(data.error){
+                dispatch(setTermGenerateFailAction(data?.error))
+                return;
+            }
             dispatch(setTermGenerateSuccessAction(data?.data))
-        }).catch((error) => {
-            dispatch(setTermGenerateFailAction(error?.error))
         })
 
     }
@@ -56,9 +58,11 @@ export const getTermListApi = (recommendation_id: number) => {
                 dispatch(setTokenExpiredStatusAction(true));
                 return;
             }
+            if(data.error){
+                dispatch(setTermListFailAction(data?.error))
+                return;
+            }
             dispatch(setTermListSuccessAction(data?.data))
-        }).catch((error) => {
-            dispatch(setTermListFailAction(error?.error))
         })
 
     }
@@ -77,9 +81,7 @@ export const postTermPurchase = (bodyData: postTermPurchaseProps) => {
                 dispatch(setTokenExpiredStatusAction(true));
                 return;
             }
-            debugger
         }).catch((error) => {
-            debugger
         })
 
     }

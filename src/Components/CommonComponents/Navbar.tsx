@@ -157,8 +157,9 @@ const Navbar = () => {
     // const userEmail: string | null = localStorage.getItem(siteConfig.USER_EMAIL);
 
     const g_profileData: any = useSelector((state: any) => state?.authReducer?.profile?.data);
-    const [profileImage2,setProfileImage2] = useState<any>("")
+    const [profileImage2, setProfileImage2] = useState<any>("")
     const g_profileImagge: any = useSelector((state: any) => state?.globalReducer?.profileimage);
+    const g_userKycStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isKycCompleted);
 
     // console.log("upload image api response",g_profileImagge)
 
@@ -166,7 +167,7 @@ const Navbar = () => {
         userName: localStorage.getItem(siteConfig.USER_NAME),
         userEmail: localStorage.getItem(siteConfig.USER_EMAIL)
     })
-    const [imgSrc,setImgSrc]= useState<any>()
+    const [imgSrc, setImgSrc] = useState<any>()
 
 
     useEffect(() => {
@@ -178,14 +179,14 @@ const Navbar = () => {
         };
     }, [g_profileData?.userdetails]);
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
         let image = localStorage.getItem("imgSrc")
         // console.log(image)
         setImgSrc(image)
-      },[])
+    }, [])
 
-      let image:any = localStorage.getItem("imgSrc")
+    let image: any = localStorage.getItem("imgSrc")
     //   console.log("profile image",profileImage2)
 
 
@@ -228,27 +229,27 @@ const Navbar = () => {
         //    console.log(imgSrc)
         //        // @ts-ignore
         //      handleApiResponse(res, [setImgSrc]);
-             
-           };
-         
-           //@ts-ignore
-           const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
-          
-             if (checkExpirationOfToken(res?.code)) {
-               dispatch(setTokenExpiredStatusAction(true));
-         
-               return;
-             }
-         
-             if (res?.error === true) {
-               return;
-             }
-         
-             arrFunc.forEach((item: void) => {
-               // @ts-ignore
-               if (res?.data) item(res?.data);
-               console.log(res?.data);
-             });
+
+    };
+
+    //@ts-ignore
+    const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
+
+        if (checkExpirationOfToken(res?.code)) {
+            dispatch(setTokenExpiredStatusAction(true));
+
+            return;
+        }
+
+        if (res?.error === true) {
+            return;
+        }
+
+        arrFunc.forEach((item: void) => {
+            // @ts-ignore
+            if (res?.data) item(res?.data);
+            console.log(res?.data);
+        });
     };
 
     const handleMenuOpen = () => {
@@ -256,9 +257,9 @@ const Navbar = () => {
         dispatch(setTokenExpiredStatusAction(true));
         let keyImg = localStorage.getItem("onSelectFile");
     }
-   const handelResponeImage= async ()=>{
-    
-   }
+    const handelResponeImage = async () => {
+
+    }
 
     return (
         <div>
@@ -270,12 +271,12 @@ const Navbar = () => {
                         <img onClick={() => navigate("/home")} src={Logo} alt="Sprint Money" style={style.image} />
                     </Box>
                     <Box onClick={handleClick} style={style.profileContainer}>
-                        <img src={g_profileImagge || image} 
-                        onClick={handelResponeImage}
-                        
-                        alt="image" style={style.profile} />
-                        
-                    
+                        <img src={g_profileImagge || image}
+                            onClick={handelResponeImage}
+
+                            alt="image" style={style.profile} />
+
+
                         <Typography sx={{ fontSize: "16px", color: "white", display: { xs: "none", sm: "block" } }}>Hi{objUserDetail?.userName ? (objUserDetail?.userName.length > 8 ? modifyName(objUserDetail?.userName, 8) : `, ${objUserDetail?.userName}`) : ``}</Typography>
                         {anchorEl ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
                     </Box>
@@ -289,11 +290,15 @@ const Navbar = () => {
                         <StyledMenuItem>
                             <Box style={style.menuContainer}>
                                 <img src={g_profileImagge || image} alt="image" style={style.profileInter} />
-                            
+
                                 <Typography className='mediumButtonText'>{objUserDetail?.userName ? objUserDetail?.userName : ""}</Typography>
                                 <Typography className="caption">{objUserDetail?.userEmail ? objUserDetail?.userEmail : ""}</Typography>
                                 <Box style={style.menuButton}>
-                                    <Typography style={style.menuText}>KYC PENDING</Typography>
+                                    {
+                                        !g_userKycStatus ?
+                                            <Typography style={style.menuText}>KYC PENDING</Typography>
+                                            : null
+                                    }
                                     <Typography style={style.menuText2} onClick={() => navigate('/viewprofile')}>View Profile</Typography>
                                 </Box>
                                 <Divider style={{ margin: "15px 0px" }} />

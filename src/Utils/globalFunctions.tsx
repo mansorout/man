@@ -1,4 +1,4 @@
-import { arrKycCompletionKeys, arrProfileCompletion, objUserProfileValidationData } from "./globalConstant";
+import { arrKycCompletionKeys, arrProfileCompletion, enumPaymentModes, enumSpecificPurchaseAmount, objUserProfileValidationData } from "./globalConstant";
 import { MFFeatures, profileValidationKeys } from "./globalTypes";
 import siteConfig from "./siteConfig"
 
@@ -9,6 +9,16 @@ export const getModuleWiseBaseUrl = (strApiId: string) => {
 export const checkExpirationOfToken = (code: number) => {
   if (code === 401) return true;
   else return false;
+}
+
+export const numDifferentiation = (value: number) => {
+  var val: any = Math.abs(value)
+  if (val >= 10000000) {
+    val = (val / 10000000).toFixed(2) + ' Cr';
+  } else if (val >= 100000) {
+    val = (val / 100000).toFixed(2) + ' Lac';
+  }
+  return val;
 }
 
 export const isMultipleofNumber = (n: number, multipleNum: number) => {
@@ -204,6 +214,24 @@ export const hideCharacterWithStars = (str: string) => {
   }
 }
 
+export const validatePaymentModeWRTRules = (totalAmount: number) => {
+  try {
+    let arr: any[] = [];
+    if (totalAmount <= enumSpecificPurchaseAmount.TEN_THOUSAND) {
+      arr = [enumPaymentModes.NETBANKING, 0, enumPaymentModes.UPI]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TEN_THOUSAND && totalAmount < enumSpecificPurchaseAmount.TWO_LACS) {
+      arr = [enumPaymentModes.NETBANKING]
+    } else if (totalAmount > enumSpecificPurchaseAmount.TWO_LACS) {
+      arr = [enumPaymentModes.NETBANKING, enumPaymentModes.NEFT]
+
+    }
+
+    return arr;
+  } catch (err) {
+    console.log(err);
+  }
+
+}
 
 // {
 //   "userdetails": {

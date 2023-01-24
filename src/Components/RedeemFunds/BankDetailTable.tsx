@@ -106,7 +106,7 @@ export default function BankDetailTable () {
        
         <TableBody >
           {rows.map((row) => (
-            <StyledTableRow  key={row.type}>
+            <StyledTableRow  key={row.type}>ankdetail
               <StyledTableCell component="th" scope="row">
                 {row.type}
               </StyledTableCell>

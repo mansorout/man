@@ -260,6 +260,7 @@ const Home = () => {
             year3: item?.return3yr,
             year5: item?.return5yr,
             rating: item?.ratingoverall,
+            secid: item?.secid
             // morning_star_logo?: string,
           }
           arrFilteredData.push(obj);
@@ -380,12 +381,16 @@ const Home = () => {
                 largeCardsLocal.map((item, index) => {
                   return (
                     <Grid key={index} item xs={12} sx={{ padding: 2 }}>
+                    
                       <LargeCards
+            
                         Heading={item.Heading}
                         Text={item.Text}
                         Img={item.Img}
                         navigationKey={item.navigationKey}
+                    
                         iconNavigation={(naviagtion: string) => handleNavigationLargeCards(naviagtion)}
+                      
                       />
                     </Grid>
                   )
@@ -396,34 +401,55 @@ const Home = () => {
               <Box sx={{ marginTop: { xs: "-50px", sm: "unset" } }}>
                 <Toolbar />
               </Box>
+              
               <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
                 <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
               </Box>
               {
                 companyCardsLocal &&
-                companyCardsLocal.length &&
-                companyCardsLocal.map((item: any, index: number) => {
-                  { console.log(item) }
-                  return (
-                    <CompanyFundCard
-                      key={index}
-                      {...item}
-                    // logo={item?.logo}
-                    // name={item?.name}
-                    // cap={item?.cap}
-                    // type={item?.type}
-                    // price={item?.price}
-                    // year1={item?.year1}
-                    // year3={item?.year3}
-                    // year5={item?.year5}
-                    // rating={item?.rating}
-                    // morning_star_logo={item?.morning_star_logo}
-                    />
-                  )
-                })
+                  companyCardsLocal.length ?
+                  <>
+                    {
+                      companyCardsLocal.map((item: any, index: number) => {
+                        { console.log(item) }
+
+                        return (
+                          <Grid
+                            onClick={() => {
+                              // navigate("/funddetails")
+                              // console.log(item, "home")
+                              navigate("/funddetails", { state: { secid: item?.secid, parentRoute: "/home" } });
+                            }}
+                          >
+                            <CompanyFundCard
+                              key={index}
+                              {...item}
+                            // logo={item?.logo}
+                            // name={item?.name}
+                            // cap={item?.cap}
+                            // type={item?.type}
+                            // price={item?.price}
+                            // year1={item?.year1}
+                            // year3={item?.year3}
+                            // year5={item?.year5}
+                            // rating={item?.rating}
+                            // morning_star_logo={item?.morning_star_logo}
+                            />
+                          </Grid>
+                        )
+                      })
+                    }
+                  </>
+                  :
+                  <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                    <Typography component="h4" sx={{ color: "var(--uiDarkGreyColor)", fontSize: "12px" }}>No record found!</Typography>
+                  </Grid>
               }
+
+
               <Grid spacing={1} container sx={{ px: "1rem" }}>
+                
                 <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad1} alt="Ad1" />
@@ -436,6 +462,7 @@ const Home = () => {
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img width="100%" src={Ad2} alt="Ad1" />
                   </Box>
+                  
                   <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
                     <img width="100%" src={Ad1_2} alt="Ad1" />
                   </Box>

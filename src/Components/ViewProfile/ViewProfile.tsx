@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../Utils/api';
-import { setTokenExpiredStatusAction, setUserViewProfileDataAction } from '../../Store/Authentication/actions/auth-actions';
+import { setTokenExpiredStatusAction, setUserProfileValidationKeys, setUserViewProfileDataAction } from '../../Store/Authentication/actions/auth-actions';
 import ViewProfileCard from '../../Modules/Cards/ViewProfileCard'
 import VviewprofileCard from '../../Modules/Cards/VviewprofileCard'
 
@@ -20,11 +20,11 @@ import { Logo, Profile, SIP } from '../../Assets/index'
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../CommonComponents/Sidebar';
 import Navbar from '../CommonComponents/Navbar';
-import { checkExpirationOfToken, customParseJSON } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, customParseJSON, validateProfileCompletion } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { store } from '../../Store/Store';
 import { getUserProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
-import { apiResponse } from '../../Utils/globalTypes';
+import { apiResponse, profileValidationKeys } from '../../Utils/globalTypes';
 
 type IProps = {
   userDetails: any;
@@ -213,6 +213,36 @@ const ViewProfile = () => {
 
     setUserDetails(response);
     dispatch(setUserViewProfileDataAction(response));
+    userVerification();
+  }
+
+  const userVerification = async () => {
+    let data: profileValidationKeys = validateProfileCompletion();
+
+    dispatch(setUserProfileValidationKeys(data));
+
+    if (!data.isProfileComplete && !data.isKycCompleted) {
+      return;
+    }
+
+    if (data.isBseRegistered) {
+      return;
+    }
+
+    /**Commenting below code for testing on1 18th Jan 2023 */
+    // let res: apiResponse = await setRegisterUserWithBseThunk({});
+
+    // if (checkExpirationOfToken(res?.code)) {
+    //   dispatch(setTokenExpiredStatusAction(true));
+    //   return;
+    // }
+
+    // if (res?.error === true) {
+    //   return;
+    // }
+
+    data["isUserProfileFullCompleted"] = true;
+    dispatch(setUserProfileValidationKeys(data));
   }
 
   return (
