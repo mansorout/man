@@ -387,6 +387,7 @@ const UlipBox = (props: any) => {
         }
         setHandlelinechart(handlelinechart);
     };
+
     return (
 
         <Box style={{ width: "100vw" }}>
