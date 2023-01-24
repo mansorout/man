@@ -167,6 +167,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         padding: "15px",
     },
 }));
+
+const enumGraphKeys = {
+    INVESTED_VALU : 'Invested Value',
+    PROJECTED_VALUE :'Projected Value'
+}
+
 const MAX_LENGTH = 10;
 const UlipBox = (props: any) => {
     const classes = useStyles();
@@ -206,6 +212,53 @@ const UlipBox = (props: any) => {
             dispatch(cb(a));
         }, 550);
     };
+
+    
+    useEffect(() => {
+        const lookup__id_Arr = customParseJSON(
+            localStorage.getItem(lookUpMasterKeys.ULIP_TERM)
+        );
+        const ulip: any = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM));
+        console.log(typeof ulip);
+        console.log(ulip);
+        // setUlipYears(ulip);
+    }, []);
+    
+    useEffect(() => {
+        dispatch(insuranceUlipLumpsumAction(investmentType));
+    }, []);
+
+    useEffect(() => {
+        const urlTemp: ulipReturnApiParamsTypes = {
+            frequencytype: investmentType === ULIP_MONTHLY ? "0" : "1",
+            amount: ulipInsuranceAmount,
+        };
+        console.log(urlTemp);
+        dispatch(getUlipReturnApi(urlTemp));
+    }, [ulipInsuranceAmount]);
+
+    useEffect(() => {
+        const labels = ulipReturnApiData?.map(
+            (item: getUlipReturnApiTypes) => item.years + "Y"
+        );
+        const selectValues = ulipReturnApiData?.map(
+            (item: getUlipReturnApiTypes) => item.years
+        );
+        const investedamount = ulipReturnApiData?.map(
+            (item: getUlipReturnApiTypes) => item.investedamount
+        );
+        const projectedamount = ulipReturnApiData?.map(
+            (item: getUlipReturnApiTypes) => item.projectedamount
+        );
+
+        setChartLabels(labels);
+        setUlipYears(selectValues)
+        setChartInvestedAmount(investedamount);
+        setChartProjectedAmount(projectedamount);
+        localStorage.getItem(ulipReturnApiData);
+        console.log(ulipReturnApiData);
+    }, [ulipReturnApiData]);
+
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInvestmentType((event.target as HTMLInputElement).value);
@@ -255,36 +308,9 @@ const UlipBox = (props: any) => {
         Tooltip,
         Legend
     );
-    useEffect(() => {
-        dispatch(insuranceUlipLumpsumAction(investmentType));
-    }, []);
 
-    useEffect(() => {
-        const urlTemp: ulipReturnApiParamsTypes = {
-            frequencytype: investmentType === ULIP_MONTHLY ? "0" : "1",
-            amount: ulipInsuranceAmount,
-        };
-        console.log(urlTemp);
-        dispatch(getUlipReturnApi(urlTemp));
-    }, [ulipInsuranceAmount]);
-
-    useEffect(() => {
-        const labels = ulipReturnApiData?.map(
-            (item: getUlipReturnApiTypes) => item.years + "Y"
-        );
-        const investedamount = ulipReturnApiData?.map(
-            (item: getUlipReturnApiTypes) => item.investedamount
-        );
-        const projectedamount = ulipReturnApiData?.map(
-            (item: getUlipReturnApiTypes) => item.projectedamount
-        );
-
-        setChartLabels(labels);
-        setChartInvestedAmount(investedamount);
-        setChartProjectedAmount(projectedamount);
-        localStorage.getItem(ulipReturnApiData);
-        console.log(ulipReturnApiData);
-    }, [ulipReturnApiData]);
+    
+    
 
     const style = {
         main: {
@@ -344,21 +370,24 @@ const UlipBox = (props: any) => {
     };
     const handleYear = (e: { target: { value: SetStateAction<string> } }) => {
         setYears(e.target.value);
+
+        const filteredItem = ulipReturnApiData.filter((item : any) => item.years === e.target.value)
+
+        setGreenline(filteredItem[0].investedamount);
+        setPinkline(filteredItem[0].projectedamount);
+        console.log("years value :", e.target.value, ulipReturnApiData, filteredItem)
     };
-    useEffect(() => {
-        const lookup__id_Arr = customParseJSON(
-            localStorage.getItem(lookUpMasterKeys.ULIP_TERM)
-        );
-        const ulip: any = customParseJSON(localStorage.getItem("ulip-term"));
-        console.log(typeof ulip);
-        console.log(ulip);
-        setUlipYears(ulip);
-    }, []);
-    const hadleLineChart = (e: any) => {
-        setGreenline(e.value);
-        setPinkline(e.value);
+    const hadleLineChart = (e: any,) => {
+        console.log('lineLabel :',e)
+
+        if(e?.lineLabel === enumGraphKeys.INVESTED_VALU){
+            setGreenline(e?.value);
+        }else{
+            setPinkline(e?.value);
+        }
         setHandlelinechart(handlelinechart);
     };
+
     return (
 
         <Box style={{ width: "100vw" }}>
