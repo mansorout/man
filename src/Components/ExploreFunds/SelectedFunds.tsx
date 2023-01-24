@@ -25,6 +25,7 @@ import { setMasterFundListForExploreFundsAction, setSelectedFundsForInvestmentAc
 import { setOrderSipThunk, setPlaceLumpsumOrderThunk } from '../../Store/Payments/thunk/payments-thunk';
 import { apiResponse } from '../../Utils/globalTypes';
 import moment from "moment";
+import './Portfolio.css'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 

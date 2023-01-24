@@ -12,6 +12,315 @@
   color: #3c3e42 !important;
 }
 
+@media (width:375px){
+  .GridManageWidth{
+    max-width: 84% !important;
+    margin-top: 2% !important;
+
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 96% !important;
+  
+  }
+
+}
+@media (width:414px){
+  .GridManageWidth{
+    width: 352px !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 387px !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+}
+@media (width:412px){
+  .GridManageWidth{
+    width: 347px !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 384px !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+}
+@media (width:390px){
+  .GridManageWidth{
+    width: 324px !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 361px !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+}
+@media (width:360px){
+  .GridManageWidth{
+    width: 297px !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 333px !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+}
+@media (width:393px){
+  .GridManageWidth{
+    width: 329px !important;
+    margin-top: 2% !important;
+
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 365px !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+}
+@media (width:768px){
+  .GridManageWidth{
+    width: 93.5% !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+    margin-top: -5% !important;
+  }
+
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+
+
+}
+@media (width:820px){
+  .GridManageWidth{
+    width: 94% !important;
+    margin-top: 2% !important;
+
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+  
+  }
+  .GridManageWidthright{
+    padding-left: 13px !important;
+   
+  }
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+ 
+
+}
+@media (width:912px){
+  .GridManageWidth{
+    
+    width: 90% !important;
+
+  }
+
+
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+ 
+
+}
+@media (width:540px){
+  .GridManageWidth{
+    
+    width: 90% !important;
+    margin-top:  3% !important;
+
+  }
+
+
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+ 
+
+}
+@media (width:280px){
+  .GridManageWidth{
+    
+    width: 80% !important;
+    margin-top: 3% !important;
+
+  }
+
+
+  .CardManageStyleSlected{
+    
+    max-width: 94% !important;
+    margin-left: 10px !important;
+    margin-top: -5%  !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -20px !important;
+  }
+  .B_Selected{
+    margin-top: -1% !important;
+  }
+
+ 
+
+}
+@media (width:1024px){
+  .GridManageWidth{
+    
+       width: 91% !important;
+    margin-top: -5% !important;
+
+  }
+
+
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+    margin-left: 10px !important;
+    margin-top: -5%  !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -15px !important;
+  }
+
+
+
+ 
+
+}
+@media (width:1280px){
+  .GridManageWidth{
+    
+       width: 91% !important;
+    margin-top: -5% !important;
+
+  }
+
+
+  .CardManageStyleSlected{
+    
+    max-width: 100% !important;
+    margin-left: 10px !important;
+    margin-top: -5%  !important;
+  
+  }
+  .FundsSelected{
+    margin-top: -15px !important;
+  }
+
+
+
+ 
+
+}
+
+/* // only button media queary */
+
+@media (max-width:480px){
+  .ReplaceStyle{
+    color: red !important;
+  }
+}
 
 /* <DrawerList sx={{
     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
