@@ -136,15 +136,15 @@ const BankAccountDetails = () => {
     const userData: any = useSelector(
         (state: any) => state?.authReducer?.profile?.data?.kycdetails?.bankdetails);
 
-    console.log(userData)
+    // console.log(userData)
 
     useEffect(() => {
         if (userData) {
             setdisablecontinueButton(true)
-            console.log("disable button")
+            // console.log("disable button")
         }
         else {
-            console.log("enable disable button")
+            // console.log("enable disable button")
             setdisablecontinueButton(false)
         }
     }, [])
@@ -181,7 +181,7 @@ const BankAccountDetails = () => {
         }
     }, [bankdetails?.confirmbankaccount]);
 
-    console.log(validateInputs.accountnumber)
+    // console.log(validateInputs.accountnumber)
 
     const regexValidate = (regexType: any, name: string, value: string) => {
         let bFlag: boolean = false;
@@ -247,15 +247,15 @@ const BankAccountDetails = () => {
 
         })
 
-        console.log(name)
-        console.log(validateInputs.accountnumber)
+        // console.log(name)
+        // console.log(validateInputs.accountnumber)
 
 
     }
     const handleBlur = (e: any) => {
 
     }
-    console.log(bankdetails)
+    // console.log(bankdetails)
 
     // console.log(bankdetailsnonmand)
 
@@ -284,14 +284,22 @@ const BankAccountDetails = () => {
                     return;
                 }
 
-                sethideBankDetails(true)
+                
                 setadressFromApi(data?.data?.address)
+                
+                if(data?.status != false ){
+                    sethideBankDetails(true)
+                }
+                else{
+                    sethideBankDetails(false)
+                }
+            
 
                 setbankNameFromApi(data?.data?.bank)
 
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     }
     const throwErrorOnWrongField = async () => {
@@ -330,7 +338,7 @@ const BankAccountDetails = () => {
 
 
     async function handleSubmit(event: any) {
-        console.log(validateInputs.accountnumber)
+        // console.log(validateInputs.accountnumber)
         // if (bankdetails.ifsc !== null && "" && bankdetails.accounttype !== null && "" && bankdetails.accountnumber !== null && "") {
         await isAllFieldsValidated(throwErrorOnWrongField)
             .then(res => {
@@ -367,7 +375,7 @@ const BankAccountDetails = () => {
             })
 
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
 
     }

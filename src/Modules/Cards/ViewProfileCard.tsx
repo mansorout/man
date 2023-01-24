@@ -350,10 +350,10 @@ const ViewProfileCard = (props: IProps) => {
                       fontSize: "12px",
                       fontWeight: "bold",
                       borderRadius: "20px",
-                      color: "#000",
-                      padding: "2px 21px 3px 23px",
+                      color: "white",
+                      padding: "2px 8px",
                     }}
-                    className="IncompleteStyle"
+                    
                   >
                     Completed
                   </Typography> : <Typography
@@ -363,7 +363,7 @@ const ViewProfileCard = (props: IProps) => {
                       fontWeight: "bold",
                       borderRadius: "20px",
                       color: "#000",
-                      padding: "2px 21px 3px 23px",
+                      padding: "2px 8px",
                     }}
                     className="IncompleteStyle"
                   >
