@@ -791,7 +791,7 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{ marginBottom: '15px' }}>
+                  <Box sx={{ marginBottom: '15px', marginTop:"10px" }}>
                     <SearchCmp
                       // filtersOptions={structuredClone(filterIndexes)}
                       filtersOptions={filterIndexes}

@@ -388,11 +388,15 @@ const MutualFundCard2 = (props: MFProp) => {
                 {console.log(props?.fundSelected, "props?.fundselected")}
                 <Box component="span" >
                   <Checkbox
+                  //  color="success"
+                   style ={{
+                    color: "#23db7b",
+                  }}
                     onClick={(e: any) => {
                       if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
                     }}
                     // checked={props?.fundselected ? props?.fundselected : false}
-
+                   
                     checked={props?.fundSelected ? true : false}
                   />
 
