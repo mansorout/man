@@ -440,7 +440,10 @@ const EditprofileCard = () => {
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.placeofbirthstate_id, true);
 
-    let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
+    // let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
+    // let date = moment(objUserDetails?.dateofbirth).format('DD MM YYYY');
+    let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
+
     // let date = objUserDetails?.dateofbirth;
     console.log(date, "getuserprofile()");
 
@@ -993,17 +996,17 @@ const EditprofileCard = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      fullWidth
                       type="date"
-                      placeholder="DD-MM-YYYY"
+                      name="dateofbirth"
+                      label="Date of Birth"
+                      // placeholder="DD-MM-YYYY"
                       sx={{
                         color: "#919eb1",
                         fontSize: "17px",
                         marginTop: "4%",
                         marginRight: "6%",
                       }}
-
-                      fullWidth
-                      label="Date of Birth"
                       onBlur={handleBlur}
                       onChange={(e: any) => {
                         if (underAgeValidate(e.target.value)) {
@@ -1013,8 +1016,10 @@ const EditprofileCard = () => {
                           setInvalidDOB(true);
                         }
                       }}
-                      name="dateofbirth"
-                      value={formData?.dateofbirth || "DD-MM-YYYY"}
+                      InputLabelProps={{ shrink: true }}
+                      defaultValue={formData?.dateofbirth}
+                      // value={formData?.dateofbirth || "DD-MM-YYYY"}
+                      value={formData?.dateofbirth}
                       error={validateInputs?.dateofbirth}
                       helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
                     />

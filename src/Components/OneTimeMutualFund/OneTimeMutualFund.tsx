@@ -27,7 +27,7 @@ import { enumPaymentModes, enumSpecificPurchaseAmount, globalConstant, paymentMe
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import siteConfig from "../../Utils/siteConfig";
 import { getData } from "../../Utils/api";
-import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount, validatePaymentModeWRTRules } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount, nth, validatePaymentModeWRTRules } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction } from "../../Store/Recommendations/actions/recommendations-action";
 import { apiResponse, MFFeatures } from "../../Utils/globalTypes";
@@ -579,7 +579,7 @@ const OneTimeMutualFund = () => {
                   </Typography>
                 </Box>
 
-                <Box
+                {/* <Box
                   sx={{
                     display: "flex",
                     justifyContent: "flex-end",
@@ -607,7 +607,7 @@ const OneTimeMutualFund = () => {
                   >
                     Know Why
                   </Typography>
-                </Box>
+                </Box> */}
               </Box>
               <Box>
                 {/* {mfCards &&
@@ -706,31 +706,31 @@ const OneTimeMutualFund = () => {
             setActiveScreen(enumActiveScreen.CLOSE_MODAL);
           }}
         >
-            <Typography sx={style.modalText}>Monthly SIP Date </Typography>
-            <Calendar
-              showNeighboringMonth={false}
-              showNavigation={false}
-              // @ts-ignore
-              onChange={(val, e) => {
-                let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
-                setSipStartDay(date);
-              }}
-            />
-            <Button
-              onClick={() => {
-                if (sipStartDay) {
-                  setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
-                }
-              }}
-              variant="contained"
-              style={style.button}
-              sx={{
-                backgroundColor: "rgba(123, 123, 157, 0.05)",
-                color: "#7b7b9d",
-              }}
-            >
-              Confirm SIP Date
-            </Button>
+          <Typography sx={style.modalText}>Monthly SIP Date </Typography>
+          <Calendar
+            showNeighboringMonth={false}
+            showNavigation={false}
+            // @ts-ignore
+            onChange={(val, e) => {
+              let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
+              setSipStartDay(date);
+            }}
+          />
+          <Button
+            onClick={() => {
+              if (sipStartDay) {
+                setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+              }
+            }}
+            variant="contained"
+            style={style.button}
+            sx={{
+              backgroundColor: "rgba(123, 123, 157, 0.05)",
+              color: "#7b7b9d",
+            }}
+          >
+            Confirm SIP Date
+          </Button>
         </Dialog>
         <Modal
           sx={{ borderRadius: 8 }}
@@ -768,7 +768,7 @@ const OneTimeMutualFund = () => {
                   Date confirmed!
                 </Typography>
                 <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
-                  Your Monthly SIP Date is {sipStartDay}th of every month
+                  Your Monthly SIP Date is {sipStartDay}{nth(sipStartDay)} of every month
                 </Typography>
               </Box>
               {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
