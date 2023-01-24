@@ -57,7 +57,6 @@ type IProps = {
 }
 
 const FundTable = (props: IProps) => {
-
   const [rows, setRows] = useState<any[]>([]);
 
   useEffect(() => {

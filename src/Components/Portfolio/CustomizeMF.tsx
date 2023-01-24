@@ -427,7 +427,7 @@ const CustomizeMF = () => {
           <Grid
             container
             sx={{
-              height: "100vh",
+              height: "100%",
               overflow: "scroll",
               width: "100%",
               display: "block",
@@ -485,7 +485,7 @@ const CustomizeMF = () => {
                   marginBottom: { xs: "7%", sm: "0%" },
                 }}
               >
-                <Box className="heading_main">
+                <Box className="width100Pixel">
                   <Typography
                     sx={{
                       fontSize: "12px",
@@ -525,14 +525,14 @@ const CustomizeMF = () => {
                     // onClick={() => navigate("/addfunds")}
                     onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_ADD_FUND, parentRoute: "/explorefunds" } })}
                     sx={{
-                      width: "200px",
+                      width:{xs:"100px", sm:"200px"},
                       height: "38px",
-                      padding: "11px 36px",
+                      padding:{xs:"7px 3px", sm:'11px 36px'},
                       borderRadius: "8px",
                       border: "solid 1px #23db7b",
                       backgroundColor: "#dff7ea",
                       textTransform: "capitalize",
-                      fontSize: "14px",
+                      fontSize: {xs:"11px", sm:'14px'},
                       fontWeight: 500,
                       color: "#09b85d",
                     }}

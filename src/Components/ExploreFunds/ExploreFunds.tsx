@@ -654,13 +654,15 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll", overflowX: 'hidden' } }} item xs={12}>
-              <Toolbar />
-
+          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10}>
+            <Toolbar />
+            <Grid container>
+            <Grid item xs={12}>
+            <Box className="BoxPadding ">
+              <Box className="BoxExploreBottom">
               {
                 status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
-                  <Box>
+                  <Box className="exploreBreadCrumb">
                     <Breadcrumbs
                       sx={{
                         fontSize: "12px",
@@ -707,7 +709,7 @@ function ExploreFunds(props: any) {
 
               {
                 status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
-                  <Box>
+                  <Box className="exploreBreadCrumb">
                     <Breadcrumbs
                       sx={{
                         fontSize: "12px",
@@ -740,43 +742,45 @@ function ExploreFunds(props: any) {
 
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
 
-                <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
                   {
-                    status === globalConstant.CEF_REPLACE_FUND ? <Box>
+                    status === globalConstant.CEF_REPLACE_FUND ? 
+                    <Box>
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                       <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
 
                     </Box> :
                       <>
                         {
-                          status === globalConstant.CEF_ADD_FUND ? <Box>
+                          status === globalConstant.CEF_ADD_FUND ? 
+                          <Box>
                             <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                             <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                             <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                            <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
                           </Box> :
                             status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
                               <Box>
                                 <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                                 <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                                 {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                               </Box>
                               : status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND ?
                                 <Box>
                                   <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                                   <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                                   {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                                 </Box>
                                 :
-                                <Box>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                <Box className="exploreBreadCrumb">
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginBottom:"10px" }}>Explore Funds </Typography>
                                   <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
                                   <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                                 </Box>
 
                         }
@@ -785,7 +789,7 @@ function ExploreFunds(props: any) {
 
 
                 </Box>
-                <Box padding={2} >
+                <Box className="width100pxExplore">
                   {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
                     <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
@@ -808,7 +812,7 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{ marginBottom: '15px' }}>
+                  <Box sx={{ marginBottom: '15px', marginTop:"10px" }}>
                     <SearchCmp
                       // filtersOptions={structuredClone(filterIndexes)}
                       filtersOptions={filterIndexes}
@@ -818,7 +822,7 @@ function ExploreFunds(props: any) {
                     />
                   </Box>
 
-
+                  <Box className="categoryScrollMobile">
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                     {
                       categoryGroupList &&
@@ -858,6 +862,7 @@ function ExploreFunds(props: any) {
                       })
                     }
                   </Box>
+                  </Box>
                 </Box>
               </Box>
 
@@ -891,6 +896,10 @@ function ExploreFunds(props: any) {
                   </>
               }
 
+            
+            </Box>
+            </Box>
+            </Grid>
             </Grid>
           </Grid>
 

@@ -1,5 +1,17 @@
 .investInsidePading{padding: 15px;
 }
+.ExploreMargintop{
+  margin-top: -10px;
+}
+.btnVisibeFull{
+  width: 400px !important;
+}
+.btnVisibeFull button{
+  width: 100% !important;
+}
+.BoxExploreBottom{
+  margin-bottom: 90px;
+}
 .buttonPriceRedeemFund:hover{
   background-color: #64dbff !important;
 }
@@ -113,6 +125,7 @@
     margin-top: 30px !important;
 }
 .BoxPadding{
+  position: relative;
     margin:25px;
 }
 .BoxVerification{
@@ -356,6 +369,28 @@
         min-height: auto !important;
         width: 83% !important;
     }
+    .width100pxExplore{
+      width: 100%;
+    }
+    .categoryScrollMobile{
+      overflow-x:scroll;
+      white-space: nowrap;
+    }
+    .categoryScrollMobile::-webkit-scrollbar-track {
+      border: 1px solid rgb(231, 228, 228);
+      /* padding: 2px 0; */
+      /* background-color: #404040; */
+    }
+    .categoryScrollMobile::-webkit-scrollbar {
+      /* width: 10px; */
+      display: none;
+     
+    }
+    
+    .categoryScrollMobile::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: transparent;
+    }
    
 }
 @media screen and (max-width: 600px){
@@ -370,8 +405,17 @@
     }
 }
 @media screen and (max-width: 600px){
+  .btnVisibeFull{
+    width: 100% !important;
+  }
   .borderrightColorText{
     border-right: none;
+  }
+  .exploreBreadCrumb{
+    margin-top: -50px !important;
+  }
+  .width100pxExplore{
+    width: 100%;
   }
   .categoryScrollMobile{
     overflow-x:scroll;
@@ -499,60 +543,6 @@
 }
     
 }
-@media screen and (width: 375px){
-  .BoxMarginLeftRight{
-    
-    margin: -59px 0px;
-
-}
-}
-@media (width:280px) {
-  .BoxMarginLeftRight{
-    
-        margin: -57px 1px;
-
-}
-
-  
-}
-@media screen and (width: 390px){
-  .BoxMarginLeftRight{
-    
-    margin: -59px 1px;
-
-}
-}
-
-@media screen and (width: 414px){
-  .BoxMarginLeftRight{
-  
-    margin: -58px 1px;
-  }
-}
-@media screen and (width: 393px){
-  .BoxMarginLeftRight{
-  
-    margin: -58px 0.9px;
-  }
-}
-@media screen and (width: 360px){
-  .BoxMarginLeftRight{
-  
-    margin: -58px 1px;
-  }
-}
-@media screen and (width: 412px){
-  .BoxMarginLeftRight{
-  
-    margin: -58px 0.99px;
-  }
-}
-@media screen and (width: 540px){
-  .BoxMarginLeftRight{
-  
-    margin: -55px 26px;
-  }
-}
 
 
 @media screen and (max-width: 360px){
@@ -584,6 +574,9 @@
     }
 }
 @media screen and (max-width: 280px){
+  .width100Pixel{
+    width: 100% !important;
+  }
   .imgSprintMoneyModal{
     padding-left: 80px !important;
   }
