@@ -257,18 +257,26 @@ function ExploreFunds(props: any) {
   const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
 
   useEffect(() => {
-    getCategoryGroupList();
-    getFundProviderList();
+    initiate();
     return () => {
       setIsInitialVariableFundListFetched(false);
       console.log("explore fund unmounted");
     }
-
   }, []);
+
+  /**Initial Functions */
+  const initiate = async () => {
+    await getCategoryGroupList();
+    await getFundProviderList();
+  }
+  /***************************************************************************************/
 
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
-      getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+
+      // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
+
+
       // const { data, isFundPurchased } = g_masterFundListForExploreFunds;
       // if (isFundPurchased) {
       //   getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
@@ -321,32 +329,35 @@ function ExploreFunds(props: any) {
   }, [activeCategoryGroupIndex]);
 
   useEffect(() => {
-    handlingFeatureWiseCard(masterFundList);
-  }, [masterFundList]);
+    const temp = [...filterIndexes];
 
-  useEffect(() => {
-    console.log("fundProviderList :", fundProviderList)
+    // temp && temp?.length &&
+    //   temp.map((item, index) => {
+    //     if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
+    //       temp[index].keyValues = fundProviderList;
+    //       temp[index].keyValues.unshift({
+    //         providerid: "0",
+    //         providername: "All"
+    //       })
+    //       setFilterIndexes(temp)
+    //       console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
+    //     }
+    //   })
 
-    const temp = [...filterIndexes]
-    temp && temp?.length &&
-      temp.map((item, index) => {
-        if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
-          temp[index].keyValues = fundProviderList;
-          temp[index].keyValues.unshift({
-            providerid: "0",
-            providername: "All"
-          })
-          setFilterIndexes(temp)
-          console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
-        }
+    if (temp && temp?.length) {
+      temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"] = fundProviderList;
+      temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"].unshift({
+        providerid: "0",
+        providername: "All"
       })
 
-
-    console.log("temp filter changed :", temp);
-
-
-
+      setFilterIndexes(temp)
+    }
   }, [fundProviderList]);
+
+  useEffect(() => {
+    handlingFeatureWiseCard(masterFundList);
+  }, [masterFundList]);
 
   useEffect(() => {
     if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
@@ -357,6 +368,8 @@ function ExploreFunds(props: any) {
     }
   }, [g_masterFundListForExploreFunds, activeCategoryGroupIndex])
 
+
+  /** Getting Provider and Categorygroup list for getting fund list according to them */
   const getFundProviderList = async () => {
     let response: apiResponse = await getListOfMutualFundProviderCoThunk();
     console.log("fundProviderList response :", response)
@@ -365,19 +378,20 @@ function ExploreFunds(props: any) {
     // @ts-ignore
     handleApiResponse(response, [setFundProviderList]);
 
-    response.data = [...response.data];
+    // response.data = [...response.data];
     // @ts-ignore
-    handleApiResponse(response, [setFundProviderList]);
+    // handleApiResponse(response, [setFundProviderList]);
     return response;
   };
-
   const getCategoryGroupList = async () => {
     let res: apiResponse = await getCategoryGroupListThunk();
     res.data = [...res.data?.categorygroups];
     // @ts-ignore
     handleApiResponse(res, [setCategoryGroupList]);
   };
+  /***************************************************************************************/
 
+  /**Below four functions are the backbone of explore funds, Features:- getting fund list data from API, modifying data according to the user selections */
   const getMasterFundList = async (url: string) => {
     setLoading(true);
     let res: apiResponse = await getMasterFundListThunk(url);
@@ -389,7 +403,6 @@ function ExploreFunds(props: any) {
     // @ts-ignore
     handleApiResponse(res?.data, [setMasterFundList]);
   };
-
   const handleApiResponse = (res: apiResponse, arrFunc: void[]) => {
     if (checkExpirationOfToken(res?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
@@ -429,7 +442,6 @@ function ExploreFunds(props: any) {
     })
 
   };
-
   const handlingFeatureWiseCard = async (arrRecom: any[]) => {
     if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
       setVariableMasterFundList(arrRecom);
@@ -463,7 +475,6 @@ function ExploreFunds(props: any) {
       setMasterFundListLength(0)
     }
   };
-
   const filteringDataWrtSelectedFunds = (arrFundSelected: any[], arrVariableMasterFundList: any[]) => {
     let arrSecIds: string[] = arrFundSelected.map((item: any) => item?.secid);
     let arrFilteredList: any[] = [];
@@ -484,38 +495,9 @@ function ExploreFunds(props: any) {
       setIsInitialVariableFundListFetched(false);
     }
   };
+  /***************************************************************************************/
 
-
-  const handleSearchFunctionality = (e: any) => {
-    if (masterFundList && masterFundList.length) {
-      const { value } = e?.target;
-      let arrMasterFundList: any[] = [...masterFundList];
-      if (!value) {
-        setVariableMasterFundList(arrMasterFundList);
-        return;
-      }
-
-      let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
-
-      if (arrFiltered && arrFiltered.length) {
-        // handlingFeatureWiseCard(arrFiltered);
-        setVariableMasterFundList(arrFiltered)
-      } else {
-        setVariableMasterFundList([]);
-      }
-    } else {
-      console.log("master fund list is empty");
-    }
-  };
-
-  const handleNavigationOfFundDetails = (secid: string) => {
-    if (secid) {
-      navigate("/funddetails", { state: { secid: secid, parentRoute: "/explorefunds" } });
-    } else {
-      console.log(secid, "invalid secid");
-    }
-  };
-
+  /**This function handles adding and replacing functionality*/
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
 
     // let arrMasterFundList: any[] = [...masterFundList];
@@ -572,12 +554,35 @@ function ExploreFunds(props: any) {
 
     }
   };
+  /***************************************************************************************/
 
-  const handleClose = () => {
-    setAddFundOpen(false);
+  /**Search functionality */
+  const handleSearchFunctionality = (e: any) => {
+    if (masterFundList && masterFundList.length) {
+      const { value } = e?.target;
+      let arrMasterFundList: any[] = [...masterFundList];
+      if (!value) {
+        setVariableMasterFundList(arrMasterFundList);
+        return;
+      }
+
+      let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
+
+      if (arrFiltered && arrFiltered.length) {
+        // handlingFeatureWiseCard(arrFiltered);
+        setVariableMasterFundList(arrFiltered)
+      } else {
+        setVariableMasterFundList([]);
+      }
+    } else {
+      console.log("master fund list is empty");
+    }
   };
+  /***************************************************************************************/
 
-  const urlWithFilter = (data: any, categoryIndex?: number) => {
+  /**Filter functionality */
+  const urlWithFilter = async (data: any, categoryIndex?: number) => {
+    console.log("urlWithFilter()")
     if (data && data[enumFilterIndexes.FUND_TYPE] || data[enumFilterIndexes.SORT] || (data[enumFilterIndexes.FUND_HOUSE] && data[enumFilterIndexes.FUND_HOUSE]?.length)) {
       var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}`;
 
@@ -589,14 +594,13 @@ function ExploreFunds(props: any) {
       }
       return url;
     } else if (categoryIndex) {
-      const urlWithoutFilter = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
-      return urlWithoutFilter;
+      console.log(categoryIndex, "categoryIndex  url with filter")
+      return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
     } else {
       return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[activeCategoryGroupIndex]}`
     }
   };
-
-  const handleFilterCB = (data: any) => {
+  const handleFilterCB = async (data: any) => {
     const tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
     // const sortedItem = filterIndexes[0].keyValues.filter((item:any) =>{
     //   if(item.value === data[enumFilterIndexes.SORT]){
@@ -611,11 +615,28 @@ function ExploreFunds(props: any) {
     // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
     //   url += item + ',' 
     // })
-    const tempUrl = urlWithFilter(data)
-    console.log("click value :", data, tempUrl, tempIndex)
+    const tempUrl = await urlWithFilter(data)
+    console.log("handleFilterCB()", data, tempUrl, tempIndex)
 
     getMasterFundList(tempUrl);
   };
+  /***************************************************************************************/
+
+  /**Fund Details */
+  const handleNavigationOfFundDetails = (secid: string) => {
+    if (secid) {
+      navigate("/funddetails", { state: { secid: secid, parentRoute: "/explorefunds" } });
+    } else {
+      console.log(secid, "invalid secid");
+    }
+  };
+  /***************************************************************************************/
+
+  /** Add amount functionality */
+  const handleClose = () => {
+    setAddFundOpen(false);
+  };
+  /***************************************************************************************/
 
   const handleNavigation = (strRoute: string) => {
     navigate(strRoute);
@@ -633,13 +654,15 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={13} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 2, overflow: { sx: "auto", sm: "scroll", overflowX: 'hidden' } }} item xs={12}>
-              <Toolbar />
-
+          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10}>
+            <Toolbar />
+            <Grid container>
+            <Grid item xs={12}>
+            <Box className="BoxPadding ">
+              <Box className="BoxExploreBottom">
               {
                 status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
-                  <Box>
+                  <Box className="exploreBreadCrumb">
                     <Breadcrumbs
                       sx={{
                         fontSize: "12px",
@@ -686,7 +709,7 @@ function ExploreFunds(props: any) {
 
               {
                 status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
-                  <Box>
+                  <Box className="exploreBreadCrumb">
                     <Breadcrumbs
                       sx={{
                         fontSize: "12px",
@@ -719,43 +742,45 @@ function ExploreFunds(props: any) {
 
               <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
 
-                <Box padding={2} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
+                <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
                   {
-                    status === globalConstant.CEF_REPLACE_FUND ? <Box>
+                    status === globalConstant.CEF_REPLACE_FUND ? 
+                    <Box>
                       <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                       <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                       <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
 
                     </Box> :
                       <>
                         {
-                          status === globalConstant.CEF_ADD_FUND ? <Box>
+                          status === globalConstant.CEF_ADD_FUND ? 
+                          <Box>
                             <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                             <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                             <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                            <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
                           </Box> :
                             status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
                               <Box>
                                 <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                                 <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
                                 {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                               </Box>
                               : status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND ?
                                 <Box>
                                   <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
                                   <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
                                   {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                                 </Box>
                                 :
-                                <Box>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                <Box className="exploreBreadCrumb">
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginBottom:"10px" }}>Explore Funds </Typography>
                                   <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
                                   <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "20px" }}>{masterFundListLength} funds found</Typography>
+                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
                                 </Box>
 
                         }
@@ -764,7 +789,7 @@ function ExploreFunds(props: any) {
 
 
                 </Box>
-                <Box padding={2} >
+                <Box className="width100pxExplore">
                   {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
                     <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
@@ -787,7 +812,7 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{ marginBottom: '15px' }}>
+                  <Box sx={{ marginBottom: '15px', marginTop:"10px" }}>
                     <SearchCmp
                       // filtersOptions={structuredClone(filterIndexes)}
                       filtersOptions={filterIndexes}
@@ -797,7 +822,7 @@ function ExploreFunds(props: any) {
                     />
                   </Box>
 
-
+                  <Box className="categoryScrollMobile">
                   <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                     {
                       categoryGroupList &&
@@ -806,10 +831,10 @@ function ExploreFunds(props: any) {
                         return (
                           <Box
                             key={index}
-                            onClick={() => {
+                            onClick={async () => {
                               setActiveCategoryGroupIndex(index);
                               // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
-                              let url = urlWithFilter(filterValues, index)
+                              let url = await urlWithFilter(filterValues, index)
                               setFundSelecteds([]);
                               setInitialMFData(false);
                               setIsInitialVariableFundListFetched(false);
@@ -836,6 +861,7 @@ function ExploreFunds(props: any) {
                         )
                       })
                     }
+                  </Box>
                   </Box>
                 </Box>
               </Box>
@@ -870,6 +896,10 @@ function ExploreFunds(props: any) {
                   </>
               }
 
+            
+            </Box>
+            </Box>
+            </Grid>
             </Grid>
           </Grid>
 
@@ -1023,12 +1053,12 @@ const SelectedFundsDialog = (props: any) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
-  maxWidth="sm"
+      maxWidth="sm"
       style={{
         width: "100%",
       }}
     >
-      <DialogTitle sx={{fontSize:{xs:"18px !important", sm:"25px !important"}, textAlign:"left"}} id="alert-dialog-title">
+      <DialogTitle sx={{ fontSize: { xs: "18px !important", sm: "25px !important" }, textAlign: "left" }} id="alert-dialog-title">
         {"Add Funds"}
       </DialogTitle>
       <DialogContent className='addMoreFundScroll'>
@@ -1088,7 +1118,7 @@ const SelectedFundsDialog = (props: any) => {
             Buy Now
           </Typography></Button>
 
-        <Button onClick={props?.handleClose} sx={{position:"absolute", right:"0", top:"12px"}} >
+        <Button onClick={props?.handleClose} sx={{ position: "absolute", right: "0", top: "12px" }} >
           <ClearIcon />
         </Button>
       </DialogActions>

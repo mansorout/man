@@ -25,7 +25,7 @@ import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import { setInvestmentCardTypeAction, setMutualFundListWrtUserAmountAction, setSelectedFundsForInvestmentAction } from "../../Store/Recommendations/actions/recommendations-action";
 import siteConfig from "../../Utils/siteConfig";
 import OneTimeMutualFundCard2 from "../../Modules/CustomCard/OneTimeMutualFundCard2";
-import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount } from "../../Utils/globalFunctions";
+import { checkExpirationOfToken, getMutualFundRecommendationListWRTUserAmount, nth } from "../../Utils/globalFunctions";
 import { apiResponse } from "../../Utils/globalTypes";
 import { getMutualFundListWrtUserAmountThunk, setAddMutualFundThunk, setUpdateMutualFundThunk } from "../../Store/Recommendations/thunk/recommendations-thunk";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
@@ -120,7 +120,7 @@ const style = {
     backgroundColor: "var(--primaryColor) !important",
     color: 'var(--uiWhite) !important',
     // width: 350,
-},
+  },
   main: {
     boxSizing: "border-box",
     backgroundColor: "#f9f9f9",
@@ -128,7 +128,7 @@ const style = {
   } as React.CSSProperties,
   modalText: {
     backgroundColor: "#FFF",
-     width: "100%",
+    width: "100%",
     textAlign: "center",
     marginLeft: "1px",
     padding: "5px",
@@ -157,7 +157,7 @@ const style = {
     // marginTop: 21,
     // marginLeft: -8,
   },
-  
+
 };
 
 const initialMFData = {
@@ -427,7 +427,7 @@ const CustomizeMF = () => {
           <Grid
             container
             sx={{
-              height: "100vh",
+              height: "100%",
               overflow: "scroll",
               width: "100%",
               display: "block",
@@ -485,7 +485,7 @@ const CustomizeMF = () => {
                   marginBottom: { xs: "7%", sm: "0%" },
                 }}
               >
-                <Box className="heading_main">
+                <Box className="width100Pixel">
                   <Typography
                     sx={{
                       fontSize: "12px",
@@ -525,14 +525,14 @@ const CustomizeMF = () => {
                     // onClick={() => navigate("/addfunds")}
                     onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_ADD_FUND, parentRoute: "/explorefunds" } })}
                     sx={{
-                      width: "200px",
+                      width:{xs:"100px", sm:"200px"},
                       height: "38px",
-                      padding: "11px 36px",
+                      padding:{xs:"7px 3px", sm:'11px 36px'},
                       borderRadius: "8px",
                       border: "solid 1px #23db7b",
                       backgroundColor: "#dff7ea",
                       textTransform: "capitalize",
-                      fontSize: "14px",
+                      fontSize: {xs:"11px", sm:'14px'},
                       fontWeight: 500,
                       color: "#09b85d",
                     }}
@@ -619,33 +619,33 @@ const CustomizeMF = () => {
             setActiveScreen(enumActiveScreen.CLOSE_MODAL);
           }}
         >
-            <Typography sx={style.modalText}>Monthly SIP Date</Typography>
-            <Calendar
-              showNeighboringMonth={false}
-              showNavigation={false}
-              // @ts-ignore
-              onChange={(val, e) => {
-                let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
-                setSipStartDay(date);
-              }}
-            />
-            <Button
-              onClick={() => {
-                if (sipStartDay) {
-                  setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
-                }
-              }}
-              disabled={sipStartDay ? false : true}
-              variant="contained"
-              style={style.button2}
-             sx={{
-                color: '#7b7b9d',
-                boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
-    backgroundColor: "var(--primaryColor) !important",
+          <Typography sx={style.modalText}>Monthly SIP Date</Typography>
+          <Calendar
+            showNeighboringMonth={false}
+            showNavigation={false}
+            // @ts-ignore
+            onChange={(val, e) => {
+              let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : ""
+              setSipStartDay(date);
             }}
-            >
-              Confirm SIP Date
-            </Button>
+          />
+          <Button
+            onClick={() => {
+              if (sipStartDay) {
+                setActiveScreen(enumActiveScreen.OPEN_CONFIRMATION_MODAL);
+              }
+            }}
+            disabled={sipStartDay ? false : true}
+            variant="contained"
+            style={style.button2}
+            sx={{
+              color: '#7b7b9d',
+              boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+              backgroundColor: "var(--primaryColor) !important",
+            }}
+          >
+            Confirm SIP Date
+          </Button>
         </Dialog>
         <Dialog
           sx={{ borderRadius: 8 }}
@@ -662,10 +662,10 @@ const CustomizeMF = () => {
             <Box
               alignItems="center"
               justifyContent="center"
-              // sx={{
-              //   marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-              //   marginTop: { xs: "50%", lg: "13%", md: "30%" },
-              // }}
+            // sx={{
+            //   marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
+            //   marginTop: { xs: "50%", lg: "13%", md: "30%" },
+            // }}
             >
               <Box
                 sx={{
@@ -683,7 +683,7 @@ const CustomizeMF = () => {
                   Date confirmed!
                 </Typography>
                 <Typography sx={{ marginTop: 1, color: "#8787a2" }}>
-                  Your Monthly SIP Date is {sipStartDay}th of every month
+                  Your Monthly SIP Date is {sipStartDay}{nth(sipStartDay)} of every month
                 </Typography>
               </Box>
               {/* <Button onClick={() => { setActiveScreen(enumActiveScreen.OPEN_NET_BANKING) }} variant='contained' style={style.button} sx={{ */}
