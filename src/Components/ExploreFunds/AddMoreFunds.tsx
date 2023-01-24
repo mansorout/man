@@ -207,7 +207,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
               }}
             >
               <Typography
-                sx={{width:{xs:"80px", sm:"100px"}, overflow:"hidden"}}
+                sx={{width:{xs:"auto", sm:"100px"}, overflow:"hidden"}}
                 style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500"}}
               >
 

@@ -66,29 +66,26 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogContent
-          sx={{
-            width: { xs: "100%", sm: "100%" },
-            minWidth: { xs: "100%", sm: "300px" },
-            padding: { xs: "10px 4px", sm: "0px 0px" },
-          }}
-        >&nbsp;
+        
+     
           {!props.errorText ? (
             <Grid container>
-              <Grid item xs={2}>
+              <Grid item xs={12}  md={12}>
                 <Box
-                  sx={{ borderRadius: "50%", height: "50px", width: "50px" }}
+                  sx={{ borderRadius: "50%", height: "50px", width: "50px", paddingLeft: "41%",
+                  paddingTop: "18px" }}
+                  textAlign="center"
 
                 >
                   <img
-                    style={{ height: "25px", width: "25px",position:"relative", left :"20%" }}
+                    style={{ height: "25px", width: "25px",marginTop:"10px"}}
                     src={SuccessLogo}
                     alt="error"
                   />
                 </Box>
               </Grid>
 
-              <Grid item xs={10}>
+              <Grid item xs={12} md={12}  textAlign="center">
                 <DialogContentText
                   sx={{ color: "green" }}
                   id="alert-dialog-slide-description"
@@ -99,56 +96,39 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
             </Grid>
           ) : (
             <Grid container>
-              <Grid item xs={10} sm={11}>
-                &nbsp;
-                <DialogContentText
-                  sx={{ color: "red", textAlign: "center" }}
-                  id="alert-dialog-slide-description"
-                >
-                  {props.errorText}
-                </DialogContentText>
-              </Grid>
-              <Grid item xs={2} sm={1}>
+              
+              <Grid item xs={12} md={12}>
                 <Box
                   onClick={() => handleClose}
-                  sx={{ borderRadius: "50%", height: "50px", width: "50px",position:"relative", left:"-5px", top:"8px"}}
+                  sx={{ borderRadius: "50%", height: "50px", width: "50px",  paddingLeft: "39%",
+                  paddingTop: "18px"}}
+                  textAlign="center"
+                 className="errorlogo"
                 >
                   <img
                     style={{ height: "25px", width: "25px" }}
                     src={ContactError}
                     alt="error"
+                    
                   />
                 </Box>
               </Grid>
+              <Grid item xs={12} md={12} >
+                
+                <DialogContentText
+                  sx={{ color: "red", textAlign: "center",marginTop:"-10px" }}
+                  id="alert-dialog-slide-description"
+                >
+                  {props.errorText}
+                </DialogContentText>
+              </Grid>
+
+
+
             </Grid>
           )}
 
-          {/* <Grid container sx={{
-                        display: "flex",
-                        flexDirection: "column"
-                    }} >
-                        <Grid item md={4}>
-
-                            <img style={{ paddingLeft: " 85px", height: "25px", width: "25px", }} src={SuccessLogo} alt="error" />
-
-                        </Grid>
-                        <Grid item md={4}>
-                            <Typography sx={{ textAlign: "center",minWidth: "100% !important"}}>Succes Message</Typography>
-                        </Grid>
-                        <Grid item md={4}>
-                            <Typography sx={{ textAlign: "center"}}>
-                                Error Message
-                            </Typography>
-                        </Grid>
-                        <Grid item md={12}>
-
-                            <Button sx={{ width: { xs: '85%', sm: '40%', md: '100%', maxHeight: "50px" } }} variant="contained" style={{ backgroundColor: 'var(--primaryColor)' }} ><Typography sx={{
-                                textAlign: "center", minWidth: " 100%"
-                            }}>Continue</Typography></Button>
-
-                        </Grid>
-                    </Grid> */}
-        </DialogContent>
+      
         <DialogActions sx={{ paddingRight: "10px" }}>
           <Button
             sx={{ width: "100%" }}
