@@ -230,11 +230,7 @@ const MutualFundCard2 = (props: MFProp) => {
           >
             <img src={props?.fundimage} width="100%" alt="mirae"></img>
           </Box>
-          <Box
-            onClick={() => {
-              if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
-            }}
-          >
+          <Box>
             <Typography
               style={{
                 marginBottom: "10px",
@@ -256,6 +252,22 @@ const MutualFundCard2 = (props: MFProp) => {
               >
                 <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>
                   {props?.categorygroup}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "10px" }}>
+              <Box
+                style={{
+                  padding: "4px 5px",
+                  backgroundColor: "rgba(123, 123, 157, 0.16)",
+                }}
+                onClick={() => {
+                  if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
+                }}
+              >
+                <Typography style={{ color: "var(--bgColor)", fontSize: "12px", textDecoration: "underline" }}>
+                  View Scheme Detail
                 </Typography>
               </Box>
             </Box>
