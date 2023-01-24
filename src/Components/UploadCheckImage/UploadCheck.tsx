@@ -530,7 +530,7 @@ function UploadCheck() {
                       <Link
                         underline="always"
                         color="#6495ED"
-                        href="/vp"
+                        onClick={()=>navigate('/viewprofile')}
                       >
                         <Typography className='burgerText'>  View Profile</Typography>
 
