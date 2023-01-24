@@ -75,7 +75,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 interface LineChartProps {
   optionsValues: any;
   dataValues: any;
-  onClick?: (val: any) => void
+  onClick?: (val: any) => void,
 }
 
 const LineChart = (props: LineChartProps) => {
@@ -97,7 +97,7 @@ const LineChart = (props: LineChartProps) => {
 
     const { datasetIndex, index } = element[0];
 
-    console.log(props.dataValues.labels[index], props.dataValues.datasets[datasetIndex].data[index], props.dataValues.datasets[datasetIndex].label);
+    console.log("kp ", props.dataValues.labels[index], props.dataValues.datasets[datasetIndex], props?.dataValues?.datasets[datasetIndex]?.label);
 
     if (props?.onClick) props?.onClick({ label: props?.dataValues?.labels[index], value: props?.dataValues?.datasets[datasetIndex]?.data[index], lineLabel: props?.dataValues?.datasets[datasetIndex]?.label })
   };
