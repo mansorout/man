@@ -85,6 +85,22 @@ export const getIncomeSlabListThunk = () => {
   }
 }
 
+export const getDefaultList = async(strUrl:string)=>{
+  let res :any;
+
+  await getDataWithoutToken(
+    strUrl,
+    siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+    siteConfig.METADATA_API_ID,
+    ).then((res) => res.json()).then((data) => {
+      res = data;
+    }).catch((error) => {
+      console.log(error);
+    })
+
+  return res;
+}
+
 export const setUploadImageThunk = async (ImageData:any) => {
   let res: any;
   

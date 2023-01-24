@@ -230,11 +230,7 @@ const MutualFundCard2 = (props: MFProp) => {
           >
             <img src={props?.fundimage} width="100%" alt="mirae"></img>
           </Box>
-          <Box
-            onClick={() => {
-              if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
-            }}
-          >
+          <Box>
             <Typography
               style={{
                 marginBottom: "10px",
@@ -256,6 +252,22 @@ const MutualFundCard2 = (props: MFProp) => {
               >
                 <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>
                   {props?.categorygroup}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "10px" }}>
+              <Box
+                style={{
+                  padding: "4px 5px",
+                  backgroundColor: "rgba(123, 123, 157, 0.16)",
+                }}
+                onClick={() => {
+                  if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
+                }}
+              >
+                <Typography style={{ color: "var(--bgColor)", fontSize: "12px", textDecoration: "underline" }}>
+                  View Scheme Detail
                 </Typography>
               </Box>
             </Box>
@@ -388,11 +400,15 @@ const MutualFundCard2 = (props: MFProp) => {
                 {console.log(props?.fundSelected, "props?.fundselected")}
                 <Box component="span" >
                   <Checkbox
+                  //  color="success"
+                   style ={{
+                    color: "#23db7b",
+                  }}
                     onClick={(e: any) => {
                       if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
                     }}
                     // checked={props?.fundselected ? props?.fundselected : false}
-
+                   
                     checked={props?.fundSelected ? true : false}
                   />
 

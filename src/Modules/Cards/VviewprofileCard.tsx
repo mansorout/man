@@ -129,20 +129,20 @@ function VviewprofileCard(props: IProps) {
 
 
             >
-                <List>
+                <List >
                     <ListItem
                         secondaryAction={
                             userProfileKycStatus ? <Typography
                                 sx={{
 
                                     backgroundColor: "#23db7b",
-                                    color: "#000",
+                                    color: " #fff",
                                     fontSize: "12px",
                                     fontWeight: "bold",
                                     borderRadius: " 20px",
-                                    padding: "2px 21px 2px 23px",
+                                    padding: "2px 8px",
                                 }}
-                                className="IncompleteStyle_View"
+                                
                             >
                                 Completed
                             </Typography> :
@@ -154,7 +154,7 @@ function VviewprofileCard(props: IProps) {
                                         fontSize: "12px",
                                         fontWeight: "bold",
                                         borderRadius: " 20px",
-                                        padding: "2px 21px 2px 23px",
+                                        padding: "2px 8px",
                                     }}
                                     className="IncompleteStyle_View"
                                 >
