@@ -280,20 +280,25 @@ function ExploreFunds(props: any) {
       // }
 
       console.log("categoryGroupList : ", categoryGroupList)
-      const temp = [...filterIndexes]
-      temp && temp?.length &&
-        temp.map((item, index) => {
-          // if(item?.key === enumFilterIndexes?.SORT){
-          //   console.log("temp filter SORT :", temp[index])
-          //   temp[index].activeSortIndex = activeSortIndex;
-          // }
+      let temp: any[] = [...filterIndexes];
+      if (temp && temp?.length) {
+        // temp.map((item, index) => {
+        //   // if(item?.key === enumFilterIndexes?.SORT){
+        //   //   console.log("temp filter SORT :", temp[index])
+        //   //   temp[index].activeSortIndex = activeSortIndex;
+        //   // }
 
-          if (item?.key === enumFilterIndexes?.FUND_TYPE) {
-            console.log("temp filter :", temp[index]?.keyValues)
-            temp[index].keyValues = categoryGroupList;
-            temp[index].activeCategoryIndex = activeCategoryGroupIndex;
-          }
-        })
+        //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
+        //     console.log("temp filter :", temp[index]?.keyValues)
+        //     temp[index].keyValues = categoryGroupList;
+        //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
+        //   }
+        // })
+
+        temp[enumIndexesOfFilterType.FUND_TYPE]["keyValues"] = categoryGroupList;
+        temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
+      }
+
       setFilterIndexes(temp)
       console.log("temp filter changed :", temp)
     }
