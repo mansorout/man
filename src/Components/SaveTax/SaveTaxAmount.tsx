@@ -358,6 +358,11 @@ const SaveTaxAmount = () => {
                                     <Typography component='p'>Lumpsum investment</Typography>
 
                                     <TextField
+                                        onKeyDown={event => {
+                                            if (event.key == "." || event.key === "-" || event.key === "e") {
+                                                event.preventDefault();
+                                            }
+                                        }}
                                         label="Enter Amount"
                                         id="outlined-start-adornment"
                                         value={lumpsumAmount}
@@ -394,6 +399,11 @@ const SaveTaxAmount = () => {
                                     <Typography component='p'>Monthly investment</Typography>
 
                                     <TextField
+                                    onKeyDown={event => {
+                                        if (event.key == "." || event.key === "-" || event.key === "e") {
+                                            event.preventDefault();
+                                        }
+                                    }}
                                         label="Monthly investment"
                                         
                                         id="outlined-start-adornment"
