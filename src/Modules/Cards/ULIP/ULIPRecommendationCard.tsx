@@ -155,7 +155,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         </Box >
                         <ThemeProvider theme={theme} >
       {/* pre-defined color */}
-     
+    
       <Radio
         {...radiosvarible}
         sx={{
