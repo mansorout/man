@@ -144,7 +144,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Box className={classes.imgWrapper}>
                             <img src={props.logoUrl} alt="" />
                         </Box>
-                        <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize) 10px'}} className="companyNameStyle">{props.companyName}</b>
+                        <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize) '}} className="companyNameStyle">{props.companyName}</b>
                     </Box>
                 </Grid>
                 <Grid item sm={6} xs={6} md={6} sx={{ display: 'flex', justifyContent: 'flex-end', }}>
@@ -153,7 +153,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                         <Box className={classes.projectedAmount}>
                             ₹{props.projectedAmount}
                         </Box >
-                        <ThemeProvider theme={theme}>
+                        <ThemeProvider theme={theme} >
       {/* pre-defined color */}
      
       <Radio
