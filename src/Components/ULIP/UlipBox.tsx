@@ -392,7 +392,7 @@ const UlipBox = (props: any) => {
 
         <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Typography>gg</Typography>
+            
             <Box sx={{ width: "100%", }}>
                 <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>

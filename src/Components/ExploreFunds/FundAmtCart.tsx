@@ -331,7 +331,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               onClick={() => props.replaceBtnAction(props?.data)}
             >
               <img src={ReplaceButtonIcon} />
-              Replace
+              REPLACE
             </Button>
             <Button variant="contained" sx={{
               backgroundColor: 'rgba(255, 83, 0, 0.05)',
@@ -347,7 +347,7 @@ export default function FundAmtCard(props: FundAmtCard) {
             // props.removeBtnAction(props?.data
             >
               <img src={RemoveButtonIcon} />
-              Remove
+              REMOVE
             </Button>
           </Box>
         </Box>
