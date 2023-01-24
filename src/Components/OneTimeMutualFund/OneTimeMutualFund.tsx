@@ -548,7 +548,7 @@ const OneTimeMutualFund = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <Box className="heading_main">
+                <Box>
                   <Typography
                     sx={{
                       fontSize: "14px",
