@@ -227,6 +227,7 @@ const UlipBox = (props: any) => {
     useEffect(() => {
         dispatch(insuranceUlipLumpsumAction(investmentType));
     }, []);
+    
 
     useEffect(() => {
         const urlTemp: ulipReturnApiParamsTypes = {
@@ -234,8 +235,12 @@ const UlipBox = (props: any) => {
             amount: ulipInsuranceAmount,
         };
         console.log(urlTemp);
+        
+        // dispatch(setUlipReturnSuccessAction(data?.data))
         dispatch(getUlipReturnApi(urlTemp));
     }, [ulipInsuranceAmount]);
+
+
 
     useEffect(() => {
         const labels = ulipReturnApiData?.map(
@@ -613,7 +618,7 @@ const UlipBox = (props: any) => {
                                                 className="Ulippaddingright"
                                             >
                                                 {/* <UlipPlanPerformanceCard /> */}
-                                                <Box className={classes.performanceGraphCard} >
+                                                <Box className={classes.performanceGraphCard}>
                                                     <Typography
                                                         component="p"
                                                         sx={{
