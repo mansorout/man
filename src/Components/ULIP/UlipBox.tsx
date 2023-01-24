@@ -392,7 +392,7 @@ const UlipBox = (props: any) => {
 
         <Box style={{ width: "100vw" }}>
             <Navbar />
-        
+            
             <Box sx={{ width: "100%", }}>
                 <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
@@ -407,7 +407,7 @@ const UlipBox = (props: any) => {
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Grid xs={12} sm={12} md={12}>
+                            <Grid xs={12} sm={12} md={12} sx={{ marginTop: { xs: "-50px", sm: "0" } }}>
                                 <Box className="BoxMarginLeftRight">
                                     {/* <RecommendationsELSSHeader /> */}
 
