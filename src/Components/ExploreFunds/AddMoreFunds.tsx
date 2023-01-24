@@ -1,5 +1,5 @@
 import './Portfolio.css'
-import { Box, styled } from '@mui/system'
+import { Box, styled, Stack } from '@mui/system'
 import { Avatar, Breadcrumbs, Chip, Grid, IconButton, InputBase, Typography } from '@mui/material'
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { Drawer as DrawerList, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
@@ -26,6 +26,16 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     // padding: '15px 7px',
     paddingBottom: '15px',
     borderRadius: '8px',
+  },
+  actibeBtn: {
+    "&:focus": {
+      backgroundColor: "rgb(111 121 239 / 40%) !important",
+    },
+  },
+  btn: {
+    "&:hover": {
+      backgroundColor: "rgb(111 121 239 / 40%) !important",
+    }
   },
   cardDeactiveState: {
     backgroundColor: '#ddd',
@@ -111,7 +121,12 @@ interface AddFundAmtCard {
 }
 
 export default function FundAmtCard(props: AddFundAmtCard) {
-  console.log(props.errorAmount)
+  const enumPriceList = {
+    ZERO: "0",
+    ONE_THOUSAND: "+1000",
+    FIVE_THOUSAND: "+5000",
+    TEN_THOUSAND: "+10,000"
+  }
   //@ts-ignore
   const classes = useStyles()
   const [removeConfirmation, setRemoveConfirmation] = React.useState<boolean>(false);
@@ -119,6 +134,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
   const [amount, setAmount] = React.useState<any>();
   const [errorMessageFN, setErrorMessageFN] = React.useState<any>("");
   const [error, setError] = React.useState<any>("")
+  const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
 
   const handleRemoveClick = (strtype: string) => {
     console.log(removeItem)
@@ -126,7 +142,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
     if (strtype === "no") return
     if (props?.removeBtnAction) props?.removeBtnAction(removeItem);
   };
-
+  const arrPriceList = [1000, 5000, 10000];
   function handleOnBlurAmount(e: any) {
     if (amount < props.data.lumpsumminamount) {
       setError(true)
@@ -139,6 +155,22 @@ export default function FundAmtCard(props: AddFundAmtCard) {
     }
 
   }
+  const timerRef: any = useRef();
+  const handleTimer = (cb: any | void, a: any) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => { 
+      cb(a);
+    }, 200);
+  }
+  const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+    console.log(strAmount)
+    console.log(nAmount)
+    setActivePriceAmount(strAmount);
+    setAmount(nAmount)
+    // setAmount((prev: number) => prev + nAmount);
+    // let val = amount + nAmount;
+    // console.log(val)
+  }
 
   let textColor = "#8787a2"
   if (amount === "" || !amount || amount?.length == 0) {
@@ -149,12 +181,48 @@ export default function FundAmtCard(props: AddFundAmtCard) {
 
   return (
     <>
-      <Grid xs={12} sm={12}>
-        <p>{props?.data?.fundname}</p>
+      <Grid xs={12} sm={12} style={{marginBottom:"10px"}}>
+        <Box style={{display:"flex", marginBottom:"10px"}}>
+          <Grid container>
+              <Grid xs={9} sm={8}>
+              <Box style={{display:"flex",}}>
+              <Box style={{overflow:"hidden",height:"32px", width:"100%",maxWidth:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
+                    <img src={props?.data?.fundimage} width="100%" alt='mirae'></img>
+                </Box>
+        <p className='textFundname' style={{margin:"6px 10px"}}>{props?.data?.fundname}</p>
+        </Box>
+              </Grid>
+              <Grid xs={3} sm={4}>
+              <Box style={{width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                justifyContent: "flex-end",alignItems:"center"}}>
+        <Box
+              style={{
+                padding: "4px 8px",
+                backgroundColor: "#d6d5ef",
+                borderRadius: "2px",
+                
+              }}
+            >
+              <Typography
+                sx={{width:{xs:"80px", sm:"100px"}, overflow:"hidden"}}
+                style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500"}}
+              >
+
+                ₹{amount?amount:"0"}
+
+              </Typography>
+            </Box>
+        </Box>
+              </Grid>
+          </Grid>
+        </Box>
         <Box sx={{ position: "relative" }}>
           <TextField label="Enter Investment Amount"
             type="number"
-            name="middleName"
+            name="Amount"
             fullWidth
             placeholder='₹1,00,000'
             onBlur={handleOnBlurAmount}
@@ -162,8 +230,8 @@ export default function FundAmtCard(props: AddFundAmtCard) {
               props?.handleOnChangeFunAddFund(e, props?.data, props?.index)
               setAmount(e.target.value)
             }}
-            value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount : ''}
-            sx={{ width: "500px", maxWidth: "100%" }}
+            value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount : amount}
+            sx={{ width: "100%", maxWidth: "100%" }}
           >
 
           </TextField>
@@ -183,6 +251,68 @@ export default function FundAmtCard(props: AddFundAmtCard) {
               color: "red",
             }}
           >{props?.data?.ErrorMsg != "" ? props?.data?.ErrorMsg || amount < props?.data?.lumpsumminamount && `Minimum investment amount is ₹${props?.data?.lumpsumminamount}` : amount < props?.data?.sipminamount && `Minimum investment amount is ₹${props?.data?.sipminamount}`}</Typography>
+          {/* <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
+                              <Button
+                                variant="contained"
+                                // disabled
+                                className={activePriceAmount === enumPriceList.ONE_THOUSAND ? classes.actibeBtn : classes.btn}
+                                sx={{
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
+                                  // BackgroundColor: "var(--typeIndigoColor) !important",
+                                  borderRadius: "2px",
+                                  width: "60px",
+                                  height: "33px",
+                                  margin: " 2.2 12px 0 0",
+                                  padding: "10px 12px 9px",
+                                  
+                                }}
+                                onClick={() => (handleActivePriceAmount(enumPriceList.ONE_THOUSAND, arrPriceList[0]))}
+                              >
+                                <b style={{ color: "#6c63ff" }}>{enumPriceList.ONE_THOUSAND}</b>
+                              </Button>
+                              <Button
+                                variant="contained"
+                                className={activePriceAmount === enumPriceList.FIVE_THOUSAND ? classes.actibeBtn : classes.btn}
+                                // disabled
+                                sx={{
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
+                                  borderRadius: "2px",
+                                  // color: "#6c63ff",
+                                  width: "64px",
+                                  height: "35px",
+                                  margin: " 2.2 12px 0 0",
+                                  padding: "10px 12px 9px",
+                                }}
+                                onClick={() => (handleActivePriceAmount(enumPriceList.FIVE_THOUSAND, arrPriceList[1]))}
+                              >
+                                <b style={{ color: "#6c63ff" }}>{enumPriceList.FIVE_THOUSAND}</b>
+                              </Button>
+                              <Button
+                                variant="contained"
+                                href="#contained-buttons"
+                                className={activePriceAmount === enumPriceList.TEN_THOUSAND ? classes.actibeBtn : classes.btn}
+                                // disabled
+                                sx={{
+                                  // BackgroundColor: "#6c63ff",
+                                  color: "rgba(0, 0, 0, 0.26)",
+                                  boxShadow: "none",
+                                  backgroundColor: "rgba(0, 0, 0, 0.12)",
+                                  borderRadius: "2px",
+                                  // color: "#6c63ff",
+                                  width: "75px",
+                                  height: "35px",
+                                }}
+                                onClick={() => (handleActivePriceAmount(enumPriceList.TEN_THOUSAND, arrPriceList[2]))}
+                              > <b style={{ color: "#6c63ff" }}>{enumPriceList.TEN_THOUSAND}</b>
+                              </Button>
+                            </Stack> */}
+         
           {/* <Button
             onClick={() => {
               setRemoveItem(props?.data)

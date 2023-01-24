@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
   Modal,
+  Dialog,
 } from "@mui/material";
 import { HelpOutline, tick } from "../../Assets";
 import MutualFundCard2, {
@@ -113,6 +114,13 @@ const data = [
 
 
 const style = {
+  modalTextButton: {
+    // height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "var(--primaryColor) !important",
+    color: 'var(--uiWhite) !important',
+    // width: 350,
+},
   main: {
     boxSizing: "border-box",
     backgroundColor: "#f9f9f9",
@@ -120,25 +128,36 @@ const style = {
   } as React.CSSProperties,
   modalText: {
     backgroundColor: "#FFF",
-    width: 338,
+     width: "100%",
     textAlign: "center",
     marginLeft: "1px",
     padding: "5px",
     borderTopRightRadius: 4,
     borderTopLeftRadius: 4,
     fontWeight: "500",
-    borderColor: "#fff",
+    // borderColor: "#fff",
   },
   button: {
     height: "48px",
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
-    transform: "translate(8px, -23px)",
+    // transform: "translate(8px, -23px)",
     color: "#fff",
-    width: 350,
-    marginTop: 21,
-    marginLeft: -8,
+    width: "100%",
+    // marginTop: 21,
+    // marginLeft: -8,
   },
+  button2: {
+    height: "48px",
+    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "#23db7b",
+    // transform: "translate(8px, -23px)",
+    color: "#fff",
+    // width: 350,
+    // marginTop: 21,
+    // marginLeft: -8,
+  },
+  
 };
 
 const initialMFData = {
@@ -589,7 +608,7 @@ const CustomizeMF = () => {
             </Box>
           </Grid>
         </Grid>
-        <Modal
+        <Dialog
           sx={{ borderRadius: 8 }}
           open={
             activeScreen === enumActiveScreen.OPEN_DATE_PICKER_MODAL
@@ -600,14 +619,6 @@ const CustomizeMF = () => {
             setActiveScreen(enumActiveScreen.CLOSE_MODAL);
           }}
         >
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-              marginTop: { xs: "50%", lg: "13%", md: "30%" },
-            }}
-          >
             <Typography sx={style.modalText}>Monthly SIP Date</Typography>
             <Calendar
               showNeighboringMonth={false}
@@ -626,18 +637,17 @@ const CustomizeMF = () => {
               }}
               disabled={sipStartDay ? false : true}
               variant="contained"
-              style={style.button}
-              sx={{
-                // backgroundColor: (sipStartDay ? "rgba(123, 123, 157, 0.05) " : "var(--uiDarkGreyColor) !important"),
-                backgroundColor: "rgba(123, 123, 157, 0.05) ",
-                color: "#7b7b9d",
-              }}
+              style={style.button2}
+             sx={{
+                color: '#7b7b9d',
+                boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    backgroundColor: "var(--primaryColor) !important",
+            }}
             >
               Confirm SIP Date
             </Button>
-          </Box>
-        </Modal>
-        <Modal
+        </Dialog>
+        <Dialog
           sx={{ borderRadius: 8 }}
           open={
             activeScreen === enumActiveScreen.OPEN_CONFIRMATION_MODAL
@@ -652,15 +662,15 @@ const CustomizeMF = () => {
             <Box
               alignItems="center"
               justifyContent="center"
-              sx={{
-                marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
-                marginTop: { xs: "50%", lg: "13%", md: "30%" },
-              }}
+              // sx={{
+              //   marginLeft: { sm: "35%", xs: "8%", lg: "40%" },
+              //   marginTop: { xs: "50%", lg: "13%", md: "30%" },
+              // }}
             >
               <Box
                 sx={{
                   backgroundColor: "#fff",
-                  width: 300,
+                  // width: 300,
                   alignItems: "center",
                   padding: 3,
                   textAlign: "center",
@@ -690,14 +700,13 @@ const CustomizeMF = () => {
                 sx={{
                   backgroundColor: "rgba(123, 123, 157, 0.05)",
                   color: "#7b7b9d",
-                  marginLeft: 8,
                 }}
               >
                 Continue to Payment
               </Button>
             </Box>
           </>
-        </Modal>
+        </Dialog>
       </Box>
     </Box>
   );
