@@ -387,10 +387,12 @@ const UlipBox = (props: any) => {
         }
         setHandlelinechart(handlelinechart);
     };
+
     return (
 
         <Box style={{ width: "100vw" }}>
             <Navbar />
+            <Typography>gg</Typography>
             <Box sx={{ width: "100%", }}>
                 <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
@@ -708,3 +710,7 @@ const UlipBox = (props: any) => {
 };
 
 export default UlipBox;
+// div#myRedDIV {order: 2;}
+// div#myBlueDIV {order: 4;}
+// div#myGreenDIV {order: 3;}
+// div#myPinkDIV {order: 1;}

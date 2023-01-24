@@ -202,8 +202,10 @@ const BankAccountDetails = () => {
         let bFlag: boolean = false;
 
         if (value !== bankdetails.accountnumber) {
+            setGreenCheck(false)
             bFlag = true;
         } else {
+            setGreenCheck(true)
             bFlag = false;
         }
 
@@ -411,10 +413,10 @@ const BankAccountDetails = () => {
     // useEffect(() => {
     //     if (validateInputs?.confirmbankaccount === true) {
 
-    //         setGreenCheck(true)
+    //         setGreenCheck(false)
     //     }
     //     else {
-    //         setGreenCheck(false)
+    //         setGreenCheck(true)
     //     }
     // }, [validateInputs?.confirmbankaccount])
 

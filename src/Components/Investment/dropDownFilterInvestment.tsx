@@ -354,7 +354,7 @@ const DropDownFilterInvestment = () => {
                   > 
                     
                     <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Sort</Box>} {...a11yProps(0)} />
-                    <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Fund Type</Box>} {...a11yProps(3)} />
+                    <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Fund jjjType</Box>} {...a11yProps(3)} />
                     <Tab label={<Box sx={{ color: "#7b7b9d", fontSize: "12px !important", fontWeight: "500", textAlign: "left" }}>Fund House</Box>} {...a11yProps(4)} />
 
 
