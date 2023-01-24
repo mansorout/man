@@ -1,5 +1,16 @@
 .investInsidePading{padding: 15px;
 }
+.tabbox__Button{
+  background: #eaeaef85;
+}
+.tabbox__Button .Mui-selected{
+  background-color: #fff;
+  color: #000 !important;
+
+}
+.tabbox__Button .MuiTabs-indicator{
+  background: none !important;
+}
 .ExploreMargintop{
   margin-top: -10px;
 }
@@ -453,6 +464,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .tabPaneFilterbox{
+    width: 190px;
+  }
   .textFundname{
     font-size: 14px !important;
   }
@@ -574,6 +588,12 @@
     }
 }
 @media screen and (max-width: 280px){
+  .tabbox__Button button{
+    width: 100px !important;
+  }
+ .css-19kzrtu {
+    padding: 8px !important;
+}
   .width100Pixel{
     width: 100% !important;
   }
