@@ -255,7 +255,7 @@ const chartOptions = {
 };
 
 const enumDefaultAmount = {
-  INVESTED_VALUE : 5000
+  INVESTED_VALUE: 5000
 }
 
 
@@ -280,16 +280,21 @@ const InitiateSip = (props: IProps) => {
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
- 
+
   const chartDataDetails: any = useMemo(() => {
-    
+
     const tempInitialVal = expectedReturns.filter((item: any) => item?.years === 5)[0];
     console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
     setInvestedValue(tempInitialVal?.investedvalue)
     setProjectedValue(tempInitialVal?.projectedvalue)
 
     return {
-      labels: expectedReturns.filter((item: expectedReturnProps) =>item?.years % 2 !== 0).map((item => item['years'])), //x
+      labels: expectedReturns.filter((item: expectedReturnProps) =>
+        item?.years < 5 ?
+          item?.years % 2 !== 0
+          :
+          item?.years % 5 === 0
+      ).map((item => item['years'])), //x
       datasets: [
         // {
         //   label: "Invested Value",
@@ -299,7 +304,12 @@ const InitiateSip = (props: IProps) => {
         // },
         {
           label: "Projected Value",
-          data: expectedReturns.filter((item: expectedReturnProps) =>item?.years % 2 !== 0).map((item) => item["projectedvalue"] ),
+          data: expectedReturns.filter((item: expectedReturnProps) =>
+            item?.years < 5 ?
+              item?.years % 2 !== 0
+              :
+              item?.years % 5 === 0
+          ).map((item) => item["projectedvalue"]),
           fill: true,
           borderColor: "#742774"
         },
@@ -315,7 +325,10 @@ const InitiateSip = (props: IProps) => {
 
     // saveMutualFundGenerate(12, "/SipComparison")
     // handleActivePriceAmount(enumPriceList.FIVE_THOUSAND, arrPriceList[0])
-    
+    // dispatch(setInvestmentCardTypeAction(strCardType));
+
+    dispatch(setInvestmentCardTypeAction(globalConstant.SIP_INVESTMENT));
+    setAmount(enumDefaultAmount.INVESTED_VALUE)
     getExpectedFundReturnList(enumDefaultAmount.INVESTED_VALUE);
   }, []);
 
@@ -407,7 +420,6 @@ const InitiateSip = (props: IProps) => {
       setError("Amount should be more than 5000!");
       return;
     }
-
     if (error && error.length) {
       return;
     }
@@ -502,7 +514,7 @@ const InitiateSip = (props: IProps) => {
                               }}
                               placeholder="1,00,000"
                               // name="amount"
-                              value={amount || numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
+                              value={amount}
                               onChange={handleOnChangeAmount}
                               sx={{
                                 margin: " -55px 0 20px",
