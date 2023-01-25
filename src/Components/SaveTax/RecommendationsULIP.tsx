@@ -419,7 +419,7 @@ const RecommendationsULIP = () => {
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography  className='burgerText'>Recommendations rrrrULIP</Typography>
+                      <Typography  className='burgerText'>Recommendations ULIP</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>

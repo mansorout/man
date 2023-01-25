@@ -138,7 +138,7 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
     return (
         <div className='cardWrapperstyle' >
               <Box className={classes.cardWrapper} style={{boxShadow:" 0 1px 5px 0 rgba(0, 0, 0, 0.12)"}}>
-            <Grid container >
+            <Grid container>
                 <Grid item sm={6} xs={6} md={6}>
                     <Box  style={{display:"flex", alignItems:"center",marginRight:"20px"}} className="ImgwithtexStyle">
                         <Box className={classes.imgWrapper + " " + "Img"} >

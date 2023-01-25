@@ -417,7 +417,7 @@ const InsuranceTerms = () => {
 
     return (
         <div>
-            <Box sx={{ padding: '30px 7px', paddingTop: '60px', width: { xs: '100%', sm: '50%' } }}>
+            <Box sx={{ padding: '20px 7px',boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", paddingTop: '60px', width: { xs: '100%', sm: '50%',  }  }}>
                 <div className={classes.termInsuranceCard}>
                     <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}>Term Insurance</b>
                     <FormControl fullWidth>

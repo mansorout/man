@@ -14,8 +14,9 @@
 
 @media (width:375px){
   .GridManageWidth{
-    max-width: 84% !important;
+    max-width: 103% !important;
     margin-top: 2% !important;
+    margin-left: 3px !important;
 
   }
   .GridManageWidthright{
@@ -25,12 +26,19 @@
   .FundsSelected{
     margin-top: -20px !important;
   }
-
-  .CardManageStyleSlected{
-    
-    max-width: 96% !important;
-  
-  }
+  .Img {
+    margin-top: 2%!important;
+}
+.CardManageStyleSlected {
+  max-width: 104% !important;
+  margin-left: -11px !important
+}
+ 
+  .companyNameStyle {
+    margin-left: -15px!important;
+    margin-top: 4px!important;
+    font-size: 14px !important;
+}
 
 }
 @media (width:414px){
@@ -56,7 +64,7 @@
 }
 @media (width:412px){
   .GridManageWidth{
-    width: 347px !important;
+    width: 354px !important;
     margin-top: 2% !important;
 
   }
@@ -147,15 +155,23 @@
   .CardManageStyleSlected{
     
     max-width: 100% !important;
+    margin-top: 20px !important;
   
   }
+  .B_Selected{
+    margin-top: 1%  !important;
+    margin-left: 2% !important;
+  } 
   .GridManageWidthright{
     padding-left: 13px !important;
     margin-top: -5% !important;
   }
 
   .FundsSelected{
-    margin-top: -20px !important;
+    margin-top: -23px !important;
+  }
+    .FundSlectStyle{
+      margin-left: 6px !important;
   }
 
 
@@ -166,6 +182,14 @@
     margin-top: 2% !important;
 
   }
+  .FundSlectStyle{
+    margin-left: 4px !important;
+  }
+  .B_Selected{
+    
+    margin-left: 2% !important;
+    margin-top: 1%  !important;
+  } 
   .CardManageStyleSlected{
     
     max-width: 100% !important;
@@ -192,6 +216,14 @@
     width: 90% !important;
 
   }
+  .B_Selected{
+    
+    margin-left: 0.55% !important;
+    margin-top: 1%  !important;
+  } 
+  .FundSlectStyle{
+    margin-left: -5px !important;
+  }
 
 
   .CardManageStyleSlected{
@@ -207,10 +239,18 @@
 }
 @media (width:540px){
   .GridManageWidth{
-    
-    width: 90% !important;
-    margin-top:  3% !important;
+    width: 95% !important;
+    margin-top: 3% !important;
+    margin-left: -3px !important;
 
+  }
+  .B_Selected{
+    
+    margin-left: 0.55% !important;
+    margin-top: -8%  !important;
+  } 
+  .FundSlectStyle{
+    margin-left: -6px !important;
   }
 
 
@@ -228,25 +268,25 @@
 @media (width:280px){
   .GridManageWidth{
     
-    width: 80% !important;
+    width: 89% !important;
     margin-top: 3% !important;
+    margin-left: -3px !important;
 
   }
+ 
 
 
   .CardManageStyleSlected{
     
-    max-width: 94% !important;
-    margin-left: 10px !important;
-    margin-top: -5%  !important;
+    max-width: 105% !important;
+    margin-left: 1px !important;
+    margin-top: -5% !important;
   
   }
   .FundsSelected{
     margin-top: -20px !important;
   }
-  .B_Selected{
-    margin-top: -1% !important;
-  }
+
 
  
 
@@ -259,11 +299,19 @@
 
   }
 
+  .B_Selected{
+    
+    margin-left: 0.55% !important;
+    margin-top: 1%  !important;
+  } 
+  .FundSlectStyle{
+    margin-left: -5px !important;
+  }
 
   .CardManageStyleSlected{
     
     max-width: 100% !important;
-    margin-left: 10px !important;
+    margin-left: 3px !important;
     margin-top: -5%  !important;
   
   }
@@ -280,20 +328,30 @@
   .GridManageWidth{
     
        width: 91% !important;
-    margin-top: -5% !important;
+    margin-top: -3% !important;
 
+  }
+  .B_Selected{
+    
+    margin-left: 0.55% !important;
+    margin-top: 1%  !important;
+  } 
+  .FundSlectStyle{
+    margin-left: -17px !important;
   }
 
 
   .CardManageStyleSlected{
     
     max-width: 100% !important;
-    margin-left: 10px !important;
-    margin-top: -5%  !important;
+    margin-left: 6px !important;
+    margin-top: -3%  !important;
   
   }
   .FundsSelected{
     margin-top: -15px !important;
+  
+    margin-left: 21px !important;
   }
 
 
@@ -306,14 +364,19 @@
 
 @media (max-width:480px) {
   .B_Selected{
-    margin-top: -15% !important;
+    margin-top: -12% !important;
+    margin-left: 1% !important;
   }  
+  .FundSlectStyle{
+    margin-left: -4px !important;
+  }
   .ADDMOREFUNDSTYLE{
     margin-top: -3% !important;
   }
- 
+
 
 }
+
 
 
 /* <DrawerList sx={{
