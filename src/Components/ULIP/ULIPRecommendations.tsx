@@ -450,13 +450,16 @@ const ULIPRecommendations = () => {
                         <Sidebar />
                     </Grid>
                     <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
-
-                        <Toolbar />
-
+                <Grid container>
+                    <Grid xs={12} sm={12} md={12}>
+                    <Toolbar />
+                    
+                    </Grid>
+                </Grid>
 
                         <Grid container>
-                            <Grid xs={12} sm={12} md={12}>
-                                <Box className="BoxMarginLeftRight">
+                            <Grid xs={12} sm={12} md={12} sx={{ marginTop:{xs:"-50px", sm:"0"} }}>
+                                <Box className="BoxMarginLeftRight textBoxAmount">
 
                                     {/* <ULIPHeader /> */}
                                     <RecommendationsHeader
@@ -476,17 +479,7 @@ const ULIPRecommendations = () => {
                                         boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
                                         boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
                                     />
-                                    {/* <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>             <Breadcrumbs aria-label="breadcrumb">
-                                            <Link href="/home">Home</Link>
-                                            <Link href="/insurance">Get Insured</Link>
-                                            <Link href="/ulip/investoptions">ULIP</Link>
-                                            <Typography sx={{
-                                                fontSize: '12px',
-                                                color: '#373e42'
-                                            }}>SprintMoney Recommendation</Typography>
-                                        </Breadcrumbs>
-
-                                        </Box> */}
+                                  
                                     <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
                                         <Breadcrumbs aria-label="breadcrumb">
 

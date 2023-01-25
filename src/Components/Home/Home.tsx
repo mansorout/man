@@ -366,6 +366,7 @@ const Home = () => {
               <Grid container sx={{ marginTop: { xs: "-50px", sm: "0px" } }}>
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
+                  
                 </Grid>
                 {
                   investingCardsLocal.map((item, index) => {

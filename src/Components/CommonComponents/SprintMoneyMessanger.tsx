@@ -70,7 +70,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
      
           {!props.errorText ? (
             <Grid container>
-              <Grid item xs={12}  md={12}>
+              <Grid item xs={12}  md={12} sx={{}}>
                 <Box
                   sx={{ borderRadius: "50%", height: "50px", width: "50px", paddingLeft: "41%",
                   paddingTop: "18px" }}
@@ -78,16 +78,17 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
                 >
                   <img
-                    style={{ height: "25px", width: "25px",marginTop:"10px"}}
+                    style={{ height: "25px", width: "25px",marginTop:"10px",position:"absolute", right:"7px", top:"56px"}}
                     src={SuccessLogo}
                     alt="error"
+
                   />
                 </Box>
               </Grid>
 
               <Grid item xs={12} md={12}  textAlign="center">
                 <DialogContentText
-                  sx={{ color: "green" }}
+                  sx={{ color: "green",paddingRight:"20px" }}
                   id="alert-dialog-slide-description"
                 >
                   {props.succesText}
@@ -106,7 +107,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
                  className="errorlogo"
                 >
                   <img
-                    style={{ height: "25px", width: "25px" }}
+                    style={{ height: "25px", width: "25px",position:"absolute", right:"7px", top:"56px" }}
                     src={ContactError}
                     alt="error"
                     
@@ -116,7 +117,8 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
               <Grid item xs={12} md={12} >
                 
                 <DialogContentText
-                  sx={{ color: "red", textAlign: "center",marginTop:"-10px" }}
+                  sx={{ color: "red", textAlign: "center",marginTop:"-10px",paddingRight:"20px"
+                 }}
                   id="alert-dialog-slide-description"
                 >
                   {props.errorText}

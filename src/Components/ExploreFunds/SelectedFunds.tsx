@@ -516,6 +516,7 @@ const SelectedFunds = () => {
                                 bgcolor: "#00b4ff",
                               },
                             }}
+                            className="ADDMOREFUNDSTYLE"
                           >
                             <Typography
                               sx={{
@@ -642,13 +643,15 @@ const SelectedFunds = () => {
             <FooterBtnWithBox
               boxIcon={<ThumbUpOffAltIcon />}
               boxText={"Great! Your total investment is"}
-              boxAmount={totalAmount}
+
+              boxAmount= {`₹ ${totalAmount}`}
               btnText={selected ? `Buy Now` : `Select SIP Date`}
               btnClick={selected ? handleBuyNow : handleSelectApi}
               btnDisable={footerBtn}
             />
           </Grid>
         </Grid>
+        {/* // boxAmount={`₹ ${saveTaxUPTO}`} */}
         {
           // onetimeLumpsum ? <FooterWithBtn
           //     btnText={selected == 1 ? `Buy Now` : `Select SIP Date`}

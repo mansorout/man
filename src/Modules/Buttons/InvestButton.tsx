@@ -72,7 +72,7 @@ export const InvestButton = (props: IProps) => {
       if (g_investment.type === globalConstant.SIP_INVESTMENT) {
         // props?.saveMutualFundGenerate(12, "/mflist");
         // navigate("/mflist", {});
-        if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(11, "/SipComparison");
+        if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(12, "/SipComparison");
         // navigate("/SipComparison", {});
       } else if (g_investment.type === globalConstant.LUMPSUM_INVESTMENT) {
         if (props?.saveMutualFundGenerate) props?.saveMutualFundGenerate(11, "/onetimemutualfundrecommendation");
