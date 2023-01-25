@@ -705,7 +705,7 @@ function ExploreFunds(props: any) {
             <Toolbar />
             <Grid container>
               <Grid item xs={12}>
-                <Box className="BoxPadding ">
+                <Box className="BoxPadding">
                   <Box className="BoxExploreBottom">
                     {
                       status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
