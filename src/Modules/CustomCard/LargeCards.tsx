@@ -46,10 +46,10 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
             </Box>
             <Box>
                 <Typography className='subTitle4'>
-                    {Heading}ss
+                    {Heading}
                 </Typography>
                 <Typography className='body1'>
-                    {Text}ss
+                    {Text}
                 </Typography>
             </Box>
             <IconButton style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
