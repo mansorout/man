@@ -281,7 +281,7 @@ const RecommendationsELSS = () => {
                     <Link color="#6495ED" underline="always"  onClick={() => navigate('/home')} >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>

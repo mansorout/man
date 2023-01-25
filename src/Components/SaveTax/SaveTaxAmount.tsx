@@ -8,7 +8,7 @@ import { Toolbar } from '@mui/material'
 import Banner from './Banner'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputAdornment from "@mui/material/InputAdornment";
 import Radio from '@mui/material/Radio';
@@ -153,10 +153,13 @@ const SaveTaxAmount = () => {
     const [saveTaxUPTO, setSaveTaxUPTO] = useState<number>(0);
     const [saveTaxUPTOMon, setSaveTaxUPTOMon] = useState<number>(0);
     const [monthlylum, setMonthlyLum] = useState<any>();
+    const {state} = useLocation();
+
 
     let monthCalAmount: any = 0;
     console.log(lumpsumAmount)
     console.log(saveTaxUPTO)
+    console.log(state);
 
 
 
@@ -316,11 +319,17 @@ const SaveTaxAmount = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
+                    {
+                        state?.title ?   <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                        <Typography className='burgerText'>How Much Tax Can I Save</Typography>
+                      </Link> : ""
+                    }
+                    
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Save Tax Amount</Typography>
+                      <Typography className='burgerText'>Amount</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>

@@ -193,11 +193,14 @@ const SaveTaxInvestmentType = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                      <Typography className='burgerText'>Amount</Typography>
+                    </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Save Tax Investment Type</Typography>
+                      <Typography className='burgerText'>Investment Type</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>

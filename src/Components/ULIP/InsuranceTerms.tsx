@@ -292,7 +292,8 @@ const InsuranceTerms = () => {
                         </Select>
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }}>
-                        <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>You can quickly choose from below cover option</span>
+                        <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>
+                             </span>
                         <ul className={classes.quickSelectWrapper}>
                             {
                                 quickPickAmount.map((item, index) => (

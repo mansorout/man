@@ -402,13 +402,34 @@ const SipRecommendationsULIP = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                      <Typography className='burgerText'>Investment</Typography>
+                    </Link>
+                    <Link underline="always" color="#6495ED"  sx={{ fontSize: "12px", width: "100%" }} onClick={()=>navigate('/startAnSip#contained-buttons')} >
+                      <Typography className='burgerText'>Start an SIP</Typography>
+                    </Link>
+                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                      <Typography className='burgerText'>Recommendation</Typography>
+                    </Link>
+                  </Breadcrumbs>
+
+                
+
+
+    
+
+
+                  {/* <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="#6495ED" underline="always" href='Home' >
+                      <Typography className='burgerText'> Home</Typography>
+                    </Link>
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                       <Typography className='burgerText'>Recommendations ULIP</Typography>
                     </Link>
-                  </Breadcrumbs>
+                  </Breadcrumbs> */}
                 </Box>
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>{ulipListApiData?.length && ulipListApiData.length} ULIP Plan Found</Typography>
