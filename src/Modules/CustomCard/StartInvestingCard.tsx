@@ -46,24 +46,29 @@ const StartInvestingCard = ({ BgColor, Heading, Text, Img }: Props) => {
       <Box sx={style.imgContainer1}>
         <img src={Img} height="55px" />
       </Box>
-      <Box sx={{padding:{xs:"9px !important", sm:"20px"}}} className='subTitleText' style={style.textContainer}>
+      <Box sx={{padding:{xs:"9px !important", sm:"20px", display:"flex", justifyContent: "flex-start",
+    alignItems: "center"}}} className='subTitleText' style={style.textContainer}>
+        <Box>
         <Typography className='subTitle4'>
           {Heading}
         </Typography>
-        <Typography className='body1'>
+        <Typography className='body1 homeBgImageSip LineHeightText'>
           {Text}
-        <Grid container>
-          <Grid item xs={12} md={12} sm={12} textAlign="right" my="-40px">
-          <IconButton style={{ backgroundColor: "#23db7b",}} >
+        </Typography>
+        </Box>
+        <Box>
+        <IconButton style={{ backgroundColor: "#23db7b",}} >
                 <ArrowForward style={{ color: "white" }} />
             </IconButton>
+        </Box>
+        {/* <Grid container>
+          <Grid xs={8} sm={8} md={8} lg={9}>
+          
           </Grid>
-        </Grid>
-        
-        
-    
-        </Typography>
-      
+          <Grid xs={4} sm={4} md={4} lg={3}>
+         
+          </Grid>
+        </Grid> */}
       </Box>
     </Box>
   )

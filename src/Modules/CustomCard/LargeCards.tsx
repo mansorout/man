@@ -41,15 +41,15 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
             <Box sx={style.imgContainer}>
                 <img src={Img} height="62px" />
             </Box>
-            <Box sx={style.imgContainer2}>
+            <Box className="imGHomeCardLayout" sx={style.imgContainer2}>
                 <img src={Img} height="50px" />
             </Box>
             <Box>
                 <Typography className='subTitle4'>
-                    {Heading}ss
+                    {Heading}
                 </Typography>
                 <Typography className='body1'>
-                    {Text}ss
+                    {Text}
                 </Typography>
             </Box>
             <IconButton style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>

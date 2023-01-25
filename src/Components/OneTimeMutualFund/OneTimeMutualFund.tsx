@@ -583,6 +583,7 @@ const OneTimeMutualFund = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "flex-end",
+                    width:{xs:"130px", sm:"200px"}
                   }}
 
                 >
@@ -598,7 +599,7 @@ const OneTimeMutualFund = () => {
                   />
                   <Typography
                     sx={{
-                      fontSize: "16px",
+                      fontSize:{xs:"13px",sm:"16px"},
                       fontWeight: 500,
                       textAlign: "right",
                       color: "#6c63ff",

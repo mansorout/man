@@ -274,6 +274,7 @@ function ExploreFunds(props: any) {
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
 
+      getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST);
       // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
 
 
@@ -286,8 +287,10 @@ function ExploreFunds(props: any) {
       //   } else {
       //   }
       // }
-
       console.log("categoryGroupList : ", categoryGroupList)
+      // return;
+
+
       let temp: any[] = [...filterIndexes];
       if (temp && temp?.length) {
         // temp.map((item, index) => {
@@ -305,10 +308,11 @@ function ExploreFunds(props: any) {
 
         temp[enumIndexesOfFilterType.FUND_TYPE]["keyValues"] = categoryGroupList;
         temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
+
+        setFilterIndexes(temp);
       }
 
-      setFilterIndexes(temp)
-      console.log("temp filter changed :", temp)
+      // console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList]);
 
@@ -370,6 +374,13 @@ function ExploreFunds(props: any) {
 
 
   /** Getting Provider and Categorygroup list for getting fund list according to them */
+  const getCategoryGroupList = async () => {
+    let res: apiResponse = await getCategoryGroupListThunk();
+    res.data = [...res.data?.categorygroups];
+    res.data.unshift("All Funds");
+    // @ts-ignore
+    handleApiResponse(res, [setCategoryGroupList]);
+  };
   const getFundProviderList = async () => {
     let response: apiResponse = await getListOfMutualFundProviderCoThunk();
     console.log("fundProviderList response :", response)
@@ -382,12 +393,6 @@ function ExploreFunds(props: any) {
     // @ts-ignore
     // handleApiResponse(response, [setFundProviderList]);
     return response;
-  };
-  const getCategoryGroupList = async () => {
-    let res: apiResponse = await getCategoryGroupListThunk();
-    res.data = [...res.data?.categorygroups];
-    // @ts-ignore
-    handleApiResponse(res, [setCategoryGroupList]);
   };
   /***************************************************************************************/
 
@@ -581,27 +586,66 @@ function ExploreFunds(props: any) {
   /***************************************************************************************/
 
   /**Filter functionality */
-  const urlWithFilter = async (data: any, categoryIndex?: number) => {
+  const getCommaSepratedProviderIds = async (url: string, arrFundHouse: any[]) => {
+    url += `&providerids=`;
+    await arrFundHouse?.map((item: string) => {
+      url += item + ','
+    })
+    return url;
+  }
+  const urlWithFilter = async (data: any, categoryIndex: number = -1) => {
     console.log("urlWithFilter()")
-    if (data && data[enumFilterIndexes.FUND_TYPE] || data[enumFilterIndexes.SORT] || (data[enumFilterIndexes.FUND_HOUSE] && data[enumFilterIndexes.FUND_HOUSE]?.length)) {
-      var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}`;
+    let url: string = "";
 
-      if (data[enumFilterIndexes.FUND_HOUSE].length > 0) {
-        url += `&providerids=`;
-        data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
-          url += item + ','
-        })
+    if (data && data[enumFilterIndexes.FUND_TYPE] || data[enumFilterIndexes.SORT] || (data[enumFilterIndexes.FUND_HOUSE] && data[enumFilterIndexes.FUND_HOUSE]?.length)) {
+
+      if (data[enumFilterIndexes.FUND_TYPE] === "All Funds") {
+
+        url = siteConfig.RECOMMENDATION_FUND_LIST;
+
+        if (data[enumFilterIndexes.SORT]) {
+          url = siteConfig.RECOMMENDATION_FUND_LIST + `?orderon=${data[enumFilterIndexes.SORT]}`;
+        }
+
+        if (data[enumFilterIndexes.FUND_HOUSE].length) {
+          url = await getCommaSepratedProviderIds(url, data[enumFilterIndexes.FUND_HOUSE]);
+        }
+
+        return url;
       }
+
+
+      url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}`;
+
+      if (data[enumFilterIndexes.FUND_HOUSE].length) {
+        url = await getCommaSepratedProviderIds(url, data[enumFilterIndexes.FUND_HOUSE]);
+        // url += `&providerids=`;
+        // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+        //   url += item + ','
+        // })
+      }
+
       return url;
-    } else if (categoryIndex) {
-      console.log(categoryIndex, "categoryIndex  url with filter")
-      return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
+    } else if (categoryIndex >= 0) {
+      if (categoryIndex === 0) {// handling case for all funds
+        url = siteConfig.RECOMMENDATION_FUND_LIST;
+      } else {
+        url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`;
+      }
+
+      return url;
     } else {
-      return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[activeCategoryGroupIndex]}`
+      // return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[activeCategoryGroupIndex]}`
+      // return siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[categoryIndex]}`
     }
+
+    return url;
   };
   const handleFilterCB = async (data: any) => {
-    const tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
+    let tempIndex = categoryGroupList.indexOf(data[enumFilterIndexes.FUND_TYPE]);
+
+    if (tempIndex < 0 || tempIndex === -1) return;
+
     // const sortedItem = filterIndexes[0].keyValues.filter((item:any) =>{
     //   if(item.value === data[enumFilterIndexes.SORT]){
     //   return filterIndexes[0].keyValues
@@ -615,10 +659,13 @@ function ExploreFunds(props: any) {
     // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
     //   url += item + ',' 
     // })
-    const tempUrl = await urlWithFilter(data)
-    console.log("handleFilterCB()", data, tempUrl, tempIndex)
+    const tempUrl: any = await urlWithFilter(data, -1);
 
-    getMasterFundList(tempUrl);
+    if (tempUrl) {
+      getMasterFundList(tempUrl);
+    } else {
+      // getMasterFundList([]);
+    }
   };
   /***************************************************************************************/
 
@@ -654,143 +701,143 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100vh", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10}>
+          <Grid container sx={{ width: "100%", height: "100%", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10} >
             <Toolbar />
             <Grid container>
-            <Grid item xs={12}>
-            <Box className="BoxPadding ">
-              <Box className="BoxExploreBottom">
-              {
-                status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
-                  <Box className="exploreBreadCrumb">
-                    <Breadcrumbs
-                      sx={{
-                        fontSize: "12px",
-                        color: "#6c63ff",
-                      }}
-                    >
-                      <Link onClick={() => handleNavigation("/home")}>Home</Link>
-                      <Link
-                        onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
-                      >
-                        Investment
-                      </Link>
-                      <Link
-                        onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+              <Grid item xs={12}>
+                <Box className="BoxPadding">
+                  <Box className="BoxExploreBottom">
+                    {
+                      status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
+                        <Box className="exploreBreadCrumb">
+                          <Breadcrumbs
+                            sx={{
+                              fontSize: "12px",
+                              color: "#6c63ff",
+                            }}
+                          >
+                            <Link onClick={() => handleNavigation("/home")}>Home</Link>
+                            <Link
+                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                            >
+                              Investment
+                            </Link>
+                            <Link
+                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
 
-                      >
-                        {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                      </Link>
-                      <Link
-                        onClick={() => handleNavigation("/onetimemutualfundrecommendation")}
-                      >
-                        Mutual Fund Recommendation
-                      </Link>
-                      <Link
-                        onClick={() => handleNavigation("/customizemf")}
-                      >
-                        Customize Plan</Link>
-                      <Typography
-                        sx={{
-                          fontSize: "12px",
-                          color: "#373e42",
-                        }}
-                      >
+                            >
+                              {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                            </Link>
+                            <Link
+                              onClick={() => handleNavigation("/onetimemutualfundrecommendation")}
+                            >
+                              Mutual Fund Recommendation
+                            </Link>
+                            <Link
+                              onClick={() => handleNavigation("/customizemf")}
+                            >
+                              Customize Plan</Link>
+                            <Typography
+                              sx={{
+                                fontSize: "12px",
+                                color: "#373e42",
+                              }}
+                            >
+                              {
+                                status === globalConstant.CEF_REPLACE_FUND ?
+                                  "Choose fund to Replace" : "Choose fund to Add"
+                              }
+                            </Typography>
+                          </Breadcrumbs>
+                        </Box>
+                        : null
+
+                    }
+
+                    {
+                      status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                        <Box className="exploreBreadCrumb">
+                          <Breadcrumbs
+                            sx={{
+                              fontSize: "12px",
+                              color: "#6c63ff",
+                            }}
+                          >
+                            <Link onClick={() => handleNavigation("/explorefunds")}>Explore Funds</Link>
+                            <Link
+                              onClick={() => handleNavigation("/selectedfunds")}
+                            >
+                              Selected Funds
+                            </Link>
+
+                            <Typography
+                              sx={{
+                                fontSize: "12px",
+                                color: "#373e42",
+                              }}
+                            >
+                              {
+                                status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                                  "Choose fund to Replace" : "Choose fund to Add"
+                              }
+                            </Typography>
+                          </Breadcrumbs>
+                        </Box>
+                        : null
+
+                    }
+
+                    <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
+
+                      <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
                         {
                           status === globalConstant.CEF_REPLACE_FUND ?
-                            "Choose fund to Replace" : "Choose fund to Add"
+                            <Box>
+                              <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                              <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
+                              <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
+                              <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom: "10px" }}>{masterFundListLength} funds found</Typography>
+
+                            </Box> :
+                            <>
+                              {
+                                status === globalConstant.CEF_ADD_FUND ?
+                                  <Box>
+                                    <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                    <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                                    <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
+                                    <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom: "10px", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
+                                  </Box> :
+                                  status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
+                                    <Box>
+                                      <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                      <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
+                                      {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
+                                      <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500", marginTop: "10px", marginBottom: "10px" }}>{masterFundListLength} funds found</Typography>
+                                    </Box>
+                                    : status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND ?
+                                      <Box>
+                                        <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
+                                        {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
+                                        <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500", marginTop: "10px", marginBottom: "10px" }}>{masterFundListLength} funds found</Typography>
+                                      </Box>
+                                      :
+                                      <Box className="exploreBreadCrumb">
+                                        <Typography style={{ fontSize: "12px", color: "#8787a2", marginBottom: "10px" }}>Explore Funds </Typography>
+                                        <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
+                                        <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
+                                        <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom: "10px" }}>{masterFundListLength} funds found</Typography>
+                                      </Box>
+
+                              }
+                            </>
                         }
-                      </Typography>
-                    </Breadcrumbs>
-                  </Box>
-                  : null
-
-              }
-
-              {
-                status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND || status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
-                  <Box className="exploreBreadCrumb">
-                    <Breadcrumbs
-                      sx={{
-                        fontSize: "12px",
-                        color: "#6c63ff",
-                      }}
-                    >
-                      <Link onClick={() => handleNavigation("/explorefunds")}>Explore Funds</Link>
-                      <Link
-                        onClick={() => handleNavigation("/selectedfunds")}
-                      >
-                        Selected Funds
-                      </Link>
-
-                      <Typography
-                        sx={{
-                          fontSize: "12px",
-                          color: "#373e42",
-                        }}
-                      >
-                        {
-                          status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
-                            "Choose fund to Replace" : "Choose fund to Add"
-                        }
-                      </Typography>
-                    </Breadcrumbs>
-                  </Box>
-                  : null
-
-              }
-
-              <Box style={{ display: "flex", alignItems: 'start', justifyContent: "space-between", flexWrap: 'wrap' }}>
-
-                <Box style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: 'wrap' }}>
-                  {
-                    status === globalConstant.CEF_REPLACE_FUND ? 
-                    <Box>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                      <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Choose Funds to Replace</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                      <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
-
-                    </Box> :
-                      <>
-                        {
-                          status === globalConstant.CEF_ADD_FUND ? 
-                          <Box>
-                            <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                            <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
-                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography>
-                            <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px", fontWeight: "500" }}>{masterFundListLength} funds found</Typography>
-                          </Box> :
-                            status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND ?
-                              <Box>
-                                <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                                <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Replace</Typography>
-                                {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
-                              </Box>
-                              : status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND ?
-                                <Box>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2" }}>Explore Funds</Typography>
-                                  <Typography style={{ fontSize: "18px", color: "#3c3e42", paddingTop: "10px", fontWeight: "500" }}>Choose Funds to Add</Typography>
-                                  {/* <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "15px" }}>{investmentCardType === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT}</Typography> */}
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", fontWeight: "500",marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
-                                </Box>
-                                :
-                                <Box className="exploreBreadCrumb">
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginBottom:"10px" }}>Explore Funds </Typography>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", paddingTop: "10px" }}>Choose Funds to Invest</Typography>
-                                  <Typography style={{ fontSize: "18px", color: "#3c3e42", fontWeight: "500" }}>Explore Funds</Typography>
-                                  <Typography style={{ fontSize: "12px", color: "#8787a2", marginTop: "10px", marginBottom:"10px" }}>{masterFundListLength} funds found</Typography>
-                                </Box>
-
-                        }
-                      </>
-                  }
 
 
-                </Box>
-                <Box className="width100pxExplore">
-                  {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
+                      </Box>
+                      <Box className="width100pxExplore">
+                        {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
                     <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                       <SearchOutlined style={{ color: "#7b7b9d" }} />
                       <InputBase
@@ -812,94 +859,97 @@ function ExploreFunds(props: any) {
 
 
 
-                  <Box sx={{ marginBottom: '15px', marginTop:"10px" }}>
-                    <SearchCmp
-                      // filtersOptions={structuredClone(filterIndexes)}
-                      filtersOptions={filterIndexes}
-                      searchKeysFun={handleSearchFunctionality}
-                      searchBox={true}
-                      handleCB={handleFilterCB}
-                    />
-                  </Box>
+                        <Box sx={{ marginBottom: '15px', marginTop: "10px" }}>
+                          <SearchCmp
+                            // filtersOptions={structuredClone(filterIndexes)}
+                            filtersOptions={filterIndexes}
+                            // filtersOptions={[...filterIndexes]}
+                            searchKeysFun={handleSearchFunctionality}
+                            searchBox={true}
+                            handleCB={handleFilterCB}
+                          />
+                        </Box>
 
-                  <Box className="categoryScrollMobile">
-                  <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
-                    {
-                      categoryGroupList &&
-                      categoryGroupList.length &&
-                      categoryGroupList.map((item: any, index: number) => {
-                        return (
-                          <Box
-                            key={index}
-                            onClick={async () => {
-                              setActiveCategoryGroupIndex(index);
-                              // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
-                              let url = await urlWithFilter(filterValues, index)
-                              setFundSelecteds([]);
-                              setInitialMFData(false);
-                              setIsInitialVariableFundListFetched(false);
-                              getMasterFundList(url);
-                            }}
-                            style={{
-                              cursor: "pointer",
-                              border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                              borderRadius: "8px",
-                              backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
-                              textAlign: "center",
-                              padding: "12px 14px"
-                            }}>
-                            <Typography
-                              style={{
-                                fontWeight: "500",
-                                color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
-                                fontSize: "14px"
-                              }}>
-                              {/* {item}({getTotalFundCound(item)}) */}
-                              {item}
-                            </Typography>
+                        <Box className="categoryScrollMobile">
+                          <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
+                            {
+                              categoryGroupList &&
+                              categoryGroupList.length &&
+                              categoryGroupList.map((item: any, index: number) => {
+                                return (
+                                  <Box
+                                    key={index}
+                                    onClick={async () => {
+                                      if (activeCategoryGroupIndex === index) return;
+
+                                      // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
+                                      setActiveCategoryGroupIndex(index);
+                                      let url: any = await urlWithFilter(filterValues, index)
+                                      // setFundSelecteds([]);
+                                      setInitialMFData(false);
+                                      setIsInitialVariableFundListFetched(false);
+                                      getMasterFundList(url);
+                                    }}
+                                    style={{
+                                      cursor: "pointer",
+                                      border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                                      borderRadius: "8px",
+                                      backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                                      textAlign: "center",
+                                      padding: "12px 14px"
+                                    }}>
+                                    <Typography
+                                      style={{
+                                        fontWeight: "500",
+                                        color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
+                                        fontSize: "14px"
+                                      }}>
+                                      {/* {item}({getTotalFundCound(item)}) */}
+                                      {item}
+                                    </Typography>
+                                  </Box>
+                                )
+                              })
+                            }
                           </Box>
-                        )
-                      })
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
+                    {
+                      variableMasterFundList &&
+                        variableMasterFundList.length ?
+
+                        <>
+                          {
+                            variableMasterFundList.map((item: any, index: number) => {
+                              return (
+                                <Box key={index}>
+                                  <MutualFundCard2
+                                    {...item}
+                                    activeIndex={index}
+                                    onCardClick={handleNavigationOfFundDetails}
+                                    onClick={handleAddFundsSelection}
+                                    cefType={false}
+                                  />
+                                </Box>
+                              )
+                            })
+                          }
+                        </>
+                        :
+                        <>
+                          <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                            <Typography component="h6" sx={{ color: "var(--uiDarkGreyColor) !important" }}>No record found!</Typography>
+                          </Grid>
+                        </>
                     }
-                  </Box>
+
+
                   </Box>
                 </Box>
-              </Box>
-
-              {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
-              {
-                variableMasterFundList &&
-                  variableMasterFundList.length ?
-
-                  <>
-                    {
-                      variableMasterFundList.map((item: any, index: number) => {
-                        return (
-                          <Box key={index}>
-                            <MutualFundCard2
-                              {...item}
-                              activeIndex={index}
-                              onCardClick={handleNavigationOfFundDetails}
-                              onClick={handleAddFundsSelection}
-                              cefType={false}
-                            />
-                          </Box>
-                        )
-                      })
-                    }
-                  </>
-                  :
-                  <>
-                    <Grid sx={{ display: "flex", justifyContent: "center" }}>
-                      <Typography component="h6" sx={{ color: "var(--uiDarkGreyColor) !important" }}>No record found!</Typography>
-                    </Grid>
-                  </>
-              }
-
-            
-            </Box>
-            </Box>
-            </Grid>
+              </Grid>
             </Grid>
           </Grid>
 
