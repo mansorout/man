@@ -397,3 +397,10 @@
   .Dublicategender {
   }
 }
+
+@media (max-width:480px){
+  .TreminsuraceBox{
+    
+    margin-left: -24px !important;
+  }
+}
