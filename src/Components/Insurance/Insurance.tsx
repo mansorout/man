@@ -13,6 +13,7 @@ import GetInsurance from './GetInsurance'
 import { useSelector, useDispatch } from 'react-redux';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import BannerSlider from '../CommonComponents/BannerSlider'
+import './insurance.css'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -121,8 +122,8 @@ const Insurance = () => {
                 </Box>
                     </Grid>
                 </Grid>
-                <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
+                <Grid container >
+                    <Grid xs={12} sm={12} md={12} className="BannerStretchStyle">
                     <Box className="BoxMarginLeftRight textBoxAmount">
                     <BannerSlider
                                 sliderDetails={sliderDetails}

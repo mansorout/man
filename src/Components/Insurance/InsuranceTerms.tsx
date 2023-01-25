@@ -451,7 +451,8 @@ const InsuranceTerms = () => {
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }} className="YoncanQuicky">
                         <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }} className="YoncanQuicky">You can quickly choose from below cover option</span>
-                        <ul className={classes.quickSelectWrapper}>
+                        <ul className={classes.quickSelectWrapper + " " + "uiclassScroll"}>
+                        
                             {
                                 quickPickAmount && quickPickAmount.length && quickPickAmount.map((item, index) => (
                                     <li
@@ -462,7 +463,10 @@ const InsuranceTerms = () => {
                                         }}
                                         className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
                                     >
+                                        <div className='uiclassScroll2'>
                                         {`₹${numDifferentiation(item)}`}
+                                        </div>
+                                     
                                     </li>
                                 ))
                             }

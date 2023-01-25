@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Button from '@mui/material/Button';
 import { Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles';
-
+import './recommandation.css'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     slideContentWrapper: {
@@ -13,27 +13,31 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        flexWrap: 'wrap',
+     
         padding: '15px',
         borderRadius: '15px',
         '@media(max-width: 485px)': {
-            flexDirection: 'column-reverse',
+           
             alignItems: 'flex-start',
             '& b': {
-                marginTop: '15px',
-                display: 'inline-block'
+              
+               
             },
+           
             '& p': {
                 margin: '10px 0px'
             }
+
         }
     },
     slideImage: {
         paddingRight: '30px',
         margin: '0px 15px',
         '@media(max-width: 767px)': {
-            marginTop: '15px'
+            marginLeft: '-20px',
+            width:"91px"
         }
+
     },
     flexCommon: {
         display: 'flex',
@@ -41,6 +45,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         flexWrap: 'wrap',
     },
+  
 }));
 
 interface BannerSliderPropTypes {
@@ -64,7 +69,7 @@ const BannerSlider = (props: BannerSliderPropTypes) => {
             <Slider {...props.sliderSetting}>
                 {
                     props.sliderDetails.map((item) => (
-                        <div>
+                        <div >
                             <div className={classes.slideContentWrapper} style={{ backgroundColor: item.bgColor }}>
                                 <div className="slideContent">
                                     <b style={{ fontSize: '14px', fontWeight: '500' }}>{item.topHeading}</b>
@@ -73,8 +78,8 @@ const BannerSlider = (props: BannerSliderPropTypes) => {
                                     <p style={{ color: 'var(--uiWhite)', fontSize: '12px', marginTop: '7px' }}>{item.subHeading}</p>
                                     <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>{item.btnText}</Button>
                                 </div>
-                                <div className={classes.slideImage} >
-                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" />
+                                <div className={classes.slideImage + " " +  "FlexDownbgstyleT"} >
+                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" className="smallwidthheight" />
                                 </div>
                             </div>
                         </div>
