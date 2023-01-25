@@ -41,7 +41,7 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
             <Box sx={style.imgContainer}>
                 <img src={Img} height="62px" />
             </Box>
-            <Box sx={style.imgContainer2}>
+            <Box className="imGHomeCardLayout" sx={style.imgContainer2}>
                 <img src={Img} height="50px" />
             </Box>
             <Box>

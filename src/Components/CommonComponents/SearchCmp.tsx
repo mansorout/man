@@ -275,7 +275,7 @@ const SearchCmp = (props: SearchCmpProps) => {
                 </Box>
                 <Box className={classes.filterOptions}>
                     <Box
-                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+                        sx={{ bgcolor: 'background.paper', display: 'flex', height: 224 }}
                     >
                         <Tabs
                             orientation="vertical"
@@ -283,8 +283,8 @@ const SearchCmp = (props: SearchCmpProps) => {
                             value={value}
                             onChange={handleChange}
                             aria-label="Vertical tabs example"
-                            sx={{ borderRight: 1, borderColor: 'divider' }}
-                            className={classes.tabStyles}
+                            // sx={{ borderRight: 1, borderColor: 'divider' }}
+                            className={classes.tabStyles +" "+ "tabbox__Button"}
                         >
                             {/* <Tab label="Sort" {...a11yProps(0)} />
                             <Tab label="Policy Term" {...a11yProps(1)} />
@@ -303,7 +303,7 @@ const SearchCmp = (props: SearchCmpProps) => {
                                     {
                                         parentItem && parentItem?.selectType === enumSelectedType.RADIO ?
                                          (
-                                            <FormControl>
+                                            <FormControl className="tabPaneFilterbox">
                                                 <RadioGroup
                                                     aria-labelledby="demo-radio-buttons-group-label"
                                                     defaultValue="highToLowReturn"
@@ -347,7 +347,7 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                 </RadioGroup>
                                             </FormControl>
                                          ) : (
-                                            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                            <FormControl className="tabPaneFilterbox" component="fieldset" variant="standard">
                                                 {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
                                                 <FormGroup>
                                                     
@@ -356,7 +356,9 @@ const SearchCmp = (props: SearchCmpProps) => {
                                                             <FormControlLabel
                                                                 className={classes.radioStyle}
                                                                 value={nestedItem?.providerid}
-                                                                control={<Checkbox checked={isExit(nestedItem?.providerid,enumTabsKey?.FUND_HOUSE )}
+                                                                control={<Checkbox style ={{
+                                                                    color: "#23db7b",
+                                                                  }} checked={isExit(nestedItem?.providerid,enumTabsKey?.FUND_HOUSE )}
                                                                 />}
                                                                 label={nestedItem?.providername}
                                                                 onChange={(e) => handleCheckedAndRadioChange(e, nestedItem?.providerid, enumTabsKey?.FUND_HOUSE, childIndex)}
