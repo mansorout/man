@@ -237,9 +237,24 @@ const TaxCanSave = () => {
     }, [formValues])
 
     const handleContinue = () => {
-        navigate('/saveTax/saveTaxAmount')
+let title:any = true
+        navigate('/saveTax/saveTaxAmount', {
+            state:{
+                
+                title
+              },
+          });
     }
 
+   
+  
+
+    // const handleContinue = () => {
+    //     // navigate('')
+    //     let  istaxCanSave:any = true
+    //     navigate(`saveTax/saveTaxAmount${istaxCanSave}`)}
+
+    
 
     const validate = Yup.object().shape({
         employeePF: Yup.number().positive("Must be more than 0")
