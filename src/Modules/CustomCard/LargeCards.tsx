@@ -48,7 +48,7 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
                 <Typography className='subTitle4'>
                     {Heading}
                 </Typography>
-                <Typography className='body1 homeBgImageSip'>
+                <Typography className='body1'>
                     {Text}
                 </Typography>
             </Box>
