@@ -23,7 +23,7 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
             borderRadius: "8px",
             display: "flex",
             padding: "20px",
-            alignItems: "center",
+            // alignItems: "center",
             gap: "20px"
         },
         imgContainer: {
@@ -36,25 +36,30 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
 
 
     return (
-        <Box style={style.container}  onClick={() => iconNavigation(navigationKey)} sx={{cursor:"pointer"}}>
-          
-            <Box sx={style.imgContainer}>
+        <Box sx={{padding:{xs:"10px !important", sm:"unset"},cursor:"pointer", display:"flex", justifyContent: "space-between",alignItems: "center"}} style={style.container}  onClick={() => iconNavigation(navigationKey)}>
+          <Box sx={{display:"flex",alignItems: "center"}}>
+          <Box sx={style.imgContainer}>
                 <img src={Img} height="62px" />
             </Box>
             <Box className="imGHomeCardLayout" sx={style.imgContainer2}>
                 <img src={Img} height="50px" />
             </Box>
-            <Box>
+          <Box style={{paddingLeft:"20px"}}>
                 <Typography className='subTitle4'>
                     {Heading}
                 </Typography>
-                <Typography className='body1'>
+                <Typography className='bodyHomePageText'>
                     {Text}
                 </Typography>
             </Box>
-            <IconButton style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
-                <ArrowForward style={{ color: "white" }} />
+          </Box>
+           
+            
+           <Box>
+           <IconButton sx={{padding:{xs:"2px", sm:"7px"}}} style={{ backgroundColor: "#23db7b",}} >
+                <ArrowForward sx={{fontSize:{xs:"16px", sm:"unset"}}}  style={{ color: "white" }} />
             </IconButton>
+           </Box>
         </Box>
     )
 }
