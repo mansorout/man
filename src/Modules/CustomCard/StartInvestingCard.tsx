@@ -52,6 +52,7 @@ const StartInvestingCard = ({ BgColor, Heading, Text, Img }: Props) => {
         <Typography className='body1'>
           {Text}
         </Typography>
+        
       </Box>
     </Box>
   )
