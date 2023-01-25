@@ -13,10 +13,12 @@ import UlipDropDownFilter from "./UlipDropDownFilter";
 import { Transactions } from "../../Modal/Transactions";
 import { AnchorOpenAction } from '../../Store/Duck/FilterBox';
 import { useDispatch } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ULIPOptions = () => {
 
-    const dispatch:any = useDispatch()
+    const dispatch:any = useDispatch();
+    const navigate:any = useNavigate();
 
     const handleFilter =(event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
         dispatch(AnchorOpenAction(event))
@@ -100,8 +102,8 @@ const ULIPOptions = () => {
                                     marginBottom: '3vw',
                                 }}>
                                     <Link href="/home">Home</Link>
-                                    <Link href="/insurance">Get Insured</Link>
-                                    <Link href="/ulip/investoptions">ULIP</Link>
+                                    <Link onClick={()=>navigate('/insurance')}>Get Insured</Link>
+                                    <Link  href="/ulip/investoptions">ULIP</Link>
                                     <Link href="/ulip/recommendations">SprintMoney Recommendation</Link>
                                     <Typography sx={{
                                         fontSize: '12px',
