@@ -50,8 +50,8 @@ const AddToPlanComp = (props: IProps) => {
             &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
             &nbsp;  &nbsp;  &nbsp;  &nbsp;
             <Typography sx={{
-              width: "169px",
-              marginLeft: "25%",
+              width:{xs:"100%", sm:"169px"},
+              marginLeft:{xs:"0px", sm:"25%"},
               //  padding:" 10px 8px 9px 8px",
               borderRadius: "4px",
               boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",

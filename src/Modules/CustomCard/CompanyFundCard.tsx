@@ -44,8 +44,8 @@ const CompanyFundCard = (props: Prop) => {
                     border: 'solid 1px #d1d6dd',
                     borderRadius: '50%',
                 }} />
-                <Box sx={{
-                    width: { xs: '246px', sm: '217px' }
+                <Box className="width82px" sx={{
+                    width: { xs: '180px', sm: '200px', md:"120px", lg: '150px' }
                 }}>
                     <Typography>{ props.name }</Typography>
                     <Chip className="textPropName" label={ props.cap } sx={{
