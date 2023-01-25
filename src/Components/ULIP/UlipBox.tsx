@@ -17,6 +17,7 @@ import {
     Theme,
     Toolbar,
     Typography,
+    Dialog,
 } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
@@ -30,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 // import "./UlipBox.css";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import BannerSlider from "../CommonComponents/BannerSlider";
+import Button from '@mui/material/Button';
 import {
     SaveTaxInvestmentAmount,
     ULIP_LUMPSUM,
@@ -67,6 +69,8 @@ import {
     lookUpMasterKeys,
 } from "../../Utils/globalConstant";
 import { width } from "@mui/system";
+import { getDefaultList } from "../../Store/Global/thunk/global-thunk";
+import siteConfig from "../../Utils/siteConfig";
 // import './UlipBox.css'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -166,6 +170,15 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         padding: "15px",
     },
+    
+    modalTextButton: {
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+    },
+    modalText: {
+        padding: '20px'
+    },
 }));
 
 const enumGraphKeys = {
@@ -205,7 +218,15 @@ const UlipBox = (props: any) => {
     const { ulipInsuranceType, ulipInsuranceAmount } = useSelector(
         (state: any) => state.InvestmentTypeReducers
     );
+    const [validationAlertDialog, setValidationAlertDialog] = useState({
+        msg: '',
+        bool: false,
+    })
 
+    const defaultDataSet = async () => {
+        const res = await getDefaultList(siteConfig.METADATA_MODULE_LIST)
+        console.log("defaultDataSet :", res)
+    }
     
     // const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
     // const lookUPIdLUMPSUM = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.LUMPSUM)
@@ -219,6 +240,7 @@ const UlipBox = (props: any) => {
 
     
     useEffect(() => {
+        defaultDataSet()
         const lookup__id_Arr = customParseJSON(
             localStorage.getItem(lookUpMasterKeys.ULIP_TERM)
         );
@@ -331,6 +353,32 @@ const UlipBox = (props: any) => {
 
     const chartOptions = {
         responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: true //this will remove only the label
+          }
+          },
+          y: {
+            border: {
+              color: '#fff'
+            },
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: false //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          // 'dataset.maxBarThickness': 5,
+          },
+        },
         plugins: {
             legend: {
                 position: "bottom" as const,
@@ -368,7 +416,11 @@ const UlipBox = (props: any) => {
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount));
                 navigate("/ulip/recommendations");
             } else {
-                alert("Enter amount multiple of 100!");
+                // alert("Enter amount multiple of 100!");
+                setValidationAlertDialog({
+                    msg: 'Enter amount multiple of 100!',
+                    bool: true,
+                })
             }
         } else if (investmentType === ULIP_MONTHLY && monthlyAmount > 0) {
             dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
@@ -710,6 +762,17 @@ const UlipBox = (props: any) => {
                 btnDisable={lumpsumAmount < 5000 && monthlyAmount < 1000 ? true : false}
                 btnClick={handleNavigationFlow}
             />
+
+<Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
+                <Button onClick={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'var(--primaryColor)',
+                    color: '#7b7b9d'
+                }}>
+                    OK
+                </Button>
+            </Dialog>
 
         </Box >
 

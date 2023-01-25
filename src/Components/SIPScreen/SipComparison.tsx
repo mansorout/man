@@ -32,6 +32,7 @@ import { bannerSectionValues, globalConstant, lookUpMasterKeys } from '../../Uti
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import { config } from 'process';
 import { getComparisonBetweenMutualFundThunkAndUlip } from '../../Store/Recommendations/thunk/recommendations-thunk';
+import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -304,10 +305,10 @@ const SipComparison = () => {
                                     </TableContainer>
 
 
-                                    <FooterBtnWithBox
-                                        boxIcon={<ThumbUpAltOutlinedIcon />}
-                                        boxText='Great! Your SIP is'
-                                        boxAmount={`₹${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
+                                    <FooterWithBtn
+                                        // boxIcon={<ThumbUpAltOutlinedIcon />}
+                                        // boxText='Great! Your SIP is'
+                                        // boxAmount={`₹${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                                         btnText='Show Me Recommendations'
                                         btnClick={handleShowRecommendation}
                                         btnDisable={false}
