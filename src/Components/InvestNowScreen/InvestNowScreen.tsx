@@ -303,13 +303,30 @@ function InvestNowScreen(props: IProps) {
     console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
     setInvestedValue(tempInitialVal?.investedvalue)
     setProjectedValue(tempInitialVal?.projectedvalue)
+
+    console.log("expectedReturns :", expectedReturns.filter((item: expectedReturnProps) =>
+    item?.years < 5 ?
+      item?.years % 2 !== 0
+      :
+      item?.years % 5 === 0
+  ).map(item=> item["years"]))
     
     return {
-      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
+      labels: expectedReturns.filter((item: expectedReturnProps) =>
+      item?.years < 5 ?
+        item?.years % 2 !== 0
+        :
+        item?.years % 5 === 0
+    ).map(item => item["years"]), //x
       datasets: [
         {
           label: "Projected Value",
-          data: expectedReturns.map((item: expectedReturnProps) => item["projectedvalue"]),
+          data: expectedReturns.filter((item: expectedReturnProps) =>
+          item?.years < 5 ?
+            item?.years % 2 !== 0
+            :
+            item?.years % 5 === 0
+        ).map(item=> item["projectedvalue"]),
           fill: true,
           borderColor: "#742774"
         },
@@ -322,6 +339,7 @@ function InvestNowScreen(props: IProps) {
       let strCardType:string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
       dispatch(setInvestmentCardTypeAction(strCardType));
     }  
+    setAmount(enumDefaultAmount.INVESTED_VALUE)
     getExpectedFundReturnList(enumDefaultAmount.INVESTED_VALUE);
   }, []);
 
