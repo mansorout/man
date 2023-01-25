@@ -419,10 +419,11 @@ const RecommendationsULIP = () => {
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Recommendations ULIP</Typography>
+                      <Typography  className='burgerText'>Recommendations rrrrULIP</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>
+                
                         <Box className={classes.cmpHeading}>
                             <Typography component='p'>{ulipListApiData?.length && ulipListApiData.length} ULIP Plan Found</Typography>
                             <Typography component='span'>This plan provide tax benefit of 80C</Typography>
@@ -488,11 +489,6 @@ const RecommendationsULIP = () => {
                                 ))
                             }
 
-                        {/* <Box className={classes.exploreOtherOptionsBtn}>
-                            <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
-                                Explore other options
-                            </Button>
-                        </Box> */}
 
                         <FooterWithBtn
                             btnText={investmentType === LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
