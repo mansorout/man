@@ -213,10 +213,10 @@ const SipComparison = () => {
                                             state: {
                                                 cardType: globalConstant.SIP_INVESTMENT
                                             }
-                                            })} href='sipInvestment' >
+                                            })}>
                                             <Typography className='burgerText'> Investment</Typography>
                                         </Link>
-                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/startAnSip')} href='startAnSip' >
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/startAnSip')}>
                                             <Typography className='burgerText'> Start an SIP</Typography>
                                         </Link>
                                         <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>

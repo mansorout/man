@@ -50,6 +50,7 @@ import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/
 import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 import { apiResponse } from '../../Utils/globalTypes';
 import moment from 'moment';
+import './insurance.css'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -417,7 +418,8 @@ const InsuranceTerms = () => {
 
     return (
         <div>
-            <Box sx={{ padding: '30px 7px', paddingTop: '60px', width: { xs: '100%', sm: '50%' } }}>
+             <Box sx={{ padding: '23px 23px',boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",marginTop:"35px", borderRadius:"8px", paddingTop: '11px', width: { xs: '100%', sm: '50%' } }} className="TreminsuraceBox">
+    
                 <div className={classes.termInsuranceCard}>
                     <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}>Term Insurance</b>
                     <FormControl fullWidth>
@@ -447,8 +449,8 @@ const InsuranceTerms = () => {
                         </Select>
                         {insuranceAmountError && <FormHelperText style={{ color: 'red' }}>This is required!</FormHelperText>}
                     </FormControl>
-                    <Box sx={{ paddingTop: '20px', }}>
-                        <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }}>You can quickly choose from below cover option</span>
+                    <Box sx={{ paddingTop: '20px', }} className="YoncanQuicky">
+                        <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }} className="YoncanQuicky">You can quickly choose from below cover option</span>
                         <ul className={classes.quickSelectWrapper}>
                             {
                                 quickPickAmount && quickPickAmount.length && quickPickAmount.map((item, index) => (
