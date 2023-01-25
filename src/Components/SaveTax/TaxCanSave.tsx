@@ -237,9 +237,24 @@ const TaxCanSave = () => {
     }, [formValues])
 
     const handleContinue = () => {
-        navigate('/saveTax/saveTaxAmount')
+let title:any = true
+        navigate('/saveTax/saveTaxAmount', {
+            state:{
+                
+                title
+              },
+          });
     }
 
+   
+  
+
+    // const handleContinue = () => {
+    //     // navigate('')
+    //     let  istaxCanSave:any = true
+    //     navigate(`saveTax/saveTaxAmount${istaxCanSave}`)}
+
+    
 
     const validate = Yup.object().shape({
         employeePF: Yup.number().positive("Must be more than 0")
@@ -311,7 +326,7 @@ const TaxCanSave = () => {
                                         <Link color="#6495ED" underline="always" href='Home' >
                                             <Typography className='burgerText'> Home</Typography>
                                         </Link>
-                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} href='saveTax' >
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                                             <Typography className='burgerText'> Save Tax</Typography>
                                         </Link>
                                         <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
@@ -332,7 +347,7 @@ const TaxCanSave = () => {
                                         <Box className={classes.blueBoxContent}>
                                             <Typography component='span'>You can invest upto</Typography>
                                             <Typography component='p'>₹1.5 Lacs under Section 80C.</Typography>
-                                            <Typography component='span'>Already Investing: ₹{alreadyInvesting}</Typography>
+                                            <Typography component='span'>Already Invested: ₹{alreadyInvesting}</Typography>
                                         </Box>
                                         <Box className={classes.blueBoxCircle}>
                                             <Box sx={{ textAlign: 'center' }}>

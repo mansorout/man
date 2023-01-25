@@ -32,6 +32,7 @@ import { bannerSectionValues, globalConstant, lookUpMasterKeys } from '../../Uti
 import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
 import { config } from 'process';
 import { getComparisonBetweenMutualFundThunkAndUlip } from '../../Store/Recommendations/thunk/recommendations-thunk';
+import FooterWithBtn from '../CommonComponents/FooterWithBtn';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -212,10 +213,10 @@ const SipComparison = () => {
                                             state: {
                                                 cardType: globalConstant.SIP_INVESTMENT
                                             }
-                                            })} href='sipInvestment' >
+                                            })}>
                                             <Typography className='burgerText'> Investment</Typography>
                                         </Link>
-                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/startAnSip')} href='startAnSip' >
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/startAnSip')}>
                                             <Typography className='burgerText'> Start an SIP</Typography>
                                         </Link>
                                         <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
@@ -304,10 +305,10 @@ const SipComparison = () => {
                                     </TableContainer>
 
 
-                                    <FooterBtnWithBox
-                                        boxIcon={<ThumbUpAltOutlinedIcon />}
-                                        boxText='Great! Your SIP is'
-                                        boxAmount={`₹${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
+                                    <FooterWithBtn
+                                        // boxIcon={<ThumbUpAltOutlinedIcon />}
+                                        // boxText='Great! Your SIP is'
+                                        // boxAmount={`₹${localStorage.getItem(siteConfig?.SIP_USER_AMOUNT)}`}
                                         btnText='Show Me Recommendations'
                                         btnClick={handleShowRecommendation}
                                         btnDisable={false}

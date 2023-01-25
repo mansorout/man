@@ -10,7 +10,7 @@ import { ContactTick } from "../../Assets";
 import siteConfig from "../../Utils/siteConfig";
 import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
-import { getDataWithoutToken, postData } from "../../Utils/api";
+import { getData, getDataWithoutToken, postData } from "../../Utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
@@ -126,11 +126,55 @@ const BankAccountDetails = () => {
     const [bankNameFromApi, setbankNameFromApi] = useState("")
     const [hideBankDetails, sethideBankDetails] = useState(false)
     const [greenCheck, setGreenCheck] = useState<boolean>(false);
+    const [userBankDetails,setUserBankDetails] = useState<any>()
 
     // regexpression validation
     let ifscreg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     let accRegex = /^(\d{10,16})$/
     const handleRegex = (regex: any, value: string) => regex.test(value);
+    useEffect(() => {
+        getUserProfileData();
+        // getkycData()
+    }, [])
+
+    // console.log(userBankDetails)
+
+    const getUserProfileData = () => {
+        getData(
+            siteConfig.AUTHENTICATION_PROFILE_VIEW,
+            siteConfig.CONTENT_TYPE_APPLICATION_JSON,
+            siteConfig.AUTHENTICATION_API_ID
+        )
+            .then(res => res.json())
+            .then(data => {
+                if (checkExpirationOfToken(data?.code)) {
+                    dispatchLocal(setTokenExpiredStatusAction(true));
+                    return;
+                }
+
+                if (data?.error === true) {
+                    return;
+                }
+                const response = data?.data
+
+               if (response.userdetails?.customer_id != 0) {
+                    setUserBankDetails(response?.kycdetails?.bankdetails
+                        );
+                    
+                    
+                }
+
+
+
+
+            })
+            .catch(err => {
+              
+            })
+
+        
+
+    }
 
     // let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     const userData: any = useSelector(
@@ -160,15 +204,15 @@ const BankAccountDetails = () => {
     useEffect(() => {
         setBankDetails((prev: addbankaccountdataprops) => ({
             ...prev,
-            ifsc: userData?.ifsc,
-            accountnumber: userData?.accountnumber,
-            accounttype: userData?.accounttype,
-            accountHolder: userData?.accountholdername
+            ifsc: userBankDetails?.ifsc,
+            accountnumber: userBankDetails?.accountnumber,
+            accounttype: userBankDetails?.accounttype,
+            accountHolder: userBankDetails?.accountholdername
 
 
 
         }))
-    }, [])
+    }, [userBankDetails])
 
     useEffect(() => {
         if (bankdetails?.accountnumber && bankdetails?.accountnumber.length) {

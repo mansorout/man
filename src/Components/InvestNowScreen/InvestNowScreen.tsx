@@ -252,6 +252,32 @@ const arrPriceList = [1000, 5000, 10000];
 
 const chartOptions = {
   responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: true //this will remove only the label
+    }
+    },
+    y: {
+      border: {
+        color: '#fff'
+      },
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: false //this will remove only the label
+    },
+    gridLines: {
+      display: false,
+      drawBorder: false,
+    },
+    // 'dataset.maxBarThickness': 5,
+    },
+  },
   plugins: {
     legend: {
       position: 'bottom' as const,

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Grid, IconButton, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import { bgcolor } from '@mui/system'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 
