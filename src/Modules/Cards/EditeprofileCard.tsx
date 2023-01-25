@@ -685,10 +685,10 @@ const EditprofileCard = () => {
         <SprintMoneyLoader loadingStatus={loading} />
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} >
-            <Paper className=''
+            <Paper className='profileEditbox'
               sx={{
                 p: { xs: "5px", sm: "2" },
-                bgcolor: 'background.paper', marginTop: "-23px", borderRadius: "8px",
+                bgcolor: 'background.paper', borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"
               }}
@@ -887,11 +887,10 @@ const EditprofileCard = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={6} className="gridMarginBottom20">
-            <Paper className=''
+            <Paper className='profileEditbox'
               sx={{
                 p: { xs: "5px", sm: "2" },
                 bgcolor: 'background.paper',
-                marginTop: "-23px",
                 borderRadius: "8px",
                 boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                 marginLeft: "-1px"

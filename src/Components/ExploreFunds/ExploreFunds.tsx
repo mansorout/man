@@ -701,11 +701,11 @@ function ExploreFunds(props: any) {
           <SprintMoneyLoader
             loadingStatus={loading}
           />
-          <Grid container sx={{ width: "100%", height: "100%", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10}>
+          <Grid container sx={{ width: "100%", height: "100%", overflow: "scroll", overflowX: 'hidden' }} xs={12} sm={11} md={10} >
             <Toolbar />
             <Grid container>
               <Grid item xs={12}>
-                <Box className="BoxPadding ">
+                <Box className="BoxPadding">
                   <Box className="BoxExploreBottom">
                     {
                       status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
