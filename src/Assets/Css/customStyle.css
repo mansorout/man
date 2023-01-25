@@ -1,5 +1,11 @@
 .investInsidePading{padding: 15px;
 }
+.profileEditbox{
+  margin-top: -23px;
+}
+.buttoncenterstyle{
+  margin-bottom: 5px !important;
+}
 .tabbox__Button{
   background: #eaeaef85;
 }
@@ -333,6 +339,12 @@
   }
 }
 @media (max-width: 768px) {
+  .LineHeightText{
+    height: 83px;
+  }
+  .subTitle4 {
+    font-size: 14px !important;
+  }
   .ToastFooter{
     left: 11px;
     right: 11px;
@@ -416,6 +428,9 @@
     }
 }
 @media screen and (max-width: 600px){
+  .profileEditbox{
+    margin-top:0px;
+  }
   .btnVisibeFull{
     width: 100% !important;
   }
@@ -464,6 +479,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .LineHeightText {
+    height: 65px;
+}
   .tabPaneFilterbox{
     width: 190px;
   }
@@ -588,6 +606,15 @@
     }
 }
 @media screen and (max-width: 280px){
+  .width82px{
+    width:82px !important;
+  }
+  .css-4g6ai3  .imGHomeCardLayout img{
+width:60px !important;
+  }
+  .homeBgImageSip{
+    display: none;
+  }
   .tabbox__Button button{
     width: 100px !important;
   }

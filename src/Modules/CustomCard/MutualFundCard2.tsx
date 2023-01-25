@@ -261,12 +261,13 @@ const MutualFundCard2 = (props: MFProp) => {
                 style={{
                   padding: "4px 5px",
                   backgroundColor: "rgba(123, 123, 157, 0.16)",
+                  marginTop:"5px"
                 }}
                 onClick={() => {
                   if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
                 }}
               >
-                <Typography style={{ color: "var(--bgColor)", fontSize: "12px", textDecoration: "underline" }}>
+                <Typography style={{ color: "#3676d2", fontSize: "12px", textDecoration: "underline", }}>
                   View Scheme Detail
                 </Typography>
               </Box>

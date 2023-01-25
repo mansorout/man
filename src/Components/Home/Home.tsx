@@ -361,9 +361,9 @@ const Home = () => {
             <Sidebar />
           </Grid>
           <Grid className="HomeBgHead" container sx={{ height: "100vh", overflow: "scroll" }} xs={12} sm={11} md={10}>
-            <Grid sx={{ height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={7} lg={8}>
+            <Grid sx={{ height: { xs: "auto", sm: "auto", md: "inherit", lg: "inherit"  }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={12} md={7} lg={8}>
               <Toolbar />
-              <Grid container sx={{ marginTop: { xs: "-50px", sm: "0px" } }}>
+              <Grid container sx={{ marginTop: { xs: "-50px", sm: "0" } }}>
                 <Grid item xs={12} sx={{ padding: { xs: 0, sm: 2 } }}>
                   <FinancialFreedom />
                   
@@ -398,8 +398,8 @@ const Home = () => {
                 })
               }
             </Grid>
-            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={6} md={5} lg={4}>
-              <Box sx={{ marginTop: { xs: "-50px", sm: "unset" } }}>
+            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "auto", md: "inherit", lg: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={12} md={5} lg={4}>
+              <Box sx={{ marginTop: { xs: "-50px", sm: "-50px", md: "unset", lg: "unset"  } }}>
                 <Toolbar />
               </Box>
               
@@ -449,7 +449,7 @@ const Home = () => {
               }
 
 
-              <Grid spacing={1} container sx={{ px: "1rem" }}>
+              <Grid spacing={1} container sx={{ px: "1rem", marginBottom:{xs:"50px", sm:"0"} }} >
                 
                 <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
