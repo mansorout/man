@@ -18,6 +18,13 @@ export const globalConstant = Object.freeze({
     REMOVE_FUND_STATUS_ID: 2
 })
 
+export const moduleList = Object.freeze({
+    STARTSIP: "startsip",
+    SAVETAX: "savetax",
+    INVESTNOW: "investnow",
+    GETINSURED: "getinsured",
+})
+
 export const lookUpMasterKeys: any = Object.freeze({
     BANNER_SECTION: 'bannersection',
     FINANCIAL_YEAR: 'financialyear',

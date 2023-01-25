@@ -38,7 +38,7 @@ import {
 } from '../../Store/Duck/InvestmentType'
 import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
 import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
-import { customParseJSON, getLookUpIdWRTModule } from '../../Utils/globalFunctions';
+import { customParseJSON, getLookUpIdWRTModule, numDifferentiation } from '../../Utils/globalFunctions';
 import { getUlipListApi, getUlipSchemeDetailApi, postUlipGenrateApi } from '../../Store/Insurance/thunk/insurance-thunk';
 import { getUlipListApiTypes } from '../../Store/Insurance/constants/types';
 import siteConfig from '../../Utils/siteConfig';
@@ -454,7 +454,7 @@ const SipRecommendationsULIP = () => {
                                             </Grid>
                                             <Grid item sm={2} xs={12}>
                                                 <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
-                                                    <Typography component='div'>₹{cardItem?.investedvalue}</Typography>
+                                                    <Typography component='div'>₹{numDifferentiation(cardItem?.projectedvalue)}</Typography>
                                                 </Box>
                                             </Grid>
                                             <Grid item sm={3} xs={12}>
@@ -464,8 +464,8 @@ const SipRecommendationsULIP = () => {
                                                         <Typography component='p'>{cardItem?.topreturn}% Return</Typography>
                                                     </Box>
                                                     <Box className={classes.cardContent}>
-                                                        <Typography component='span'>Tax Saving on Investment</Typography>
-                                                        <Typography component='p'>₹{cardItem?.taxsavingoninvestment} {'Every Month'} </Typography>
+                                                        <Typography component='span'>Invested Value</Typography>
+                                                        <Typography component='p'>₹{numDifferentiation(cardItem?.investedvalue)} </Typography>
                                                     </Box>
                                                 </Box>
                                             </Grid>
@@ -473,11 +473,11 @@ const SipRecommendationsULIP = () => {
                                                 <Box>
                                                     <Box className={classes.cardContent}>
                                                         <Typography component='span'>Life Cover</Typography>
-                                                        <Typography component='p'>₹{cardItem?.lifecover}</Typography>
+                                                        <Typography component='p'>₹{numDifferentiation(cardItem?.lifecover)}</Typography>
                                                     </Box>
                                                     <Box className={classes.cardContent}>
-                                                        <Typography component='span'>Tax Saving on Maturity</Typography>
-                                                        <Typography component='p'>₹{cardItem?.projectedvalue}</Typography>
+                                                        <Typography component='span'>Tax Saving on Investment</Typography>
+                                                        <Typography component='p'>₹{cardItem?.taxsavingoninvestment} {'Every Month'}</Typography>
                                                     </Box>
                                                 </Box>
                                             </Grid>

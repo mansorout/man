@@ -347,7 +347,7 @@ let title:any = true
                                         <Box className={classes.blueBoxContent}>
                                             <Typography component='span'>You can invest upto</Typography>
                                             <Typography component='p'>₹1.5 Lacs under Section 80C.</Typography>
-                                            <Typography component='span'>Already Investing: ₹{alreadyInvesting}</Typography>
+                                            <Typography component='span'>Already Invested: ₹{alreadyInvesting}</Typography>
                                         </Box>
                                         <Box className={classes.blueBoxCircle}>
                                             <Box sx={{ textAlign: 'center' }}>
