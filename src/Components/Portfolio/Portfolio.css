@@ -23,6 +23,8 @@
 
 
 }
+
+
 @media (width:390px){
   .transtabStyle{
     margin-left: -13px !important;
@@ -32,6 +34,15 @@
     padding: 2px !important;
   
   }
+  .CardManageStyleSlected {
+    max-width: 364px !important;
+    margin-left: -10px !important;
+}
+.GridManageWidth {
+  width: 324px !important;
+  margin-top: 4% !important;
+  margin-left: 1% !important;
+}
 
 }
 @media (width:393px){
@@ -43,22 +54,34 @@
     padding: 2px !important;
   
   }
-  .BoxHTSR{
-    color:  red !important;
-  }
-  .containerReportStyle{
-    color: red !important;
-  }
+  .CardManageStyleSlected {
+    max-width: 364px !important;
+    margin-left: -10px !important;
 }
+.GridManageWidth {
+  width: 324px !important;
+  margin-top: 4% !important;
+  margin-left: 1% !important;
+}
+
+}
+
 
 @media (width:360px) {
   .padMarLeftRight{
     padding: 2px !important;
   
   }
-  .BoxHTSR{
-    color:  red !important;
-  }
+  .CardManageStyleSlected {
+    max-width: 364px !important;
+    margin-left: -10px !important;
+}
+.GridManageWidth {
+  width: 300px !important;
+  margin-top: 4% !important;
+  margin-left: 1% !important;
+}
+
   .containerReportStyle{
     padding: 4px !important;
   }
@@ -70,12 +93,7 @@
     padding: 30px !important;
   
   }
-  .buttonStyeReport{
-    color: red !important
-  }
-  .BoxHTSR{
-    color:  red !important;
-  }
+ 
   .containerReportStyle{
     padding: 4px !important;
   }
@@ -84,8 +102,49 @@
   }
   .SerachStyle{
     width: 20px !important;
-    color: red !important;
+   
   }
+}
+@media (width:412px){
+  .CardManageStyleSlected {
+    max-width: 399px !important;
+    margin-left: -12px !important;
+}
+.GridManageWidth {
+  width: 354px !important;
+  margin-top: 4% !important;
+  margin-left: 0px !important;
+}
+}
+@media (width:414px) {
+  .GridManageWidth {
+    width: 358px !important;
+    margin-top: 2% !important;
+    margin-left: 1px !important;
+}
+.CardManageStyleSlected {
+  max-width: 387px !important;
+  margin-left: -11px !important;
+}
+  
+}
+@media (width:375px){
+  .transtabStyle{
+    margin-left: -4px !important;
+    max-width: 385px !important;
+  }
+  .padMarLeftRight{
+    padding: 2px !important;
+  
+  }
+
+.GridManageWidth {
+ 
+  margin-top: 4% !important;
+  
+}
+
+
 }
 /* <DrawerList sx={{
     boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",

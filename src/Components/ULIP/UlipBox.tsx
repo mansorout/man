@@ -185,6 +185,14 @@ const UlipBox = (props: any) => {
     const [lumpsumAmount, setLumpsumAmount] = useState(0);
     const [monthlyAmount, setMonthlyAmount] = useState(0);
     const [chartLabels, setChartLabels] = useState<string[] | null>(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [error, setError] = useState(false);
+    const [monthyshowerror, setMonthlyShowError] = useState("");
+    const [merror, setMerror] = useState(false);
+    const [ulipYears, setUlipYears] = useState<any>([]);
+    const [handlelinechart, setHandlelinechart] = useState(0);
+    const [greenline, setGreenline] = useState("");
+    const [pinkline, setPinkline] = useState("");
     const [chartInvestedAmount, setChartInvestedAmount] = useState<
         number[] | null
     >(null);
@@ -197,14 +205,10 @@ const UlipBox = (props: any) => {
     const { ulipInsuranceType, ulipInsuranceAmount } = useSelector(
         (state: any) => state.InvestmentTypeReducers
     );
-    const [errorMessage, setErrorMessage] = useState("");
-    const [error, setError] = useState(false);
-    const [monthyshowerror, setMonthlyShowError] = useState("");
-    const [merror, setMerror] = useState(false);
-    const [ulipYears, setUlipYears] = useState<any>([]);
-    const [handlelinechart, setHandlelinechart] = useState(0);
-    const [greenline, setGreenline] = useState("");
-    const [pinkline, setPinkline] = useState("");
+
+    
+    // const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
+    // const lookUPIdLUMPSUM = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.LUMPSUM)
 
     const handleTimer = (cb: any | void, a: any) => {
         clearTimeout(timerRef.current);
@@ -220,13 +224,14 @@ const UlipBox = (props: any) => {
         );
         const ulip: any = customParseJSON(localStorage.getItem(lookUpMasterKeys.ULIP_TERM));
         console.log(typeof ulip);
-        console.log(ulip);
+        console.log("ULIP_TERM", ulip);
         // setUlipYears(ulip);
     }, []);
     
     useEffect(() => {
         dispatch(insuranceUlipLumpsumAction(investmentType));
     }, []);
+    
 
     useEffect(() => {
         const urlTemp: ulipReturnApiParamsTypes = {
@@ -234,8 +239,12 @@ const UlipBox = (props: any) => {
             amount: ulipInsuranceAmount,
         };
         console.log(urlTemp);
+        
+        // dispatch(setUlipReturnSuccessAction(data?.data))
         dispatch(getUlipReturnApi(urlTemp));
     }, [ulipInsuranceAmount]);
+
+
 
     useEffect(() => {
         const labels = ulipReturnApiData?.map(
@@ -392,7 +401,7 @@ const UlipBox = (props: any) => {
 
         <Box style={{ width: "100vw" }}>
             <Navbar />
-            <Typography>gg</Typography>
+            
             <Box sx={{ width: "100%", }}>
                 <Grid container spacing={0}>
                     <Grid item xs={0} sm={1} md={2}>
@@ -581,7 +590,7 @@ const UlipBox = (props: any) => {
 
                                                             </Box>
                                                         </RadioGroup>
-                                                        <FormControl fullWidth
+                                                        {/* <FormControl fullWidth
                                                             className="MultiUpperStyle"
                                                         >
                                                             <InputLabel id="demo-simple-select-label">
@@ -602,7 +611,7 @@ const UlipBox = (props: any) => {
                                                                     );
                                                                 })}
                                                             </Select>
-                                                        </FormControl>
+                                                        </FormControl> */}
                                                     </Box>
                                                 </div>
 
@@ -615,7 +624,7 @@ const UlipBox = (props: any) => {
                                                 className="Ulippaddingright"
                                             >
                                                 {/* <UlipPlanPerformanceCard /> */}
-                                                <Box className={classes.performanceGraphCard} >
+                                                <Box className={classes.performanceGraphCard}>
                                                     <Typography
                                                         component="p"
                                                         sx={{

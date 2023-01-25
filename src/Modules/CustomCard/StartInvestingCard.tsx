@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box, Grid, IconButton, Typography } from '@mui/material'
 import { bgcolor } from '@mui/system'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 
 interface Props {
   BgColor: string,
@@ -51,7 +52,18 @@ const StartInvestingCard = ({ BgColor, Heading, Text, Img }: Props) => {
         </Typography>
         <Typography className='body1'>
           {Text}
+        <Grid container>
+          <Grid item xs={12} md={12} sm={12} textAlign="right" my="-40px">
+          <IconButton style={{ backgroundColor: "#23db7b",}} >
+                <ArrowForward style={{ color: "white" }} />
+            </IconButton>
+          </Grid>
+        </Grid>
+        
+        
+    
         </Typography>
+      
       </Box>
     </Box>
   )

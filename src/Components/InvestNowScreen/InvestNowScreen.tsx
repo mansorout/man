@@ -17,7 +17,7 @@ import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
 //global function and constants imports
-import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, isMultipleofNumber, numDifferentiation } from '../../Utils/globalFunctions';
 import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
 import { getData, postData } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
@@ -272,6 +272,10 @@ const enumPriceTag = {
   CRORE: "Cr"
 }
 
+const enumDefaultAmount = {
+  INVESTED_VALUE : 50000
+}
+
 function InvestNowScreen(props: IProps) {
 
   const classes = useStyles();
@@ -289,17 +293,40 @@ function InvestNowScreen(props: IProps) {
   
   const [error, setError] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
+  const [investedValue, setInvestedValue] = useState<any>(0)
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
   const [amountMutipleofH, setAmountMutipleofH] = useState<any>()
   const chartDataDetails: any = useMemo(() => {
+    const tempInitialVal = expectedReturns.filter((item: any) => item?.years === 5)[0];
+    console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
+    setInvestedValue(tempInitialVal?.investedvalue)
+    setProjectedValue(tempInitialVal?.projectedvalue)
+
+    console.log("expectedReturns :", expectedReturns.filter((item: expectedReturnProps) =>
+    item?.years < 5 ?
+      item?.years % 2 !== 0
+      :
+      item?.years % 5 === 0
+  ).map(item=> item["years"]))
+    
     return {
-      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
+      labels: expectedReturns.filter((item: expectedReturnProps) =>
+      item?.years < 5 ?
+        item?.years % 2 !== 0
+        :
+        item?.years % 5 === 0
+    ).map(item => item["years"]), //x
       datasets: [
         {
           label: "Projected Value",
-          data: expectedReturns.map((item: expectedReturnProps) => item["projectedvalue"]),
+          data: expectedReturns.filter((item: expectedReturnProps) =>
+          item?.years < 5 ?
+            item?.years % 2 !== 0
+            :
+            item?.years % 5 === 0
+        ).map(item=> item["projectedvalue"]),
           fill: true,
           borderColor: "#742774"
         },
@@ -312,6 +339,8 @@ function InvestNowScreen(props: IProps) {
       let strCardType:string | null = localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE);
       dispatch(setInvestmentCardTypeAction(strCardType));
     }  
+    setAmount(enumDefaultAmount.INVESTED_VALUE)
+    getExpectedFundReturnList(enumDefaultAmount.INVESTED_VALUE);
   }, []);
 
   useEffect(()=>{
@@ -408,7 +437,7 @@ function InvestNowScreen(props: IProps) {
     }
 
     postData(
-      {investmenttype_id: id, amount: amount},
+      {investmenttype_id: id, amount: amount || enumDefaultAmount?.INVESTED_VALUE},
       siteConfig.RECOMMENDATION_MUTUALFUND_GENERATE,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.RECOMENDATION_API_ID
@@ -492,7 +521,8 @@ function InvestNowScreen(props: IProps) {
                               }}
                               placeholder="1,00,000"
                               // name="amount"
-                              value={amount || amountMutipleofH || ""}
+                              // value={amount || amountMutipleofH}
+                              value={amount || amountMutipleofH || numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
                               onChange={handleOnChangeAmount}
                               sx={{
                                 margin: " -55px 0 20px",
@@ -632,7 +662,14 @@ function InvestNowScreen(props: IProps) {
                           <LineChart
                             optionsValues={chartOptions}
                             dataValues={chartDataDetails}
-                            onClick={(data) => setProjectedValue(data?.value ? data?.value : 0)}
+                            onClick={(data) => {
+                              let objData: any = 0;
+                              if (expectedReturns && expectedReturns.length) {
+                                objData = expectedReturns.filter((item: any) => item?.projectedvalue === data?.value)[0];
+                              }
+                              setInvestedValue(objData?.investedvalue);
+                              setProjectedValue(data?.value ? data?.value : 0)
+                            }}
                           />
                         </Typography>
                         <Grid container spacing={1} sx={{}}>
@@ -655,7 +692,9 @@ function InvestNowScreen(props: IProps) {
                             fontWeight: "300", textAlign: "left",
                           }}>
                             <b style={{ color: " #3c3e42", fontSize: "20px" }}>
-                              ₹{amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0}
+                              {/* ₹{amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0} */}
+                              {/* ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)} */}
+                              ₹{investedValue ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
                             </b>
                           </Grid>
                           <Grid item xs={6} sx={{
@@ -664,7 +703,7 @@ function InvestNowScreen(props: IProps) {
 
                           }}>
                             <b style={{ color: " #23db7b", fontSize: "20px", }}>
-                            ₹{projectedValue ? getExactPriceWithTag(projectedValue) : 0}
+                            ₹{projectedValue ? numDifferentiation(projectedValue) : 0}
                             </b>
                           </Grid>
                         </Grid>

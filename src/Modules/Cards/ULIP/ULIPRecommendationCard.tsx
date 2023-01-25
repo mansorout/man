@@ -141,8 +141,8 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
             <Grid container >
                 <Grid item sm={6} xs={6} md={6}>
                     <Box  style={{display:"flex", alignItems:"center",marginRight:"20px"}} className="ImgwithtexStyle">
-                        <Box className={classes.imgWrapper}>
-                            <img src={props.logoUrl} alt="" />
+                        <Box className={classes.imgWrapper + " " + "Img"} >
+                            <img src={props.logoUrl} alt=""  />
                         </Box>
                         <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize) '}} className="companyNameStyle">{props.companyName}</b>
                     </Box>
