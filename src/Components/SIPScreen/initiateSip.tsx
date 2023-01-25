@@ -17,7 +17,7 @@ import SaveSipDetailsButton from '../../Modules/Buttons/SaveSipDetailsButton';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
 //global function and constants imports
-import { checkExpirationOfToken, isMultipleofNumber } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, isMultipleofNumber, numDifferentiation } from '../../Utils/globalFunctions';
 import { globalConstant, investmentTypeValues } from '../../Utils/globalConstant';
 import { getData, postData } from '../../Utils/api';
 import siteConfig from '../../Utils/siteConfig';
@@ -254,6 +254,10 @@ const chartOptions = {
   },
 };
 
+const enumDefaultAmount = {
+  INVESTED_VALUE : 5000
+}
+
 
 const InitiateSip = (props: IProps) => {
 
@@ -272,17 +276,30 @@ const InitiateSip = (props: IProps) => {
 
   const [error, setError] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
+  const [investedValue, setInvestedValue] = useState<any>(0)
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
-
+ 
   const chartDataDetails: any = useMemo(() => {
+    
+    const tempInitialVal = expectedReturns.filter((item: any) => item?.years === 5)[0];
+    console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
+    setInvestedValue(tempInitialVal?.investedvalue)
+    setProjectedValue(tempInitialVal?.projectedvalue)
+
     return {
-      labels: expectedReturns.map((item: expectedReturnProps) => item["years"]), //x
+      labels: expectedReturns.filter((item: expectedReturnProps) =>item?.years % 2 !== 0).map((item => item['years'])), //x
       datasets: [
+        // {
+        //   label: "Invested Value",
+        //   data: expectedReturns.map((item: expectedReturnProps) => item["investedvalue"]),
+        //   fill: true,
+        //   borderColor: "#742774"
+        // },
         {
           label: "Projected Value",
-          data: expectedReturns.map((item: expectedReturnProps) => item["projectedvalue"]),
+          data: expectedReturns.filter((item: expectedReturnProps) =>item?.years % 2 !== 0).map((item) => item["projectedvalue"] ),
           fill: true,
           borderColor: "#742774"
         },
@@ -295,6 +312,11 @@ const InitiateSip = (props: IProps) => {
       let strCardType: string | null = localStorage.getItem(siteConfig.SIP_CARD_TYPE);
       dispatch(setInvestmentCardTypeAction(strCardType));
     }
+
+    // saveMutualFundGenerate(12, "/SipComparison")
+    // handleActivePriceAmount(enumPriceList.FIVE_THOUSAND, arrPriceList[0])
+    
+    getExpectedFundReturnList(enumDefaultAmount.INVESTED_VALUE);
   }, []);
 
   const handleNavigation = () => {
@@ -339,7 +361,7 @@ const InitiateSip = (props: IProps) => {
   }
 
   const getExpectedFundReturnList = (amount: number) => {
-    let strUrl: string = siteConfig.RECOMMENDATION_FUND_RETURN + `?investmenttype_id=11&amount=${amount}`;
+    let strUrl: string = siteConfig.RECOMMENDATION_FUND_RETURN + `?investmenttype_id=12&amount=${amount}`;
     getData(
       strUrl,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
@@ -391,7 +413,7 @@ const InitiateSip = (props: IProps) => {
     }
 
     postData(
-      { investmenttype_id: id, amount: amount },
+      { investmenttype_id: id, amount: amount || enumDefaultAmount?.INVESTED_VALUE },
       siteConfig.RECOMMENDATION_MUTUALFUND_GENERATE,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.RECOMENDATION_API_ID
@@ -413,7 +435,6 @@ const InitiateSip = (props: IProps) => {
         console.log(err);
       })
   }
-
 
 
   return (
@@ -481,7 +502,7 @@ const InitiateSip = (props: IProps) => {
                               }}
                               placeholder="1,00,000"
                               // name="amount"
-                              value={amount || ""}
+                              value={amount || numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
                               onChange={handleOnChangeAmount}
                               sx={{
                                 margin: " -55px 0 20px",
@@ -620,7 +641,16 @@ const InitiateSip = (props: IProps) => {
                           <LineChart
                             optionsValues={chartOptions}
                             dataValues={chartDataDetails}
-                            onClick={(data) => setProjectedValue(data?.value ? data?.value : 0)}
+                            onClick={(data) => {
+                              let objData: any = 0;
+                              if (expectedReturns && expectedReturns.length) {
+                                objData = expectedReturns.filter((item: any) => item?.projectedvalue === data?.value)[0];
+
+                                console.log(objData?.investedvalue, "nInvestedValue");
+                              }
+                              setInvestedValue(objData?.investedvalue);
+                              setProjectedValue(data?.value ? data?.value : 0)
+                            }}
                           />
                         </Typography>
                         <Grid container spacing={1} sx={{}}>
@@ -643,7 +673,9 @@ const InitiateSip = (props: IProps) => {
                             fontWeight: "300", textAlign: "left",
                           }}>
                             <b style={{ color: " #3c3e42", fontSize: "20px" }}>
-                              ₹{amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0}
+                              {/* ₹{numDifferentiation(amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0)} kp */}
+                              {/* ₹{amount > arrPriceList[0] - 1 ? numDifferentiation(amount) : 0} */}
+                              ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
                             </b>
                           </Grid>
                           <Grid item xs={6} sx={{
@@ -652,7 +684,7 @@ const InitiateSip = (props: IProps) => {
 
                           }}>
                             <b style={{ color: " #23db7b", fontSize: "20px", }}>
-                              ₹{projectedValue ? getExactPriceWithTag(projectedValue) : 0}
+                              ₹{projectedValue ? numDifferentiation(projectedValue) : 0}
                             </b>
                           </Grid>
                         </Grid>
