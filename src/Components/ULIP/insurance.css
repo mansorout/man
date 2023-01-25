@@ -29,6 +29,9 @@
        
         padding-left: 10px !important;
     }
+    .YoncanQuicky{
+        margin-top: -16px !important;
+    }
 }
 @media (width:540px){
     .boxBreadcrumb2{

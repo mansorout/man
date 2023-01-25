@@ -76,11 +76,7 @@
     max-width: 364px !important;
     margin-left: -10px !important;
 }
-.GridManageWidth {
-  width: 300px !important;
-  margin-top: 4% !important;
-  margin-left: 1% !important;
-}
+
 
   .containerReportStyle{
     padding: 4px !important;
@@ -116,18 +112,7 @@
   margin-left: 0px !important;
 }
 }
-@media (width:414px) {
-  .GridManageWidth {
-    width: 358px !important;
-    margin-top: 2% !important;
-    margin-left: 1px !important;
-}
-.CardManageStyleSlected {
-  max-width: 387px !important;
-  margin-left: -11px !important;
-}
-  
-}
+
 @media (width:375px){
   .transtabStyle{
     margin-left: -4px !important;
