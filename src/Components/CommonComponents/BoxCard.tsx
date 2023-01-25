@@ -65,6 +65,7 @@ const BoxCard = (props: BoxCardProps) => {
                     {/* <ArrowForwardIcon /> */}
                     {props.bottomNavigationIcon}
                 </div>
+               
             </div>
         </div>
     )
