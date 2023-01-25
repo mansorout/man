@@ -284,6 +284,12 @@ const RecommendationsELSS = () => {
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxAmount')} >
+                      <Typography className='burgerText'>Amount</Typography>
+                    </Link>
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxInvestmentType')} >
+                      <Typography className='burgerText'>Investment Type</Typography>
+                    </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
                       <Typography className='burgerText'>Recommendations ELSS</Typography>
                     </Link>

@@ -265,6 +265,7 @@ const SaveTaxAmount = () => {
     };
 
     const handleNavigationFlow = () => {
+        let breadcrumforInvestmentType:any = true
         if (investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0) {
             if (parseInt(lumpsumAmount) > 150000) {
                 setValidationAlertDialog({
