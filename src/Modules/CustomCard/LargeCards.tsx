@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { ArrowForward } from '@mui/icons-material'
 import fi from 'date-fns/esm/locale/fi/index.js'
 import { useNavigate } from 'react-router-dom'
+import { Grid } from 'react-loader-spinner'
 
 interface Props {
     Heading: string,
@@ -35,8 +36,8 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
 
 
     return (
-        <Box style={style.container}  onClick={() => iconNavigation(navigationKey)}>
-            
+        <Box style={style.container}  onClick={() => iconNavigation(navigationKey)} sx={{cursor:"pointer"}}>
+          
             <Box sx={style.imgContainer}>
                 <img src={Img} height="62px" />
             </Box>
@@ -45,10 +46,10 @@ function LargeCards({ Heading, Text, Img, navigationKey, iconNavigation }: Props
             </Box>
             <Box>
                 <Typography className='subTitle4'>
-                    {Heading}
+                    {Heading}ss
                 </Typography>
                 <Typography className='body1'>
-                    {Text}
+                    {Text}ss
                 </Typography>
             </Box>
             <IconButton style={{ backgroundColor: "#23db7b", marginLeft: "auto" }}>
