@@ -24,6 +24,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { getDataSaveTaxCalculateApi } from '../../Store/Save Tax/thunk/save-tax-thunk'
 import { useDispatch, useSelector } from 'react-redux';
 import { type } from 'os';
+import { setSaveTaxCalculateAmountAction } from '../../Store/Save Tax/actions/save-tax-actions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -275,10 +276,12 @@ let title:any = true
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: initialValues,
-        validationSchema: validate,
+        // validationSchema: validate,
         // initialIsValid:initialIsValid ,
         onSubmit: (values: any) => {
+            values['sumOfInvestment'] = alreadyInvesting;
             console.log('form values', values);
+            dispatch(setSaveTaxCalculateAmountAction(alreadyInvesting))
             dispatch(getDataSaveTaxCalculateApi(values))
             handleContinue();
         },

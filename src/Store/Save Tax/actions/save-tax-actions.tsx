@@ -12,7 +12,10 @@ import {
    SET_SAVETAX_GENRATE_FAILED,
 
    SET_SAVETAX_LIST_SUCCESS,
-   SET_SAVETAX_LIST_FAILED
+   SET_SAVETAX_LIST_FAILED,
+
+   SET_SAVE_TAX_CALCULATE_AMOUNT_SUCCESS,
+   SET_SAVE_TAX_CALCULATE_AMOUNT_FAILED
    } from "../constants/save-tax-constants"
 
 export const setSaveTaxInvestmentTypeOnSuccessAction = (data: any) => {
@@ -28,6 +31,15 @@ export const setSaveTaxInvestmentTypeOnFailAction = (data: any) => {
   return (dispatch: any) => {
     dispatch({
       type: SET_SAVE_TAX_INVESTMENT_TYPE_FAILED,
+      payload: data
+    })
+  }
+}
+
+export const setSaveTaxCalculateAmountAction = (data: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: SET_SAVE_TAX_CALCULATE_AMOUNT_SUCCESS,
       payload: data
     })
   }
