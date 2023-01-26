@@ -24,7 +24,7 @@ const CompanyFundCard = (props: Prop) => {
     });
 
     return (
-        <Box id="CoCard" sx={{
+        <Box className="boxHomeLayoutGrid boxHomeLayoutGridMargin" id="CoCard" sx={{
             padding: '1rem',
             fontFamily: 'Roboto',
             borderRadius: '0.5rem',

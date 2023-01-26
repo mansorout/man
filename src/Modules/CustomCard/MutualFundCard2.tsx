@@ -172,6 +172,7 @@ const style = {
 };
 
 const MutualFundCard2 = (props: MFProp) => {
+  console.log("MutualFundCard2()")
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -261,7 +262,7 @@ const MutualFundCard2 = (props: MFProp) => {
                 style={{
                   padding: "4px 5px",
                   backgroundColor: "rgba(123, 123, 157, 0.16)",
-                  marginTop:"5px"
+                  marginTop: "5px"
                 }}
                 onClick={() => {
                   if (props?.onCardClick) props?.onCardClick(props?.secid ? props?.secid : "")
@@ -313,26 +314,26 @@ const MutualFundCard2 = (props: MFProp) => {
           }}
         >
           <Box>
-            <Typography sx={{fontSize:{xs:"12px", sm:"14px"}}} style={{ color: "#7b7b9d" }}>
+            <Typography sx={{ fontSize: { xs: "12px", sm: "14px" } }} style={{ color: "#7b7b9d" }}>
               1yr return
             </Typography>
-            <Typography sx={{fontSize:{xs:"14px", sm:"18px"}}} style={{ color: "#3c3e42",}}>
+            <Typography sx={{ fontSize: { xs: "14px", sm: "18px" } }} style={{ color: "#3c3e42", }}>
               ₹{props?.return1yr}
             </Typography>
           </Box>
           <Box>
-            <Typography sx={{fontSize:{xs:"12px", sm:"14px"}}} style={{ color: "#7b7b9d" }}>
+            <Typography sx={{ fontSize: { xs: "12px", sm: "14px" } }} style={{ color: "#7b7b9d" }}>
               3yrs return
             </Typography>
-            <Typography sx={{fontSize:{xs:"14px", sm:"18px"}}} style={{ color: "#3c3e42",}}>
+            <Typography sx={{ fontSize: { xs: "14px", sm: "18px" } }} style={{ color: "#3c3e42", }}>
               ₹{props?.return3yr}{" "}
             </Typography>
           </Box>
           <Box>
-            <Typography sx={{fontSize:{xs:"12px", sm:"14px"}}} style={{ color: "#7b7b9d",}}>
+            <Typography sx={{ fontSize: { xs: "12px", sm: "14px" } }} style={{ color: "#7b7b9d", }}>
               5yrs return
             </Typography>
-            <Typography sx={{fontSize:{xs:"14px", sm:"18px"}}} style={{ color: "#3c3e42",}}>
+            <Typography sx={{ fontSize: { xs: "14px", sm: "18px" } }} style={{ color: "#3c3e42", }}>
               ₹{props?.return5yr}
             </Typography>
           </Box>
@@ -344,7 +345,7 @@ const MutualFundCard2 = (props: MFProp) => {
               {props?.showButtons === true ? (
                 <>
                   {/* for customize plan screen*/}
-                  <Grid className={props?.isShowRemoveButton ?"":"btnVisibeFull"}>
+                  <Grid className={props?.isShowRemoveButton ? "" : "btnVisibeFull"}>
                     <Grid
                       sx={{
                         display: "flex",
@@ -398,18 +399,22 @@ const MutualFundCard2 = (props: MFProp) => {
             {props?.showCheckbox === true ? (
               // for add funds
               <>
+                {/* {console.log("*************************start*************************")}
+                {console.log(props?.fundname, "props?.fundname")}
                 {console.log(props?.fundSelected, "props?.fundselected")}
+                {console.log(props?.categorygroup, "props?.categorygroup")}
+                {console.log("---------------------------End---------------------------")} */}
                 <Box component="span" >
                   <Checkbox
-                  //  color="success"
-                   style ={{
-                    color: "#23db7b",
-                  }}
+                    //  color="success"
+                    style={{
+                      color: "#23db7b",
+                    }}
                     onClick={(e: any) => {
                       if (props?.onClick) props?.onClick(props?.secid, e?.target?.checked, "checked", props?.activeIndex)
                     }}
                     // checked={props?.fundselected ? props?.fundselected : false}
-                   
+
                     checked={props?.fundSelected ? true : false}
                   />
 
