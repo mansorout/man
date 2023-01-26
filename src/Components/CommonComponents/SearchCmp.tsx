@@ -163,9 +163,8 @@ const SearchCmp = (props: SearchCmpProps) => {
         // let temp = JSON.parse(JSON.stringify(props.filtersOptions))
         let temp: any[] = [...props.filtersOptions]
         if (temp && temp?.length) {
-            // const sortVal:string = temp[0].keyValues[temp[0].activeSortIndex].value;
-           
-            const sortVal: string = temp[0]?.keyValues[0]?.value;
+            // const sortVal: string = temp[0]?.keyValues[0]?.value;
+            const sortVal:string = temp[0].keyValues[temp[0].activeSortIndex].value;
             const fundTypeVal: string = temp[1]?.keyValues[temp[1]?.activeCategoryIndex];
             
             const checkedTemp = { ...chackedValuesArr }
