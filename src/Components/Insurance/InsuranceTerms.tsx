@@ -473,7 +473,7 @@ const InsuranceTerms = () => {
                         </ul>
                     </Box>
                 </div>
-            </Box >
+            </Box>
 
             <FooterBtnWithBox
                 boxIcon={<ThumbUpOffAltIcon />}

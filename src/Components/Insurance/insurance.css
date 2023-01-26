@@ -400,13 +400,8 @@
 
 @media (max-width:480px){
   .TreminsuraceBox{
-    
+    margin-top: 35px  !important;
     margin-left: -24px !important;
   }
-  .uiclassScroll{
-    color: red !important;
-  }
-  .uiclassScroll2{
-    color: red !important;
-  }
+
 }

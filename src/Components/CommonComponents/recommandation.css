@@ -5,6 +5,9 @@
   .smallwidthheight{
    width:  150px !important;
   }
+  .slider{
+    border-radius: none !important;
+  }
 }
 @media (width: 540px) {
   .errorlogo {

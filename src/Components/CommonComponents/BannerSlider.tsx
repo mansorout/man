@@ -13,9 +13,9 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-     
+     borderRadius:"8px",
         padding: '15px',
-        borderRadius: '15px',
+    
         '@media(max-width: 485px)': {
            
             alignItems: 'flex-start',
@@ -64,13 +64,13 @@ interface BannerSliderPropTypes {
 const BannerSlider = (props: BannerSliderPropTypes) => {
     const classes = useStyles()
     return (
-        <div>
+        
 
             <Slider {...props.sliderSetting}>
                 {
                     props.sliderDetails.map((item) => (
                         <div >
-                            <div className={classes.slideContentWrapper} style={{ backgroundColor: item.bgColor }}>
+                            <div className={classes.slideContentWrapper+ " " + "slider"} style={{ backgroundColor: item.bgColor }}>
                                 <div className="slideContent">
                                     <b style={{ fontSize: '14px', fontWeight: '500' }}>{item.topHeading}</b>
                                     <p style={{ fontSize: '12px', margin: '3px 0px' }}>{item.topSubHeading}</p>
@@ -79,14 +79,14 @@ const BannerSlider = (props: BannerSliderPropTypes) => {
                                     <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>{item.btnText}</Button>
                                 </div>
                                 <div className={classes.slideImage + " " +  "FlexDownbgstyleT"} >
-                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" className="smallwidthheight" />
+                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" />
                                 </div>
                             </div>
                         </div>
                     ))
                 }
             </Slider>
-        </div>
+        
     )
 }
 

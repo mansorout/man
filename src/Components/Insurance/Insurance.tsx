@@ -122,29 +122,27 @@ const Insurance = () => {
                 </Box>
                     </Grid>
                 </Grid>
-                <Grid container >
-                    <Grid xs={12} sm={12} md={12} className="BannerStretchStyle">
+                <Grid container>
+                            <Grid xs={12} sm={12} md={12} >
                     <Box className="BoxMarginLeftRight textBoxAmount">
-                    <BannerSlider
+                         <BannerSlider
                                 sliderDetails={sliderDetails}
                                 sliderSetting={settings}
                             />
-                
-
-                            <div>
+                              <div>
                                 {
                                     insuranceTermCondition ? <InsuranceTerms /> : <GetInsurance />
                                 }
 
                             </div>
-                    </Box>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-        </Box>
-        </Box>
-        </div >
+                             </Box>
+                             </Grid>
+                             </Grid>
+                               </Grid>
+                                </Grid>
+                                 </Box>
+                                  </Box>
+                                   </div >
     )
 }
 
