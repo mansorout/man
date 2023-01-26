@@ -161,6 +161,8 @@ const SaveTaxAmount = () => {
     console.log(saveTaxUPTO)
     console.log(state);
 
+    let GlobalCond:any =  state?.title
+
 
 
 
@@ -265,7 +267,18 @@ const SaveTaxAmount = () => {
     };
 
     const handleNavigationFlow = () => {
-        let breadcrumforInvestmentType:any = true
+        
+       
+        let breadcrumforInvestmentType:any =""; 
+
+        if(GlobalCond){
+            breadcrumforInvestmentType = "taxcansave"
+            
+        }
+        else{
+            breadcrumforInvestmentType = "investmenttax"
+        } 
+        
         if (investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0) {
             if (parseInt(lumpsumAmount) > 150000) {
                 setValidationAlertDialog({
@@ -278,7 +291,12 @@ const SaveTaxAmount = () => {
                 dispatch(SaveTaxInvestmentLumpsumAction(LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
                 dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
-                navigate('/saveTax/saveTaxInvestmentType')
+                navigate('/saveTax/saveTaxInvestmentType', {
+                    state: {
+        
+                        breadcrumforInvestmentType
+                    },
+                });
             } else {
                 // alert('Enter amount multiple of 100!')
                 setValidationAlertDialog({

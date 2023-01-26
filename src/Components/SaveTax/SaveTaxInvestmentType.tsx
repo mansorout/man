@@ -127,8 +127,9 @@ const SaveTaxInvestmentType = () => {
         ulip: string | number;
         elss: string | number;
     }[]>([])
-    // const { state } = useLocation();
-    // console.log(state)
+    const { state } = useLocation();
+    
+    console.log(state?.breadcrumforInvestmentType)
 
 
 
