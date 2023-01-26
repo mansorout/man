@@ -128,7 +128,7 @@ const SaveTaxInvestmentType = () => {
         elss: string | number;
     }[]>([])
     const { state } = useLocation();
-    
+
     console.log(state?.breadcrumforInvestmentType)
 
 
@@ -142,7 +142,7 @@ const SaveTaxInvestmentType = () => {
     }
 
 
-    
+
     useEffect(() => {
         // const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.BANNER_SECTION))
         // // const lookUpSaveTaxObj = bannersectionArr.filter((item:any) => item.value === bannerSectionValues.SAVE_TAX && item)
@@ -175,8 +175,27 @@ const SaveTaxInvestmentType = () => {
         setInvestmentRecommendation((event.target as HTMLInputElement).value);
     };
     const handleShowRecommendation = () => {
-        investmentRecommendation === 'ulip' && navigate('/saveTax/RecommendationsULIP')
-        investmentRecommendation === 'elss' && navigate('/saveTax/RecommendationsELSS')
+        let forInvestmentType: any = "";
+
+        if (state?.breadcrumforInvestmentType === "taxcansave") {
+            forInvestmentType = "RECOMMENDATION_TAX_CANSAVE-ULIP"
+
+        }
+        else {
+            forInvestmentType = "RECOMMENDATION_NORMAL"
+        }
+        investmentRecommendation === 'ulip' && navigate('/saveTax/RecommendationsULIP', {
+            state: {
+
+                forInvestmentType
+            },
+        });
+        investmentRecommendation === 'elss' && navigate('/saveTax/RecommendationsELSS', {
+            state: {
+
+                forInvestmentType
+            },
+        });
     }
 
     return (
@@ -195,26 +214,22 @@ const SaveTaxInvestmentType = () => {
                                 <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
 
 
-                                    {/* Home
-                                    : <h1>hiiii</h1>
-                                        
-                                    }
- {     state?.breadcrumforInvestmentType ?
-                                    Save Tax
-
-                                    How Much Tax Can I Save
-
-                                    Amount */}
-
+                                    
                                     <Breadcrumbs aria-label="breadcrumb">
-                                        
 
-                                        <Link color="#6495ED" underline="always" href='Home' >
+
+                                        <Link color="#6495ED" underline="always" href='/home' >
                                             <Typography className='burgerText'> Home</Typography>
                                         </Link>
                                         <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
                                             <Typography className='burgerText'> Save Tax</Typography>
                                         </Link>
+
+                                        {
+                                            state?.breadcrumforInvestmentType === "taxcansave" ? <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/taxCanSave')} >
+                                                <Typography className='burgerText'>How Much Tax Can I Save</Typography>
+                                            </Link> : ""
+                                        }
                                         <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxAmount')} >
                                             <Typography className='burgerText'>Amount</Typography>
                                         </Link>

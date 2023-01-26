@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography ,Breadcrumbs, Link} from '@mui/material'
+import { Grid, Modal, Theme, Typography, Breadcrumbs, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import RecommendationsELSSHeader from './RecommendationsELSSHeader'
 import FooterWithBtn from '../CommonComponents/FooterWithBtn'
 import Button from '@mui/material/Button';
@@ -136,7 +136,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     ratingBoxImgWrapper: {
         backgroundColor: 'transparent !important',
-        marginTop:"10px"
+        marginTop: "10px"
     },
 
     modalText: {
@@ -169,13 +169,16 @@ const RecommendationsELSS = () => {
     const navigate = useNavigate();
     const dispatch: any = useDispatch();
     const { investmentType, investmentAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
-    const { saveTaxListData,saveTaxGenrate } = useSelector((state: any) => state.saveTaxReducer)
+    const { saveTaxListData, saveTaxGenrate } = useSelector((state: any) => state.saveTaxReducer)
     const [open, setOpen] = React.useState<boolean>(false);
     const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
     const [calenderValue, setCalenderValue] = useState(new Date())
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<string[]>(['5', '10', '15', '20'])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
+    const { state } = useLocation();
+
+    console.log(state?.forInvestmentType)
 
 
     useEffect(() => {
@@ -183,7 +186,7 @@ const RecommendationsELSS = () => {
         const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
         const lookUPIdLUMPSUM = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.LUMPSUM)
         const lookUPIdSIP = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.SIP)
-        console.log("lookUPId :", bannersectionArr,lookUPIdLUMPSUM, lookUPIdSIP)
+        console.log("lookUPId :", bannersectionArr, lookUPIdLUMPSUM, lookUPIdSIP)
         const saveTavGenrateBody = {
             investmenttype_id: investmentType === LUMPSUM ? lookUPIdLUMPSUM : lookUPIdSIP,
             amount: parseInt(investmentAmount),
@@ -192,7 +195,7 @@ const RecommendationsELSS = () => {
             investmenttype_id: investmentType === LUMPSUM ? lookUPIdLUMPSUM : lookUPIdSIP,
             amount: parseInt(investmentAmount),
         }
-        
+
         // dispatch(getDataSaveTaxInvestmentType(investmentAmount))
         dispatch(postSaveTaxGenrateApi(saveTavGenrateBody))
         console.log("investmentAmount :", investmentAmount)
@@ -241,140 +244,145 @@ const RecommendationsELSS = () => {
     return (
         <Box style={{ width: "100vw" }}>
             <Navbar />
-        <Box sx={{width:"100%"}}>
-        <Grid container spacing={0}>
-          <Grid item xs={0} sm={1} md={2}>
-            <Toolbar />
-            <Sidebar />
-          </Grid>
-          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
-                <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
-                    <Toolbar />
-                    
+            <Box sx={{ width: "100%" }}>
+                <Grid container spacing={0}>
+                    <Grid item xs={0} sm={1} md={2}>
+                        <Toolbar />
+                        <Sidebar />
                     </Grid>
-                </Grid>
-                <Grid container>
-                    <Grid xs={12} sm={12} md={12} sx={{ marginTop:{xs:"-50px", sm:"0"} }}>
-                    <Box className="BoxMarginLeftRight">
-                        {/* <RecommendationsELSSHeader /> */}
-                        <RecommendationsHeader
-                            selectTextLabel='Premium Payment Term'
-                            selectArray={recommendationHeaderSelectArr}
-                            selectChoosedValue={recommendationHeaderSelectChoosed}
-                            changeSelectEvent={(event: SelectChangeEvent) => {
-                                setRecommendationHeaderSelectChoosed(event.target.value);
-                            }}
-                            investmentTypeLabel='Investment Type'
-                            investmentType={investmentType}
-                            investmentAmount={investmentAmount}
-                            // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
-                            boxInputLabelText='Amount I want to invest monthly'
-                            boxInputButtonText='Update Plans'
-                            boxInputShow={recommendationHeaderInputFeildShow}
-                            boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
-                            boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
-                        />
-                                                <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
-                  <Breadcrumbs aria-label="breadcrumb">
-                    {/* <Link color="#6495ED" underline="always" href='home ' onClick={() => navigate('/home')} > */}
-                    <Link color="#6495ED" underline="always"  onClick={() => navigate('/home')} >
-                      <Typography className='burgerText'> Home</Typography>
-                    </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
-                      <Typography className='burgerText'> Save Tax</Typography>
-                    </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxAmount')} >
-                      <Typography className='burgerText'>Amount</Typography>
-                    </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxInvestmentType')} >
-                      <Typography className='burgerText'>Investment Type</Typography>
-                    </Link>
-                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Recommendations ELSS</Typography>
-                    </Link>
-                  </Breadcrumbs>
-                </Box>
-                        <Box className={classes.cmpHeading}>
-                            <Typography component='p'>{saveTaxListData?.recommendations && saveTaxListData.recommendations.length} ELSS Plan Found</Typography>
-                            <Typography component='span'>This plan provide tax benefit of 80C</Typography>
-                        </Box>
+                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12}>
+                                <Toolbar />
 
-                        {
-                            saveTaxListData?.recommendations && saveTaxListData.recommendations.map((cardData?: any) => {
-                                return (<Box className={classes.cardStyle}>
-                                    <Grid container>
-                                        <Grid item xs={12} sm={5}>
-                                            <Box className={classes.cardStyleCmpName}>
-                                                <Box className={classes.cardImgWrapper}>
-                                                    <img style={{ width: '100%', height: 'auto' }} src={cardData?.fundimage} alt="" />
-                                                </Box>
-                                                <Box sx={{ margin: { xs: '10px', sm: '0px 8px' } }}>
-                                                    <Typography component='p'>{cardData?.fundname}</Typography>
-                                                    <Typography component='div' className={classes.cardBadge}>{cardData?.category}</Typography>
-                                                    <Typography component='div' className={classes.cardBadge}>{cardData?.categorygroup}</Typography>
-                                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12} sx={{ marginTop: { xs: "-50px", sm: "0" } }}>
+                                <Box className="BoxMarginLeftRight">
+                                    {/* <RecommendationsELSSHeader /> */}
+                                    <RecommendationsHeader
+                                        selectTextLabel='Premium Payment Term'
+                                        selectArray={recommendationHeaderSelectArr}
+                                        selectChoosedValue={recommendationHeaderSelectChoosed}
+                                        changeSelectEvent={(event: SelectChangeEvent) => {
+                                            setRecommendationHeaderSelectChoosed(event.target.value);
+                                        }}
+                                        investmentTypeLabel='Investment Type'
+                                        investmentType={investmentType}
+                                        investmentAmount={investmentAmount}
+                                        // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
+                                        boxInputLabelText='Amount I want to invest monthly'
+                                        boxInputButtonText='Update Plans'
+                                        boxInputShow={recommendationHeaderInputFeildShow}
+                                        boxInputShowHandleChange={() => setRecommendationHeaderInputFeildShow(true)}
+                                        boxInputHideHandleChange={() => setRecommendationHeaderInputFeildShow(false)}
+                                    />
+                                    <Box role="presentation" className="boxBreadcrumb2" sx={{ margin: "7px 0px 7px 0px" }}>
+                                        <Breadcrumbs aria-label="breadcrumb">
+                                            {/* <Link color="#6495ED" underline="always" href='home ' onClick={() => navigate('/home')} > */}
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate('/home')} >
+                                                <Typography className='burgerText'> Home</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                                                <Typography className='burgerText'> Save Tax</Typography>
+                                            </Link>
+                                            {state?.forInvestmentType === "RECOMMENDATION_TAX_CANSAVE-ULIP" ?
+                                                <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/taxCanSave')}  >
+                                                    <Typography className='burgerText'>How Much Tax Can I Save</Typography>
+                                                </Link> : ""
+                                            }
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxAmount')} >
+                                                <Typography className='burgerText'>Amount</Typography>
+                                            </Link>
+                                            <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxInvestmentType')} >
+                                                <Typography className='burgerText'>Investment Type</Typography>
+                                            </Link>
+                                            <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                                                <Typography className='burgerText'>Recommendations ELSS</Typography>
+                                            </Link>
+                                        </Breadcrumbs>
+                                    </Box>
+                                    <Box className={classes.cmpHeading}>
+                                        <Typography component='p'>{saveTaxListData?.recommendations && saveTaxListData.recommendations.length} ELSS Plan Found</Typography>
+                                        <Typography component='span'>This plan provide tax benefit of 80C</Typography>
+                                    </Box>
+
+                                    {
+                                        saveTaxListData?.recommendations && saveTaxListData.recommendations.map((cardData?: any) => {
+                                            return (<Box className={classes.cardStyle}>
+                                                <Grid container>
+                                                    <Grid item xs={12} sm={5}>
+                                                        <Box className={classes.cardStyleCmpName}>
+                                                            <Box className={classes.cardImgWrapper}>
+                                                                <img style={{ width: '100%', height: 'auto' }} src={cardData?.fundimage} alt="" />
+                                                            </Box>
+                                                            <Box sx={{ margin: { xs: '10px', sm: '0px 8px' } }}>
+                                                                <Typography component='p'>{cardData?.fundname}</Typography>
+                                                                <Typography component='div' className={classes.cardBadge}>{cardData?.category}</Typography>
+                                                                <Typography component='div' className={classes.cardBadge}>{cardData?.categorygroup}</Typography>
+                                                            </Box>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
+                                                            <Typography component='div'>₹{cardData?.recommendedamount}</Typography>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={3}>
+                                                        <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
+                                                            <Box className={classes.cardContent}>
+                                                                <Typography component='span'>1 yr return</Typography>
+                                                                <Typography component='p'>{cardData?.return1yr}</Typography>
+                                                            </Box>
+                                                            <Box className={classes.cardContent}>
+                                                                <Typography component='span'>5 yr return</Typography>
+                                                                <Typography component='p'>{cardData?.return5yr}</Typography>
+                                                            </Box>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={4} sm={2}>
+                                                        <Box>
+                                                            <Box className={classes.cardContent}>
+                                                                <Typography component='span'>3 yr return</Typography>
+                                                                <Typography component='p'>{cardData?.return3yr}</Typography>
+                                                            </Box>
+                                                            <Box className={classes.ratingBox}>
+                                                                <Typography component='div'>
+                                                                    <StarOutlinedIcon />
+                                                                    <Typography component='span'>{cardData?.ratingoverall}
+                                                                    </Typography>
+                                                                </Typography>
+
+                                                            </Box>
+                                                            <Box className={classes.ratingBoxImgWrapper}>
+                                                                <img src={process.env.PUBLIC_URL + '/assets/images/rating-logo.webp'} alt="" />
+                                                            </Box>
+                                                        </Box>
+                                                    </Grid>
+                                                </Grid>
                                             </Box>
-                                        </Grid>
-                                        <Grid item xs={4} sm={2}>
-                                            <Box className={classes.priceBadge} sx={{ margin: { xs: '6px 0px', sm: '0px', } }}>
-                                                <Typography component='div'>₹{cardData?.recommendedamount}</Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item xs={4} sm={3}>
-                                            <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
-                                                <Box className={classes.cardContent}>
-                                                    <Typography component='span'>1 yr return</Typography>
-                                                    <Typography component='p'>{cardData?.return1yr}</Typography>
-                                                </Box>
-                                                <Box className={classes.cardContent}>
-                                                    <Typography component='span'>5 yr return</Typography>
-                                                    <Typography component='p'>{cardData?.return5yr}</Typography>
-                                                </Box>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item xs={4} sm={2}>
-                                            <Box>
-                                                <Box className={classes.cardContent}>
-                                                    <Typography component='span'>3 yr return</Typography>
-                                                    <Typography component='p'>{cardData?.return3yr}</Typography>
-                                                </Box>
-                                                <Box className={classes.ratingBox}>
-                                                    <Typography component='div'>
-                                                        <StarOutlinedIcon />
-                                                        <Typography component='span'>{cardData?.ratingoverall}
-                                                        </Typography>
-                                                    </Typography>
-                                                   
-                                                </Box>
-                                                <Box className={classes.ratingBoxImgWrapper}>
-                                                        <img src={process.env.PUBLIC_URL + '/assets/images/rating-logo.webp'} alt="" />
-                                                    </Box>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
+                                            )
+                                        })
+
+                                    }
+
+                                    <Box className={classes.exploreOtherOptionsBtn}>
+                                        <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', textTransform: "uppercase !important" } }}>
+                                            Explore other options
+                                        </Button>
+                                    </Box>
+
+                                    <FooterWithBtn
+                                        btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ELSS Date'}
+                                        btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
+                                    />
                                 </Box>
-                                )
-                            })
-
-                        }
-
-                        <Box className={classes.exploreOtherOptionsBtn}>
-                            <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', textTransform:"uppercase !important" } }}>
-                                Explore other options
-                            </Button>
-                        </Box>
-
-                        <FooterWithBtn
-                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ELSS Date'}
-                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
-                        />
-                    </Box>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Grid>
-        </Box>
+            </Box>
 
 
             <Dialog open={open} onClose={() => (!open)}>
