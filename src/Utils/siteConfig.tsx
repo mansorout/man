@@ -20,6 +20,7 @@ const siteConfig = Object.freeze({
   INVESTMENT_USER_AMOUNT: "investment_user_amount",
   SIP_CARD_TYPE: "sip_card_type",
   SIP_USER_AMOUNT: "sip_user_amount",
+  MODULE_LIST: "module_list",
 
   /**API ID's */
   AUTHENTICATION_API_ID: "k41xvsg1t7",
