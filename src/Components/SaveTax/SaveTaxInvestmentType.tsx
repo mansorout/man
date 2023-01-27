@@ -265,7 +265,7 @@ const SaveTaxInvestmentType = () => {
                                                         className={classes.badgeStyle}
                                                     >
                                                         <Box className={classes.blueBoxIconBox}>
-                                                            <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                                                            <img src={process.env.PUBLIC_URL + '/assets/images/Union.png'} alt="" />
                                                         </Box>
                                                     </Badge>
                                                     <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />

@@ -132,7 +132,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         '&>div':{
             marginTop:'140px',
             '&>div':{
-                position: 'static',
+                position: 'none',
             }
         }
     }

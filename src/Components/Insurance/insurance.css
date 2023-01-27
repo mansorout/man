@@ -125,6 +125,9 @@
   /* .genderSelect{
         width: 185px !important;
     } */
+    .termBreadCrum{
+      margin-top: 10px !important;
+    }
   .progressContainer {
     width: 95% !important;
     margin-left: -12px !important;
@@ -158,15 +161,18 @@
     margin-bottom: 100% !important;
   }
   .B_style {
-    margin-top: -38px !important;
+    margin-top: -30px !important;
   }
 }
 @media (width: 768px) {
+  .termBreadCrum{
+    margin-top: 10px !important;
+  }
   .sxtowel{
     color: red !important;
   }
   .B_style {
-    margin-top: -42px !important;
+    margin-top: -30px !important;
   }
   /* .genderSelect{
 
@@ -300,6 +306,12 @@
   .HdfcStyle {
     padding-top: 16px !important;
   }
+  .termBreadCrum{
+    margin-left: -27px !important;
+  }
+  .TremHeadingStyle{
+    display: none !important;
+  }
   /* .genderContainer{
         margin: 0 2px !important
     } */
@@ -394,13 +406,33 @@
     width: 88% !important;
     margin-left: -8px !important;
   }
-  .Dublicategender {
-  }
+
 }
 
 @media (max-width:480px){
   .TreminsuraceBox{
-    
-    margin-left: -24px !important;
+    margin-top: 35px !important;
+    margin-left: -11px !important;
+    width: 93% !important;
+    padding-top: 23px !important;
   }
+  .uiclassScroll{
+  
+    flex-wrap: nowrap !important;
+    overflow-x: scroll  !important;
+   
+  }
+  .termBreadCrum{
+    margin-top: 10px !important;
+  }
+ 
+
+
 }
+@media (width:540px){
+  .TreminsuraceBox {
+    margin-top: 35px !important;
+    margin-left: -24px !important;
+}
+}
+
