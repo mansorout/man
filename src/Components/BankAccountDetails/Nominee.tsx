@@ -62,7 +62,7 @@ const Nominee = () => {
     const [kyc, setKycData] = useState<kycDataProps>({ ...initialFormData });
 
     const [formdata, setFormdata] = useState<kycDataProps>({
-        ...initialFormData 
+        ...initialFormData
     });
 
     //  data taking form edit profile api
@@ -95,6 +95,7 @@ const Nominee = () => {
         })
     }
 
+    // console.log(formdata)
 
     useEffect(() => {
         if (formdata.name !== '' && null && formdata.dateOfBirth !== '' && formdata.relation !== '') {
@@ -113,7 +114,7 @@ const Nominee = () => {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 
-        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation !== '') {
+        if (formdata.name !== '' && formdata.dateOfBirth !== "NaN-NaN-NaN" && formdata.relation !== '') {
 
             setLoading(true);
             setShouldButtonDisable(true)
@@ -165,13 +166,12 @@ const Nominee = () => {
                 formdata.name !== '' ? setNameError(false) : setNameError(true)
             }
             {
-                formdata.dateOfBirth !== '' ? setDobError(false) : setDobError(true)
+                formdata.dateOfBirth !== "NaN-NaN-NaN" ? setDobError(false) : setDobError(true)
             }
             {
-                formdata.relation !== '' ? setRelationError(false) : setRelationError(true)
+                formdata.relation > "1" ? setRelationError(false) : setRelationError(true)
             }
-            //    setRelationError(true)
-            //    setNameError(true)
+           
         }
 
 
@@ -229,7 +229,7 @@ const Nominee = () => {
                 }
                 const response = data?.data
 
-               if (response.userdetails?.customer_id != 0) {
+                if (response.userdetails?.customer_id != 0) {
                     setUserDetails(response);
                     setNomineeName(response.kycdetails?.nomineedetails?.nominee_name)
                     setNomineeRelation(response.kycdetails?.nomineedetails?.relation)
@@ -248,13 +248,13 @@ const Nominee = () => {
 
             })
             .catch(err => {
-              
+
             })
 
-        
+
 
     }
-    
+
 
     return (
         <Box style={{ width: "100vw" }}>
@@ -413,7 +413,7 @@ const Nominee = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} handleClose={()=>setShowDialog(false)} />
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} handleClose={() => setShowDialog(false)} />
         </Box>
     )
 };
