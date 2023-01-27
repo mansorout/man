@@ -21,6 +21,34 @@ export const numDifferentiation = (value: number) => {
   return val;
 }
 
+export const getFinancialYear = () => {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+
+  if (currentMonth > 3) {
+    currentYear += 1;
+  }
+  console.log(`Current financial year: ${currentYear - 1}-${currentYear}`);
+  return `${currentYear - 1}-${currentYear}`
+
+}
+
+export const remainingMonthsFinancialYear = () => {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth(); // 0-based index, so 0 = January, 11 = December
+  const financialYearEndMonth = 3; // financial year end in April 
+  let remainingMonths;
+
+  if (currentMonth > financialYearEndMonth) {
+    remainingMonths = 12 - currentMonth + financialYearEndMonth;
+  } else {
+    remainingMonths = financialYearEndMonth - currentMonth;
+  }
+  console.log(remainingMonths);
+  return remainingMonths;
+}
+
 export const isMultipleofNumber = (n: number, multipleNum: number) => {
   try {
     if (n % multipleNum === 0) {
@@ -142,7 +170,9 @@ export const validateProfileCompletion = () => {
 
     let objUserDetail = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
 
-    if (!objUserDetail) return objUserProfileValidationData;
+    if (!objUserDetail) {
+      return { ...objUserProfileValidationData };
+    }
 
     //profile completion
     for (let i = 0; i < arrProfileCompletion.length; i++) {
@@ -179,7 +209,7 @@ export const validateProfileCompletion = () => {
     return objUserProfileValidationData;
   } catch (err) {
     console.log(err);
-    return objUserProfileValidationData;
+    return { ...objUserProfileValidationData };
   }
 }
 
@@ -243,6 +273,15 @@ export const nth = function (d: any) {
       case 3: return "rd";
       default: return "th";
     }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const formatDate = (date: string) => {
+  try {
+    let arrDate = date.split("-");
+    return [arrDate[2], arrDate[1], arrDate[0]].join('-');
   } catch (err) {
     console.log(err);
   }

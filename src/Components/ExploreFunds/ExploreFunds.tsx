@@ -199,7 +199,7 @@ const initialFilterIndexes: any[] = [
   {
     key: 'Sort',
     selectType: 'radio',
-    // activeSortIndex:0,
+    activeSortIndex:0,
     keyValues: [
       {
         value: 'return',
@@ -253,6 +253,7 @@ function ExploreFunds(props: any) {
   const [filterIndexes, setFilterIndexes] = useState<any>(initialFilterIndexes);
   const [variableMasterFundList, setVariableMasterFundList] = useState<any[]>([]);
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
+  const [activeSortIndex, setActiveSortIndex] = useState<number>(0)
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
 
   const status: any = useMemo(() => { return location?.state?.status }, []);
@@ -326,7 +327,7 @@ function ExploreFunds(props: any) {
       //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
       //   }
       // })
-
+      temp[enumIndexesOfFilterType.SORT]['activeSortIndex'] = activeSortIndex;
       temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
 
     }
@@ -705,31 +706,38 @@ function ExploreFunds(props: any) {
 
     if (tempIndex < 0 || tempIndex === -1) return;
 
+    // let tempSortIndex = filterIndexes[enumIndexesOfFilterType.SORT]?.keyValues.filter((item: any) => item.value === data?.Sort)
+    let tempSortIndex = filterIndexes[enumIndexesOfFilterType.SORT]?.keyValues.findIndex((obj:any) => obj.value === data.Sort)
+    setActiveSortIndex(tempSortIndex)
+    console.log('tempSortIndex :', tempSortIndex)
     // const sortedItem = filterIndexes[0].keyValues.filter((item:any) =>{
-    //   if(item.value === data[enumFilterIndexes.SORT]){
-    //   return filterIndexes[0].keyValues
-    //   }
-    // })  
-    // const tempSortIndex = filterIndexes[0].keyValues.findIndex((x:any) => x.value === data[enumFilterIndexes.SORT])
-    // setActiveSortIndex(tempSortIndex);
-    // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
-    // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
-    //   url += item + ',' 
-    // })
-    // const tempUrl: any = await urlWithFilter(data, -1);
-
-    // if (tempIndex !== 0 || tempIndex === activeCategoryGroupIndex) {
-    //   console.log("active index are same")
-    //   return;
-    // }
-
-    setActiveCategoryGroupIndex(tempIndex);
+      //   if(item.value === data[enumFilterIndexes.SORT]){
+        //   return filterIndexes[0].keyValues
+        //   }
+        // })  
+        // const tempSortIndex = filterIndexes[0].keyValues.findIndex((x:any) => x.value === data[enumFilterIndexes.SORT])
+        // setActiveSortIndex(tempSortIndex);
+        // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+        // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+          //   url += item + ',' 
+          // })
+          // const tempUrl: any = await urlWithFilter(data, -1);
+          
+          // if (tempIndex !== 0 || tempIndex === activeCategoryGroupIndex) {
+            //   console.log("active index are same")
+            //   return;
+            // }
+            
+            
+    if(activeCategoryGroupIndex !== tempIndex ) setActiveCategoryGroupIndex(tempIndex);
     setFilterValues(data)
-    const tempUrl: any = await urlWithFilter(data, tempIndex);
-    if (tempUrl) {
-      getMasterFundList(tempUrl);
-    } else {
-      // getMasterFundList([]);
+    if(activeCategoryGroupIndex === tempIndex){
+      const tempUrl: any = await urlWithFilter(data, tempIndex);
+      if (tempUrl) {
+        getMasterFundList(tempUrl);
+      } else {
+        // getMasterFundList([]);
+      }
     }
   };
   /***************************************************************************************/

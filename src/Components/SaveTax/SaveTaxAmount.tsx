@@ -27,7 +27,7 @@ import {
     MONTHLY,
     saveTaxPercentageAmountAction
 } from '../../Store/Duck/InvestmentType';
-import { isMultipleofNumber } from '../../Utils/globalFunctions';
+import { isMultipleofNumber, remainingMonthsFinancialYear } from '../../Utils/globalFunctions';
 import Dialog from '@mui/material/Dialog';
 import { parse } from 'node:path/win32';
 
@@ -127,6 +127,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     },
     modalText: {
         padding: '20px'
+    },
+    footerStyle:{
+        '&>div':{
+            marginTop:'140px',
+            '&>div':{
+                position: 'static',
+            }
+        }
     }
 }))
 
@@ -135,13 +143,25 @@ type moduleDefaultListObjectType = {
     value: string;
 }
 
+const enumAmount = Object.freeze({
+    AMOUNT_LIMIT: 150000,
+})
+
+function roundToMultipleOf10(value : number) {
+    if (value % 10 === 0) {
+        return value;
+    } else {
+        return Math.round(value / 10) * 10;
+    }
+}
+
 const SaveTaxAmount = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const dispatch: any = useDispatch()
     // const {SaveTaxInvestmentLumpsumAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
     // const {SaveTaxInvestmentMonthlyAction} = useSelector((state:any) => state.SaveTaxInvestmentType)
-    const { moduleDefaultList } = useSelector((state: any) => state.saveTaxReducer)
+    const { moduleDefaultList, saveTaxCalculatedAmount } = useSelector((state: any) => state.saveTaxReducer)
     const [investmentType, setInvestmentType] = useState<string>(LUMPSUM)
     const [lumpsumAmount, setLumpsumAmount] = useState<any>()
     const [monthlyAmount, setMonthlyAmount] = useState('')
@@ -160,8 +180,6 @@ const SaveTaxAmount = () => {
     console.log(lumpsumAmount)
     console.log(saveTaxUPTO)
     console.log(state);
-
-
 
 
     const moduleDefaultListkeys = Object.freeze({
@@ -214,23 +232,29 @@ const SaveTaxAmount = () => {
 
         })
 
+        if(saveTaxCalculatedAmount){
+            setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount)
+        }
 
 
     }, [moduleDefaultList])
 
 
+useEffect(() => {
+  const temp = lumpsumAmount / remainingMonthsFinancialYear();
+  setMonthlyAmount(`${roundToMultipleOf10(temp)}`)
+  console.log('lumpsumAmount :', roundToMultipleOf10(temp))
+}, [lumpsumAmount])
 
 
 
 
-    console.log(lumpsumAmount)
 
   useEffect(()=>{
     const temp = parseInt(lumpsumAmount) * parseInt(saveTaxPercentageAmount) / 100;
     const temp2 = parseInt(monthlyAmount) * parseInt(saveTaxPercentageAmount) / 100;
     setSaveTaxUPTO(temp)
     setSaveTaxUPTOMon(temp2)
-
 
   })
 
@@ -266,9 +290,9 @@ const SaveTaxAmount = () => {
 
     const handleNavigationFlow = () => {
         if (investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0) {
-            if (parseInt(lumpsumAmount) > 150000) {
+            if (parseInt(lumpsumAmount) > enumAmount.AMOUNT_LIMIT) {
                 setValidationAlertDialog({
-                    msg: 'Amount should be less than 150000',
+                    msg: `Amount should be less than ${enumAmount.AMOUNT_LIMIT}`,
                     bool: true,
                 })
                 return
@@ -425,7 +449,8 @@ const SaveTaxAmount = () => {
                                                 <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label={<Box sx={{color:"#8787a2"}}>Monthly</Box>} />
                                             </InputAdornment>,
                                             startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                            readOnly: investmentType === MONTHLY ? false : true,
+                                            // readOnly: investmentType === MONTHLY ? false : true,
+                                            readOnly: true,
                                         }}
                                         className={classes.textField}
                                         fullWidth
@@ -443,6 +468,7 @@ const SaveTaxAmount = () => {
                             </RadioGroup>
                         </Box>
 
+<Box className={classes.footerStyle}>
                         <FooterBtnWithBox
                             boxIcon={<ThumbUpAltOutlinedIcon />}
                             boxText='Great! You`ll save taxes upto'
@@ -452,6 +478,7 @@ const SaveTaxAmount = () => {
                             btnClick={handleNavigationFlow}
                             btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
                         />
+                    </Box>
                     </Box>
                     </Grid>
                 </Grid>
