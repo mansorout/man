@@ -266,7 +266,8 @@ const RecommendationsELSS = () => {
                                 setRecommendationHeaderSelectChoosed(event.target.value);
                             }}
                             investmentTypeLabel='Investment Type'
-                            investmentType={investmentType}
+                            // investmentType={investmentType}
+                            investmentType={'ELSS'}
                             investmentAmount={investmentAmount}
                             // changeInvestmentTypeEvent={handleChangeInvestmentTypeEvent}
                             boxInputLabelText='Amount I want to invest monthly'
@@ -360,8 +361,9 @@ const RecommendationsELSS = () => {
                         </Box>
 
                         <FooterWithBtn
-                            btnText={investmentType === 'lumpsum' ? 'Buy Now' : 'Select ELSS Date'}
-                            btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
+                            btnText={'Buy Now'}
+                            // btnClick={investmentType === 'lumpsum' ? handleBuyNow : handleULIPDate}
+                            btnClick={handleBuyNow}
                         />
                     </Box>
                     </Grid>
@@ -371,8 +373,7 @@ const RecommendationsELSS = () => {
         </Box>
 
 
-            <Dialog open={open} onClose={() => (!open)}>
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+            {/* <Dialog open={open} onClose={() => (!open)}>
                 <Typography className={classes.modalText}>Set backup account</Typography>
                 <Calendar onChange={handleCalender} value={calenderValue} />
                 <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
@@ -381,10 +382,9 @@ const RecommendationsELSS = () => {
                 }}>
                     Confirm ELSS Date
                 </Button>
-            </Dialog>
+            </Dialog> */}
 
-            <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+            {/* <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
 
                 <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
                     <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
@@ -400,7 +400,7 @@ const RecommendationsELSS = () => {
                 }}>
                     Continue to Payment
                 </Button>
-            </Dialog>
+            </Dialog> */}
 
             {/* <Dialog onClose={() => setOpenConfirmation(!open)} open={open}>
                 <Typography className={classes.modalText}>Set backup account</Typography>

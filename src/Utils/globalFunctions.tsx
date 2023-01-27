@@ -21,6 +21,34 @@ export const numDifferentiation = (value: number) => {
   return val;
 }
 
+export const getFinancialYear = () => {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+
+  if (currentMonth > 3) {
+    currentYear += 1;
+  }
+  console.log(`Current financial year: ${currentYear - 1}-${currentYear}`);
+  return `${currentYear - 1}-${currentYear}`
+
+} 
+
+export const remainingMonthsFinancialYear = () => {
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth(); // 0-based index, so 0 = January, 11 = December
+  const financialYearEndMonth = 3; // financial year end in April 
+  let remainingMonths;
+
+  if (currentMonth > financialYearEndMonth) {
+    remainingMonths = 12 - currentMonth + financialYearEndMonth;
+  } else {
+    remainingMonths = financialYearEndMonth - currentMonth;
+  }
+  console.log(remainingMonths);
+  return remainingMonths;
+}
+
 export const isMultipleofNumber = (n: number, multipleNum: number) => {
   try {
     if (n % multipleNum === 0) {

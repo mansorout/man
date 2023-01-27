@@ -102,7 +102,7 @@ interface ULIPRecommendationCardProps {
     topPerformingFund: string;
     lifeCover: number;
     investedVlaue: number;
-    taxSavingOnInvestment: number;
+    taxSavingOnInvestment: number | string;
     knowMoreAction: () => void;
     downloadBrochuraAction: () => void;
 }

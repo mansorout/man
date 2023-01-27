@@ -24,7 +24,7 @@ import {
     insuranceUlipMonthlyAction,
     insuranceUlipAmount
 } from '../../Store/Duck/InvestmentType'
-import { isMultipleofNumber } from '../../Utils/globalFunctions';
+import { isMultipleofNumber, numDifferentiation } from '../../Utils/globalFunctions';
 import siteConfig from '../../Utils/siteConfig';
 import { globalConstant } from '../../Utils/globalConstant';
 import './recommandation.css'
@@ -170,6 +170,10 @@ interface RecommendationsHeaderPropsType {
     // boxInputHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+const enumElss = Object.freeze({
+    ELSS: 'ELSS'
+})
+
 const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     const classes = useStyles();
     const dispatch: any = useDispatch(); 
@@ -284,7 +288,8 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
         <div  className='Bannerside'>
               <Box className={classes.recommendationsHeaderBox}>
             <Grid container>
-                
+                {
+                    props?.investmentType !== enumElss.ELSS ? (
                 <Grid xs={7} sm={6} item sx={{ display: 'flex', justifyContent: 'flex-end', borderRight: '1px solid #fff6', padding: '15px' }}>
                     <FormControl variant="standard" sx={{ maxWidth: 220 }} className={classes.headerSelect + " " + "dropdownSlect"} fullWidth>
                         <InputLabel id="demo-simple-select-standard-label">{props?.selectTextLabel}</InputLabel>
@@ -303,9 +308,10 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             <MenuItem value={10}>10 Years</MenuItem> */}
                         </Select>
                     </FormControl>
-                </Grid>
-                <Grid xs={5} sm={6} item sx={{ padding: '15px' }}>
-                    <Box>
+                </Grid>) :null
+}
+                <Grid xs={props?.investmentType !== enumElss.ELSS? 5 : 12} sm={props?.investmentType !== enumElss.ELSS? 6 : 12} item sx={{ padding: '15px' }}>
+                    <Box sx={{textAlign: props?.investmentType !== enumElss.ELSS ? 'left' : 'center'}}>
                         <TextField
                             label={props?.investmentTypeLabel}
                             id="outlined-start-adornment"
