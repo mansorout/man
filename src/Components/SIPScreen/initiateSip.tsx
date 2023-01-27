@@ -245,45 +245,6 @@ const enumPriceTag = {
 
 const arrPriceList = [1000, 5000, 10000];
 
-const chartOptions = {
-  responsive: true,
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: true //this will remove only the label
-    }
-    },
-    y: {
-      border: {
-        color: '#fff'
-      },
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: false //this will remove only the label
-    },
-    gridLines: {
-      display: false,
-      drawBorder: false,
-    },
-    // 'dataset.maxBarThickness': 5,
-    },
-  },
-  plugins: {
-    legend: {
-      position: 'bottom' as const,
-      display: true,
-    },
-    title: {
-      display: true,
-      // text: 'Chart.js Line Chart',
-    },
-  },
-};
 
 const enumDefaultAmount = {
   INVESTED_VALUE: 5000
@@ -311,6 +272,16 @@ const InitiateSip = (props: IProps) => {
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
+  const [chartActiveIndex, setChartActiveIndex] = useState(2)
+
+  const filterChartData = (arr: any[]) => {
+    return arr.filter((item: expectedReturnProps) =>
+      item?.years < 5 ?
+        item?.years % 2 !== 0
+        :
+        item?.years % 5 === 0
+    )
+  }
 
   const chartDataDetails: any = useMemo(() => {
 
@@ -320,12 +291,7 @@ const InitiateSip = (props: IProps) => {
     setProjectedValue(tempInitialVal?.projectedvalue)
 
     return {
-      labels: expectedReturns.filter((item: expectedReturnProps) =>
-        item?.years < 5 ?
-          item?.years % 2 !== 0
-          :
-          item?.years % 5 === 0
-      ).map((item => item['years'])), //x
+      labels: filterChartData(expectedReturns).map((item => item['years'])), //x
       datasets: [
         // {
         //   label: "Invested Value",
@@ -335,12 +301,13 @@ const InitiateSip = (props: IProps) => {
         // },
         {
           label: "Projected Value",
-          data: expectedReturns.filter((item: expectedReturnProps) =>
-            item?.years < 5 ?
-              item?.years % 2 !== 0
-              :
-              item?.years % 5 === 0
-          ).map((item) => item["projectedvalue"]),
+          // data: expectedReturns.filter((item: expectedReturnProps) =>
+          //   item?.years < 5 ?
+          //     item?.years % 2 !== 0
+          //     :
+          //     item?.years % 5 === 0
+          // ).map((item) => item["projectedvalue"]),
+          data: filterChartData(expectedReturns).map((item) => item["projectedvalue"]),
           fill: true,
           borderColor: "#742774"
         },
@@ -432,6 +399,67 @@ const InitiateSip = (props: IProps) => {
         console.log(err);
       });
   }
+
+  
+const chartOptions = {
+  responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: true //this will remove only the label
+    }
+    },
+    y: {
+      border: {
+        color: '#fff'
+      },
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: false //this will remove only the label
+    },
+    gridLines: {
+      display: false,
+      drawBorder: false,
+    },
+    // 'dataset.maxBarThickness': 5,
+    },
+  },
+  interaction: {
+    mode: 'nearest'
+  },
+  elements: {
+    point: {
+      radius : customRadius,
+      display: true
+    }
+  },
+  plugins: {
+    legend: {
+      position: 'bottom' as const,
+      display: true,
+    },
+    title: {
+      display: true,
+      // text: 'Chart.js Line Chart',
+    },
+  },
+};
+
+function customRadius( context:any )
+{
+  // debugger
+  let index = context.dataIndex;
+  let value = context.dataset.data[ index ];
+  // return index === 3 || value >= 8 ? 10 : 2;
+  console.log("customRadius :", index, value)
+  return index === chartActiveIndex ? 10 : 4;
+}
+
 
   const getExactPriceWithTag = (price: number) => {
     if (!price) return "";
@@ -688,11 +716,12 @@ const InitiateSip = (props: IProps) => {
                               let objData: any = 0;
                               if (expectedReturns && expectedReturns.length) {
                                 objData = expectedReturns.filter((item: any) => item?.projectedvalue === data?.value)[0];
-
-                                console.log(objData?.investedvalue, "nInvestedValue");
+                                const activeIndex = filterChartData(expectedReturns).findIndex((item) => item?.projectedvalue === data?.value)
+                                setChartActiveIndex(activeIndex);
+                                console.log(objData?.investedvalue, "nInvestedValue", activeIndex);
+                                setInvestedValue(objData?.investedvalue);
+                                setProjectedValue(data?.value ? data?.value : 0)
                               }
-                              setInvestedValue(objData?.investedvalue);
-                              setProjectedValue(data?.value ? data?.value : 0)
                             }}
                           />
                         </Typography>
