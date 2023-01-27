@@ -24,6 +24,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { getDataSaveTaxCalculateApi } from '../../Store/Save Tax/thunk/save-tax-thunk'
 import { useDispatch, useSelector } from 'react-redux';
 import { type } from 'os';
+import { setSaveTaxCalculateAmountAction } from '../../Store/Save Tax/actions/save-tax-actions';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -275,10 +276,12 @@ const TaxCanSave = () => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: initialValues,
-        validationSchema: validate,
+        // validationSchema: validate,
         // initialIsValid:initialIsValid ,
         onSubmit: (values: any) => {
+            values['sumOfInvestment'] = alreadyInvesting;
             console.log('form values', values);
+            dispatch(setSaveTaxCalculateAmountAction(alreadyInvesting))
             dispatch(getDataSaveTaxCalculateApi(values))
             handleContinue();
         },
@@ -347,7 +350,7 @@ const TaxCanSave = () => {
                                         <Box className={classes.blueBoxContent}>
                                             <Typography component='span'>You can invest upto</Typography>
                                             <Typography component='p'>₹1.5 Lacs under Section 80C.</Typography>
-                                            <Typography component='span'>Already Investing: ₹{alreadyInvesting}</Typography>
+                                            <Typography component='span'>Already Invested: ₹{alreadyInvesting}</Typography>
                                         </Box>
                                         <Box className={classes.blueBoxCircle}>
                                             <Box sx={{ textAlign: 'center' }}>

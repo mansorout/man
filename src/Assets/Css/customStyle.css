@@ -3,6 +3,12 @@
 .profileEditbox{
   margin-top: -23px;
 }
+.bodyHomePageText{
+  opacity: 0.87 !important;
+  font-size: 12px !important;
+  line-height: 1.42 !important;
+  color: var(--typeIndigoColor) !important;
+}
 .buttoncenterstyle{
   margin-bottom: 5px !important;
 }
@@ -337,10 +343,16 @@
       transform: translate(-50%, 0%);
       left: 50%;
   }
+  .LineHeightText{
+    height: 35px;
+  }
 }
 @media (max-width: 768px) {
+  .bodyHomePageText{
+    font-size: 13px !important;
+  }
   .LineHeightText{
-    height: 83px;
+    height: 50px;
   }
   .subTitle4 {
     font-size: 14px !important;
@@ -479,6 +491,15 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .viewBtnHomePage{
+    margin-top: 0 !important;
+  }
+  .boxHomeLayoutGridMargin{
+    margin: 7px 2px !important;
+  }
+  .boxHomeLayoutGrid{
+    padding: 10px 6px !important;
+  }
   .LineHeightText {
     height: 65px;
 }
@@ -606,15 +627,24 @@
     }
 }
 @media screen and (max-width: 280px){
+  .viewBtnHomePage{
+    margin-top: 0 !important;
+  }
+  .boxHomeLayoutGridMargin{
+    margin: 7px 2px !important;
+  }
+  .boxHomeLayoutGrid{
+    padding: 10px 6px !important;
+  }
   .width82px{
-    width:82px !important;
+    width:111px !important;
   }
   .css-4g6ai3  .imGHomeCardLayout img{
 width:60px !important;
   }
-  .homeBgImageSip{
+  /* .homeBgImageSip{
     display: none;
-  }
+  } */
   .tabbox__Button button{
     width: 100px !important;
   }

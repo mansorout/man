@@ -34,7 +34,7 @@ import Dialog from '@mui/material/Dialog';
 import SearchCmp from "../CommonComponents/SearchCmp";
 import { postUlipGenrateApi, getUlipListApi } from "../../Store/Insurance/thunk/insurance-thunk";
 import { lookUpMasterKeys, bannerSectionValues } from "../../Utils/globalConstant";
-import { customParseJSON, getLookUpIdWRTModule } from "../../Utils/globalFunctions";
+import { customParseJSON, getLookUpIdWRTModule, numDifferentiation } from "../../Utils/globalFunctions";
 import { getUlipListApiTypes } from "../../Store/Insurance/constants/types";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
@@ -185,69 +185,69 @@ const ULIPRecommendations = () => {
     const [policyTermValue, setPolicyTermValue] = useState<number | null>(null)
     const [lifeCoverValue, setLifeCoverValue] = useState<number | null>(null)
 
-    const [filterIndexes, setFilterIndexes] = useState<any>(
-        [
-            {
-                key: 'Sort',
-                keyValues: [
-                    {
-                        value: 'highToLowReturn',
-                        label: 'Return - High to Low',
-                    },
-                    {
-                        value: 'highToLowRating',
-                        label: 'Rating - High to Low',
-                    },
-                    {
-                        value: 'highToLowFundSize',
-                        label: 'Fund Size - High to Low',
-                    }
-                ]
-            },
-            {
-                key: 'Policy Term',
-                keyValues: [
-                    {
-                        value: 5,
-                        label: '5 Years',
-                    },
-                    {
-                        value: 7,
-                        label: '7 Years',
-                    },
-                    {
-                        value: 10,
-                        label: '10 Years',
-                    },
-                    {
-                        value: 15,
-                        label: '15 Years',
-                    },
-                ]
-            },
-            {
-                key: 'Life Cover',
-                keyValues: [
-                    {
-                        value: 500000,
-                        label: '₹5 Lacs',
-                    },
-                    {
-                        value: 1500000,
-                        label: '₹15 Lacs',
-                    },
-                    {
-                        value: 7500000,
-                        label: '₹75 Lacs',
-                    },
-                    {
-                        value: 10000000,
-                        label: '₹1 Crore',
-                    },
-                ]
-            }
-        ]
-    )
+    // const [filterIndexes, setFilterIndexes] = useState<any>(
+    //     [
+    //         {
+    //             key: 'Sort',
+    //             keyValues: [
+    //                 {
+    //                     value: 'highToLowReturn',
+    //                     label: 'Return - High to Low',
+    //                 },
+    //                 {
+    //                     value: 'highToLowRating',
+    //                     label: 'Rating - High to Low',
+    //                 },
+    //                 {
+    //                     value: 'highToLowFundSize',
+    //                     label: 'Fund Size - High to Low',
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             key: 'Policy Term',
+    //             keyValues: [
+    //                 {
+    //                     value: 5,
+    //                     label: '5 Years',
+    //                 },
+    //                 {
+    //                     value: 7,
+    //                     label: '7 Years',
+    //                 },
+    //                 {
+    //                     value: 10,
+    //                     label: '10 Years',
+    //                 },
+    //                 {
+    //                     value: 15,
+    //                     label: '15 Years',
+    //                 },
+    //             ]
+    //         },
+    //         {
+    //             key: 'Life Cover',
+    //             keyValues: [
+    //                 {
+    //                     value: 500000,
+    //                     label: '₹5 Lacs',
+    //                 },
+    //                 {
+    //                     value: 1500000,
+    //                     label: '₹15 Lacs',
+    //                 },
+    //                 {
+    //                     value: 7500000,
+    //                     label: '₹75 Lacs',
+    //                 },
+    //                 {
+    //                     value: 10000000,
+    //                     label: '₹1 Crore',
+    //                 },
+    //             ]
+    //         }
+    //     ]
+    // )
     const ulipData: ULIPProp[] = [
         {
             logo: '/Miraelogo.svg',
@@ -555,11 +555,11 @@ const ULIPRecommendations = () => {
                                                             <ULIPRecommendationCard
                                                                 logoUrl={cardItem?.providerlogo}
                                                                 companyName={cardItem?.ulipname}
-                                                                projectedAmount={cardItem?.projectedvalue}
+                                                                projectedAmount={numDifferentiation(cardItem?.projectedvalue)}
                                                                 topPerformingFund={`${cardItem?.topreturn}`}
-                                                                lifeCover={cardItem?.lifecover}
-                                                                investedVlaue={cardItem?.investedvalue}
-                                                                taxSavingOnInvestment={cardItem?.taxsavingoninvestment}
+                                                                lifeCover={numDifferentiation(cardItem?.lifecover)}
+                                                                investedVlaue={numDifferentiation(cardItem?.investedvalue)}
+                                                                taxSavingOnInvestment={cardItem?.taxsavingoninvestment + ' Every Year'}
                                                                 knowMoreAction={() => handleKnowMoreDialog()}
                                                                 downloadBrochuraAction={() => console.log("downloadBrochuraAction Acrion")}
                                                             />
@@ -596,8 +596,8 @@ const ULIPRecommendations = () => {
             <FooterWithBtn
                 // btnText='Select ULIP Date'
                 // btnClick={() => setActiveScreen(enumActiveScreen.OPEN_DATE_PICKER_MODAL)}
-                btnText={ulipInsuranceType === ULIP_LUMPSUM ? 'Buy Now' : 'Select ULIP Date'}
-                btnClick={ulipInsuranceType === ULIP_LUMPSUM ? handleBuyNow : handleULIPDate}
+                btnText={'Buy Now'}
+                btnClick={handleBuyNow}
             />
 
 
@@ -649,13 +649,9 @@ const ULIPRecommendations = () => {
 
 // date  modalTextButton
 
-            < Dialog onClose={() => setOpenConfirmation(!open)} open={open} >
+            {/* < Dialog onClose={() => setOpenConfirmation(!open)} open={open} >
                 <CloseIcon className="closeIconulip" onClick={() => setOpen(false)} />
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography sx={{ textAlign: "center", color: "#1d2634", fontWeight: "500", fontSize: "16px", padding: "7px 0px 5px 0px" }}>Select Monthly Instalment Date</Typography>
-                {/* <div className="react-calendar__navigation">
-<h1>hiii</h1>
-</div> */}
                 <Calendar onChange={(value: any) => setCalenderValue(value)} value={calenderValue} />
 
                 <Button onClick={() => { setOpen(!open); setOpenConfirmation(!openConfirmation) }} variant='contained' className={classes.modalTextButton} sx={{
@@ -664,15 +660,14 @@ const ULIPRecommendations = () => {
                 }}>
                     Confirm ULIP Date
                 </Button>
-            </Dialog >
+            </Dialog > */}
 
 
 
 // continue to payment dialog:::
 
 
-            <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
-                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+            {/* <Dialog open={openConfirmation} onClose={handleCloseContinuePayment}>
                 <Box sx={{ backgroundColor: '#fff', maxWidth: 300, alignItems: 'center', padding: 3, textAlign: 'center' }}>
                     <Box><img style={{ height: 'auto', maxWidth: 110 }} src={tick} /></Box>
                     <Typography sx={{ marginTop: 1, fontWeight: '600' }} >Date confirmed!</Typography>
@@ -687,7 +682,7 @@ const ULIPRecommendations = () => {
                 }}>
                     Continue to Payment
                 </Button>
-            </Dialog>
+            </Dialog> */}
 
 
 

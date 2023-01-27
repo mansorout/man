@@ -211,6 +211,7 @@ const ViewProfile = () => {
       localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(objLSData));
     }
 
+    localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(res?.data));
     setUserDetails(response);
     dispatch(setUserViewProfileDataAction(response));
     userVerification();

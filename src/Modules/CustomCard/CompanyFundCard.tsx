@@ -24,7 +24,7 @@ const CompanyFundCard = (props: Prop) => {
     });
 
     return (
-        <Box id="CoCard" sx={{
+        <Box className="boxHomeLayoutGrid boxHomeLayoutGridMargin" id="CoCard" sx={{
             padding: '1rem',
             fontFamily: 'Roboto',
             borderRadius: '0.5rem',
@@ -45,7 +45,7 @@ const CompanyFundCard = (props: Prop) => {
                     borderRadius: '50%',
                 }} />
                 <Box className="width82px" sx={{
-                    width: { xs: '180px', sm: '200px', md:"120px", lg: '150px' }
+                    width: { xs: '180px', sm: '524px', md:"120px", lg: '150px' }
                 }}>
                     <Typography>{ props.name }</Typography>
                     <Chip className="textPropName" label={ props.cap } sx={{

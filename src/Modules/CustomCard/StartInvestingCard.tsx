@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Grid, IconButton, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import { bgcolor } from '@mui/system'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 
@@ -46,19 +46,19 @@ const StartInvestingCard = ({ BgColor, Heading, Text, Img }: Props) => {
       <Box sx={style.imgContainer1}>
         <img src={Img} height="55px" />
       </Box>
-      <Box sx={{padding:{xs:"9px !important", sm:"20px", display:"flex", justifyContent: "flex-start",
+      <Box sx={{padding:{xs:"9px !important", sm:"20px", display:"flex", justifyContent: "space-between",
     alignItems: "center"}}} className='subTitleText' style={style.textContainer}>
         <Box>
         <Typography className='subTitle4'>
           {Heading}
         </Typography>
-        <Typography className='body1 homeBgImageSip LineHeightText'>
+        <Typography className='bodyHomePageText homeBgImageSip LineHeightText'>
           {Text}
         </Typography>
         </Box>
         <Box>
-        <IconButton style={{ backgroundColor: "#23db7b",}} >
-                <ArrowForward style={{ color: "white" }} />
+        <IconButton sx={{padding:{xs:"2px", sm:"7px"}}} style={{ backgroundColor: "#23db7b",}} >
+                <ArrowForward sx={{fontSize:{xs:"16px", sm:"unset"}}}  style={{ color: "white" }} />
             </IconButton>
         </Box>
         {/* <Grid container>

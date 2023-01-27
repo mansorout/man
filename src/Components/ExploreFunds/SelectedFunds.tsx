@@ -427,7 +427,7 @@ const SelectedFunds = () => {
                 <Box className="BoxMarginLeftRight">
                   <Box
                     role="presentation"
-                    sx={{ margin: "27px 0px 21px 25px" }}
+                    sx={{  margin:" 10px 0px 21px 8px" }}
                     className="B_Selected"
                   >
                     <Breadcrumbs aria-label="breadcrumb">
@@ -459,7 +459,7 @@ const SelectedFunds = () => {
                     </Breadcrumbs>
                   </Box>
                   <Box
-                    sx={{ margin: "27px 0px 21px 25px" }}
+                    sx={{ margin:" 10px 0px 21px 6px"}}
                     className="FundsSelected"
                   >
                     <Typography
@@ -468,7 +468,9 @@ const SelectedFunds = () => {
                         color: "#3c3e42",
                         fontWeight: "500",
                       }}
+className="FundSlectStyle"
                     >
+
                       {selectedFundsList && selectedFundsList?.length} Funds
                       Selected
                     </Typography>

@@ -17,6 +17,7 @@ import {
     Theme,
     Toolbar,
     Typography,
+    Dialog,
 } from "@mui/material";
 import UlipCard from "../../Modules/Cards/ULIP/UlipCard";
 import UlipPlanPerformanceCard from "../../Modules/Cards/ULIP/UlipPlanPerformanceCard";
@@ -30,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 // import "./UlipBox.css";
 import FooterWithBtn from "../CommonComponents/FooterWithBtn";
 import BannerSlider from "../CommonComponents/BannerSlider";
+import Button from '@mui/material/Button';
 import {
     SaveTaxInvestmentAmount,
     ULIP_LUMPSUM,
@@ -43,6 +45,7 @@ import {
     customParseJSON,
     getLookUpIdWRTModule,
     isMultipleofNumber,
+    numDifferentiation,
 } from "../../Utils/globalFunctions";
 import LineChart from "../CommonComponents/Charts/LineChart";
 import { getUlipReturnApi } from "../../Store/Insurance/thunk/insurance-thunk";
@@ -64,9 +67,14 @@ import {
 import { Terminal } from "@mui/icons-material";
 import {
     bannerSectionValues,
+    defaultListGetInsured,
     lookUpMasterKeys,
+    moduleList,
 } from "../../Utils/globalConstant";
 import { width } from "@mui/system";
+import { getDefaultList } from "../../Store/Global/thunk/global-thunk";
+import siteConfig from "../../Utils/siteConfig";
+import { parse } from "node:path/win32";
 // import './UlipBox.css'
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -166,12 +174,35 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
         padding: "15px",
     },
+    
+    modalTextButton: {
+        boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+        backgroundColor: "var(--primaryColor) !important",
+        color: 'var(--uiWhite) !important',
+    },
+    modalText: {
+        padding: '20px'
+    },
 }));
 
-const enumGraphKeys = {
+const enumGraphKeys = Object.freeze({
     INVESTED_VALU : 'Invested Value',
     PROJECTED_VALUE :'Projected Value'
-}
+})
+
+const enumDefaultKeysIndex = Object.freeze({
+    DEFAULT_LUMPSUM: 0,
+    DEFAULT_SIP: 1,
+    MIN_LUMPSUM: 2,
+    MIN_SIP: 3,
+})
+
+const enumDefaultKeys = Object.freeze({
+    DEFAULT_LUMPSUM: "default_lumpsum",
+    DEFAULT_SIP: "default_sip",
+    MIN_LUMPSUM: "min_lumpsum",
+    MIN_SIP: "min_sip",
+})
 
 const MAX_LENGTH = 10;
 const UlipBox = (props: any) => {
@@ -193,6 +224,7 @@ const UlipBox = (props: any) => {
     const [handlelinechart, setHandlelinechart] = useState(0);
     const [greenline, setGreenline] = useState("");
     const [pinkline, setPinkline] = useState("");
+    const [defaultData, setDefaultData] = useState<any>([])
     const [chartInvestedAmount, setChartInvestedAmount] = useState<
         number[] | null
     >(null);
@@ -205,7 +237,37 @@ const UlipBox = (props: any) => {
     const { ulipInsuranceType, ulipInsuranceAmount } = useSelector(
         (state: any) => state.InvestmentTypeReducers
     );
+    const [validationAlertDialog, setValidationAlertDialog] = useState({
+        msg: '',
+        bool: false,
+    })
 
+    const defaultDataSet = async () => {
+        const listArr = customParseJSON(localStorage.getItem(siteConfig.MODULE_LIST))
+        const filteredItem = listArr.filter(((item:any) => item?.module === moduleList.GETINSURED))[0]
+        const res = await getDefaultList(siteConfig.METADATA_MODULE_LIST+ `/?parentmodule_id=${filteredItem?.module_id}`)
+
+        if(res?.error){
+            return
+        }
+        const {module_id} = res?.data.filter((item:any) => item?.module === defaultListGetInsured.ULIP)[0]
+        const tempDefaultData = await getDefaultList(siteConfig.METADATA_MODULE_DEFAULTS_LIST + `/?module_id=${module_id}`)
+        console.log("defaultDataSet :", filteredItem,res, module_id, tempDefaultData )
+        if(tempDefaultData?.error){
+            return
+        }
+        setDefaultData(tempDefaultData?.data)
+    }
+
+    useEffect(() => {
+      if(defaultData && defaultData.length){
+        setLumpsumAmount(defaultData[enumDefaultKeysIndex.DEFAULT_LUMPSUM].value)
+        setMonthlyAmount(defaultData[enumDefaultKeysIndex.DEFAULT_SIP].value)
+        dispatch(insuranceUlipLumpsumAction(investmentType));
+        handleTimer(insuranceUlipAmount, defaultData[enumDefaultKeysIndex.DEFAULT_LUMPSUM].value);
+      }
+    }, [defaultData])
+    
     
     // const bannersectionArr = customParseJSON(localStorage.getItem(lookUpMasterKeys.INVESTMENT_TYPE))
     // const lookUPIdLUMPSUM = getLookUpIdWRTModule(bannersectionArr, investmentTypeValues.LUMPSUM)
@@ -219,6 +281,7 @@ const UlipBox = (props: any) => {
 
     
     useEffect(() => {
+        defaultDataSet()
         const lookup__id_Arr = customParseJSON(
             localStorage.getItem(lookUpMasterKeys.ULIP_TERM)
         );
@@ -247,16 +310,21 @@ const UlipBox = (props: any) => {
 
 
     useEffect(() => {
-        const labels = ulipReturnApiData?.map(
-            (item: getUlipReturnApiTypes) => item.years + "Y"
-        );
-        const selectValues = ulipReturnApiData?.map(
+
+        console.log("labels = ulipReturnApiData :",ulipReturnApiData?.filter((item:any) => item?.years >= 10))
+        const labels = ulipReturnApiData?.filter((item:any) => item?.years >= 10)?.map(
+                (item: getUlipReturnApiTypes) => item.years + "Y"
+            )
+        // const labels = ulipReturnApiData?.map(
+        //     (item: getUlipReturnApiTypes) => item.years + "Y"
+        // );
+        const selectValues = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
             (item: getUlipReturnApiTypes) => item.years
         );
-        const investedamount = ulipReturnApiData?.map(
+        const investedamount = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
             (item: getUlipReturnApiTypes) => item.investedamount
         );
-        const projectedamount = ulipReturnApiData?.map(
+        const projectedamount = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
             (item: getUlipReturnApiTypes) => item.projectedamount
         );
 
@@ -264,14 +332,35 @@ const UlipBox = (props: any) => {
         setUlipYears(selectValues)
         setChartInvestedAmount(investedamount);
         setChartProjectedAmount(projectedamount);
+
+        setGreenline(investedamount[0]);
+        setPinkline(projectedamount[0]);
         localStorage.getItem(ulipReturnApiData);
         console.log(ulipReturnApiData);
     }, [ulipReturnApiData]);
 
+    const getfilterInvetedAmount = () => {
+        if(ulipReturnApiData && ulipReturnApiData?.length){
+           return ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
+                (item: getUlipReturnApiTypes) => item.investedamount
+            );
+        }
+    }
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("handleRadioChange :",(event.target as HTMLInputElement).value)
         setInvestmentType((event.target as HTMLInputElement).value);
-        investmentType === ULIP_LUMPSUM ? setLumpsumAmount(0) : setMonthlyAmount(0);
+        if((event.target as HTMLInputElement).value === ULIP_LUMPSUM) {
+            // setLumpsumAmount(0)
+            debugger
+            handleTimer(insuranceUlipLumpsumAction, (event.target as HTMLInputElement).value);
+        handleTimer(insuranceUlipAmount, lumpsumAmount);
+        }else{
+            // setMonthlyAmount(0)
+            debugger
+        handleTimer(insuranceUlipMonthlyAction, (event.target as HTMLInputElement).value);
+        handleTimer(insuranceUlipAmount, monthlyAmount);
+        } 
     };
 
     const handleLumpsum = (event: any) => {
@@ -281,9 +370,9 @@ const UlipBox = (props: any) => {
         let conNumber = Number(event.target.value);
         setLumpsumAmount(conNumber);
         console.log(Number(conNumber));
-        console.log(typeof conNumber);
-        if (conNumber < 5000) {
-            setErrorMessage("please fill min. 5000 amount");
+        console.log("typeof conNumber:", defaultData);
+        if (conNumber < defaultData[enumDefaultKeysIndex.MIN_LUMPSUM].value) {
+            setErrorMessage(`please fill min. ${defaultData[enumDefaultKeysIndex.MIN_LUMPSUM].value} amount`);
             setError(true);
         } else {
             setErrorMessage("");
@@ -292,14 +381,14 @@ const UlipBox = (props: any) => {
     };
     const handleMonthly = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(insuranceUlipMonthlyAction(investmentType));
-        // dispatch(insuranceUlipAmount(event.target.value));
-        handleTimer(insuranceUlipAmount, event.target.value);
+        dispatch(insuranceUlipAmount(event.target.value));
+        // handleTimer(insuranceUlipMonthlyAction, event.target.value);
         let monNumber = Number(event.target.value);
         setMonthlyAmount(monNumber);
         console.log(Number(monNumber));
         console.log(typeof monNumber);
-        if (monNumber < 1000) {
-            setMonthlyShowError("please fill min. 1000 amount");
+        if (monNumber <  defaultData[enumDefaultKeysIndex.MIN_SIP].value) {
+            setMonthlyShowError(`please fill min. ${defaultData[enumDefaultKeysIndex.MIN_SIP].value} amount`);
             setMerror(true);
         } else {
             setMonthlyShowError("");
@@ -331,6 +420,32 @@ const UlipBox = (props: any) => {
 
     const chartOptions = {
         responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: true //this will remove only the label
+          }
+          },
+          y: {
+            border: {
+              color: '#fff'
+            },
+            grid: {
+              display: false,
+            },
+            ticks: {
+              display: false //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          // 'dataset.maxBarThickness': 5,
+          },
+        },
         plugins: {
             legend: {
                 position: "bottom" as const,
@@ -343,13 +458,13 @@ const UlipBox = (props: any) => {
     const chartData = {
         labels: chartLabels,
         datasets: [
-            {
-                label: "Invested Value",
-                data: chartInvestedAmount,
-                fill: true,
-                backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "rgba(75,192,192,1)",
-            },
+            // {
+            //     label: "Invested Value",
+            //     data: chartInvestedAmount,
+            //     fill: true,
+            //     backgroundColor: "rgba(75,192,192,0.2)",
+            //     borderColor: "rgba(75,192,192,1)",
+            // },
             {
                 label: "Projected Value",
                 data: chartProjectedAmount,
@@ -368,7 +483,11 @@ const UlipBox = (props: any) => {
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount));
                 navigate("/ulip/recommendations");
             } else {
-                alert("Enter amount multiple of 100!");
+                // alert("Enter amount multiple of 100!");
+                setValidationAlertDialog({
+                    msg: 'Enter amount multiple of 100!',
+                    bool: true,
+                })
             }
         } else if (investmentType === ULIP_MONTHLY && monthlyAmount > 0) {
             dispatch(insuranceUlipMonthlyAction(ULIP_MONTHLY));
@@ -380,20 +499,22 @@ const UlipBox = (props: any) => {
     const handleYear = (e: { target: { value: SetStateAction<string> } }) => {
         setYears(e.target.value);
 
-        const filteredItem = ulipReturnApiData.filter((item : any) => item.years === e.target.value)
+        const filteredItem = ulipReturnApiData?.filter((item : any) => item.years === e.target.value)
 
         setGreenline(filteredItem[0].investedamount);
         setPinkline(filteredItem[0].projectedamount);
         console.log("years value :", e.target.value, ulipReturnApiData, filteredItem)
     };
     const hadleLineChart = (e: any,) => {
-        console.log('lineLabel :',e)
+        
+        const filteredItem = ulipReturnApiData?.filter((item:any) => item?.projectedamount === e?.value)[0]
+        console.log('lineLabel :',e, ulipReturnApiData, filteredItem)
 
-        if(e?.lineLabel === enumGraphKeys.INVESTED_VALU){
-            setGreenline(e?.value);
-        }else{
-            setPinkline(e?.value);
-        }
+        setGreenline(filteredItem?.investedamount);
+        setPinkline(filteredItem?.projectedamount);
+        // if(e?.lineLabel === enumGraphKeys.INVESTED_VALU){
+        // }else{
+        // }
         setHandlelinechart(handlelinechart);
     };
 
@@ -501,7 +622,7 @@ const UlipBox = (props: any) => {
                                                                                     <FormControlLabel
                                                                                         value={ULIP_LUMPSUM}
                                                                                         control={<Radio />}
-                                                                                        label="Lumpsum"
+                                                                                        label="Annually"
                                                                                     />
                                                                                 </InputAdornment>
                                                                             ),
@@ -665,7 +786,7 @@ const UlipBox = (props: any) => {
                                                                     fontSize: "var(--subHeadingFontSize)",
                                                                 }}
                                                             >
-                                                                ₹{greenline}
+                                                                ₹{numDifferentiation(parseInt(greenline))}
                                                             </Typography>
                                                         </Box>
                                                         <Box>
@@ -686,7 +807,7 @@ const UlipBox = (props: any) => {
                                                                     fontSize: "var(--subHeadingFontSize)",
                                                                 }}
                                                             >
-                                                                ₹{pinkline}{" "}
+                                                                ₹{numDifferentiation(parseInt(pinkline))}{" "}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
@@ -710,6 +831,17 @@ const UlipBox = (props: any) => {
                 btnDisable={lumpsumAmount < 5000 && monthlyAmount < 1000 ? true : false}
                 btnClick={handleNavigationFlow}
             />
+
+<Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })}>
+                {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
+                <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
+                <Button onClick={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })} variant='contained' className={classes.modalTextButton} sx={{
+                    backgroundColor: 'var(--primaryColor)',
+                    color: '#7b7b9d'
+                }}>
+                    OK
+                </Button>
+            </Dialog>
 
         </Box >
 

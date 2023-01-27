@@ -30,6 +30,7 @@ import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
 import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action'
+import { getDefaultList } from '../../Store/Global/thunk/global-thunk'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -182,6 +183,7 @@ const Home = () => {
   const [investingCardsLocal, setInvestingCardLocal] = useState<any[]>([...investingCards]);
 
   useEffect(() => {
+    moduleList()
     initiate();
   }, []);
 
@@ -203,6 +205,12 @@ const Home = () => {
   // ULIP_FREQUENCY: 'ulip-frequency',
   // ULIP_PORT: 'ulip-ppt',
   // ULIP_TERM: 'ulip-term',
+
+  const moduleList = async () => {
+    const res = await getDefaultList(siteConfig.METADATA_MODULE_LIST)
+    console.log("moduleList :", res)
+    localStorage.setItem(siteConfig.MODULE_LIST, JSON.stringify(res?.data));
+  }
 
   const initiate = async () => {
     Object.keys(lookUpMasterKeys).forEach((lookupKey: string) => {
@@ -371,7 +379,7 @@ const Home = () => {
                 {
                   investingCardsLocal.map((item, index) => {
                     return (
-                      <Grid key={index} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
+                      <Grid className='boxHomeLayoutGrid' key={index} onClick={() => handleNavigation(item?.Route)} item xs={6} sx={{ padding: 2 }}>
                         <StartInvestingCard BgColor={item.BgColor} Heading={item.Heading} Text={item.Text} Img={item.Img} />
                       </Grid>
                     )
@@ -381,7 +389,7 @@ const Home = () => {
               {
                 largeCardsLocal.map((item, index) => {
                   return (
-                    <Grid key={index} item xs={12} sx={{ padding: 2 }}>
+                    <Grid className='boxHomeLayoutGrid' key={index} item xs={12} sx={{ padding: 2 }}>
                     
                       <LargeCards
             
@@ -398,12 +406,12 @@ const Home = () => {
                 })
               }
             </Grid>
-            <Grid sx={{ width: "inherit", height: { xs: "auto", sm: "auto", md: "inherit", lg: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={12} md={5} lg={4}>
+            <Grid className='boxHomeLayoutGrid' sx={{ width: "inherit", height: { xs: "auto", sm: "auto", md: "inherit", lg: "inherit" }, padding: 0, boxSizing: "border-box", overflow: { sx: "auto", sm: "scroll" } }} item xs={12} sm={12} md={5} lg={4}>
               <Box sx={{ marginTop: { xs: "-50px", sm: "-50px", md: "unset", lg: "unset"  } }}>
                 <Toolbar />
               </Box>
               
-              <Box sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <Box className="viewBtnHomePage" sx={{ px: '1rem', mt: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography className='mediumButtonText'>Explore Top Rated Funds</Typography>
                 <Typography onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_EXPLORE_FUND } })} style={{ cursor: "pointer" }} className='textLink' >View All</Typography>
               </Box>
@@ -449,7 +457,7 @@ const Home = () => {
               }
 
 
-              <Grid spacing={1} container sx={{ px: "1rem", marginBottom:{xs:"50px", sm:"0"} }} >
+              <Grid className='boxHomeLayoutGrid' spacing={1} container sx={{ px: "1rem", marginBottom:{xs:"50px", sm:"0"} }} >
                 
                 <Grid item xs={12} sm={12} md={6} onClick={() => navigate("/saveTax")}  >
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>

@@ -225,11 +225,17 @@ const useStyles: any = makeStyles((theme: Theme) => ({
   },
   actibeBtn: {
     "&:focus": {
+      color:"#fff",
+      backgroundColor: "rgb(111 121 239 / 40%) !important",
+    },
+    "&:hover": {
+      color:"#fff",
       backgroundColor: "rgb(111 121 239 / 40%) !important",
     },
   },
   btn: {
     "&:hover": {
+      color:"#fff ",
       backgroundColor: "rgb(111 121 239 / 40%) !important",
     }
   }
@@ -521,7 +527,7 @@ function InvestNowScreen(props: IProps) {
               <Box className="BoxPadding" >
                 <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
                   <Grid item md={6} xs={12}>
-                    <Card sx={{ minWidth: 275, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
+                    <Card sx={{ minWidth:{xs:"100%",sm:"275"}, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
                       className="InvestStylepadview">
                       <CardContent>
                         <Stack m={2} spacing={6}>
@@ -563,7 +569,7 @@ function InvestNowScreen(props: IProps) {
                                   sx={{
                                     width: "304px",
                                     height: "14px",
-                                    margin: "-8px 135px 0 1px",
+                                    margin: "-8px 1px 0 1px",
                                     fontSize: "12px",
                                     fontWeight: "normal",
                                     fontStretch: "normal",
@@ -594,7 +600,7 @@ function InvestNowScreen(props: IProps) {
                                   You can start small, starting from ₹5,000
                                 </Typography>
                             }
-                            <Stack direction="row" spacing={4} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
+                            <Stack direction="row" spacing={1.5} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">
                               <Button
                                 variant="contained"
                                 // disabled
