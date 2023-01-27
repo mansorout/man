@@ -21,12 +21,13 @@ import '../../Components/EditProfile/Editprofilescreen.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
-import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, formatDate, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
 import { apiResponse } from '../../Utils/globalTypes';
 import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
+import { Calendar } from 'react-calendar';
 
 type formDataProps = {
   customer_id?: number,
@@ -279,6 +280,7 @@ const EditprofileCard = () => {
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
   const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
   const [numberForView, setnumberForview] = useState<string>("")
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
@@ -435,16 +437,17 @@ const EditprofileCard = () => {
 
     setnumberForview(objUserDetails?.mobilenumber)
 
-
-
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.placeofbirthstate_id, true);
 
     // let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
-    // let date = moment(objUserDetails?.dateofbirth).format('DD MM YYYY');
-    let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
+    // let date = moment(objUserDetails?.dateofbirth, true).format('YYYY-MM-DD');
+    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
+    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-") : "";
 
     // let date = objUserDetails?.dateofbirth;
+
+    let date: string | undefined = formatDate(objUserDetails?.dateofbirth);
     console.log(date, "getuserprofile()");
 
     setFormData((prev: formDataProps) => ({
@@ -464,7 +467,7 @@ const EditprofileCard = () => {
       placeofbirthstate_id: objUserDetails?.placeofbirthstate_id,
       incomeslab_id: objUserDetails?.incomeslab_id,
       countryofbirth_id: 1,
-      dateofbirth: date
+      dateofbirth: date || ""
     }))
 
     setActiveGender(objUserDetails?.gender);
@@ -663,6 +666,7 @@ const EditprofileCard = () => {
 
         console.log("profile saved");
         let objUserDetail: any = res?.data?.userdetails;
+        localStorage.setItem(siteConfig.USER_INFO, JSON.stringify(res?.data));
         setUserNameAndEmailInLocalStorage(objUserDetail);
         navigate('/viewprofile');
 
@@ -673,6 +677,24 @@ const EditprofileCard = () => {
 
 
   }
+
+  // const detectUserLiveLocation = () => {
+  //   navigator.geolocation.watchPosition(
+  //     position => {
+  //       console.log(position);
+  //       const { latitude, longitude } = position.coords;
+  //       this.setState({
+  //         latitude, longitude
+  //       },
+  //         error => console.log(error),
+  //         {
+  //           enableHighAccuracy: true,
+  //           timeout: 20000,
+  //           maximumAge: 1000,
+  //           distanceFilter: 10
+  //         }
+  //       );
+  //     }
 
   return (
     <>
@@ -1006,7 +1028,12 @@ const EditprofileCard = () => {
                         marginTop: "4%",
                         marginRight: "6%",
                       }}
-                      onBlur={handleBlur}
+                      // onClick={() => setIsCalendarOpen(true)}
+                      // format={'DD/MM/YYYY'}
+                      onBlur={(e: any) => {
+                        // setIsCalendarOpen(false);
+                        handleBlur(e);
+                      }}
                       onChange={(e: any) => {
                         if (underAgeValidate(e.target.value)) {
                           setInvalidDOB(false);
@@ -1019,9 +1046,34 @@ const EditprofileCard = () => {
                       defaultValue={formData?.dateofbirth}
                       // value={formData?.dateofbirth || "DD-MM-YYYY"}
                       value={formData?.dateofbirth}
+                      // value={"2023-09-09"}
                       error={validateInputs?.dateofbirth}
                       helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
-                    />
+                    >
+                      {/* {
+                        isCalendarOpen ?
+                          <Calendar
+                            showNeighboringMonth={false}
+                            showNavigation={false}
+                            // @ts-ignore
+                            onChange={(val, e) => {
+                              let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : "";
+                              let obj = { name: "dateofbirth", value: date };
+                              // setSipStartDay(date);
+                            }}
+                          // onChange={(e: any) => {
+                          //   if (underAgeValidate(e.target.value)) {
+                          //     setInvalidDOB(false);
+                          //     handlechange(e);
+                          //   } else {
+                          //     setInvalidDOB(true);
+                          //   }
+                          // }}
+                          // onBlur={handleBlur}
+                          /> : null
+                      } */}
+
+                    </TextField>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField

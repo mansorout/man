@@ -32,7 +32,7 @@ export const getFinancialYear = () => {
   console.log(`Current financial year: ${currentYear - 1}-${currentYear}`);
   return `${currentYear - 1}-${currentYear}`
 
-} 
+}
 
 export const remainingMonthsFinancialYear = () => {
   const currentDate = new Date();
@@ -170,7 +170,9 @@ export const validateProfileCompletion = () => {
 
     let objUserDetail = customParseJSON(localStorage.getItem(siteConfig.USER_INFO));
 
-    if (!objUserDetail) return objUserProfileValidationData;
+    if (!objUserDetail) {
+      return { ...objUserProfileValidationData };
+    }
 
     //profile completion
     for (let i = 0; i < arrProfileCompletion.length; i++) {
@@ -207,7 +209,7 @@ export const validateProfileCompletion = () => {
     return objUserProfileValidationData;
   } catch (err) {
     console.log(err);
-    return objUserProfileValidationData;
+    return { ...objUserProfileValidationData };
   }
 }
 
@@ -271,6 +273,15 @@ export const nth = function (d: any) {
       case 3: return "rd";
       default: return "th";
     }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const formatDate = (date: string) => {
+  try {
+    let arrDate = date.split("-");
+    return [arrDate[2], arrDate[1], arrDate[0]].join('-');
   } catch (err) {
     console.log(err);
   }
