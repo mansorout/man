@@ -25,6 +25,12 @@ export const moduleList = Object.freeze({
     GETINSURED: "getinsured",
 })
 
+export const defaultListGetInsured = Object.freeze({
+    ULIP: "ulip",
+    HEALTHINSURANCE: "healthinsurance",
+    TERMINSURANCE: "terminsurance",
+})
+
 export const lookUpMasterKeys: any = Object.freeze({
     BANNER_SECTION: 'bannersection',
     FINANCIAL_YEAR: 'financialyear',

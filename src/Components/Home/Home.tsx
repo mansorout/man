@@ -30,6 +30,7 @@ import { checkExpirationOfToken } from '../../Utils/globalFunctions'
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions'
 import { apiResponse } from '../../Utils/globalTypes'
 import { setInvestmentCardTypeAction } from '../../Store/Recommendations/actions/recommendations-action'
+import { getDefaultList } from '../../Store/Global/thunk/global-thunk'
 const StyledMenuItem = styled(MenuItemUnstyled)(
   ({ theme: Theme }) => `
   list-style: none;
@@ -182,6 +183,7 @@ const Home = () => {
   const [investingCardsLocal, setInvestingCardLocal] = useState<any[]>([...investingCards]);
 
   useEffect(() => {
+    moduleList()
     initiate();
   }, []);
 
@@ -203,6 +205,12 @@ const Home = () => {
   // ULIP_FREQUENCY: 'ulip-frequency',
   // ULIP_PORT: 'ulip-ppt',
   // ULIP_TERM: 'ulip-term',
+
+  const moduleList = async () => {
+    const res = await getDefaultList(siteConfig.METADATA_MODULE_LIST)
+    console.log("moduleList :", res)
+    localStorage.setItem(siteConfig.MODULE_LIST, JSON.stringify(res?.data));
+  }
 
   const initiate = async () => {
     Object.keys(lookUpMasterKeys).forEach((lookupKey: string) => {
