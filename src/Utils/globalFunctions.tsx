@@ -248,6 +248,15 @@ export const nth = function (d: any) {
   }
 }
 
+export const formatDate = (date: string) => {
+  try {
+    let arrDate = date.split("-");
+    return [arrDate[2], arrDate[1], arrDate[0]].join('-');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // {
 //   "userdetails": {
 //       "customer_id": 137,

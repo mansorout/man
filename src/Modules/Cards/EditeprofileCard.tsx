@@ -21,12 +21,13 @@ import '../../Components/EditProfile/Editprofilescreen.css'
 import CustomSelectBox from '../../Components/Custom components/customSelectBox';
 import siteConfig from '../../Utils/siteConfig';
 import SprintMoneyLoader from '../../Components/CommonComponents/sprintMoneyLoader';
-import { checkExpirationOfToken, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
+import { checkExpirationOfToken, formatDate, setUserNameAndEmailInLocalStorage, underAgeValidate } from '../../Utils/globalFunctions';
 import { setTokenExpiredStatusAction } from '../../Store/Authentication/actions/auth-actions';
 import moment from 'moment';
 import './style.css'
 import { apiResponse } from '../../Utils/globalTypes';
 import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
+import { Calendar } from 'react-calendar';
 
 type formDataProps = {
   customer_id?: number,
@@ -279,6 +280,7 @@ const EditprofileCard = () => {
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
   const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
   const [numberForView, setnumberForview] = useState<string>("")
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
   // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
   // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
@@ -435,16 +437,17 @@ const EditprofileCard = () => {
 
     setnumberForview(objUserDetails?.mobilenumber)
 
-
-
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.placeofbirthstate_id, true);
 
     // let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
-    // let date = moment(objUserDetails?.dateofbirth).format('DD MM YYYY');
-    let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
+    // let date = moment(objUserDetails?.dateofbirth, true).format('YYYY-MM-DD');
+    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
+    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-") : "";
 
     // let date = objUserDetails?.dateofbirth;
+
+    let date: string | undefined = formatDate(objUserDetails?.dateofbirth);
     console.log(date, "getuserprofile()");
 
     setFormData((prev: formDataProps) => ({
@@ -464,7 +467,7 @@ const EditprofileCard = () => {
       placeofbirthstate_id: objUserDetails?.placeofbirthstate_id,
       incomeslab_id: objUserDetails?.incomeslab_id,
       countryofbirth_id: 1,
-      dateofbirth: date
+      dateofbirth: date || ""
     }))
 
     setActiveGender(objUserDetails?.gender);
@@ -674,535 +677,583 @@ const EditprofileCard = () => {
 
   }
 
+  // const detectUserLiveLocation = () => {
+  //   navigator.geolocation.watchPosition(
+  //     position => {
+  //       console.log(position);
+  //       const { latitude, longitude } = position.coords;
+  //       this.setState({
+  //         latitude, longitude
+  //       },
+  //         error => console.log(error),
+  //         {
+  //           enableHighAccuracy: true,
+  //           timeout: 20000,
+  //           maximumAge: 1000,
+  //           distanceFilter: 10
+  //         }
+  //       );
+  //     }
+
   return (
-    <>
-      <Box sx={{
-        padding: { xs: "10px", sm: "29px" },
-        borderRadius: "8px",
-        marginBottom: "-15px",
-      }}
-      >
-        <SprintMoneyLoader loadingStatus={loading} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6} >
-            <Paper className='profileEditbox'
-              sx={{
-                p: { xs: "5px", sm: "2" },
-                bgcolor: 'background.paper', borderRadius: "8px",
-                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-1px"
-              }}
-            >
-              <Stack m={2} spacing={2}>
-                <Grid container spacing={2} sx={{
-                  maxHeight: "100%",
+      <>
+        <Box sx={{
+          padding: { xs: "10px", sm: "29px" },
+          borderRadius: "8px",
+          marginBottom: "-15px",
+        }}
+        >
+          <SprintMoneyLoader loadingStatus={loading} />
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6} >
+              <Paper className='profileEditbox'
+                sx={{
+                  p: { xs: "5px", sm: "2" },
+                  bgcolor: 'background.paper', borderRadius: "8px",
+                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                  marginLeft: "-1px"
+                }}
+              >
+                <Stack m={2} spacing={2}>
+                  <Grid container spacing={2} sx={{
+                    maxHeight: "100%",
 
-                }}>
-                  <Grid item xs={12} md={12}>
-                    <TextField
-                      type='text'
-                      onBlur={handleBlur}
-                      label="First Name"
-                      name="firstname"
-                      value={formData?.firstname}
-                      onChange={handlechange}
-                      fullWidth
-                      error={validateInputs?.firstname}
-                      id='First Name'
-
-                      sx={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                        width: "100%", fontSize: "15px", fontWeight: "normal",
-
-                      }}
-                      helperText={validateInputs?.firstname ? enumErrorMsg.PLEASE_ENTER_NAME : ""}
-                      required
-                    />
-                  </Grid>
-                </Grid>
-                <TextField
-                  type='text'
-                  name="middlename"
-                  label="Middle Name"
-                  onBlur={handleBlur}
-                  value={formData?.middlename}
-                  onChange={handlechange}
-                  fullWidth
-                  sx={{
-                    color: "rgba(0, 0, 0, 0.6)",
-                    // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "100%", fontSize: "15px", fontWeight: "normal",
-
-                  }}
-                // error={validateInputs?.middlename}
-                // helperText={validateInputs?.middlename ? enumErrorMsg.PLEASE_ENTER_MIDDLE_NAME : ""}
-
-                />
-                <TextField
-                  type='text'
-                  label="Last Name"
-                  name="lastname"
-                  onBlur={handleBlur}
-                  value={formData?.lastname}
-                  onChange={handlechange}
-                  sx={{
-                    color: "rgba(0, 0, 0, 0.6)",
-                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "100%", fontSize: "15px",
-                    fontWeight: "normal",
-                  }}
-                  error={validateInputs?.lastname}
-                  helperText={validateInputs?.lastname ? enumErrorMsg.PLEASE_ENTER_LAST_NAME : ""}
-                  required
-                />
-                <TextField
-                  label="Mobile Number"
-                  onBlur={handleBlur}
-                  type="text"
-                  name="mobilenumber"
-                  value={numberForView}
-                  onChange={handlechange}
-                  fullWidth
-                  sx={{
-                    color: "rgba(0, 0, 0, 0.6)",
-                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "100%", fontSize: "15px", fontWeight: "normal"
-                  }}
-                  error={validateInputs?.mobilenumber}
-                  helperText={validateInputs?.mobilenumber ? enumErrorMsg.MOBILE_NUMBER_IS_INVALID : ""}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">
-                      +91
-                    </InputAdornment>,
-                  }}
-                  required
-                />
-                <TextField
-                  label="Email Address"
-                  onBlur={handleBlur}
-                  name="emailaddress"
-                  sx={{
-                    color: "rgba(0, 0, 0, 0.6)",
-                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                    width: "100%",
-                    fontSize: "15px", fontWeight: "normal"
-                  }}
-                  value={formData?.emailaddress}
-                  onChange={handlechange} fullWidth
-                  error={validateInputs?.emailaddress}
-                  helperText={validateInputs?.emailaddress ? enumErrorMsg.EMAIL_ADDRESS_IS_INVALID : ""}
-                  required
-                />
-                <Box
-                  component="form"
-                  sx={{
-                    // '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" } 
                   }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} >
-                      <CustomSelectBox
-                        name={"countryofbirth_id"}
-                        labelKey={'country'}
-                        valueKey={'country_id'}
-                        options={countryList}
-                        inpurLabelValue={"Country of birth *"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "1px",
-                          background: "#fff"
-                        }}
-                        // selectSX={{
-                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        // }}
-                        value={formData?.countryofbirth_id}
-                        onChange={(val: any) => {
-                          customSelectBoxOnChange("countryofbirth_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={!formData?.countryofbirth_id ? validateInputs?.countryofbirth_id : false}
-                        formHelperText={!formData?.countryofbirth_id ? (validateInputs?.countryofbirth_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <CustomSelectBox
-                        name={"placeofbirthstate_id"}
-                        labelKey={'state'}
-                        valueKey={'state_id'}
-                        options={stateList}
-                        inpurLabelValue={"State of birth"}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "1px",
-                          background: "#fff"
-                        }}
-                        // selectSX={{
-                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        // }}
-                        value={formData?.placeofbirthstate_id}
-                        onChange={(val: any) => {
-                          getCityList(val, true);
-                          customSelectBoxOnChange("placeofbirthstate_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={!formData?.placeofbirthstate_id ? validateInputs?.placeofbirthstate_id : false}
-                        formHelperText={!formData?.placeofbirthstate_id ? (validateInputs?.placeofbirthstate_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <CustomSelectBox
-                        // pagination={true}
-                        name={"placeofbirthcity_id"}
-                        labelKey={'city'}
-                        valueKey={'city_id'}
-                        options={allCityList}
-                        // placeholder={'Select your City'}
-                        inpurLabelValue={"City of birth "}
-                        inputLabelSX={{
-                          color: "rgba(0, 0, 0, 0.6)",
-                          fontSize: "15px",
-                          fontWeight: "normal",
-                          top: "1px",
-                          background: "#fff"
-                        }}
-                        // selectSX={{
-                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                        // }}
-                        value={formData?.placeofbirthcity_id}
-                        onChange={(val: any) => {
-                          customSelectBoxOnChange("placeofbirthcity_id", val)
-                        }}
-                        onBlur={handleBlur}
-                        error={!formData.placeofbirthcity_id ? validateInputs?.placeofbirthcity_id : false}
-                        formHelperText={!formData.placeofbirthcity_id ? (validateInputs?.placeofbirthcity_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Stack>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6} className="gridMarginBottom20">
-            <Paper className='profileEditbox'
-              sx={{
-                p: { xs: "5px", sm: "2" },
-                bgcolor: 'background.paper',
-                borderRadius: "8px",
-                boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                marginLeft: "-1px"
-              }}
-            >
-              <Typography className='textGender' sx={{ color: "#6c63ff", }}>Gender</Typography>
-              <Stack m={2} spacing={2}>
-                <Grid container spacing={2} sx={{
-                  maxHeight: "100%",
-                }}>
-                  <Grid item xs={12} >
-                    <Box
-                    // sx={{
-                    //   '& button': { m: "3px 5px" },
-                    //   textAlign: "left"
-                    // }}
-                    // className='wholedivbuttons'
-                    >
-                      <Button
-                        id={"male"}
-                        className="icongenderredius"
-                        name="gender"
-                        onClick={() => {
-                          setActiveGender(enumActiveGender.MALE);
-                          setFormData(prev => ({ ...prev, gender: enumActiveGender.MALE }))
-                          setValidateInputs(prev => ({ ...prev, gender: false }))
-                        }}
-                        variant="outlined"
-                        size="small"
-                        sx={{
-                          backgroundColor: " #fff",
-                          borderRadius: "8px",
-                          boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
-                          height: " 42px",
-                          padding: " 6px 10px 1px 6px"
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          border: `1px solid ${activeGender === enumActiveGender.MALE ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                          borderRadius: "8px",
-                          backgroundColor: `${activeGender === enumActiveGender.MALE ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
-                          textAlign: "center",
-                          padding: "12px 14px"
-                        }}
-                      >
-                        <img
-                          src={manicon}
-                          alt="smallarrow Logo"
-                          style={{ width: "24px", height: "24px", borderRadius: "12px", }}
-                        />
-                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">
-                          Male</Typography>
-                      </Button>
-                      <Button
-                        name="gender"
-                        value={"female"}
-                        className="icongenderredius"
-                        onClick={() => {
-                          setActiveGender(enumActiveGender.FEMALE);
-                          setFormData({ ...formData, gender: enumActiveGender.FEMALE })
-                          setValidateInputs(prev => ({ ...prev, gender: false }))
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          border: `1px solid ${activeGender === enumActiveGender.FEMALE ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                          borderRadius: "8px",
-                          backgroundColor: `${activeGender === enumActiveGender.FEMALE ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
-                          textAlign: "center",
-                          padding: "12px 14px"
-                        }}
-                        variant="outlined"
-                        size="medium"
-                        sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}
-                      >
-                        <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
-                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
-                      </Button>
-                      <Button
-                        id={"transgender"}
-                        className="icongenderredius"
-                        name="gender" onClick={() => {
-                          setActiveGender(enumActiveGender.TRANS);
-                          setFormData({ ...formData, gender: enumActiveGender.TRANS })
-                          setValidateInputs(prev => ({ ...prev, gender: false }))
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          border: `1px solid ${activeGender === enumActiveGender.TRANS ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                          borderRadius: "8px",
-                          backgroundColor: `${activeGender === enumActiveGender.TRANS ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px"
-                        }}
-                        variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
-                        <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
-                        <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Transgender</Typography>
-                      </Button>
-                      {validateInputs?.gender ?
-                        <Typography component='span' sx={{ color: "red" }}>
-                          {enumErrorMsg.PLEASE_ENTER_GENDER}
-                        </Typography>
-                        : null}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      type="date"
-                      name="dateofbirth"
-                      label="Date of Birth"
-                      // placeholder="DD-MM-YYYY"
-                      sx={{
-                        color: "#919eb1",
-                        fontSize: "17px",
-                        marginTop: "4%",
-                        marginRight: "6%",
-                      }}
-                      onBlur={handleBlur}
-                      onChange={(e: any) => {
-                        if (underAgeValidate(e.target.value)) {
-                          setInvalidDOB(false);
-                          handlechange(e);
-                        } else {
-                          setInvalidDOB(true);
-                        }
-                      }}
-                      InputLabelProps={{ shrink: true }}
-                      defaultValue={formData?.dateofbirth}
-                      // value={formData?.dateofbirth || "DD-MM-YYYY"}
-                      value={formData?.dateofbirth}
-                      error={validateInputs?.dateofbirth}
-                      helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Address"
-                      onBlur={handleBlur}
-                      name="addressline1"
-                      value={formData?.addressline1}
-                      onChange={handlechange}
-                      sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", width: "100% !important" }}
-                      placeholder="Enter your street address"
-                      error={validateInputs?.addressline1}
-                      helperText={validateInputs?.addressline1 ? enumErrorMsg.PLEASE_ENTER_ADDRESS : ""}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="end">
-                            <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", right: "1px", padding: "10px", width: "20px", background: "#fff", cursor: "pointer" }} />
-                          </InputAdornment>),
-                      }}>
-                    </TextField>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <CustomSelectBox
-                      name={"state_id"}
-                      labelKey={'state'}
-                      valueKey={'state_id'}
-                      options={stateList}
-                      inpurLabelValue={"State *"}
-                      inputLabelSX={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontSize: "15px",
-                        fontWeight: "normal",
-                        top: "1px",
-                        background: "#fff"
-                      }}
-                      // selectSX={{
-                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      // }}
-                      value={formData?.state_id}
-                      onChange={(val: any) => {
-                        getCityList(val, false);
-                        customSelectBoxOnChange("state_id", val);
-                      }}
-                      onBlur={handleBlur}
-                      error={!formData.state_id ? validateInputs?.state_id : false}
-                      formHelperText={!formData.state_id ? (validateInputs?.state_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <CustomSelectBox
-                      name={"city_id"}
-                      labelKey={'city'}
-                      valueKey={'city_id'}
-                      options={cityList}
-                      className={"Drapdownstyle"}
-                      inpurLabelValue={"City of Residence *"}
-                      inputLabelSX={{
-                        color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
-                        fontWeight: "normal",
-                        top: "1px",
-                        background: "#fff"
-                      }}
-                      // selectSX={{
-                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      // }}
-                      value={formData?.city_id}
-                      onChange={(val: any) => {
-                        customSelectBoxOnChange("city_id", val)
-                      }}
-                      onBlur={handleBlur}
-                      error={!formData.city_id ? validateInputs?.city_id : false}
-                      formHelperText={!formData.city_id ? (validateInputs?.city_id ? enumErrorMsg.PLEASE_ENTER_CITY : "") : ""}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} >
-                    <FormControl
-                      className="pincodeClass">
+                    <Grid item xs={12} md={12}>
                       <TextField
-                        id='Pincode'
-                        label="Pincode"
-                        name="pincode"
+                        type='text'
                         onBlur={handleBlur}
-                        value={formData.pincode}
-                        onChange={(e) => {
-                          handlechange(e);
-
-                          // handlePincodeLengthValidation();
-                        }}
+                        label="First Name"
+                        name="firstname"
+                        value={formData?.firstname}
+                        onChange={handlechange}
                         fullWidth
-                        error={validateInputs?.pincode}
-                        className="pincodestayle"
+                        error={validateInputs?.firstname}
+                        id='First Name'
+
                         sx={{
                           color: "rgba(0, 0, 0, 0.6)",
                           // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
-                          width: "100% !important",
+                          width: "100%", fontSize: "15px", fontWeight: "normal",
+
+                        }}
+                        helperText={validateInputs?.firstname ? enumErrorMsg.PLEASE_ENTER_NAME : ""}
+                        required
+                      />
+                    </Grid>
+                  </Grid>
+                  <TextField
+                    type='text'
+                    name="middlename"
+                    label="Middle Name"
+                    onBlur={handleBlur}
+                    value={formData?.middlename}
+                    onChange={handlechange}
+                    fullWidth
+                    sx={{
+                      color: "rgba(0, 0, 0, 0.6)",
+                      // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                      width: "100%", fontSize: "15px", fontWeight: "normal",
+
+                    }}
+                  // error={validateInputs?.middlename}
+                  // helperText={validateInputs?.middlename ? enumErrorMsg.PLEASE_ENTER_MIDDLE_NAME : ""}
+
+                  />
+                  <TextField
+                    type='text'
+                    label="Last Name"
+                    name="lastname"
+                    onBlur={handleBlur}
+                    value={formData?.lastname}
+                    onChange={handlechange}
+                    sx={{
+                      color: "rgba(0, 0, 0, 0.6)",
+                      //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                      width: "100%", fontSize: "15px",
+                      fontWeight: "normal",
+                    }}
+                    error={validateInputs?.lastname}
+                    helperText={validateInputs?.lastname ? enumErrorMsg.PLEASE_ENTER_LAST_NAME : ""}
+                    required
+                  />
+                  <TextField
+                    label="Mobile Number"
+                    onBlur={handleBlur}
+                    type="text"
+                    name="mobilenumber"
+                    value={numberForView}
+                    onChange={handlechange}
+                    fullWidth
+                    sx={{
+                      color: "rgba(0, 0, 0, 0.6)",
+                      //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                      width: "100%", fontSize: "15px", fontWeight: "normal"
+                    }}
+                    error={validateInputs?.mobilenumber}
+                    helperText={validateInputs?.mobilenumber ? enumErrorMsg.MOBILE_NUMBER_IS_INVALID : ""}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">
+                        +91
+                      </InputAdornment>,
+                    }}
+                    required
+                  />
+                  <TextField
+                    label="Email Address"
+                    onBlur={handleBlur}
+                    name="emailaddress"
+                    sx={{
+                      color: "rgba(0, 0, 0, 0.6)",
+                      //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                      width: "100%",
+                      fontSize: "15px", fontWeight: "normal"
+                    }}
+                    value={formData?.emailaddress}
+                    onChange={handlechange} fullWidth
+                    error={validateInputs?.emailaddress}
+                    helperText={validateInputs?.emailaddress ? enumErrorMsg.EMAIL_ADDRESS_IS_INVALID : ""}
+                    required
+                  />
+                  <Box
+                    component="form"
+                    sx={{
+                      // '& .MuiTextField-root': { m: 1, width: '194px', marginTop: "-23px" } 
+                    }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} >
+                        <CustomSelectBox
+                          name={"countryofbirth_id"}
+                          labelKey={'country'}
+                          valueKey={'country_id'}
+                          options={countryList}
+                          inpurLabelValue={"Country of birth *"}
+                          inputLabelSX={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                            top: "1px",
+                            background: "#fff"
+                          }}
+                          // selectSX={{
+                          //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                          // }}
+                          value={formData?.countryofbirth_id}
+                          onChange={(val: any) => {
+                            customSelectBoxOnChange("countryofbirth_id", val)
+                          }}
+                          onBlur={handleBlur}
+                          error={!formData?.countryofbirth_id ? validateInputs?.countryofbirth_id : false}
+                          formHelperText={!formData?.countryofbirth_id ? (validateInputs?.countryofbirth_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <CustomSelectBox
+                          name={"placeofbirthstate_id"}
+                          labelKey={'state'}
+                          valueKey={'state_id'}
+                          options={stateList}
+                          inpurLabelValue={"State of birth"}
+                          inputLabelSX={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                            top: "1px",
+                            background: "#fff"
+                          }}
+                          // selectSX={{
+                          //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                          // }}
+                          value={formData?.placeofbirthstate_id}
+                          onChange={(val: any) => {
+                            getCityList(val, true);
+                            customSelectBoxOnChange("placeofbirthstate_id", val)
+                          }}
+                          onBlur={handleBlur}
+                          error={!formData?.placeofbirthstate_id ? validateInputs?.placeofbirthstate_id : false}
+                          formHelperText={!formData?.placeofbirthstate_id ? (validateInputs?.placeofbirthstate_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <CustomSelectBox
+                          // pagination={true}
+                          name={"placeofbirthcity_id"}
+                          labelKey={'city'}
+                          valueKey={'city_id'}
+                          options={allCityList}
+                          // placeholder={'Select your City'}
+                          inpurLabelValue={"City of birth "}
+                          inputLabelSX={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                            top: "1px",
+                            background: "#fff"
+                          }}
+                          // selectSX={{
+                          //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                          // }}
+                          value={formData?.placeofbirthcity_id}
+                          onChange={(val: any) => {
+                            customSelectBoxOnChange("placeofbirthcity_id", val)
+                          }}
+                          onBlur={handleBlur}
+                          error={!formData.placeofbirthcity_id ? validateInputs?.placeofbirthcity_id : false}
+                          formHelperText={!formData.placeofbirthcity_id ? (validateInputs?.placeofbirthcity_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Stack>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6} className="gridMarginBottom20">
+              <Paper className='profileEditbox'
+                sx={{
+                  p: { xs: "5px", sm: "2" },
+                  bgcolor: 'background.paper',
+                  borderRadius: "8px",
+                  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                  marginLeft: "-1px"
+                }}
+              >
+                <Typography className='textGender' sx={{ color: "#6c63ff", }}>Gender</Typography>
+                <Stack m={2} spacing={2}>
+                  <Grid container spacing={2} sx={{
+                    maxHeight: "100%",
+                  }}>
+                    <Grid item xs={12} >
+                      <Box
+                      // sx={{
+                      //   '& button': { m: "3px 5px" },
+                      //   textAlign: "left"
+                      // }}
+                      // className='wholedivbuttons'
+                      >
+                        <Button
+                          id={"male"}
+                          className="icongenderredius"
+                          name="gender"
+                          onClick={() => {
+                            setActiveGender(enumActiveGender.MALE);
+                            setFormData(prev => ({ ...prev, gender: enumActiveGender.MALE }))
+                            setValidateInputs(prev => ({ ...prev, gender: false }))
+                          }}
+                          variant="outlined"
+                          size="small"
+                          sx={{
+                            backgroundColor: " #fff",
+                            borderRadius: "8px",
+                            boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05) ",
+                            height: " 42px",
+                            padding: " 6px 10px 1px 6px"
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            border: `1px solid ${activeGender === enumActiveGender.MALE ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                            borderRadius: "8px",
+                            backgroundColor: `${activeGender === enumActiveGender.MALE ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                            textAlign: "center",
+                            padding: "12px 14px"
+                          }}
+                        >
+                          <img
+                            src={manicon}
+                            alt="smallarrow Logo"
+                            style={{ width: "24px", height: "24px", borderRadius: "12px", }}
+                          />
+                          <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">
+                            Male</Typography>
+                        </Button>
+                        <Button
+                          name="gender"
+                          value={"female"}
+                          className="icongenderredius"
+                          onClick={() => {
+                            setActiveGender(enumActiveGender.FEMALE);
+                            setFormData({ ...formData, gender: enumActiveGender.FEMALE })
+                            setValidateInputs(prev => ({ ...prev, gender: false }))
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            border: `1px solid ${activeGender === enumActiveGender.FEMALE ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                            borderRadius: "8px",
+                            backgroundColor: `${activeGender === enumActiveGender.FEMALE ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                            textAlign: "center",
+                            padding: "12px 14px"
+                          }}
+                          variant="outlined"
+                          size="medium"
+                          sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}
+                        >
+                          <img src={girlicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
+                          <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">  Female</Typography>
+                        </Button>
+                        <Button
+                          id={"transgender"}
+                          className="icongenderredius"
+                          name="gender" onClick={() => {
+                            setActiveGender(enumActiveGender.TRANS);
+                            setFormData({ ...formData, gender: enumActiveGender.TRANS })
+                            setValidateInputs(prev => ({ ...prev, gender: false }))
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            border: `1px solid ${activeGender === enumActiveGender.TRANS ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                            borderRadius: "8px",
+                            backgroundColor: `${activeGender === enumActiveGender.TRANS ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`, textAlign: "center", padding: "12px 14px"
+                          }}
+                          variant="outlined" size="large" sx={{ backgroundColor: " #fff", borderRadius: "8px", boxShadow: " 0 1px 4px 0 rgba(0, 0, 0, 0.05)", height: " 42px", padding: " 6px 10px 6px 6px" }}>
+                          <img src={girliconicon} alt="smallarrow Logo" style={{ width: "24px", height: "24px", borderRadius: "12px", }} />
+                          <Typography sx={{ color: "#7b7b9d", fontSize: "16px" }} className="fontstyle">Transgender</Typography>
+                        </Button>
+                        {validateInputs?.gender ?
+                          <Typography component='span' sx={{ color: "red" }}>
+                            {enumErrorMsg.PLEASE_ENTER_GENDER}
+                          </Typography>
+                          : null}
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        type="date"
+                        name="dateofbirth"
+                        label="Date of Birth"
+                        // placeholder="DD-MM-YYYY"
+                        sx={{
+                          color: "#919eb1",
+                          fontSize: "17px",
+                          marginTop: "4%",
+                          marginRight: "6%",
+                        }}
+                        // onClick={() => setIsCalendarOpen(true)}
+                        // format={'DD/MM/YYYY'}
+                        onBlur={(e: any) => {
+                          // setIsCalendarOpen(false);
+                          handleBlur(e);
+                        }}
+                        onChange={(e: any) => {
+                          if (underAgeValidate(e.target.value)) {
+                            setInvalidDOB(false);
+                            handlechange(e);
+                          } else {
+                            setInvalidDOB(true);
+                          }
+                        }}
+                        InputLabelProps={{ shrink: true }}
+                        defaultValue={formData?.dateofbirth}
+                        // value={formData?.dateofbirth || "DD-MM-YYYY"}
+                        value={formData?.dateofbirth}
+                        // value={"2023-09-09"}
+                        error={validateInputs?.dateofbirth}
+                        helperText={invalidDOB === true ? enumErrorMsg.PLEASE_ENTER_VALID_DATE : (validateInputs?.dateofbirth ? enumErrorMsg.PLEASE_ENTER_AGE : "")}
+                      >
+                        {/* {
+                        isCalendarOpen ?
+                          <Calendar
+                            showNeighboringMonth={false}
+                            showNavigation={false}
+                            // @ts-ignore
+                            onChange={(val, e) => {
+                              let date = moment(val).format("L") ? moment(val).format("L").split("/")[1] : "";
+                              let obj = { name: "dateofbirth", value: date };
+                              // setSipStartDay(date);
+                            }}
+                          // onChange={(e: any) => {
+                          //   if (underAgeValidate(e.target.value)) {
+                          //     setInvalidDOB(false);
+                          //     handlechange(e);
+                          //   } else {
+                          //     setInvalidDOB(true);
+                          //   }
+                          // }}
+                          // onBlur={handleBlur}
+                          /> : null
+                      } */}
+
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        label="Address"
+                        onBlur={handleBlur}
+                        name="addressline1"
+                        value={formData?.addressline1}
+                        onChange={handlechange}
+                        sx={{ fontSize: "16px", color: "rgba(0, 0, 0, 0.6)", width: "100% !important" }}
+                        placeholder="Enter your street address"
+                        error={validateInputs?.addressline1}
+                        helperText={validateInputs?.addressline1 ? enumErrorMsg.PLEASE_ENTER_ADDRESS : ""}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="end">
+                              <img src={Mylocationicon} width="22px" alt="location" style={{ position: "absolute", right: "1px", padding: "10px", width: "20px", background: "#fff", cursor: "pointer" }} />
+                            </InputAdornment>),
+                        }}>
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <CustomSelectBox
+                        name={"state_id"}
+                        labelKey={'state'}
+                        valueKey={'state_id'}
+                        options={stateList}
+                        inpurLabelValue={"State *"}
+                        inputLabelSX={{
+                          color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
                           fontWeight: "normal",
-                          boxShadow: "none"
-                        }} />
-                    </FormControl>
-                    <FormHelperText sx={{ color: "red" }} className="labelStyle">
-                      {validateInputs?.pincode ? enumErrorMsg.PINCODE_IS_INVALID : ""}
-                    </FormHelperText>
+                          top: "1px",
+                          background: "#fff"
+                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
+                        value={formData?.state_id}
+                        onChange={(val: any) => {
+                          getCityList(val, false);
+                          customSelectBoxOnChange("state_id", val);
+                        }}
+                        onBlur={handleBlur}
+                        error={!formData.state_id ? validateInputs?.state_id : false}
+                        formHelperText={!formData.state_id ? (validateInputs?.state_id ? enumErrorMsg.PLEASE_ENTER_STATE : "") : ""}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <CustomSelectBox
+                        name={"city_id"}
+                        labelKey={'city'}
+                        valueKey={'city_id'}
+                        options={cityList}
+                        className={"Drapdownstyle"}
+                        inpurLabelValue={"City of Residence *"}
+                        inputLabelSX={{
+                          color: "rgba(0, 0, 0, 0.6)", fontSize: "15px",
+                          fontWeight: "normal",
+                          top: "1px",
+                          background: "#fff"
+                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
+                        value={formData?.city_id}
+                        onChange={(val: any) => {
+                          customSelectBoxOnChange("city_id", val)
+                        }}
+                        onBlur={handleBlur}
+                        error={!formData.city_id ? validateInputs?.city_id : false}
+                        formHelperText={!formData.city_id ? (validateInputs?.city_id ? enumErrorMsg.PLEASE_ENTER_CITY : "") : ""}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} >
+                      <FormControl
+                        className="pincodeClass">
+                        <TextField
+                          id='Pincode'
+                          label="Pincode"
+                          name="pincode"
+                          onBlur={handleBlur}
+                          value={formData.pincode}
+                          onChange={(e) => {
+                            handlechange(e);
+
+                            // handlePincodeLengthValidation();
+                          }}
+                          fullWidth
+                          error={validateInputs?.pincode}
+                          className="pincodestayle"
+                          sx={{
+                            color: "rgba(0, 0, 0, 0.6)",
+                            // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
+                            width: "100% !important",
+                            fontSize: "15px",
+                            fontWeight: "normal",
+                            boxShadow: "none"
+                          }} />
+                      </FormControl>
+                      <FormHelperText sx={{ color: "red" }} className="labelStyle">
+                        {validateInputs?.pincode ? enumErrorMsg.PINCODE_IS_INVALID : ""}
+                      </FormHelperText>
+                    </Grid>
+                    <Grid item xs={12} sm={6}  >
+                      <CustomSelectBox
+                        name={"country_id"}
+                        labelKey={'country'}
+                        valueKey={'country_id'}
+                        options={countryList}
+                        inpurLabelValue={"Country *"}
+                        inputLabelSX={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                          top: "1px",
+                          background: "#fff"
+                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
+                        value={formData?.country_id}
+                        onChange={(val: any) => {
+                          customSelectBoxOnChange("country_id", val)
+                        }}
+                        onBlur={handleBlur}
+                        error={!formData?.country_id ? validateInputs?.country_id : false}
+                        formHelperText={!formData.country_id ? (validateInputs?.country_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
+                      />
+                    </Grid>
+                    <Grid item xs={12}  >
+                      <CustomSelectBox
+                        name={"incomeslab_id"}
+                        labelKey={'incomeslab'}
+                        valueKey={'incomeslab_id'}
+                        options={incomeSlabList}
+                        inpurLabelValue={"Income Slab *"}
+                        inputLabelSX={{
+                          color: "rgba(0, 0, 0, 0.6)",
+                          fontSize: "15px",
+                          fontWeight: "normal",
+                          top: "1px",
+                          background: "#fff",
+                          // width: "100%"
+                        }}
+                        // selectSX={{
+                        //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
+                        // }}
+                        value={formData?.incomeslab_id}
+                        onChange={(val: any) => {
+                          customSelectBoxOnChange("incomeslab_id", val)
+                        }}
+                        onBlur={handleBlur}
+                        error={!formData?.incomeslab_id ? validateInputs?.incomeslab_id : false}
+                        formHelperText={!formData?.incomeslab_id ? (validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : "") : ""}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        variant="contained"
+                        style={style.buttonbtn}
+                        className="buttoncenterstyle"
+                        // disabled={!areAllFieldsFilled}
+                        onClick={handleSubmitForm}
+                        fullWidth
+                      >
+                        <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6}  >
-                    <CustomSelectBox
-                      name={"country_id"}
-                      labelKey={'country'}
-                      valueKey={'country_id'}
-                      options={countryList}
-                      inpurLabelValue={"Country *"}
-                      inputLabelSX={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontSize: "15px",
-                        fontWeight: "normal",
-                        top: "1px",
-                        background: "#fff"
-                      }}
-                      // selectSX={{
-                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      // }}
-                      value={formData?.country_id}
-                      onChange={(val: any) => {
-                        customSelectBoxOnChange("country_id", val)
-                      }}
-                      onBlur={handleBlur}
-                      error={!formData?.country_id ? validateInputs?.country_id : false}
-                      formHelperText={!formData.country_id ? (validateInputs?.country_id ? enumErrorMsg.PLEASE_ENTER_COUNTRY : "") : ""}
-                    />
-                  </Grid>
-                  <Grid item xs={12}  >
-                    <CustomSelectBox
-                      name={"incomeslab_id"}
-                      labelKey={'incomeslab'}
-                      valueKey={'incomeslab_id'}
-                      options={incomeSlabList}
-                      inpurLabelValue={"Income Slab *"}
-                      inputLabelSX={{
-                        color: "rgba(0, 0, 0, 0.6)",
-                        fontSize: "15px",
-                        fontWeight: "normal",
-                        top: "1px",
-                        background: "#fff",
-                        // width: "100%"
-                      }}
-                      // selectSX={{
-                      //   boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)"
-                      // }}
-                      value={formData?.incomeslab_id}
-                      onChange={(val: any) => {
-                        customSelectBoxOnChange("incomeslab_id", val)
-                      }}
-                      onBlur={handleBlur}
-                      error={!formData?.incomeslab_id ? validateInputs?.incomeslab_id : false}
-                      formHelperText={!formData?.incomeslab_id ? (validateInputs?.incomeslab_id ? enumErrorMsg.PLEASE_ENTER_INCOME_SLAB : "") : ""}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button
-                      variant="contained"
-                      style={style.buttonbtn}
-                      className="buttoncenterstyle"
-                      // disabled={!areAllFieldsFilled}
-                      onClick={handleSubmitForm}
-                      fullWidth
-                    >
-                      <Typography component="span" style={style.text} className="largeButtonText" >Submit Details</Typography>
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Stack>
-            </Paper>
+                </Stack>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
-    </>
-  )
-}
+        </Box>
+      </>
+    )
+  }
 
-export default EditprofileCard
+  export default EditprofileCard
 
-function g_viewProfilecommon() {
-  throw new Error('Function not implemented.');
-}
+  function g_viewProfilecommon() {
+    throw new Error('Function not implemented.');
+  }
 
