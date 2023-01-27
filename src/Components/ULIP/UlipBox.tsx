@@ -311,33 +311,46 @@ const UlipBox = (props: any) => {
 
     useEffect(() => {
 
-        console.log("labels = ulipReturnApiData :",ulipReturnApiData?.filter((item:any) => item?.years >= 10))
-        const labels = ulipReturnApiData?.filter((item:any) => item?.years >= 10)?.map(
+        if (ulipReturnApiData && ulipReturnApiData.length) {
+
+            console.log("labels = ulipReturnApiData :", ulipReturnApiData?.filter((item: any) => item?.years >= 10))
+            const labels = ulipReturnApiData?.filter((item: any) => item?.years >= 10)?.map(
                 (item: getUlipReturnApiTypes) => item.years + "Y"
             )
-        // const labels = ulipReturnApiData?.map(
-        //     (item: getUlipReturnApiTypes) => item.years + "Y"
-        // );
-        const selectValues = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
-            (item: getUlipReturnApiTypes) => item.years
-        );
-        const investedamount = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
-            (item: getUlipReturnApiTypes) => item.investedamount
-        );
-        const projectedamount = ulipReturnApiData?.filter((item:any) => item?.years >= 10).map(
-            (item: getUlipReturnApiTypes) => item.projectedamount
-        );
+            // const labels = ulipReturnApiData?.map(
+            //     (item: getUlipReturnApiTypes) => item.years + "Y"
+            // );
+            const selectValues = ulipReturnApiData?.filter((item: any) => item?.years >= 10).map(
+                (item: getUlipReturnApiTypes) => item.years
+            );
+            const investedamount = ulipReturnApiData?.filter((item: any) => item?.years >= 10).map(
+                (item: getUlipReturnApiTypes) => item.investedamount
+            );
+            const projectedamount = ulipReturnApiData?.filter((item: any) => item?.years >= 10).map(
+                (item: getUlipReturnApiTypes) => item.projectedamount
+            );
 
-        setChartLabels(labels);
-        setUlipYears(selectValues)
-        setChartInvestedAmount(investedamount);
-        setChartProjectedAmount(projectedamount);
+            setChartLabels(labels);
+            setUlipYears(selectValues)
+            setChartInvestedAmount(investedamount);
+            setChartProjectedAmount(projectedamount);
 
-        setGreenline(investedamount[0]);
-        setPinkline(projectedamount[0]);
-        localStorage.getItem(ulipReturnApiData);
-        console.log(ulipReturnApiData);
+            setGreenline(investedamount[0]);
+            setPinkline(projectedamount[0]);
+            localStorage.getItem(ulipReturnApiData);
+            console.log(ulipReturnApiData);
+        }
     }, [ulipReturnApiData]);
+
+    const filterChartData = (arr: any[]) => {
+        return arr.filter((item: any) =>
+          item?.years < 5 ?
+            item?.years % 2 !== 0
+            :
+            item?.years % 5 === 0
+        )
+      }
+
 
     const getfilterInvetedAmount = () => {
         if(ulipReturnApiData && ulipReturnApiData?.length){
@@ -352,12 +365,11 @@ const UlipBox = (props: any) => {
         setInvestmentType((event.target as HTMLInputElement).value);
         if((event.target as HTMLInputElement).value === ULIP_LUMPSUM) {
             // setLumpsumAmount(0)
-            debugger
+            
             handleTimer(insuranceUlipLumpsumAction, (event.target as HTMLInputElement).value);
         handleTimer(insuranceUlipAmount, lumpsumAmount);
         }else{
             // setMonthlyAmount(0)
-            debugger
         handleTimer(insuranceUlipMonthlyAction, (event.target as HTMLInputElement).value);
         handleTimer(insuranceUlipAmount, monthlyAmount);
         } 
