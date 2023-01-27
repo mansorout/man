@@ -36,7 +36,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     paddingTop: "15px !important",
     "@media(max-width: 600px)": {
       // marginTop: '0px',
-      margin: "15px",
+      // margin: "15px",
     },
     "@media(max-width: 1200px)": {
       marginTop: "0px",
@@ -188,7 +188,7 @@ export const Login = () => {
       <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
       <Box
         style={style.container}
-        className={`${classes.containerRes} LoginContainer`}
+        className={'LoginGridBox'+' '+`${classes.containerRes} LoginContainer`}
       >
         <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
         <Typography variant="h1" align="center">
