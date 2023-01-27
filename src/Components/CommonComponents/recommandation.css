@@ -6,14 +6,47 @@
    width:  150px !important;
   }
   .slider{
-    border-radius: none !important;
+    border-radius: 0px !important;
   }
+  .AnnullyStyle {
+  
+    margin-top: 5%  !important;
+  }
+  .Annuu{
+
+    display: none !important;
+  }
+  .OutlineStyle{
+    display: flex !important;
+  }
+
+.createStyleoutline{
+    margin-top: 11px !important;
+}
 }
 @media (width: 540px) {
+    .OutlineStyle{
+        display: flex !important;
+      }
+    .createStyleoutline{
+        margin-top: 13px !important;
+    }
   .errorlogo {
     margin-left: -5px !important;
   }
+  .AnnullyStyle {
+  
+    margin-top: 4%  !important;
+  }
 }
+@media (width: 912px) {
+    .AnnullyStyle {
+  
+        margin-top: 2%  !important;
+      }
+     
+    
+  }
 @media (width: 1024px) {
   .errorlogo {
     margin-left: -5px !important;
@@ -32,7 +65,23 @@
 }
 @media (width: 280px) {
   .AnnullyStyle {
-    margin-left: -28px !important;
+    margin-left: -30px !important;
+    margin-top: 7%  !important;
+    font-size: 7px !important;
+  }
+  .displayFlexStyle{
+    display: initial  !important;
+
+  }
+  .TLITStyle{
+    margin-left: 3% !important;
+  }
+  .TaxSavingStyle{
+    display: initial  !important;
+  }
+  .LifeConverStyle{
+    margin-left: -18% !important;
+    margin-top: -31px !important;
   }
 
   .RightStytelogo {

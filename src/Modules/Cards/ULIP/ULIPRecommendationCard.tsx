@@ -175,11 +175,11 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                 </Grid>
             </Grid>
     <Grid container  sx={{padding:{xs:"20px 20px", sm:"20px", md:"20px 137px"}}} spacing={5}  className="TLITStyle">
-        <Grid item xs={6} sm={6} md={3} >
+        <Grid item xs={6} sm={6} md={3} className="displayFlexStyle" >
         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Top Performing Fund (10 Years)*</Typography>
         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>{props.topPerformingFund}% Return</Typography>
         </Grid>
-             <Grid item xs={6} sm={6} md={3}>
+             <Grid item xs={6} sm={6} md={3} className='LifeConverStyle'>
          <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Life Cover</Typography>
         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
             </Grid>

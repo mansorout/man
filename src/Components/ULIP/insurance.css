@@ -32,6 +32,17 @@
     .YoncanQuicky{
         margin-top: -16px !important;
     }
+    .BannerSpreadStyle{
+        position: absolute !important;
+        top: 5px !important;
+        right: -15px !important;
+        left: -18px !important;
+        overflow: hidden;
+    }
+    .BannerSpreadStyleparent{
+        position: relative;
+        height: 200px;
+    }
 }
 @media (width:540px){
     .boxBreadcrumb2{

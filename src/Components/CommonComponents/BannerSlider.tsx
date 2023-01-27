@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from "react-slick";
 import Button from '@mui/material/Button';
-import { Theme } from '@mui/material'
+import { Box, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import './recommandation.css'
 
@@ -33,7 +33,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     slideImage: {
         paddingRight: '30px',
         margin: '0px 15px',
-        '@media(max-width: 767px)': {
+        '@media(max-width: 768px)': {
             marginLeft: '-20px',
             width:"91px"
         }
@@ -64,9 +64,9 @@ interface BannerSliderPropTypes {
 const BannerSlider = (props: BannerSliderPropTypes) => {
     const classes = useStyles()
     return (
-        
-
-            <Slider {...props.sliderSetting}>
+        <>
+           <Box>
+               <Slider {...props.sliderSetting}>
                 {
                     props.sliderDetails.map((item) => (
                         <div >
@@ -87,6 +87,11 @@ const BannerSlider = (props: BannerSliderPropTypes) => {
                 }
             </Slider>
         
+
+        </Box></>
+     
+
+         
     )
 }
 

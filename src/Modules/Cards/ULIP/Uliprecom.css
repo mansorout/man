@@ -1,6 +1,6 @@
 @media (width: 280px) {
   .Img{
-    margin-top: -2% !important;
+    margin-top: 2% !important;
   }
   .ButtonKnowStyle {
     display: flex !important;
@@ -18,8 +18,8 @@
   }
   .companyNameStyle {
     margin-left: -15px !important;
-    margin-top: -1px !important;
-    font-size: 13px !important;
+    margin-top: -7px !important;
+    font-size: 10px !important;
   }
   .ImgwithtexStyle {
     margin-left: -20px !important;
@@ -59,13 +59,13 @@
   }
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 12px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 12px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {
@@ -99,13 +99,13 @@
 
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {
@@ -137,7 +137,7 @@
 
 @media (width: 390px) {
   .Img{
-    margin-top: -7% !important;
+    margin-top: 0% !important;
   }
   .radioSpace {
     padding-left: 7px !important;
@@ -151,13 +151,13 @@
   }
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 8px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 8px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {
@@ -172,18 +172,19 @@
   .companyNameStyle {
     margin-left: -15px !important;
     margin-top: 5px !important;
+    font-size: 14px  !important;
   }
 }
 @media (width: 393px) {
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {
@@ -216,16 +217,16 @@
 @media (width: 360px) {
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .Img{
-    margin-top: -7% !important;
+    margin-top: 1% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {
@@ -249,6 +250,7 @@
   .companyNameStyle {
     margin-left: -15px !important;
     margin-top: 5px !important;
+    font-size: 14px !important;
   }
   .radioSpace {
     padding-left: 8px !important;
@@ -262,13 +264,13 @@
   }
   .BoxShadowNone {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
     width: 72% !important;
   }
   .BoxShadowNone2 {
     box-shadow: none !important;
-    padding: 13px !important;
+    padding: 11px !important;
     border-radius: 1px !important;
   }
   .BROCHURESTYLE {

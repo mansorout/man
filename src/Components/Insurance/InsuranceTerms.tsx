@@ -421,7 +421,7 @@ const InsuranceTerms = () => {
              <Box sx={{ padding: '23px 23px',boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",marginTop:"35px", borderRadius:"8px", paddingTop: '11px', width: { xs: '100%', sm: '50%' } }} className="TreminsuraceBox">
     
                 <div className={classes.termInsuranceCard}>
-                    <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}>Term Insurance</b>
+                    <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}  className="TremHeadingStyle">Term Insurance</b>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label" className={insuranceAmountError && classes.selectError}>I want life cover of</InputLabel>
                         <Select
@@ -461,7 +461,7 @@ const InsuranceTerms = () => {
                                             setInsuranceAmount(item);
                                             setInsuranceAmountError(false);
                                         }}
-                                        className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
+                                        className={insuranceAmount === item ? classes.quickSelectedAmount : '' + " " + "amountinLacssmall"}
                                     >
                                         <div className='uiclassScroll2'>
                                         {`₹${numDifferentiation(item)}`}

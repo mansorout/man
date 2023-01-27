@@ -276,7 +276,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
             //         msg: 'Enter amount multiple of 100!',
             //         bool: true,
             //     })
-            // }
+            // }r
         }
     }
 
@@ -313,13 +313,14 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center'}}>
+                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center'}} className="Annuu">
                                     
                             {props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'}
                                      <CreateOutlinedIcon sx={{ cursor: 'pointer', marginLeft: '10px' }} onClick={() => {
                                     props?.boxInputShowHandleChange()
                                     document.addEventListener("mousedown", handleClickOutside);
-                                }} />
+                                }}
+                                className="createStyleoutline" />
                                 </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
