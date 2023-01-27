@@ -5,7 +5,7 @@ import { Grid, Modal, Theme, Typography, Breadcrumbs, Link } from '@mui/material
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import RecommendationsHeader from '../CommonComponents/RecommendationsHeader';
 import Button from '@mui/material/Button';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
@@ -261,6 +261,9 @@ const RecommendationsULIP = () => {
     const [recommendationHeaderSelectArr, setRecommendationHeaderSelectArr] = useState<any[]>([])
     const [recommendationHeaderSelectChoosed, setRecommendationHeaderSelectChoosed] = useState<string>('10')
     const [recommendationHeaderInputFeildShow, setRecommendationHeaderInputFeildShow] = useState<boolean>(false)
+    const { state } = useLocation();
+
+    console.log(state?.forInvestmentType)
 
     // const investmentType = useSelector((state: any) => state.InvestmentTypeReducers)
     // const [headerSelectArr, setHeaderSelectArr] = useState<string[]>([])
@@ -418,6 +421,11 @@ const RecommendationsULIP = () => {
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')}  >
                       <Typography className='burgerText'> Save Tax</Typography>
                     </Link>
+                    {  state?.forInvestmentType === "RECOMMENDATION_TAX_CANSAVE-ULIP" ?
+                          <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/taxCanSave')}  >
+                          <Typography className='burgerText'>How Much Tax Can I Save</Typography>
+                        </Link> : ""
+                    }
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax/saveTaxAmount')}  >
                       <Typography className='burgerText'>Amount</Typography>
                     </Link>

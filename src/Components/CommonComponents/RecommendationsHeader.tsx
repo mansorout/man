@@ -284,6 +284,20 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
         }
     }
 
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    });
+   
+//    according to width we can render class conditionally
+
+    console.log(width)
+
     return (
         <div  className='Bannerside'>
               <Box className={classes.recommendationsHeaderBox}>
@@ -320,8 +334,10 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
                                 endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center'}}>
-                                    
-                            {props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'}
+                                    {
+                                        width < 468 ?  "" : props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'
+                                    }
+                            
                                      <CreateOutlinedIcon sx={{ cursor: 'pointer', marginLeft: '10px' }} onClick={() => {
                                     props?.boxInputShowHandleChange()
                                     document.addEventListener("mousedown", handleClickOutside);
