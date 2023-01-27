@@ -127,6 +127,7 @@ const BankAccountDetails = () => {
     const [hideBankDetails, sethideBankDetails] = useState(false)
     const [greenCheck, setGreenCheck] = useState<boolean>(false);
     const [userBankDetails,setUserBankDetails] = useState<any>()
+    const [isBankDetailsAvailble,setisBankDetailsAvailble] = useState<boolean>()
 
     // regexpression validation
     let ifscreg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
@@ -156,10 +157,15 @@ const BankAccountDetails = () => {
                     return;
                 }
                 const response = data?.data
+                // const response2 = response?.kycdetails?.isbankdetailsavailable
+                // console.log(response2)
+
 
                if (response.userdetails?.customer_id != 0) {
                     setUserBankDetails(response?.kycdetails?.bankdetails
                         );
+                        setisBankDetailsAvailble(response?.kycdetails?.isbankdetailsavailable)
+                        
                     
                     
                 }
@@ -176,6 +182,8 @@ const BankAccountDetails = () => {
 
     }
 
+    
+
     // let reg = /[A-Z|a-z]{4}[0][a-zA-Z0-9]{6}$/;
     const userData: any = useSelector(
         (state: any) => state?.authReducer?.profile?.data?.kycdetails?.bankdetails);
@@ -183,15 +191,9 @@ const BankAccountDetails = () => {
     // console.log(userData)
 
     useEffect(() => {
-        if (userData) {
-            setdisablecontinueButton(true)
-            // console.log("disable button")
-        }
-        else {
-            // console.log("enable disable button")
-            setdisablecontinueButton(false)
-        }
-    }, [])
+        {isBankDetailsAvailble ? setdisablecontinueButton(true):  setdisablecontinueButton(false)}
+       
+    }, [isBankDetailsAvailble])
 
     const handleTimePeriodChange = (index: number) => {
         index === 0 ?
