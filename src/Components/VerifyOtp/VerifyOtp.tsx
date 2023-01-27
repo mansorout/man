@@ -203,7 +203,7 @@ export const VerifyOtp = () => {
               <SprintMoneyLoader loadingStatus={false} />
             </>
         } */}
-        <Box style={style.container}>
+        <Box className="LoginGridBox verifyContainer" style={style.container}>
           <img alt="Money Sprint" src={VerifyOtpLogo} style={style.logo} />
           <Typography mb={1} variant="h1" align="center">
             Verify OTP
@@ -226,6 +226,7 @@ export const VerifyOtp = () => {
               margin: "10px",
               color: "black"
             }}
+            className="otpVerifyBox"
             inputStyle={{
               border: "1px solid #dddfe2",
               borderRadius: "4px",
