@@ -427,7 +427,7 @@ const SelectedFunds = () => {
                 <Box className="BoxMarginLeftRight">
                   <Box
                     role="presentation"
-                    sx={{  margin:" 10px 0px 21px 8px" }}
+                    sx={{ margin: " 10px 0px 21px 8px" }}
                     className="B_Selected"
                   >
                     <Breadcrumbs aria-label="breadcrumb">
@@ -459,7 +459,7 @@ const SelectedFunds = () => {
                     </Breadcrumbs>
                   </Box>
                   <Box
-                    sx={{ margin:" 10px 0px 21px 6px"}}
+                    sx={{ margin: " 10px 0px 21px 6px" }}
                     className="FundsSelected"
                   >
                     <Typography
@@ -468,9 +468,8 @@ const SelectedFunds = () => {
                         color: "#3c3e42",
                         fontWeight: "500",
                       }}
-className="FundSlectStyle"
+                      className="FundSlectStyle"
                     >
-
                       {selectedFundsList && selectedFundsList?.length} Funds
                       Selected
                     </Typography>
@@ -497,7 +496,6 @@ className="FundSlectStyle"
                               removeBtnAction={(item) => handleRemoveBtn(item)}
                             />
                           ))}
-                   
                       </Box>
                       <Grid container>
                         <Grid xs={12} md={12} textAlign="center">
@@ -645,8 +643,7 @@ className="FundSlectStyle"
             <FooterBtnWithBox
               boxIcon={<ThumbUpOffAltIcon />}
               boxText={"Great! Your total investment is"}
-
-              boxAmount= {`₹ ${totalAmount}`}
+              boxAmount={`₹ ${totalAmount}`}
               btnText={selected ? `Buy Now` : `Select SIP Date`}
               btnClick={selected ? handleBuyNow : handleSelectApi}
               btnDisable={footerBtn}

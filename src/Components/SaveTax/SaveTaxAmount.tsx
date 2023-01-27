@@ -181,6 +181,8 @@ const SaveTaxAmount = () => {
     console.log(saveTaxUPTO)
     console.log(state);
 
+    let GlobalCond:any =  state?.title
+
 
     const moduleDefaultListkeys = Object.freeze({
         financial_year_start: 'financial_year_start',
@@ -289,6 +291,18 @@ useEffect(() => {
     };
 
     const handleNavigationFlow = () => {
+        
+       
+        let breadcrumforInvestmentType:any =""; 
+
+        if(GlobalCond){
+            breadcrumforInvestmentType = "taxcansave"
+            
+        }
+        else{
+            breadcrumforInvestmentType = "investmenttax"
+        } 
+        
         if (investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0) {
             if (parseInt(lumpsumAmount) > enumAmount.AMOUNT_LIMIT) {
                 setValidationAlertDialog({
@@ -301,7 +315,12 @@ useEffect(() => {
                 dispatch(SaveTaxInvestmentLumpsumAction(LUMPSUM));
                 dispatch(SaveTaxInvestmentAmount(lumpsumAmount))
                 dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
-                navigate('/saveTax/saveTaxInvestmentType')
+                navigate('/saveTax/saveTaxInvestmentType', {
+                    state: {
+        
+                        breadcrumforInvestmentType
+                    },
+                });
             } else {
                 // alert('Enter amount multiple of 100!')
                 setValidationAlertDialog({
@@ -340,7 +359,7 @@ useEffect(() => {
                     <Toolbar />
                     <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                   <Breadcrumbs aria-label="breadcrumb">
-                    <Link color="#6495ED" underline="always" href='Home' >
+                    <Link color="#6495ED" underline="always" href='/home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
                     <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
