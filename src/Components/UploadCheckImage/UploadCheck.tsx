@@ -115,6 +115,10 @@ function UploadCheck() {
   const [chequeImg, setChequeImage] = useState<any>("")
   const [getCheque, setgetCheque] = useState<string>("");
 
+  // setTimeout(()=>{
+  //   setShowDialog(false)
+  // },1000)
+
   useEffect(() => {
     getSignatureImage()
 

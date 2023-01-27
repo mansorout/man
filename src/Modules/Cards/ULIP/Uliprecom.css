@@ -29,7 +29,9 @@
     margin-left: 34px !important;
   }
   .TLITStyle {
-    
+    margin-left: -7% !important;
+    /* margin-top: -28px !important; */
+    margin-top: -28px !important;
     display: block !important;
   }
   .BoxShadowNone {

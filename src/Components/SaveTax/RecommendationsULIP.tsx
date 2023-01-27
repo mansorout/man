@@ -457,7 +457,7 @@ const RecommendationsULIP = () => {
                                                 </Box>
                                             </Grid>
                                             <Grid item sm={3} xs={12}>
-                                                <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
+                                                <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }} className="RU_FlexStyle">
                                                     <Box className={classes.cardContent}>
                                                         <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
                                                         <Typography component='p'>{cardItem?.topreturn}% Return</Typography>
@@ -470,7 +470,7 @@ const RecommendationsULIP = () => {
                                             </Grid>
                                             <Grid item sm={2} xs={12}>
                                                 <Box>
-                                                    <Box className={classes.cardContent}>
+                                                    <Box className={classes.cardContent + " " + "UlipflexyStyle"}>
                                                         <Typography component='span'>Life Cover</Typography>
                                                         <Typography component='p'>₹{numDifferentiation(cardItem?.lifecover)}</Typography>
                                                     </Box>
