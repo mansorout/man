@@ -24,7 +24,7 @@ function Footer() {
 
   return (
     <>
-    <Box style={style.footer}>
+    <Box className='footerboxmargintop' style={style.footer}>
         <Box style={style.footerLogos}>
             <Box style={style.IRDAnAMFI}>
                 <img src={IRDA} width="32px" alt="IRDA" />
@@ -43,7 +43,7 @@ function Footer() {
             </Box>
         </Box>
     </Box>
-    <Box>
+    <Box className='FotterBottomBoxGrid'>
         <Divider style={{margin:"5px 0px"}}/>
         <Typography component="span" className="body1">By continuing, you're agreeing to SprintMoney</Typography>
         <sup style={{fontSize: "6px", color:"#7b7b9d"}}>TM</sup>
