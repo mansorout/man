@@ -638,7 +638,7 @@ function HolderSignature() {
                             </Grid>
 
                         </Box>
-                        <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
+                        <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} handleClose={()=>setShowDialog(false)} />
                     </Box >
             }
         </>
