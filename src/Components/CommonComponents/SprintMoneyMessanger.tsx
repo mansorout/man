@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import './recommandation.css'
 
 interface SprintMoneyMessanger {
+  handleClose: () => void;
   btnText: string;
   btnClick: () => void;
   open: boolean;
@@ -46,13 +47,11 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
 
   // console.log(errorMsg)
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
 
   return (
     <div>
@@ -63,7 +62,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
         open={props.open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+      
         aria-describedby="alert-dialog-slide-description"
       >
         
@@ -100,7 +99,7 @@ export const SprintMoneyMessanger = (props: SprintMoneyMessanger) => {
               
               <Grid item xs={12} md={12}>
                 <Box
-                  onClick={() => handleClose}
+                  onClick={props.handleClose}
                   sx={{ borderRadius: "50%", height: "50px", width: "50px",  paddingLeft: "39%",
                   paddingTop: "18px"}}
                   textAlign="center"

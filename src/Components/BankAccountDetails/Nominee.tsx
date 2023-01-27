@@ -97,7 +97,7 @@ const Nominee = () => {
 
 
     useEffect(() => {
-        if (formdata.name !== '' && formdata.dateOfBirth !== '' && formdata.relation !== '') {
+        if (formdata.name !== '' && null && formdata.dateOfBirth !== '' && formdata.relation !== '') {
 
             setDisablenomineeButton(false)
         }
@@ -413,7 +413,7 @@ const Nominee = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
+            <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} handleClose={()=>setShowDialog(false)} />
         </Box>
     )
 };
