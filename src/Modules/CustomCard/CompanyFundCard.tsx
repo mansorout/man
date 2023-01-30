@@ -80,7 +80,10 @@ const CompanyFundCard = (props: Prop) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Chip className="starProsText" avatar={<Avatar alt="star" src={ Star } />}  label={ props.rating + '.0' } />
+                <Chip sx={{backgroundColor:"#FFF6D7"}}  className="starProsText" avatar={<Avatar alt="star" src={ Star } />}  
+                // { props.rating + '.0' } 
+                label={<Box sx={{ color: "#767676",size:"10px",fontWeight:"500" }}>{ props.rating + '.0' }  </Box>}
+                />
             </Box>
         </Box>        
     )
