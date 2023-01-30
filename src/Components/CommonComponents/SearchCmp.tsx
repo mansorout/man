@@ -164,16 +164,16 @@ const SearchCmp = (props: SearchCmpProps) => {
         let temp: any[] = [...props.filtersOptions]
         if (temp && temp?.length) {
             // const sortVal: string = temp[0]?.keyValues[0]?.value;
-            const sortVal:string = temp[0].keyValues[temp[0].activeSortIndex].value;
+            const sortVal: string = temp[0].keyValues[temp[0].activeSortIndex].value;
             const fundTypeVal: string = temp[1]?.keyValues[temp[1]?.activeCategoryIndex];
-            
+
             const checkedTemp = { ...chackedValuesArr }
 
             checkedTemp[enumTabsKey.SORT] = sortVal;
             checkedTemp[enumTabsKey.FUND_TYPE] = fundTypeVal;
-            
+
             console.log("chackedValuesArr temp:", temp, checkedTemp, temp[1].keyValues)
-            
+
             setChackedValuesArr(checkedTemp)
         }
     }, [props.filtersOptions])
@@ -183,7 +183,7 @@ const SearchCmp = (props: SearchCmpProps) => {
         console.log("chackedValuesArr :", chackedValuesArr)
         if (chackedValuesArr[enumTabsKey.SORT] && chackedValuesArr[enumTabsKey.SORT] !== '' && chackedValuesArr[enumTabsKey.FUND_TYPE] && chackedValuesArr[enumTabsKey.FUND_TYPE] !== '') {
 
-            
+
             props.handleCB(chackedValuesArr)
         }
     }, [chackedValuesArr])
@@ -264,7 +264,10 @@ const SearchCmp = (props: SearchCmpProps) => {
                             ),
                             endAdornment: (
                                 <InputAdornment position="start" onClick={() => setFilterBoxShowHide(true)}>
-                                    <FilterAltOutlinedIcon sx={{ color: 'var(--primaryColor)', cursor: 'pointer' }} />
+                                    <FilterAltOutlinedIcon sx={{
+                                        color: 'var(--primaryColor)', cursor: 'pointer', backgroundColor: " #efefef", padding: "5px 4.8px 4.8px 5px", width: "23px",
+                                        height: "23px"
+                                    }} />
                                 </InputAdornment>
                             ),
                         }}

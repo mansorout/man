@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../CommonComponents/Navbar';
 import Sidebar from '../CommonComponents/Sidebar';
-import { Grid, Modal, Theme, Typography,Breadcrumbs, Link } from '@mui/material'
+import { Grid, Modal, Theme, Typography, Breadcrumbs, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system'
 import { Toolbar } from '@mui/material'
@@ -72,7 +72,7 @@ const useStyles: any = makeStyles((theme: Theme) => ({
         backgroundColor: 'var(--uiWhite)',
         // backgroundColor: '#000',
         boxShadow: 'var(--themeShadow)',
-         paddingTop: '15px',
+        paddingTop: '15px',
         borderRadius: '8px',
     },
     investmentField: {
@@ -128,10 +128,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     modalText: {
         padding: '20px'
     },
-    footerStyle:{
-        '&>div':{
-            marginTop:'140px',
-            '&>div':{
+    footerStyle: {
+        '&>div': {
+            marginTop: '140px',
+            '&>div': {
                 position: 'static',
             }
         }
@@ -147,7 +147,7 @@ const enumAmount = Object.freeze({
     AMOUNT_LIMIT: 150000,
 })
 
-function roundToMultipleOf10(value : number) {
+function roundToMultipleOf10(value: number) {
     if (value % 10 === 0) {
         return value;
     } else {
@@ -173,7 +173,7 @@ const SaveTaxAmount = () => {
     const [saveTaxUPTO, setSaveTaxUPTO] = useState<number>(0);
     const [saveTaxUPTOMon, setSaveTaxUPTOMon] = useState<number>(0);
     const [monthlylum, setMonthlyLum] = useState<any>();
-    const {state} = useLocation();
+    const { state } = useLocation();
 
 
     let monthCalAmount: any = 0;
@@ -181,7 +181,7 @@ const SaveTaxAmount = () => {
     console.log(saveTaxUPTO)
     console.log(state);
 
-    let GlobalCond:any =  state?.title
+    let GlobalCond: any = state?.title
 
 
     const moduleDefaultListkeys = Object.freeze({
@@ -214,13 +214,13 @@ const SaveTaxAmount = () => {
         }
         console.log("moduleDefaultList: ", moduleDefaultList)
         moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => {
-            let afterCalc:any = parseInt(item?.value) / 12
-            let roundup:any =Math.round(afterCalc)
+            let afterCalc: any = parseInt(item?.value) / 12
+            let roundup: any = Math.round(afterCalc)
 
             if (item?.key === moduleDefaultListkeys?.taxsaving_percentage) setSaveTaxPercentageAmount(item?.value)
 
-            if (item?.key === moduleDefaultListkeys?.savetax_amount)setLumpsumAmount(item?.value) 
-            if (item?.key === moduleDefaultListkeys?.savetax_amount)setMonthlyAmount(roundup) 
+            if (item?.key === moduleDefaultListkeys?.savetax_amount) setLumpsumAmount(item?.value)
+            if (item?.key === moduleDefaultListkeys?.savetax_amount) setMonthlyAmount(roundup)
 
             if (item?.key === moduleDefaultListkeys?.savetax_amount) {
                 setLumpsumAmount(item?.value)
@@ -234,7 +234,7 @@ const SaveTaxAmount = () => {
 
         })
 
-        if(saveTaxCalculatedAmount){
+        if (saveTaxCalculatedAmount) {
             setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount)
         }
 
@@ -242,23 +242,23 @@ const SaveTaxAmount = () => {
     }, [moduleDefaultList])
 
 
-useEffect(() => {
-  const temp = lumpsumAmount / remainingMonthsFinancialYear();
-  setMonthlyAmount(`${roundToMultipleOf10(temp)}`)
-  console.log('lumpsumAmount :', roundToMultipleOf10(temp))
-}, [lumpsumAmount])
+    useEffect(() => {
+        const temp = lumpsumAmount / remainingMonthsFinancialYear();
+        setMonthlyAmount(`${roundToMultipleOf10(temp)}`)
+        console.log('lumpsumAmount :', roundToMultipleOf10(temp))
+    }, [lumpsumAmount])
 
 
 
 
 
-  useEffect(()=>{
-    const temp = parseInt(lumpsumAmount) * parseInt(saveTaxPercentageAmount) / 100;
-    const temp2 = parseInt(monthlyAmount) * parseInt(saveTaxPercentageAmount) / 100;
-    setSaveTaxUPTO(temp)
-    setSaveTaxUPTOMon(temp2)
+    useEffect(() => {
+        const temp = parseInt(lumpsumAmount) * parseInt(saveTaxPercentageAmount) / 100;
+        const temp2 = parseInt(monthlyAmount) * parseInt(saveTaxPercentageAmount) / 100;
+        setSaveTaxUPTO(temp)
+        setSaveTaxUPTOMon(temp2)
 
-  })
+    })
 
 
     useEffect(() => {
@@ -291,18 +291,18 @@ useEffect(() => {
     };
 
     const handleNavigationFlow = () => {
-        
-       
-        let breadcrumforInvestmentType:any =""; 
 
-        if(GlobalCond){
+
+        let breadcrumforInvestmentType: any = "";
+
+        if (GlobalCond) {
             breadcrumforInvestmentType = "taxcansave"
-            
+
         }
-        else{
+        else {
             breadcrumforInvestmentType = "investmenttax"
-        } 
-        
+        }
+
         if (investmentType === LUMPSUM && parseInt(lumpsumAmount) > 0) {
             if (parseInt(lumpsumAmount) > enumAmount.AMOUNT_LIMIT) {
                 setValidationAlertDialog({
@@ -317,7 +317,7 @@ useEffect(() => {
                 dispatch(saveTaxPercentageAmountAction(saveTaxUPTO))
                 navigate('/saveTax/saveTaxInvestmentType', {
                     state: {
-        
+
                         breadcrumforInvestmentType
                     },
                 });
@@ -346,164 +346,164 @@ useEffect(() => {
 
     return (
         <Box style={{ width: "100vw" }}>
-        <Navbar />
-        <Box sx={{width:"100%"}}>
-        <Grid container spacing={0}>
-          <Grid item xs={0} sm={1} md={2}>
-            <Toolbar />
-            <Sidebar />
-          </Grid>
-          <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
-                <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
-                    <Toolbar />
-                    <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
-                  <Breadcrumbs aria-label="breadcrumb">
-                    <Link color="#6495ED" underline="always" href='/home' >
-                      <Typography className='burgerText'> Home</Typography>
-                    </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
-                      <Typography className='burgerText'> Save Tax</Typography>
-                    </Link>
-                    {
-                        state?.title ?   <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
-                        <Typography className='burgerText'>How Much Tax Can I Save</Typography>
-                      </Link> : ""
-                    }
-                    
-                    <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>Amount</Typography>
-                    </Link>
-                  </Breadcrumbs>
-                </Box>
+            <Navbar />
+            <Box sx={{ width: "100%" }}>
+                <Grid container spacing={0}>
+                    <Grid item xs={0} sm={1} md={2}>
+                        <Toolbar />
+                        <Sidebar />
                     </Grid>
-                </Grid>
-                <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
-                    <Box className="BoxMarginLeftRight textBoxAmount">
-                    <Typography component='h4' sx={{margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position:"relative"}} >My Tax Liability</Typography>
-                        <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
-                            <Box className={classes.blueBoxIconBox}>
-                                <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
-                            </Box>
-                            <Typography component='p'>
-                                Amount I want to invest in current F.Y
-                                {
-                                    moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
-                                        item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
-                                    )
-                                    )
-                                }
-                            </Typography>
-                        </Box>
+                    <Grid sx={{ height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll" }} xs={12} sm={11} md={10}>
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12}>
+                                <Toolbar />
+                                <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
+                                    <Breadcrumbs aria-label="breadcrumb">
+                                        <Link color="#6495ED" underline="always" href='/home' >
+                                            <Typography className='burgerText'> Home</Typography>
+                                        </Link>
+                                        <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                                            <Typography className='burgerText'> Save Tax</Typography>
+                                        </Link>
+                                        {
+                                            state?.title ? <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                                                <Typography className='burgerText'>How Much Tax Can I Save</Typography>
+                                            </Link> : ""
+                                        }
 
-                        <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '0px' } }}>
-
-                            <RadioGroup
-                                aria-labelledby="demo-controlled-radio-buttons-group"
-                                name="controlled-radio-buttons-group"
-                                value={investmentType}
-                                onChange={handleRadioChange}
-                            // style={{ backgroundColor: '#8787a2' }} 
-                            >
-                                <Box className={classes.investmentField}>
-                                    <Typography component='p'>Lumpsum investment</Typography>
-
-                                    <TextField
-                                        onKeyDown={event => {
-                                            if (event.key == "." || event.key === "-" || event.key === "e") {
-                                                event.preventDefault();
+                                        <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
+                                            <Typography className='burgerText'>Amount</Typography>
+                                        </Link>
+                                    </Breadcrumbs>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container>
+                            <Grid xs={12} sm={12} md={12}>
+                                <Box className="BoxMarginLeftRight textBoxAmount">
+                                    <Typography component='h4' sx={{ margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position: "relative" }} >My Tax Liability</Typography>
+                                    <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
+                                        <Box className={classes.blueBoxIconBox}>
+                                            <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                                        </Box>
+                                        <Typography component='p'>
+                                            Amount I want to invest in current F.Y
+                                            {
+                                                moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                                    item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                                )
+                                                )
                                             }
-                                        }}
-                                        label="Enter Amount"
-                                        id="outlined-start-adornment"
-                                        value={lumpsumAmount}
-                                        placeholder="Lumpsum investment"
-                                        onChange={handleLumpsum}
-                                        type='number'
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value={LUMPSUM} control={<Radio className={investmentType === LUMPSUM ? classes.radioStyle : ''} />} label={<Box sx={{color:"#8787a2"}}>Lumpsum</Box>} />
-                                            </InputAdornment>,
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                            readOnly: investmentType === LUMPSUM ? false : true,
-                                        }}
-                                        className={classes.textField}
-                                        fullWidth
-                                    />
-                                    <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y
-                                        {
-                                            moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
-                                                item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
-                                            )
-                                            )
-                                        }
-                                    </Typography>
+                                        </Typography>
+                                    </Box>
+
+                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '0px' } }}>
+
+                                        <RadioGroup
+                                            aria-labelledby="demo-controlled-radio-buttons-group"
+                                            name="controlled-radio-buttons-group"
+                                            value={investmentType}
+                                            onChange={handleRadioChange}
+                                        // style={{ backgroundColor: '#8787a2' }} 
+                                        >
+                                            <Box className={classes.investmentField}>
+                                                <Typography component='p'>Lumpsum investment</Typography>
+
+                                                <TextField
+                                                    onKeyDown={event => {
+                                                        if (event.key == "." || event.key === "-" || event.key === "e") {
+                                                            event.preventDefault();
+                                                        }
+                                                    }}
+                                                    label="Enter Amount"
+                                                    id="outlined-start-adornment"
+                                                    value={lumpsumAmount}
+                                                    placeholder="Lumpsum investment"
+                                                    onChange={handleLumpsum}
+                                                    type='number'
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment position="start">
+                                                            <FormControlLabel value={LUMPSUM} control={<Radio className={investmentType === LUMPSUM ? classes.radioStyle : ''} />} label={<Box sx={{ color: "#8787a2" }}>Lumpsum</Box>} />
+                                                        </InputAdornment>,
+                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                        readOnly: investmentType === LUMPSUM ? false : true,
+                                                    }}
+                                                    className={classes.textField}
+                                                    fullWidth
+                                                />
+                                                <Typography component='span'>This will be a lumpsum one-time investment for Current F.Y
+                                                    {
+                                                        moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                                            item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                                        )
+                                                        )
+                                                    }
+                                                </Typography>
+                                            </Box>
+
+                                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                <Divider sx={{ width: '30%' }} />
+                                                <Typography component='span' sx={{ padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500 }}>OR</Typography>
+                                                <Divider sx={{ width: '30%' }} />
+                                            </Box>
+
+                                            <Box className={classes.investmentField}>
+                                                <Typography component='p'>Monthly investment</Typography>
+
+                                                <TextField
+                                                    onKeyDown={event => {
+                                                        if (event.key == "." || event.key === "-" || event.key === "e") {
+                                                            event.preventDefault();
+                                                        }
+                                                    }}
+                                                    label="Monthly investment"
+
+                                                    id="outlined-start-adornment"
+                                                    value={monthlyAmount}
+                                                    onChange={handleMonthly}
+                                                    placeholder="Monthly investment"
+                                                    type='number'
+                                                    InputProps={{
+                                                        endAdornment: <InputAdornment position="start">
+                                                            <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label={<Box sx={{ color: "#8787a2" }}>Monthly</Box>} />
+                                                        </InputAdornment>,
+                                                        startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
+                                                        // readOnly: investmentType === MONTHLY ? false : true,
+                                                        readOnly: true,
+                                                    }}
+                                                    className={classes.textField}
+                                                    fullWidth
+                                                />
+                                                <Typography component='span'>This will be a monthly investment for remaining months in
+                                                    Current F.Y
+                                                    {
+                                                        moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
+                                                            item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
+                                                        )
+                                                        )
+                                                    }
+                                                </Typography>
+                                            </Box>
+                                        </RadioGroup>
+                                    </Box>
+
+                                    <Box className={classes.footerStyle}>
+                                        <FooterBtnWithBox
+                                            boxIcon={<ThumbUpAltOutlinedIcon />}
+                                            boxText='Great! You`ll save taxes upto'
+                                            boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' : saveTaxUPTO}` : `₹${monthlyAmount === '' ? '0' : saveTaxUPTOMon}`}
+                                            // boxAmount={`₹ ${saveTaxUPTO}`}
+                                            btnText='Continue'
+                                            btnClick={handleNavigationFlow}
+                                            btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
+                                        />
+                                    </Box>
                                 </Box>
-
-                                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Divider sx={{ width: '30%' }} />
-                                    <Typography component='span' sx={{ padding: '0px 15px', color: 'var(--typeIndigoColor)', fontSize: 'var(--titleFontSize)', fontWeight: 500 }}>OR</Typography>
-                                    <Divider sx={{ width: '30%' }} />
-                                </Box>
-
-                                <Box className={classes.investmentField}>
-                                    <Typography component='p'>Monthly investment</Typography>
-
-                                    <TextField
-                                    onKeyDown={event => {
-                                        if (event.key == "." || event.key === "-" || event.key === "e") {
-                                            event.preventDefault();
-                                        }
-                                    }}
-                                        label="Monthly investment"
-                                        
-                                        id="outlined-start-adornment"
-                                        value={monthlyAmount}
-                                        onChange={handleMonthly}
-                                        placeholder="Monthly investment"
-                                        type='number'
-                                        InputProps={{
-                                            endAdornment: <InputAdornment position="start">
-                                                <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label={<Box sx={{color:"#8787a2"}}>Monthly</Box>} />
-                                            </InputAdornment>,
-                                            startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                            // readOnly: investmentType === MONTHLY ? false : true,
-                                            readOnly: true,
-                                        }}
-                                        className={classes.textField}
-                                        fullWidth
-                                    />
-                                    <Typography component='span'>This will be a monthly investment for remaining months in
-                                        Current F.Y
-                                        {
-                                            moduleDefaultList.length > 0 && moduleDefaultList.map((item: moduleDefaultListObjectType) => (
-                                                item?.key === moduleDefaultListkeys?.financial_year_start ? ` ${item?.value} - ` : item?.key === moduleDefaultListkeys?.financial_year_end ? item?.value : null
-                                            )
-                                            )
-                                        }
-                                    </Typography>
-                                </Box>
-                            </RadioGroup>
-                        </Box>
-
-<Box className={classes.footerStyle}>
-                        <FooterBtnWithBox
-                            boxIcon={<ThumbUpAltOutlinedIcon />}
-                            boxText='Great! You`ll save taxes upto'
-                            boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' :saveTaxUPTO }` :  `₹${monthlyAmount === '' ? '0' : saveTaxUPTOMon}`}
-                            // boxAmount={`₹ ${saveTaxUPTO}`}
-                            btnText='Continue'
-                            btnClick={handleNavigationFlow}
-                            btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
-                        />
-                    </Box>
-                    </Box>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-          </Grid>
-          </Box>
+            </Box>
             <Dialog open={validationAlertDialog.bool} onClose={() => setValidationAlertDialog({ ...validationAlertDialog, bool: false })}>
                 {/* <DialogTitle className={classes.modalText}>Set backup account</DialogTitle> */}
                 <Typography className={classes.modalText}>{validationAlertDialog.msg}</Typography>
