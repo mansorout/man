@@ -79,7 +79,7 @@ const BannerSlider = (props: BannerSliderPropTypes) => {
                                     <Button variant="contained" style={{ backgroundColor: 'var(--primaryColor)', color: 'var(--uiWhite)', fontWeight: '500' }}>{item.btnText}</Button>
                                 </div>
                                 <div className={classes.slideImage + " " +  "FlexDownbgstyleT"} >
-                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" />
+                                    <img src={`${process.env.PUBLIC_URL}${item.imgUrl}`} alt="" className='ImageLeftStyle' />
                                 </div>
                             </div>
                         </div>
