@@ -280,7 +280,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
             //         msg: 'Enter amount multiple of 100!',
             //         bool: true,
             //     })
-            // }
+            // }r
         }
     }
 
@@ -341,7 +341,8 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                                      <CreateOutlinedIcon sx={{ cursor: 'pointer', marginLeft: '10px' }} onClick={() => {
                                     props?.boxInputShowHandleChange()
                                     document.addEventListener("mousedown", handleClickOutside);
-                                }} />
+                                }}
+                                className="createStyleoutline" />
                                 </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}

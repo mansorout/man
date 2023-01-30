@@ -128,11 +128,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     modalText: {
         padding: '20px'
     },
-    footerStyle: {
-        '&>div': {
-            marginTop: '140px',
-            '&>div': {
-                position: 'static',
+    footerStyle:{
+        '&>div':{
+            marginTop:'140px',
+            '&>div':{
+                position: 'none',
             }
         }
     }

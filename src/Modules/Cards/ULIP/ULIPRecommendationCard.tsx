@@ -175,11 +175,11 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
                 </Grid>
             </Grid>
     <Grid container  sx={{padding:{xs:"20px 20px", sm:"20px", md:"20px 137px"}}} spacing={5}  className="TLITStyle">
-        <Grid item xs={6} sm={6} md={3} >
+        <Grid item xs={6} sm={6} md={3} className="displayFlexStyle" >
         <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Top Performing Fund (10 Years)*</Typography>
         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>{props.topPerformingFund}% Return</Typography>
         </Grid>
-             <Grid item xs={6} sm={6} md={3}>
+             <Grid item xs={6} sm={6} md={3} className='LifeConverStyle'>
          <Typography sx={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--subTitleFontSize)' }} component='p' className="FontSizeTLIT">Life Cover</Typography>
         <Typography sx={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--fontSize14)', fontWeight: 500, }} component='p'>₹{props.lifeCover}</Typography>
             </Grid>
@@ -198,10 +198,10 @@ const ULIPRecommendationCard = (props : ULIPRecommendationCardProps) => {
         
             <Box >
                 <Box className={classes.btnGroup+ " " + "ButtonKnowStyle"} >
-                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', }}   className="BoxShadowNone">
+                    <Button variant="contained" onClick={props.knowMoreAction} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  backgroundColor: '#e3f6eb !important', color: 'var(--primaryColor) !important', boxShadow:"none",borderRadius:"8px" }}  className="BoxShadowNone">
                         <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} /> <Typography className="BROCHURESTYLE"> KNOW MORE</Typography> 
                     </Button>
-                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important' }}  className="BoxShadowNone2">
+                    <Button variant="contained" onClick={props.downloadBrochuraAction}  sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, backgroundColor: 'rgba(123, 123, 157, 0.05) !important',boxShadow:"none",borderRadius:"8px" }}  className="BoxShadowNone2">
                         <FileDownloadIcon sx={{ margin: '0px 2px' }} /><Typography className="BROCHURESTYLE">DOWNLOAD BROCHURE</Typography>
                     </Button>
                 </Box>
