@@ -250,7 +250,7 @@ const SipComparison = () => {
                                                         className={classes.badgeStyle}
                                                     >
                                                         <Box className={classes.blueBoxIconBox}>
-                                                            <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                                                            <img src={process.env.PUBLIC_URL + '/assets/images/UlipLogoasLogo.svg'} alt="" />
                                                         </Box>
                                                     </Badge>
                                                     <FormControlLabel value={enumRecommendationOptions?.ULIP} control={<Radio />} label="ULIP" />
@@ -258,7 +258,7 @@ const SipComparison = () => {
 
                                                 <Box className={`${classes.recommendationsBox} ${investmentRecommendation === enumRecommendationOptions?.MUTUAL_FUND ? classes.recommendationsBoxBackgroundHover : ''}`}>
                                                     <Box className={classes.blueBoxIconBox}>
-                                                        <img src={process.env.PUBLIC_URL + '/assets/images/save-tax-wealth.svg'} alt="" />
+                                                        <img src={process.env.PUBLIC_URL + '/assets/images/Ells-icon.svg'} alt="" />
                                                     </Box>
                                                     <FormControlLabel value={enumRecommendationOptions?.MUTUAL_FUND} control={<Radio />} label={enumRecommendationOptions?.MUTUAL_FUND} />
                                                 </Box>
