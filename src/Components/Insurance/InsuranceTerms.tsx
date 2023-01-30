@@ -478,7 +478,7 @@ const InsuranceTerms = () => {
             <FooterBtnWithBox
                 boxIcon={<ThumbUpOffAltIcon />}
                 boxText='Monthly Premium'
-                boxAmount={`${numDifferentiation(insuranceAmount)}`}
+                boxAmount={`₹${numDifferentiation(insuranceAmount)}`}
                 btnText='Show Me Exact Quote'
                 btnClick={handleClickOpen}
             />
