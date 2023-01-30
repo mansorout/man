@@ -46,7 +46,7 @@ const AddToPlanComp = (props: IProps) => {
         <Button variant="contained" style={style.buttonnetbank} fullWidth >
           {/* <Button variant="contained" style={style.buttonnetbank} fullWidth onClick={()=>navigate("/sipsuccessscreen")}> */}
           <Box sx={{ display: "flex", justifyContent: 'space-between', alignItems: "center" }}>
-            <Typography sx={{ fontSize: "11px", width: "126px" }}>{props?.fundsCount} {props.buttonText}</Typography>
+            <Typography sx={{ fontSize: "11px", width: "151px" }}>{props?.fundsCount} {props.buttonText}</Typography>
             &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
             &nbsp;  &nbsp;  &nbsp;  &nbsp;
             <Typography sx={{

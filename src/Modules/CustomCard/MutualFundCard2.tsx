@@ -295,9 +295,10 @@ const MutualFundCard2 = (props: MFProp) => {
             : null
         }
         <Chip
-          style={{ borderRadius: "0px", backgroundColor: "#fef4d6" }}
+          style={{ borderRadius: "2px", backgroundColor: "#fef4d6" }}
           avatar={<Avatar alt="star" src={Star} />}
-          label={props?.ratingoverall}
+          // label={props?.ratingoverall}
+          label={<Box sx={{ color: "#767676",size:"10px",fontWeight:"500" }}>{ props?.ratingoverall + '.0' }  </Box>}
         />
         <Box
           sx={{
