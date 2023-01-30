@@ -266,7 +266,7 @@ const SearchCmp = (props: SearchCmpProps) => {
                                 <InputAdornment position="start" onClick={() => setFilterBoxShowHide(true)}>
                                     <FilterAltOutlinedIcon sx={{
                                         color: 'var(--primaryColor)', cursor: 'pointer', backgroundColor: " #efefef", padding: "5px 4.8px 4.8px 5px", width: "23px",
-                                        height: "23px"
+                                        height: "23px",borderRadius:"50%"
                                     }} />
                                 </InputAdornment>
                             ),
