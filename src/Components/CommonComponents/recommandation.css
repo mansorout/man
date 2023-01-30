@@ -23,8 +23,16 @@
 .createStyleoutline{
     margin-top: 11px !important;
 }
+
+.ImageLeftStyle{
+    margin-left: -41% !important;
+    
+}
 }
 @media (width: 540px) {
+    .ImageLeftStyle{
+        margin-left: -43% !important;
+    }
     .OutlineStyle{
         display: flex !important;
       }
@@ -87,4 +95,20 @@
   .RightStytelogo {
     color: red !important;
   }
+}
+
+@media (width:768px){
+    .ImageLeftStyle{
+        margin-left: -41% !important;
+    }
+}
+@media (width:820px){
+    .ImageLeftStyle{
+        margin-left: 30% !important;
+    }
+}
+@media (width:912px){
+    .ImageLeftStyle{
+        margin-left: 30% !important;
+    }
 }

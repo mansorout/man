@@ -432,7 +432,9 @@
 @media (width:540px){
   .TreminsuraceBox {
     margin-top: 35px !important;
-    margin-left: -24px !important;
+    margin-left: -2px !important;
+  
+    width: 91% !important;
 }
 }
 

@@ -244,7 +244,7 @@ const SaveTaxInvestmentType = () => {
                         <Grid container>
                             <Grid xs={12} sm={12} md={12}>
                                 <Box className="BoxMarginLeftRight">
-                                    <Typography component='h4' sx={{ margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position: "relative" }} >SprintMoney Recommendation</Typography>
+                                    <Typography component='h4' sx={{ margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position: "relative" }} ></Typography>
                                     <RadioGroup
                                         aria-labelledby="demo-controlled-radio-buttons-group"
                                         name="controlled-radio-buttons-group"

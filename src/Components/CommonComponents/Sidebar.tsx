@@ -30,6 +30,7 @@ import {
 import siteConfig from "../../Utils/siteConfig";
 import { store } from "../../Store/Store";
 import { globalConstant } from "../../Utils/globalConstant";
+import { fontWeight } from "@mui/joy/styles/styleFunctionSx";
 
 const useStyles: any = makeStyles((theme: Theme) => ({
   mobileMenu: {
@@ -114,8 +115,10 @@ const Sidebar = () => {
               <ListItemText
                 primary="Home"
                 sx={{
-                  color: "#3c3e42",
+                  color: pathName == "/home" ? "#23db7b" : "black" ,
+                  fontWeight : pathName == "/home" ? "bold" : "normal",
                   fontSize: { sm: "14px !important", md: "16px" },
+
                 }}
               />
             </ListItemButton>
@@ -165,7 +168,7 @@ const Sidebar = () => {
               </ListItemIcon>
               <ListItemText
                 primary="Portfolio"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+                sx={{    color: pathName == "/portfolio" ? "#23db7b" : "black" ,fontWeight: pathName == "/portfolio"? "bold" : "normal", fontSize: { sm: "10px", md: "16px" } }}
               />
             </ListItemButton>
           </ListItem>
@@ -201,7 +204,9 @@ const Sidebar = () => {
               </ListItemIcon>
               <ListItemText
                 primary="Explore Funds"
-                sx={{ color: "#3c3e42", fontSize: { sm: "10px", md: "16px" } }}
+                sx={{ color: pathName == "/explorefunds"  ? "#23db7b"  : "black",
+                fontWeight :pathName == '/explorefunds' ? "bold" : "normal"
+                ,fontSize: { sm: "10px", md: "16px" } }}
               />
             </ListItemButton>
           </ListItem>
