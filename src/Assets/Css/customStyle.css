@@ -735,4 +735,8 @@ width:60px !important;
 }
 }
 
-
+@media (width:280px){
+  .bodyHomePageText {
+    font-size: 12px !important;
+}
+}

@@ -333,7 +333,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center'}}>
+                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center', marginLeft:"-80%"}}>
                                     {
                                         width < 468 ?  "" : props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'
                                     }
@@ -346,6 +346,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                                 </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
+                            sx={{marginTop:"9px"}}
                             className={classes.headerInvestmentTypeInput + " " + "AnnullyStyle"}
                         />
                     </Box>
