@@ -17,7 +17,7 @@ build:
          - build/
        expire_in: 1 hour
    only:
-    - main     
+    - stage     
 
 
 deploy:
@@ -29,8 +29,8 @@ deploy:
      - build
    script:
      - aws --version
-     - aws s3 cp --acl public-read --recursive build s3://sprintmoney-frontend
+     - aws s3 cp --acl public-read --recursive build s3://sprintmoney-stage
      - echo "deployed successfully"
    only:
-    - main
+    - stage
 
