@@ -15,6 +15,7 @@ import { checkExpirationOfToken } from "../../Utils/globalFunctions";
 import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/auth-actions";
 import SprintMoneyLoader from "../CommonComponents/sprintMoneyLoader";
 import { SprintMoneyMessanger } from "../CommonComponents/SprintMoneyMessanger";
+import './panupdate.css'
 
 
 const style = {
@@ -181,7 +182,7 @@ const PanUpdate = () => {
                         <Toolbar />
                         <Sidebar />
                     </Grid>
-                    <Grid item xs={12} sm={11} md={10}>
+                    <Grid item xs={12} sm={11} md={10} sx={{height: "100vh", padding: 0, boxSizing: "border-box", overflow: "scroll",}}>
                         <Toolbar />
                         <Breadcrumbs className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }}>
                             <Link href="/home">Home</Link>
@@ -261,7 +262,7 @@ const PanUpdate = () => {
                             </Box>
 
                             <Box sx={{
-                                marginTop: "120px",
+                                marginTop: "15%",
                                 backgroundColor: '#f9f9f9',
                             }}
                             >

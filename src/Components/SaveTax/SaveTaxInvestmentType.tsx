@@ -217,7 +217,6 @@ const SaveTaxInvestmentType = () => {
                                     
                                     <Breadcrumbs aria-label="breadcrumb">
 
-
                                         <Link color="#6495ED" underline="always" href='/home' >
                                             <Typography className='burgerText'> Home</Typography>
                                         </Link>
@@ -265,7 +264,7 @@ const SaveTaxInvestmentType = () => {
                                                         className={classes.badgeStyle}
                                                     >
                                                         <Box className={classes.blueBoxIconBox}>
-                                                            <img src={process.env.PUBLIC_URL + '/assets/images/Union.png'} alt="" />
+                                                            <img src={process.env.PUBLIC_URL + '/assets/images/UlipLogoasLogo.svg'} alt="" />
                                                         </Box>
                                                     </Badge>
                                                     <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />

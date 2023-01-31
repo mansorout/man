@@ -2,6 +2,16 @@
     .css-19midj6 {
         padding: 5px !important;
     }
+    .fontEnhanceStyle{
+        font-size: 15px !important;
+    }
+    .FFStyle{
+        font-size: 18px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
 }
 @media (width:390px){
     .css-19midj6 {
@@ -20,6 +30,16 @@
     .transtabStyle{
         padding-left: 27px !important;
     }
+    .fontEnhanceStyle{
+        font-size: 13px !important;
+    }
+    .FFStyle{
+        font-size: 18px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
 }
 @media (width:375px){
     .css-19midj6 {
@@ -28,8 +48,28 @@
     .DowngapStyle{
         gap: 1px !important
     }
+    .fontEnhanceStyle{
+        font-size: 11px !important;
+    }
+    .FFStyle{
+        font-size: 16px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
 }
 @media (width:360px){
+    .fontEnhanceStyle{
+        font-size: 12px !important;
+    }
+    .FFStyle{
+        font-size: 14px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
     .css-19midj6 {
         padding: 3px !important;
     }
@@ -48,12 +88,32 @@
     .css-19midj6 {
         padding: 2px !important;
     }
-   
+    .fontEnhanceStyle{
+        font-size: 15px !important;
+    }
+    .FFStyle{
+        font-size: 21px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
 }
 @media (width:414px){
     .css-19midj6 {
         padding: 2px !important;
     }
+    .fontEnhanceStyle{
+        font-size: 15px !important;
+    }
+    .FFStyle{
+        font-size: 21px !important;
+    }
+    .pFEStyleUppper{
+        padding: 97px 30px !important;
+     
+    }
+  
    
 }
 @media (width:280px){
@@ -70,4 +130,24 @@
        
         padding: 9px !important;
     }
+}
+
+@media  (max-width:480px) {
+    .financialImage{
+        padding: 79px 19px !important;
+    }
+   
+}
+@media  (width:540px) {
+    .financialImage{
+        padding: 43px 19px !important;
+    }
+   
+}
+
+@media  (width:912px) {
+    .financialImage{
+        padding: 43px 19px !important;
+    }
+   
 }

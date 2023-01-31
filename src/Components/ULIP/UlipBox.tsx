@@ -548,7 +548,7 @@ const UlipBox = (props: any) => {
 
                             </Grid>
                         </Grid>
-                        <Grid container>
+                        <Grid container >
                             <Grid xs={12} sm={12} md={12} sx={{ marginTop: { xs: "-50px", sm: "0" } }}>
                                 <Box className="BoxMarginLeftRight">
                                     {/* <RecommendationsELSSHeader /> */}
@@ -567,7 +567,7 @@ const UlipBox = (props: any) => {
                                         </Breadcrumbs>
                                     </Box>
 
-                                    <Grid container item sx={{ overflow: "scroll" }} xs={12}>
+                                    <Grid container item sx={{ overflow: "scroll", }} xs={12} >
                                         <Grid
                                             container
                                             item

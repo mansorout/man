@@ -1,0 +1,24 @@
+@media (max-width:480px){
+    .leftRightwitdh{
+        width: 88% !important;
+        margin-left: 29px !important;
+    }
+}
+@media (width:540px){
+    .leftRightwitdh{
+        width: 100% !important;
+        margin-left: 19px !important;
+    }
+}
+@media (max-width:280px){
+    .leftRightwitdh{
+        width: 88% !important;
+        margin-left: 19px !important;
+    }
+}
+@media (width:412px){
+    .leftRightwitdh{
+        width: 89% !important;
+        margin-left: 28px !important;
+    }
+}

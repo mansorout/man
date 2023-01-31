@@ -43,14 +43,14 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     insuranceCardIcon: {
         backgroundColor: 'var(--primaryColor)',
         color: 'var(--uiWhite)',
-        width: '35px',
-        height: '35px',
+        width: '46px',
+        height: '46px',
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        top: '-18px',
+        top: '-23px',
     },
     bgGreenColor:{
         backgroundColor: 'var(--primaryColor) !important',
