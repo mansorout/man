@@ -269,7 +269,6 @@ const SaveTaxInvestmentType = () => {
                                                     </Badge>
                                                     <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />
                                                 </Box>
-
                                                 <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'elss' ? classes.recommendationsBoxBackgroundHover : ''}`}>
                                                     <Box className={classes.blueBoxIconBox}>
                                                         <img src={process.env.PUBLIC_URL + '/assets/images/Ells-icon.svg'} alt="" />

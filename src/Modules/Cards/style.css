@@ -414,8 +414,10 @@
       transform: translate(19px, 9px);
     }
    .IncompleteStyle{
-    font-Size: 6px !important;
-    transform: translate(19px, -3px) !important;
+    font-Size: 13px !important;
+    transform: translate(19px, 2px) !important;
+    padding-left: 11px !important;
+    padding-right: 11px !important;
     }
     .IncompleteStyle_View{
       font-Size: 6px !important;
@@ -460,6 +462,24 @@
   }
   .RemoveStyle_Style{
       margin-top: -23px !important;
+  }
+  .ViewFontSizeEmail{
+    font-size: 12px !important;
+   
+  }
+  .GenderStylefontsize{
+    margin-left: 3% !important;
+  }
+  .IncompleteStyle_Vie{
+    margin-left: 1% !important;
+    transform: translate(9px, 3px);
+    font-size: 14px !important;
+    /* padding: 6px !important; */
+    padding-left: 13px !important;
+    padding-right: 12px !important;
+  }
+  .IncompleteStyle_View{
+    transform: translate(11px, -20px) !important;
   }
    
   }

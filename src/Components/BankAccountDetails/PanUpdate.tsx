@@ -206,7 +206,7 @@ const PanUpdate = () => {
                                 backgroundColor: '#fff',
                                 fontFamily: 'Roboto',
                                 fontSize: '14px',
-                            }}>
+                            }} className="paddingStyle">
 
                                 <Typography sx={{
                                     fontSize: '14px',

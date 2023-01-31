@@ -142,7 +142,7 @@ function VviewprofileCard(props: IProps) {
                                     borderRadius: " 20px",
                                     padding: "2px 8px",
                                 }}
-                                
+                                className="IncompleteStyle_Vie"
                             >
                                 Completed
                             </Typography> :
