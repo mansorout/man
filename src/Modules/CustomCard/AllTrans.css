@@ -151,6 +151,17 @@
     }
    
 }
+@media (width:280px){
+    .financialImage{
+        color: red !important;
+        margin-left: -67px;
+        width: 62px;
+        height: 180px;
+    }
+    .financialImage {
+        padding: 51px 32px !important;
+    }
+}
 /* @media  (width:912px) {
     .financialImage{
         padding: 43px 19px !important;

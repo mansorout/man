@@ -9,6 +9,8 @@
   .breadcrumStyle {
     margin-top: -6% !important;
   }
+ 
+  
 }
 @media (width: 280px) {
   .KnowWhyStyle {
@@ -28,4 +30,88 @@
   .breadcrumStyle {
     margin-top: -5% !important;
   }
+}
+
+
+@media (width:375px){
+  .ModalStyleleftRight{
+ 
+    margin-left: -17px !important;
+}
+}
+
+@media (width:390px){
+
+    .ModalStyleleftRight{
+   
+      margin-left: -3px !important;
+  
+}
+}
+@media (width:393px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: -2px !important;
+
+}
+}
+
+@media (width:360px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: -15px !important;
+
+}
+}
+@media (width:280px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: -15px !important;
+
+}
+}
+@media (width:412px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: 7px !important;
+
+}
+}
+@media (width:414px){
+  .ModalStyleleftRight{
+ 
+    margin-left: 9px !important;
+}
+}
+@media (width:540px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: 70px !important;
+
+}
+}
+
+
+@media (width:1024px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: -15px !important;
+    margin-top: -17% !important;
+
+}
+}
+@media (width:1280px){
+
+  .ModalStyleleftRight{
+ 
+    margin-left: -89px !important;
+    margin-top: 1% !important;
+
+}
 }

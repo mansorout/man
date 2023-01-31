@@ -12,6 +12,7 @@
   
     margin-top: 5%  !important;
   }
+ 
   .Annuu{
 
     display: none !important;
@@ -21,7 +22,8 @@
   }
 
 .createStyleoutline{
-    margin-top: 11px !important;
+    margin-top: 3% !important;
+    margin-left: 37px !important;
 }
 
 .ImageLeftStyle{
@@ -29,6 +31,11 @@
     
 }
 }
+/* .ImageLeftStyle{
+  margin-left: -41% !important;
+  
+} */
+
 @media (width: 540px) {
     .ImageLeftStyle{
         margin-left: -43% !important;
