@@ -116,7 +116,7 @@ const Insurance = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:  "16px",}}  xs={12} sm={11} md={10} >
+          <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:  "16px",}}  xs={12} sm={11} md={10} className="w">
                 <Grid container className="termBreadCrum">
                     <Grid xs={12} sm={12} md={12} className="B_style">
                     <Toolbar />

@@ -274,7 +274,7 @@ const SipComparison = () => {
                 <TableCell>Dessert (100g serving)</TableCell>
                 <TableCell align="right">Calories</TableCell>
                 <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            </TableRow>
+            </TableRow>P
         </TableHead> */}
                                             <TableBody>
                                                 {rows.map((row) => (
