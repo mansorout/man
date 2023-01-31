@@ -290,6 +290,7 @@ const SipRecommendationsULIP = () => {
 
     const handleCalender = (value: any) => {
         setCalenderValue(value)
+        
         console.log("calender value", value)
     }
 

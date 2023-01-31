@@ -1238,7 +1238,7 @@ const SelectedFundsDialog = (props: any) => {
 
             }}
           >
-            Buy Now
+            Add To Plan
           </Typography></Button>
 
         <Button onClick={props?.handleClose} sx={{ position: "absolute", right: "0", top: "12px" }} >
