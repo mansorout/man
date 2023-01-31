@@ -28,6 +28,7 @@ import { isMultipleofNumber, numDifferentiation } from '../../Utils/globalFuncti
 import siteConfig from '../../Utils/siteConfig';
 import { globalConstant } from '../../Utils/globalConstant';
 import './recommandation.css'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const useStyles: any = makeStyles((theme: Theme) => ({
     recommendationsHeaderBox: {
@@ -295,7 +296,7 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
     });
    
 //    according to width we can render class conditionally
-
+const navigate=useNavigate()
     console.log(width)
 
     return (
@@ -333,20 +334,20 @@ const RecommendationsHeader = (props: RecommendationsHeaderPropsType) => {
                             type='number'
                             InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} />,
-                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center', marginLeft:"-80%"}}>
+                                endAdornment: <Box sx={{display: 'flex' , color: 'var(--uiWhite)', alignItems: 'center', marginLeft:"-75%"}}>
                                     {
                                         width < 468 ?  "" : props?.investmentType === LUMPSUM || props?.investmentType === ULIP_LUMPSUM ? 'Annually' : 'Monthly'
                                     }
                             
                                      <CreateOutlinedIcon sx={{ cursor: 'pointer', marginLeft: '10px' }} onClick={() => {
-                                    props?.boxInputShowHandleChange()
+                                  navigate("/startAnSip")
                                     document.addEventListener("mousedown", handleClickOutside);
                                 }}
                                 className="createStyleoutline" />
                                 </Box>
                                 // readOnly: investmentType === 'monthly' ? false : true,
                             }}
-                            sx={{marginTop:"9px"}}
+                            sx={{marginTop:"9px" }}
                             className={classes.headerInvestmentTypeInput + " " + "AnnullyStyle"}
                         />
                     </Box>
