@@ -30,6 +30,7 @@ import {
 import { isMultipleofNumber, remainingMonthsFinancialYear } from '../../Utils/globalFunctions';
 import Dialog from '@mui/material/Dialog';
 import { parse } from 'node:path/win32';
+import './save.css'
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -380,7 +381,7 @@ const SaveTaxAmount = () => {
                         </Grid>
                         <Grid container>
                             <Grid xs={12} sm={12} md={12}>
-                                <Box className="BoxMarginLeftRight textBoxAmount">
+                                <Box className="BoxMarginLeftRight textBoxAmount" >
                                     <Typography component='h4' sx={{ margin: { xs: '5px 0px 5px 1px', sm: '-12px 0px 12px 0px' }, position: "relative" }} >My Tax Liability</Typography>
                                     <Box className={`${classes.blueBoxWithoutBorder} ${classes.BlueBoxCustom}`}>
                                         <Box className={classes.blueBoxIconBox}>
@@ -397,13 +398,14 @@ const SaveTaxAmount = () => {
                                         </Typography>
                                     </Box>
 
-                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, marginTop: '30px', margin: { xs: '15px 0px', sm: '0px' } }}>
+                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, margin: { xs: '15px 0px', sm: '0px' }, boxShadow:" 0 1px 5px 0 rgba(0, 0, 0, 0.12)",padding:"20px", marginTop: '20px !important', }}>
 
                                         <RadioGroup
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
                                             value={investmentType}
                                             onChange={handleRadioChange}
+                                         
                                         // style={{ backgroundColor: '#8787a2' }} 
                                         >
                                             <Box className={classes.investmentField}>
@@ -487,7 +489,7 @@ const SaveTaxAmount = () => {
                                         </RadioGroup>
                                     </Box>
 
-                                    <Box className={classes.footerStyle}>
+                                    <Box className={classes.footerStyle + " " + "FooterStyleup"}>
                                         <FooterBtnWithBox
                                             boxIcon={<ThumbUpAltOutlinedIcon />}
                                             boxText='Great! You`ll save taxes upto'

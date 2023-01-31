@@ -512,7 +512,8 @@ const InsuranceTerms = () => {
                             <div className={classes.popHeading}>
                                 <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
                                 <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
-                                    your exact quote</p>
+                                <p style={{marginTop:"-1%"}}>your exact quote</p>   </p>
+                                   
                             </div>
                             {
                                 !profileValidationStatus ? (

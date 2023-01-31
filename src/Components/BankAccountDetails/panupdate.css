@@ -3,17 +3,26 @@
         width: 88% !important;
         margin-left: 29px !important;
     }
+    .paddingStyle{
+        padding: 18px !important;
+    }
 }
 @media (width:540px){
     .leftRightwitdh{
         width: 100% !important;
         margin-left: 19px !important;
     }
+    .paddingStyle{
+        padding: 27px !important;
+    }
 }
 @media (max-width:280px){
     .leftRightwitdh{
         width: 88% !important;
         margin-left: 19px !important;
+    }
+    .paddingStyle{
+        padding: 13px !important;
     }
 }
 @media (width:412px){

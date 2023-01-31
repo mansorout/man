@@ -416,7 +416,7 @@ const ViewProfileCard = (props: IProps) => {
                 Email Address
                 {
                   // ViewProfileState?.userdetails?.emailaddress !== "" ?
-                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }}>
+                  <Typography sx={{ fontSize: "14px", color: "#3c3e42" }} className="ViewFontSizeEmail">
                     {formData?.emailaddress || ""}
                   </Typography>
                 }
@@ -467,6 +467,7 @@ const ViewProfileCard = (props: IProps) => {
                   fontSize: "13px",
                   color: formData.gender || "" ? "#7b7b9d" : "#3c3e42",
                 }}
+                className="GenderStylefontsize"
               />
             </ListItem>
 
