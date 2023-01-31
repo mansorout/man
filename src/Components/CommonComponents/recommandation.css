@@ -31,6 +31,11 @@
     
 }
 }
+/* .ImageLeftStyle{
+  margin-left: -41% !important;
+  
+} */
+
 @media (width: 540px) {
     .ImageLeftStyle{
         margin-left: -43% !important;
