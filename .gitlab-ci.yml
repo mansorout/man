@@ -16,6 +16,7 @@ build:
        paths:
          - build/
        expire_in: 1 hour
+   when: manual    
    only:
     - stage     
 
@@ -31,6 +32,7 @@ deploy:
      - aws --version
      - aws s3 cp --acl public-read --recursive build s3://sprintmoney-stage
      - echo "deployed successfully"
+   when: manual
    only:
     - stage
 
