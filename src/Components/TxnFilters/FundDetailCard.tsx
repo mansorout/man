@@ -100,7 +100,7 @@ const FundDetailCard = (props: Prop) => {
           {
             props?.parentRoute === "/explorefunds" ?
               <Box>
-                <Button  className="btnAddthisFundToPlan" variant="contained" style={{ backgroundColor: "#23db7b", marginTop: "10px", boxShadow: "none", }}>
+                <Button className="btnAddthisFundToPlan" variant="contained" style={{ backgroundColor: "#23db7b", marginTop: "10px", boxShadow: "none", }}>
                   Add this Fund to Plan
                 </Button>
               </Box>
@@ -133,7 +133,18 @@ const FundDetailCard = (props: Prop) => {
       >
         <Chip
           label={
-            <Box sx={{ color: "#544ec8", size: "16px", fontWeight: "500" }}>
+            <Box sx={{
+              opacity: "0.87",
+              fontFamily: "Roboto",
+              fontSize: "16px",
+              fontWeight: "500",
+              fontStretch: "normal",
+              fontStyle: "normal",
+              lineHeight: "normal",
+              letterSpacing: "0.48px",
+              textAlign: "left",
+              color: " #544ec8"
+            }}>
               {props.cap}
             </Box>
           }
@@ -145,7 +156,18 @@ const FundDetailCard = (props: Prop) => {
         <Chip
           sx={{ backgroundColor: "rgba(255, 255, 255, 0.54)" }}
           label={
-            <Box sx={{ color: "#544ec8", size: "16px", fontWeight: "500" }}>
+            <Box sx={{
+              opacity: "0.87",
+              fontFamily: "Roboto",
+              fontSize: "16px",
+              fontWeight: "500",
+              fontStretch: "normal",
+              fontStyle: "normal",
+              lineHeight: "normal",
+              letterSpacing: "0.48px",
+              textAlign: "left",
+              color: " #544ec8"
+            }}>
               {props.type}{" "}
             </Box>
           }
@@ -242,7 +264,7 @@ const FundDetailCard = (props: Prop) => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </Box >
   );
 };
 

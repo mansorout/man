@@ -421,7 +421,7 @@ const InsuranceTerms = () => {
              <Box sx={{ padding: '23px 23px',boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",marginTop:"35px", borderRadius:"8px", paddingTop: '11px', width: { xs: '100%', sm: '50%' } }} className="TreminsuraceBox">
     
                 <div className={classes.termInsuranceCard}>
-                    <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}>Term Insurance</b>
+                    <b style={{ color: 'var(--typeLightBlackColor)', fontSize: 'var(--subHeadingFontSize)', marginBottom: '15px', display: 'inline-block', fontWeight: 500, }}  className="TremHeadingStyle">Term Insurance</b>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label" className={insuranceAmountError && classes.selectError}>I want life cover of</InputLabel>
                         <Select
@@ -451,7 +451,8 @@ const InsuranceTerms = () => {
                     </FormControl>
                     <Box sx={{ paddingTop: '20px', }} className="YoncanQuicky">
                         <span style={{ fontSize: 'var(--subTitleFontSize)', color: 'var(--typeBlackColor),' }} className="YoncanQuicky">You can quickly choose from below cover option</span>
-                        <ul className={classes.quickSelectWrapper}>
+                        <ul className={classes.quickSelectWrapper + " " + "uiclassScroll"}>
+                        
                             {
                                 quickPickAmount && quickPickAmount.length && quickPickAmount.map((item, index) => (
                                     <li
@@ -460,21 +461,24 @@ const InsuranceTerms = () => {
                                             setInsuranceAmount(item);
                                             setInsuranceAmountError(false);
                                         }}
-                                        className={insuranceAmount === item ? classes.quickSelectedAmount : ''}
+                                        className={insuranceAmount === item ? classes.quickSelectedAmount : '' + " " + "amountinLacssmall"}
                                     >
+                                        <div className='uiclassScroll2'>
                                         {`₹${numDifferentiation(item)}`}
+                                        </div>
+                                     
                                     </li>
                                 ))
                             }
                         </ul>
                     </Box>
                 </div>
-            </Box >
+            </Box>
 
             <FooterBtnWithBox
                 boxIcon={<ThumbUpOffAltIcon />}
                 boxText='Monthly Premium'
-                boxAmount={`${numDifferentiation(insuranceAmount)}`}
+                boxAmount={`₹${numDifferentiation(insuranceAmount)}`}
                 btnText='Show Me Exact Quote'
                 btnClick={handleClickOpen}
             />
@@ -508,7 +512,8 @@ const InsuranceTerms = () => {
                             <div className={classes.popHeading}>
                                 <b style={{ marginBottom: '0px', color: 'var(--typeLightBlackColor)', fontWeight: 500, }}>Fill Details</b>
                                 <p style={{ color: 'var(--typeIndigoColor)', fontSize: 'var(--fontSize14)', marginTop: '5px' }}>Just the following details needed to get
-                                    your exact quote</p>
+                                <p style={{marginTop:"-1%"}}>your exact quote</p>   </p>
+                                   
                             </div>
                             {
                                 !profileValidationStatus ? (

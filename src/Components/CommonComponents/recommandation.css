@@ -1,41 +1,121 @@
-@media (max-width:480px){
-    .errorlogo{
-    
-        margin-left: -6px !important;
-    }
-}
-@media (width:540px){
-    .errorlogo{
-     
-        margin-left: -5px !important;
-    }
-}
-@media (width:1024px){
-    .errorlogo{
-       
-        margin-left: -5px !important;
-    }
-}
-@media (width:1280px){
-    .errorlogo{
-       
-        margin-left: -5px !important;
-    }
+@media (max-width: 480px) {
+  .errorlogo {
+    margin-left: -6px !important;
+  }
+  .smallwidthheight{
+   width:  150px !important;
+  }
+  .slider{
+    border-radius: 0px !important;
+  }
+  .AnnullyStyle {
+  
+    margin-top: 5%  !important;
+  }
+ 
+  .Annuu{
+
+    display: none !important;
+  }
+  .OutlineStyle{
+    display: flex !important;
+  }
+
+.createStyleoutline{
+    margin-top: 3% !important;
+    margin-left: 37px !important;
 }
 
+.ImageLeftStyle{
+    margin-left: -41% !important;
+    
+}
+}
+/* .ImageLeftStyle{
+  margin-left: -41% !important;
+  
+} */
+
+@media (width: 540px) {
+    .ImageLeftStyle{
+        margin-left: -43% !important;
+    }
+    .OutlineStyle{
+        display: flex !important;
+      }
+    .createStyleoutline{
+        margin-top: 13px !important;
+    }
+  .errorlogo {
+    margin-left: -5px !important;
+  }
+  .AnnullyStyle {
+  
+    margin-top: 4%  !important;
+  }
+}
+@media (width: 912px) {
+    .AnnullyStyle {
+  
+        margin-top: 2%  !important;
+      }
+     
+    
+  }
+@media (width: 1024px) {
+  .errorlogo {
+    margin-left: -5px !important;
+  }
+}
+@media (width: 1280px) {
+  .errorlogo {
+    margin-left: -5px !important;
+  }
+}
+
+@media (width: 768px) {
+  .Bannerside {
+    color: red !important;
+  }
+}
+@media (width: 280px) {
+  .AnnullyStyle {
+    margin-left: -30px !important;
+    margin-top: 7%  !important;
+    font-size: 7px !important;
+  }
+  .displayFlexStyle{
+    display: initial  !important;
+
+  }
+  .TLITStyle{
+    margin-left: 3% !important;
+  }
+  .TaxSavingStyle{
+    display: initial  !important;
+  }
+  .LifeConverStyle{
+    margin-left: -18% !important;
+    margin-top: -31px !important;
+  }
+
+  .RightStytelogo {
+    color: red !important;
+  }
+}
 
 @media (width:768px){
-    .Bannerside{
-        color: red !important;
+    .ImageLeftStyle{
+        margin-left: -41% !important;
     }
 }
-@media (width:280px){
-.AnnullyStyle{
-    margin-left: -28px !important;
-
+@media (width:820px){
+    .ImageLeftStyle{
+        margin-left: 30% !important;
+    }
 }
-
-.RightStytelogo{
-    color: red !important;
-}
+@media (width:912px){
+    .ImageLeftStyle{
+        margin-left: 30% !important;
+    }
 }

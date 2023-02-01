@@ -101,7 +101,7 @@
    
   }
 }
-@media (width:412px){
+/* @media (width:412px){
   .CardManageStyleSlected {
     max-width: 399px !important;
     margin-left: -12px !important;
@@ -111,7 +111,7 @@
   margin-top: 4% !important;
   margin-left: 0px !important;
 }
-}
+} */
 
 @media (width:375px){
   .transtabStyle{

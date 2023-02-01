@@ -247,7 +247,7 @@ const arrPriceList = [1000, 5000, 10000];
 
 
 const enumDefaultAmount = {
-  INVESTED_VALUE: 5000
+  INVESTED_VALUE: 1000
 }
 
 
@@ -267,12 +267,15 @@ const InitiateSip = (props: IProps) => {
   );
 
   const [error, setError] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<any>();
   const [investedValue, setInvestedValue] = useState<any>(0)
   const [projectedValue, setProjectedValue] = useState<number>(0);
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
   const [chartActiveIndex, setChartActiveIndex] = useState(2)
+  
+
+  
 
   const filterChartData = (arr: any[]) => {
     return arr.filter((item: expectedReturnProps) =>
@@ -355,7 +358,7 @@ const InitiateSip = (props: IProps) => {
   const handleOnChangeAmount = (e: any) => {
     let { value } = e?.target;
 
-    setAmount(value && value.length ? parseInt(value) : 0);
+    setAmount(value && value.length ? parseInt(value) : null);
 
     // if (amount  > arrPriceList[0] - 1) {
     //   setError("Amount should be more than ₹5000");
@@ -475,8 +478,8 @@ function customRadius( context:any )
       return;
     }
 
-    if (amount < 5000) {
-      setError("Amount should be more than 5000!");
+    if (amount < 1000) {
+      setError("Amount should be more than 1000!");
       return;
     }
     if (error && error.length) {
@@ -616,7 +619,7 @@ function customRadius( context:any )
                                     color: "#8787a2",
                                   }}
                                 >
-                                  You can start small, starting from ₹5,000
+                                  You can start small, starting from ₹1,000
                                 </Typography>
                             }
                             <Stack direction="row" spacing={1.5} sx={{ marginTop: "14px" }} className="ButtonStyleInvest">

@@ -115,6 +115,9 @@ function UploadCheck() {
   const [chequeImg, setChequeImage] = useState<any>("")
   const [getCheque, setgetCheque] = useState<string>("");
 
+
+  
+
   useEffect(() => {
     getSignatureImage()
 
@@ -779,7 +782,7 @@ function UploadCheck() {
               </Grid>
             </Grid>
           </Box>
-          <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={""} />
+          <SprintMoneyMessanger handleClose={()=>setShowDialog(false)}  open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={""} />
         </Box>
       }
 

@@ -102,10 +102,14 @@ function HolderSignature() {
             .then(data => {
                 if (checkExpirationOfToken(data?.code)) {
                     dispatch(setTokenExpiredStatusAction(true));
+                    if (data.status === true) {
+                        
+                    }
                     return;
                 }
 
                 if (data?.error === true) {
+                    
                 
                 }
                 const response = data?.data
@@ -148,6 +152,7 @@ function HolderSignature() {
             .then((data) => {
                 setShouldButtonDisable(false)
                 setShowDialog(true)
+                setSuccesMsg("Signature Added Successfully")
                 // setSuccesMsg("Success")
 
                 if (checkExpirationOfToken(data?.code)) {
@@ -156,6 +161,7 @@ function HolderSignature() {
                 }
 
                 if (data?.error) {
+                    setErrorMsg("Something Went Wrong")
                     // return;
 
                 }
@@ -638,7 +644,7 @@ function HolderSignature() {
                             </Grid>
 
                         </Box>
-                        <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} />
+                        <SprintMoneyMessanger open={dialog} btnText={"Back to View Profile"} btnClick={() => navigate('/viewprofile')} errorText={errorMsg} succesText={succesmsg} handleClose={()=>setShowDialog(false)} />
                     </Box >
             }
         </>

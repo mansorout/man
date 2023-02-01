@@ -457,7 +457,7 @@ const RecommendationsULIP = () => {
                                                 </Box>
                                             </Grid>
                                             <Grid item sm={3} xs={12}>
-                                                <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }}>
+                                                <Box sx={{ padding: { xs: '0px', sm: '0px 10px', } }} className="RU_FlexStyle">
                                                     <Box className={classes.cardContent}>
                                                         <Typography component='span'>Top Performing Fund (10 Years)*</Typography>
                                                         <Typography component='p'>{cardItem?.topreturn}% Return</Typography>
@@ -470,7 +470,7 @@ const RecommendationsULIP = () => {
                                             </Grid>
                                             <Grid item sm={2} xs={12}>
                                                 <Box>
-                                                    <Box className={classes.cardContent}>
+                                                    <Box className={classes.cardContent + " " + "UlipflexyStyle"}>
                                                         <Typography component='span'>Life Cover</Typography>
                                                         <Typography component='p'>₹{numDifferentiation(cardItem?.lifecover)}</Typography>
                                                     </Box>
@@ -483,10 +483,10 @@ const RecommendationsULIP = () => {
                                         </Grid>
                                         <Box>
                                             <Box className={classes.btnGroup}>
-                                                <Button variant="contained" onClick={() => handleKnowMoreDialog(cardItem?.ulip_id)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', } }}>
-                                                    <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} />KNOW MORE
+                                                <Button variant="contained" onClick={() => handleKnowMoreDialog(cardItem?.ulip_id)} sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }, boxShadow:"none",borderRadius:"8px" }}>
+                                                    <HelpOutlineOutlinedIcon sx={{ margin: '0px 2px' }} /> KNOW MORE
                                                 </Button>
-                                                <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', }}}>
+                                                <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', },  boxShadow:"none",borderRadius:"8px"}}>
                                                     <LoopOutlinedIcon sx={{ margin: '0px 2px' }} />DOWNLOAD BROCHURE
                                                 </Button>
                                             </Box>

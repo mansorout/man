@@ -53,7 +53,7 @@ export const OtpSuccess = () => {
     <>
       <Box style={style.background}>
         <NavigationBar />
-        <Box style={style.container}>
+        <Box className="LoginGridBox verifyContainer" style={style.container}>
           <img alt="Money Sprint" src={SuccessFullOtp} style={style.logo} />
           <Typography mb={1} variant="h1" align="center" className="OtpSuccessfullTitle">
             Your Mobile Number Is Verified

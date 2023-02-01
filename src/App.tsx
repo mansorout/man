@@ -263,7 +263,9 @@ function App() {
         <Route path="/ulip/details" element={<ULIPDetails {...ulipData} />} />
         <Route path="msg" element={<SprintMoneyMessanger btnText={''} btnClick={function (): void {
           throw new Error('Function not implemented.');
-        }} open={false} errorText={''} succesText={''} />} />
+        } } open={false} errorText={''} succesText={''} handleClose={function (): void {
+          throw new Error('Function not implemented.');
+        } } />} />
         <Route path="/snackbar" element={<AmountAddSnackBar fundsCount={0} onClick={function (): void {
           throw new Error('Function not implemented.');
         }} buttonText={''} />} />

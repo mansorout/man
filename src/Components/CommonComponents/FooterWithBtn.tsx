@@ -76,7 +76,7 @@ const FooterWithBtn = (props: FooterBtnWithBoxType) => {
         <Box sx={{
             position: 'relative',
             zIndex: '1',
-            marginTop: '120px',
+            marginTop: '67px',
         }}>
             <div className={`${classes.premiumAmountFooter} ${classes.flexCommon}`}>
                 <Button className={`${props.btnDisable === true ? classes.bgGreyColor : classes.bgGreenColor}`} type='submit' sx={{ width: { xs: '85%', sm: '30%' } }} variant="contained" style={{ color: 'var(--uiWhite)', fontWeight: '500', }} onClick={props.btnClick} disabled={props.btnDisable}>{props.btnText}</Button>

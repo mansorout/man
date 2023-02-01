@@ -3,6 +3,9 @@
 .profileEditbox{
   margin-top: -23px;
 }
+.NoRecordFoundBox{
+  margin: 250px 0;
+}
 .bodyHomePageText{
   opacity: 0.87 !important;
   font-size: 12px !important;
@@ -330,6 +333,9 @@
  
 }
 @media (max-width: 900px) {
+  .LoginGridBox{
+    top:206px;
+  }
   .HomeBgHead{
     padding-left: 10px;
   }
@@ -348,6 +354,7 @@
   }
 }
 @media (max-width: 768px) {
+  
   .bodyHomePageText{
     font-size: 13px !important;
   }
@@ -429,6 +436,23 @@
    
 }
 @media screen and (max-width: 600px){
+  
+  .LoginContainer{
+    width: 86% !important;
+  }
+ 
+  .LoginContainer h1{
+    font-size: 22px !important;
+  }
+  .LoginContainer h5{
+    font-size: 15px !important;
+  }
+  .LoginContainer .MuiFormControl-marginNormal{
+    margin-top: 16px !important;
+  }
+  .LoginGridBox{
+    top:79px;
+  }
   .HomeBgHead{
     padding-left:inherit !important;
   }
@@ -491,6 +515,9 @@
 } */
 }
 @media screen and (max-width: 480px){
+  .verifyContainer{
+    width: 86% !important;
+  }
   .viewBtnHomePage{
     margin-top: 0 !important;
   }
@@ -694,6 +721,22 @@ width:60px !important;
 .fontstyle {
   font-size: 9px !important;
 }
+.FotterBottomBoxGrid{
+  text-align: center;
+}
+.FotterBottomBoxGrid .textLink{
+  font-size: 13px !important;
+}
+.otpVerifyBox input{
+  margin: 4px !important;
+}
+.footerboxmargintop{
+  margin-top: 30px !important;
+}
 }
 
-
+@media (width:280px){
+  .bodyHomePageText {
+    font-size: 12px !important;
+}
+}

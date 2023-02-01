@@ -13,6 +13,7 @@ import GetInsurance from './GetInsurance'
 import { useSelector, useDispatch } from 'react-redux';
 import { InsuranceTermConditionAction } from '../../Store/Duck/InsuranceTermCondition'
 import BannerSlider from '../CommonComponents/BannerSlider'
+import './insurance.css'
 // import "~slick-carousel/slick/slick.css";
 // import "~slick-carousel/slick/slick-theme.css";
 
@@ -91,6 +92,19 @@ const Insurance = () => {
             btnText: 'Get Free Quote',
         },
     ]
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    });
+   
+//    according to width we can render class conditionally
+
+    console.log(width)
 
     return (
         <div>
@@ -102,8 +116,8 @@ const Insurance = () => {
             <Toolbar />
             <Sidebar />
           </Grid>
-          <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:"16px" }} xs={12} sm={11} md={10}>
-                <Grid container>
+          <Grid sx={{ height: "100vh", boxSizing: "border-box", overflow: "scroll",padding:  "16px",}}  xs={12} sm={11} md={10} className="w">
+                <Grid container className="termBreadCrum">
                     <Grid xs={12} sm={12} md={12} className="B_style">
                     <Toolbar />
                     <Box role="presentation" className="boxBreadcrumb" sx={{ margin: "27px 0px 21px 25px" }} >
@@ -122,28 +136,32 @@ const Insurance = () => {
                     </Grid>
                 </Grid>
                 <Grid container>
-                    <Grid xs={12} sm={12} md={12}>
-                    <Box className="BoxMarginLeftRight textBoxAmount">
-                    <BannerSlider
+                            <Grid xs={12} sm={12} md={12} >
+                            <Box className={width < 468 ? "" : "BoxMarginLeftRight textBoxAmount"}>
+                              <Box sx={{position:"relative"}} className="BannerSpreadStyleparent">
+                                <Box sx={{}} className="BannerSpreadStyle">
+                                <BannerSlider
                                 sliderDetails={sliderDetails}
                                 sliderSetting={settings}
                             />
-                
-
-                            <div>
+                                </Box>
+                            
+                              </Box>
+                     
+                              <Box sx={{position:"relative"}}>
                                 {
                                     insuranceTermCondition ? <InsuranceTerms /> : <GetInsurance />
                                 }
 
-                            </div>
-                    </Box>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-        </Box>
-        </Box>
-        </div >
+                            </Box>
+                             </Box>
+                             </Grid>
+                             </Grid>
+                               </Grid>
+                                </Grid>
+                                 </Box>
+                                  </Box>
+                                   </div >
     )
 }
 

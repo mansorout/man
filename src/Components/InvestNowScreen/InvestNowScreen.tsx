@@ -711,7 +711,7 @@ function InvestNowScreen(props: IProps) {
                                 localStorage.setItem(siteConfig.INVESTMENT_CARD_TYPE, globalConstant.LUMPSUM_INVESTMENT)
                                 }}>
 
-                                <Typography sx={{ fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
+                                <Typography sx={{ cursor: "pointer",fontSize: "11px", fontWeight: "500", textAlign: "center", color: "#6c63ff" }} >
                                   <b style={{ marginTop: "4%", color: "#6c63ff", position: 'relative', top: "8.4px", width: "16px", height: "16px" }}><HelpOutlineIcon /></b>&nbsp;
                                   KNOW MORE ABOUT INVESTMENT</Typography>
                               </Grid>

@@ -198,6 +198,8 @@ const useStyles: any = makeStyles((theme: any) => ({
     "&:hover": {
       backgroundColor: "#00b4ff !important",
     },
+  
+
   },
   myBtn: {
     "&:hover": {
@@ -216,13 +218,18 @@ const style = {
     // height: "100vh",
   } as React.CSSProperties,
   button: {
-    height: "48px",
+  
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
     color: "#fff",
-    width: "100%",
-    // marginTop: 21,
-    // marginLeft: -8,
+  
+   
+      height: "48px",
+   
+      width: 350,
+
+    marginTop: "21",
+    marginLeft: "-1px",
   } as React.CSSProperties,
   modalText: {
     backgroundColor: "#FFF",
@@ -288,7 +295,7 @@ const OneTimeMutualFund = () => {
         if (res) handleResponse(res);
       } else {
         // let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 12, initialMFData) //Its not working from backend!!
-        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 11, initialMFData)
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 12, initialMFData)
         if (res) handleResponse(res);
       }
     }
@@ -742,6 +749,7 @@ const OneTimeMutualFund = () => {
           onClose={() => {
             setActiveScreen(enumActiveScreen.CLOSE_MODAL);
           }}
+          className="ModalStyleleftRight"
         >
           <>
             <Box

@@ -1013,7 +1013,7 @@ function ExploreFunds(props: any) {
                         </>
                         :
                         <>
-                          <Grid sx={{ display: "flex", justifyContent: "center" }}>
+                          <Grid className='NoRecordFoundBox' sx={{ display: "flex", justifyContent: "center" }}>
                             <Typography component="h6" sx={{ color: "var(--uiDarkGreyColor) !important" }}>No record found!</Typography>
                           </Grid>
                         </>
@@ -1238,7 +1238,7 @@ const SelectedFundsDialog = (props: any) => {
 
             }}
           >
-            Buy Now
+            Add To Plan
           </Typography></Button>
 
         <Button onClick={props?.handleClose} sx={{ position: "absolute", right: "0", top: "12px" }} >

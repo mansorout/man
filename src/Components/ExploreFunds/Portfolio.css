@@ -67,15 +67,15 @@
 @media (width:412px){
   .GridManageWidth{
     width: 354px !important;
-  
     margin-top: 7% !important;
+    margin-left: 0% !important;
 
   }
   .CardManageStyleSlected{
     
     max-width: 384px !important;
-  
-  }
+    margin-left: -10px !important;
+}
   .GridManageWidthright{
     padding-left: 13px !important;
     margin-top: -5% !important;
@@ -294,10 +294,9 @@
 
 
   .CardManageStyleSlected{
-    
     max-width: 105% !important;
     margin-left: 1px !important;
-    margin-top: -5% !important;
+    margin-top: 1% !important;
   
   }
   .FundsSelected{

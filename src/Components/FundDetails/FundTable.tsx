@@ -123,7 +123,7 @@ const FundTable = (props: IProps) => {
                     rows.length &&
                     rows.map((row: { years: number, returns: string, benchmark: string }) => (
                       <StyledTableRow key={row.years}>
-                        <StyledTableCell component="th" scope="row"> {row?.years}</StyledTableCell>
+                        <StyledTableCell component="th" scope="row"> {row?.years==1?row?.years +" "+"year":row?.years +" "+"years"}</StyledTableCell>
                         <StyledTableCell align="right">{row?.returns}%</StyledTableCell>
                         <StyledTableCell align="right">{row?.benchmark}%</StyledTableCell>
                       </StyledTableRow>
