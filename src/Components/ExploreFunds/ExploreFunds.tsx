@@ -276,88 +276,32 @@ function ExploreFunds(props: any) {
 
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
-
-      // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST);
-      // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-
-
-      // const { data, isFundPurchased } = g_masterFundListForExploreFunds;
-      // if (isFundPurchased) {
-      //   getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-      // } else {
-      //   if (data && data.length) {
-      //     setMasterFundList(data);
-      //   } else {
-      //   }
-      // }
-      console.log("categoryGroupList : ", categoryGroupList)
-      // return;
-
-
       let temp: any[] = [...filterIndexes];
       if (temp && temp?.length) {
-        // temp.map((item, index) => {
-        //   // if(item?.key === enumFilterIndexes?.SORT){
-        //   //   console.log("temp filter SORT :", temp[index])
-        //   //   temp[index].activeSortIndex = activeSortIndex;
-        //   // }
-
-        //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
-        //     console.log("temp filter :", temp[index]?.keyValues)
-        //     temp[index].keyValues = categoryGroupList;
-        //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
-        //   }
-        // })
-
         temp[enumIndexesOfFilterType.FUND_TYPE]["keyValues"] = categoryGroupList;
         temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
-
         setFilterIndexes(temp);
       }
-
-      // console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList]);
 
   useEffect(() => {
     const temp = [...filterIndexes]
     if (temp && temp?.length) {
-      // temp.map((item, index) => {
-      //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
-      //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
-      //   }
-      // })
       temp[enumIndexesOfFilterType.SORT]['activeSortIndex'] = activeSortIndex;
       temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
-
     }
-
     setFilterIndexes(temp);
   }, [activeCategoryGroupIndex]);
 
   useEffect(() => {
     const temp = [...filterIndexes];
-
-    // temp && temp?.length &&
-    //   temp.map((item, index) => {
-    //     if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
-    //       temp[index].keyValues = fundProviderList;
-    //       temp[index].keyValues.unshift({
-    //         providerid: "0",
-    //         providername: "All"
-    //       })
-    //       setFilterIndexes(temp)
-    //       console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
-    //     }
-    //   })
-
     if (temp && temp?.length) {
       temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"] = fundProviderList;
       temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"].unshift({
         providerid: "0",
         providername: "All"
       })
-
       setFilterIndexes(temp)
     }
   }, [fundProviderList]);
@@ -365,16 +309,6 @@ function ExploreFunds(props: any) {
   useEffect(() => {
     handlingFeatureWiseCard(masterFundList);
   }, [masterFundList]);
-
-  useEffect(() => {
-    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
-      let { data } = g_masterFundListForExploreFunds;
-      // setFundSelecteds(p => [...p, data]);
-      // filteringDataWrtSelectedFunds(data, variableMasterFundList);
-
-    }
-  }, [g_masterFundListForExploreFunds, activeCategoryGroupIndex])
-
 
   /** Getting Provider and Categorygroup list for getting fund list according to them */
   const getCategoryGroupList = async () => {
@@ -391,10 +325,6 @@ function ExploreFunds(props: any) {
     response.data = [...response.data];
     // @ts-ignore
     handleApiResponse(response, [setFundProviderList]);
-
-    // response.data = [...response.data];
-    // @ts-ignore
-    // handleApiResponse(response, [setFundProviderList]);
     return response;
   };
   /***************************************************************************************/
@@ -467,11 +397,6 @@ function ExploreFunds(props: any) {
       setVariableMasterFundList(arrRecom);
       return;
     }
-
-    // if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
-    //   setVariableMasterFundList(arrRecom);
-    //   return;
-    // }
 
     if (arrRecom && arrRecom.length) {
 
@@ -550,8 +475,6 @@ function ExploreFunds(props: any) {
 
   /**This function handles adding and replacing functionality*/
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
-
-    // let arrMasterFundList: any[] = [...masterFundList];
     let arrMasterFundList: any[] = [...variableMasterFundList];
     if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
       //explore fund and add fund of investment
@@ -565,15 +488,6 @@ function ExploreFunds(props: any) {
         arrMasterFundList[index]["fundSelected"] = false;
         arrFundSelected.splice(arrMasterFundList[index], 1);
       }
-
-      // let arrNew: any[] = [...fundSelecteds, ...arrMasterFundList.filter(item => item["fundSelected"] === true)];
-      // let arrNew: any[] = [...fundSelecteds, arrMasterFundList.filter(item => item["fundSelected"] === true)];
-      // let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
-
-
-      // let arrFundSelected: any[] = [fundSelecteds.concat(arrNew)];
-      // let arrFundSelected: any[] = [...fundSelecteds, arrNew];
-      console.log(arrFundSelected, "arrFundSelected concate")
 
       if (status === globalConstant.CEF_EXPLORE_FUND) {
         dispatch(setMasterFundListForExploreFundsAction(arrFundSelected));
@@ -605,15 +519,10 @@ function ExploreFunds(props: any) {
         return item;
       });
 
-
       setFundSelecteds([objFundListSelectedItem]);
-      // setAddAllFunds([objFundListSelectedItem])
       setVariableMasterFundList(arrSelectedFundList);
       setInitialMFData(true);
     } else {
-      //replace of explore fund
-
-
     }
   };
   /***************************************************************************************/
@@ -631,7 +540,6 @@ function ExploreFunds(props: any) {
       let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
 
       if (arrFiltered && arrFiltered.length) {
-        // handlingFeatureWiseCard(arrFiltered);
         setVariableMasterFundList(arrFiltered)
       } else {
         setVariableMasterFundList([]);
@@ -954,11 +862,7 @@ function ExploreFunds(props: any) {
                                     key={index}
                                     onClick={async () => {
                                       if (activeCategoryGroupIndex === index) return;
-
-                                      // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
                                       setActiveCategoryGroupIndex(index);
-                                      // let url: any = await urlWithFilter(filterValues, index)
-                                      // setFundSelecteds([]);
                                       setInitialMFData(false);
                                       setIsInitialVariableFundListFetched(false);
                                       // getMasterFundList(url);
@@ -988,8 +892,6 @@ function ExploreFunds(props: any) {
                         </Box>
                       </Box>
                     </Box>
-
-                    {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
                     {
                       variableMasterFundList &&
                         variableMasterFundList.length ?
@@ -1018,8 +920,6 @@ function ExploreFunds(props: any) {
                           </Grid>
                         </>
                     }
-
-
                   </Box>
                 </Box>
               </Grid>
@@ -1050,14 +950,7 @@ function ExploreFunds(props: any) {
                           dispatch(setMasterFundListForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
                         } else if (status === globalConstant.CEF_ADD_FUND) {
-
-                          // setSelctedFundDialog(true);
-                          // dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
-                          setAddFundOpen(true)
-                          // console.log(addAllFunds)
-
-
-                          // navigate("/customizemf");
+                          setAddFundOpen(true);
                         } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
                           dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
@@ -1105,9 +998,6 @@ const SelectedFundsDialog = (props: any) => {
     let arrFundSelecteds: any[] = [...props?.fundSelecteds]
     if (arrFundSelecteds && arrFundSelecteds.length) {
       let arrNew: any[] = [];
-      // if (bFlag) {
-      //   arrNew = [...arrFundSelecteds];
-      // }
       arrNew = arrFundSelecteds.map((item: any) => {
         return {
           ...item,
@@ -1116,12 +1006,9 @@ const SelectedFundsDialog = (props: any) => {
         }
       })
 
-      console.log(arrNew, "arrNew");
-      // setBFlag(true);
       setAddAllFunds(arrNew);
     }
   }, [props?.fundSelecteds])
-
 
   const handleOnChangeFunAddFund = (e: any, key: any, index: number) => {
     let arrAddAllFunds: any[] = [...addAllFunds];
@@ -1137,12 +1024,9 @@ const SelectedFundsDialog = (props: any) => {
 
     arrAddAllFunds[index]["userRecommendedAmount"] = value;
 
-
     if (!isMultipleofNumber(parseInt(value), 100)) {
       arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100";
-      // setIsShouldBuyFundEnable(false);
     } else {
-      // setIsShouldBuyFundEnable(true);
       arrAddAllFunds[index]["ErrorMsg"] = "";
     }
 
@@ -1158,9 +1042,7 @@ const SelectedFundsDialog = (props: any) => {
       return;
     }
 
-    // if (!isShouldBuyFundEnable) {
     if (arrError && arrError.length) {
-      // setError("Please fill the amount which is multiple of 100!");
       return;
     }
 

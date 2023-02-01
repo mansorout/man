@@ -211,7 +211,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
                 style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500"}}
               >
 
-                ₹{amount?amount:"0"}
+                ₹{amount ? amount: "0"}
 
               </Typography>
             </Box>
@@ -228,9 +228,14 @@ export default function FundAmtCard(props: AddFundAmtCard) {
             onBlur={handleOnBlurAmount}
             onChange={(e) => {
               props?.handleOnChangeFunAddFund(e, props?.data, props?.index)
-              setAmount(e.target.value)
+              if(parseInt(e?.target?.value) > 0 ){
+                setAmount(e.target.value);
+              }else{
+                setAmount("");
+              }
             }}
-            value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount : amount}
+            // value={props?.data?.userRecommendedAmount ? props?.data?.userRecommendedAmount : amount}
+            value={props?.data?.userRecommendedAmount}
             sx={{ width: "100%", maxWidth: "100%" }}
           >
 
