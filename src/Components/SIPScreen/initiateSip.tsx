@@ -247,7 +247,8 @@ const arrPriceList = [1000, 5000, 10000];
 
 
 const enumDefaultAmount = {
-  INVESTED_VALUE: 1000
+  // INVESTED_VALUE: 1000
+  INVESTED_VALUE: 5000
 }
 
 
@@ -274,9 +275,6 @@ const InitiateSip = (props: IProps) => {
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
   const [chartActiveIndex, setChartActiveIndex] = useState(2)
   
-
-  
-
   const filterChartData = (arr: any[]) => {
     return arr.filter((item: expectedReturnProps) =>
       item?.years < 5 ?
@@ -289,7 +287,6 @@ const InitiateSip = (props: IProps) => {
   const chartDataDetails: any = useMemo(() => {
 
     const tempInitialVal = expectedReturns.filter((item: any) => item?.years === 5)[0];
-    console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
     setInvestedValue(tempInitialVal?.investedvalue)
     setProjectedValue(tempInitialVal?.projectedvalue)
 
@@ -341,11 +338,37 @@ const InitiateSip = (props: IProps) => {
     })
   }
 
-  const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+  // const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+  //   setActivePriceAmount(strAmount);
+  //   setAmount((prev: number) => prev + nAmount);
+  //   let val = amount + nAmount;
+  //   handleTimer(getExpectedFundReturnList, val);
+  // }
+
+  const handleActivePriceAmount = async(strAmount: string, nAmount: number) => {
+    setError("");
     setActivePriceAmount(strAmount);
-    setAmount((prev: number) => prev + nAmount);
+    setAmount((prev: any) => {
+      console.log(prev);
+      let val :number = 0;
+        if(prev){
+          val  = parseInt(prev) + nAmount;
+        
+          if (!isMultipleofNumber(val, 100)) { 
+            setError("Amount should be multiple of 100.");
+            handleTimer(getExpectedFundReturnList, 0);
+            return val;
+          }
+        
+          handleTimer(getExpectedFundReturnList, val);
+          return val;
+        }
+
+        handleTimer(getExpectedFundReturnList, nAmount);
+        return nAmount;
+      }
+    );
     let val = amount + nAmount;
-    handleTimer(getExpectedFundReturnList, val);
   }
 
   const handleTimer = (cb: any | void, a: any) => {
@@ -355,23 +378,57 @@ const InitiateSip = (props: IProps) => {
     }, 200);
   }
 
+  // const handleOnChangeAmount = (e: any) => {
+  //   let { value } = e?.target;
+
+  //   setAmount(value && value.length ? parseInt(value) : null);
+
+  //   // if (amount  > arrPriceList[0] - 1) {
+  //   //   setError("Amount should be more than ₹5000");
+  //   //   return;
+  //   // }
+
+  //   if (!isMultipleofNumber(value, 100)) {
+  //     setError("Amount should be multiple of 100.")
+  //   }
+  //   else {
+  //     setError("");
+  //     handleTimer(getExpectedFundReturnList, value);
+  //   }
+  // }
+
   const handleOnChangeAmount = (e: any) => {
     let { value } = e?.target;
-
-    setAmount(value && value.length ? parseInt(value) : null);
-
-    // if (amount  > arrPriceList[0] - 1) {
-    //   setError("Amount should be more than ₹5000");
-    //   return;
-    // }
-
-    if (!isMultipleofNumber(value, 100)) {
+    
+    if(value && value.length){
+      value = parseInt(value)
+      if(value < 0) return;
+      setAmount(value);
+      
+    }else{
+      value = 0;
+      setAmount("");
+    }
+    
+    
+    //check input number is multiple of 100 or not!
+    if (!isMultipleofNumber(value, 100)) { 
       setError("Amount should be multiple of 100.")
+      handleTimer(getExpectedFundReturnList, 0);
+      return;
     }
-    else {
-      setError("");
-      handleTimer(getExpectedFundReturnList, value);
+    
+    //get graph data from api wrt input amount!
+    handleTimer(getExpectedFundReturnList, value);
+
+    //check that input amount is less than 5000 for lumpsum!
+    if(value < 1000){
+      setError("Amount should not be less than 1000!");
+      return;
     }
+
+    setError("");
+    
   }
 
   const getExpectedFundReturnList = (amount: number) => {
@@ -570,6 +627,7 @@ function customRadius( context:any )
                             <TextField
                               label="I want to invest"
                               name="middleName"
+                              type="number"
                               fullWidth
                               InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,
@@ -750,7 +808,8 @@ function customRadius( context:any )
                             <b style={{ color: " #3c3e42", fontSize: "20px" }}>
                               {/* ₹{numDifferentiation(amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0)} kp */}
                               {/* ₹{amount > arrPriceList[0] - 1 ? numDifferentiation(amount) : 0} */}
-                              ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
+                              {/* ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)} */}
+                              ₹{investedValue > arrPriceList[0] - 1? numDifferentiation(investedValue) : 0}
                             </b>
                           </Grid>
                           <Grid item xs={6} sx={{

@@ -350,17 +350,22 @@ function InvestNowScreen(props: IProps) {
       let val :number = 0;
         if(prev){
           val  = parseInt(prev) + nAmount;
+        
           if (!isMultipleofNumber(val, 100)) { 
             setError("Amount should be multiple of 100.");
+            handleTimer(getExpectedFundReturnList, 0);
+            return val;
           }
+        
+          handleTimer(getExpectedFundReturnList, val);
           return val;
-        }else{
-          return nAmount;
         }
+
+        handleTimer(getExpectedFundReturnList, nAmount);
+        return nAmount;
       }
     );
     let val = amount + nAmount;
-    handleTimer(getExpectedFundReturnList, val);
   }
 
   const handleTimer = (cb: any | void, a: any) => {
@@ -375,6 +380,7 @@ function InvestNowScreen(props: IProps) {
     
     if(value && value.length){
       value = parseInt(value)
+      if(value < 0) return;
       setAmount(value);
       
     }else{
@@ -386,6 +392,7 @@ function InvestNowScreen(props: IProps) {
     //check input number is multiple of 100 or not!
     if (!isMultipleofNumber(value, 100)) { 
       setError("Amount should be multiple of 100.")
+      handleTimer(getExpectedFundReturnList, 0);
       return;
     }
     
@@ -417,12 +424,16 @@ function InvestNowScreen(props: IProps) {
 
         if (data?.error === true) return;
         let arrExpectedReturnList :expectedReturnProps[] = data?.data;
-        if(arrExpectedReturnList && arrExpectedReturnList.length ){
-          setExpectedReturns(arrExpectedReturnList);
-          setProjectedValue(arrExpectedReturnList[0]?.projectedvalue);
-        }
+          if(arrExpectedReturnList && arrExpectedReturnList.length ){
+            setExpectedReturns(arrExpectedReturnList);
+            setProjectedValue(arrExpectedReturnList[0]?.projectedvalue);
+          }else{
+            setExpectedReturns([]);
+            setProjectedValue(0);
+            
+          }
         })
-      .catch(err => {
+        .catch(err => {
         setExpectedReturns([]);
         setProjectedValue(0);
         console.log(err);
@@ -582,6 +593,7 @@ function InvestNowScreen(props: IProps) {
                             <TextField
                               label="I want to invest"
                               name="middleName"
+                              type="number"
                               fullWidth
                               InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,
