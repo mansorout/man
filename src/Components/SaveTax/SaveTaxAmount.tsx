@@ -129,10 +129,10 @@ const useStyles: any = makeStyles((theme: Theme) => ({
     modalText: {
         padding: '20px'
     },
-    footerStyle:{
-        '&>div':{
-            marginTop:'140px',
-            '&>div':{
+    footerStyle: {
+        '&>div': {
+            marginTop: '140px',
+            '&>div': {
                 position: 'none',
             }
         }
@@ -398,31 +398,36 @@ const SaveTaxAmount = () => {
                                         </Typography>
                                     </Box>
 
-                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, margin: { xs: '15px 0px', sm: '0px' }, boxShadow:" 0 1px 5px 0 rgba(0, 0, 0, 0.12)",padding:"20px", marginTop: '20px !important', }}>
+                                    <Box className={classes.investmentType} sx={{ width: { sm: '90%', md: '50%' }, margin: { xs: '15px 0px', sm: '0px' }, boxShadow: " 0 1px 5px 0 rgba(0, 0, 0, 0.12)", padding: "20px", marginTop: '20px !important', }}>
 
                                         <RadioGroup
                                             aria-labelledby="demo-controlled-radio-buttons-group"
                                             name="controlled-radio-buttons-group"
                                             value={investmentType}
                                             onChange={handleRadioChange}
-                                         
+
                                         // style={{ backgroundColor: '#8787a2' }} 
                                         >
                                             <Box className={classes.investmentField}>
                                                 <Typography component='p'>Lumpsum investment</Typography>
 
                                                 <TextField
+                                                    onKeyPress={(e) =>
+                                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                                        e.preventDefault()
+                                                    }
+
+                                                    type="text"
+
                                                     onKeyDown={event => {
                                                         if (event.key == "." || event.key === "-" || event.key === "e") {
                                                             event.preventDefault();
                                                         }
                                                     }}
-                                                    label="Enter Amount"
-                                                    id="outlined-start-adornment"
+                                                    label="Enter Amount" id="outlined-start-adornment"
                                                     value={lumpsumAmount}
                                                     placeholder="Lumpsum investment"
                                                     onChange={handleLumpsum}
-                                                    type='number'
                                                     InputProps={{
                                                         endAdornment: <InputAdornment position="start">
                                                             <FormControlLabel value={LUMPSUM} control={<Radio className={investmentType === LUMPSUM ? classes.radioStyle : ''} />} label={<Box sx={{ color: "#8787a2" }}>Lumpsum</Box>} />
@@ -453,6 +458,13 @@ const SaveTaxAmount = () => {
                                                 <Typography component='p'>Monthly investment</Typography>
 
                                                 <TextField
+                                                    onKeyPress={(e) =>
+                                                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                                                        e.preventDefault()
+                                                    }
+
+                                                    type="text"
+
                                                     onKeyDown={event => {
                                                         if (event.key == "." || event.key === "-" || event.key === "e") {
                                                             event.preventDefault();
@@ -464,7 +476,6 @@ const SaveTaxAmount = () => {
                                                     value={monthlyAmount}
                                                     onChange={handleMonthly}
                                                     placeholder="Monthly investment"
-                                                    type='number'
                                                     InputProps={{
                                                         endAdornment: <InputAdornment position="start">
                                                             <FormControlLabel value={MONTHLY} control={<Radio className={investmentType === MONTHLY ? classes.radioStyle : ''} />} label={<Box sx={{ color: "#8787a2" }}>Monthly</Box>} />

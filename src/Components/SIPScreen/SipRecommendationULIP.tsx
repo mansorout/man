@@ -403,7 +403,7 @@ const SipRecommendationsULIP = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/sipInvestment')} >
                       <Typography className='burgerText'>Investment</Typography>
                     </Link>
                     <Link underline="always" color="#6495ED"  sx={{ fontSize: "12px", width: "100%" }} onClick={()=>navigate('/startAnSip#contained-buttons')} >

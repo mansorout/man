@@ -162,7 +162,7 @@ const SaveTax = () => {
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
                     <Link underline="none" color="#878782" sx={{ fontSize: "12px", width: "100%" }}>
-                      <Typography className='burgerText'>saveTax</Typography>
+                      <Typography className='burgerText'>Save Tax</Typography>
                     </Link>
                   </Breadcrumbs>
                 </Box>

@@ -158,7 +158,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
   const timerRef: any = useRef();
   const handleTimer = (cb: any | void, a: any) => {
     clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => { 
+    timerRef.current = setTimeout(() => {
       cb(a);
     }, 200);
   }
@@ -181,47 +181,56 @@ export default function FundAmtCard(props: AddFundAmtCard) {
 
   return (
     <>
-      <Grid xs={12} sm={12} style={{marginBottom:"10px"}}>
-        <Box style={{display:"flex", marginBottom:"10px"}}>
+      <Grid xs={12} sm={12} style={{ marginBottom: "10px" }}>
+        <Box style={{ display: "flex", marginBottom: "10px" }}>
           <Grid container>
-              <Grid xs={9} sm={8}>
-              <Box style={{display:"flex",}}>
-              <Box style={{overflow:"hidden",height:"32px", width:"100%",maxWidth:"32px", border:"1px solid #d1d6dd", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:'center'}}>
-                    <img src={props?.data?.fundimage} width="100%" alt='mirae'></img>
+            <Grid xs={9} sm={8}>
+              <Box style={{ display: "flex", }}>
+                <Box style={{ overflow: "hidden", height: "32px", width: "100%", maxWidth: "32px", border: "1px solid #d1d6dd", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: 'center' }}>
+                  <img src={props?.data?.fundimage} width="100%" alt='mirae'></img>
                 </Box>
-        <p className='textFundname' style={{margin:"6px 10px"}}>{props?.data?.fundname}</p>
-        </Box>
-              </Grid>
-              <Grid xs={3} sm={4}>
-              <Box style={{width: "100%",
+                <p className='textFundname' style={{ margin: "6px 10px" }}>{props?.data?.fundname}</p>
+              </Box>
+            </Grid>
+            <Grid xs={3} sm={4}>
+              <Box style={{
+                width: "100%",
                 display: "flex",
                 flexDirection: "row",
                 flexWrap: "nowrap",
-                justifyContent: "flex-end",alignItems:"center"}}>
-        <Box
-              style={{
-                padding: "4px 8px",
-                backgroundColor: "#d6d5ef",
-                borderRadius: "2px",
-                
-              }}
-            >
-              <Typography
-                sx={{width:{xs:"auto", sm:"100px"}, overflow:"hidden"}}
-                style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500"}}
-              >
+                justifyContent: "flex-end", alignItems: "center"
+              }}>
+                <Box
+                  style={{
+                    padding: "4px 8px",
+                    backgroundColor: "#d6d5ef",
+                    borderRadius: "2px",
 
-                ₹{amount?amount:"0"}
+                  }}
+                >
+                  <Typography
+                    sx={{ width: { xs: "auto", sm: "100px" }, overflow: "hidden" }}
+                    style={{ color: "#6c63ff", fontSize: "16px", fontWeight: "500" }}
+                  >
 
-              </Typography>
-            </Box>
-        </Box>
-              </Grid>
+                    ₹{amount ? amount : "0"}
+
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
           </Grid>
         </Box>
         <Box sx={{ position: "relative" }}>
           <TextField label="Enter Investment Amount"
-            type="number"
+            onKeyPress={(e) =>
+              /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+              e.preventDefault()
+            }
+
+            type="text"
+           
+
             name="Amount"
             fullWidth
             placeholder='₹1,00,000'
@@ -312,7 +321,7 @@ export default function FundAmtCard(props: AddFundAmtCard) {
                               > <b style={{ color: "#6c63ff" }}>{enumPriceList.TEN_THOUSAND}</b>
                               </Button>
                             </Stack> */}
-         
+
           {/* <Button
             onClick={() => {
               setRemoveItem(props?.data)

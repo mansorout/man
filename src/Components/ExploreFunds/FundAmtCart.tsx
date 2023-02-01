@@ -141,12 +141,12 @@ const useStyles: any = makeStyles((theme: Theme) => ({
 
   },
   cardBtnWrap: {
-    marginLeft:"-12%",
+    marginLeft: "-12%",
     backgroundColor: 'var(--uiWhite)',
     '& button': {
       boxShadow: 'none',
     }
-    
+
   },
 
   button: {
@@ -264,7 +264,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               <Typography className={classes.cardHeading}>
                 {`${props?.data?.fundname}`}
               </Typography>
-          
+
             </Box>
 
             {
@@ -273,7 +273,11 @@ export default function FundAmtCard(props: FundAmtCard) {
                 (
                   <List>
                     <TextField label="Enter Investment Amount"
-                      type="number"
+                      onKeyPress={(e) =>
+                        /[^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$]$/.test(e.key) &&
+                        e.preventDefault()
+                      }
+                      type="text"
                       name="middleName"
                       fullWidth
                       placeholder='₹1,00,000'
@@ -316,7 +320,7 @@ export default function FundAmtCard(props: FundAmtCard) {
             display: 'flex',
             justifyContent: 'flex-end',
             gap: '0vw',
-            marginRight:"3%"
+            marginRight: "3%"
           }}
             className={classes.cardBtnWrap + " " + classes.ReplaceStyle}
           >
@@ -330,7 +334,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               }}
               onClick={() => props.replaceBtnAction(props?.data)}
             >
-              <img src={ReplaceButtonIcon} style={{paddingRight:"5px"}} />
+              <img src={ReplaceButtonIcon} style={{ paddingRight: "5px" }} />
               REPLACE
             </Button>
             <Button variant="contained" sx={{
@@ -346,7 +350,7 @@ export default function FundAmtCard(props: FundAmtCard) {
               }}
             // props.removeBtnAction(props?.data
             >
-              <img src={RemoveButtonIcon} style={{paddingRight:"6px"}} />
+              <img src={RemoveButtonIcon} style={{ paddingRight: "6px" }} />
               REMOVE
             </Button>
           </Box>
