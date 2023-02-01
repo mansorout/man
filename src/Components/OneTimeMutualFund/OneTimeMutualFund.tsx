@@ -295,7 +295,7 @@ const OneTimeMutualFund = () => {
         if (res) handleResponse(res);
       } else {
         // let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 12, initialMFData) //Its not working from backend!!
-        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 11, initialMFData)
+        let res: any = await getMutualFundListWrtUserAmountThunk(userAmount, 12, initialMFData)
         if (res) handleResponse(res);
       }
     }
