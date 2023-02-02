@@ -36,6 +36,7 @@ import { setTokenExpiredStatusAction } from "../../Store/Authentication/actions/
 import { postData } from "../../Utils/api";
 import { setUploadImageThunk } from "../../Store/Global/thunk/global-thunk";
 import { setProfileImage } from "../../Store/Global/actions/global-actions";
+import { enumActiveGender } from "../../Utils/globalConstant";
 
 const style = {
   containertwo: {
@@ -128,8 +129,8 @@ const ViewProfileCard = (props: IProps) => {
   const [imgSrc, setImgSrc] = useState<any>("");
   const [formData, setFormData] = useState<formDataProps>(initialFormData);
   // const [profileImage,setProfileImage] = useState<any>("")
-  const [profileImage2,setProfileImage2] = useState<any>("")
-  const[showImage,setShowImage] = useState(false)
+  const [profileImage2, setProfileImage2] = useState<any>("")
+  const [showImage, setShowImage] = useState(false)
   const userProfileStatus: any = useSelector((state: any) => state?.authReducer?.profileValidationData?.data?.isProfileComplete);
   const ImageData = {
     filename: "kk",
@@ -224,15 +225,15 @@ const ViewProfileCard = (props: IProps) => {
 
         setImgSrc(base64);
 
-        
+
         setShowImage(true)
 
       };
       reader.readAsDataURL(e.target.files[0]);
     }
 
-   
-    
+
+
 
 
     //  @ts-ignore
@@ -253,7 +254,7 @@ const ViewProfileCard = (props: IProps) => {
     // console.log(image)
     setImgSrc(image)
 
-  },[])
+  }, [])
   // console.log("profile image",profileImage2)
 
 
@@ -299,6 +300,18 @@ const ViewProfileCard = (props: IProps) => {
   //     });
   // };
 
+  const getGenderValue = () => {
+    let strGender = "";
+    switch (formData?.gender) {
+      case enumActiveGender?.MALE: { strGender = "Male"; break; }
+      case enumActiveGender?.FEMALE: { strGender = "Female"; break }
+      case enumActiveGender?.TRANS: { strGender = "Transgender"; break; }
+      default: strGender = "";
+    }
+
+    return strGender;
+  }
+
   return (
 
     <>
@@ -331,7 +344,7 @@ const ViewProfileCard = (props: IProps) => {
             <Typography
               onClick={() => setImgSrc("")}
               sx={{
-                textDecoration:"underline",
+                textDecoration: "underline",
                 color: "#6c63ff",
                 textAlign: "center",
                 fontWeight: "500",
@@ -353,7 +366,7 @@ const ViewProfileCard = (props: IProps) => {
                       color: "white",
                       padding: "2px 8px",
                     }}
-                    
+
                   >
                     Completed
                   </Typography> : <Typography
@@ -461,7 +474,7 @@ const ViewProfileCard = (props: IProps) => {
                 // className="CommonStyle__Class_Gender"
                 primary="Gender"
                 // secondary={g_viewProfileState?.userdetails?.gender !== "" ? g_viewProfileState?.userdetails?.gender : ""}
-                secondary={formData?.gender || ""}
+                secondary={getGenderValue()}
                 sx={{
                   marginLeft: "20px",
                   fontSize: "13px",
