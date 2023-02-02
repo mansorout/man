@@ -26,17 +26,6 @@ const CustomSelectBox = React.memo((props: any) => {
     }
   }, [props?.value]);
 
-  // useEffect(() => {
-  //   if (props?.pagination) {
-  //     let arrOptions: any[] = [...props?.options];
-  //     if(arrOptions && arrOptions.length){
-  //       arrOptions
-  //     }
-      
-  //   } else {
-  //   }
-  // }, [props?.pagination])
-
   const optionSelected = (key: string, value: string) => {
     // setInputValue(key);
     props.onChange(key);
@@ -62,6 +51,21 @@ const CustomSelectBox = React.memo((props: any) => {
         sx={props?.selectSX ? props?.selectSX : {}}
         error={props?.error}
         MenuProps={MenuProps}
+        inputProps={
+          {
+            readOnly: props?.isReadOnly,
+            sx: {
+              color: props?.isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+            }
+          }
+        }
+      // inputProps={
+      //   {
+      //     sx: {
+      //       color: "var(--gradientColorBlack)"
+      //     }
+      //   }
+      // }
       >
         {
           props.options && props.options.length ?
@@ -71,7 +75,8 @@ const CustomSelectBox = React.memo((props: any) => {
                   optionSelected(item[props?.valueKey], item[props?.labelKey]);
                 }}
                 >
-                  <Typography variant="body2" color="textSecondary">
+                  {/* <Typography variant="body2" color="textSecondary"> */}
+                  <Typography variant="body2">
                     {item[props?.labelKey] ? item[props?.labelKey] : ""}
                   </Typography>
                 </MenuItem>

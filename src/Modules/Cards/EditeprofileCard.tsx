@@ -28,6 +28,8 @@ import './style.css'
 import { apiResponse } from '../../Utils/globalTypes';
 import { setEditProfileDataThunk } from '../../Store/Authentication/thunk/auth-thunk';
 import { Calendar } from 'react-calendar';
+import { getCityListThunk, getIncomeSlabListThunk, getPincodeListThunk, getStateListThunk } from '../../Store/Global/thunk/global-thunk';
+import { enumActiveGender } from '../../Utils/globalConstant';
 
 type formDataProps = {
   customer_id?: number,
@@ -164,12 +166,6 @@ const enumErrorMsg = {
   PLEASE_ENTER_VALID_DATE: "Please enter valid date"
 }
 
-const enumActiveGender = {
-  NOTHING: 'nothing',
-  MALE: 'Male',
-  FEMALE: 'Female',
-  TRANS: 'Transgender'
-}
 
 const initialCountryList = [
   {
@@ -273,47 +269,29 @@ const EditprofileCard = () => {
   const [stateList, setStateList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [allCityList, setAllCityList] = useState<any[]>([]);
+  const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(false);
+  const [numberForView, setnumberForview] = useState<string>("")
   const [incomeSlabList, setIncomeSlabList] = useState<any[]>([]);
   const [countryList, setCountryList] = useState<any[]>([...initialCountryList]);
   const [formData, setFormData] = useState<formDataProps>({ ...initialFormData });
   const [activeGender, setActiveGender] = useState<string>(enumActiveGender.NOTHING);
   const [validateInputs, setValidateInputs] = useState<validateInputsProps>({ ...initialValidateinputsData });
-  const [invalidDOB, setInvalidDOB] = useState<boolean>(false);
-  const [numberForView, setnumberForview] = useState<string>("")
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
-
-  // const g_stateList: any = useSelector((state: any) => state?.globalReducer?.stateList);
-  // const g_cityList: any = useSelector((state: any) => state?.globalReducer?.cityList);
-  // const g_incomeSlabList: any = useSelector((state: any) => state?.globalReducer?.incomeSlabList);
 
   useEffect(() => {
     getCountryList();
     getStateList();
-    // getCityList(null);
     getIncomeSlabList();
     if (g_profileData && !Object.keys(g_profileData).length) {
       navigate("/viewProfile");
-      // store.dispatch(getUserProfileDataThunk());
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (g_stateList && g_stateList.length) {
-  //     setStateList(g_stateList);
-  //   }
-  // }, [g_stateList]);
-
-  // useEffect(() => {
-  //   if (g_cityList && g_cityList.length) {
-  //     setCityList(g_cityList);
-  //   }
-  // }, [g_cityList]);
-
-  // useEffect(() => {
-  //   if (g_incomeSlabList && g_incomeSlabList.length) {
-  //     setIncomeSlabList(g_incomeSlabList);
-  //   }
-  // }, [g_incomeSlabList]);
+  useEffect(() => {
+    if (g_profileData?.kycdetails?.ispannumberverified) {
+      setIsReadOnly(g_profileData?.kycdetails?.ispannumberverified);
+    }
+  }, [g_profileData])
 
   useEffect(() => {
     if (g_profileData?.userdetails) getUserProfileData();
@@ -344,92 +322,30 @@ const EditprofileCard = () => {
     }))
   }, [invalidDOB]);
 
-  useEffect(() => {
-    console.log(formData?.dateofbirth);
-  }, [formData?.dateofbirth])
-
   const getCountryList = () => {
     // setCountryList([...countryList]);
   }
 
-  const getStateList = () => {
-    // store.dispatch(getStateListThunk());
-    getDataWithoutToken(
-      siteConfig.METADATA_STATE_LIST,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.METADATA_API_ID,
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-
-        setStateList(data?.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  const getStateList = async() => {
+    let res: apiResponse = await getStateListThunk();
+    setStateList(res?.data);
   }
 
-  const getCityList = (stateId: number, isAllCityListData: boolean) => {
-    // store.dispatch(getCityListThunk(stateId));
-    // let strUrl: string = "";
-
-    // if (stateId === null) {
-    //   strUrl = siteConfig.METADATA_CITY_LIST;
-    // } else {
-    //   strUrl = siteConfig.METADATA_CITY_LIST + `?state_id=${stateId}`;
-    // }
-
-    getDataWithoutToken(
-      siteConfig.METADATA_CITY_LIST + `?state_id=${stateId}`,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.METADATA_API_ID,
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error) {
-          console.log("error ocuured");
-          return;
-        }
-
-        if (isAllCityListData === true) {
-          setAllCityList(data?.data);
-          console.log(data?.data);
-        } else {
-          setCityList(data?.data);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  const getCityList = async (stateId: number, isAllCityListData: boolean) => {
+    let res: apiResponse = await getCityListThunk(stateId);
+    if (isAllCityListData === true) {
+      setAllCityList(res?.data);
+    } else {
+      setCityList(res?.data);
+    }
   }
 
-  const getIncomeSlabList = () => {
-    // store.dispatch(getIncomeSlabListThunk());
-    getDataWithoutToken(
-      siteConfig.METADATA_INCOMESLAB_LIST,
-      siteConfig.CONTENT_TYPE_APPLICATION_JSON,
-      siteConfig.METADATA_API_ID,
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-
-        setIncomeSlabList(data?.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+  const getIncomeSlabList = async () => {
+    let res: apiResponse = await getIncomeSlabListThunk();
+    setIncomeSlabList(res?.data);
   }
 
   const getUserProfileData = () => {
-
     let objUserDetails = g_profileData?.userdetails;
     if (!g_profileData?.userdetails) {
       return;
@@ -440,15 +356,7 @@ const EditprofileCard = () => {
     getCityList(objUserDetails?.state_id, false);
     getCityList(objUserDetails?.placeofbirthstate_id, true);
 
-    // let date = moment(objUserDetails?.dateofbirth).format('DD/MM/YYYY');
-    // let date = moment(objUserDetails?.dateofbirth, true).format('YYYY-MM-DD');
-    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-")?.join("/") : "";
-    // let date = objUserDetails?.dateofbirth ? objUserDetails?.dateofbirth?.split("-") : "";
-
-    // let date = objUserDetails?.dateofbirth;
-
     let date: string | undefined = formatDate(objUserDetails?.dateofbirth);
-    console.log(date, "getuserprofile()");
 
     setFormData((prev: formDataProps) => ({
       ...prev,
@@ -492,8 +400,24 @@ const EditprofileCard = () => {
     if (formData.pincode) {
       if (formData.pincode.length < 7 && formData.pincode.length > 0) {
         console.log("formData.pincode < 6")
-        bFlag = false;
-        await validatePincodeThroughAPI(formData.pincode);
+        let res: apiResponse = await getPincodeListThunk(formData.pincode);
+
+        if (res?.error) {
+          return bFlag;
+        }
+
+        let objCityData: { city_id: number, city: string } = res?.data[0];
+
+        if (formData.city_id === objCityData?.city_id) {
+          bFlag = false;
+        } else {
+          bFlag = true;
+        }
+
+        setValidateInputs((prev: validateInputsProps) => ({
+          ...prev,
+          "pincode": bFlag
+        }))
       } else {
         console.log("formData.pincode > 6")
         bFlag = true;
@@ -508,35 +432,6 @@ const EditprofileCard = () => {
     }
 
     return bFlag;
-  }
-
-  const validatePincodeThroughAPI = async (strPincode: string) => {
-    getData(
-      siteConfig.METADATA_PINCODE_LIST + `?search=${strPincode}`,
-      siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
-      siteConfig.METADATA_API_ID
-    )
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data?.error) {
-          return;
-        }
-        let objCityData: { city_id: number, city: string } = data?.data[0];
-        let bFlag: boolean = false;
-        if (formData.city_id === objCityData?.city_id) {
-          bFlag = false;
-        } else {
-          bFlag = true;
-        }
-
-        setValidateInputs((prev: validateInputsProps) => ({
-          ...prev,
-          "pincode": bFlag
-        }))
-      })
-      .catch(err => {
-        console.log(err);
-      })
   }
 
   const handleBlur = (e: any) => {
@@ -591,22 +486,7 @@ const EditprofileCard = () => {
       ...prev,
       ...objValidateInputs
     }))
-    // arrFormDataKeys.forEach((key: string, index: number) => {
-    //   if (key !== "middlename") {
-    //     // @ts-ignore
-    //     if (!formData[key]) {
-    //       throwError = true;
-    //     } else {
-    //       throwError = false
-    //     }
-    //   }
 
-    //   setValidateInputs(prev => ({
-    //     ...prev,
-    //     [key]: throwError
-    //   }))
-    // })
-    // isAllFieldsValidated(validateInputs);
     return objValidateInputs;
   }
 
@@ -731,7 +611,14 @@ const EditprofileCard = () => {
                       fullWidth
                       error={validateInputs?.firstname}
                       id='First Name'
-
+                      inputProps={
+                        {
+                          readOnly: isReadOnly,
+                          sx: {
+                            color: isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+                          }
+                        }
+                      }
                       sx={{
                         color: "rgba(0, 0, 0, 0.6)",
                         // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -768,9 +655,16 @@ const EditprofileCard = () => {
                   onBlur={handleBlur}
                   value={formData?.lastname}
                   onChange={handlechange}
+                  inputProps={
+                    {
+                      readOnly: isReadOnly,
+                      sx: {
+                        color: isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+                      }
+                    }
+                  }
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
-                    //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
                     width: "100%", fontSize: "15px",
                     fontWeight: "normal",
                   }}
@@ -786,6 +680,14 @@ const EditprofileCard = () => {
                   value={numberForView}
                   onChange={handlechange}
                   fullWidth
+                  inputProps={
+                    {
+                      readOnly: isReadOnly,
+                      sx: {
+                        color: isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+                      }
+                    }
+                  }
                   sx={{
                     color: "rgba(0, 0, 0, 0.6)",
                     //  boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)",
@@ -829,6 +731,7 @@ const EditprofileCard = () => {
                         valueKey={'country_id'}
                         options={countryList}
                         inpurLabelValue={"Country of birth *"}
+                        isReadOnly={true}
                         inputLabelSX={{
                           color: "rgba(0, 0, 0, 0.6)",
                           fontSize: "15px",
@@ -1022,6 +925,14 @@ const EditprofileCard = () => {
                       name="dateofbirth"
                       label="Date of Birth"
                       // placeholder="DD-MM-YYYY"
+                      // inputProps={
+                      //   {
+                      //     readOnly: isReadOnly,
+                      //     sx: {
+                      //       color: isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+                      //     }
+                      //   }
+                      // }
                       sx={{
                         color: "#919eb1",
                         fontSize: "17px",
@@ -1161,6 +1072,14 @@ const EditprofileCard = () => {
 
                           // handlePincodeLengthValidation();
                         }}
+                        // inputProps={
+                        //   {
+                        //     readOnly: isReadOnly,
+                        //     sx: {
+                        //       color: isReadOnly ? "var(--uiDarkGreyColor)" : "var(--gradientColorBlack)"
+                        //     }
+                        //   }
+                        // }
                         fullWidth
                         error={validateInputs?.pincode}
                         className="pincodestayle"
@@ -1253,8 +1172,3 @@ const EditprofileCard = () => {
 }
 
 export default EditprofileCard
-
-function g_viewProfilecommon() {
-  throw new Error('Function not implemented.');
-}
-
