@@ -536,7 +536,8 @@ const InitiateSip = (props: IProps) => {
           return;
         }
         // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
-        localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        // localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
         navigate(path);
       }).catch(err => {
 
