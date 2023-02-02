@@ -312,7 +312,22 @@ const CustomizeMF = () => {
     }
   }
 
-  const handleNavigation = (strRoute: string) => {
+  // const handleNavigation = (strRoute: string) => {
+  //   navigate(strRoute);
+  // }
+
+  const handleNavigation = (strRoute: string, type?: string) => {
+    console.log(strRoute, type, "handleNavigation()")
+    if (type) {
+      navigate(strRoute, {
+        state: {
+          cardType: type
+        }
+      });
+
+      return;
+    }
+
     navigate(strRoute);
   }
 
@@ -447,7 +462,7 @@ const CustomizeMF = () => {
                   }}
                 >
                   <Link href="/home">Home</Link>
-                  <Link
+                  {/* <Link
                     onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                   >
                     Investment
@@ -455,6 +470,19 @@ const CustomizeMF = () => {
                   <Link
                     onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
 
+                  >
+                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                  </Link> */}
+
+
+
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
+                  >
+                    Investment
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
                   >
                     {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                   </Link>

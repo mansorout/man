@@ -376,11 +376,14 @@ function InvestNowScreen(props: IProps) {
   }
 
   const handleOnChangeAmount = (e: any) => {
-    let { value } = e?.target;
+    let { value }:any = e?.target;
     
+    // if(typeof value == "string") return;
+
     if(value && value.length){
-      value = parseInt(value)
-      if(value < 0) return;
+      value = parseInt(value);
+      if (!value)return; //for handling NaN value
+      if(value < 0) return; // for handling less than zero amount
       setAmount(value);
       
     }else{
@@ -392,7 +395,7 @@ function InvestNowScreen(props: IProps) {
     //check input number is multiple of 100 or not!
     if (!isMultipleofNumber(value, 100)) { 
       setError("Amount should be multiple of 100.")
-      handleTimer(getExpectedFundReturnList, 0);
+      handleTimer(getExpectedFundReturnList, value);
       return;
     }
     
@@ -593,12 +596,12 @@ function InvestNowScreen(props: IProps) {
                             <TextField
                               label="I want to invest"
                               name="middleName"
-                              type="number"
+                              type="tel"
                               fullWidth
                               InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,
                               }}
-                              placeholder="1,00,000"
+                              placeholder="50,000"
                               // name="amount"
                               // value={amount || amountMutipleofH}
                               // value={amount || amountMutipleofH || numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}

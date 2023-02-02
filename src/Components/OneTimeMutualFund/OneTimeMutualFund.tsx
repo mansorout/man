@@ -198,7 +198,7 @@ const useStyles: any = makeStyles((theme: any) => ({
     "&:hover": {
       backgroundColor: "#00b4ff !important",
     },
-  
+
 
   },
   myBtn: {
@@ -218,15 +218,15 @@ const style = {
     // height: "100vh",
   } as React.CSSProperties,
   button: {
-  
+
     boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#23db7b",
     color: "#fff",
-  
-   
-      height: "48px",
-   
-      width: 350,
+
+
+    height: "48px",
+
+    width: 350,
 
     marginTop: "21",
     marginLeft: "-1px",
@@ -334,7 +334,18 @@ const OneTimeMutualFund = () => {
     }
   }
 
-  const handleNavigation = (strRoute: string) => {
+  const handleNavigation = (strRoute: string, type?: string) => {
+    console.log(strRoute, type, "handleNavigation()")
+    if (type) {
+      navigate(strRoute, {
+        state: {
+          cardType: type
+        }
+      });
+
+      return;
+    }
+
     navigate(strRoute);
   }
 
@@ -526,13 +537,12 @@ const OneTimeMutualFund = () => {
                 >
                   <Link href="/home">Home</Link>
                   <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
                   >
                     Investment
                   </Link>
                   <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
-
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
                   >
                     {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                   </Link>

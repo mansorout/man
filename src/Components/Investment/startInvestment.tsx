@@ -467,7 +467,7 @@ const StartInvestment = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link underline="always" style={{ color: "grey" }}>
+                    <Link underline="none" style={{ color: "grey" }}>
                       <Typography className='burgerText'>Investment</Typography>
                     </Link>
                   </Breadcrumbs>
