@@ -179,10 +179,18 @@ const CustomizeMF = () => {
   const [sipStartDay, setSipStartDay] = useState<string>("");
   const [activeScreen, setActiveScreen] = useState<number>(enumActiveScreen.CLOSE_MODAL);
 
-
   //@ts-ignore
-  const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
+  // const userAmount: number = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT)) : 0 }, []);
   const strCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
+  
+  // @ts-ignore
+  const userAmount: number = useMemo(() => {
+    if (strCardType === globalConstant.LUMPSUM_INVESTMENT) {
+      return localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.INVESTMENT_USER_AMOUNT) || '{}') : 0
+    } else {
+      return localStorage.getItem(siteConfig.SIP_USER_AMOUNT) ? parseInt(localStorage.getItem(siteConfig.SIP_USER_AMOUNT) || '{}') : 0
+    }
+  }, []);
 
   useEffect(() => {
     if (!g_investment?.type) {
@@ -277,6 +285,7 @@ const CustomizeMF = () => {
   }
 
   const handleResponse = async () => {
+    // let data: apiResponse = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
     let data: apiResponse = await getMutualFundListWrtUserAmountThunk(userAmount, strCardType === globalConstant.LUMPSUM_INVESTMENT ? 11 : 12, initialMFData)
     if (checkExpirationOfToken(data?.code)) {
       dispatch(setTokenExpiredStatusAction(true));
@@ -312,7 +321,22 @@ const CustomizeMF = () => {
     }
   }
 
-  const handleNavigation = (strRoute: string) => {
+  // const handleNavigation = (strRoute: string) => {
+  //   navigate(strRoute);
+  // }
+
+  const handleNavigation = (strRoute: string, type?: string) => {
+    console.log(strRoute, type, "handleNavigation()")
+    if (type) {
+      navigate(strRoute, {
+        state: {
+          cardType: type
+        }
+      });
+
+      return;
+    }
+
     navigate(strRoute);
   }
 
@@ -343,7 +367,6 @@ const CustomizeMF = () => {
     if (mfCards && mfCards.length) {
       let arrAmount: number[] = mfCards.map((item: any) => item?.recommendedamount);
       totalAmount = arrAmount.reduce((p, n) => p + n);
-      console.log(totalAmount, "totalAmount")
       return ` ${totalAmount}`;
     }
   }
@@ -447,7 +470,7 @@ const CustomizeMF = () => {
                   }}
                 >
                   <Link href="/home">Home</Link>
-                  <Link
+                  {/* <Link
                     onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                   >
                     Investment
@@ -455,6 +478,19 @@ const CustomizeMF = () => {
                   <Link
                     onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
 
+                  >
+                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                  </Link> */}
+
+
+
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
+                  >
+                    Investment
+                  </Link>
+                  <Link
+                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
                   >
                     {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                   </Link>
@@ -525,14 +561,14 @@ const CustomizeMF = () => {
                     // onClick={() => navigate("/addfunds")}
                     onClick={() => navigate('/explorefunds', { state: { status: globalConstant.CEF_ADD_FUND, parentRoute: "/explorefunds" } })}
                     sx={{
-                      width:{xs:"100px", sm:"200px"},
+                      width: { xs: "100px", sm: "200px" },
                       height: "38px",
-                      padding:{xs:"7px 3px", sm:'11px 36px'},
+                      padding: { xs: "7px 3px", sm: '11px 36px' },
                       borderRadius: "8px",
                       border: "solid 1px #23db7b",
                       backgroundColor: "#dff7ea",
                       textTransform: "capitalize",
-                      fontSize: {xs:"11px", sm:'14px'},
+                      fontSize: { xs: "11px", sm: '14px' },
                       fontWeight: 500,
                       color: "#09b85d",
                     }}

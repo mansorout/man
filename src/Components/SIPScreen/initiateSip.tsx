@@ -65,11 +65,11 @@ const useStyles: any = makeStyles((theme: Theme) => ({
   },
   actibeBtn: {
     "&:focus": {
-      color:"#fff",
+      color: "#fff",
       backgroundColor: "rgb(111 121 239 / 40%) !important",
     },
     "&:hover": {
-      color:"#fff",
+      color: "#fff",
       backgroundColor: "rgb(111 121 239 / 40%) !important",
     },
   },
@@ -247,7 +247,8 @@ const arrPriceList = [1000, 5000, 10000];
 
 
 const enumDefaultAmount = {
-  INVESTED_VALUE: 1000
+  // INVESTED_VALUE: 1000
+  INVESTED_VALUE: 5000
 }
 
 
@@ -273,9 +274,6 @@ const InitiateSip = (props: IProps) => {
   const [activePriceAmount, setActivePriceAmount] = useState<string>(enumPriceList.ZERO);
   const [expectedReturns, setExpectedReturns] = useState<expectedReturnProps[]>([initialExpectedReturns]);
   const [chartActiveIndex, setChartActiveIndex] = useState(2)
-  
-
-  
 
   const filterChartData = (arr: any[]) => {
     return arr.filter((item: expectedReturnProps) =>
@@ -289,27 +287,13 @@ const InitiateSip = (props: IProps) => {
   const chartDataDetails: any = useMemo(() => {
 
     const tempInitialVal = expectedReturns.filter((item: any) => item?.years === 5)[0];
-    console.log("tempInitialVal ", tempInitialVal, tempInitialVal?.investedvalue)
     setInvestedValue(tempInitialVal?.investedvalue)
     setProjectedValue(tempInitialVal?.projectedvalue)
-
     return {
       labels: filterChartData(expectedReturns).map((item => item['years'])), //x
       datasets: [
-        // {
-        //   label: "Invested Value",
-        //   data: expectedReturns.map((item: expectedReturnProps) => item["investedvalue"]),
-        //   fill: true,
-        //   borderColor: "#742774"
-        // },
         {
           label: "Projected Value",
-          // data: expectedReturns.filter((item: expectedReturnProps) =>
-          //   item?.years < 5 ?
-          //     item?.years % 2 !== 0
-          //     :
-          //     item?.years % 5 === 0
-          // ).map((item) => item["projectedvalue"]),
           data: filterChartData(expectedReturns).map((item) => item["projectedvalue"]),
           fill: true,
           borderColor: "#742774"
@@ -341,11 +325,37 @@ const InitiateSip = (props: IProps) => {
     })
   }
 
-  const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+  // const handleActivePriceAmount = (strAmount: string, nAmount: number) => {
+  //   setActivePriceAmount(strAmount);
+  //   setAmount((prev: number) => prev + nAmount);
+  //   let val = amount + nAmount;
+  //   handleTimer(getExpectedFundReturnList, val);
+  // }
+
+  const handleActivePriceAmount = async (strAmount: string, nAmount: number) => {
+    setError("");
     setActivePriceAmount(strAmount);
-    setAmount((prev: number) => prev + nAmount);
+    setAmount((prev: any) => {
+      console.log(prev);
+      let val: number = 0;
+      if (prev) {
+        val = parseInt(prev) + nAmount;
+
+        if (!isMultipleofNumber(val, 100)) {
+          setError("Amount should be multiple of 100.");
+          handleTimer(getExpectedFundReturnList, 0);
+          return val;
+        }
+
+        handleTimer(getExpectedFundReturnList, val);
+        return val;
+      }
+
+      handleTimer(getExpectedFundReturnList, nAmount);
+      return nAmount;
+    }
+    );
     let val = amount + nAmount;
-    handleTimer(getExpectedFundReturnList, val);
   }
 
   const handleTimer = (cb: any | void, a: any) => {
@@ -355,23 +365,56 @@ const InitiateSip = (props: IProps) => {
     }, 200);
   }
 
+  // const handleOnChangeAmount = (e: any) => {
+  //   let { value } = e?.target;
+
+  //   setAmount(value && value.length ? parseInt(value) : null);
+
+  //   // if (amount  > arrPriceList[0] - 1) {
+  //   //   setError("Amount should be more than ₹5000");
+  //   //   return;
+  //   // }
+
+  //   if (!isMultipleofNumber(value, 100)) {
+  //     setError("Amount should be multiple of 100.")
+  //   }
+  //   else {
+  //     setError("");
+  //     handleTimer(getExpectedFundReturnList, value);
+  //   }
+  // }
+
   const handleOnChangeAmount = (e: any) => {
     let { value } = e?.target;
 
-    setAmount(value && value.length ? parseInt(value) : null);
+    if (value && value.length) {
+      value = parseInt(value)
+      if (!value) return; //for handling NaN value
+      if (value < 0) return; // for handling less than zero amountð
+      setAmount(value);
 
-    // if (amount  > arrPriceList[0] - 1) {
-    //   setError("Amount should be more than ₹5000");
-    //   return;
-    // }
+    } else {
+      value = 0;
+      setAmount("");
+    }
 
+    //check input number is multiple of 100 or not!
     if (!isMultipleofNumber(value, 100)) {
-      setError("Amount should be multiple of 100.")
-    }
-    else {
-      setError("");
+      setError("Amount should be multiple of 100.");
       handleTimer(getExpectedFundReturnList, value);
+      return;
     }
+
+    //get graph data from api wrt input amount!
+    handleTimer(getExpectedFundReturnList, value);
+
+    //check that input amount is less than 5000 for lumpsum!
+    if (value < 1000) {
+      setError("Amount should not be less than 1000!");
+      return;
+    }
+
+    setError("");
   }
 
   const getExpectedFundReturnList = (amount: number) => {
@@ -403,73 +446,63 @@ const InitiateSip = (props: IProps) => {
       });
   }
 
-  
-const chartOptions = {
-  responsive: true,
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: true //this will remove only the label
-    }
-    },
-    y: {
-      border: {
-        color: '#fff'
-      },
-      grid: {
-        display: false,
-      },
-      ticks: {
-        display: false //this will remove only the label
-    },
-    gridLines: {
-      display: false,
-      drawBorder: false,
-    },
-    // 'dataset.maxBarThickness': 5,
-    },
-  },
-  interaction: {
-    mode: 'nearest'
-  },
-  elements: {
-    point: {
-      radius : customRadius,
-      display: true
-    }
-  },
-  plugins: {
-    legend: {
-      position: 'bottom' as const,
-      display: true,
-    },
-    title: {
-      display: true,
-      // text: 'Chart.js Line Chart',
-    },
-  },
-};
 
-function customRadius( context:any )
-{
-  // debugger
-  let index = context.dataIndex;
-  let value = context.dataset.data[ index ];
-  // return index === 3 || value >= 8 ? 10 : 2;
-  console.log("customRadius :", index, value)
-  return index === chartActiveIndex ? 10 : 4;
-}
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: true //this will remove only the label
+        }
+      },
+      y: {
+        border: {
+          color: '#fff'
+        },
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: false //this will remove only the label
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false,
+        },
+        // 'dataset.maxBarThickness': 5,
+      },
+    },
+    interaction: {
+      mode: 'nearest'
+    },
+    elements: {
+      point: {
+        radius: customRadius,
+        display: true
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        display: true,
+      },
+      title: {
+        display: true,
+        // text: 'Chart.js Line Chart',
+      },
+    },
+  };
 
-
-  const getExactPriceWithTag = (price: number) => {
-    if (!price) return "";
-    if (price > 999 && price < 100000) return price + " " + enumPriceTag.THOUSAND;
-    else if (price > 100000 && price < 10000000) return price + " " + enumPriceTag.LAC;
-    else if (price > 10000000 && price < 100000000000000) return price + " " + enumPriceTag.CRORE;
-    else return price;
+  function customRadius(context: any) {
+    // debugger
+    let index = context.dataIndex;
+    let value = context.dataset.data[index];
+    // return index === 3 || value >= 8 ? 10 : 2;
+    // console.log("customRadius :", index, value)
+    return index === chartActiveIndex ? 10 : 4;
   }
 
   const saveMutualFundGenerate = (id: number, path: string) => {
@@ -478,10 +511,11 @@ function customRadius( context:any )
       return;
     }
 
-    if (amount < 1000) {
-      setError("Amount should be more than 1000!");
-      return;
-    }
+    // if (amount < 1000) {
+    //   setError("Amount should be more than 1000!");
+    //   return;
+    // }
+
     if (error && error.length) {
       return;
     }
@@ -502,14 +536,14 @@ function customRadius( context:any )
           return;
         }
         // localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
-        localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        // localStorage.setItem(siteConfig.SIP_USER_AMOUNT, amount?.toString());
+        localStorage.setItem(siteConfig.INVESTMENT_USER_AMOUNT, amount?.toString());
         navigate(path);
       }).catch(err => {
 
         console.log(err);
       })
   }
-
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -550,7 +584,7 @@ function customRadius( context:any )
               <Box className="BoxPadding" >
                 <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className="investWholeStyle">
                   <Grid item md={6} xs={12}>
-                    <Card sx={{ minWidth:{xs:"100%",sm:"275"}, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
+                    <Card sx={{ minWidth: { xs: "100%", sm: "275" }, borderRadius: "8px", boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.12)", backgroundColor: "#ffffff" }}
                       className="InvestStylepadview">
                       <CardContent>
                         <Stack m={2} spacing={6}>
@@ -570,6 +604,7 @@ function customRadius( context:any )
                             <TextField
                               label="I want to invest"
                               name="middleName"
+                              type="number"
                               fullWidth
                               InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,
@@ -750,7 +785,8 @@ function customRadius( context:any )
                             <b style={{ color: " #3c3e42", fontSize: "20px" }}>
                               {/* ₹{numDifferentiation(amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0)} kp */}
                               {/* ₹{amount > arrPriceList[0] - 1 ? numDifferentiation(amount) : 0} */}
-                              ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
+                              {/* ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)} */}
+                              ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : 0}
                             </b>
                           </Grid>
                           <Grid item xs={6} sx={{

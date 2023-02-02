@@ -199,7 +199,7 @@ const initialFilterIndexes: any[] = [
   {
     key: 'Sort',
     selectType: 'radio',
-    activeSortIndex:0,
+    activeSortIndex: 0,
     keyValues: [
       {
         value: 'return',
@@ -276,88 +276,32 @@ function ExploreFunds(props: any) {
 
   useEffect(() => {
     if (categoryGroupList && categoryGroupList.length) {
-
-      // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST);
-      // getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-
-
-      // const { data, isFundPurchased } = g_masterFundListForExploreFunds;
-      // if (isFundPurchased) {
-      //   getMasterFundList(siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${categoryGroupList[0]}`);
-      // } else {
-      //   if (data && data.length) {
-      //     setMasterFundList(data);
-      //   } else {
-      //   }
-      // }
-      console.log("categoryGroupList : ", categoryGroupList)
-      // return;
-
-
       let temp: any[] = [...filterIndexes];
       if (temp && temp?.length) {
-        // temp.map((item, index) => {
-        //   // if(item?.key === enumFilterIndexes?.SORT){
-        //   //   console.log("temp filter SORT :", temp[index])
-        //   //   temp[index].activeSortIndex = activeSortIndex;
-        //   // }
-
-        //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
-        //     console.log("temp filter :", temp[index]?.keyValues)
-        //     temp[index].keyValues = categoryGroupList;
-        //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
-        //   }
-        // })
-
         temp[enumIndexesOfFilterType.FUND_TYPE]["keyValues"] = categoryGroupList;
         temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
-
         setFilterIndexes(temp);
       }
-
-      // console.log("temp filter changed :", temp)
     }
   }, [categoryGroupList]);
 
   useEffect(() => {
     const temp = [...filterIndexes]
     if (temp && temp?.length) {
-      // temp.map((item, index) => {
-      //   if (item?.key === enumFilterIndexes?.FUND_TYPE) {
-      //     temp[index].activeCategoryIndex = activeCategoryGroupIndex;
-      //   }
-      // })
       temp[enumIndexesOfFilterType.SORT]['activeSortIndex'] = activeSortIndex;
       temp[enumIndexesOfFilterType.FUND_TYPE]["activeCategoryIndex"] = activeCategoryGroupIndex;
-
     }
-
     setFilterIndexes(temp);
   }, [activeCategoryGroupIndex]);
 
   useEffect(() => {
     const temp = [...filterIndexes];
-
-    // temp && temp?.length &&
-    //   temp.map((item, index) => {
-    //     if (item?.key === enumFilterIndexes?.FUND_HOUSE) {
-    //       temp[index].keyValues = fundProviderList;
-    //       temp[index].keyValues.unshift({
-    //         providerid: "0",
-    //         providername: "All"
-    //       })
-    //       setFilterIndexes(temp)
-    //       console.log("temp filter FUND_HOUSE:", temp[index]?.keyValues)
-    //     }
-    //   })
-
     if (temp && temp?.length) {
       temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"] = fundProviderList;
       temp[enumIndexesOfFilterType.FUND_HOUSE]["keyValues"].unshift({
         providerid: "0",
         providername: "All"
       })
-
       setFilterIndexes(temp)
     }
   }, [fundProviderList]);
@@ -365,16 +309,6 @@ function ExploreFunds(props: any) {
   useEffect(() => {
     handlingFeatureWiseCard(masterFundList);
   }, [masterFundList]);
-
-  useEffect(() => {
-    if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND) {
-      let { data } = g_masterFundListForExploreFunds;
-      // setFundSelecteds(p => [...p, data]);
-      // filteringDataWrtSelectedFunds(data, variableMasterFundList);
-
-    }
-  }, [g_masterFundListForExploreFunds, activeCategoryGroupIndex])
-
 
   /** Getting Provider and Categorygroup list for getting fund list according to them */
   const getCategoryGroupList = async () => {
@@ -391,10 +325,6 @@ function ExploreFunds(props: any) {
     response.data = [...response.data];
     // @ts-ignore
     handleApiResponse(response, [setFundProviderList]);
-
-    // response.data = [...response.data];
-    // @ts-ignore
-    // handleApiResponse(response, [setFundProviderList]);
     return response;
   };
   /***************************************************************************************/
@@ -467,11 +397,6 @@ function ExploreFunds(props: any) {
       setVariableMasterFundList(arrRecom);
       return;
     }
-
-    // if (initialMFData) {//this state use to avoid adding or updating isChecked key in initialMFData
-    //   setVariableMasterFundList(arrRecom);
-    //   return;
-    // }
 
     if (arrRecom && arrRecom.length) {
 
@@ -550,8 +475,6 @@ function ExploreFunds(props: any) {
 
   /**This function handles adding and replacing functionality*/
   const handleAddFundsSelection = (secid: number, isChecked: any, elt: string, index: number) => {
-
-    // let arrMasterFundList: any[] = [...masterFundList];
     let arrMasterFundList: any[] = [...variableMasterFundList];
     if (status === globalConstant.CEF_EXPLORE_FUND || status === globalConstant.CEF_ADD_FUND || status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
       //explore fund and add fund of investment
@@ -565,15 +488,6 @@ function ExploreFunds(props: any) {
         arrMasterFundList[index]["fundSelected"] = false;
         arrFundSelected.splice(arrMasterFundList[index], 1);
       }
-
-      // let arrNew: any[] = [...fundSelecteds, ...arrMasterFundList.filter(item => item["fundSelected"] === true)];
-      // let arrNew: any[] = [...fundSelecteds, arrMasterFundList.filter(item => item["fundSelected"] === true)];
-      // let arrNew: any[] = arrMasterFundList.filter(item => item["fundSelected"] === true);
-
-
-      // let arrFundSelected: any[] = [fundSelecteds.concat(arrNew)];
-      // let arrFundSelected: any[] = [...fundSelecteds, arrNew];
-      console.log(arrFundSelected, "arrFundSelected concate")
 
       if (status === globalConstant.CEF_EXPLORE_FUND) {
         dispatch(setMasterFundListForExploreFundsAction(arrFundSelected));
@@ -605,15 +519,10 @@ function ExploreFunds(props: any) {
         return item;
       });
 
-
       setFundSelecteds([objFundListSelectedItem]);
-      // setAddAllFunds([objFundListSelectedItem])
       setVariableMasterFundList(arrSelectedFundList);
       setInitialMFData(true);
     } else {
-      //replace of explore fund
-
-
     }
   };
   /***************************************************************************************/
@@ -631,7 +540,6 @@ function ExploreFunds(props: any) {
       let arrFiltered: any[] = arrMasterFundList.filter((item: any) => item?.fundname?.toLowerCase().includes(value?.toLowerCase()));
 
       if (arrFiltered && arrFiltered.length) {
-        // handlingFeatureWiseCard(arrFiltered);
         setVariableMasterFundList(arrFiltered)
       } else {
         setVariableMasterFundList([]);
@@ -707,31 +615,31 @@ function ExploreFunds(props: any) {
     if (tempIndex < 0 || tempIndex === -1) return;
 
     // let tempSortIndex = filterIndexes[enumIndexesOfFilterType.SORT]?.keyValues.filter((item: any) => item.value === data?.Sort)
-    let tempSortIndex = filterIndexes[enumIndexesOfFilterType.SORT]?.keyValues.findIndex((obj:any) => obj.value === data.Sort)
+    let tempSortIndex = filterIndexes[enumIndexesOfFilterType.SORT]?.keyValues.findIndex((obj: any) => obj.value === data.Sort)
     setActiveSortIndex(tempSortIndex)
     console.log('tempSortIndex :', tempSortIndex)
     // const sortedItem = filterIndexes[0].keyValues.filter((item:any) =>{
-      //   if(item.value === data[enumFilterIndexes.SORT]){
-        //   return filterIndexes[0].keyValues
-        //   }
-        // })  
-        // const tempSortIndex = filterIndexes[0].keyValues.findIndex((x:any) => x.value === data[enumFilterIndexes.SORT])
-        // setActiveSortIndex(tempSortIndex);
-        // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
-        // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
-          //   url += item + ',' 
-          // })
-          // const tempUrl: any = await urlWithFilter(data, -1);
-          
-          // if (tempIndex !== 0 || tempIndex === activeCategoryGroupIndex) {
-            //   console.log("active index are same")
-            //   return;
-            // }
-            
-            
-    if(activeCategoryGroupIndex !== tempIndex ) setActiveCategoryGroupIndex(tempIndex);
+    //   if(item.value === data[enumFilterIndexes.SORT]){
+    //   return filterIndexes[0].keyValues
+    //   }
+    // })  
+    // const tempSortIndex = filterIndexes[0].keyValues.findIndex((x:any) => x.value === data[enumFilterIndexes.SORT])
+    // setActiveSortIndex(tempSortIndex);
+    // var url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${data[enumFilterIndexes.FUND_TYPE]}&orderon=${data[enumFilterIndexes.SORT]}&providerids=`;
+    // data[enumFilterIndexes.FUND_HOUSE].map((item: string) => {
+    //   url += item + ',' 
+    // })
+    // const tempUrl: any = await urlWithFilter(data, -1);
+
+    // if (tempIndex !== 0 || tempIndex === activeCategoryGroupIndex) {
+    //   console.log("active index are same")
+    //   return;
+    // }
+
+
+    if (activeCategoryGroupIndex !== tempIndex) setActiveCategoryGroupIndex(tempIndex);
     setFilterValues(data)
-    if(activeCategoryGroupIndex === tempIndex){
+    if (activeCategoryGroupIndex === tempIndex) {
       const tempUrl: any = await urlWithFilter(data, tempIndex);
       if (tempUrl) {
         getMasterFundList(tempUrl);
@@ -758,9 +666,24 @@ function ExploreFunds(props: any) {
   };
   /***************************************************************************************/
 
-  const handleNavigation = (strRoute: string) => {
+  // const handleNavigation = (strRoute: string) => {
+  //   navigate(strRoute);
+  // };
+
+  const handleNavigation = (strRoute: string, type?: string) => {
+    console.log(strRoute, type, "handleNavigation()")
+    if (type) {
+      navigate(strRoute, {
+        state: {
+          cardType: type
+        }
+      });
+
+      return;
+    }
+
     navigate(strRoute);
-  };
+  }
 
   return (
     <Box style={{ width: "100vw" }} ref={refContainer}>
@@ -790,7 +713,7 @@ function ExploreFunds(props: any) {
                             }}
                           >
                             <Link onClick={() => handleNavigation("/home")}>Home</Link>
-                            <Link
+                            {/* <Link
                               onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
                             >
                               Investment
@@ -798,6 +721,18 @@ function ExploreFunds(props: any) {
                             <Link
                               onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
 
+                            >
+                              {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                            </Link> */}
+
+
+                            <Link
+                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
+                            >
+                              Investment
+                            </Link>
+                            <Link
+                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
                             >
                               {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
                             </Link>
@@ -954,11 +889,7 @@ function ExploreFunds(props: any) {
                                     key={index}
                                     onClick={async () => {
                                       if (activeCategoryGroupIndex === index) return;
-
-                                      // let url = siteConfig.RECOMMENDATION_FUND_LIST + `?categorygroup=${item}`;
                                       setActiveCategoryGroupIndex(index);
-                                      // let url: any = await urlWithFilter(filterValues, index)
-                                      // setFundSelecteds([]);
                                       setInitialMFData(false);
                                       setIsInitialVariableFundListFetched(false);
                                       // getMasterFundList(url);
@@ -988,8 +919,6 @@ function ExploreFunds(props: any) {
                         </Box>
                       </Box>
                     </Box>
-
-                    {/* {console.log("variableMasterFundList :", variableMasterFundList)} */}
                     {
                       variableMasterFundList &&
                         variableMasterFundList.length ?
@@ -1018,8 +947,6 @@ function ExploreFunds(props: any) {
                           </Grid>
                         </>
                     }
-
-
                   </Box>
                 </Box>
               </Grid>
@@ -1050,14 +977,7 @@ function ExploreFunds(props: any) {
                           dispatch(setMasterFundListForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
                         } else if (status === globalConstant.CEF_ADD_FUND) {
-
-                          // setSelctedFundDialog(true);
-                          // dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
-                          setAddFundOpen(true)
-                          // console.log(addAllFunds)
-
-
-                          // navigate("/customizemf");
+                          setAddFundOpen(true);
                         } else if (status === globalConstant.CEF_ADD_FUND_OF_EXPLORE_FUND) {
                           dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
                           navigate("/selectedfunds");
@@ -1089,6 +1009,8 @@ export default ExploreFunds;
 const SelectedFundsDialog = (props: any) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
 
   const [error, setError] = React.useState<any>("");
   const [addAllFunds, setAddAllFunds] = useState<any[]>([]);
@@ -1105,9 +1027,6 @@ const SelectedFundsDialog = (props: any) => {
     let arrFundSelecteds: any[] = [...props?.fundSelecteds]
     if (arrFundSelecteds && arrFundSelecteds.length) {
       let arrNew: any[] = [];
-      // if (bFlag) {
-      //   arrNew = [...arrFundSelecteds];
-      // }
       arrNew = arrFundSelecteds.map((item: any) => {
         return {
           ...item,
@@ -1116,37 +1035,48 @@ const SelectedFundsDialog = (props: any) => {
         }
       })
 
-      console.log(arrNew, "arrNew");
-      // setBFlag(true);
       setAddAllFunds(arrNew);
     }
   }, [props?.fundSelecteds])
-
 
   const handleOnChangeFunAddFund = (e: any, key: any, index: number) => {
     let arrAddAllFunds: any[] = [...addAllFunds];
 
     arrAddAllFunds[index]["ErrorMsg"] = "";
+
     setError("");
 
-    let { value } = e?.target
+    let { value } = e?.target;
 
-    value = parseInt(value);
+    if (value && value.length) {
+      value = parseInt(value)
+      if (!value) return; //for handling NaN value
+      if (value < 0) return; // for handling less than zero amountð
+      arrAddAllFunds[index]["userRecommendedAmount"] = value;
 
-    if (value < 0) return;
-
-    arrAddAllFunds[index]["userRecommendedAmount"] = value;
-
+    } else {
+      value = 0;
+      arrAddAllFunds[index]["userRecommendedAmount"] = "";
+    }
 
     if (!isMultipleofNumber(parseInt(value), 100)) {
       arrAddAllFunds[index]["ErrorMsg"] = "Amount should be multiple of 100";
-      // setIsShouldBuyFundEnable(false);
-    } else {
-      // setIsShouldBuyFundEnable(true);
-      arrAddAllFunds[index]["ErrorMsg"] = "";
+      return;
     }
 
+    if (investmentCardType === globalConstant.LUMPSUM_INVESTMENT &&  value < arrAddAllFunds[index]["lumpsumminamount"]){
+      arrAddAllFunds[index]["ErrorMsg"] = `Minimum investment amount is ₹${arrAddAllFunds[index]["lumpsumminamount"]}`;
+      return;
+    }
+
+    if (investmentCardType === globalConstant.SIP_INVESTMENT &&  value < arrAddAllFunds[index]["sipminamount"]){
+      arrAddAllFunds[index]["ErrorMsg"] = `Minimum investment amount is ₹${arrAddAllFunds[index]["sipminamount"]}`;
+      return;
+    }
+
+    arrAddAllFunds[index]["ErrorMsg"] = "";
     setAddAllFunds(arrAddAllFunds);
+
   }
 
   const buyNow = () => {
@@ -1158,9 +1088,7 @@ const SelectedFundsDialog = (props: any) => {
       return;
     }
 
-    // if (!isShouldBuyFundEnable) {
     if (arrError && arrError.length) {
-      // setError("Please fill the amount which is multiple of 100!");
       return;
     }
 

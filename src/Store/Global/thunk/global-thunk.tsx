@@ -1,88 +1,74 @@
-import { getDataWithoutToken, postData } from "../../../Utils/api";
-import { checkExpirationOfToken } from "../../../Utils/globalFunctions";
+import { getData, getDataWithoutToken, postData } from "../../../Utils/api";
 import siteConfig from "../../../Utils/siteConfig";
-import { setTokenExpiredStatusAction } from "../../Authentication/actions/auth-actions";
-import { getCityListAction, getIncomeSlabListAction, getStateListAction } from "../actions/global-actions";
 
-export const getStateListThunk = () => {
-  return (dispatch: any) => {
-    getDataWithoutToken(
+export const getStateListThunk = async() => {
+  let res:any;
+    await getDataWithoutToken(
       siteConfig.METADATA_STATE_LIST,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.METADATA_API_ID,
     )
       .then(res => res.json())
       .then((data: any) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
-
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-
-        dispatch(getStateListAction(data?.data));
+        res = data;
       })
       .catch(err => {
         console.log(err);
       })
-  }
+  return res;
 }
 
-export const getCityListThunk = ({ id }: any) => {
-  return (dispatch: any) => {
-    getDataWithoutToken(
+export const getCityListThunk = async(id : any) => {
+  let res:any;  
+  await getDataWithoutToken(
       siteConfig.METADATA_CITY_LIST + `?state_id=${id}`,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.METADATA_API_ID,
     )
       .then(res => res.json())
       .then((data: any) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
-
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-
-        dispatch(getCityListAction(data?.data));
+        res = data;
       })
       .catch(err => {
         console.log(err);
       })
-  }
+  return res;
 }
 
-export const getIncomeSlabListThunk = () => {
-  return (dispatch: any) => {
-    getDataWithoutToken(
+export const getIncomeSlabListThunk = async() => {
+    let res:any ;
+    await getDataWithoutToken(
       siteConfig.METADATA_INCOMESLAB_LIST,
       siteConfig.CONTENT_TYPE_APPLICATION_JSON,
       siteConfig.METADATA_API_ID,
     )
       .then(res => res.json())
       .then((data: any) => {
-        if (checkExpirationOfToken(data?.code)) {
-          dispatch(setTokenExpiredStatusAction(true));
-          return;
-        }
-
-        if (data?.error) {
-          console.log("error ocuured")
-          return;
-        }
-        
-        dispatch(getIncomeSlabListAction(data?.data));
+        res=data;
       })
       .catch(err => {
         console.log(err);
       })
-  }
+      
+  return res;
+}
+
+export const getPincodeListThunk = async(strPincode:string)=>{
+  let res:any;
+  await getData(
+    siteConfig.METADATA_PINCODE_LIST + `?search=${strPincode}`,
+    siteConfig.CONTENT_TYPE_APPLICATION_X_WWW_FORM_URLENCODED,
+    siteConfig.METADATA_API_ID
+  )
+    .then(res => res.json())
+    .then((data: any) => {
+     res =data;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+    return res;
 }
 
 export const getDefaultList = async(strUrl:string)=>{
