@@ -604,7 +604,8 @@ const InitiateSip = (props: IProps) => {
                             <TextField
                               label="I want to invest"
                               name="middleName"
-                              type="number"
+                              // type="number"
+                              type="tel"
                               fullWidth
                               InputProps={{
                                 startAdornment: <CurrencyRupeeIcon className={classes.rupeesIcon} sx={{ fontSize: "16px" }} />,

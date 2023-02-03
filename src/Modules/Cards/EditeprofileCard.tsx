@@ -326,7 +326,7 @@ const EditprofileCard = () => {
     // setCountryList([...countryList]);
   }
 
-  const getStateList = async() => {
+  const getStateList = async () => {
     let res: apiResponse = await getStateListThunk();
     setStateList(res?.data);
   }
@@ -518,6 +518,7 @@ const EditprofileCard = () => {
     await isAllFieldsValidated(throwErrorOnWrongField)
       .then(async (r: any) => {
         if (r) return;
+        // if (invalidDOB) return;
         let objBody: formDataProps = { ...formData };
         if (regexValidate(emailRegex, 'emailaddress', formData.emailaddress)) {
           return;
@@ -947,11 +948,12 @@ const EditprofileCard = () => {
                       }}
                       onChange={(e: any) => {
                         if (underAgeValidate(e.target.value)) {
-                          setInvalidDOB(false);
+                          // setInvalidDOB(false);
                           handlechange(e);
-                        } else {
-                          setInvalidDOB(true);
-                        }
+                        } 
+                        // else {
+                        //   setInvalidDOB(true);
+                        // }
                       }}
                       InputLabelProps={{ shrink: true }}
                       defaultValue={formData?.dateofbirth}

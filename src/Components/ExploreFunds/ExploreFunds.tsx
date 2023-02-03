@@ -237,9 +237,21 @@ function ExploreFunds(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
 
+
+  const status: any = useMemo(() => { return location?.state?.status }, []);
+  const isELSSActive: any = useMemo(() => { return location?.state?.isELSSActive }, []);
+  const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
+
   const g_investment: any = useSelector((state: any) => state?.recommendationsReducer?.investment);
   const g_masterFundListForExploreFunds = useSelector((state: any) => state?.recommendationsReducer?.masterFundListForExploreFunds);
-  const g_mutaulFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
+  const g_mutaulFundListWrtUserAmount = useSelector((state: any) => {
+    if (isELSSActive) {
+      return state?.saveTaxReducer?.saveTaxListData;
+    }
+
+    return state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data;
+  });
+  // const g_mutaulFundListWrtUserAmount = useSelector((state: any) => state?.recommendationsReducer?.mutaulFundListWrtUserAmount?.data);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [filterValues, setFilterValues] = useState<any>({});
@@ -255,9 +267,8 @@ function ExploreFunds(props: any) {
   const [activeCategoryGroupIndex, setActiveCategoryGroupIndex] = useState<number>(0);
   const [activeSortIndex, setActiveSortIndex] = useState<number>(0)
   const [isInitialVariableFundListFetched, setIsInitialVariableFundListFetched] = useState<boolean>(false);
+  // const [isELSSActive, setIsELSSActive] = useState<any>(false);
 
-  const status: any = useMemo(() => { return location?.state?.status }, []);
-  const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
 
   useEffect(() => {
     initiate();
@@ -332,7 +343,7 @@ function ExploreFunds(props: any) {
   /**Below four functions are the backbone of explore funds, Features:- getting fund list data from API, modifying data according to the user selections */
   const getMasterFundList = async (url: string) => {
     setLoading(true);
-    let res: apiResponse = await getMasterFundListThunk(url);
+    let res: apiResponse = await getMasterFundListThunk(isELSSActive ? `${url}&category=ELSS` : url);
 
     setTimeout(() => {
       setLoading(false);
@@ -705,59 +716,104 @@ function ExploreFunds(props: any) {
                   <Box className="BoxExploreBottom">
                     {
                       status === globalConstant.CEF_REPLACE_FUND || status === globalConstant.CEF_ADD_FUND ?
-                        <Box className="exploreBreadCrumb">
-                          <Breadcrumbs
-                            sx={{
-                              fontSize: "12px",
-                              color: "#6c63ff",
-                            }}
-                          >
-                            <Link onClick={() => handleNavigation("/home")}>Home</Link>
-                            {/* <Link
-                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")}
-                            >
-                              Investment
-                            </Link>
-                            <Link
-                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")}
+                        <>
+                          {
+                            isELSSActive ?
+                              <>
+                                <Box className="exploreBreadCrumb">
+                                  <Breadcrumbs
+                                    sx={{
+                                      fontSize: "12px",
+                                      color: "#6c63ff",
+                                    }}
+                                  >
+                                    <Link onClick={() => handleNavigation("/home")}>Home</Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/saveTax")}
+                                    >
+                                      Save Tax
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/saveTax/saveTaxAmount")}
+                                    >
+                                      Amount
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/saveTax/saveTaxInvestmentType")}
+                                    >
+                                      Investment Type
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/saveTax/RecommendationsELSS")}
+                                    >
+                                      Recommendations ELSS
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/elss-customize-plan")}
+                                    >
+                                      Customize Plan
+                                    </Link>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "12px",
+                                        color: "#373e42",
+                                      }}
+                                    >
+                                      {
+                                        status === globalConstant.CEF_REPLACE_FUND ?
+                                          "Choose fund to Replace" : "Choose fund to Add"
+                                      }
+                                    </Typography>
+                                  </Breadcrumbs>
+                                </Box>
+                              </>
+                              :
+                              <>
+                                <Box className="exploreBreadCrumb">
+                                  <Breadcrumbs
+                                    sx={{
+                                      fontSize: "12px",
+                                      color: "#6c63ff",
+                                    }}
+                                  >
+                                    <Link onClick={() => handleNavigation("/home")}>Home</Link>
+                                    <Link
+                                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
+                                    >
+                                      Investment
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
+                                    >
+                                      {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/onetimemutualfundrecommendation")}
+                                    >
+                                      Mutual Fund Recommendation
+                                    </Link>
+                                    <Link
+                                      onClick={() => handleNavigation("/customizemf")}
+                                    >
+                                      Customize Plan</Link>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "12px",
+                                        color: "#373e42",
+                                      }}
+                                    >
+                                      {
+                                        status === globalConstant.CEF_REPLACE_FUND ?
+                                          "Choose fund to Replace" : "Choose fund to Add"
+                                      }
+                                    </Typography>
+                                  </Breadcrumbs>
+                                </Box>
 
-                            >
-                              {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                            </Link> */}
+                              </>
+                          }
 
-
-                            <Link
-                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment", g_investment?.type === globalConstant.SIP_INVESTMENT ? globalConstant.SIP_INVESTMENT : globalConstant.LUMPSUM_INVESTMENT)}
-                            >
-                              Investment
-                            </Link>
-                            <Link
-                              onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow", undefined)}
-                            >
-                              {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                            </Link>
-                            <Link
-                              onClick={() => handleNavigation("/onetimemutualfundrecommendation")}
-                            >
-                              Mutual Fund Recommendation
-                            </Link>
-                            <Link
-                              onClick={() => handleNavigation("/customizemf")}
-                            >
-                              Customize Plan</Link>
-                            <Typography
-                              sx={{
-                                fontSize: "12px",
-                                color: "#373e42",
-                              }}
-                            >
-                              {
-                                status === globalConstant.CEF_REPLACE_FUND ?
-                                  "Choose fund to Replace" : "Choose fund to Add"
-                              }
-                            </Typography>
-                          </Breadcrumbs>
-                        </Box>
+                        </>
                         : null
 
                     }
@@ -841,36 +897,10 @@ function ExploreFunds(props: any) {
                               }
                             </>
                         }
-
-
                       </Box>
                       <Box className="width100pxExplore">
-                        {/* <Box style={{ backgroundColor: "white", border: "1px solid #dddfe2", boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.05)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", padding: "5px 14px" }}>
-                    <Box style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                      <SearchOutlined style={{ color: "#7b7b9d" }} />
-                      <InputBase
-                        onChange={handleSearchFunctionality}
-                        placeholder='Search funds...'
-                        style={{ color: "#7b7b9d", minWidth: "250px" }}
-                      /> 
-                    </Box>
-
-                    <Box onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
-                      handleFilter(e);
-                    }}>
-                      <IconButton >
-                        <FilterAltOutlined style={{ color: "#09b85d" }} />
-                      </IconButton>
-                    </Box>
-                    <DropDownFilterInvestment />
-                  </Box> */}
-
-
-
                         <Box sx={{ marginBottom: '15px', marginTop: "10px" }}>
                           <SearchCmp
-                            // filtersOptions={structuredClone(filterIndexes)}
-                            // filtersOptions={[...filterIndexes]}
                             searchBox={true}
                             handleCB={handleFilterCB}
                             filtersOptions={filterIndexes}
@@ -908,7 +938,6 @@ function ExploreFunds(props: any) {
                                         color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
                                         fontSize: "14px"
                                       }}>
-                                      {/* {item}({getTotalFundCound(item)}) */}
                                       {item}
                                     </Typography>
                                   </Box>
@@ -922,7 +951,6 @@ function ExploreFunds(props: any) {
                     {
                       variableMasterFundList &&
                         variableMasterFundList.length ?
-
                         <>
                           {
                             variableMasterFundList.map((item: any, index: number) => {
@@ -960,7 +988,11 @@ function ExploreFunds(props: any) {
                 btnClick={() => {
                   if (status === globalConstant.CEF_REPLACE_FUND) {
                     dispatch(setSelectedFundsForInvestmentAction(fundSelecteds));
-                    navigate("/customizemf");
+                    if (isELSSActive) {
+                      navigate("/elss-customize-plan");
+                    } else {
+                      navigate("/customizemf");
+                    }
                   } else if (status === globalConstant.CEF_REPLACE_OF_EXPLORE_FUND) {
                     dispatch(setSelectedFundsForExploreFundsAction(fundSelecteds));
                     navigate("/selectedfunds");
@@ -995,6 +1027,7 @@ function ExploreFunds(props: any) {
         <SelectedFundsDialog
           addFundOpen={addFundOpen}
           handleClose={handleClose}
+          isELSSActive={isELSSActive}
           fundSelecteds={fundSelecteds}
         />
       </Box>
@@ -1002,14 +1035,13 @@ function ExploreFunds(props: any) {
 
   )
 }
-
 export default ExploreFunds;
 
 
 const SelectedFundsDialog = (props: any) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const investmentCardType: string | null = useMemo(() => { return localStorage.getItem(siteConfig.INVESTMENT_CARD_TYPE) }, []);
 
   const [error, setError] = React.useState<any>("");
@@ -1064,12 +1096,12 @@ const SelectedFundsDialog = (props: any) => {
       return;
     }
 
-    if (investmentCardType === globalConstant.LUMPSUM_INVESTMENT &&  value < arrAddAllFunds[index]["lumpsumminamount"]){
+    if (investmentCardType === globalConstant.LUMPSUM_INVESTMENT && value < arrAddAllFunds[index]["lumpsumminamount"]) {
       arrAddAllFunds[index]["ErrorMsg"] = `Minimum investment amount is ₹${arrAddAllFunds[index]["lumpsumminamount"]}`;
       return;
     }
 
-    if (investmentCardType === globalConstant.SIP_INVESTMENT &&  value < arrAddAllFunds[index]["sipminamount"]){
+    if (investmentCardType === globalConstant.SIP_INVESTMENT && value < arrAddAllFunds[index]["sipminamount"]) {
       arrAddAllFunds[index]["ErrorMsg"] = `Minimum investment amount is ₹${arrAddAllFunds[index]["sipminamount"]}`;
       return;
     }
@@ -1094,6 +1126,10 @@ const SelectedFundsDialog = (props: any) => {
 
     dispatch(setSelectedFundsForInvestmentAction(addAllFunds));
     props?.handleClose();
+    if (props?.isELSSActive) {
+      navigate("/elss-customize-plan")
+      return;
+    }
     navigate("/customizemf");
   };
 
@@ -1176,62 +1212,3 @@ const SelectedFundsDialog = (props: any) => {
     </Dialog>
   )
 }
-
-
-// <>
-//   <Grid xs={12} sm={12}>
-//     <p>{selectedFund.fundname}</p>
-//     <Box sx={{position:"relative"}}>
-//     <TextField sx={{width:"500px", maxWidth:"80%"}} id="outlined-basic" label="Outlined" variant="outlined" />
-//     <Button onClick={() => { handleRemoveAddFund(selectedFund) }} sx={{position:"absolute", right:"0", textAlign:"center", justifyContent: "end",height: "55px"}} variant="outlined" startIcon={<DeleteIcon />}>
-
-//   </Button>
-//     </Box>
-//   </Grid>
-//   </>
-
-
-// Breadcrumbs code 
-{/* {
-                add_fund_button_fromSipFlow || add_replace_button_fromSipFlow ? <Breadcrumbs
-                  sx={{
-                    fontSize: "12px",
-                    color: "#6c63ff",
-                  }}
-                >
-                  <Link to='/home'>Home</Link>
-                  <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/sipInvestment" : "/oneTimeInvestment")} to={''}                >
-                    Investment
-                  </Link>
-                  <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/startAnSip" : "/investNow")} to={''}
-                  >
-                    {g_investment?.type === globalConstant.SIP_INVESTMENT ? "monthly investment" : "one time lumpsum"}
-                  </Link>
-                  <Link
-                    onClick={() => handleNavigation(g_investment?.type === globalConstant.SIP_INVESTMENT ? "/mflist" : "/onetimemutualfundrecommendation")} to={''}                >
-                    Mutual Fund Recommendation
-                  </Link>
-                  <Link
-                    onClick={() => handleNavigation("/customizemf")} to={''}                >
-                    Customize Plan</Link>
-                  {add_fund_button_fromSipFlow ?
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "#373e42",
-                      }}
-                    >
-                      Choose fund to Add
-                    </Typography> : <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "#373e42",
-                      }}
-                    >
-                      Choose fund to Replace
-                    </Typography>
-                  }
-                </Breadcrumbs> : ""
-              } */}

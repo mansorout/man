@@ -24,7 +24,7 @@ const TrackTransButton = () => {
     const navigate = useNavigate()
 
     return (
-        <Button onClick={() => navigate("/transaction")} variant="contained" style={style.buttons} fullWidth>
+        <Button onClick={() => navigate("/transactions")} variant="contained" style={style.buttons} fullWidth>
             <Typography component="span" style={style.text} className="largeButtonText">Track Transactions</Typography>
         </Button>
 

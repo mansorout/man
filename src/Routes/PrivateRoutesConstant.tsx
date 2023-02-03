@@ -72,6 +72,7 @@ import UlipDropDownFilter from "../Components/ULIP/UlipDropDownFilter"
 import DropDownFilter from "../Components/TxnFilters/DropDownFilter"
 import { OtpSuccess } from "../Components/OtpSuccess/OtpSuccess"
 import InitializePaymentGateway from "../Components/Payment Gateway/InitializePaymentGateway"
+import ElssCustomizePlan from "../Components/SaveTax/elss-customize-plan"
 
 type prConstant = {
   path: string,
@@ -396,5 +397,9 @@ export const privateRoutesConstants: prConstant[] = [
   {
     path: "/initializepaymentgateway",
     component: <InitializePaymentGateway />
+  },
+  {
+    path: "/elss-customize-plan",
+    component: <ElssCustomizePlan />
   },
 ]
