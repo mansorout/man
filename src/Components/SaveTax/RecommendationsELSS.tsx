@@ -32,6 +32,7 @@ import {
     MONTHLY,
     saveTaxPercentageAmountAction
 } from '../../Store/Duck/InvestmentType';
+import siteConfig from '../../Utils/siteConfig';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -372,8 +373,12 @@ const RecommendationsELSS = () => {
                                     }
 
                                     <Box className={classes.exploreOtherOptionsBtn}>
-                                        <Button variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', textTransform: "uppercase !important" } }}>
-                                            Explore other options
+                                        <Button 
+                                            onClick={()=>navigate("/elss-customize-plan", {state: {cardType: localStorage.getItem(siteConfig.SAVE_TAX_INVESTMENT_TYPE)}})}
+                                            variant="contained" sx={{ width: { xs: '100%', sm: 'auto', }, margin: { xs: '6px 0px !important', sm: '0px 8px !important', textTransform: "uppercase !important" } }}
+                                         >
+                                            {/* Explore other options */}
+                                            Customize Plan
                                         </Button>
                                     </Box>
 

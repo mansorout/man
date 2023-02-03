@@ -31,6 +31,8 @@ import { isMultipleofNumber, remainingMonthsFinancialYear } from '../../Utils/gl
 import Dialog from '@mui/material/Dialog';
 import { parse } from 'node:path/win32';
 import './save.css'
+import siteConfig from '../../Utils/siteConfig';
+import { globalConstant } from '../../Utils/globalConstant';
 
 
 const useStyles: any = makeStyles((theme: Theme) => ({
@@ -247,9 +249,24 @@ const SaveTaxAmount = () => {
         const temp = lumpsumAmount / remainingMonthsFinancialYear();
         setMonthlyAmount(`${roundToMultipleOf10(temp)}`)
         console.log('lumpsumAmount :', roundToMultipleOf10(temp))
+
+        //setting lumpsum amount for the customize plan functionality
+        localStorage.setItem(siteConfig.SAVE_TAX_LUMPSUM_AMOUNT, lumpsumAmount);
     }, [lumpsumAmount])
+    
+    useEffect(()=>{
+        //setting monthly amount for the customize plan functionality
+        localStorage.setItem(siteConfig.SAVE_TAX_MONTHLY_INVESTMENT, monthlyAmount);
+    },[monthlyAmount])
 
-
+    useEffect(()=>{
+        //setting save tax investment type for customize plan
+        if(investmentType === LUMPSUM){
+            localStorage.setItem(siteConfig.SAVE_TAX_INVESTMENT_TYPE, globalConstant.LUMPSUM_INVESTMENT);
+        }else{
+            localStorage.setItem(siteConfig.SAVE_TAX_INVESTMENT_TYPE, globalConstant.SIP_INVESTMENT);
+        }
+    },[investmentType])
 
 
 

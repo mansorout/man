@@ -21,6 +21,9 @@ const siteConfig = Object.freeze({
   SIP_CARD_TYPE: "sip_card_type",
   SIP_USER_AMOUNT: "sip_user_amount",
   MODULE_LIST: "module_list",
+  SAVE_TAX_LUMPSUM_AMOUNT: "save_tax_lumpsum_amount",
+  SAVE_TAX_MONTHLY_INVESTMENT: "save_tax_monthly_investment",
+  SAVE_TAX_INVESTMENT_TYPE: "save_tax_investment_type",
 
   /**API ID's */
   AUTHENTICATION_API_ID: "k41xvsg1t7",
