@@ -42,6 +42,8 @@ export interface MFProp {
 
   activeIndex?: number
 
+  isELSSActive?: boolean
+
   // API types
   recommendation_id: number,
   recommendationfund_id: number,
@@ -244,6 +246,23 @@ const MutualFundCard2 = (props: MFProp) => {
             >
               {props?.fundname}
             </Typography>
+            {
+              props?.isELSSActive ?
+                <Box style={{ display: "flex", gap: "10px", marginBottom: "4px" }}>
+                  <Box
+                    style={{
+                      padding: "4px 5px",
+                      backgroundColor: "rgba(123, 123, 157, 0.16)",
+                    }}
+                  >
+                    <Typography style={{ color: "#7b7b9d", fontSize: "12px" }}>
+                      {props?.category}
+                    </Typography>
+                  </Box>
+                </Box>
+                : null
+            }
+
             <Box style={{ display: "flex", gap: "10px" }}>
               <Box
                 style={{
@@ -367,7 +386,7 @@ const MutualFundCard2 = (props: MFProp) => {
                         // onClick={() => naviagte("/replaceFunds")}
                         onClick={() => {
                           dispatch(setReplaceFundActiveIndexForInvestmentAction(props?.activeIndex))
-                          navigate('/explorefunds', { state: { status: globalConstant.CEF_REPLACE_FUND, parentRoute: "/onetimemutualfundrecommendation" } })
+                          navigate('/explorefunds', { state: { status: globalConstant.CEF_REPLACE_FUND, isELSSActive: props?.isELSSActive, parentRoute: "/onetimemutualfundrecommendation" } })
                         }}
                       >
                         <img src={ReplaceButtonIcon} />
