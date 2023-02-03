@@ -37,7 +37,7 @@ import {
     MONTHLY
 } from '../../Store/Duck/InvestmentType'
 import { getDataSaveTaxListApi } from '../../Store/Save Tax/thunk/save-tax-thunk';
-import { lookUpMasterKeys, bannerSectionValues } from '../../Utils/globalConstant';
+import { lookUpMasterKeys, bannerSectionValues, globalConstant } from '../../Utils/globalConstant';
 import { customParseJSON, getLookUpIdWRTModule, numDifferentiation } from '../../Utils/globalFunctions';
 import { getUlipListApi, getUlipSchemeDetailApi, postUlipGenrateApi } from '../../Store/Insurance/thunk/insurance-thunk';
 import { getUlipListApiTypes } from '../../Store/Insurance/constants/types';
@@ -403,7 +403,7 @@ const SipRecommendationsULIP = () => {
                     <Link color="#6495ED" underline="always" href='Home' >
                       <Typography className='burgerText'> Home</Typography>
                     </Link>
-                    <Link color="#6495ED" underline="always" onClick={() => navigate('/saveTax')} >
+                    <Link color="#6495ED" underline="always" onClick={() => navigate('/sipInvestment', {state:{cardType: globalConstant.SIP_INVESTMENT}})} >
                       <Typography className='burgerText'>Investment</Typography>
                     </Link>
                     <Link underline="always" color="#6495ED"  sx={{ fontSize: "12px", width: "100%" }} onClick={()=>navigate('/startAnSip#contained-buttons')} >
