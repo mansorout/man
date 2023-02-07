@@ -750,7 +750,7 @@ function customRadius( context:any )
                             <b style={{ color: " #3c3e42", fontSize: "20px" }}>
                               {/* ₹{numDifferentiation(amount > arrPriceList[0] - 1 ? getExactPriceWithTag(amount) : 0)} kp */}
                               {/* ₹{amount > arrPriceList[0] - 1 ? numDifferentiation(amount) : 0} */}
-                              ₹{investedValue > arrPriceList[0] - 1 ? numDifferentiation(investedValue) : numDifferentiation(enumDefaultAmount?.INVESTED_VALUE)}
+                              ₹{investedValue ? numDifferentiation(investedValue) : 0}
                             </b>
                           </Grid>
                           <Grid item xs={6} sx={{
