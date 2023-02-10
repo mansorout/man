@@ -911,39 +911,48 @@ function ExploreFunds(props: any) {
                         <Box className="categoryScrollMobile">
                           <Box style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center" }}>
                             {
-                              categoryGroupList &&
-                              categoryGroupList.length &&
-                              categoryGroupList.map((item: any, index: number) => {
-                                return (
-                                  <Box
-                                    key={index}
-                                    onClick={async () => {
-                                      if (activeCategoryGroupIndex === index) return;
-                                      setActiveCategoryGroupIndex(index);
-                                      setInitialMFData(false);
-                                      setIsInitialVariableFundListFetched(false);
-                                      // getMasterFundList(url);
-                                    }}
-                                    style={{
-                                      cursor: "pointer",
-                                      border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
-                                      borderRadius: "8px",
-                                      backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
-                                      textAlign: "center",
-                                      padding: "12px 14px"
-                                    }}>
-                                    <Typography
-                                      style={{
-                                        fontWeight: "500",
-                                        color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
-                                        fontSize: "14px"
-                                      }}>
-                                      {item}
-                                    </Typography>
-                                  </Box>
-                                )
-                              })
+                              isELSSActive === true ?
+                                <>
+
+                                </>
+                                : <>
+                                  {
+                                    categoryGroupList &&
+                                    categoryGroupList.length &&
+                                    categoryGroupList.map((item: any, index: number) => {
+                                      return (
+                                        <Box
+                                          key={index}
+                                          onClick={async () => {
+                                            if (activeCategoryGroupIndex === index) return;
+                                            setActiveCategoryGroupIndex(index);
+                                            setInitialMFData(false);
+                                            setIsInitialVariableFundListFetched(false);
+                                            // getMasterFundList(url);
+                                          }}
+                                          style={{
+                                            cursor: "pointer",
+                                            border: `1px solid ${activeCategoryGroupIndex === index ? '#23db7b' : "rgba(123, 123, 157, 0.3)"}`,
+                                            borderRadius: "8px",
+                                            backgroundColor: `${activeCategoryGroupIndex === index ? '#dff7ea' : "rgba(255, 255, 255, 0)"}`,
+                                            textAlign: "center",
+                                            padding: "12px 14px"
+                                          }}>
+                                          <Typography
+                                            style={{
+                                              fontWeight: "500",
+                                              color: `${activeCategoryGroupIndex === index ? "#09b85d" : "#7b7b9d"}`,
+                                              fontSize: "14px"
+                                            }}>
+                                            {item}
+                                          </Typography>
+                                        </Box>
+                                      )
+                                    })
+                                  }
+                                </>
                             }
+
                           </Box>
                         </Box>
                       </Box>

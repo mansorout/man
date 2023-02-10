@@ -238,7 +238,7 @@ const SaveTaxAmount = () => {
         })
 
         if (saveTaxCalculatedAmount) {
-            setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount)
+            setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount > 0 ? enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount : 0)
         }
 
 
@@ -510,8 +510,8 @@ const SaveTaxAmount = () => {
                                         <FooterBtnWithBox
                                             boxIcon={<ThumbUpAltOutlinedIcon />}
                                             boxText='Great! You`ll save taxes upto'
-                                            boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' : saveTaxUPTO}` : `₹${monthlyAmount === '' ? '0' : saveTaxUPTOMon}`}
-                                            // boxAmount={`₹ ${saveTaxUPTO}`}
+                                            // boxAmount={investmentType === LUMPSUM ? `₹${lumpsumAmount === '' ? '0' : saveTaxUPTO}` : `₹${monthlyAmount === '' ? '0' : saveTaxUPTOMon}`}
+                                            boxAmount={`₹ ${saveTaxUPTO}`}
                                             btnText='Continue'
                                             btnClick={handleNavigationFlow}
                                             btnDisable={lumpsumAmount === '' && monthlyAmount === '' ? true : false}
