@@ -17,7 +17,7 @@ build:
          - build/
        expire_in: 1 hour
    only:
-    - main     
+    - test     
 
 
 deploy:
@@ -32,5 +32,5 @@ deploy:
      - aws s3 cp --acl public-read --recursive build s3://sprintmoney-frontend
      - echo "deployed successfully"
    only:
-    - main
+    - test
 
