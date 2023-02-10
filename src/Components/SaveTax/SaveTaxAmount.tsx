@@ -238,7 +238,7 @@ const SaveTaxAmount = () => {
         })
 
         if (saveTaxCalculatedAmount) {
-            setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount)
+            setLumpsumAmount(enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount > 0 ? enumAmount.AMOUNT_LIMIT - saveTaxCalculatedAmount : 0)
         }
 
 
