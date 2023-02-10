@@ -121,7 +121,7 @@ const SaveTaxInvestmentType = () => {
     const dispatch: any = useDispatch()
     const { investmentAmount, savetaxPercentageAmount } = useSelector((state: any) => state.InvestmentTypeReducers)
     const { saveTaxInvestmentTypeData } = useSelector((state: any) => state.saveTaxReducer)
-    const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('ulip')
+    const [investmentRecommendation, setInvestmentRecommendation] = useState<string>('elss')
     const [rows, setRows] = useState<{
         heading: string;
         ulip: string | number;
@@ -252,7 +252,7 @@ const SaveTaxInvestmentType = () => {
                                     >
                                         <Box className={`${classes.blueBoxWithoutBorder}`}>
                                             <Box className={`${classes.BlueBoxCustom}`}>
-                                                <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'ulip' ? classes.recommendationsBoxBackgroundHover : ''}`}>
+                                                {/* <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'ulip' ? classes.recommendationsBoxBackgroundHover : ''}`}>
 
                                                     <Badge
                                                         anchorOrigin={{
@@ -268,7 +268,7 @@ const SaveTaxInvestmentType = () => {
                                                         </Box>
                                                     </Badge>
                                                     <FormControlLabel value="ulip" control={<Radio />} label="ULIP" />
-                                                </Box>
+                                                </Box> */}
                                                 <Box className={`${classes.recommendationsBox} ${investmentRecommendation === 'elss' ? classes.recommendationsBoxBackgroundHover : ''}`}>
                                                     <Box className={classes.blueBoxIconBox}>
                                                         <img src={process.env.PUBLIC_URL + '/assets/images/Ells-icon.svg'} alt="" />
@@ -299,12 +299,12 @@ const SaveTaxInvestmentType = () => {
                                                         <TableCell component="th" scope="row">
                                                             {row?.heading}
                                                         </TableCell>
-                                                        <TableCell
+                                                        {/* <TableCell
                                                             className={`${investmentRecommendation === 'ulip' ? classes.bgTableHighlightState : ''}`}
                                                             align="right"
                                                             sx={{ width: '130px', boxSizing: 'border-box' }}>
                                                             {row?.ulip}
-                                                        </TableCell>
+                                                        </TableCell> */}
 
                                                         <TableCell
                                                             className={`${investmentRecommendation === 'elss' ? classes.bgTableHighlightState : ''}`}
