@@ -128,14 +128,20 @@ export const Login = () => {
   }, [])
 
   const handleMobile = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    value: any
   ) => {
-    setNumber(e.target.value);
-    if (e.target.value.length !== 10) {
+    setNumber(value);
+    if (value?.length !== 10) {
       addError("Login_Contact");
     } else {
       removeError("Login_Contact");
     }
+    // setNumber(e.target.value);
+    // if (e.target.value.length !== 10) {
+    //   addError("Login_Contact");
+    // } else {
+    //   removeError("Login_Contact");
+    // }
   };
 
   const doAuthentication = (number: string) => {
@@ -188,7 +194,7 @@ export const Login = () => {
       <SprintMoneyLoader loadingStatus={shouldButtonDisable} />
       <Box
         style={style.container}
-        className={'LoginGridBox'+' '+`${classes.containerRes} LoginContainer`}
+        className={'LoginGridBox' + ' ' + `${classes.containerRes} LoginContainer`}
       >
         <img alt="Money Sprint" src={MonoLogo} style={style.logo} />
         <Typography variant="h1" align="center">
@@ -199,6 +205,7 @@ export const Login = () => {
         </Typography>
 
         <TextField
+          // type="tel"
           InputLabelProps={{
             sx: {
               color: "orange",
@@ -263,7 +270,11 @@ export const Login = () => {
             e.preventDefault()
           }
           placeholder="98989 98989"
-          onChange={handleMobile}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+            let { value } = e.target;
+            let val = value?.replace(/[^a-zA-Z0-9,;\-.!? ]/g, '').replace(/[^\w\s]/gi, '').replace(/!/g, '');
+            handleMobile(val);
+          }}
           onFocus={() => setFocus(true)}
         />
 
